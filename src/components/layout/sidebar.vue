@@ -146,31 +146,33 @@
             name: '高位视频',
             routeName: 'GwVedio'
           },
+          // 导航栏添加（包含导航栏中的子页面添加）
           {
             code: '3',
             logo: 'el-icon-s-grid',
-            name: '学习测试',
+            name: '报表分析',
             children: [
               {
                 code: '3-1',
                 logo: 'el-icon-menu',
-                name: 'svg学习',
-                routeName: 'svgStudent'
+                name: '停车场运营指标分析',
+                routeName: 'analysisOnOperationIndexOfParking'
               },
               {
                 code: '3-2',
                 logo: 'el-icon-menu',
-                name: '出入口流量',
-                routeName: 'trafficFlow'
+                name: '停车场运营收入分析',
+                routeName: 'analysisOfOperatingIncomeOfParking'
               },
             ]
           },
           {
             code: '4',
             logo: 'el-icon-document',
-            name: '订单管理',
-            routeName: 'trafficIncidentHandling'
+            name: '实时监测-洗车机运营数据',
+            routeName: 'realTimeMonitoringCarWaring'
           },
+          // 基础信息管理
           {
             code: '5',
             logo: 'el-icon-s-grid',
@@ -179,14 +181,8 @@
               {
                 code: '5-1',
                 logo: 'el-icon-menu',
-                name: '总览',
-                routeName: 'bridgeHealthMonitoring'
-              },
-              {
-                code: '5-2',
-                logo: 'el-icon-menu',
-                name: '传感器展示',
-                routeName: 'sensorDisplay'
+                name: '基础信息管理ETC',
+                routeName: 'basicInformationManagementETC'
               },
             ]
           },
@@ -198,15 +194,9 @@
               {
                 code: '6-1',
                 logo: 'el-icon-menu',
-                name: '总览',
-                routeName: 'roadAssets'
+                name: '白名单管理',
+                routeName: 'whitelistManagement'
               },
-              {
-                code: '6-2',
-                logo: 'el-icon-menu',
-                name: '资产管理',
-                routeName: 'assetsManage'
-              }
             ]
           },
           {
@@ -234,50 +224,6 @@
               }
             ]
           },
-          // {
-          //   code: '8',
-          //   logo: 'el-icon-s-grid',
-          //   name: '工程养护实施',
-          //   routeName: 'ItfCaseManage',
-          //   children: [
-          //     {
-          //       code: '8-1',
-          //       logo: 'el-icon-menu',
-          //       name: '总览',
-          //       routeName: 'projectMaintenance'
-          //     },
-          //     {
-          //       code: '8-2',
-          //       logo: 'el-icon-menu',
-          //       name: '占道施工登记',
-          //       routeName: 'constructionRegistration'
-          //     },
-          //     {
-          //       code: '8-3',
-          //       logo: 'el-icon-menu',
-          //       name: '竣工登记',
-          //       routeName: 'completionRegistration'
-          //     },
-          //     {
-          //       code: '8-4',
-          //       logo: 'el-icon-menu',
-          //       name: '擅自施工登记',
-          //       routeName: 'unauthorizedConstruction'
-          //     },
-          //     {
-          //       code: '8-5',
-          //       logo: 'el-icon-menu',
-          //       name: '擅自施工处罚措施登记',
-          //       routeName: 'unauthorizedPenaltyRegistration'
-          //     },
-          //     {
-          //       code: '8-6',
-          //       logo: 'el-icon-menu',
-          //       name: '占道施工审批',
-          //       routeName: 'constructionApproval'
-          //     },
-          //   ]
-          // },
         ]
       }
     },
