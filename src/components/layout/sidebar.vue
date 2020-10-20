@@ -172,14 +172,28 @@
             name: '实时监测-洗车机运营数据',
             routeName: 'realTimeMonitoringCarWaring'
           },
-          // 基础信息管理
+          // 订单管理
           {
             code: '5',
+            logo: 'el-icon-s-grid',
+            name: '订单管理',
+            children: [
+              {
+                code: '5-1',
+                logo: 'el-icon-menu',
+                name: '停车订单查询',
+                routeName: 'parkingOrderInquiry'
+              },
+            ]
+          },
+          // 基础信息管理
+          {
+            code: '6',
             logo: 'el-icon-s-grid',
             name: '基础信息管理',
             children: [
               {
-                code: '5-1',
+                code: '6-1',
                 logo: 'el-icon-menu',
                 name: '基础信息管理ETC',
                 routeName: 'basicInformationManagementETC'
@@ -187,12 +201,12 @@
             ]
           },
           {
-            code: '6',
+            code: '7',
             logo: 'el-icon-s-grid',
             name: '授权管理',
             children: [
               {
-                code: '6-1',
+                code: '7-1',
                 logo: 'el-icon-menu',
                 name: '白名单管理',
                 routeName: 'whitelistManagement'
@@ -200,24 +214,24 @@
             ]
           },
           {
-            code: '7',
+            code: '8',
             logo: 'el-icon-s-grid',
             name: '系统管理',
             children: [
               {
-                code: '7-1',
+                code: '8-1',
                 logo: 'el-icon-menu',
                 name: '用户管理',
                 routeName: 'keyVehicleSupervision'
               },
               {
-                code: '7-2',
+                code: '8-2',
                 logo: 'el-icon-menu',
                 name: '角色管理',
                 routeName: 'overrunDetection'
               },
               {
-                code: '7-3',
+                code: '8-3',
                 logo: 'el-icon-menu',
                 name: '日志管理',
                 routeName: 'vehicleInvestigation'

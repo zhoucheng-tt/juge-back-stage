@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-10-20 10:37:37
+ * @LastEditTime: 2020-10-20 11:28:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -70,6 +70,14 @@ const routes = [
         name: "analysisOnOperationIndexOfParking",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/analysisOnOperationIndexOfParking.vue")
+      },
+      // 订单管理
+      // 停车订单查询
+      {
+        path: "/parkingOrderInquiry",
+        name: "parkingOrderInquiry",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/orderManagement/parkingOrderInquiry.vue")
       },
       // 基础信息管理
       // 基础信息管理ETC
