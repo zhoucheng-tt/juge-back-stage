@@ -164,6 +164,13 @@
                 name: '停车场运营收入分析',
                 routeName: 'analysisOfOperatingIncomeOfParking'
               },
+              // 报表分析（日报，月报，年报）  
+              {
+                code: '3-2',
+                logo: 'el-icon-menu',
+                name: '报表分析',
+                routeName: 'operationReport'
+              },
             ]
           },
           {
@@ -203,6 +210,13 @@
                 logo: 'el-icon-menu',
                 name: '基础信息管理ETC',
                 routeName: 'basicInformationManagementETC'
+              },
+              // 计费规则管理  
+              {
+                code: '6-1',
+                logo: 'el-icon-menu',
+                name: '计费规则管理',
+                routeName: 'billingRuleManagement'
               },
             ]
           },

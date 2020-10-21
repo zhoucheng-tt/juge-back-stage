@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-10-20 19:13:14
+ * @LastEditTime: 2020-10-21 15:01:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -71,6 +71,13 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/analysisOnOperationIndexOfParking.vue")
       },
+      // 报表分析（日报，月报，年报） 
+      {
+        path: "/operationReport",
+        name: "operationReport",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/operationReport.vue")
+      },
       // 订单管理
       // 停车订单查询
       {
@@ -93,6 +100,13 @@ const routes = [
         name: "basicInformationManagementETC",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/basicInformationManagementETC.vue")
+      },
+      // 计费规则管理
+      {
+        path: "/billingRuleManagement",
+        name: "billingRuleManagement",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/billingRuleManagement.vue")
       },
       // 授权管理白名单管理
       {
