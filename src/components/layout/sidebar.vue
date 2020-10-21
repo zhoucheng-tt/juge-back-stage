@@ -184,6 +184,12 @@
                 name: '停车订单查询',
                 routeName: 'parkingOrderInquiry'
               },
+              {
+                code: '5-2',
+                logo: 'el-icon-menu',
+                name: '预约订单查询',
+                routeName: 'reservationOrderInquiry'
+              },
             ]
           },
           // 基础信息管理
