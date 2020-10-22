@@ -2,13 +2,290 @@
     实时监测洗车机运营数据
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-20 11:18:02
+ * @LastEditTime: 2020-10-21 17:27:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
 -->
 <template>
-  <div class="about">
-    <h1>实时监测洗车机运营数据</h1>
+  <div class="all">
+    <!-- 上半部分 -->
+    <div class="up">
+      <div class="upSelect">
+        <!-- xuanzhong(item):传入点击后所选中的数据 -->
+        <div class="upSelectContent" v-for="(item, index) in upSelectList" :key="item.index" @click="xuanzhong(index)"
+          :class="item.struts == 0 ? 'upSelectContent' : 'upSelectContentHover'">
+          <span class="upSelectContentSpan">{{item.name}}</span>
+        </div>
+      </div>
+      <div class="upBorder">
+        <div class="leftUpContentNumContent" v-for="(item, index) in contentNumList" key="index">
+          <img class="leftUpContentNumImg" :src="imgUrl">
+          <!-- 车位统计部分内部文字部分 -->
+          <span class="leftUpContentNumSpan1">{{item.name}}: {{item.num}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- 图表部分 -->
+    <div class="down">
+      <!-- 洗车次数按时间段分析 -->
+      <div class="downCharts" id="analysisCarWashingTimes">
+        <Xchart id="analysisCarWashingTimes" :option="analysisCarWashingTimesOptions"></Xchart>
+      </div>
+      <!-- 洗车次数俺月分析 analysisCarWashingMonth -->
+      <div class="downCharts"></div>
+      <!-- 收费金额按时间段分析  chargeAmountTimes-->
+      <div class="downCharts"></div>
+      <!-- 收费金额按月分析 chargeAmountMonth-->
+      <div class="downCharts"></div>
+    </div>
   </div>
 </template>
+<script>
+  import Xchart from "../../components/charts/charts.vue"
+  import Xchart3d from "../../components/charts/charts3d.vue"
+  import HighCharts from 'highcharts'
+  import HighCharts3d from 'highcharts-3d'
+  export default {
+    // 组件导入
+    components: {
+      Xchart,
+      Xchart3d
+    },
+    data() {
+      return {
+        // 图片导入
+        imgUrl: require('../../assets/homePage/tupiao.png'),
+        contentNumList: [
+          {
+            // 洗车机数量
+            num: 100,
+            name: "洗车机数量"
+          },
+          {
+            // 洗车次数
+            num: 100,
+            name: "洗车次数"
+          },
+          {
+            // 收费金额
+            num: 5600,
+            name: "收费金额"
+          }
+        ],
+        // 头部选中框中的数据
+        upSelectList: [
+          {
+            name: "今日",
+            id: 0,
+            struts: 1
+          },
+          {
+            name: "昨日",
+            id: 0,
+            struts: 0
+          },
+          {
+            name: "本周",
+            id: 0,
+            struts: 0
+          },
+          {
+            name: "本月",
+            id: 0,
+            struts: 0
+          },
+        ],
+        // 洗车次按时间段分析
+        analysisCarWashingTimes :'',
+        analysisCarWashingTimesOptions : {},
+      }
+    },
+    mounted() {
+      // 洗车次数按时间段分析
+      this.queryanalysisCarWashingTimes();
+    },
+    methods: {
+      xuanzhong(index) {
+        // console.log("打印出来的点击选中的数据", e)
+        for (let i = 0; i < this.upSelectList.length; i++) {
+          this.upSelectList[i].struts = 0;
+        }
+        // 根据方法中传过来的index的值进行判断
+        this.upSelectList[index].struts = 1;
+        // console.log("设置点击状态", index)
+        // console.log("设置点击状态", this.upSelectList)
+      },
+       // 洗车按照时间段报表分析
+       queryanalysisCarWashingTimes() {
+                var that = this;
+                that.analysisCarWashingTimesOptions = {
+                    chart: {
+                        type: 'line',
+                        backgroundColor: 'rgba(0,0,0,0)',
+                        renderTo: 'analysisCarWashingTimes',
+                    },
+                    title: {
+                        text: '洗车数量'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    xAxis: {
+                        categories: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时']
+                    },
+                    yAxis: {
+                        title: {
+                            text: '单位（辆）'
+                        },
+                        labels: {
+                            formatter: function () {
+                                return this.value / 1000 + 'k';
+                            }
+                        }
+                    },
+                    legend: {
+                        enabled: false,
+                        align: 'center',
+                        verticalAlign: 'top',
+                        x: 0,
+                        y: -20,
+                        itemStyle: {
+                            color: '#cccccc',
+                            cursor: 'pointer',
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            fill: '#cccccc',
+                        },
+                        itemHoverStyle: {
+                            color: '#666666',
+                        },
+                        itemHiddenStyle: {
+                            color: '#333333'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '洗车： <b>{point.y:,.0f}</b>辆'
+                    },
+                    plotOptions: {
+                        area: {
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                radius: 2,
+                                states: {
+                                    hover: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        // name: '数量',
+                        data: [6, 11, 32, 110, 235, 369, 640,
+                            1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+                            27387, 29459, 31056, 31982, 32040, 31233, 29224]
+                    }]
+                }
+                // 绘制
+                new HighCharts.Chart(that.analysisCarWashingTimesOptions);
+            },
+    }
+  }
+</script>
+<style scoped>
+  .all {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* 上半部分 */
+  .up {
+    width: 100%;
+    height: 20%;
+    float: left;
+  }
+
+  /* 按时间切换框样式 */
+  .upSelect {
+    width: 50%;
+    height: 30%;
+    float: left;
+  }
+
+  /* 选择框样式 未选中样式 */
+  .upSelectContent {
+    width: 10%;
+    height: 70%;
+    float: left;
+    margin-top: 1%;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  /* 设置鼠标移动到上去显示手指形状 */
+  .upSelectContent:hover {
+    cursor: pointer;
+  }
+
+  /* 设置选中状态的样式为蓝色 */
+  .upSelectContentHover {
+    background-color: rgb(130, 204, 238);
+  }
+
+  /* 选中框中样式 */
+  .upSelectContentSpan {
+    line-height: 35px;
+  }
+
+  /* 上部分展示统计数据样式 */
+  .upBorder {
+    width: 100%;
+    height: 70%;
+    float: left;
+  }
+
+  /* 统计部分外部整体样式 */
+  .leftUpContentNumContent {
+    width: 15%;
+    height: 50%;
+    float: left;
+    margin-top: 2%;
+    margin-left: 1%;
+    background-color: turquoise;
+  }
+
+  /* 统计部分图片样式 */
+  .leftUpContentNumImg {
+    width: 30%;
+    height: 100%;
+    float: left;
+  }
+
+  /* 统计部分文字部分样式 */
+  .leftUpContentNumSpan1 {
+    font-size: 14px;
+    color: white;
+    position: relative;
+    top: 10%;
+  }
+
+  /* 下半部分 */
+  .down {
+    width: 100%;
+    height: 80%;
+    float: left;
+  }
+
+  /* 下部分图表样式 */
+  .downCharts {
+    width: 48.5%;
+    height: 46%;
+    background-color: salmon;
+    float: left;
+    margin-top: 1%;
+    margin-left: 1%;
+  }
+</style>

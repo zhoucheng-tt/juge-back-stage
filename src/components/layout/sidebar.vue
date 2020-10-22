@@ -218,6 +218,13 @@
                 name: '计费规则管理',
                 routeName: 'billingRuleManagement'
               },
+              // 洗车机计费规则管理   
+              {
+                code: '6-1',
+                logo: 'el-icon-menu',
+                name: '洗车机计费规则管理',
+                routeName: 'carWashingMachineManagement'
+              },
             ]
           },
           {
