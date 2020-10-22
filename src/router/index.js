@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-10-21 15:01:36
+ * @LastEditTime: 2020-10-22 16:25:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -107,6 +107,13 @@ const routes = [
         name: "billingRuleManagement",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/billingRuleManagement.vue")
+      },
+      // 洗车机计费规则管理  carWashingMachineManagement
+      {
+        path: "/carWashingMachineManagement",
+        name: "carWashingMachineManagement",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/carWashingMachineManagement.vue")
       },
       // 授权管理白名单管理
       {
