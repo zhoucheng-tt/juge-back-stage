@@ -213,17 +213,24 @@
               },
               // 计费规则管理  
               {
-                code: '6-1',
+                code: '6-2',
                 logo: 'el-icon-menu',
                 name: '计费规则管理',
                 routeName: 'billingRuleManagement'
               },
               // 洗车机计费规则管理   
               {
-                code: '6-1',
+                code: '6-3',
                 logo: 'el-icon-menu',
                 name: '洗车机计费规则管理',
                 routeName: 'carWashingMachineManagement'
+              },
+              // 停车场管理   parkingLotManagement
+              {
+                code: '6-4',
+                logo: 'el-icon-menu',
+                name: '停车场管理',
+                routeName: 'parkingLotManagement'
               },
             ]
           },

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-10-22 16:25:51
+ * @LastEditTime: 2020-10-26 09:25:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -114,6 +114,13 @@ const routes = [
         name: "carWashingMachineManagement",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/carWashingMachineManagement.vue")
+      },
+      // 停车场管理  parkingLotManagement
+      {
+        path: "/parkingLotManagement",
+        name: "parkingLotManagement",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/parkingLotManagement.vue")
       },
       // 授权管理白名单管理
       {
