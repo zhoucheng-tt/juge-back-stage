@@ -11,14 +11,14 @@
   <div>
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
       <el-tab-pane label="停车场管理" name="first">
-        <parking-lot-management></parking-lot-management>
+        <parking-lot-management/>
 
       </el-tab-pane>
       <el-tab-pane label="车位管理" name="second">
-        <parking-space-management></parking-space-management>
+        <parking-space-management/>
       </el-tab-pane>
       <el-tab-pane label="出入口管理" name="third">
-        <entry-and-exit-management></entry-and-exit-management>
+        <entry-and-exit-management/>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -33,6 +33,11 @@ export default {
     EntryAndExitManagement,
     ParkingLotManagement,
     ParkingSpaceManagement
+  },
+  data(){
+    return{
+      activeName: 'first'
+    }
   }
 }
 </script>
