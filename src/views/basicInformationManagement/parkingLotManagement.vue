@@ -9,7 +9,7 @@
 -->
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="停车场管理" name="first">
         <parking-lot-management/>
 
