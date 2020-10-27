@@ -76,7 +76,7 @@
       </el-form>
     </el-dialog>
     <!-- 信息修改点击弹出框 -->
-    <el-dialog title="ETC详情" :visible.sync="editListDialogueandoff">
+    <el-dialog title="修改ETC" :visible.sync="editListDialogueandoff">
       <el-form :inline="true" :model="editListDialogueandoffList" class="demo-form-inline">
         <el-form-item label="ETC编号:" class="el-form-item-dialog">
           <el-input v-model="editListDialogueandoffList.ETCNumber"></el-input>

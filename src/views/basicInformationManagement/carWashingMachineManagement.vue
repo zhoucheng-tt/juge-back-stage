@@ -23,7 +23,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="SelectQueryList">查询</el-button>
+            <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="addChargeMode">新增规则</el-button>
@@ -58,10 +58,8 @@
           </el-col>
           <el-col offset="1">
             <el-form-item label="收费标准">
-
             </el-form-item>
           </el-col>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addListDialogueandoff = false">取 消</el-button>
@@ -252,15 +250,13 @@ export default {
       this.selectChargeModeManagement = val;
     },
     // 点击查询调用的方法
-    SelectQueryList() {
+    selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.chargeModeManagement)
     },
     // 点击新增
     addChargeMode(row) {
       this.addListDialogueandoff = true;
       this.addListDialogueandoffList = row
-
-
     },
     deleteETC() {
 

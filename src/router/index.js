@@ -71,7 +71,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/analysisOnOperationIndexOfParking.vue")
       },
-      // 报表分析（日报，月报，年报） 
+      // 报表分析（日报，月报，年报）
       {
         path: "/operationReport",
         name: "operationReport",
@@ -86,7 +86,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/orderManagement/parkingOrderInquiry.vue")
       },
-      // 预约订单查询  
+      // 预约订单查询
       {
         path: "/reservationOrderInquiry",
         name: "reservationOrderInquiry",
@@ -156,7 +156,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  // mode: "history",
   base: process.env.BASE_URL,
   routes
 });
