@@ -13,10 +13,9 @@ import router from '@/router/index'
 const service = axios.create({
   // 这边目的是为了生产环境上的后台地址是不会被拼接出错
   // baseURL: process.env.VUE_APP_HOST_URL, // url = base url + request url
-  // 发布的时候需要修改
-  // baseURL: 'http://localhost:18080/G524-0.0.1-SNAPSHOT/',
-  // 本地进行调试的位置
-  baseURL:'http://120.26.146.64:8053',
+  // 后台位置
+  // baseURL:'http://120.26.146.64:8052/e-parking-web',
+  baseURL:'/e-parking-web',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   transformRequest: [

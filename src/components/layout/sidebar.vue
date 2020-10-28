@@ -232,6 +232,13 @@
                 name: '停车场管理',
                 routeName: 'parkingLotManagement'
               },
+              // 设备管理   deviceManagement
+              {
+                code: '6-5',
+                logo: 'el-icon-menu',
+                name: '设备管理',
+                routeName: 'deviceManagement'
+              },
             ]
           },
           {

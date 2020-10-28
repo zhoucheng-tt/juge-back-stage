@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-27 09:18:13
- * @LastEditTime: 2020-09-27 16:06:43
+ * @LastEditTime: 2020-10-27 20:59:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\company Environment\tcxt-web\src\axios\ysParking\ysParking.js
@@ -32,5 +32,12 @@ export function echats (params) {
       method: 'post',
       data: params,
       flag: 'out'
+    })
+  }
+  export function trendAnalysis (params) {
+    return request({
+      url: '/realtimeMonitorFunc/queryAlarmMonitorTodayList',
+      method: 'post',
+      data: params,
     })
   }
