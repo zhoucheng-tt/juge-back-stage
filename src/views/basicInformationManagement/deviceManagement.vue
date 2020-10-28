@@ -1,8 +1,8 @@
 <!--
-    停车场管理
- * @Author: 王思远
+    设备管理
+ * @Author: 邵青阳
  * @Date: 2020-10-22 09:26:58
- * @LastEditTime: 2020-10-28 09:38:06
+ * @LastEditTime: 2020-10-28 09:43:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\carWashingMachineManagement.vue
