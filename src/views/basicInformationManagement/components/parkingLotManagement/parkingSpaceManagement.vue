@@ -16,9 +16,16 @@
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
           <el-col span="5">
             <el-form-item label="停车场：" class="el-form-item-dialog1">
-              <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
-                <el-option v-for="(item, index) in parkingLotList" :label="item.parkingName"
-                           :value="item.parkingName" :key="index"></el-option>
+              <el-select
+                v-model="upQueryList.TingNum"
+                placeholder="请选择停车场"
+              >
+                <el-option
+                  v-for="(item, index) in parkingLotList"
+                  :label="item.parkingName"
+                  :value="item.parkingName"
+                  :key="index"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -26,19 +33,36 @@
             <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)</el-button>
+            <el-button type="primary" @click="addInletAndOutlet"
+              >新增停车场平面(层)</el-button
+            >
           </el-form-item>
         </el-form>
-        <el-dialog id="add" title="新增停车场平面(层)" :visible.sync="addListDialogueandoff">
-          <el-form label-width="170px" :inline="true" :model="addListDialogueandoffList" class="demo-form-inline">
+        <el-dialog
+          id="add"
+          title="新增停车场平面(层)"
+          :visible.sync="addListDialogueandoff"
+        >
+          <el-form
+            label-width="170px"
+            :inline="true"
+            :model="addListDialogueandoffList"
+            class="demo-form-inline"
+          >
             <div><h3>归属停车场信息</h3></div>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="归属停车场:"
-                              class="form-all">
-                  <el-select v-model="addListDialogueandoffList.TingNum" placeholder="请选择停车场">
-                    <el-option v-for="(item, index) in parkingLotList" :label="item.parkingName"
-                               :value="item.parkingName" :key="index"></el-option>
+                <el-form-item label="归属停车场:" class="form-all">
+                  <el-select
+                    v-model="addListDialogueandoffList.TingNum"
+                    placeholder="请选择停车场"
+                  >
+                    <el-option
+                      v-for="(item, index) in parkingLotList"
+                      :label="item.parkingName"
+                      :value="item.parkingName"
+                      :key="index"
+                    ></el-option>
                   </el-select>
                 </el-form-item>
               </el-col>
@@ -47,14 +71,18 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="停车场平面（层）编号:" class="form-all">
-                  <el-input v-model="addListDialogueandoffList.parkingLotLayerNumber"
-                            placeholder="请输入停车场平面（层）编号"></el-input>
+                  <el-input
+                    v-model="addListDialogueandoffList.parkingLotLayerNumber"
+                    placeholder="请输入停车场平面（层）编号"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="停车场平面（层）名称:" class="form-all">
-                  <el-input v-model="addListDialogueandoffList.parkingLotLayerName"
-                            placeholder="请输入停车场平面（层）名称"></el-input>
+                  <el-input
+                    v-model="addListDialogueandoffList.parkingLotLayerName"
+                    placeholder="请输入停车场平面（层）名称"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -62,10 +90,12 @@
               <el-col>
                 <el-form-item label="停车场平面（层）描述:">
                   <el-input
-                      type="textarea" style="width: 720px"
-                      :rows="2"
-                      placeholder="请输入内容"
-                      v-model="addListDialogueandoffList.describe">
+                    type="textarea"
+                    style="width: 720px"
+                    :rows="2"
+                    placeholder="请输入内容"
+                    v-model="addListDialogueandoffList.describe"
+                  >
                   </el-input>
                 </el-form-item>
               </el-col>
@@ -73,44 +103,69 @@
             <el-row>
               <el-col span="14">
                 <el-form-item label="停车场图片:">
-                  <el-input v-model="addListDialogueandoffList.layerPicture" style="width: 400px"></el-input>
+                  <el-input
+                    v-model="addListDialogueandoffList.layerPicture"
+                    style="width: 400px"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col span="2">
-                <el-button type="info" @click="choosePicture()" size="small">选择</el-button>
+                <el-button type="info" @click="choosePicture()" size="small"
+                  >选择</el-button
+                >
               </el-col>
               <el-col span="2">
-                <el-button type="info" @click="uploadPicture()" size="small">上传</el-button>
+                <el-button type="info" @click="uploadPicture()" size="small"
+                  >上传</el-button
+                >
               </el-col>
               <el-col span="2">
-                <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
+                <el-button type="info" @click="viewPicture()" size="small"
+                  >预览</el-button
+                >
               </el-col>
             </el-row>
             <el-row>
               <el-col>
                 <el-form-item label="图片尺寸（像素）:">
-                  <el-input v-model="addListDialogueandoffList.pictureWidth" placeholder="请输入图片宽度"></el-input>
+                  <el-input
+                    v-model="addListDialogueandoffList.pictureWidth"
+                    placeholder="请输入图片宽度"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-input v-model="addListDialogueandoffList.pictureHight" placeholder="请输入图片高度"></el-input>
+                  <el-input
+                    v-model="addListDialogueandoffList.pictureHight"
+                    placeholder="请输入图片高度"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col span="14">
                 <el-form-item label="车位位置配置文件:">
-                  <el-input v-model="addListDialogueandoffList.parkingSpaceConfigurationDocument"
-                            style="width: 400px"></el-input>
+                  <el-input
+                    v-model="
+                      addListDialogueandoffList.parkingSpaceConfigurationDocument
+                    "
+                    style="width: 400px"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col span="2">
-                <el-button type="info" @click="chooseDocument()" size="small">选择</el-button>
+                <el-button type="info" @click="chooseDocument()" size="small"
+                  >选择</el-button
+                >
               </el-col>
               <el-col span="2">
-                <el-button type="info" @click="uploadDocument()" size="small">上传</el-button>
+                <el-button type="info" @click="uploadDocument()" size="small"
+                  >上传</el-button
+                >
               </el-col>
               <el-col span="2">
-                <el-button type="info" @click="viewDocument()" size="small">预览</el-button>
+                <el-button type="info" @click="viewDocument()" size="small"
+                  >预览</el-button
+                >
               </el-col>
             </el-row>
           </el-form>
@@ -124,30 +179,80 @@
     <!--下半部分列表-->
     <div class="down">
       <div>
-        <el-table :data="parkingLotLayout" :row-class-name="tableRowClassName" ref="selectParkingLotLayout"
-                  @selection-change="handleSelectParkingLotLayout"
-                  :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                  :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
+        <el-table
+          :data="parkingLotLayout"
+          :row-class-name="tableRowClassName"
+          ref="selectParkingLotLayout"
+          @selection-change="handleSelectParkingLotLayout"
+          :header-cell-style="{
+            'text-align': 'center',
+            background: '#24314A',
+            color: '#FFF',
+            border: 'none',
+            padding: 'none',
+            fontSize: '12px',
+            fontWeight: '100'
+          }"
+          :cell-style="{ 'text-align': 'center' }"
+          style="width: 100%;"
+        >
+          <el-table-column type="selection" width="55"> </el-table-column>
           <el-table-column
-              type="selection"
-              width="55">
+            prop="parkingLotNumber"
+            label="停车场编号"
+            width="100"
+          ></el-table-column>
+          <el-table-column
+            prop="parkingLotName"
+            :show-overflow-tooltip="true"
+            label="停车场名称"
+          >
           </el-table-column>
-          <el-table-column prop="parkingLotNumber" label="停车场编号" width="100"></el-table-column>
-          <el-table-column prop="parkingLotName" :show-overflow-tooltip="true" label="停车场名称">
+          <el-table-column
+            prop="parkingLotLayerNumber"
+            :show-overflow-tooltip="true"
+            label="停车场平面(层)编号"
+          >
           </el-table-column>
-          <el-table-column prop="parkingLotLayerNumber" :show-overflow-tooltip="true" label="停车场平面(层)编号">
-          </el-table-column>
-          <el-table-column prop="parkingLotLayerName" :show-overflow-tooltip="true"
-                           label="停车场平面(层)名称"></el-table-column>
-          <el-table-column prop="describe" :show-overflow-tooltip="true" label="描述"></el-table-column>
-          <el-table-column prop="parkingSpaceNumber" :show-overflow-tooltip="true" label="车位数"></el-table-column>
-          <el-table-column prop="layerPicture" :show-overflow-tooltip="true" label="平面(层)图文件"></el-table-column>
-          <el-table-column prop="parkingSpaceConfigurationDocument" :show-overflow-tooltip="true"
-                           label="车位位置配置文件"></el-table-column>
+          <el-table-column
+            prop="parkingLotLayerName"
+            :show-overflow-tooltip="true"
+            label="停车场平面(层)名称"
+          ></el-table-column>
+          <el-table-column
+            prop="describe"
+            :show-overflow-tooltip="true"
+            label="描述"
+          ></el-table-column>
+          <el-table-column
+            prop="parkingSpaceNumber"
+            :show-overflow-tooltip="true"
+            label="车位数"
+          ></el-table-column>
+          <el-table-column
+            prop="layerPicture"
+            :show-overflow-tooltip="true"
+            label="平面(层)图文件"
+          ></el-table-column>
+          <el-table-column
+            prop="parkingSpaceConfigurationDocument"
+            :show-overflow-tooltip="true"
+            label="车位位置配置文件"
+          ></el-table-column>
           <el-table-column :show-overflow-tooltip="true" label="操作">
             <template slot-scope="scope">
-              <el-button @click="editListDialogue(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="deleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
+              <el-button
+                @click="editListDialogue(scope.row)"
+                type="text"
+                size="small"
+                >修改</el-button
+              >
+              <el-button
+                @click="deleteListDialogue(scope.row)"
+                type="text"
+                size="small"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -157,53 +262,91 @@
                        :total="pageTotal" :page-size="pageSize">
         </el-pagination>-->
         <!-- 信息修改点击弹出框 -->
-        <el-dialog title="修改停车场平面(层)配置管理" :visible.sync="editListDialogueandoff">
-          <el-form :inline="true" :model="editListDialogueandoffList" class="demo-form-inline" label-position=left>
+        <el-dialog
+          title="修改停车场平面(层)配置管理"
+          :visible.sync="editListDialogueandoff"
+        >
+          <el-form
+            :inline="true"
+            :model="editListDialogueandoffList"
+            class="demo-form-inline"
+            label-position="left"
+          >
             <el-row>
               <el-col span="12">
                 <el-form-item label="停车场编号:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.parkingLotNumber"></el-input>
+                  <el-input
+                    v-model="editListDialogueandoffList.parkingLotNumber"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col span="12">
                 <el-form-item label="停车场名称:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.parkingLotName"></el-input>
+                  <el-input
+                    v-model="editListDialogueandoffList.parkingLotName"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col span="12">
-                <el-form-item label="停车场平面(层)编号:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.parkingLotLayerNumber"></el-input>
+                <el-form-item
+                  label="停车场平面(层)编号:"
+                  class="el-form-item-dialog"
+                >
+                  <el-input
+                    v-model="editListDialogueandoffList.parkingLotLayerNumber"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col span="12">
-                <el-form-item label="停车场平面(层)名称:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.parkingLotLayerName"></el-input>
+                <el-form-item
+                  label="停车场平面(层)名称:"
+                  class="el-form-item-dialog"
+                >
+                  <el-input
+                    v-model="editListDialogueandoffList.parkingLotLayerName"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col span="12">
                 <el-form-item label="描述:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.describe"></el-input>
+                  <el-input
+                    v-model="editListDialogueandoffList.describe"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col span="12">
                 <el-form-item label="车位数:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.parkingSpaceNumber"></el-input>
+                  <el-input
+                    v-model="editListDialogueandoffList.parkingSpaceNumber"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col span="12">
-                <el-form-item label="平面(层)图文件:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.layerPicture"></el-input>
+                <el-form-item
+                  label="平面(层)图文件:"
+                  class="el-form-item-dialog"
+                >
+                  <el-input
+                    v-model="editListDialogueandoffList.layerPicture"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <el-col span="12">
-                <el-form-item label="车位位置配置文件:" class="el-form-item-dialog">
-                  <el-input v-model="editListDialogueandoffList.parkingSpaceConfigurationDocument"></el-input>
+                <el-form-item
+                  label="车位位置配置文件:"
+                  class="el-form-item-dialog"
+                >
+                  <el-input
+                    v-model="
+                      editListDialogueandoffList.parkingSpaceConfigurationDocument
+                    "
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -217,26 +360,65 @@
       <div>
         <h2>XXX停车场平面（层）车位配置</h2>
         <el-form-item>
-          <el-button type="primary" @click="importData">批量导入车位配置数据</el-button>
+          <el-button type="primary" @click="importData"
+            >批量导入车位配置数据</el-button
+          >
         </el-form-item>
-        <el-table :data="parkingSpaceConfiguration" :row-class-name="tableRowClassName"
-                  ref="selectParkingSpaceConfiguration"
-                  @selection-change="handleSelectParkingSpaceConfiguration"
-                  :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                  :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
+        <el-table
+          :data="parkingSpaceConfiguration"
+          :row-class-name="tableRowClassName"
+          ref="selectParkingSpaceConfiguration"
+          @selection-change="handleSelectParkingSpaceConfiguration"
+          :header-cell-style="{
+            'text-align': 'center',
+            background: '#24314A',
+            color: '#FFF',
+            border: 'none',
+            padding: 'none',
+            fontSize: '12px',
+            fontWeight: '100'
+          }"
+          :cell-style="{ 'text-align': 'center' }"
+          style="width: 100%;"
+        >
+          <el-table-column width="55"> </el-table-column>
           <el-table-column
-              width="55">
+            prop="parkingSpaceNumber"
+            label="车位号"
+            width="100"
+          ></el-table-column>
+          <el-table-column
+            prop="attributionArea"
+            :show-overflow-tooltip="true"
+            label="归属区域"
+            width=""
+          >
           </el-table-column>
-          <el-table-column prop="parkingSpaceNumber" label="车位号" width="100"></el-table-column>
-          <el-table-column prop="attributionArea" :show-overflow-tooltip="true" label="归属区域" width="">
+          <el-table-column
+            prop="parkingDetectorType"
+            :show-overflow-tooltip="true"
+            label="车位检测器类型"
+            width=""
+          >
           </el-table-column>
-          <el-table-column prop="parkingDetectorType" :show-overflow-tooltip="true" label="车位检测器类型" width="">
-          </el-table-column>
-          <el-table-column prop="parkingDetectorNumber" :show-overflow-tooltip="true" label="车位检测器编号"></el-table-column>
-          <el-table-column prop="parkingLockNumber" :show-overflow-tooltip="true" label="地锁编号"></el-table-column>
+          <el-table-column
+            prop="parkingDetectorNumber"
+            :show-overflow-tooltip="true"
+            label="车位检测器编号"
+          ></el-table-column>
+          <el-table-column
+            prop="parkingLockNumber"
+            :show-overflow-tooltip="true"
+            label="地锁编号"
+          ></el-table-column>
           <el-table-column :show-overflow-tooltip="true" label="操作">
             <template slot-scope="scope">
-              <el-button @click="configurationDialogue(scope.row)" type="text" size="small">配置</el-button>
+              <el-button
+                @click="configurationDialogue(scope.row)"
+                type="text"
+                size="small"
+                >配置</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -247,36 +429,64 @@
          </el-pagination>-->
         <!-- 信息配置点击弹出框 -->
         <el-dialog title="配置车位" :visible.sync="configurationDialogueandoff">
-          <el-form :inline="true" :model="configurationDialogueandoffList" class="demo-form-inline">
+          <el-form
+            :inline="true"
+            :model="configurationDialogueandoffList"
+            class="demo-form-inline"
+          >
             <div><h3>车位信息</h3></div>
             <el-form-item label="车位号:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingSpaceNumber"></el-input>
+              <el-input
+                v-model="configurationDialogueandoffList.parkingSpaceNumber"
+              ></el-input>
             </el-form-item>
             <el-form-item label="归属停车场名称:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingLotName"></el-input>
+              <el-input
+                v-model="configurationDialogueandoffList.parkingLotName"
+              ></el-input>
             </el-form-item>
-            <el-form-item label="归属停车场平面（层）编号:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingLotLayerNumber"></el-input>
+            <el-form-item
+              label="归属停车场平面（层）编号:"
+              class="el-form-item-dialog"
+            >
+              <el-input
+                v-model="configurationDialogueandoffList.parkingLotLayerNumber"
+              ></el-input>
             </el-form-item>
-            <el-form-item label="归属停车场平面（层）名称:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingLotLayerName"></el-input>
+            <el-form-item
+              label="归属停车场平面（层）名称:"
+              class="el-form-item-dialog"
+            >
+              <el-input
+                v-model="configurationDialogueandoffList.parkingLotLayerName"
+              ></el-input>
             </el-form-item>
             <el-form-item label="归属区域:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.attributionArea"></el-input>
+              <el-input
+                v-model="configurationDialogueandoffList.attributionArea"
+              ></el-input>
             </el-form-item>
             <div><h3>配置信息</h3></div>
             <el-form-item label="车位检测器类型:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingDetectorType"></el-input>
+              <el-input
+                v-model="configurationDialogueandoffList.parkingDetectorType"
+              ></el-input>
             </el-form-item>
             <el-form-item label="车位检测器编号:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingDetectorNumber"></el-input>
+              <el-input
+                v-model="configurationDialogueandoffList.parkingDetectorNumber"
+              ></el-input>
             </el-form-item>
             <el-form-item label="地锁编号:" class="el-form-item-dialog">
-              <el-input v-model="configurationDialogueandoffList.parkingLockNumber"></el-input>
+              <el-input
+                v-model="configurationDialogueandoffList.parkingLockNumber"
+              ></el-input>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="configurationDialogueandoff = false">取 消</el-button>
+            <el-button @click="configurationDialogueandoff = false"
+              >取 消</el-button
+            >
             <el-button type="primary" @click="InfoInsert">确 定</el-button>
           </div>
         </el-dialog>
@@ -286,49 +496,48 @@
 </template>
 <script>
 export default {
-
   data() {
     return {
       // 查询数据暂存处
-      upQueryList: {TingNum: ''},
+      upQueryList: { TingNum: "" },
       //多选后数据暂存
       selectParkingLotLayout: [],
       // 停车场下拉框数据暂存
       parkingLotList: [
         {
-          parkingName: '公共停车场',
+          parkingName: "公共停车场",
           id: 1
         },
         {
-          parkingName: '员工停车场',
+          parkingName: "员工停车场",
           id: 2
         },
         {
-          parkingName: '临时停车场',
+          parkingName: "临时停车场",
           id: 3
         },
         {
-          parkingName: '新能源停车场',
+          parkingName: "新能源停车场",
           id: 4
         },
         {
-          parkingName: '路侧临停泊位',
+          parkingName: "路侧临停泊位",
           id: 5
         },
         {
-          parkingName: '专用停车场',
+          parkingName: "专用停车场",
           id: 6
         }
       ],
       // 出入口下拉框数据暂存
       entryAndExitList: [
         {
-          entryAndExit: '入口',
-          id: '1'
+          entryAndExit: "入口",
+          id: "1"
         },
         {
-          entryAndExit: '出口',
-          id: '2'
+          entryAndExit: "出口",
+          id: "2"
         }
       ],
       /*      // 分页
@@ -338,41 +547,41 @@ export default {
       // 停车场平面(层)配置列表数据暂存处
       parkingLotLayout: [
         {
-          parkingLotNumber: '1',
-          parkingLotName: '停车场',
-          parkingLotLayerNumber: '不知道',
+          parkingLotNumber: "1",
+          parkingLotName: "停车场",
+          parkingLotLayerNumber: "不知道",
           parkingLotLayerName: "入口",
           describe: "02",
           parkingSpaceNumber: "不知道",
           layerPicture: "无",
-          parkingSpaceConfigurationDocument: '不知'
+          parkingSpaceConfigurationDocument: "不知"
         },
         {
-          parkingLotNumber: '1',
-          parkingLotName: '停车场',
-          parkingLotLayerNumber: '不知道',
+          parkingLotNumber: "1",
+          parkingLotName: "停车场",
+          parkingLotLayerNumber: "不知道",
           parkingLotLayerName: "入口",
           describe: "02",
           parkingSpaceNumber: "不知道",
           layerPicture: "无",
-          parkingSpaceConfigurationDocument: '不知'
-        },
+          parkingSpaceConfigurationDocument: "不知"
+        }
       ],
       // XXX停车场平面（层）车位配置列表数据暂存处
       parkingSpaceConfiguration: [
         {
-          parkingSpaceNumber: '01',
-          attributionArea: '不知',
-          parkingDetectorType: '不知',
-          parkingDetectorNumber: '02',
-          parkingLockNumber: '03'
+          parkingSpaceNumber: "01",
+          attributionArea: "不知",
+          parkingDetectorType: "不知",
+          parkingDetectorNumber: "02",
+          parkingLockNumber: "03"
         },
         {
-          parkingSpaceNumber: '01',
-          attributionArea: '不知',
-          parkingDetectorType: '不知',
-          parkingDetectorNumber: '02',
-          parkingLockNumber: '03'
+          parkingSpaceNumber: "01",
+          attributionArea: "不知",
+          parkingDetectorType: "不知",
+          parkingDetectorNumber: "02",
+          parkingLockNumber: "03"
         }
       ],
       // 修改弹窗显示和隐藏属性
@@ -387,14 +596,14 @@ export default {
       addListDialogueandoff: false,
       // 新增数据暂存数组
       addListDialogueandoffList: {
-        TingNum: '',
-        parkingLotLayerNumber: '',
-        parkingLotLayerName: '',
-        describe: '',
-        layerPicture: '',
-        pictureWidth: '',
-        pictureHeight: '',
-        parkingSpaceConfigurationDocument: '',
+        TingNum: "",
+        parkingLotLayerNumber: "",
+        parkingLotLayerName: "",
+        describe: "",
+        layerPicture: "",
+        pictureWidth: "",
+        pictureHeight: "",
+        parkingSpaceConfigurationDocument: ""
       }
     };
   },
@@ -413,11 +622,11 @@ export default {
     },
     //上传图片
     uploadPicture() {
-      console.log("上传图片")
+      console.log("上传图片");
     },
     //预览图片
     viewPicture() {
-      console.log("预览图片")
+      console.log("预览图片");
     },
     //选择停车场图片
     chooseDocument() {
@@ -425,20 +634,21 @@ export default {
     },
     //上传图片
     uploadDocument() {
-      console.log("上传文件")
+      console.log("上传文件");
     },
     //预览图片
     viewDocument() {
-      console.log("预览文件")
+      console.log("预览文件");
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex % 2 == 1) {
-        return 'successRow11';
-      } else if (rowIndex % 2 == 0) {
-        return 'successSecond';
+    // eslint-disable-next-line no-unused-vars
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 === 1) {
+        return "successRow11";
+      } else if (rowIndex % 2 === 0) {
+        return "successSecond";
       }
-      return '';
+      return "";
     },
     // 点击查询调用的方法
     selectQueryList() {
@@ -448,14 +658,14 @@ export default {
     addInletAndOutlet() {
       //提前清空表单中数据
       this.addListDialogueandoffList = {
-        TingNum: '',
-        parkingLotLayerNumber: '',
-        parkingLotLayerName: '',
-        describe: '',
-        layerPicture: '',
-        pictureWidth: '',
-        pictureHeight: '',
-        parkingSpaceConfigurationDocument: '',
+        TingNum: "",
+        parkingLotLayerNumber: "",
+        parkingLotLayerName: "",
+        describe: "",
+        layerPicture: "",
+        pictureWidth: "",
+        pictureHeight: "",
+        parkingSpaceConfigurationDocument: ""
       };
       this.addListDialogueandoff = true;
       // this.addListDialogueandoffList = row
@@ -525,7 +735,7 @@ export default {
 /* 表格表头样式 */
 .el-table__header-wrapper {
   width: 100%;
-  height: 0px;
+  height: 0;
 }
 
 /* 设置弹出框样式 */
@@ -550,12 +760,11 @@ export default {
 
 #add {
   height: auto;
-
 }
 
 .h2 {
   padding: 0;
-  margin: 0px;
+  margin: 0;
 }
 
 .form-all {
