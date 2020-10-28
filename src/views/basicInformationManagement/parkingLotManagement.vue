@@ -12,7 +12,6 @@
     <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="停车场管理" name="first">
         <parking-lot-management/>
-
       </el-tab-pane>
       <el-tab-pane label="车位管理" name="second">
         <parking-space-management/>

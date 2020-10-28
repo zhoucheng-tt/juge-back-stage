@@ -2,7 +2,7 @@
     停车订单查询
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-21 09:40:40
+ * @LastEditTime: 2020-10-27 20:50:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
@@ -136,7 +136,7 @@
                 pageSize: 10,
                 pageTotal: 4,
                 // 设置只读属性
-                readonly : true,
+                readonly: true,
                 // 列表中数据暂存处， 订单数据
                 orderParkingList: [
                     {
@@ -203,9 +203,18 @@
             }
         },
         mounted() {
-
+            this.queryList()
         },
         methods: {
+            queryList() {
+                var jsonStr = {
+                    startStatisDate: "2017-07-14",
+                    endStatisDate: "2017-07-14"
+                }
+                this.$ysParking.trendAnalysis(jsonStr).then(response => {
+                    console.log("测试", response )
+                })
+            },
             // 点击查询调用的方法
             SelectQueryList() {
                 console.log("打印出来点击查询后所产生的值", this.upQueryList)
@@ -279,8 +288,9 @@
     /deep/ .el-dialog {
         width: 50%;
     }
+
     /* 弹出框内表单样式控制 */
-    .el-form-item-dialog{
+    .el-form-item-dialog {
         width: 32%;
     }
 </style>

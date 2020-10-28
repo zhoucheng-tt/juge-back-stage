@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:36:38
- * @LastEditTime: 2020-10-14 10:58:19
+ * @LastEditTime: 2020-10-27 21:02:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\vue.config.js
@@ -17,11 +17,12 @@ module.exports = {
     port: 8081,
     proxy: {
       // 配置跨域
-      '/g524Api/': {
-        target: 'http://120.26.146.64:8053',
+      // 当遇见所有的跨域问题中需要进行这边调整
+      '/e-parking-web': {
+        target: 'http://120.26.146.64:8052/e-parking-web',
         ws: false,
         pathRewrite: {
-          '^/g524Api/': '/'
+          '^/e-parking-web/': '/'
           //pathRewrite: {'^/api': '/'} 重写之后url为 http://192.168.1.16:8085/xxxx
           //pathRewrite: {'^/api': '/api'} 重写之后url为 http://192.168.1.16:8085/api/xxxx
         }
