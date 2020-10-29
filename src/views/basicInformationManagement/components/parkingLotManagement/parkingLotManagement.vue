@@ -63,312 +63,313 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="block" style="margin-left: 10px">
-        <el-pagination style="position: absolute;right:4%;margin-top:20px" background
-                       layout="total, prev, pager, next, jumper" @current-change="handleCurrentModify"
-                       :current-page="pageNum"
-                       :total="pageTotal" :page-size="pageSize">
-        </el-pagination>
-      </div>
-      <!--新增表单弹框-->
-      <el-dialog id="add" title="新增停车场信息" :visible.sync="addListDialogueandoff">
-        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
-          <div style="font-size: 20px">基础信息</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="停车场名称:" label-width="150px">
-                <el-select v-model="newParkingLot.parkName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingNameList" :label="item.parkingName"
-                             :value="item.parkingName" :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="停车场编号:" label-width="150px">
-                <el-input v-model="newParkingLot.parkId"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="停车场类型名称:" label-width="150px">
-                <el-select v-model="newParkingLot.parkTypeName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType"
-                             :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="停车场类型编号:" label-width="150px">
-                <el-input v-model="newParkingLot.parkTypeCode"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="运营商编码:" label-width="150px">
-                <el-input v-model="newParkingLot.parkOptIntegratorCode"/>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="归属企业ID:" label-width="150px">
-                <el-input v-model="newParkingLot.companyId"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="归属企业名称:" label-width="150px">
-                <el-input v-model="newParkingLot.companyName"/>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="规划总车位数:" label-width="150px">
-                <el-input v-model="newParkingLot.parkSpaceNum"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="font-size: 20px">位置信息</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="归属地市id:" label-width="150px">
-                <el-input v-model="newParkingLot.cityCode"/>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="归属地市名称:" label-width="150px">
-                <el-input v-model="newParkingLot.cityName"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="归属区县id:" label-width="150px">
-                <el-input v-model="newParkingLot.districtCode"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="归属区县名称:" label-width="150px">
-                <el-input v-model="newParkingLot.districtName"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="16">
-              <el-form-item label="地址:" label-width="150px">
-                <el-input v-model="newParkingLot.address" style="width: 300px"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="经度:" label-width="150px">
-                <el-input v-model="newParkingLot.longitude"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="纬度:" label-width="150px">
-                <el-input v-model="newParkingLot.latitude"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="font-size: 20px">计费规则信息</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="计费规则:" label-width="150px">
-                <el-select v-model="newParkingLot.billingRuleDesc" placeholder="请选择">
-                  <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
-                             :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="font-size: 20px">其他</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="联系人:" label-width="150px">
-                <el-input v-model="newParkingLot.contact"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="联系人电话:" label-width="150px">
-                <el-input v-model="newParkingLot.contactPhoneNumber"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="停车场图片:" label-width="150px">
-                <el-input v-model="newParkingLot.parkPictureFile"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="2">
-              <el-button type="info" @click="choosePicture()" size="small">选择</el-button>
-            </el-col>
-            <el-col span="2">
-              <el-button type="info" @click="uploadPicture()" size="small">上传</el-button>
-            </el-col>
-            <el-col span="2">
-              <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
-            </el-col>
-          </el-row>
-
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialogueandoff = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmitAdd()">保 存</el-button>
-        </div>
-      </el-dialog>
-      <!--修改表单弹框-->
-      <el-dialog id="edit" title="修改停车场信息" :visible.sync="editListDialogueandoff">
-        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
-          <div style="font-size: 20px">基础信息</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="停车场名称:" label-width="150px">
-                <el-select v-model="editParkingLot.parkName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingNameList" :label="item.parkingName"
-                             :value="item.parkingName" :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="停车场编号:" label-width="150px">
-                <el-input v-model="editParkingLot.parkId"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="停车场类型名称:" label-width="150px">
-                <el-select v-model="editParkingLot.parkTypeName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType"
-                             :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="停车场类型编号:" label-width="150px">
-                <el-input v-model="editParkingLot.parkTypeCode"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="运营商编码:" label-width="150px">
-                <el-input v-model="editParkingLot.parkOptIntegratorCode"/>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="归属企业ID:" label-width="150px">
-                <el-input v-model="editParkingLot.companyId"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="归属企业名称:" label-width="150px">
-                <el-input v-model="editParkingLot.companyName"/>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="规划总车位数:" label-width="150px">
-                <el-input v-model="editParkingLot.parkSpaceNum"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="font-size: 20px">位置信息</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="归属地市id:" label-width="150px">
-                <el-input v-model="editParkingLot.cityCode"/>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="归属地市名称:" label-width="150px">
-                <el-input v-model="editParkingLot.cityName"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="归属区县id:" label-width="150px">
-                <el-input v-model="editParkingLot.districtCode"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="归属区县名称:" label-width="150px">
-                <el-input v-model="editParkingLot.districtName"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="16">
-              <el-form-item label="地址:" label-width="150px">
-                <el-input v-model="editParkingLot.address" style="width: 300px"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="经度:" label-width="150px">
-                <el-input v-model="editParkingLot.longitude"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="纬度:" label-width="150px">
-                <el-input v-model="editParkingLot.latitude"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="font-size: 20px">计费规则信息</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="计费规则:" label-width="150px">
-                <el-select v-model="editParkingLot.billingRuleDesc" placeholder="请选择">
-                  <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
-                             :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <div style="font-size: 20px">其他</div>
-          <el-row style="padding-top: 20px">
-            <el-col span="12">
-              <el-form-item label="联系人:" label-width="150px">
-                <el-input v-model="editParkingLot.contact"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="12">
-              <el-form-item label="联系人电话:" label-width="150px">
-                <el-input v-model="editParkingLot.contactPhoneNumber"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col span="12">
-              <el-form-item label="停车场图片:" label-width="150px">
-                <el-input v-model="editParkingLot.parkPictureFile"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col span="2">
-              <el-button type="info" @click="choosePicture()" size="small">选择</el-button>
-            </el-col>
-            <el-col span="2">
-              <el-button type="info" @click="uploadPicture()" size="small">上传</el-button>
-            </el-col>
-            <el-col span="2">
-              <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
-            </el-col>
-          </el-row>
-
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="editListDialogueandoff = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmitEdit()">保 存</el-button>
-        </div>
-      </el-dialog>
+      <el-pagination
+          style="position: relative;left: 78%"
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal">
+      </el-pagination>
     </div>
+    <!--新增表单弹框-->
+    <el-dialog id="add" title="新增停车场信息" :visible.sync="addListDialogueandoff">
+      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+        <div style="font-size: 20px">基础信息</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="停车场名称:" label-width="150px">
+              <el-select v-model="newParkingLot.parkName" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingNameList" :label="item.parkingName"
+                           :value="item.parkingName" :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="停车场编号:" label-width="150px">
+              <el-input v-model="newParkingLot.parkId"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="停车场类型名称:" label-width="150px">
+              <el-select v-model="newParkingLot.parkTypeName" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType"
+                           :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="停车场类型编号:" label-width="150px">
+              <el-input v-model="newParkingLot.parkTypeCode"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="运营商编码:" label-width="150px">
+              <el-input v-model="newParkingLot.parkOptIntegratorCode"/>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="归属企业ID:" label-width="150px">
+              <el-input v-model="newParkingLot.companyId"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="归属企业名称:" label-width="150px">
+              <el-input v-model="newParkingLot.companyName"/>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="规划总车位数:" label-width="150px">
+              <el-input v-model="newParkingLot.parkSpaceNum"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <div style="font-size: 20px">位置信息</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="归属地市id:" label-width="150px">
+              <el-input v-model="newParkingLot.cityCode"/>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="归属地市名称:" label-width="150px">
+              <el-input v-model="newParkingLot.cityName"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="归属区县id:" label-width="150px">
+              <el-input v-model="newParkingLot.districtCode"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="归属区县名称:" label-width="150px">
+              <el-input v-model="newParkingLot.districtName"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="16">
+            <el-form-item label="地址:" label-width="150px">
+              <el-input v-model="newParkingLot.address" style="width: 300px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="经度:" label-width="150px">
+              <el-input v-model="newParkingLot.longitude"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="纬度:" label-width="150px">
+              <el-input v-model="newParkingLot.latitude"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <div style="font-size: 20px">计费规则信息</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="计费规则:" label-width="150px">
+              <el-select v-model="newParkingLot.billingRuleDesc" placeholder="请选择">
+                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
+                           :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <div style="font-size: 20px">其他</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="联系人:" label-width="150px">
+              <el-input v-model="newParkingLot.contact"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="联系人电话:" label-width="150px">
+              <el-input v-model="newParkingLot.contactPhoneNumber"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="停车场图片:" label-width="150px">
+              <el-input v-model="newParkingLot.parkPictureFile"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="2">
+            <el-button type="info" @click="choosePicture()" size="small">选择</el-button>
+          </el-col>
+          <el-col span="2">
+            <el-button type="info" @click="uploadPicture()" size="small">上传</el-button>
+          </el-col>
+          <el-col span="2">
+            <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
+          </el-col>
+        </el-row>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addListDialogueandoff = false">取 消</el-button>
+        <el-button type="primary" @click="onSubmitAdd()">保 存</el-button>
+      </div>
+    </el-dialog>
+    <!--修改表单弹框-->
+    <el-dialog id="edit" title="修改停车场信息" :visible.sync="editListDialogueandoff">
+      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+        <div style="font-size: 20px">基础信息</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="停车场名称:" label-width="150px">
+              <el-select v-model="editParkingLot.parkName" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingNameList" :label="item.parkingName"
+                           :value="item.parkingName" :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="停车场编号:" label-width="150px">
+              <el-input v-model="editParkingLot.parkId"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="停车场类型名称:" label-width="150px">
+              <el-select v-model="editParkingLot.parkTypeName" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType"
+                           :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="停车场类型编号:" label-width="150px">
+              <el-input v-model="editParkingLot.parkTypeCode"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="运营商编码:" label-width="150px">
+              <el-input v-model="editParkingLot.parkOptIntegratorCode"/>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="归属企业ID:" label-width="150px">
+              <el-input v-model="editParkingLot.companyId"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="归属企业名称:" label-width="150px">
+              <el-input v-model="editParkingLot.companyName"/>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="规划总车位数:" label-width="150px">
+              <el-input v-model="editParkingLot.parkSpaceNum"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <div style="font-size: 20px">位置信息</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="归属地市id:" label-width="150px">
+              <el-input v-model="editParkingLot.cityCode"/>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="归属地市名称:" label-width="150px">
+              <el-input v-model="editParkingLot.cityName"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="归属区县id:" label-width="150px">
+              <el-input v-model="editParkingLot.districtCode"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="归属区县名称:" label-width="150px">
+              <el-input v-model="editParkingLot.districtName"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="16">
+            <el-form-item label="地址:" label-width="150px">
+              <el-input v-model="editParkingLot.address" style="width: 300px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="经度:" label-width="150px">
+              <el-input v-model="editParkingLot.longitude"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="纬度:" label-width="150px">
+              <el-input v-model="editParkingLot.latitude"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <div style="font-size: 20px">计费规则信息</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="计费规则:" label-width="150px">
+              <el-select v-model="editParkingLot.billingRuleDesc" placeholder="请选择">
+                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
+                           :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <div style="font-size: 20px">其他</div>
+        <el-row style="padding-top: 20px">
+          <el-col span="12">
+            <el-form-item label="联系人:" label-width="150px">
+              <el-input v-model="editParkingLot.contact"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="12">
+            <el-form-item label="联系人电话:" label-width="150px">
+              <el-input v-model="editParkingLot.contactPhoneNumber"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="12">
+            <el-form-item label="停车场图片:" label-width="150px">
+              <el-input v-model="editParkingLot.parkPictureFile"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="2">
+            <el-button type="info" @click="choosePicture()" size="small">选择</el-button>
+          </el-col>
+          <el-col span="2">
+            <el-button type="info" @click="uploadPicture()" size="small">上传</el-button>
+          </el-col>
+          <el-col span="2">
+            <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
+          </el-col>
+        </el-row>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editListDialogueandoff = false">取 消</el-button>
+        <el-button type="primary" @click="onSubmitEdit()">保 存</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
