@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-09-27 09:18:13
- * @LastEditTime: 2020-10-27 20:59:23
+ * @LastEditTime: 2020-10-29 15:18:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\company Environment\tcxt-web\src\axios\ysParking\ysParking.js
@@ -46,7 +46,7 @@ export function echats (params) {
   //停车场管理-停车场管理-列表查询
   export function queryParkList (param) {
     return request({
-      url: '/parkFunc/queryParkList',
+      url: '/companyFunc/queryCompanyList',
       method: 'post',
       data: param
     })
