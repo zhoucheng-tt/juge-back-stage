@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-10-28 09:30:15
+ * @LastEditTime: 2020-10-29 10:44:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -14,15 +14,26 @@ import main from '../components/main.vue'
 Vue.use(VueRouter);
 
 const routes = [
+  // 登录
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/Login/login"),
+    meta: {
+      name: "登陆",
+      icon: "",
+      type: "list"
+    }
+  },
   {
     path: "/",
     name: "main",
     component: main,
     // component: main,
     // 重定向，也就是相当于定位到默认展示的一个页面
-    redirect: "/homePage",
+    redirect: "/login",
     meta: {
-      name: "主页",
+      name: "登陆",
       icon: ""
     },
     children: [

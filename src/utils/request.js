@@ -21,7 +21,7 @@ const service = axios.create({
   transformRequest: [
     function (data) {
         let reqInfo = {
-            jsonStr:JSON.stringify(data),//对象转json
+            param:JSON.stringify(data),//对象转json
         }
         return qs.stringify(reqInfo)//json转表单
     }
@@ -60,23 +60,25 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    if (res.resultCode === '3004') {
-      // source.cancel('not login')
-      // Message({
-      //   message: res.resultMsg || '未登录，请重新登录',
-      //   type: 'error',
-      //   duration: 5 * 1000,
-      //   showClose: true
-      // })
-      router.push({ name: 'login' })
-      return Promise.reject(res.resultMsg || 'error')
-    } else if (res.resultCode !== '2000') {
+    // if (res.struts === '1') {
+    //   // source.cancel('not login')
+    //   // Message({
+    //   //   message: res.resultMsg || '未登录，请重新登录',
+    //   //   type: 'error',
+    //   //   duration: 5 * 1000,
+    //   //   showClose: true
+    //   // })
+      // router.push({ name: 'login' })
+    //   return Promise.reject(res.resultMsg || 'error')
+    // } else
+     if (res.status !== '0') {
       Message({
         message: res.resultMsg || '系统错误，请联系管理员',
         type: 'error',
         duration: 5 * 1000,
         showClose: true
       })
+      // router.push({ name: '/login' })
       return Promise.reject(res.resultMsg || 'error')
     } else {
       return res

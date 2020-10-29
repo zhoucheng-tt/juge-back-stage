@@ -1,13 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2020-09-24 14:16:45
- * @LastEditTime: 2020-10-27 20:35:59
+ * @LastEditTime: 2020-10-29 13:37:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\company Environment\tcxt-web\src\axios\index.js
  */
 // 封装返回
 import * as ysParking from './ysParking/ysParking.js'
+// 首页接口
+import * as homePage from './homePage/homePage.js'
 
 const install = function(Vue){
 	if(install.installed){
@@ -18,7 +20,13 @@ const install = function(Vue){
 			get(){
 				return ysParking
 			}
-		}
+		},
+		// 首页接口  homePage
+		$homePage:{
+			get(){
+				return homePage
+			}
+		} 
 	})
 }
 
