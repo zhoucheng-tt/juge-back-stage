@@ -52,10 +52,4 @@ export function echats (params) {
     })
   }
 
-export function login (param) {
-  return request({
-    url: '/systemManageFunc/loginUser.xhtml',
-    method: 'post',
-    data: param
-  })
-}
+
