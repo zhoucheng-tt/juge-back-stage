@@ -2,7 +2,7 @@
     设备管理
  * @Author: 邵青阳
  * @Date: 2020-10-22 09:26:58
- * @LastEditTime: 2020-10-28 09:43:18
+ * @LastEditTime: 2020-10-29 09:38:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\carWashingMachineManagement.vue
@@ -16,21 +16,29 @@
             <el-tab-pane label="地磁车位检测器" name="second">
                 <geomagnetic-Parking-Detector />
             </el-tab-pane>
-            <!-- <el-tab-pane label="出入口管理" name="third">
-          <entry-and-exit-management/>
-        </el-tab-pane> -->
+            <el-tab-pane label="地锁" name="thired">
+                <floor-Lock />
+            </el-tab-pane>
+            <el-tab-pane label="进出口摄像头管理" name="four">
+                <import-Export-Camera-Management />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 <script>
     import videoParkingDetector from './deviceManagement/videoParkingDetector'
     import geomagneticParkingDetector from './deviceManagement/geomagneticParkingDetector'
-    //   import ParkingSpaceManagement from './components/parkingLotManagement/parkingSpaceManagement'
+    // 地锁
+    import floorLock from './deviceManagement/floorLock'
+    // 进出口摄像头管理  
+    import importExportCameraManagement from './deviceManagement/importExportCameraManagement'
 
     export default {
         components: {
             videoParkingDetector,
             geomagneticParkingDetector,
+            floorLock,
+            importExportCameraManagement
         },
         data() {
             return {
