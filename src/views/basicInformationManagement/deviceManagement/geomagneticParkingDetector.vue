@@ -15,39 +15,22 @@
         <el-row>
           <el-col span="6">
             <el-form-item label="停车场">
-              <el-select
-                v-model="parkingLotNameList.pkName"
-                placeholder="请选择"
-              >
-                <el-option
-                  v-for="(item, index) in parkingLotNameList"
-                  :label="item.pkName"
-                  :value="item.pkName"
-                  :key="index"
-                ></el-option>
+              <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName" :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option
-                  v-for="(item, index) in eqStatusList"
-                  :label="item.eqStatus"
-                  :value="item.eqStatus"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus" :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="12">
-            <el-button type="primary" @click="addNewGeo()"
-              >新增地磁车检测器</el-button
-            >
+            <el-button type="primary" @click="addNewGeo()">新增地磁车检测器</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()"
-              >批量删除</el-button
-            >
+            <el-button type="primary" @click="batchDelete()">批量删除</el-button>
             <el-button type="primary" @click="queryPkLot()">查 询</el-button>
           </el-col>
         </el-row>
@@ -55,92 +38,40 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table
-        :data="geoList"
-        ref="selectGeoList"
-        :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" />
-        <el-table-column fixed prop="pkLotNum" label="停车场编号" />
-        <el-table-column
-          prop="pkLotName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-        />
-        <el-table-column
-          prop="geoNum"
-          :show-overflow-tooltip="true"
-          label="地磁车位检测器编号"
-        />
-        <el-table-column
-          prop="geoName"
-          :show-overflow-tooltip="true"
-          label="地磁车位检测器名称"
-        />
-        <el-table-column
-          prop="sensorId"
-          :show-overflow-tooltip="true"
-          label="传感器ID"
-        />
-        <el-table-column
-          prop="producer"
-          :show-overflow-tooltip="true"
-          label="制造商"
-        />
+      <el-table :data="geoList" ref="selectGeoList"
+                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+                :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
+                @selection-change="handleSelectionChange">
+        <el-table-column type="selection"/>
+        <el-table-column fixed prop="pkLotNum" label="停车场编号"/>
+        <el-table-column prop="pkLotName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column prop="geoNum" :show-overflow-tooltip="true" label="地磁车位检测器编号"/>
+        <el-table-column prop="geoName" :show-overflow-tooltip="true" label="地磁车位检测器名称"/>
+        <el-table-column prop="sensorId" :show-overflow-tooltip="true" label="传感器ID"/>
+        <el-table-column prop="producer" :show-overflow-tooltip="true" label="制造商"/>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button
-              @click="editGeoDialog(scope.row)"
-              type="text"
-              size="small"
-              >修改</el-button
-            >
-            <el-button @click="deleteGeo(scope.row)" type="text" size="small"
-              >删除</el-button
-            >
+            <el-button @click="editGeoDialog(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="deleteGeo(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--新增表单弹框-->
-      <el-dialog
-        id="add"
-        title="新增地磁车位检测器"
-        :visible.sync="addListDialog"
-      >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+      <el-dialog id="add" title="新增地磁车位检测器" :visible.sync="addListDialog">
+        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="newGeo.pkLotName" placeholder="请选择">
-                  <el-option
-                    v-for="(item, index) in parkingLotNameList"
-                    :label="item.pkName"
-                    :value="item.pkName"
-                    :key="index"
-                  ></el-option>
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                             :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col span="12">
               <el-form-item label="停车场编号:" label-width="150px">
-                <el-input v-model="newGeo.pkLotNum" />
+                <el-input v-model="newGeo.pkLotNum"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -148,12 +79,12 @@
           <el-row style="padding-top: 20px">
             <el-col span="12">
               <el-form-item label="地磁车位检测器编号:" label-width="150px">
-                <el-input v-model="newGeo.geoNum" />
+                <el-input v-model="newGeo.geoNum"/>
               </el-form-item>
             </el-col>
             <el-col span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="150px">
-                <el-input v-model="newGeo.geoName" />
+                <el-input v-model="newGeo.geoName"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -176,34 +107,20 @@
         </div>
       </el-dialog>
       <!--修改表单弹框-->
-      <el-dialog
-        id="edit"
-        title="修改地磁车位检测器"
-        :visible.sync="editListDialog"
-      >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+      <el-dialog id="edit" title="修改地磁车位检测器" :visible.sync="editListDialog">
+        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editGeo.pkLotName" placeholder="请选择">
-                  <el-option
-                    v-for="(item, index) in parkingLotNameList"
-                    :label="item.pkName"
-                    :value="item.pkName"
-                    :key="index"
-                  ></el-option>
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName" :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col span="12">
               <el-form-item label="停车场编号:" label-width="150px">
-                <el-input v-model="editGeo.pkLotNum" />
+                <el-input v-model="editGeo.pkLotNum"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -211,12 +128,12 @@
           <el-row style="padding-top: 20px">
             <el-col span="12">
               <el-form-item label="地磁车位检测器编号:" label-width="150px">
-                <el-input v-model="editGeo.geoNum" />
+                <el-input v-model="editGeo.geoNum"/>
               </el-form-item>
             </el-col>
             <el-col span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="150px">
-                <el-input v-model="editGeo.geoName" />
+                <el-input v-model="editGeo.geoName"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -366,19 +283,14 @@ export default {
     },
     //批量删除
     batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({ type: "success", message: "删除成功!" });
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
-    },
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {this.$message({type: "success", message: "删除成功!"});})
+            .catch(() => {this.$message({type: "info", message: "已取消删除"});});
+      },
     //修改
     editGeoDialog(row) {
       this.editGeo = row;
@@ -392,13 +304,12 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
+      }).then(() => {
+        this.$message({type: "success", message: "删除成功!"});
       })
-        .then(() => {
-          this.$message({ type: "success", message: "删除成功!" });
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
     },
     //新增表单提交
     onSubmit01() {
@@ -416,13 +327,14 @@ export default {
       this.selectGeoList = val;
       this.idList = [];
       //获取批量删除id
-      val.forEach(item => {
+      val.forEach((item) => {
         this.idList.push(item.geoNum);
       });
       console.log(this.selectGeoList);
     }
   }
 };
+
 </script>
 <style scoped>
 .all {
@@ -480,5 +392,6 @@ export default {
 
 #add {
   height: auto;
+
 }
 </style>

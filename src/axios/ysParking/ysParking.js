@@ -34,6 +34,7 @@ export function echats (params) {
       flag: 'out'
     })
   }
+
   export function trendAnalysis (params) {
     return request({
       url: '/realtimeMonitorFunc/queryAlarmMonitorTodayList',
@@ -41,3 +42,20 @@ export function echats (params) {
       data: params,
     })
   }
+
+  //停车场管理-停车场管理-列表查询
+  export function queryParkList (param) {
+    return request({
+      url: '/parkFunc/queryParkList',
+      method: 'post',
+      data: param
+    })
+  }
+
+export function login (param) {
+  return request({
+    url: '/systemManageFunc/loginUser.xhtml',
+    method: 'post',
+    data: param
+  })
+}
