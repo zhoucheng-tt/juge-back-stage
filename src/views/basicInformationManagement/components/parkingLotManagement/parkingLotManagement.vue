@@ -56,13 +56,14 @@
         <el-table-column width="120" prop="contact" :show-overflow-tooltip="true" label="联系人"/>
         <el-table-column width="120" prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话"/>
         <el-table-column width="120" prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
-        <el-table-column :show-overflow-tooltip="true" label="操作">
+        <el-table-column width="120" :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="editListDialogue(scope.row)" type="text" size="small">修改</el-button>
             <el-button @click="deleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+      //分页条
       <el-pagination
           style="position: relative;left: 78%"
           layout="total, prev, pager, next, jumper"
@@ -372,7 +373,7 @@
   </div>
 </template>
 <script>
-import {queryParkList} from "@/axios/ysParking/ysParking";
+import {queryParkList,insertPark,deletePark,updatePark} from "@/axios/ysParking/ysParking";
 
 export default {
   data() {
@@ -496,10 +497,14 @@ export default {
     onSubmitAdd() {
       console.log(this.newParkingLot);
       //将新增数据展示到页面（仅做展示用）
-      this.manageParking.push(this.newParkingLot);
+      // this.manageParking.push(this.newParkingLot);
+      insertPark(this.newParkingLot).then(res => {
+        console.log("打印响应", res);
+      });
+      this.queryParkList();
       this.addListDialogueandoff = false;
     },
-    //修改
+    //修改弹框弹出
     editListDialogue(row) {
       console.log(row);
       this.editListDialogueandoff = true;
@@ -508,11 +513,24 @@ export default {
     //单个删除
     deleteListDialogue(row) {
       confirm("确认删除吗？");
-      console.log("你要删除的id是" + row.parkingLotNumber);
+      console.log("你要删除的id是" + row.parkId);
+      this.idList = [];
+      this.idList.push(row.parkId);
+      const param = {
+        parkId: this.idList
+      };
+      deletePark(param).then(res=>{
+        console.log("删除成功");
+      });
+      this.queryParkList();
     },
     //修改表单提交
     onSubmitEdit() {
       console.log(this.editParkingLot);
+      updatePark(this.editParkingLot).then(res=>{
+        console.log("打印响应",res);
+      });
+      this.queryParkList();
       this.editListDialogueandoff = false;
     },
     handleSelectionChange(val) {
@@ -527,13 +545,25 @@ export default {
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
+      // 查询列表方法
+      this.queryParkList();
+    },
+    // 查询列表方法
+    queryParkList() {
+      this.manageParking = [];
+      const param = {
+        pageSize: this.pageSize,
+        pageNum: this.pageNum
+      };
+      this.$ysParking.queryParkList(param).then(res => {
+        console.log("打印出来res", res);
+        this.manageParking = res.data.dataList;
+      });
     }
   },
   mounted() {
-    this.manageParking = [];
-    queryParkList({}).then(resp => {
-      this.manageParking = resp.data.dataList;
-    });
+    // 查询列表方法
+    this.queryParkList();
   }
 };
 </script>

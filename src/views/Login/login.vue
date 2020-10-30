@@ -2,7 +2,7 @@
     登录
  * @Author: 邵青阳
  * @Date: 2020-10-29 10:13:00
- * @LastEditTime: 2020-10-29 14:12:48
+ * @LastEditTime: 2020-10-29 14:25:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\Login\login.vue
@@ -50,11 +50,8 @@
                     "password": hex_sha1(this.loginPassword),
                 };
                 console.log("打印登录入参", param);
-                // this.$homePage.login(param).then(response => {
-                //     console.log("测试", response )
-                // })
                 this.$homePage.login(param).then(response => {
-                    console.log(response);
+                    console.log("返回结果",response);
                     if (response != "" && response != undefined && response.status == "0") {
                         this.$message({
                             type: 'success',
