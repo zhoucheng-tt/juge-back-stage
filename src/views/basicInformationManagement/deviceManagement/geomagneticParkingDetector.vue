@@ -56,6 +56,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <!--分页条-->
+      <el-pagination
+          style="position: relative;left: 78%"
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal">
+      </el-pagination>
       <!--新增表单弹框-->
       <el-dialog id="add" title="新增地磁车位检测器" :visible.sync="addListDialog">
         <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
@@ -197,66 +206,23 @@ export default {
         }
       ],
       //地磁车列表
-      geoList: [
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        },
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        },
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        },
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        }
-      ],
+      geoList: [],
       //新增表单弹框
       addListDialog: false,
       //新增地磁车数据暂存
-      newGeo: {
-        pkLotName: "",
-        pkLotNum: "",
-        geoNum: "",
-        geoName: "",
-        sensorId: "",
-        producer: ""
-      },
+      newGeo: {},
       //修改表单弹框
       editListDialog: false,
       //修改地磁车数据暂存
-      editGeo: {
-        pkLotName: "",
-        pkLotNum: "",
-        geoNum: "",
-        geoName: "",
-        sensorId: "",
-        producer: ""
-      },
+      editGeo: {},
       //批量删除暂存id
       idList: [],
       //多选后数据暂存
-      selectGeoList: []
+      selectGeoList: [],
+      //初始化分页
+      pageNum: 1,
+      pageSize: 10,
+      pageTotal: 4
     };
   },
   methods: {
@@ -267,14 +233,7 @@ export default {
     //新增地磁车
     addNewGeo() {
       console.log("新增地磁车弹框弹出");
-      this.newGeo = {
-        pkLotName: "",
-        pkLotNum: "",
-        geoNum: "",
-        geoName: "",
-        sensorId: "",
-        producer: ""
-      };
+      this.newGeo = {};
       this.addListDialog = true;
     },
     //批量导入
@@ -331,6 +290,12 @@ export default {
         this.idList.push(item.geoNum);
       });
       console.log(this.selectGeoList);
+    },
+    // 分页查询方法
+    handleCurrentModify(val) {
+      this.pageNum = val;
+      // 查询列表方法
+      this.queryParkList();
     }
   }
 };
