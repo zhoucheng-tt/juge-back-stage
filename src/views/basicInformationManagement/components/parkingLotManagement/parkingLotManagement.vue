@@ -63,6 +63,7 @@
           </template>
         </el-table-column>
       </el-table>
+      //分页条
       <el-pagination
           style="position: relative;left: 78%"
           layout="total, prev, pager, next, jumper"
@@ -363,7 +364,6 @@
             <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
           </el-col>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="editListDialogueandoff = false">取 消</el-button>
@@ -498,8 +498,8 @@ export default {
       console.log(this.newParkingLot);
       //将新增数据展示到页面（仅做展示用）
       // this.manageParking.push(this.newParkingLot);
-      insertPark(this.newParkingLot).then(res=>{
-        console.log("添加成功")
+      insertPark(this.newParkingLot).then(res => {
+        console.log("打印响应", res);
       });
       this.queryParkList();
       this.addListDialogueandoff = false;
@@ -514,10 +514,10 @@ export default {
     deleteListDialogue(row) {
       confirm("确认删除吗？");
       console.log("你要删除的id是" + row.parkId);
-      this.idList=[];
+      this.idList = [];
       this.idList.push(row.parkId);
-      const param= {
-        parkId:this.idList
+      const param = {
+        parkId: this.idList
       };
       deletePark(param).then(res=>{
         console.log("删除成功");
@@ -528,7 +528,7 @@ export default {
     onSubmitEdit() {
       console.log(this.editParkingLot);
       updatePark(this.editParkingLot).then(res=>{
-        console.log("修改成功");
+        console.log("打印响应",res);
       });
       this.queryParkList();
       this.editListDialogueandoff = false;
@@ -554,7 +554,7 @@ export default {
       const param = {
         pageSize: this.pageSize,
         pageNum: this.pageNum
-      }
+      };
       this.$ysParking.queryParkList(param).then(res => {
         console.log("打印出来res", res);
         this.manageParking = res.data.dataList;
