@@ -2,7 +2,7 @@
     设备管理
  * @Author: 邵青阳
  * @Date: 2020-10-22 09:26:58
- * @LastEditTime: 2020-10-29 09:38:55
+ * @LastEditTime: 2020-10-30 09:17:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\carWashingMachineManagement.vue
@@ -22,6 +22,12 @@
             <el-tab-pane label="进出口摄像头管理" name="four">
                 <import-Export-Camera-Management />
             </el-tab-pane>
+            <el-tab-pane label="道闸机管理" name="five">
+                <gate-Machine-Management />
+            </el-tab-pane>
+            <el-tab-pane label="充电桩管理" name="sixe">
+                <charge-Point-Management />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -32,13 +38,19 @@
     import floorLock from './deviceManagement/floorLock'
     // 进出口摄像头管理  
     import importExportCameraManagement from './deviceManagement/importExportCameraManagement'
+    // 道闸机管理  gateMachineManagement
+    import gateMachineManagement from './deviceManagement/gateMachineManagement'
+    // 充电桩管理  chargePointManagement
+    import chargePointManagement from './deviceManagement/chargePointManagement'
 
     export default {
         components: {
             videoParkingDetector,
             geomagneticParkingDetector,
             floorLock,
-            importExportCameraManagement
+            importExportCameraManagement,
+            gateMachineManagement,
+            chargePointManagement
         },
         data() {
             return {
