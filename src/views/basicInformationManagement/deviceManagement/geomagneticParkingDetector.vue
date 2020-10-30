@@ -16,14 +16,16 @@
           <el-col span="6">
             <el-form-item label="停车场">
               <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName" :key="index"></el-option>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                           :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus" :key="index"></el-option>
+                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
+                           :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -112,7 +114,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addListDialog = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit01()">确定</el-button>
+          <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
         </div>
       </el-dialog>
       <!--修改表单弹框-->
@@ -123,7 +125,8 @@
             <el-col span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editGeo.pkLotName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName" :key="index"></el-option>
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                             :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -161,7 +164,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="editListDialog = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit02()">确 定</el-button>
+          <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -242,14 +245,18 @@ export default {
     },
     //批量删除
     batchDelete() {
-        console.log("批量删除", this.idList);
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {this.$message({type: "success", message: "删除成功!"});})
-            .catch(() => {this.$message({type: "info", message: "已取消删除"});});
-      },
+      console.log("批量删除", this.idList);
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.$message({type: "success", message: "删除成功!"});
+      })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
+    },
     //修改
     editGeoDialog(row) {
       this.editGeo = row;
@@ -271,13 +278,13 @@ export default {
           });
     },
     //新增表单提交
-    onSubmit01() {
+    onSubmitAdd() {
       console.log("新增数据", this.newGeo);
       this.geoList.push(this.newGeo);
       this.addListDialog = false;
     },
     //修改表单提交
-    onSubmit02() {
+    onSubmitEdit() {
       console.log("修改数据", this.editGeo);
       this.editListDialog = false;
     },
@@ -298,7 +305,7 @@ export default {
       this.queryParkList();
     }
   }
-};
+}
 
 </script>
 <style scoped>

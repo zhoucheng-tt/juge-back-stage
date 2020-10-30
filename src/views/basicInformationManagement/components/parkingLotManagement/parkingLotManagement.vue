@@ -17,7 +17,6 @@
             <el-form-item>
               <el-button type="primary" @click="addInletAndOutlet()">新增停车场</el-button>
               <el-button type="danger" @click="deleteSelect()">批量删除</el-button>
-              <el-button type="info">导出</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -72,8 +71,8 @@
       </el-pagination>
     </div>
     <!--新增表单弹框-->
-    <el-dialog id="add" title="新增停车场信息" :visible.sync="addListDialogueandoff">
-      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+    <el-dialog id="add"  title="新增停车场信息" :visible.sync="addListDialogueandoff">
+      <el-form :inline="true" :rules="rules" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col span="12">
@@ -82,7 +81,7 @@
             </el-form-item>
           </el-col>
           <el-col span="12">
-            <el-form-item label="停车场编号:" label-width="150px">
+            <el-form-item label="停车场编号:" label-width="150px" prop="parkId">
               <el-input v-model="newParkingLot.parkId"/>
             </el-form-item>
           </el-col>
@@ -118,7 +117,8 @@
           <el-col span="12">
             <el-form-item label="归属企业名称:" label-width="150px">
               <el-select v-model="newParkingLot.companyName" placeholder="请选择">
-                <el-option v-for="(item, index) in enterprises" :label="item.enterprisesName" :value="item.enterprisesName"
+                <el-option v-for="(item, index) in enterprises" :label="item.enterprisesName"
+                           :value="item.enterprisesName"
                            :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -221,16 +221,13 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" title="修改停车场信息" :visible.sync="editListDialogueandoff">
+    <el-dialog id="edit" :rules="rules" title="修改停车场信息" :visible.sync="editListDialogueandoff">
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col span="12">
             <el-form-item label="停车场名称:" label-width="150px">
-              <el-select v-model="editParkingLot.parkName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingNameList" :label="item.parkingName"
-                           :value="item.parkingName" :key="index"></el-option>
-              </el-select>
+              <el-input v-model="editParkingLot.parkName"></el-input>
             </el-form-item>
           </el-col>
           <el-col span="12">
@@ -241,35 +238,20 @@
         </el-row>
         <el-row>
           <el-col span="12">
-            <el-form-item label="停车场类型名称:" label-width="150px">
-              <el-select v-model="editParkingLot.parkTypeName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType"
-                           :key="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col span="12">
             <el-form-item label="停车场类型编号:" label-width="150px">
               <el-input v-model="editParkingLot.parkTypeCode"/>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col span="12">
             <el-form-item label="运营商编码:" label-width="150px">
               <el-input v-model="editParkingLot.parkOptIntegratorCode"/>
             </el-form-item>
           </el-col>
-          <el-col span="12">
-            <el-form-item label="归属企业ID:" label-width="150px">
-              <el-input v-model="editParkingLot.companyId"/>
-            </el-form-item>
-          </el-col>
         </el-row>
         <el-row>
           <el-col span="12">
-            <el-form-item label="归属企业名称:" label-width="150px">
-              <el-input v-model="editParkingLot.companyName"/>
+            <el-form-item label="归属企业ID:" label-width="150px">
+              <el-input v-model="editParkingLot.companyId"/>
             </el-form-item>
           </el-col>
           <el-col span="12">
@@ -430,7 +412,14 @@ export default {
       //修改停车场数据暂存
       editParkingLot: {},
       //批量删除暂存id
-      idList: []
+      idList: [],
+      //表单验证规则
+      rules:{
+        parkId:[
+          {required: true,message: '请输入ID',trigger: 'blur'},
+          {max:5,min:3,message: "3到5位数",trigger: 'blur'}
+        ]
+      }
     };
   },
   methods: {
