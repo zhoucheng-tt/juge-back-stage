@@ -363,7 +363,6 @@
             <el-button type="info" @click="viewPicture()" size="small">预览</el-button>
           </el-col>
         </el-row>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="editListDialogueandoff = false">取 消</el-button>

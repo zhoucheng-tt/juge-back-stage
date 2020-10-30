@@ -16,10 +16,10 @@
           <el-form-item label="停车场：">
             <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
               <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.parkingName"
-                :value="item.parkingName"
-                :key="index"
+                  v-for="(item, index) in parkingLotList"
+                  :label="item.parkingName"
+                  :value="item.parkingName"
+                  :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -28,37 +28,37 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="addInletAndOutlet"
-              >新增出入口
+            >新增出入口
             </el-button>
             <el-button type="primary" @click="deleteSelect()"
-              >批量删除
+            >批量删除
             </el-button>
           </el-form-item>
         </el-form>
         <!--新增-->
         <el-dialog
-          id="add"
-          title="新增出入口信息"
-          :visible.sync="addListDialogueandoff"
+            id="add"
+            title="新增出入口信息"
+            :visible.sync="addListDialogueandoff"
         >
           <el-form
-            :inline="true"
-            :model="addListDialogueandoffList"
-            class="demo-form-inline"
+              :inline="true"
+              :model="addListDialogueandoffList"
+              class="demo-form-inline"
           >
             <div><h3>归属停车场信息</h3></div>
             <el-col offset="1">
               <el-form-item label="归属停车场:">
                 <el-select
-                  v-model="addListDialogueandoffList.TingNum"
-                  placeholder="请选择停车场"
-                  style="width: 300px"
+                    v-model="addListDialogueandoffList.TingNum"
+                    placeholder="请选择停车场"
+                    style="width: 300px"
                 >
                   <el-option
-                    v-for="(item, index) in parkingLotList"
-                    :label="item.parkingName"
-                    :value="item.parkingName"
-                    :key="index"
+                      v-for="(item, index) in parkingLotList"
+                      :label="item.parkingName"
+                      :value="item.parkingName"
+                      :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -67,31 +67,31 @@
             <el-col offset="1">
               <el-form-item label="出入口编号:">
                 <el-input
-                  v-model="addListDialogueandoffList.passagewayId"
-                  placeholder="请输入出入口编号"
-                  style="width: 300px"
+                    v-model="addListDialogueandoffList.passagewayId"
+                    placeholder="请输入出入口编号"
+                    style="width: 300px"
                 ></el-input>
               </el-form-item>
               <el-form-item label="出入口名称:">
                 <el-input
-                  v-model="addListDialogueandoffList.entryAndExitName"
-                  placeholder="请输入出入口名称"
-                  style="width: 300px"
+                    v-model="addListDialogueandoffList.passagewayName"
+                    placeholder="请输入出入口名称"
+                    style="width: 300px"
                 ></el-input>
               </el-form-item>
             </el-col>
             <el-col offset="1">
               <el-form-item label="出入口类型:">
                 <el-select
-                  v-model="addListDialogueandoffList.entryAndExitType"
-                  placeholder="请选择出入口类型"
-                  style="width: 300px"
+                    v-model="addListDialogueandoffList.passagewayTypeName"
+                    placeholder="请选择出入口类型"
+                    style="width: 300px"
                 >
                   <el-option
-                    v-for="(item, index) in entryAndExitList"
-                    :label="item.entryAndExit"
-                    :value="item.entryAndExit"
-                    :key="index"
+                      v-for="(item, index) in entryAndExitList"
+                      :label="item.entryAndExit"
+                      :value="item.entryAndExit"
+                      :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -99,11 +99,11 @@
             <el-col offset="1">
               <el-form-item label="出入口描述:">
                 <el-input
-                  type="textarea"
-                  style="width: 700px"
-                  :rows="2"
-                  placeholder="请输入内容"
-                  v-model="addListDialogueandoffList.entryAndExitDescribe"
+                    type="textarea"
+                    style="width: 700px"
+                    :rows="2"
+                    placeholder="请输入内容"
+                    v-model="addListDialogueandoffList.passagewayDesc"
                 >
                 </el-input>
               </el-form-item>
@@ -119,11 +119,11 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="manageEntryAndExit"
-        :row-class-name="tableRowClassName"
-        ref="selectManageEntryAndExit"
-        @selection-change="handleSelectManageEntryAndExit"
-        :header-cell-style="{
+          :data="manageEntryAndExit"
+          :row-class-name="tableRowClassName"
+          ref="selectManageEntryAndExit"
+          @selection-change="handleSelectManageEntryAndExit"
+          :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -132,82 +132,148 @@
           fontSize: '12px',
           fontWeight: '100'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
+          :cell-style="{ 'text-align': 'center' }"
+          style="width: 100%;"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column
-          prop="parkId"
-          label="停车场编号"
-          width="100"
+            prop="passagewayId"
+            :show-overflow-tooltip="true"
+            label="出入口编号"
+            width="100"
         ></el-table-column>
         <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-          width=""
+            prop="parkId"
+            :show-overflow-tooltip="true"
+            label="停车场编号"
+            width="100"
+        ></el-table-column>
+        <el-table-column
+            prop="parkName"
+            :show-overflow-tooltip="true"
+            label="停车场名称"
+            width="120"
         >
         </el-table-column>
         <el-table-column
-          prop="parkingLotType"
-          :show-overflow-tooltip="true"
-          label="停车场类型"
-          width=""
+            prop="parkTypeCode"
+            :show-overflow-tooltip="true"
+            label="停车场类型编码"
+            width="120"
         >
         </el-table-column>
         <el-table-column
-          prop="entryAndExitType"
-          :show-overflow-tooltip="true"
-          label="出入口类型"
+            prop="parkTypeName"
+            :show-overflow-tooltip="true"
+            label="停车场类型名称"
+            width="120"
+        >
+        </el-table-column>
+        <el-table-column
+            width="120"
+            prop="passagewayTypeCode"
+            :show-overflow-tooltip="true"
+            label="出入口类型编码"
         ></el-table-column>
         <el-table-column
-          prop="passagewayId"
-          :show-overflow-tooltip="true"
-          label="出入口编号"
+            width="120"
+            prop="passagewayTypeName"
+            :show-overflow-tooltip="true"
+            label="出入口类型名称"
         ></el-table-column>
         <el-table-column
-          prop="entryAndExitName"
-          :show-overflow-tooltip="true"
-          label="出入口名称"
+            width="120"
+            prop="passagewayName"
+            :show-overflow-tooltip="true"
+            label="出入口名称"
         ></el-table-column>
         <el-table-column
-          prop="entryAndExitDescribe"
-          :show-overflow-tooltip="true"
-          label="出入口描述"
+            width="120"
+            prop="passagewayDesc"
+            :show-overflow-tooltip="true"
+            label="出入口描述"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="passagewayCameraId"
+            :show-overflow-tooltip="true"
+            label="摄像头编号"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="passagewayCameraName"
+            :show-overflow-tooltip="true"
+            label="摄像头名称"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="passagewayGateId"
+            :show-overflow-tooltip="true"
+            label="道闸机编号"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="passagewayGateName"
+            :show-overflow-tooltip="true"
+            label="道闸机名称"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="cityCode"
+            :show-overflow-tooltip="true"
+            label="地市编码"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="cityName"
+            :show-overflow-tooltip="true"
+            label="地市名称"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="districtCode"
+            :show-overflow-tooltip="true"
+            label="区县编码"
+        ></el-table-column>
+        <el-table-column
+            width="120"
+            prop="districtName"
+            :show-overflow-tooltip="true"
+            label="区县名称"
         ></el-table-column>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-              @click="editListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >修改
+                @click="editListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >修改
             </el-button>
             <el-button
-              @click="deleteListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >删除
+                @click="deleteListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
-        style="position: absolute;right:4%;margin-top:20px"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
+          style="position: absolute;right:4%;margin-top:20px"
+          background
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
       >
       </el-pagination>
       <!-- 信息修改点击弹出框 -->
       <el-dialog title="修改出入口管理" :visible.sync="editListDialogueandoff">
         <el-form
-          :inline="true"
-          :model="editListDialogueandoffList"
-          class="demo-form-inline"
+            :inline="true"
+            :model="editListDialogueandoffList"
+            class="demo-form-inline"
         >
           <el-form-item label="停车场编号:" class="el-form-item-dialog">
             <el-input v-model="editListDialogueandoffList.parkId"></el-input>
@@ -217,27 +283,27 @@
           </el-form-item>
           <el-form-item label="停车场类型:" class="el-form-item-dialog">
             <el-input
-              v-model="editListDialogueandoffList.parkingLotType"
+                v-model="editListDialogueandoffList.parkTypeName"
             ></el-input>
           </el-form-item>
           <el-form-item label="出入口类型:" class="el-form-item-dialog">
             <el-input
-              v-model="editListDialogueandoffList.entryAndExitType"
+                v-model="editListDialogueandoffList.passagewayTypeName"
             ></el-input>
           </el-form-item>
           <el-form-item label="出入口编号:" class="el-form-item-dialog">
             <el-input
-              v-model="editListDialogueandoffList.entryAndExitName"
+                v-model="editListDialogueandoffList.entryAndExitName"
             ></el-input>
           </el-form-item>
           <el-form-item label="出入口名称:" class="el-form-item-dialog">
             <el-input
-              v-model="editListDialogueandoffList.passagewayId"
+                v-model="editListDialogueandoffList.passagewayId"
             ></el-input>
           </el-form-item>
           <el-form-item label="出入口描述:" class="el-form-item-dialog">
             <el-input
-              v-model="editListDialogueandoffList.entryAndExitDescribe"
+                v-model="editListDialogueandoffList.passagewayDesc"
             ></el-input>
           </el-form-item>
         </el-form>
@@ -250,11 +316,13 @@
   </div>
 </template>
 <script>
+import {queryPassagewayList} from "@/axios/ysParking/ysParking.js";
+
 export default {
   data() {
     return {
       // 查询数据暂存处
-      upQueryList: { TingNum: "" },
+      upQueryList: {TingNum: ""},
       //多选后数据暂存
       selectManageEntryAndExit: [],
       // 停车场下拉框数据暂存
@@ -300,26 +368,7 @@ export default {
       pageSize: 10,
       pageTotal: 4,
       // 列表数据暂存处
-      manageEntryAndExit: [
-        {
-          parkId: "1",
-          parkName: "停车场",
-          parkingLotType: "不知道",
-          entryAndExitType: "入口",
-          passagewayId: "02",
-          entryAndExitName: "不知道",
-          entryAndExitDescribe: "无"
-        },
-        {
-          parkId: "1",
-          parkName: "停车场",
-          parkingLotType: "不知道",
-          entryAndExitType: "入口",
-          passagewayId: "02",
-          entryAndExitName: "不知道",
-          entryAndExitDescribe: "无"
-        }
-      ],
+      manageEntryAndExit: [],
       // 修改弹窗显示和隐藏属性
       editListDialogueandoff: false,
       // 修改弹窗数据暂存
@@ -330,9 +379,9 @@ export default {
       addListDialogueandoffList: {
         TingNum: "",
         passagewayId: "",
-        entryAndExitName: "",
-        entryAndExitType: "",
-        entryAndExitDescribe: ""
+        passagewayName: "",
+        passagewayTypeName: "",
+        passagewayDesc: ""
       }
     };
   },
@@ -350,7 +399,7 @@ export default {
       this.pageNum = val;
     },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
@@ -368,9 +417,9 @@ export default {
       this.addListDialogueandoffList = {
         TingNum: "",
         passagewayId: "",
-        entryAndExitName: "",
-        entryAndExitType: "",
-        entryAndExitDescribe: ""
+        passagewayName: "",
+        passagewayTypeName: "",
+        passagewayDesc: ""
       };
       this.addListDialogueandoff = true;
       // this.addListDialogueandoffList = row
@@ -390,7 +439,21 @@ export default {
     InfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.editListDialogueandoff = false;
+    },
+    queryPassagewayList(){
+      this.manageEntryAndExit = [];
+      const param= {
+        pageNum: this.pageNum,
+        pageTotal: this.pageTotal
+      };
+      queryPassagewayList(param).then(res => {
+        this.manageEntryAndExit = res.data.datalist;
+      })
     }
+  },
+  mounted() {
+
+    this.queryPassagewayList()
   }
 };
 </script>
