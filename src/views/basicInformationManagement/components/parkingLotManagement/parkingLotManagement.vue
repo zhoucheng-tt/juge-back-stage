@@ -21,7 +21,8 @@
           <el-col span="6" offset="6">
             <el-form-item>
               <el-button type="primary" @click="addInletAndOutlet()">新增停车场</el-button>
-              <el-button type="primary" @click="deleteSelect()">批量删除</el-button>
+              <el-button type="danger" @click="deleteSelect()">批量删除</el-button>
+              <el-button type="info">导出</el-button>
             </el-form-item>
           </el-col>
         </el-row>

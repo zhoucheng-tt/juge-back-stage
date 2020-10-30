@@ -57,6 +57,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <!--分页条-->
+      <el-pagination
+          style="position: relative;left: 78%"
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal">
+      </el-pagination>
       <!--新增表单弹框-->
       <el-dialog id="add" title="新增地磁车位检测器" :visible.sync="addListDialog">
         <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
