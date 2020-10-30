@@ -2,7 +2,7 @@
     基础信息管理ETC
  * @Author: 王思远
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-22 14:48:55
+ * @LastEditTime: 2020-10-30 13:57:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
