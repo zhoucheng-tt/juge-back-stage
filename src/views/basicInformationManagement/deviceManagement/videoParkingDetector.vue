@@ -15,39 +15,24 @@
         <el-row>
           <el-col span="6">
             <el-form-item label="停车场">
-              <el-select
-                v-model="parkingLotNameList.pkName"
-                placeholder="请选择"
-              >
-                <el-option
-                  v-for="(item, index) in parkingLotNameList"
-                  :label="item.pkName"
-                  :value="item.pkName"
-                  :key="index"
-                ></el-option>
+              <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                  :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option
-                  v-for="(item, index) in eqStatusList"
-                  :label="item.eqStatus"
-                  :value="item.eqStatus"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
+                  :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="12">
-            <el-button type="primary" @click="addNewVideoParking()"
-              >新增视频车位检测器</el-button
-            >
+            <el-button type="primary" @click="addNewVideoParking()">新增视频车位检测器</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()"
-              >批量删除</el-button
-            >
+            <el-button type="primary" @click="batchDelete()">批量删除</el-button>
             <el-button type="primary" @click="queryPkLot()">查 询</el-button>
           </el-col>
         </el-row>
@@ -55,10 +40,7 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table
-        :data="videoList"
-        ref="selectVideoList"
-        :header-cell-style="{
+      <el-table :data="videoList" ref="selectVideoList" :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -66,98 +48,35 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-        @selection-change="handleSelectionChange"
-      >
+        }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
         <el-table-column type="selection" />
         <el-table-column fixed prop="pkLotNum" label="停车场编号" />
-        <el-table-column
-          prop="pkLotName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-        />
-        <el-table-column
-          prop="videoParkingNum"
-          :show-overflow-tooltip="true"
-          label="视频车位检测器编号"
-        />
-        <el-table-column
-          prop="videoParkingName"
-          :show-overflow-tooltip="true"
-          label="视频车位检测器名称"
-        />
-        <el-table-column
-          prop="monitoringType"
-          :show-overflow-tooltip="true"
-          label="监控类型"
-        />
-        <el-table-column
-          prop="IPAddr"
-          :show-overflow-tooltip="true"
-          label="IP地址"
-        />
-        <el-table-column
-          prop="port"
-          :show-overflow-tooltip="true"
-          label="端口"
-        />
-        <el-table-column
-          prop="userName"
-          :show-overflow-tooltip="true"
-          label="用户名"
-        />
-        <el-table-column
-          prop="addr"
-          :show-overflow-tooltip="true"
-          label="地址"
-        />
-        <el-table-column
-          prop="producer"
-          :show-overflow-tooltip="true"
-          label="制造商"
-        />
+        <el-table-column prop="pkLotName" :show-overflow-tooltip="true" label="停车场名称" />
+        <el-table-column prop="videoParkingNum" :show-overflow-tooltip="true" label="视频车位检测器编号" />
+        <el-table-column prop="videoParkingName" :show-overflow-tooltip="true" label="视频车位检测器名称" />
+        <el-table-column prop="monitoringType" :show-overflow-tooltip="true" label="监控类型" />
+        <el-table-column prop="IPAddr" :show-overflow-tooltip="true" label="IP地址" />
+        <el-table-column prop="port" :show-overflow-tooltip="true" label="端口" />
+        <el-table-column prop="userName" :show-overflow-tooltip="true" label="用户名" />
+        <el-table-column prop="addr" :show-overflow-tooltip="true" label="地址" />
+        <el-table-column prop="producer" :show-overflow-tooltip="true" label="制造商" />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button
-              @click="editVideoDialog(scope.row)"
-              type="text"
-              size="small"
-              >修改</el-button
-            >
-            <el-button
-              @click="deleteVideoParking(scope.row)"
-              type="text"
-              size="small"
-              >删除</el-button
-            >
+            <el-button @click="editVideoDialog(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="deleteVideoParking(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--新增表单弹框-->
-      <el-dialog
-        id="add"
-        title="新增视频车位检测器"
-        :visible.sync="addListDialog"
-      >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+      <el-dialog id="add" title="新增视频车位检测器" :visible.sync="addListDialog">
+        <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="newVideo.pkLotName" placeholder="请选择">
-                  <el-option
-                    v-for="(item, index) in parkingLotNameList"
-                    :label="item.pkName"
-                    :value="item.pkName"
-                    :key="index"
-                  ></el-option>
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                    :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -183,16 +102,9 @@
           <el-row>
             <el-col span="12">
               <el-form-item label="监控类型:" label-width="150px">
-                <el-select
-                  v-model="newVideo.monitoringType"
-                  placeholder="请选择"
-                >
-                  <el-option
-                    v-for="(item, index) in monitoringTypeList"
-                    :label="item.typeName"
-                    :value="item.typeName"
-                    :key="index"
-                  ></el-option>
+                <el-select v-model="newVideo.monitoringType" placeholder="请选择">
+                  <el-option v-for="(item, index) in monitoringTypeList" :label="item.typeName" :value="item.typeName"
+                    :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -235,28 +147,15 @@
         </div>
       </el-dialog>
       <!--修改表单弹框-->
-      <el-dialog
-        id="edit"
-        title="修改视频车位检测器"
-        :visible.sync="editListDialog"
-      >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+      <el-dialog id="edit" title="修改视频车位检测器" :visible.sync="editListDialog">
+        <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editVideo.pkLotName" placeholder="请选择">
-                  <el-option
-                    v-for="(item, index) in parkingLotNameList"
-                    :label="item.pkName"
-                    :value="item.pkName"
-                    :key="index"
-                  ></el-option>
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                    :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -325,253 +224,253 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      //停车场名称列表
-      parkingLotNameList: [
-        {
-          pkName: "新能源停车场",
-          id: "1"
-        },
-        {
-          pkName: "免费停车场",
-          id: "2"
-        },
-        {
-          pkName: "新能源停车场",
-          id: "3"
-        },
-        {
-          pkName: "新能源停车场",
-          id: "4"
-        }
-      ],
-      // 监控类型列表
-      monitoringTypeList: [
-        {
-          typeName: "新能源停车场",
-          id: "1"
-        },
-        {
-          typeName: "免费停车场",
-          id: "2"
-        },
-        {
-          typeName: "新能源停车场",
-          id: "3"
-        }
-      ],
-      //设备状态
-      eqStatusList: [
-        {
-          eqStatus: "全部",
-          id: "1"
-        },
-        {
-          eqStatus: "完好",
-          id: "2"
-        },
-        {
-          eqStatus: "损坏",
-          id: "3"
-        }
-      ],
-      //地磁车列表
-      videoList: [
-        {
-          pkLotNum: "B179",
-          pkLotName: "东厦门停车场",
-          videoParkingNum: "11",
-          videoParkingName: "不知",
-          monitoringType: "不知",
-          IPAddr: "192.168.1.1",
-          port: "8080",
-          userName: "小王",
-          addr: "江苏省南京市",
-          producer: "东腾电器"
-        },
-        {
-          pkLotNum: "B179",
-          pkLotName: "东厦门停车场",
-          videoParkingNum: "11",
-          videoParkingName: "不知",
-          monitoringType: "不知",
-          IPAddr: "192.168.1.1",
-          port: "8080",
-          userName: "小王",
-          addr: "江苏省南京市",
-          producer: "东腾电器"
-        },
-        {
-          pkLotNum: "B179",
-          pkLotName: "东厦门停车场",
-          videoParkingNum: "11",
-          videoParkingName: "不知",
-          monitoringType: "不知",
-          IPAddr: "192.168.1.1",
-          port: "8080",
-          userName: "小王",
-          addr: "江苏省南京市",
-          producer: "东腾电器"
-        },
-        {
-          pkLotNum: "B179",
-          pkLotName: "东厦门停车场",
-          videoParkingNum: "11",
-          videoParkingName: "不知",
-          monitoringType: "不知",
-          IPAddr: "192.168.1.1",
-          port: "8080",
-          userName: "小王",
-          addr: "江苏省南京市",
-          producer: "东腾电器"
-        }
-      ],
-      //新增表单弹框
-      addListDialog: false,
-      //新增地磁车数据暂存
-      newVideo: {},
-      //修改表单弹框
-      editListDialog: false,
-      //修改视频车数据暂存
-      editVideo: {},
-      //批量删除暂存id
-      idList: [],
-      //多选后数据暂存
-      selectVideoList: []
-    };
-  },
-  methods: {
-    //查询
-    queryPkLot() {
-      console.log("查询的停车场名称", this.parkingLotNameList.pkName);
+  export default {
+    data() {
+      return {
+        //停车场名称列表
+        parkingLotNameList: [
+          {
+            pkName: "新能源停车场",
+            id: "1"
+          },
+          {
+            pkName: "免费停车场",
+            id: "2"
+          },
+          {
+            pkName: "新能源停车场",
+            id: "3"
+          },
+          {
+            pkName: "新能源停车场",
+            id: "4"
+          }
+        ],
+        // 监控类型列表
+        monitoringTypeList: [
+          {
+            typeName: "新能源停车场",
+            id: "1"
+          },
+          {
+            typeName: "免费停车场",
+            id: "2"
+          },
+          {
+            typeName: "新能源停车场",
+            id: "3"
+          }
+        ],
+        //设备状态
+        eqStatusList: [
+          {
+            eqStatus: "全部",
+            id: "1"
+          },
+          {
+            eqStatus: "完好",
+            id: "2"
+          },
+          {
+            eqStatus: "损坏",
+            id: "3"
+          }
+        ],
+        //地磁车列表
+        videoList: [
+          {
+            pkLotNum: "B179",
+            pkLotName: "东厦门停车场",
+            videoParkingNum: "11",
+            videoParkingName: "不知",
+            monitoringType: "不知",
+            IPAddr: "192.168.1.1",
+            port: "8080",
+            userName: "小王",
+            addr: "江苏省南京市",
+            producer: "东腾电器"
+          },
+          {
+            pkLotNum: "B179",
+            pkLotName: "东厦门停车场",
+            videoParkingNum: "11",
+            videoParkingName: "不知",
+            monitoringType: "不知",
+            IPAddr: "192.168.1.1",
+            port: "8080",
+            userName: "小王",
+            addr: "江苏省南京市",
+            producer: "东腾电器"
+          },
+          {
+            pkLotNum: "B179",
+            pkLotName: "东厦门停车场",
+            videoParkingNum: "11",
+            videoParkingName: "不知",
+            monitoringType: "不知",
+            IPAddr: "192.168.1.1",
+            port: "8080",
+            userName: "小王",
+            addr: "江苏省南京市",
+            producer: "东腾电器"
+          },
+          {
+            pkLotNum: "B179",
+            pkLotName: "东厦门停车场",
+            videoParkingNum: "11",
+            videoParkingName: "不知",
+            monitoringType: "不知",
+            IPAddr: "192.168.1.1",
+            port: "8080",
+            userName: "小王",
+            addr: "江苏省南京市",
+            producer: "东腾电器"
+          }
+        ],
+        //新增表单弹框
+        addListDialog: false,
+        //新增地磁车数据暂存
+        newVideo: {},
+        //修改表单弹框
+        editListDialog: false,
+        //修改视频车数据暂存
+        editVideo: {},
+        //批量删除暂存id
+        idList: [],
+        //多选后数据暂存
+        selectVideoList: []
+      };
     },
-    //新增视频车
-    addNewVideoParking() {
-      console.log("新增视频车弹框弹出");
-      this.newVideo = {};
-      this.addListDialog = true;
-    },
-    //批量导入
-    bulkImport() {
-      console.log("批量导入");
-    },
-    //批量删除
-    batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({ type: "success", message: "删除成功!" });
+    methods: {
+      //查询
+      queryPkLot() {
+        console.log("查询的停车场名称", this.parkingLotNameList.pkName);
+      },
+      //新增视频车
+      addNewVideoParking() {
+        console.log("新增视频车弹框弹出");
+        this.newVideo = {};
+        this.addListDialog = true;
+      },
+      //批量导入
+      bulkImport() {
+        console.log("批量导入");
+      },
+      //批量删除
+      batchDelete() {
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
-    },
-    //修改
-    editVideoDialog(row) {
-      this.editVideo = row;
-      this.editListDialog = true;
-      console.log("修改弹窗弹出");
-    },
-    //删除
-    deleteVideoParking(row) {
-      console.log("删除的视频车Id", row.videoParkingNum);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$message({ type: "success", message: "删除成功!" });
+          .then(() => {
+            this.$message({ type: "success", message: "删除成功!" });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
+      },
+      //修改
+      editVideoDialog(row) {
+        this.editVideo = row;
+        this.editListDialog = true;
+        console.log("修改弹窗弹出");
+      },
+      //删除
+      deleteVideoParking(row) {
+        console.log("删除的视频车Id", row.videoParkingNum);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
+          .then(() => {
+            this.$message({ type: "success", message: "删除成功!" });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
+      },
+      //新增表单提交
+      onSubmit01() {
+        console.log("新增数据", this.newVideo);
+        this.videoList.push(this.newVideo);
+        this.addListDialog = false;
+      },
+      //修改表单提交
+      onSubmit02() {
+        console.log("修改数据", this.editVideo);
+        this.editListDialog = false;
+      },
+      //批量删除监听
+      handleSelectionChange(val) {
+        this.selectVideoList = val;
+        this.idList = [];
+        //获取批量删除id
+        val.forEach(item => {
+          this.idList.push(item.videoParkingNum);
         });
-    },
-    //新增表单提交
-    onSubmit01() {
-      console.log("新增数据", this.newVideo);
-      this.videoList.push(this.newVideo);
-      this.addListDialog = false;
-    },
-    //修改表单提交
-    onSubmit02() {
-      console.log("修改数据", this.editVideo);
-      this.editListDialog = false;
-    },
-    //批量删除监听
-    handleSelectionChange(val) {
-      this.selectVideoList = val;
-      this.idList = [];
-      //获取批量删除id
-      val.forEach(item => {
-        this.idList.push(item.videoParkingNum);
-      });
-      console.log(this.selectVideoList);
+        console.log(this.selectVideoList);
+      }
     }
-  }
-};
+  };
 </script>
 <style scoped>
-.all {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
+  .all {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 
-/* 上半部分查询部分 */
-.up {
-  width: 100%;
-  height: 15%;
-  float: left;
-}
+  /* 上半部分查询部分 */
+  .up {
+    width: 100%;
+    height: 15%;
+    float: left;
+  }
 
-/* 查询条件部分样式 */
-.demo-form-inline {
-  width: 100%;
-  height: 80%;
-  margin-top: 3%;
-  padding-left: 2%;
-}
+  /* 查询条件部分样式 */
+  .demo-form-inline {
+    width: 100%;
+    height: 80%;
+    margin-top: 3%;
+    padding-left: 2%;
+  }
 
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
+  /* 下班部分列表部分 */
+  .down {
+    width: 100%;
+    height: 85%;
+    float: left;
+  }
 
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
+  /* 斑马纹样式 */
+  /deep/ .el-table .successRow11 {
+    background: #7de6f8 !important;
+  }
 
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
-}
+  /deep/ .el-table .successSecond {
+    background: #8ed3e7 !important;
+  }
 
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0;
-}
+  /* 表格表头样式 */
+  .el-table__header-wrapper {
+    width: 100%;
+    height: 0;
+  }
 
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
+  /* 设置弹出框样式 */
+  /deep/ .el-dialog {
+    width: 50%;
+  }
 
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
+  /* 弹出框内表单样式控制 */
+  .el-form-item-dialog {
+    width: 32%;
+  }
 
-#add {
-  height: auto;
-}
+  #add {
+    height: auto;
+  }
 </style>
