@@ -27,6 +27,7 @@
     <div class="down">
       <el-scrollbar style="height:100%;">
         <el-table :data="parkList" ref="selectParkingLotList"
+                  :row-class-name="tableRowClassName"
                   :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                   :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                   @selection-change="handleSelectionChange">
@@ -370,6 +371,15 @@ export default {
     };
   },
   methods: {
+    //斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return "successRow11";
+      } else if (rowIndex % 2 == 0) {
+        return "successSecond";
+      }
+      return "";
+    },
     //批量删除
     deleteSelect() {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -615,7 +625,7 @@ export default {
         });
       },
       deep: true
-    },
+    }
   }
 };
 </script>
