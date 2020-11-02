@@ -2,7 +2,7 @@
     停车场运营收入分析
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-20 10:24:11
+ * @LastEditTime: 2020-11-02 10:41:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
@@ -27,29 +27,28 @@
     <div class="down">
       <el-scrollbar style="height:100%;">
         <el-table :data="parkList" ref="selectParkingLotList"
-                  :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                  :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
-                  @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="55"/>
-          <el-table-column width="120" prop="parkId" :show-overflow-tooltip="true" label="停车场编号"/>
-          <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-          <el-table-column width="120" prop="parkTypeCode" :show-overflow-tooltip="true" label="停车场类型编码"/>
-          <el-table-column width="120" prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称"/>
-          <el-table-column width="120" prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>
-          <el-table-column width="120" prop="companyId" :show-overflow-tooltip="true" label="归属企业id"/>
-          <el-table-column width="120" prop="companyName" :show-overflow-tooltip="true" label="归属企业名称"/>
-          <el-table-column width="120" prop="cityCode" :show-overflow-tooltip="true" label="归属地市id"/>
-          <el-table-column width="120" prop="cityName" :show-overflow-tooltip="true" label="归属地市名称"/>
-          <el-table-column width="120" prop="districtCode" :show-overflow-tooltip="true" label="归属区县id"/>
-          <el-table-column width="120" prop="districtName" :show-overflow-tooltip="true" label="归属区县名称"/>
-          <el-table-column width="120" prop="address" :show-overflow-tooltip="true" label="地址"/>
-          <el-table-column width="120" prop="longitude" :show-overflow-tooltip="true" label="经度"/>
-          <el-table-column width="120" prop="latitude" :show-overflow-tooltip="true" label="纬度"/>
-          <el-table-column width="120" prop="parkSpaceNum" :show-overflow-tooltip="true" label="规划总车位数"/>
-          <el-table-column width="120" prop="billingRuleDesc" :show-overflow-tooltip="true" label="计费规则"/>
-          <el-table-column width="120" prop="contact" :show-overflow-tooltip="true" label="联系人"/>
-          <el-table-column width="120" prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话"/>
-          <el-table-column width="120" prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
+          :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+          :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
+          <el-table-column type="selection" width="55" />
+          <el-table-column width="120" prop="parkId" :show-overflow-tooltip="true" label="停车场编号" />
+          <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称" />
+          <el-table-column width="120" prop="parkTypeCode" :show-overflow-tooltip="true" label="停车场类型编码" />
+          <el-table-column width="120" prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称" />
+          <el-table-column width="120" prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码" />
+          <el-table-column width="120" prop="companyId" :show-overflow-tooltip="true" label="归属企业id" />
+          <el-table-column width="120" prop="companyName" :show-overflow-tooltip="true" label="归属企业名称" />
+          <el-table-column width="120" prop="cityCode" :show-overflow-tooltip="true" label="归属地市id" />
+          <el-table-column width="120" prop="cityName" :show-overflow-tooltip="true" label="归属地市名称" />
+          <el-table-column width="120" prop="districtCode" :show-overflow-tooltip="true" label="归属区县id" />
+          <el-table-column width="120" prop="districtName" :show-overflow-tooltip="true" label="归属区县名称" />
+          <el-table-column width="120" prop="address" :show-overflow-tooltip="true" label="地址" />
+          <el-table-column width="120" prop="longitude" :show-overflow-tooltip="true" label="经度" />
+          <el-table-column width="120" prop="latitude" :show-overflow-tooltip="true" label="纬度" />
+          <el-table-column width="120" prop="parkSpaceNum" :show-overflow-tooltip="true" label="规划总车位数" />
+          <el-table-column width="120" prop="billingRuleDesc" :show-overflow-tooltip="true" label="计费规则" />
+          <el-table-column width="120" prop="contact" :show-overflow-tooltip="true" label="联系人" />
+          <el-table-column width="120" prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话" />
+          <el-table-column width="120" prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片" />
           <el-table-column width="120" :show-overflow-tooltip="true" label="操作">
             <template slot-scope="scope">
               <el-button @click="editListDialogue(scope.row)" type="text" size="small">修改</el-button>
@@ -174,7 +173,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="停车场图片:" label-width="150px">
-              <el-input v-model="newParkingLot.parkPictureFile"/>
+              <el-input v-model="newParkingLot.parkPictureFile" />
             </el-form-item>
           </el-col>
           <el-col :span="2">
@@ -306,7 +305,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="停车场图片:" label-width="150px">
-              <el-input v-model="editParkingLot.parkPictureFile"/>
+              <el-input v-model="editParkingLot.parkPictureFile" />
             </el-form-item>
           </el-col>
           <el-col :span="2">
@@ -470,9 +469,7 @@ export default {
       console.log("批量删除ID", this.idList);
       console.log(this.selectParkingLotList);
     },
-    // 分页查询方法
-    handleCurrentModify(val) {
-      this.pageNum = val;
+    mounted() {
       // 查询列表方法
       this.queryParkList();
     },
@@ -620,60 +617,60 @@ export default {
 };
 </script>
 <style scoped>
-.all {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
+  .all {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 
-/* 上半部分查询部分 */
-.up {
-  width: 100%;
-  height: 15%;
-  float: left;
-}
+  /* 上半部分查询部分 */
+  .up {
+    width: 100%;
+    height: 15%;
+    float: left;
+  }
 
-/* 查询条件部分样式 */
-.demo-form-inline {
-  width: 100%;
-  height: 80%;
-  margin-top: 3%;
-  padding-left: 2%;
-}
+  /* 查询条件部分样式 */
+  .demo-form-inline {
+    width: 100%;
+    height: 80%;
+    margin-top: 3%;
+    padding-left: 2%;
+  }
 
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
+  /* 下班部分列表部分 */
+  .down {
+    width: 100%;
+    height: 85%;
+    float: left;
+  }
 
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
+  /* 斑马纹样式 */
+  /deep/ .el-table .successRow11 {
+    background: #7de6f8 !important;
+  }
 
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
-}
+  /deep/ .el-table .successSecond {
+    background: #8ed3e7 !important;
+  }
 
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
+  /* 表格表头样式 */
+  .el-table__header-wrapper {
+    width: 100%;
+    height: 0px;
+  }
 
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
+  /* 设置弹出框样式 */
+  /deep/ .el-dialog {
+    width: 50%;
+  }
 
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
+  /* 弹出框内表单样式控制 */
+  .el-form-item-dialog {
+    width: 32%;
+  }
 
-#add {
-  height: auto;
-}
+  #add {
+    height: auto;
+  }
 </style>

@@ -15,6 +15,8 @@ const service = axios.create({
   // baseURL: process.env.VUE_APP_HOST_URL, // url = base url + request url
   // 后台位置
   // baseURL:'http://120.26.146.64:8052/e-parking-web',
+  // 服务器版本
+  // baseURL:'/e-parking-api',
   baseURL:'/e-parking-web',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
