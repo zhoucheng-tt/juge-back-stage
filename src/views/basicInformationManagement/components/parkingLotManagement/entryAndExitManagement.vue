@@ -367,7 +367,7 @@ export default {
       // 分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: 4,
+      pageTotal: '',
       // 列表数据暂存处
       manageEntryAndExit: [],
       // 修改弹窗显示和隐藏属性
@@ -388,7 +388,7 @@ export default {
       this.selectManageEntryAndExit = val;
       this.idList = [];
       val.forEach(item => {
-        this.idList.push(item.parkingLotNumber);
+        this.idList.push(item.passagewayId);
       });
       console.log("批量删除ID", this.idList);
       console.log(this.selectManageEntryAndExit);
@@ -400,13 +400,18 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        console.log("你要删除的id是" + )
-        this.$message({type: "success", message: "删除成功!"});
-      })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
+          console.log("你要批量删除的id是" + this.idList);
+          const param = {
+            passagewayId: this.idList
+          };
+          this.$ysParking.deletePassagewayList(param).then(res => {
+            console.log("批量删除成功", res);
           });
-      console.log(this.selectManageEntryAndExit);
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryPassagewayList();
+        }).catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //单个删除
     deleteListDialogue(row) {
@@ -438,6 +443,7 @@ export default {
     // 分页
     handleCurrentModify(val) {
       this.pageNum = val;
+      this.queryPassagewayList();
       //查询列表方法
     },
     // 斑马纹样式
@@ -498,6 +504,7 @@ export default {
       };
       this.$ysParking.queryPassagewayList(param).then(res => {
         console.log("打印出来res", res);
+        this.pageTotal = res.data.totalRecord;
         that.manageEntryAndExit = res.data.dataList;
         console.log("列表数据,", that.manageEntryAndExit);
       });
