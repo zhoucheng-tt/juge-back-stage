@@ -13,7 +13,7 @@
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="充电桩编号">
               <el-select v-model="chargingPointNumList.chargingPointNum" placeholder="请选择">
                 <el-option v-for="(item, index) in chargingPointNumList" :label="item.chargingPointNum"
@@ -21,7 +21,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
                 <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
@@ -29,7 +29,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addChargingPoint()">新增充电桩</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
@@ -74,12 +74,12 @@
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="充电桩编号:" label-width="150px">
               <el-input v-model="newChargingPoint.chargingPointNum"/>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="充电桩名称:" label-width="150px">
               <el-input v-model="newChargingPoint.chargingPointName"/>
             </el-form-item>
@@ -101,12 +101,12 @@
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="充电桩编号:" label-width="150px">
               <el-input v-model="editChargingPoint.chargingPointNum"/>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="充电桩名称:" label-width="150px">
               <el-input v-model="editChargingPoint.chargingPointName"/>
             </el-form-item>

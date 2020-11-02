@@ -13,7 +13,7 @@
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="停车场">
               <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
@@ -21,7 +21,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
                 <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
@@ -29,7 +29,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addNewLock()">新增地锁</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
@@ -67,7 +67,7 @@
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">归属停车场信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="newLock.pkLotName" placeholder="请选择">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
@@ -75,7 +75,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="停车场编号:" label-width="150px">
               <el-input v-model="newLock.pkLotNum" />
             </el-form-item>
@@ -83,24 +83,24 @@
         </el-row>
         <div style="font-size: 20px">地锁信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="地锁编号:" label-width="150px">
               <el-input v-model="newLock.LockNum" />
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="地锁名称:" label-width="150px">
               <el-input v-model="newLock.LockName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="mac地址:" label-width="150px">
               <el-input v-model="newLock.MAC"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="网关Id:" label-width="150px">
               <el-input v-model="newLock.networkId"></el-input>
             </el-form-item>
@@ -117,7 +117,7 @@
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">归属停车场信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="editLock.pkLotName" placeholder="请选择">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
@@ -125,7 +125,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="停车场编号:" label-width="150px">
               <el-input v-model="editLock.pkLotNum" />
             </el-form-item>
@@ -133,24 +133,24 @@
         </el-row>
         <div style="font-size: 20px">地锁信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="地锁编号:" label-width="150px">
               <el-input v-model="editLock.LockNum" />
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="地锁名称:" label-width="150px">
               <el-input v-model="editLock.LockName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="mac地址:" label-width="150px">
               <el-input v-model="editLock.MAC"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="网关Id:" label-width="150px">
               <el-input v-model="editLock.networkId"></el-input>
             </el-form-item>

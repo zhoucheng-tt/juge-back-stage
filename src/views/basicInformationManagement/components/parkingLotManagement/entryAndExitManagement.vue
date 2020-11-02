@@ -208,34 +208,45 @@
 <script>
   // import {queryPassagewayList} from "@/axios/ysParking/ysParking.js";
 
-  export default {
-    data() {
-      return {
-        // 查询数据暂存处
-        queryParkId: "",
-        //多选后数据暂存
-        selectManageEntryAndExit: [],
-        // 停车场下拉框数据暂存
-        parkingLotList: [],
-        // 出入口下拉框数据暂存
-        entryAndExitList: [],
-        // 分页
-        pageNum: 1,
-        pageSize: 10,
-        pageTotal: "",
-        // 列表数据暂存处
-        manageEntryAndExit: [],
-        // 修改弹窗显示和隐藏属性
-        editListDialogueandoff: false,
-        // 修改弹窗数据暂存
-        editListDialogueandoffList: [],
-        // 新增弹窗显示和隐藏属性
-        addListDialogueandoff: false,
-        // 新增数据暂存数组
-        addListDialogueandoffList: [],
-        // 批量删除暂存id
-        idList: []
-      };
+export default {
+  data() {
+    return {
+      // 查询数据暂存处
+      queryParkId: "",
+      //多选后数据暂存
+      selectManageEntryAndExit: [],
+      // 停车场下拉框数据暂存
+      parkingLotList: [],
+      // 出入口下拉框数据暂存
+      entryAndExitList: [],
+      // 分页
+      pageNum: 1,
+      pageSize: 10,
+      pageTotal: 1,
+      // 列表数据暂存处
+      manageEntryAndExit: [],
+      // 修改弹窗显示和隐藏属性
+      editListDialogueandoff: false,
+      // 修改弹窗数据暂存
+      editListDialogueandoffList: [],
+      // 新增弹窗显示和隐藏属性
+      addListDialogueandoff: false,
+      // 新增数据暂存数组
+      addListDialogueandoffList: [],
+      // 批量删除暂存id
+      idList: []
+    };
+  },
+  methods: {
+    // 拿到多选数据
+    handleSelectManageEntryAndExit(val) {
+      this.selectManageEntryAndExit = val;
+      this.idList = [];
+      val.forEach(item => {
+        this.idList.push(item.passagewayId);
+      });
+      console.log("批量删除ID", this.idList);
+      console.log(this.selectManageEntryAndExit);
     },
     methods: {
       // 拿到多选数据
@@ -294,49 +305,49 @@
           .catch(() => {
             this.$message({ type: "info", message: "已取消删除" });
           });
-      },
-      // 分页
-      handleCurrentModify(val) {
-        this.pageNum = val;
-        this.queryPassagewayList();
-        //查询列表方法
-      },
-      // 斑马纹样式
-      tableRowClassName({ row, rowIndex }) {
-        if (rowIndex % 2 == 1) {
-          return "successRow11";
-        } else if (rowIndex % 2 == 0) {
-          return "successSecond";
-        }
-        return "";
-      },
-      // 点击查询调用的方法
-      selectQueryList() {
-        console.log("打印出来点击查询后所产生的值", this.queryParkId);
-        this.manageEntryAndExit = [];
-        const param = {
-          parkId: this.queryParkId,
-          pageSize: this.pageSize,
-          pageNum: this.pageNum
-        };
-        this.$ysParking.queryPassagewayList(param).then(res => {
-          console.log("查询打印", res);
-          this.manageEntryAndExit = res.data.dataList;
-          console.log("查询数据,", this.manageEntryAndExit);
-        }
-        )
-      },
-      // 点击新增
-      addInletAndOutlet() {
-        //提前清空表单中数据
-        this.addListDialogueandoffList = {};
-        this.addListDialogueandoff = true;
-        // this.addListDialogueandoffList = row
-      },
-      // 点击保存
-      addInfoInsert() {
-        console.log("保存后打印出来的数据", this.addListDialogueandoffList);
-        this.$ysParking
+    },
+    // 分页
+    handleCurrentModify(val) {
+      this.pageNum = val;
+      this.queryPassagewayList();
+      //查询列表方法
+    },
+    // 斑马纹样式
+    tableRowClassName({rowIndex}) {
+      if (rowIndex % 2 == 1) {
+        return "successRow11";
+      } else if (rowIndex % 2 == 0) {
+        return "successSecond";
+      }
+      return "";
+    },
+    // 点击查询调用的方法
+    selectQueryList() {
+      console.log("打印出来点击查询后所产生的值", this.queryParkId);
+      this.manageEntryAndExit = [];
+      const param = {
+        parkId: this.queryParkId,
+        pageSize: this.pageSize,
+        pageNum: this.pageNum
+      };
+      this.$ysParking.queryPassagewayList(param).then(res => {
+            console.log("查询打印", res);
+            this.manageEntryAndExit = res.data.dataList;
+            console.log("查询数据,", this.manageEntryAndExit);
+          }
+      )
+    },
+    // 点击新增
+    addInletAndOutlet() {
+      //提前清空表单中数据
+      this.addListDialogueandoffList = {};
+      this.addListDialogueandoff = true;
+      // this.addListDialogueandoffList = row
+    },
+    // 点击保存
+    addInfoInsert() {
+      console.log("保存后打印出来的数据", this.addListDialogueandoffList);
+      this.$ysParking
           .insertPassagewayList(this.addListDialogueandoffList)
           .then(res => {
             console.log("打印相应", res);
