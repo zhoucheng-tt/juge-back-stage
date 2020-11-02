@@ -153,7 +153,7 @@
           <el-col :span="12">
             <el-form-item label="计费规则:" label-width="150px">
               <el-select v-model="newParkingLot.billingRuleDesc" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
+                <el-option v-for="(item, index) in chargingRules" :label="item.name" :value="item.name"
                            :key="index"/>
               </el-select>
             </el-form-item>
@@ -285,7 +285,7 @@
           <el-col :span="12">
             <el-form-item label="计费规则:" label-width="150px">
               <el-select v-model="editParkingLot.billingRuleDesc" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
+                <el-option v-for="(item, index) in chargingRules" :label="item.name" :value="item.name"
                            :key="index"/>
               </el-select>
             </el-form-item>
@@ -350,7 +350,7 @@ export default {
       //初始化分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: "",
+      pageTotal: 4,
       //前端暂时数据
       parkList: [],
       //新增表单弹框属性：false:不显露

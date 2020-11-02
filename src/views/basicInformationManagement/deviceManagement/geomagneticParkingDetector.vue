@@ -15,8 +15,8 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="停车场">
-              <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+              <el-select v-model="query" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.name"
                            :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -33,7 +33,7 @@
             <el-button type="primary" @click="addNewGeo()">新增地磁车检测器</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
-            <el-button type="primary" @click="queryPkLot()">查 询</el-button>
+            <el-button type="primary" @click="queryByName()">查 询</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -45,12 +45,13 @@
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                 @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column fixed prop="pkLotNum" label="停车场编号"/>
-        <el-table-column prop="pkLotName" :show-overflow-tooltip="true" label="停车场名称"/>
-        <el-table-column prop="geoNum" :show-overflow-tooltip="true" label="地磁车位检测器编号"/>
-        <el-table-column prop="geoName" :show-overflow-tooltip="true" label="地磁车位检测器名称"/>
+        <el-table-column prop="parkId" label="停车场编号"/>
+        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column prop="magneticDetecterId" :show-overflow-tooltip="true" label="地磁车位检测器编号"/>
+        <el-table-column prop="magneticDetecterName" :show-overflow-tooltip="true" label="地磁车位检测器名称"/>
         <el-table-column prop="sensorId" :show-overflow-tooltip="true" label="传感器ID"/>
-        <el-table-column prop="producer" :show-overflow-tooltip="true" label="制造商"/>
+        <el-table-column prop="" manufacturer
+        " :show-overflow-tooltip="true" label="制造商"/>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="editGeoDialog(scope.row)" type="text" size="small">修改</el-button>
@@ -60,7 +61,7 @@
       </el-table>
       <!--分页条-->
       <el-pagination
-          style="position: relative;left: 78%"
+          style="position: relative;left: 60%"
           layout="total, prev, pager, next, jumper"
           :page-size="pageSize"
           @current-change="handleCurrentModify"
@@ -74,7 +75,7 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="newGeo.pkLotName" placeholder="请选择">
+                <el-select v-model="newGeo.parkName" placeholder="请选择">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
                              :key="index"></el-option>
                 </el-select>
@@ -90,12 +91,12 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="地磁车位检测器编号:" label-width="150px">
-                <el-input v-model="newGeo.geoNum"/>
+                <el-input v-model="newGeo.magneticDetecterId"/>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="150px">
-                <el-input v-model="newGeo.geoName"/>
+                <el-input v-model="newGeo.magneticDetecterName"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -107,7 +108,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="制造商:" label-width="150px">
-                <el-input v-model="newGeo.producer"></el-input>
+                <el-input v-model="newGeo.manufacturer"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -124,7 +125,7 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="editGeo.pkLotName" placeholder="请选择">
+                <el-select v-model="editGeo.parkName" placeholder="请选择">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
                              :key="index"></el-option>
                 </el-select>
@@ -140,12 +141,12 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="地磁车位检测器编号:" label-width="150px">
-                <el-input v-model="editGeo.geoNum"/>
+                <el-input v-model="editGeo.magneticDetecterId"/>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="150px">
-                <el-input v-model="editGeo.geoName"/>
+                <el-input v-model="editGeo.magneticDetecterName"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -157,7 +158,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="制造商:" label-width="150px">
-                <el-input v-model="editGeo.producer"></el-input>
+                <el-input v-model="editGeo.manufacturer"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -175,24 +176,7 @@ export default {
   data() {
     return {
       //停车场名称列表
-      parkingLotNameList: [
-        {
-          pkName: "新能源停车场",
-          id: "1"
-        },
-        {
-          pkName: "免费停车场",
-          id: "2"
-        },
-        {
-          pkName: "新能源停车场",
-          id: "3"
-        },
-        {
-          pkName: "新能源停车场",
-          id: "4"
-        }
-      ],
+      parkingLotNameList: [],
       //设备状态
       eqStatusList: [
         {
@@ -225,14 +209,12 @@ export default {
       //初始化分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: 4
+      pageTotal: 4,
+      //条件查询
+      query: {}
     };
   },
   methods: {
-    //查询
-    queryPkLot() {
-      console.log("查询的停车场名称", this.parkingLotNameList.pkName);
-    },
     //新增地磁车
     addNewGeo() {
       console.log("新增地磁车弹框弹出");
@@ -270,8 +252,12 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {this.$message({type: "success", message: "删除成功!"});})
-          .catch(() => {this.$message({type: "info", message: "已取消删除"});});
+      }).then(() => {
+        this.$message({type: "success", message: "删除成功!"});
+      })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -299,10 +285,61 @@ export default {
       this.pageNum = val;
       // 查询列表方法
       this.queryParkList();
+    },
+    //列表查询
+    queryMagneticDetecter() {
+      const param = {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      };
+      this.$homePage.queryMagneticDetecter(param).then(res => {
+        this.geoList = res.data.dataList;
+        this.pageTotal = res.data.totalRecord;
+      });
+    },
+    //归属停车场下拉菜单
+    queryParkList() {
+      const param =
+          {
+            "columnName": ["park_id", "park_name"],
+            "tableName": "t_bim_park",
+            "whereStr": "district_code = '321302'"
+          };
+      this.$homePage.queryDictData(param).then(res => {
+        this.parkingLotNameList = res.data.dataList;
+      });
+    },
+    //根据停车场名称查询
+    queryByName() {
+      const param = {
+        "cityCode": "321300",
+        "districtCode": "321302",
+        "parkId": this.query.parkId,
+        "pageNum": this.pageNum,
+        "pageSize": this.pageSize
+      };
+      this.$homePage.queryMagneticDetecter(param).then(res => {
+        this.parkingLotNameList = res.data.dataList;
+      })
+    }
+  },
+  mounted() {
+    this.queryMagneticDetecter();
+    this.queryParkList();
+  },
+  watch: {
+    query: {
+      handler(newVal) {
+        this.parkingLotNameList.forEach((item) => {
+          if (newVal.parkName == item.name) {
+            newVal.parkId = item.code;
+          }
+        })
+      },
+      deep: true
     }
   }
 }
-
 </script>
 <style scoped>
 .all {

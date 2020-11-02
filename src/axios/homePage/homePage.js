@@ -27,3 +27,15 @@ export function queryDictData(params) {
         }
     )
 }
+
+//地磁车列表查询
+export function queryMagneticDetecter(params) {
+    return request(
+        {
+            url: 'DeviceFunc/queryMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
