@@ -2,7 +2,7 @@
     停车订单查询
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-27 20:50:42
+ * @LastEditTime: 2020-11-02 20:25:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
@@ -212,7 +212,7 @@
                     endStatisDate: "2017-07-14"
                 }
                 this.$ysParking.trendAnalysis(jsonStr).then(response => {
-                    console.log("测试", response )
+                    console.log("测试", response)
                 })
             },
             // 点击查询调用的方法

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-17 10:24:37
- * @LastEditTime: 2020-10-20 09:42:43
+ * @LastEditTime: 2020-11-02 19:52:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \sac-tpms-webe:\TingCar\src\views\Home\Home.vue
@@ -387,7 +387,7 @@
 	}
   };
   </script>
-  <style scope>
+  <style scoped>
   .header {
 	height: 64px;
 	width: 100%;
