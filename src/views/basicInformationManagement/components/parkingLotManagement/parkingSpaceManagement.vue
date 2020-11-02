@@ -359,11 +359,9 @@
       </div>
       <div>
         <h2>XXX停车场平面（层）车位配置</h2>
-        <el-form-item>
           <el-button type="primary" @click="importData"
             >批量导入车位配置数据</el-button
           >
-        </el-form-item>
         <el-table
           :data="parkingSpaceConfiguration"
           :row-class-name="tableRowClassName"
@@ -608,9 +606,14 @@ export default {
     };
   },
   methods: {
-    // 拿到多选数据
+    // 拿到上表多选数据
     handleSelectParkingLotLayout(val) {
       this.selectParkingLotLayout = val;
+    },
+
+    //拿到下表多选数据
+    handleSelectParkingSpaceConfiguration(val) {
+      this.selectParkingSpaceConfiguration = val;
     },
     // 分页
     handleCurrentModify(val) {
@@ -640,19 +643,23 @@ export default {
     viewDocument() {
       console.log("预览文件");
     },
-   /* // 斑马纹样式
+    // 斑马纹样式
     // eslint-disable-next-line no-unused-vars
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
         return "successSecond";
       }
       return "";
-    },*/
+    },
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.upQueryList);
+    },
+    // 点击导入调用的方法
+    importData() {
+      console.log("点击导入的方法");
     },
     // 点击新增
     addInletAndOutlet() {

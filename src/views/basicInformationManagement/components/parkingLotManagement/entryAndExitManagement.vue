@@ -367,7 +367,7 @@ export default {
       // 分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: "",
+      pageTotal: 1,
       // 列表数据暂存处
       manageEntryAndExit: [],
       // 修改弹窗显示和隐藏属性
@@ -446,15 +446,15 @@ export default {
       this.queryPassagewayList();
       //查询列表方法
     },
-    /*// 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    // 斑马纹样式
+    tableRowClassName({rowIndex}) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
         return "successSecond";
       }
       return "";
-    },*/
+    },
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.queryParkId);
