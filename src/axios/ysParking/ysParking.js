@@ -9,48 +9,57 @@
 import request from '@/utils/request'
 
 // 接口详情
-export function echats (params) {
+export function echats(params) {
     return request({
-      url: '/api/main/ad/getList',
-      method: 'post',
-      data: params,
+        url: '/api/main/ad/getList',
+        method: 'post',
+        data: params,
     })
-  }
+}
 
-  export function queryList (params) {
+export function queryList(params) {
     return request({
-      url: 'http://paks.jitunet.cn:83/parkingspace/parking/space/queryAllSpace.action?parkingId=28&start=0&limit=100',
-      method: 'post',
-      data: params,
-      flag: 'out'
+        url: 'http://paks.jitunet.cn:83/parkingspace/parking/space/queryAllSpace.action?parkingId=28&start=0&limit=100',
+        method: 'post',
+        data: params,
+        flag: 'out'
     })
-  }
+}
 
-  export function queryImgUrl (params) {
+export function queryImgUrl(params) {
     return request({
-      url: 'http://paks.jitunet.cn:83/parkingspace/parking/record/queryRecordByCameraId.action?cameraId=47',
-      method: 'post',
-      data: params,
-      flag: 'out'
+        url: 'http://paks.jitunet.cn:83/parkingspace/parking/record/queryRecordByCameraId.action?cameraId=47',
+        method: 'post',
+        data: params,
+        flag: 'out'
     })
-  }
+}
 
-  export function trendAnalysis (params) {
+export function trendAnalysis(params) {
     return request({
-      url: '/realtimeMonitorFunc/queryAlarmMonitorTodayList',
-      method: 'post',
-      data: params,
+        url: '/realtimeMonitorFunc/queryAlarmMonitorTodayList',
+        method: 'post',
+        data: params,
     })
-  }
+}
 
-  //停车场管理-停车场管理-列表查询
-  export function queryParkList (param) {
+//下拉表单查询 queryDictData
+export function queryDictData(param) {
     return request({
-      url: '/parkFunc/queryParkList',
-      method: 'post',
-      data: param
+        url: '/DictDimFunc/queryDictData',
+        method: 'post',
+        data: param
     })
-  }
+}
+
+//停车场管理-停车场管理-列表查询
+export function queryParkList(param) {
+    return request({
+        url: '/parkFunc/queryParkList',
+        method: 'post',
+        data: param
+    })
+}
 
 //停车场管理-停车场管理-新增停车场
 export function insertPark(param) {
@@ -78,13 +87,41 @@ export function updatePark(param) {
         data: param
     })
 }
-  export function queryPassagewayList(param) {
-  return request({
-    url: '/parkFunc/queryPassagewayList',
-    method: 'post',
-    data: param
-      }
-  )
-  }
 
+//停车场管理-出入口管理-列表查询
+export function queryPassagewayList(param) {
+    return request({
+            url: '/parkFunc/queryPassagewayList',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
+//停车场管理-出入口管理-新增出入口 insertPassagewayList
+export function insertPassagewayList(param) {
+    return request({
+        url: '/parkFunc/insertPassagewayList',
+        method: 'post',
+        data: param
+    })
+}
+
+//停车场管理-出入口管理-删除出入口 deletePassagewayList
+export function deletePassagewayList(param) {
+    return request({
+        url: '/parkFunc/deletePassagewayList',
+        method: 'post',
+        data: param
+    })
+}
+
+//停车场管理-出入口管理-修改出入口 updatePassagewayList
+export function updatePassagewayList(param) {
+    return request({
+        url: '/parkFunc/updatePassagewayList',
+        method: 'post',
+        data: param
+    })
+}
 
