@@ -29,10 +29,7 @@
                   :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                   :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                   @selection-change="handleSelectionChange">
-          <el-table-column
-              type="selection"
-              width="55">
-          </el-table-column>
+          <el-table-column type="selection" width="55"/>
           <el-table-column width="120" prop="parkId" :show-overflow-tooltip="true" label="停车场编号"/>
           <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
           <el-table-column width="120" prop="parkTypeCode" :show-overflow-tooltip="true" label="停车场类型编码"/>
@@ -61,14 +58,7 @@
         </el-table>
       </el-scrollbar>
       <!--分页条-->
-      <el-pagination
-          style="position: relative;left: 78%"
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal">
-      </el-pagination>
+      <el-pagination style="position: relative;left: 78%" layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
     </div>
     <!--新增表单弹框-->
     <el-dialog id="add"  title="新增停车场信息" :visible.sync="addListDialogueandoff">
@@ -90,8 +80,7 @@
           <el-col span="12">
             <el-form-item label="停车场类型名称:" label-width="150px">
               <el-select v-model="newParkingLot.parkTypeName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType"
-                           :key="index"></el-option>
+                <el-option v-for="(item, index) in parkingLotType" :label="item.parkingType" :value="item.parkingType" :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -178,8 +167,7 @@
           <el-col span="12">
             <el-form-item label="计费规则:" label-width="150px">
               <el-select v-model="newParkingLot.billingRuleDesc" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
-                           :key="index"></el-option>
+                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -188,19 +176,19 @@
         <el-row style="padding-top: 20px">
           <el-col span="12">
             <el-form-item label="联系人:" label-width="150px">
-              <el-input v-model="newParkingLot.contact"></el-input>
+              <el-input v-model="newParkingLot.contact"/>
             </el-form-item>
           </el-col>
           <el-col span="12">
             <el-form-item label="联系人电话:" label-width="150px">
-              <el-input v-model="newParkingLot.contactPhoneNumber"></el-input>
+              <el-input v-model="newParkingLot.contactPhoneNumber"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="12">
             <el-form-item label="停车场图片:" label-width="150px">
-              <el-input v-model="newParkingLot.parkPictureFile"></el-input>
+              <el-input v-model="newParkingLot.parkPictureFile"/>
             </el-form-item>
           </el-col>
           <el-col span="2">
@@ -227,7 +215,7 @@
         <el-row style="padding-top: 20px">
           <el-col span="12">
             <el-form-item label="停车场名称:" label-width="150px">
-              <el-input v-model="editParkingLot.parkName"></el-input>
+              <el-input v-model="editParkingLot.parkName"/>
             </el-form-item>
           </el-col>
           <el-col span="12">
@@ -276,31 +264,31 @@
         <el-row>
           <el-col span="12">
             <el-form-item label="归属区县id:" label-width="150px">
-              <el-input v-model="editParkingLot.districtCode"></el-input>
+              <el-input v-model="editParkingLot.districtCode"/>
             </el-form-item>
           </el-col>
           <el-col span="12">
             <el-form-item label="归属区县名称:" label-width="150px">
-              <el-input v-model="editParkingLot.districtName"></el-input>
+              <el-input v-model="editParkingLot.districtName"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="16">
             <el-form-item label="地址:" label-width="150px">
-              <el-input v-model="editParkingLot.address" style="width: 300px"></el-input>
+              <el-input v-model="editParkingLot.address" style="width: 300px"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="12">
             <el-form-item label="经度:" label-width="150px">
-              <el-input v-model="editParkingLot.longitude"></el-input>
+              <el-input v-model="editParkingLot.longitude"/>
             </el-form-item>
           </el-col>
           <el-col span="12">
             <el-form-item label="纬度:" label-width="150px">
-              <el-input v-model="editParkingLot.latitude"></el-input>
+              <el-input v-model="editParkingLot.latitude"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -309,8 +297,7 @@
           <el-col span="12">
             <el-form-item label="计费规则:" label-width="150px">
               <el-select v-model="editParkingLot.billingRuleDesc" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName"
-                           :key="index"></el-option>
+                <el-option v-for="(item, index) in chargingRules" :label="item.ruleName" :value="item.ruleName" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -319,19 +306,19 @@
         <el-row style="padding-top: 20px">
           <el-col span="12">
             <el-form-item label="联系人:" label-width="150px">
-              <el-input v-model="editParkingLot.contact"></el-input>
+              <el-input v-model="editParkingLot.contact"/>
             </el-form-item>
           </el-col>
           <el-col span="12">
             <el-form-item label="联系人电话:" label-width="150px">
-              <el-input v-model="editParkingLot.contactPhoneNumber"></el-input>
+              <el-input v-model="editParkingLot.contactPhoneNumber"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col span="12">
             <el-form-item label="停车场图片:" label-width="150px">
-              <el-input v-model="editParkingLot.parkPictureFile"></el-input>
+              <el-input v-model="editParkingLot.parkPictureFile"/>
             </el-form-item>
           </el-col>
           <el-col span="2">
@@ -547,10 +534,6 @@ export default {
   width: 100%;
   height: 85%;
   float: left;
-}
-
-.el-scrollbar__wrap {
-  overflow-x: hidden;
 }
 
 /* 斑马纹样式 */
