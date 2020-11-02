@@ -329,9 +329,6 @@
   </div>
 </template>
 <script>
-import {insertPark, deletePark, updatePark} from "@/axios/ysParking/ysParking";
-
-
 export default {
   data() {
     return {
@@ -352,7 +349,7 @@ export default {
       //初始化分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: 4,
+      pageTotal: "",
       //前端暂时数据
       parkList: [],
       //新增表单弹框属性：false:不显露
@@ -384,7 +381,7 @@ export default {
         const param = {
           parkId: this.idList
         };
-        deletePark(param).then(res => {
+        this.$ysParking.deletePark(param).then(res => {
           this.$message({
             type: "success", message: "删除成功!"
           });
@@ -408,8 +405,8 @@ export default {
         const param = {
           parkId: this.idList
         };
-        deletePark(param).then(res => {
-          console.log("打印响应",res)
+        this.$ysParking.deletePark(param).then(res => {
+          console.log("打印响应", res)
           this.$message({
             type: "success", message: "删除成功!"
           });
@@ -422,8 +419,8 @@ export default {
     // 点击新增
     addInletAndOutlet() {
       this.newParkingLot = {};
-      this.districtList =[],
-      this.addListDialogueandoff = true;
+      this.districtList = [],
+          this.addListDialogueandoff = true;
     },
     //选择停车场图片
     choosePicture() {
@@ -442,7 +439,7 @@ export default {
       console.log(this.newParkingLot);
       //将新增数据展示到页面（仅做展示用）
       // this.parkList.push(this.newParkingLot);
-      insertPark(this.newParkingLot).then(res => {
+      this.$ysParking.insertPark(this.newParkingLot).then(res => {
         console.log("打印响应", res);
       });
       this.queryParkList();
@@ -451,14 +448,14 @@ export default {
     //修改弹框弹出
     editListDialogue(row) {
       console.log(row);
-      this.districtList=[],
-      this.editListDialogueandoff = true;
+      this.districtList = [],
+          this.editListDialogueandoff = true;
       this.editParkingLot = row;
     },
     //修改表单提交
     onSubmitEdit() {
       console.log(this.editParkingLot);
-      updatePark(this.editParkingLot).then(res => {
+      this.$ysParking.updatePark(this.editParkingLot).then(res => {
         console.log("打印响应", res);
       });
       this.queryParkList();
@@ -553,66 +550,72 @@ export default {
     this.queryTypeList();
   },
   watch: {
-    newParkingLot(newVal, val) {
-      this.parkingLotType.forEach((item) => {
-        if (item.name == newVal.parkTypeName) {
-          newVal.parkTypeCode = item.code;
-        }
-      });
-      this.cityList.forEach((item) => {
-        if (item.name == newVal.cityName) {
-          newVal.cityCode = item.code;
-          const params = {
-            "columnName": ["district_code", "district_name"],
-            "tableName": "t_d_district",
-            "whereStr": "city_code = " + item.code
-          };
-          this.$homePage.queryDictData(params).then(res => {
-            this.districtList = res.data.dataList;
-          });
-        }
-      });
-      this.enterprises.forEach((item) => {
-        if (item.name == newVal.companyName) {
-          newVal.companyId = item.code;
-        }
-      });
-      this.districtList.forEach((item) => {
-        if (item.name == newVal.districtName) {
-          newVal.districtCode = item.code;
-        }
-      });
+    newParkingLot: {
+      handler(newVal) {
+        this.parkingLotType.forEach((item) => {
+          if (item.name == newVal.parkTypeName) {
+            newVal.parkTypeCode = item.code;
+          }
+        });
+        this.cityList.forEach((item) => {
+          if (item.name == newVal.cityName) {
+            newVal.cityCode = item.code;
+            const params = {
+              "columnName": ["district_code", "district_name"],
+              "tableName": "t_d_district",
+              "whereStr": "city_code = " + item.code
+            };
+            this.$homePage.queryDictData(params).then(res => {
+              this.districtList = res.data.dataList;
+            });
+          }
+        });
+        this.enterprises.forEach((item) => {
+          if (item.name == newVal.companyName) {
+            newVal.companyId = item.code;
+          }
+        });
+        this.districtList.forEach((item) => {
+          if (item.name == newVal.districtName) {
+            newVal.districtCode = item.code;
+          }
+        });
+      },
+      deep: true
     },
-    editParkingLot(newVal, val) {
-      this.parkingLotType.forEach((item) => {
-        if (item.name == newVal.parkTypeName) {
-          newVal.parkTypeCode = item.code;
-        }
-      });
-      this.cityList.forEach((item) => {
-        if (item.name == newVal.cityName) {
-          newVal.cityCode = item.code;
-          const params = {
-            "columnName": ["district_code", "district_name"],
-            "tableName": "t_d_district",
-            "whereStr": "city_code = " + item.code
-          };
-          this.$homePage.queryDictData(params).then(res => {
-            this.districtList = res.data.dataList;
-          });
-        }
-      });
-      this.enterprises.forEach((item) => {
-        if (item.name == newVal.companyName) {
-          newVal.companyCode = item.code;
-        }
-      });
-      this.districtList.forEach((item) => {
-        if (item.name == newVal.districtName) {
-          newVal.districtCode = item.code;
-        }
-      });
-    }
+    editParkingLot: {
+      handler(newVal) {
+        this.parkingLotType.forEach((item) => {
+          if (item.name == newVal.parkTypeName) {
+            newVal.parkTypeCode = item.code;
+          }
+        });
+        this.cityList.forEach((item) => {
+          if (item.name == newVal.cityName) {
+            newVal.cityCode = item.code;
+            const params = {
+              "columnName": ["district_code", "district_name"],
+              "tableName": "t_d_district",
+              "whereStr": "city_code = " + item.code
+            };
+            this.$homePage.queryDictData(params).then(res => {
+              this.districtList = res.data.dataList;
+            });
+          }
+        });
+        this.enterprises.forEach((item) => {
+          if (item.name == newVal.companyName) {
+            newVal.companyId = item.code;
+          }
+        });
+        this.districtList.forEach((item) => {
+          if (item.name == newVal.districtName) {
+            newVal.districtCode = item.code;
+          }
+        });
+      },
+      deep: true
+    },
   }
 };
 </script>
