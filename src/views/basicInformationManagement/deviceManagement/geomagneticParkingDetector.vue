@@ -13,7 +13,7 @@
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="停车场">
               <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
@@ -21,7 +21,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
                 <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
@@ -29,7 +29,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addNewGeo()">新增地磁车检测器</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
@@ -72,7 +72,7 @@
         <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="newGeo.pkLotName" placeholder="请选择">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
@@ -80,7 +80,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="停车场编号:" label-width="150px">
                 <el-input v-model="newGeo.pkLotNum"/>
               </el-form-item>
@@ -88,24 +88,24 @@
           </el-row>
           <div style="font-size: 20px">检测器信息</div>
           <el-row style="padding-top: 20px">
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="地磁车位检测器编号:" label-width="150px">
                 <el-input v-model="newGeo.geoNum"/>
               </el-form-item>
             </el-col>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="150px">
                 <el-input v-model="newGeo.geoName"/>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="传感器ID:" label-width="150px">
                 <el-input v-model="newGeo.sensorId"></el-input>
               </el-form-item>
             </el-col>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="制造商:" label-width="150px">
                 <el-input v-model="newGeo.producer"></el-input>
               </el-form-item>
@@ -122,7 +122,7 @@
         <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editGeo.pkLotName" placeholder="请选择">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
@@ -130,7 +130,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="停车场编号:" label-width="150px">
                 <el-input v-model="editGeo.pkLotNum"/>
               </el-form-item>
@@ -138,24 +138,24 @@
           </el-row>
           <div style="font-size: 20px">检测器信息</div>
           <el-row style="padding-top: 20px">
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="地磁车位检测器编号:" label-width="150px">
                 <el-input v-model="editGeo.geoNum"/>
               </el-form-item>
             </el-col>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="150px">
                 <el-input v-model="editGeo.geoName"/>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="传感器ID:" label-width="150px">
                 <el-input v-model="editGeo.sensorId"></el-input>
               </el-form-item>
             </el-col>
-            <el-col span="12">
+            <el-col :span="12">
               <el-form-item label="制造商:" label-width="150px">
                 <el-input v-model="editGeo.producer"></el-input>
               </el-form-item>

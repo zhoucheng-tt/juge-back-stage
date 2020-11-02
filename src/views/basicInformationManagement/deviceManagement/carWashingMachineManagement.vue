@@ -1,11 +1,11 @@
 <!--
-    充电桩
+    洗车机管理
  * @Author: 邵青阳
- * @Date: 2020-10-29 09:32:31
- * @LastEditTime: 2020-10-29 09:33:14
+ * @Date: 2020-11-02 17:21:33
+ * @LastEditTime: 2020-11-02 17:22:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\deviceManagement\floorLock.vue
+ * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\deviceManagement\carWashingMachineManagement.VUE
 -->
 <template>
   <div class="all">
@@ -14,48 +14,51 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
           <el-col :span="6">
-            <el-form-item label="充电桩编号">
-              <el-select v-model="chargingPointNumList.chargingPointNum" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingPointNumList" :label="item.chargingPointNum"
-                           :value="item.chargingPointNum" :key="index"></el-option>
+            <el-form-item label="洗车机名称">
+              <el-select v-model="carWashingMachineNameList.carWashingMachineName" placeholder="请选择">
+                <el-option v-for="(item, index) in carWashingMachineNameList" :label="item.carWashingMachineName"
+                           :value="item.carWashingMachineName" :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="设备状态">
-              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
+            <el-form-item label="洗车机状态状态">
+              <el-select v-model="washerStatusList.washerStatus" placeholder="请选择">
+                <el-option v-for="(item, index) in washerStatusList" :label="item.washerStatus"
+                           :value="item.washerStatus"
                            :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-button type="primary" @click="addChargingPoint()">新增充电桩</el-button>
+            <el-button type="primary" @click="addWasher()">新增洗车机</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
-            <el-button type="primary" @click="queryChargingPoint()">查 询</el-button>
+            <el-button type="primary" @click="queryWasher()">查 询</el-button>
           </el-col>
         </el-row>
       </el-form>
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="chargingPointList" ref="selectList"
+      <el-table :data="washerList" ref="selectList"
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                 @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column fixed prop="chargingPointNum" label="充电桩编号"/>
-        <el-table-column prop="chargingPointName" :show-overflow-tooltip="true" label="充电桩名称"/>
-        <el-table-column prop="chargingPointDescribe" :show-overflow-tooltip="true" label="充电桩描述"/>
-        <el-table-column prop="addTime" :show-overflow-tooltip="true" label="添加时间"/>
-        <el-table-column prop="addName" :show-overflow-tooltip="true" label="添加人"/>
-        <el-table-column prop="editTime" :show-overflow-tooltip="true" label="修改时间"/>
-        <el-table-column prop="editName" :show-overflow-tooltip="true" label="修改人"/>
+        <el-table-column fixed prop="parkName" label="停车场名称"/>
+        <el-table-column prop="washerId" :show-overflow-tooltip="true" label="洗车机编号"/>
+        <el-table-column prop="washerName" :show-overflow-tooltip="true" label="洗车机名称"/>
+        <el-table-column prop="washerDesc" :show-overflow-tooltip="true" label="洗车机描述"/>
+        <el-table-column prop="washerStatus" :show-overflow-tooltip="true" label="洗车机状态"/>
+        <el-table-column prop="addDate" :show-overflow-tooltip="true" label="添加时间"/>
+        <el-table-column prop="addUser" :show-overflow-tooltip="true" label="添加人"/>
+        <el-table-column prop="updateDate" :show-overflow-tooltip="true" label="修改时间"/>
+        <el-table-column prop="updateUser" :show-overflow-tooltip="true" label="修改人"/>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="editDialog(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="deleteChargingPoint(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="deleteWasher(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -70,24 +73,24 @@
     </div>
 
     <!--新增表单弹框-->
-    <el-dialog id="add" title="新增充电桩" :visible.sync="addListDialog">
+    <el-dialog id="add" title="新增洗车机" :visible.sync="addListDialog">
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
-            <el-form-item label="充电桩编号:" label-width="150px">
-              <el-input v-model="newChargingPoint.chargingPointNum"/>
+            <el-form-item label="洗车机编号:" label-width="150px">
+              <el-input v-model="newWasher.washerId"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="充电桩名称:" label-width="150px">
-              <el-input v-model="newChargingPoint.chargingPointName"/>
+            <el-form-item label="洗车机名称:" label-width="150px">
+              <el-input v-model="newWasher.washerName"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
-          <el-form-item label="充电桩描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="newChargingPoint.chargingPointDescribe"/>
+          <el-form-item label="洗车机描述:" label-width="150px">
+            <el-input type="textarea" style="width: 655px;" v-model="newWasher.washerDesc"/>
           </el-form-item>
         </el-row>
       </el-form>
@@ -97,24 +100,24 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" title="修改充电桩" :visible.sync="editListDialog">
+    <el-dialog id="edit" title="修改洗车机" :visible.sync="editListDialog">
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
-            <el-form-item label="充电桩编号:" label-width="150px">
-              <el-input v-model="editChargingPoint.chargingPointNum"/>
+            <el-form-item label="洗车机编号:" label-width="150px">
+              <el-input v-model="editWasher.washerId"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="充电桩名称:" label-width="150px">
-              <el-input v-model="editChargingPoint.chargingPointName"/>
+            <el-form-item label="洗车机名称:" label-width="150px">
+              <el-input v-model="editWasher.washerName"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
-          <el-form-item label="充电桩描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="editChargingPoint.chargingPointDescribe"/>
+          <el-form-item label="洗车机描述:" label-width="150px">
+            <el-input type="textarea" style="width: 655px;" v-model="editWasher.washerDesc"/>
           </el-form-item>
         </el-row>
       </el-form>
@@ -130,75 +133,75 @@ export default {
   data() {
     return {
       //充电桩编号列表
-      chargingPointNumList: [
+      carWashingMachineNameList: [
         {
-          chargingPointNum: "1号",
+          carWashingMachineName: "1号",
           id: "1"
         },
         {
-          chargingPointNum: "2号",
+          carWashingMachineName: "2号",
           id: "2"
         },
         {
-          chargingPointNum: "3号",
+          carWashingMachineName: "3号",
           id: "3"
         },
         {
-          chargingPointNum: "4号",
+          carWashingMachineName: "4号",
           id: "4"
         }
       ],
       //设备状态
-      eqStatusList: [
+      washerStatusList: [
         {
-          eqStatus: "全部",
+          washerStatus: "全部",
           id: "1"
         },
         {
-          eqStatus: "完好",
+          washerStatus: "完好",
           id: "2"
         },
         {
-          eqStatus: "损坏",
+          washerStatus: "损坏",
           id: "3"
         }
       ],
-      //地锁列表
-      chargingPointList: [
-          {
-        chargingPointNum: "1",
-        chargingPointName: "啊",
-        chargingPointDescribe: "啊是第哈切夫你去偶的弄请问你都去",
-        addTime: "2020-10-30",
-        addName: "小王",
-        editTime: "2020-10-30",
-        editName: "小王",
-      }, {
-        chargingPointNum: "1",
-        chargingPointName: "啊",
-        chargingPointDescribe: "啊是第哈切夫你去偶的弄请问你都去",
-        addTime: "2020-10-30",
-        addName: "小王",
-        editTime: "2020-10-30",
-        editName: "小王",
-      }, {
-        chargingPointNum: "1",
-        chargingPointName: "啊",
-        chargingPointDescribe: "啊是第哈切夫你去偶的弄请问你都去",
-        addTime: "2020-10-30",
-        addName: "小王",
-        editTime: "2020-10-30",
-        editName: "小王",
-      },
+      //洗车机列表
+      washerList: [
+        {
+          washerId: "1",
+          washerName: "啊",
+          washerDesc: "啊是第哈切夫你去偶的弄请问你都去",
+          addDate: "2020-10-30",
+          addUser: "小王",
+          updateDate: "2020-10-30",
+          updateUser: "小王",
+        }, {
+          washerId: "1",
+          washerName: "啊",
+          washerDesc: "啊是第哈切夫你去偶的弄请问你都去",
+          addDate: "2020-10-30",
+          addUser: "小王",
+          updateDate: "2020-10-30",
+          updateUser: "小王",
+        }, {
+          washerId: "1",
+          washerName: "啊",
+          washerDesc: "啊是第哈切夫你去偶的弄请问你都去",
+          addDate: "2020-10-30",
+          addUser: "小王",
+          updateDate: "2020-10-30",
+          updateUser: "小王",
+        },
       ],
       //新增表单弹框
       addListDialog: false,
-      //新增充电桩数据暂存
-      newChargingPoint: {},
+      //新增洗车机数据暂存
+      newWasher: {},
       //修改表单弹框
       editListDialog: false,
-      //修改充电桩数据暂存
-      editChargingPoint: {},
+      //修改洗车机数据暂存
+      editWasher: {},
       //批量删除暂存id
       idList: [],
       //多选后数据暂存
@@ -211,13 +214,13 @@ export default {
   },
   methods: {
     //查询
-    queryChargingPoint() {
-      console.log("查询的停车场名称", this.parkingLotNameList.pkName);
+    queryWasher() {
+      console.log("查询的洗车机名称");
     },
-    //新增充电桩
-    addChargingPoint() {
+    //新增洗车机
+    addWasher() {
       console.log("新增弹框弹出");
-      this.newChargingPoint = {};
+      this.newWasher = {};
       this.addListDialog = true;
     },
     //批量导入
@@ -240,13 +243,13 @@ export default {
     },
     //修改
     editDialog(row) {
-      this.editChargingPoint = row;
+      this.editWasher = row;
       this.editListDialog = true;
       console.log("修改弹窗弹出");
     },
     //删除
-    deleteChargingPoint(row) {
-      console.log("删除的充电桩Id", row.chargingPointNum);
+    deleteWasher(row) {
+      console.log("删除的洗车机Id", row.washerId);
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -260,8 +263,8 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      console.log("新增数据", this.newChargingPoint);
-      this.chargingPointList.push(this.newChargingPoint);
+      console.log("新增数据", this.newWasher);
+      this.washerList.push(this.newWasher);
       this.addListDialog = false;
     },
     //修改表单提交
