@@ -13,7 +13,7 @@
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="洗车机名称">
               <el-select v-model="carWashingMachineNameList.carWashingMachineName" placeholder="请选择">
                 <el-option v-for="(item, index) in carWashingMachineNameList" :label="item.carWashingMachineName"
@@ -21,7 +21,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="洗车机状态状态">
               <el-select v-model="washerStatusList.washerStatus" placeholder="请选择">
                 <el-option v-for="(item, index) in washerStatusList" :label="item.washerStatus"
@@ -30,7 +30,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addWasher()">新增洗车机</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
@@ -77,12 +77,12 @@
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="洗车机编号:" label-width="150px">
               <el-input v-model="newWasher.washerId"/>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="洗车机名称:" label-width="150px">
               <el-input v-model="newWasher.washerName"/>
             </el-form-item>
@@ -104,12 +104,12 @@
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="洗车机编号:" label-width="150px">
               <el-input v-model="editWasher.washerId"/>
             </el-form-item>
           </el-col>
-          <el-col span="12">
+          <el-col :span="12">
             <el-form-item label="洗车机名称:" label-width="150px">
               <el-input v-model="editWasher.washerName"/>
             </el-form-item>

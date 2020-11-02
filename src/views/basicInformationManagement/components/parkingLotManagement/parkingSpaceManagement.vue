@@ -14,7 +14,7 @@
     <div class="up">
       <el-row>
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-          <el-col span="5">
+          <el-col :span="5">
             <el-form-item label="停车场：" class="el-form-item-dialog1">
               <el-select
                 v-model="upQueryList.TingNum"
@@ -101,7 +101,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col span="14">
+              <el-col :span="14">
                 <el-form-item label="停车场图片:">
                   <el-input
                     v-model="addListDialogueandoffList.layerPicture"
@@ -109,17 +109,17 @@
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col span="2">
+              <el-col :span="2">
                 <el-button type="info" @click="choosePicture()" size="small"
                   >选择</el-button
                 >
               </el-col>
-              <el-col span="2">
+              <el-col :span="2">
                 <el-button type="info" @click="uploadPicture()" size="small"
                   >上传</el-button
                 >
               </el-col>
-              <el-col span="2">
+              <el-col :span="2">
                 <el-button type="info" @click="viewPicture()" size="small"
                   >预览</el-button
                 >
@@ -142,7 +142,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col span="14">
+              <el-col :span="14">
                 <el-form-item label="车位位置配置文件:">
                   <el-input
                     v-model="
@@ -152,17 +152,17 @@
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col span="2">
+              <el-col :span="2">
                 <el-button type="info" @click="chooseDocument()" size="small"
                   >选择</el-button
                 >
               </el-col>
-              <el-col span="2">
+              <el-col :span="2">
                 <el-button type="info" @click="uploadDocument()" size="small"
                   >上传</el-button
                 >
               </el-col>
-              <el-col span="2">
+              <el-col :span="2">
                 <el-button type="info" @click="viewDocument()" size="small"
                   >预览</el-button
                 >
@@ -273,14 +273,14 @@
             label-position="left"
           >
             <el-row>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item label="停车场编号:" class="el-form-item-dialog">
                   <el-input
                     v-model="editListDialogueandoffList.parkingLotNumber"
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item label="停车场名称:" class="el-form-item-dialog">
                   <el-input
                     v-model="editListDialogueandoffList.parkingLotName"
@@ -289,7 +289,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item
                   label="停车场平面(层)编号:"
                   class="el-form-item-dialog"
@@ -299,7 +299,7 @@
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item
                   label="停车场平面(层)名称:"
                   class="el-form-item-dialog"
@@ -311,14 +311,14 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item label="描述:" class="el-form-item-dialog">
                   <el-input
                     v-model="editListDialogueandoffList.describe"
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item label="车位数:" class="el-form-item-dialog">
                   <el-input
                     v-model="editListDialogueandoffList.parkingSpaceNumber"
@@ -327,7 +327,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item
                   label="平面(层)图文件:"
                   class="el-form-item-dialog"
@@ -337,7 +337,7 @@
                   ></el-input>
                 </el-form-item>
               </el-col>
-              <el-col span="12">
+              <el-col :span="12">
                 <el-form-item
                   label="车位位置配置文件:"
                   class="el-form-item-dialog"
