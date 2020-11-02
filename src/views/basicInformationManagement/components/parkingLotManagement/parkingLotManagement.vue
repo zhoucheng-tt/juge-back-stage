@@ -109,11 +109,10 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属地市:" label-width="150px">
-              <el-select v-model="newParkingLot.cityName" placeholder="请选择" @change="chooseCity()">
+              <el-select v-model="newParkingLot.cityName" placeholder="请选择">
                 <el-option v-for="(item, index) in cityList" :label="item.name"
                            :value="item.name"
-                           :key="index"
-                           >
+                           :key="index">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -207,7 +206,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="停车场编号:" label-width="150px" placeholder="请输入停车场编号">
-              <el-input v-model="editParkingLot.parkId"/>
+              <el-input v-model="editParkingLot.parkId" disabled/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -371,8 +370,6 @@ export default {
       //     {max: 5, min: 3, message: "3到5位数", trigger: 'blur'}
       //   ]
       // }
-      //地市id暂存
-      cityCode: ""
     };
   },
   methods: {
@@ -412,6 +409,7 @@ export default {
           parkId: this.idList
         };
         deletePark(param).then(res => {
+          console.log("打印响应",res)
           this.$message({
             type: "success", message: "删除成功!"
           });
@@ -424,6 +422,7 @@ export default {
     // 点击新增
     addInletAndOutlet() {
       this.newParkingLot = {};
+      this.districtList =[],
       this.addListDialogueandoff = true;
     },
     //选择停车场图片
@@ -452,6 +451,7 @@ export default {
     //修改弹框弹出
     editListDialogue(row) {
       console.log(row);
+      this.districtList=[],
       this.editListDialogueandoff = true;
       this.editParkingLot = row;
     },
@@ -520,9 +520,9 @@ export default {
     queryCompanyList() {
       var that = this;
       const companyParam = {
-        "columnName":["company_id","company_name"],
-        "tableName":"t_bim_company",
-        "whereStr":""
+        "columnName": ["company_id", "company_name"],
+        "tableName": "t_bim_company",
+        "whereStr": ""
       };
       this.$homePage.queryDictData(companyParam).then(res => {
         that.enterprises = res.data.dataList;
@@ -531,9 +531,9 @@ export default {
     //计费规则下拉菜单数据查询
     queryBillList() {
       const billParam = {
-        "columnName":["billing_rule_def_id","billing_rule_def_name"],
-        "tableName":"t_bm_billing_rule_def",
-        "whereStr":""
+        "columnName": ["billing_rule_def_id", "billing_rule_def_name"],
+        "tableName": "t_bm_billing_rule_def",
+        "whereStr": ""
       };
       this.$homePage.queryDictData(billParam).then(res => {
         this.chargingRules = res.data.dataList;
@@ -542,22 +542,6 @@ export default {
     //导出Excel
     exportExcel() {
 
-    },
-    //下拉菜单联动
-    chooseCity() {
-      this.cityList.forEach((item) => {
-        if (item.name == this.newParkingLot.cityName || item.name == this.editParkingLot.cityName) {
-          this.cityCode = item.code;
-        }
-      })
-      const params = {
-        "columnName": ["district_code", "district_name"],
-        "tableName": "t_d_district",
-        "whereStr": "city_code = " + this.cityCode
-      };
-      this.$homePage.queryDictData(params).then(res => {
-        this.districtList = res.data.dataList;
-      });
     }
   },
   mounted() {
@@ -567,6 +551,68 @@ export default {
     this.queryCityList();
     this.queryCompanyList();
     this.queryTypeList();
+  },
+  watch: {
+    newParkingLot(newVal, val) {
+      this.parkingLotType.forEach((item) => {
+        if (item.name == newVal.parkTypeName) {
+          newVal.parkTypeCode = item.code;
+        }
+      });
+      this.cityList.forEach((item) => {
+        if (item.name == newVal.cityName) {
+          newVal.cityCode = item.code;
+          const params = {
+            "columnName": ["district_code", "district_name"],
+            "tableName": "t_d_district",
+            "whereStr": "city_code = " + item.code
+          };
+          this.$homePage.queryDictData(params).then(res => {
+            this.districtList = res.data.dataList;
+          });
+        }
+      });
+      this.enterprises.forEach((item) => {
+        if (item.name == newVal.companyName) {
+          newVal.companyId = item.code;
+        }
+      });
+      this.districtList.forEach((item) => {
+        if (item.name == newVal.districtName) {
+          newVal.districtCode = item.code;
+        }
+      });
+    },
+    editParkingLot(newVal, val) {
+      this.parkingLotType.forEach((item) => {
+        if (item.name == newVal.parkTypeName) {
+          newVal.parkTypeCode = item.code;
+        }
+      });
+      this.cityList.forEach((item) => {
+        if (item.name == newVal.cityName) {
+          newVal.cityCode = item.code;
+          const params = {
+            "columnName": ["district_code", "district_name"],
+            "tableName": "t_d_district",
+            "whereStr": "city_code = " + item.code
+          };
+          this.$homePage.queryDictData(params).then(res => {
+            this.districtList = res.data.dataList;
+          });
+        }
+      });
+      this.enterprises.forEach((item) => {
+        if (item.name == newVal.companyName) {
+          newVal.companyCode = item.code;
+        }
+      });
+      this.districtList.forEach((item) => {
+        if (item.name == newVal.districtName) {
+          newVal.districtCode = item.code;
+        }
+      });
+    }
   }
 };
 </script>
