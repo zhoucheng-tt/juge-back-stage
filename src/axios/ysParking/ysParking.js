@@ -52,4 +52,13 @@ export function echats (params) {
     })
   }
 
+  export function queryPassagewayList(param) {
+  return request({
+    url: '/parkFunc/queryPassagewayList',
+    method: 'post',
+    data: param
+      }
+  )
+  }
+
 

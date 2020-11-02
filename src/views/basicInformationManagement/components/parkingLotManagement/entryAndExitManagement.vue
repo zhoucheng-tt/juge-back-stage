@@ -118,12 +118,13 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-table
-          :data="manageEntryAndExit"
-          :row-class-name="tableRowClassName"
-          ref="selectManageEntryAndExit"
-          @selection-change="handleSelectManageEntryAndExit"
-          :header-cell-style="{
+      <el-scrollbar style="height: 100%">
+        <el-table
+            :data="manageEntryAndExit"
+            :row-class-name="tableRowClassName"
+            ref="selectManageEntryAndExit"
+            @selection-change="handleSelectManageEntryAndExit"
+            :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -132,134 +133,135 @@
           fontSize: '12px',
           fontWeight: '100'
         }"
-          :cell-style="{ 'text-align': 'center' }"
-          style="width: 100%;"
-      >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column
-            prop="passagewayId"
-            :show-overflow-tooltip="true"
-            label="出入口编号"
-            width="100"
-        ></el-table-column>
-        <el-table-column
-            prop="parkId"
-            :show-overflow-tooltip="true"
-            label="停车场编号"
-            width="100"
-        ></el-table-column>
-        <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
-            width="120"
+            :cell-style="{ 'text-align': 'center' }"
+            style="width: 100%;"
         >
-        </el-table-column>
-        <el-table-column
-            prop="parkTypeCode"
-            :show-overflow-tooltip="true"
-            label="停车场类型编码"
-            width="120"
-        >
-        </el-table-column>
-        <el-table-column
-            prop="parkTypeName"
-            :show-overflow-tooltip="true"
-            label="停车场类型名称"
-            width="120"
-        >
-        </el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayTypeCode"
-            :show-overflow-tooltip="true"
-            label="出入口类型编码"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayTypeName"
-            :show-overflow-tooltip="true"
-            label="出入口类型名称"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayName"
-            :show-overflow-tooltip="true"
-            label="出入口名称"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayDesc"
-            :show-overflow-tooltip="true"
-            label="出入口描述"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayCameraId"
-            :show-overflow-tooltip="true"
-            label="摄像头编号"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayCameraName"
-            :show-overflow-tooltip="true"
-            label="摄像头名称"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayGateId"
-            :show-overflow-tooltip="true"
-            label="道闸机编号"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="passagewayGateName"
-            :show-overflow-tooltip="true"
-            label="道闸机名称"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="cityCode"
-            :show-overflow-tooltip="true"
-            label="地市编码"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="cityName"
-            :show-overflow-tooltip="true"
-            label="地市名称"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="districtCode"
-            :show-overflow-tooltip="true"
-            label="区县编码"
-        ></el-table-column>
-        <el-table-column
-            width="120"
-            prop="districtName"
-            :show-overflow-tooltip="true"
-            label="区县名称"
-        ></el-table-column>
-        <el-table-column :show-overflow-tooltip="true" label="操作">
-          <template slot-scope="scope">
-            <el-button
-                @click="editListDialogue(scope.row)"
-                type="text"
-                size="small"
-            >修改
-            </el-button>
-            <el-button
-                @click="deleteListDialogue(scope.row)"
-                type="text"
-                size="small"
-            >删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+          <el-table-column type="selection" width="55"></el-table-column>
+          <el-table-column
+              prop="passagewayId"
+              :show-overflow-tooltip="true"
+              label="出入口编号"
+              width="100"
+          ></el-table-column>
+          <el-table-column
+              prop="parkId"
+              :show-overflow-tooltip="true"
+              label="停车场编号"
+              width="100"
+          ></el-table-column>
+          <el-table-column
+              prop="parkName"
+              :show-overflow-tooltip="true"
+              label="停车场名称"
+              width="120"
+          >
+          </el-table-column>
+          <el-table-column
+              prop="parkTypeCode"
+              :show-overflow-tooltip="true"
+              label="停车场类型编码"
+              width="120"
+          >
+          </el-table-column>
+          <el-table-column
+              prop="parkTypeName"
+              :show-overflow-tooltip="true"
+              label="停车场类型名称"
+              width="120"
+          >
+          </el-table-column>
+          <el-table-column
+              width="120"
+              prop="passagewayTypeCode"
+              :show-overflow-tooltip="true"
+              label="出入口类型编码"
+          ></el-table-column>
+          <el-table-column
+              width="120"
+              prop="passagewayTypeName"
+              :show-overflow-tooltip="true"
+              label="出入口类型名称"
+          ></el-table-column>
+          <el-table-column
+              width="120"
+              prop="passagewayName"
+              :show-overflow-tooltip="true"
+              label="出入口名称"
+          ></el-table-column>
+          <el-table-column
+              width="120"
+              prop="passagewayDesc"
+              :show-overflow-tooltip="true"
+              label="出入口描述"
+          ></el-table-column>
+<!--          <el-table-column-->
+<!--              width="120"-->
+<!--              prop="passagewayCameraId"-->
+<!--              :show-overflow-tooltip="true"-->
+<!--              label="摄像头编号"-->
+<!--          ></el-table-column>-->
+<!--          <el-table-column-->
+<!--              width="120"-->
+<!--              prop="passagewayCameraName"-->
+<!--              :show-overflow-tooltip="true"-->
+<!--              label="摄像头名称"-->
+<!--          ></el-table-column>-->
+<!--          <el-table-column-->
+<!--              width="120"-->
+<!--              prop="passagewayGateId"-->
+<!--              :show-overflow-tooltip="true"-->
+<!--              label="道闸机编号"-->
+<!--          ></el-table-column>-->
+<!--          <el-table-column-->
+<!--              width="120"-->
+<!--              prop="passagewayGateName"-->
+<!--              :show-overflow-tooltip="true"-->
+<!--              label="道闸机名称"-->
+<!--          ></el-table-column>-->
+          <el-table-column
+              width="120"
+              prop="cityCode"
+              :show-overflow-tooltip="true"
+              label="地市编码"
+          ></el-table-column>
+          <el-table-column
+              width="120"
+              prop="cityName"
+              :show-overflow-tooltip="true"
+              label="地市名称"
+          ></el-table-column>
+          <el-table-column
+              width="120"
+              prop="districtCode"
+              :show-overflow-tooltip="true"
+              label="区县编码"
+          ></el-table-column>
+          <el-table-column
+              width="120"
+              prop="districtName"
+              :show-overflow-tooltip="true"
+              label="区县名称"
+          ></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" label="操作">
+            <template slot-scope="scope">
+              <el-button
+                  @click="editListDialogue(scope.row)"
+                  type="text"
+                  size="small"
+              >修改
+              </el-button>
+              <el-button
+                  @click="deleteListDialogue(scope.row)"
+                  type="text"
+                  size="small"
+              >删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-scrollbar>
       <el-pagination
-          style="position: absolute;right:4%;margin-top:20px"
+          style="position: relative;right:-80%;margin-top:20px"
           background
           layout="total, prev, pager, next, jumper"
           @current-change="handleCurrentModify"
@@ -316,7 +318,7 @@
   </div>
 </template>
 <script>
-import {queryPassagewayList} from "@/axios/ysParking/ysParking.js";
+// import {queryPassagewayList} from "@/axios/ysParking/ysParking.js";
 
 export default {
   data() {
@@ -376,13 +378,7 @@ export default {
       // 新增弹窗显示和隐藏属性
       addListDialogueandoff: false,
       //新增数据暂存数组
-      addListDialogueandoffList: {
-        TingNum: "",
-        passagewayId: "",
-        passagewayName: "",
-        passagewayTypeName: "",
-        passagewayDesc: ""
-      }
+      addListDialogueandoffList: {}
     };
   },
   methods: {
@@ -397,6 +393,7 @@ export default {
     // 分页
     handleCurrentModify(val) {
       this.pageNum = val;
+      //查询列表方法
     },
     // 斑马纹样式
     tableRowClassName({row, rowIndex}) {
@@ -440,20 +437,23 @@ export default {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.editListDialogueandoff = false;
     },
-    queryPassagewayList(){
+    //查询列表方法
+    queryPassagewayList() {
+      var that = this;
       this.manageEntryAndExit = [];
-      const param= {
+      const param = {
+        pageSize: this.pageSize,
         pageNum: this.pageNum,
-        pageTotal: this.pageTotal
       };
-      queryPassagewayList(param).then(res => {
-        this.manageEntryAndExit = res.data.datalist;
-      })
+      this.$ysParking.queryPassagewayList(param).then(res => {
+        console.log("打印出来res", res);
+        that.manageEntryAndExit = res.data.dataList;
+        console.log("列表数据,", that.manageEntryAndExit);
+      });
     }
   },
   mounted() {
-
-    this.queryPassagewayList()
+    this.queryPassagewayList();
   }
 };
 </script>
@@ -514,4 +514,8 @@ export default {
 #add {
   height: auto;
 }
+
+/*/deep/.el-scrollbar__wrap {*/
+/*  overflow-x: scroll;*/
+/*}*/
 </style>
