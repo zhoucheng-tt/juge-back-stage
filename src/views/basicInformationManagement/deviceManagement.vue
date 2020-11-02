@@ -2,7 +2,7 @@
     设备管理
  * @Author: 邵青阳
  * @Date: 2020-10-22 09:26:58
- * @LastEditTime: 2020-10-30 09:17:01
+ * @LastEditTime: 2020-11-02 17:23:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\carWashingMachineManagement.vue
@@ -28,6 +28,9 @@
             <el-tab-pane label="充电桩管理" name="sixe">
                 <charge-Point-Management />
             </el-tab-pane>
+            <el-tab-pane label="洗车机管理" name="serve">
+                <car-Washing-Machine-Management />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -42,6 +45,9 @@
     import gateMachineManagement from './deviceManagement/gateMachineManagement'
     // 充电桩管理  chargePointManagement
     import chargePointManagement from './deviceManagement/chargePointManagement'
+    // 洗车机管理  carWashingMachineManagement
+    import carWashingMachineManagement from './deviceManagement/carWashingMachineManagement'
+
 
     export default {
         components: {
@@ -50,7 +56,8 @@
             floorLock,
             importExportCameraManagement,
             gateMachineManagement,
-            chargePointManagement
+            chargePointManagement,
+            carWashingMachineManagement
         },
         data() {
             return {
