@@ -52,6 +52,32 @@ export function echats (params) {
     })
   }
 
+//停车场管理-停车场管理-新增停车场
+export function insertPark(param) {
+    return request({
+        url: '/parkFunc/insertPark',
+        method: 'post',
+        data: param
+    })
+}
+
+//停车场管理-停车场管理-删除停车场
+export function deletePark(param) {
+    return request({
+        url: '/parkFunc/deletePark',
+        method: 'post',
+        data: param
+    })
+}
+
+//停车场管理-停车场管理-修改停车场
+export function updatePark(param) {
+    return request({
+        url: '/parkFunc/updatePark',
+        method: 'post',
+        data: param
+    })
+}
   export function queryPassagewayList(param) {
   return request({
     url: '/parkFunc/queryPassagewayList',

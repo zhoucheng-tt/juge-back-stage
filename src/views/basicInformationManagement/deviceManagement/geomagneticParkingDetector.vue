@@ -16,14 +16,16 @@
           <el-col span="6">
             <el-form-item label="停车场">
               <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName" :key="index"></el-option>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                           :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus" :key="index"></el-option>
+                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
+                           :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -56,6 +58,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <!--分页条-->
+      <el-pagination
+          style="position: relative;left: 78%"
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal">
+      </el-pagination>
       <!--新增表单弹框-->
       <el-dialog id="add" title="新增地磁车位检测器" :visible.sync="addListDialog">
         <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
@@ -103,7 +114,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addListDialog = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit01()">确定</el-button>
+          <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
         </div>
       </el-dialog>
       <!--修改表单弹框-->
@@ -114,7 +125,8 @@
             <el-col span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editGeo.pkLotName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName" :key="index"></el-option>
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                             :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -152,7 +164,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="editListDialog = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit02()">确 定</el-button>
+          <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -197,66 +209,23 @@ export default {
         }
       ],
       //地磁车列表
-      geoList: [
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        },
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        },
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        },
-        {
-          pkLotName: "东厦门停车场",
-          pkLotNum: "B179",
-          geoNum: "28",
-          geoName: "启迪",
-          sensorId: "10",
-          producer: "东腾电器"
-        }
-      ],
+      geoList: [],
       //新增表单弹框
       addListDialog: false,
       //新增地磁车数据暂存
-      newGeo: {
-        pkLotName: "",
-        pkLotNum: "",
-        geoNum: "",
-        geoName: "",
-        sensorId: "",
-        producer: ""
-      },
+      newGeo: {},
       //修改表单弹框
       editListDialog: false,
       //修改地磁车数据暂存
-      editGeo: {
-        pkLotName: "",
-        pkLotNum: "",
-        geoNum: "",
-        geoName: "",
-        sensorId: "",
-        producer: ""
-      },
+      editGeo: {},
       //批量删除暂存id
       idList: [],
       //多选后数据暂存
-      selectGeoList: []
+      selectGeoList: [],
+      //初始化分页
+      pageNum: 1,
+      pageSize: 10,
+      pageTotal: 4
     };
   },
   methods: {
@@ -267,14 +236,7 @@ export default {
     //新增地磁车
     addNewGeo() {
       console.log("新增地磁车弹框弹出");
-      this.newGeo = {
-        pkLotName: "",
-        pkLotNum: "",
-        geoNum: "",
-        geoName: "",
-        sensorId: "",
-        producer: ""
-      };
+      this.newGeo = {};
       this.addListDialog = true;
     },
     //批量导入
@@ -283,14 +245,18 @@ export default {
     },
     //批量删除
     batchDelete() {
-        console.log("批量删除", this.idList);
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {this.$message({type: "success", message: "删除成功!"});})
-            .catch(() => {this.$message({type: "info", message: "已取消删除"});});
-      },
+      console.log("批量删除", this.idList);
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.$message({type: "success", message: "删除成功!"});
+      })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
+    },
     //修改
     editGeoDialog(row) {
       this.editGeo = row;
@@ -312,13 +278,13 @@ export default {
           });
     },
     //新增表单提交
-    onSubmit01() {
+    onSubmitAdd() {
       console.log("新增数据", this.newGeo);
       this.geoList.push(this.newGeo);
       this.addListDialog = false;
     },
     //修改表单提交
-    onSubmit02() {
+    onSubmitEdit() {
       console.log("修改数据", this.editGeo);
       this.editListDialog = false;
     },
@@ -331,9 +297,15 @@ export default {
         this.idList.push(item.geoNum);
       });
       console.log(this.selectGeoList);
+    },
+    // 分页查询方法
+    handleCurrentModify(val) {
+      this.pageNum = val;
+      // 查询列表方法
+      this.queryParkList();
     }
   }
-};
+}
 
 </script>
 <style scoped>

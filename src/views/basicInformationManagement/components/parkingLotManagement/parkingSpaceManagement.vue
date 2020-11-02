@@ -131,13 +131,13 @@
                   <el-input
                     v-model="addListDialogueandoffList.pictureWidth"
                     placeholder="请输入图片宽度"
-                  > <template slot="append">px</template></el-input>
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-input
                     v-model="addListDialogueandoffList.pictureHight"
                     placeholder="请输入图片高度"
-                  > <template slot="append">px</template></el-input>
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
