@@ -222,7 +222,7 @@ export default {
       // 分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: 1,
+      pageTotal: 2,
       // 列表数据暂存处
       manageEntryAndExit: [],
       // 修改弹窗显示和隐藏属性
