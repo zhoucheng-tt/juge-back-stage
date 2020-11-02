@@ -446,7 +446,7 @@ export default {
       this.queryPassagewayList();
       //查询列表方法
     },
-    // 斑马纹样式
+    /*// 斑马纹样式
     tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
@@ -454,7 +454,7 @@ export default {
         return "successSecond";
       }
       return "";
-    },
+    },*/
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.queryParkId);

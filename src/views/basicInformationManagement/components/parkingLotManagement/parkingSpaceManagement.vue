@@ -640,7 +640,7 @@ export default {
     viewDocument() {
       console.log("预览文件");
     },
-    // 斑马纹样式
+   /* // 斑马纹样式
     // eslint-disable-next-line no-unused-vars
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -649,7 +649,7 @@ export default {
         return "successSecond";
       }
       return "";
-    },
+    },*/
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.upQueryList);
