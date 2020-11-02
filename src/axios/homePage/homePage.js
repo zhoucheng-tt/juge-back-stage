@@ -9,10 +9,21 @@
 import request from '@/utils/request'
 
 // 登录接口
-export function login (params) {
+export function login(params) {
     return request({
-      url: '/systemManageFunc/loginUser.xhtml',
-      method: 'post',
-      data: params,
+        url: '/systemManageFunc/loginUser.xhtml',
+        method: 'post',
+        data: params,
     })
-  }
+}
+
+//下拉框数据查询
+export function queryDictData(params) {
+    return request(
+        {
+            url: 'DictDimFunc/queryDictData.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
