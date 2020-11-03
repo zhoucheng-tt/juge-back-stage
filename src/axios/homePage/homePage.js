@@ -71,3 +71,47 @@ export function updateMagneticDetecter(params) {
         }
     )
 }
+
+//地锁列表查询
+export function queryGroundLock(params) {
+    return request(
+        {
+            url: 'DeviceFunc/queryGroundLock.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//新增地锁
+export function addGroundLock(params) {
+    return request({
+        url: 'DeviceFunc/addGroundLock.xhtml',
+        method: 'post',
+        data: params
+    })
+}
+
+//删除地锁
+export function delGroundLock(params) {
+    return request(
+        {
+            url: 'DeviceFunc/delGroundLock.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+//修改地锁
+export function updateGroundLock(params) {
+    return request(
+        {
+            url: 'DeviceFunc/updateGroundLock.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+
+

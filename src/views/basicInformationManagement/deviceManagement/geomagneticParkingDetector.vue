@@ -249,11 +249,13 @@ export default {
       cityList: [],
       //归属区县下拉菜单
       districtList: [],
+      //修改前停车场Id暂存
+      oldParkId:''
     };
   },
   methods: {
     //斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
@@ -265,6 +267,8 @@ export default {
     addNewGeo() {
       console.log("新增地磁车弹框弹出");
       this.newGeo = {};
+      this.districtList = [];
+      this.parkingLotNameList = [];
       this.addListDialog = true;
     },
     //批量导入
@@ -281,7 +285,6 @@ export default {
       }).then(() => {
         this.$homePage.delMagneticDetecter(this.idList).then(res => {
           this.$message({type: "success", message: "删除成功!"});
-          this.$message({type: "success", message: "删除成功!"});
           this.queryMagneticDetecter();
         })
       }).catch(() => {
@@ -291,6 +294,23 @@ export default {
     //修改弹框弹出
     editGeoDialog(row) {
       this.editGeo = row;
+      this.oldParkId = row.parkId;
+      const disParams = {
+        "columnName": ["district_code", "district_name"],
+        "tableName": "t_d_district",
+        "whereStr": "city_code = " + this.editGeo.cityCode
+      };
+      this.$homePage.queryDictData(disParams).then(res => {
+        this.districtList = res.data.dataList;
+      });
+      const parkParams = {
+        "columnName": ["park_id", "park_name"],
+        "tableName": "t_bim_park",
+        "whereStr": "district_code = " + this.editGeo.districtCode
+      };
+      this.$homePage.queryDictData(parkParams).then(res => {
+        this.parkingLotNameList = res.data.dataList;
+      });
       this.editListDialog = true;
       console.log("修改弹窗弹出");
     },
@@ -320,7 +340,14 @@ export default {
     //新增表单提交
     onSubmitAdd() {
       console.log("新增数据", this.newGeo);
-      this.$homePage.addMagneticDetecter(this.newGeo).then(res => {
+      const param = {
+        parkId: this.newGeo.parkId,
+        magneticDetecterId: this.newGeo.magneticDetecterId,
+        magneticDetecterName: this.newGeo.magneticDetecterName,
+        sensorId: this.newGeo.sensorId,
+        manufacturer: this.newGeo.manufacturer
+      }
+      this.$homePage.addMagneticDetecter(param).then(res => {
         console.log("打印响应", res);
       });
       this.queryMagneticDetecter();
@@ -329,10 +356,20 @@ export default {
     //修改表单提交
     onSubmitEdit() {
       console.log("修改数据", this.editGeo);
-      this.$homePage.updateMagneticDetecter(this.editGeo).then(res=>{
-        console.log("打印响应",res);
+      const param = {
+        parkId: this.editGeo.parkId,
+        magneticDetecterId: this.editGeo.magneticDetecterId,
+        //原来的停车场ID
+        parkCode: this.oldParkId,
+        magneticDetecterCode: this.editGeo.magneticDetecterId,
+        magneticDetecterName: this.editGeo.magneticDetecterName,
+        sensorId: this.editGeo.sensorId,
+        manufacturer: this.editGeo.manufacturer
+      };
+      this.$homePage.updateMagneticDetecter(param).then(res => {
+        console.log("打印响应", res);
+        this.queryMagneticDetecter();
       });
-      this.queryMagneticDetecter();
       this.editListDialog = false;
     },
     //批量删除监听
