@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:36:38
- * @LastEditTime: 2020-10-27 21:02:32
+ * @LastEditTime: 2020-11-03 16:54:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\vue.config.js

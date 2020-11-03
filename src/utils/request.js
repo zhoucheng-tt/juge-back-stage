@@ -18,7 +18,7 @@ const service = axios.create({
   // 服务器版本
   // baseURL:'/e-parking-api',
   baseURL:'/e-parking-web',
-  // withCredentials: true, // send cookies when cross-domain requests
+  withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   transformRequest: [
     function (data) {
