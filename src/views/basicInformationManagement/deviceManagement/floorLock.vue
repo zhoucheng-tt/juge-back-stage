@@ -31,7 +31,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="5">
+          <el-col :span="5">
             <el-form-item label="停车场">
               <el-select v-model="query.parkName" placeholder="请选择">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.name"
@@ -39,7 +39,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
                 <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
@@ -53,7 +53,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addNewLock()">新增地锁</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="danger" @click="batchDelete()">批量删除</el-button>
