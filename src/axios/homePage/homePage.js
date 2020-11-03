@@ -113,5 +113,48 @@ export function updateGroundLock(params) {
     )
 }
 
+//视频车位列表查询 DeviceFunc/queryVideoDetecter
+export function queryVideoDetecter(param) {
+    return request(
+        {
+            url: '/DeviceFunc/queryVideoDetecter',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
+//视频车位新增 addVideoDetecter
+export function addVideoDetecter(param) {
+    return request(
+        {
+            url: '/DeviceFunc/addVideoDetecter',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
+//视频车位删除 delVideoDetecter
+export function delVideoDetecter(param) {
+    return request(
+        {
+            url: '/DeviceFunc/delVideoDetecter',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
+//视频车位修改 updateVideoDetecter
+export function updateVideoDetecter(param) {
+    return request(
+        {
+            url: '/DeviceFunc/updateVideoDetecter',
+            method: 'post',
+            data: param
+        }
+    )
+}
 
 

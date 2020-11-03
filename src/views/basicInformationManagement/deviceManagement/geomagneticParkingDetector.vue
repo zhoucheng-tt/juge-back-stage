@@ -31,7 +31,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="5">
+          <el-col :span="5">
             <el-form-item label="停车场">
               <el-select v-model="query.parkName" placeholder="请选择">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.name"
@@ -39,7 +39,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
                 <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
@@ -53,7 +53,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addNewGeo()">新增地磁车检测器</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="danger" @click="batchDelete()">批量删除</el-button>
@@ -222,7 +222,12 @@ export default {
   data() {
     return {
       //停车场名称列表
-      parkingLotNameList: [],
+      parkingLotNameList: [
+        {
+          name: "全部",
+          code: ""
+        }
+      ],
       //设备状态
       eqStatusList: [],
       //地磁车列表
@@ -246,11 +251,21 @@ export default {
       //条件查询
       query: {},
       //归属地市下拉菜单
-      cityList: [],
+      cityList: [
+        {
+          name: "全部",
+          code: ""
+        }
+      ],
       //归属区县下拉菜单
-      districtList: [],
+      districtList: [
+        {
+          name: "全部",
+          code: ""
+        }
+      ],
       //修改前停车场Id暂存
-      oldParkId:''
+      oldParkId: ''
     };
   },
   methods: {
@@ -267,6 +282,9 @@ export default {
     addNewGeo() {
       console.log("新增地磁车弹框弹出");
       this.newGeo = {};
+      //初始化下拉菜单
+      this.cityList = [];
+      this.queryCityList();
       this.districtList = [];
       this.parkingLotNameList = [];
       this.addListDialog = true;
@@ -295,6 +313,9 @@ export default {
     editGeoDialog(row) {
       this.editGeo = row;
       this.oldParkId = row.parkId;
+      //初始化下拉菜单
+      this.cityList = [];
+      this.queryCityList();
       const disParams = {
         "columnName": ["district_code", "district_name"],
         "tableName": "t_d_district",
@@ -413,7 +434,7 @@ export default {
         "whereStr": ""
       };
       this.$homePage.queryDictData(cityParam).then(res => {
-        this.cityList = res.data.dataList;
+        res.data.dataList.forEach((item) => this.cityList.push(item))
       });
     }
   },
@@ -427,47 +448,75 @@ export default {
     //查询条件监听
     query: {
       handler(newVal) {
-        this.parkingLotNameList.forEach((item) => {
-          if (newVal.parkName == item.name) {
-            newVal.parkId = item.code;
-          }
-        });
         this.cityList.forEach((item) => {
           if (item.name == newVal.cityName) {
             newVal.cityCode = item.code;
-            const params = {
-              "columnName": ["district_code", "district_name"],
-              "tableName": "t_d_district",
-              "whereStr": "city_code = " + item.code
-            };
-            //初始化区县下拉菜单
-            this.$homePage.queryDictData(params).then(res => {
-              this.districtList = res.data.dataList;
-            });
+            if (item.name != "全部") {
+              const params = {
+                "columnName": ["district_code", "district_name"],
+                "tableName": "t_d_district",
+                "whereStr": "city_code = " + item.code
+              };
+              //初始化区县下拉菜单
+              this.$homePage.queryDictData(params).then(res => {
+                this.districtList = [
+                  {
+                    name: "全部",
+                    code: ""
+                  }
+                ]
+                res.data.dataList.forEach((item) => this.districtList.push(item))
+              });
+            } else {
+              this.districtList = [
+                {
+                  name: "全部",
+                  code: ""
+                }
+              ]
+            }
           }
         });
         this.districtList.forEach((item) => {
           if (item.name == newVal.districtName) {
             newVal.districtCode = item.code;
-            const param = {
-              "columnName": ["park_id", "park_name"],
-              "tableName": "t_bim_park",
-              "whereStr": "district_code = " + item.code
-            };
-            //停车场名称下拉菜单
-            this.$homePage.queryDictData(param).then(res => {
-              this.parkingLotNameList = res.data.dataList;
-            });
+            if (item.name != "全部") {
+              const param = {
+                "columnName": ["park_id", "park_name"],
+                "tableName": "t_bim_park",
+                "whereStr": "district_code = " + item.code
+              };
+              //停车场名称下拉菜单
+              this.$homePage.queryDictData(param).then(res => {
+                this.parkingLotNameList = [
+                  {
+                    name: "全部",
+                    code: ""
+                  }
+                ]
+                res.data.dataList.forEach((item) => this.parkingLotNameList.push(item))
+              });
+            } else {
+              this.parkingLotNameList = [
+                {
+                  name: "全部",
+                  code: ""
+                }
+              ]
+            }
           }
-        })
-
+        });
+        this.parkingLotNameList.forEach((item) => {
+          if (newVal.parkName == item.name) {
+            newVal.parkId = item.code;
+          }
+        });
       },
       deep: true
     },
     //新增监听
     newGeo: {
       handler(newVal) {
-
         this.cityList.forEach((item) => {
           if (item.name == newVal.cityName) {
             newVal.cityCode = item.code;
@@ -478,7 +527,8 @@ export default {
             };
             //初始化区县下拉菜单
             this.$homePage.queryDictData(params).then(res => {
-              this.districtList = res.data.dataList;
+              this.districtList = []
+              res.data.dataList.forEach((item) => this.districtList.push(item))
             });
           }
         });
@@ -492,7 +542,8 @@ export default {
             };
             //停车场名称下拉菜单
             this.$homePage.queryDictData(param).then(res => {
-              this.parkingLotNameList = res.data.dataList;
+              this.parkingLotNameList = []
+              res.data.dataList.forEach((item) => this.parkingLotNameList.push(item))
             });
           }
         });
@@ -507,11 +558,6 @@ export default {
     //修改监听
     editGeo: {
       handler(newVal) {
-        this.parkingLotNameList.forEach((item) => {
-          if (newVal.parkName == item.name) {
-            newVal.parkId = item.code;
-          }
-        });
         this.cityList.forEach((item) => {
           if (item.name == newVal.cityName) {
             newVal.cityCode = item.code;
@@ -522,7 +568,8 @@ export default {
             };
             //初始化区县下拉菜单
             this.$homePage.queryDictData(params).then(res => {
-              this.districtList = res.data.dataList;
+              this.districtList = []
+              res.data.dataList.forEach((item) => this.districtList.push(item))
             });
           }
         });
@@ -536,11 +583,16 @@ export default {
             };
             //停车场名称下拉菜单
             this.$homePage.queryDictData(param).then(res => {
-              this.parkingLotNameList = res.data.dataList;
+              this.parkingLotNameList = []
+              res.data.dataList.forEach((item) => this.parkingLotNameList.push(item))
             });
           }
-        })
-
+        });
+        this.parkingLotNameList.forEach((item) => {
+          if (newVal.parkName == item.name) {
+            newVal.parkId = item.code;
+          }
+        });
       },
       deep: true
     },
