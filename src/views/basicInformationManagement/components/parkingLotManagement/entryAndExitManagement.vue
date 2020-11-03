@@ -486,6 +486,7 @@ export default {
           .then(res => {
             console.log("打印相应", res);
           });
+      this.$message({type: "success", message: "添加成功!"});
       this.queryPassagewayList();
       this.addListDialogueandoff = false;
     },
@@ -498,11 +499,10 @@ export default {
     // 保存修改信息
     InfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
-      this.$ysParking
-          .updatePassagewayList(this.editListDialogueandoffList)
-          .then(res => {
-            console.log("打印更新数据", res);
+      this.$ysParking.updatePassagewayList(this.editListDialogueandoffList)
+          .then(res => {console.log("打印更新数据", res);
           });
+      this.$message({type: "success", message: "修改成功!"});
       this.queryPassagewayList();
       this.editListDialogueandoff = false;
     },

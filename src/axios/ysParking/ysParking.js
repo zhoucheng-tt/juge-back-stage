@@ -125,3 +125,21 @@ export function updatePassagewayList(param) {
     })
 }
 
+//停车场管理-车位管理-上半部分列表查询 queryParkLayerList
+export function queryParkLayerList(param) {
+    return request({
+        url: '/parkFunc/queryParkLayerList',
+        method: 'post',
+        data: param
+    })
+}
+
+//停车场管理-车位管理-下半部分列表查询 queryParkSpaceList
+export function queryParkSpaceList(param) {
+    return request({
+        url: '/parkFunc/queryParkSpaceList',
+        method: 'post',
+        data: param
+    })
+}
+
