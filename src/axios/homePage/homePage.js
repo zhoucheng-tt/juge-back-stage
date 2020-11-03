@@ -21,7 +21,7 @@ export function login(params) {
 export function queryDictData(params) {
     return request(
         {
-            url: 'DictDimFunc/queryDictData.xhtml',
+            url: '/DictDimFunc/queryDictData.xhtml',
             method: 'post',
             data: params
         }
@@ -32,10 +32,42 @@ export function queryDictData(params) {
 export function queryMagneticDetecter(params) {
     return request(
         {
-            url: 'DeviceFunc/queryMagneticDetecter.xhtml',
+            url: '/DeviceFunc/queryMagneticDetecter.xhtml',
             method: 'post',
             data: params
         }
     )
 }
 
+//新增地磁车
+export function addMagneticDetecter(params) {
+    return request(
+        {
+            url: '/DeviceFunc/addMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//删除地磁车
+export function delMagneticDetecter(params) {
+    return request(
+        {
+            url: '/DeviceFunc/delMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//修改地磁车
+export function updateMagneticDetecter(params) {
+    return request(
+        {
+            url: '/DeviceFunc/updateMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
