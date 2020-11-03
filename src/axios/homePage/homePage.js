@@ -39,6 +39,80 @@ export function queryMagneticDetecter(params) {
     )
 }
 
+//新增地磁车
+export function addMagneticDetecter(params) {
+    return request(
+        {
+            url: '/DeviceFunc/addMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//删除地磁车
+export function delMagneticDetecter(params) {
+    return request(
+        {
+            url: '/DeviceFunc/delMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//修改地磁车
+export function updateMagneticDetecter(params) {
+    return request(
+        {
+            url: '/DeviceFunc/updateMagneticDetecter.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//地锁列表查询
+export function queryGroundLock(params) {
+    return request(
+        {
+            url: 'DeviceFunc/queryGroundLock.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
+//新增地锁
+export function addGroundLock(params) {
+    return request({
+        url: 'DeviceFunc/addGroundLock.xhtml',
+        method: 'post',
+        data: params
+    })
+}
+
+//删除地锁
+export function delGroundLock(params) {
+    return request(
+        {
+            url: 'DeviceFunc/delGroundLock.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+//修改地锁
+export function updateGroundLock(params) {
+    return request(
+        {
+            url: 'DeviceFunc/updateGroundLock.xhtml',
+            method: 'post',
+            data: params
+        }
+    )
+}
+
 //视频车位列表查询 DeviceFunc/queryVideoDetecter
 export function queryVideoDetecter(param) {
     return request(

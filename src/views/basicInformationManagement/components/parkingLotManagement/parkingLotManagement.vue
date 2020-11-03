@@ -60,7 +60,7 @@
         </el-table>
       </el-scrollbar>
       <!--分页条-->
-      <el-pagination style="position: relative;left: 78%" layout="total, prev, pager, next, jumper"
+      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper"
                      :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
                      :total="pageTotal"/>
     </div>
@@ -429,8 +429,8 @@ export default {
     // 点击新增
     addInletAndOutlet() {
       this.newParkingLot = {};
-      this.districtList = [],
-          this.addListDialogueandoff = true;
+      this.districtList = [];
+      this.addListDialogueandoff = true;
     },
     //选择停车场图片
     choosePicture() {
@@ -458,8 +458,8 @@ export default {
     //修改弹框弹出
     editListDialogue(row) {
       console.log(row);
-      this.districtList = [],
-          this.editListDialogueandoff = true;
+      this.districtList = [];
+      this.editListDialogueandoff = true;
       this.editParkingLot = row;
     },
     //修改表单提交
@@ -467,8 +467,8 @@ export default {
       console.log(this.editParkingLot);
       this.$ysParking.updatePark(this.editParkingLot).then(res => {
         console.log("打印响应", res);
+        this.queryParkList();
       });
-      this.queryParkList();
       this.editListDialogueandoff = false;
     },
     handleSelectionChange(val) {
@@ -552,11 +552,15 @@ export default {
     }
   },
   mounted() {
-    // 查询列表方法
+    //初始化列表
     this.queryParkList();
+    //初始化计费规则下拉菜单
     this.queryBillList();
+    //初始化地市下拉菜单
     this.queryCityList();
+    //初始化所属公司下拉菜单
     this.queryCompanyList();
+    //初始化停车场类型下拉菜单
     this.queryTypeList();
   },
   watch: {
