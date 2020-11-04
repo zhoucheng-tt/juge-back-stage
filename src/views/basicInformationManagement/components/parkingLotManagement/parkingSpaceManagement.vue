@@ -17,6 +17,7 @@
           <el-col :span="5">
             <el-form-item label="停车场：">
               <el-select v-model="queryParkId" placeholder="请选择停车场">
+                <el-option label="全部" value="0"></el-option>
                 <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -52,13 +53,13 @@
               <el-col :span="12">
                 <el-form-item label="归属停车场:" class="form-all">
                   <el-select
-                      v-model="addListDialogueandoffList.TingNum"
+                      v-model="addListDialogueandoffList.parkId"
                       placeholder="请选择停车场"
                   >
                     <el-option
                         v-for="(item, index) in parkingLotList"
-                        :label="item.parkingName"
-                        :value="item.parkingName"
+                        :label="item.name"
+                        :value="item.code"
                         :key="index"
                     ></el-option>
                   </el-select>
@@ -186,8 +187,8 @@
         <el-table
             :data="parkLayerList"
             :row-class-name="tableRowClassName"
-            ref="selectparkLayerList"
-            @selection-change="handleSelectparkLayerList"
+            ref="selectParkLayerList"
+            @selection-change="handleSelectParkLayerList"
             :header-cell-style="{
             'text-align': 'center',
             background: '#24314A',
@@ -510,9 +511,9 @@ export default {
   data() {
     return {
       // 查询数据暂存处
-      queryParkId: "",
+      queryParkId: "0",
       //多选后数据暂存
-      selectparkLayerList: [],
+      selectParkLayerList: [],
       // 停车场下拉框数据暂存
       parkingLotList: [],
       // 出入口下拉框数据暂存
@@ -551,6 +552,20 @@ export default {
     };
   },
   methods: {
+    // 查询停车场下拉表单
+    queryParking() {
+      const param = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = '321302'"
+      };
+      this.$ysParking.queryDictData(param).then(res => {
+        console.log("下拉表单查询数据显示", res);
+        //  that.parkingLotList = res.data.dataList;
+        res.data.dataList.forEach((item) => this.parkingLotList.push(item));
+        console.log("下拉菜单", this.parkingLotList);
+      });
+    },
     // 上表列表查询
     queryParkLayerList() {
       this.parkLayerList = [];
@@ -598,8 +613,8 @@ export default {
     },
 
     // 拿到上表多选数据
-    handleSelectparkLayerList(val) {
-      this.selectparkLayerList = val;
+    handleSelectParkLayerList(val) {
+      this.selectParkLayerList = val;
     },
 
     //拿到下表多选数据
@@ -647,6 +662,20 @@ export default {
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.queryParkId);
+      if (this.queryParkId != 0) {
+        this.parkLayerList = [];
+        const param = {
+          parkId: this.queryParkId,
+          pageSize: this.pageSize,
+          pageNum: this.pageNum
+        };
+        this.$ysParking.queryParkLayerList(param).then(res => {
+          this.parkLayerList = res.data.dataList;
+        });
+      } else {
+        this.queryParkLayerList();
+
+      }
     },
     // 点击导入调用的方法
     importData() {
@@ -662,6 +691,11 @@ export default {
     // 点击保存
     addInfoInsert() {
       console.log("保存后打印出来的数据", this.addListDialogueandoffList);
+      this.$ysParking.insertParkLayer(this.addListDialogueandoffList).then(res => {
+        console.log("打印保存的数据",res);
+      })
+      this.$message({type: "success", message: "添加成功!"});
+      this.queryParkLayerList();
       this.addListDialogueandoff = false;
     },
     // 点击修改按钮执行的操作
@@ -683,6 +717,7 @@ export default {
     }
   },
   mounted() {
+    this.queryParking();
     this.queryParkLayerList();
     this.queryParkSpaceList();
   },

@@ -15,6 +15,7 @@
         <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="停车场：">
             <el-select v-model="queryParkId" placeholder="请选择停车场">
+              <el-option label="全部" value="0"></el-option>
               <el-option
                   v-for="(item, index) in parkingLotList"
                   :label="item.name"
@@ -357,7 +358,7 @@ export default {
   data() {
     return {
       // 查询数据暂存处
-      queryParkId: "",
+      queryParkId: "0",
       //多选后数据暂存
       selectManageEntryAndExit: [],
       // 停车场下拉框数据暂存
@@ -458,18 +459,22 @@ export default {
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.queryParkId);
-      this.manageEntryAndExit = [];
-      const param = {
-        parkId: this.queryParkId,
-        pageSize: this.pageSize,
-        pageNum: this.pageNum
-      };
-      this.$ysParking.queryPassagewayList(param).then(res => {
-            console.log("查询打印", res);
-            this.manageEntryAndExit = res.data.dataList;
-            console.log("查询数据,", this.manageEntryAndExit);
-          }
-      )
+      if (this.queryParkId != 0) {
+        this.manageEntryAndExit = [];
+        const param = {
+          parkId: this.queryParkId,
+          pageSize: this.pageSize,
+          pageNum: this.pageNum
+        };
+        this.$ysParking.queryPassagewayList(param).then(res => {
+              console.log("查询打印", res);
+              this.manageEntryAndExit = res.data.dataList;
+              console.log("查询数据,", this.manageEntryAndExit);
+            }
+        )
+      } else {
+        this.queryPassagewayList();
+      }
     },
     // 点击新增
     addInletAndOutlet() {
@@ -484,7 +489,7 @@ export default {
       this.$ysParking
           .insertPassagewayList(this.addListDialogueandoffList)
           .then(res => {
-            console.log("打印相应", res);
+            // console.log("打印相应", res);
           });
       this.$message({type: "success", message: "添加成功!"});
       this.queryPassagewayList();
@@ -500,7 +505,8 @@ export default {
     InfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.$ysParking.updatePassagewayList(this.editListDialogueandoffList)
-          .then(res => {console.log("打印更新数据", res);
+          .then(res => {
+            console.log("打印更新数据", res);
           });
       this.$message({type: "success", message: "修改成功!"});
       this.queryPassagewayList();
@@ -515,16 +521,14 @@ export default {
         pageNum: this.pageNum
       };
       this.$ysParking.queryPassagewayList(param).then(res => {
-        console.log("打印出来res", res);
+        // console.log("打印出来res", res);
         this.pageTotal = res.data.totalRecord;
         that.manageEntryAndExit = res.data.dataList;
-        console.log("列表数据,", that.manageEntryAndExit);
+        // console.log("列表数据,", that.manageEntryAndExit);
       });
     },
     // 查询停车场下拉表单
     queryParking() {
-      var that = this;
-      this.parkingLotList = [];
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
@@ -532,8 +536,8 @@ export default {
       };
       this.$ysParking.queryDictData(param).then(res => {
         console.log("下拉表单查询数据显示", res);
-        that.parkingLotList = res.data.dataList;
-        console.log("下拉菜单", this.parkingLotList);
+        this.parkingLotList = res.data.dataList;
+       // console.log("下拉菜单", this.parkingLotList);
       });
     },
     // 出入口下拉表单
@@ -546,9 +550,9 @@ export default {
         whereStr: ""
       };
       this.$ysParking.queryDictData(param).then(res => {
-        console.log("出入口下拉数据查询", res);
+        // console.log("出入口下拉数据查询", res);
         that.entryAndExitList = res.data.dataList;
-        console.log("出入口下拉菜单", this.entryAndExitList);
+        // console.log("出入口下拉菜单", this.entryAndExitList);
       });
     }
   },

@@ -139,3 +139,26 @@ export function delVideoDetecter(param) {
         }
     )
 }
+
+// 进出口摄像头管理列表查询 queryPassagewayCamera
+export function queryPassagewayCamera(param) {
+    return request(
+        {
+            url: '/DeviceFunc/queryPassagewayCamera',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
+// 进出口摄像头管理新增 addPassagewayCamera
+export function addPassagewayCamera(param) {
+    return request(
+        {
+            url: '/DeviceFunc/addPassagewayCamera',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
