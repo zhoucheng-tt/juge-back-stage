@@ -429,7 +429,7 @@ export default {
         pageSize: this.pageSize,
         pageNum: this.pageNum
       };
-      this.$homePage.queryVideoDetecter(param).then(res => {
+      this.$deviceManagement.queryVideoDetecter(param).then(res => {
         console.log("查询打印", res);
         this.videoList = res.data.dataList;
         console.log("查询列表信息", this.videoList);
@@ -449,7 +449,7 @@ export default {
         pageSize: this.pageSize,
         pageNum: this.pageNum
       };
-      this.$homePage.queryVideoDetecter(param).then(res => {
+      this.$deviceManagement.queryVideoDetecter(param).then(res => {
         console.log("视频桩列表接口数据", res);
         this.pageTotal = res.data.totalRecord;
         that.videoList = res.data.dataList;
@@ -474,7 +474,7 @@ export default {
         type: "warning"
       })
           .then(() => {
-            this.$homePage.delVideoDetecter(this.idList).then(res => {
+            this.$deviceManagement.delVideoDetecter(this.idList).then(res => {
               console.log("批量删除成功", res)
             })
             this.$message({type: "success", message: "删除成功!"});
@@ -506,7 +506,7 @@ export default {
             videoDetecterId: row.videoDetecterId,
             parkId: row.parkId
           }];
-        this.$homePage.delVideoDetecter(param).then(res => {
+        this.$deviceManagement.delVideoDetecter(param).then(res => {
           console.log("删除成功", res);
         });
         this.$message({type: "success", message: "删除成功!"});
@@ -518,7 +518,7 @@ export default {
     //新增表单提交
     onSubmitAdd() {
       console.log("新增数据", this.newVideo);
-      this.$homePage.addVideoDetecter(this.newVideo).then(res => {
+      this.$deviceManagement.addVideoDetecter(this.newVideo).then(res => {
         console.log("打印新增响应数据", res);
       });
       this.$message({type: "success", message: "添加成功!"});
@@ -541,7 +541,7 @@ export default {
         address: this.editVideo.address,
         manufacturer: this.editVideo.manufacturer
       };
-      this.$homePage.updateVideoDetecter(param).then(res => {
+      this.$deviceManagement.updateVideoDetecter(param).then(res => {
         console.log("打印修改传入数据", res);
       });
       this.$message({type: "success", message: "修改成功!"});

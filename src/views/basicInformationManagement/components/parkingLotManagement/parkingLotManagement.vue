@@ -387,7 +387,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        console.log(this.idList)
+       // console.log(this.idList)
         const param = {
           parkId: this.idList
         };
@@ -400,7 +400,7 @@ export default {
       }).catch(() => {
         this.$message({type: "info", message: "已取消删除"});
       });
-      console.log(this.selectParkingLotList);
+    //  console.log(this.selectParkingLotList);
     },
     //单个删除
     deleteListDialogue(row) {
@@ -409,14 +409,14 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        console.log("你要删除的id是" + row.parkId);
+       // console.log("你要删除的id是" + row.parkId);
         this.idList = [];
         this.idList.push(row.parkId);
         const param = {
           parkId: this.idList
         };
         this.$ysParking.deletePark(param).then(res => {
-          console.log("打印响应", res)
+          // console.log("打印响应", res)
           this.$message({
             type: "success", message: "删除成功!"
           });
@@ -434,39 +434,39 @@ export default {
     },
     //选择停车场图片
     choosePicture() {
-      console.log("选择图片");
+      // console.log("选择图片");
     },
     //上传图片
     uploadPicture() {
-      console.log("上传图片");
+      // console.log("上传图片");
     },
     //预览图片
     viewPicture() {
-      console.log("预览图片");
+      // console.log("预览图片");
     },
     //提交表单
     onSubmitAdd() {
-      console.log(this.newParkingLot);
+      // console.log(this.newParkingLot);
       //将新增数据展示到页面（仅做展示用）
       // this.parkList.push(this.newParkingLot);
       this.$ysParking.insertPark(this.newParkingLot).then(res => {
-        console.log("打印响应", res);
+        // console.log("打印响应", res);
       });
       this.queryParkList();
       this.addListDialogueandoff = false;
     },
     //修改弹框弹出
     editListDialogue(row) {
-      console.log(row);
+      // console.log(row);
       this.districtList = [];
       this.editListDialogueandoff = true;
       this.editParkingLot = row;
     },
     //修改表单提交
     onSubmitEdit() {
-      console.log(this.editParkingLot);
+      // console.log(this.editParkingLot);
       this.$ysParking.updatePark(this.editParkingLot).then(res => {
-        console.log("打印响应", res);
+        // console.log("打印响应", res);
         this.queryParkList();
       });
       this.editListDialogueandoff = false;
@@ -477,8 +477,8 @@ export default {
       val.forEach((item) => {
         this.idList.push(item.parkId);
       });
-      console.log("批量删除ID", this.idList);
-      console.log(this.selectParkingLotList);
+      // console.log("批量删除ID", this.idList);
+      // console.log(this.selectParkingLotList);
     },
     // 分页查询方法
     handleCurrentModify(val) {
@@ -494,7 +494,7 @@ export default {
         pageNum: this.pageNum
       };
       this.$ysParking.queryParkList(param).then(res => {
-        console.log("打印出来res", res);
+        // console.log("打印出来res", res);
         this.pageTotal = res.data.totalRecord;
         this.parkList = res.data.dataList;
       });
@@ -520,7 +520,7 @@ export default {
       }
       this.$homePage.queryDictData(paramTypes).then(res => {
         that.parkingLotType = res.data.dataList;
-        console.log("that.parkingLotType", that.parkingLotType)
+        // console.log("that.parkingLotType", that.parkingLotType)
       });
     },
     //查询归属企业下拉菜单数据

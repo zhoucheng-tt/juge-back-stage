@@ -301,7 +301,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$homePage.delMagneticDetecter(this.idList).then(res => {
+        this.$deviceManagement.delMagneticDetecter(this.idList).then(res => {
           this.$message({type: "success", message: "删除成功!"});
           this.queryMagneticDetecter();
         })
@@ -321,7 +321,7 @@ export default {
         "tableName": "t_d_district",
         "whereStr": "city_code = " + this.editGeo.cityCode
       };
-      this.$homePage.queryDictData(disParams).then(res => {
+      this.$deviceManagement.queryDictData(disParams).then(res => {
         this.districtList = res.data.dataList;
       });
       const parkParams = {
@@ -329,7 +329,7 @@ export default {
         "tableName": "t_bim_park",
         "whereStr": "district_code = " + this.editGeo.districtCode
       };
-      this.$homePage.queryDictData(parkParams).then(res => {
+      this.$deviceManagement.queryDictData(parkParams).then(res => {
         this.parkingLotNameList = res.data.dataList;
       });
       this.editListDialog = true;
@@ -350,7 +350,7 @@ export default {
               parkId: row.parkId
             };
         this.idList.push(params);
-        this.$homePage.delMagneticDetecter(this.idList).then(res => {
+        this.$deviceManagement.delMagneticDetecter(this.idList).then(res => {
           this.$message({type: "success", message: "删除成功!"});
           this.queryMagneticDetecter();
         })
@@ -368,7 +368,7 @@ export default {
         sensorId: this.newGeo.sensorId,
         manufacturer: this.newGeo.manufacturer
       }
-      this.$homePage.addMagneticDetecter(param).then(res => {
+      this.$deviceManagement.addMagneticDetecter(param).then(res => {
         console.log("打印响应", res);
       });
       this.queryMagneticDetecter();
@@ -387,7 +387,7 @@ export default {
         sensorId: this.editGeo.sensorId,
         manufacturer: this.editGeo.manufacturer
       };
-      this.$homePage.updateMagneticDetecter(param).then(res => {
+      this.$deviceManagement.updateMagneticDetecter(param).then(res => {
         console.log("打印响应", res);
         this.queryMagneticDetecter();
       });
@@ -421,7 +421,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
-      this.$homePage.queryMagneticDetecter(param).then(res => {
+      this.$deviceManagement.queryMagneticDetecter(param).then(res => {
         this.geoList = res.data.dataList;
         this.pageTotal = res.data.totalRecord;
       });
@@ -433,7 +433,7 @@ export default {
         "tableName": "t_d_city",
         "whereStr": ""
       };
-      this.$homePage.queryDictData(cityParam).then(res => {
+      this.$deviceManagement.queryDictData(cityParam).then(res => {
         res.data.dataList.forEach((item) => this.cityList.push(item))
       });
     }
@@ -458,7 +458,7 @@ export default {
                 "whereStr": "city_code = " + item.code
               };
               //初始化区县下拉菜单
-              this.$homePage.queryDictData(params).then(res => {
+              this.$deviceManagement.queryDictData(params).then(res => {
                 this.districtList = [
                   {
                     name: "全部",
@@ -487,7 +487,7 @@ export default {
                 "whereStr": "district_code = " + item.code
               };
               //停车场名称下拉菜单
-              this.$homePage.queryDictData(param).then(res => {
+              this.$deviceManagement.queryDictData(param).then(res => {
                 this.parkingLotNameList = [
                   {
                     name: "全部",
@@ -526,7 +526,7 @@ export default {
               "whereStr": "city_code = " + item.code
             };
             //初始化区县下拉菜单
-            this.$homePage.queryDictData(params).then(res => {
+            this.$deviceManagement.queryDictData(params).then(res => {
               this.districtList = []
               res.data.dataList.forEach((item) => this.districtList.push(item))
             });
@@ -541,7 +541,7 @@ export default {
               "whereStr": "district_code = " + item.code
             };
             //停车场名称下拉菜单
-            this.$homePage.queryDictData(param).then(res => {
+            this.$deviceManagement.queryDictData(param).then(res => {
               this.parkingLotNameList = []
               res.data.dataList.forEach((item) => this.parkingLotNameList.push(item))
             });
@@ -567,7 +567,7 @@ export default {
               "whereStr": "city_code = " + item.code
             };
             //初始化区县下拉菜单
-            this.$homePage.queryDictData(params).then(res => {
+            this.$deviceManagement.queryDictData(params).then(res => {
               this.districtList = []
               res.data.dataList.forEach((item) => this.districtList.push(item))
             });
@@ -582,7 +582,7 @@ export default {
               "whereStr": "district_code = " + item.code
             };
             //停车场名称下拉菜单
-            this.$homePage.queryDictData(param).then(res => {
+            this.$deviceManagement.queryDictData(param).then(res => {
               this.parkingLotNameList = []
               res.data.dataList.forEach((item) => this.parkingLotNameList.push(item))
             });
