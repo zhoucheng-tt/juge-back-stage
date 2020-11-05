@@ -10,6 +10,8 @@
 import * as ysParking from './ysParking/ysParking.js'
 // 首页接口
 import * as homePage from './homePage/homePage.js'
+// 设备管理接口
+import * as deviceManagement from './deviceManagement/deviceManagement.js'
 
 const install = function(Vue){
 	if(install.installed){
@@ -26,7 +28,13 @@ const install = function(Vue){
 			get(){
 				return homePage
 			}
-		} 
+		},
+	//	设备管理页面接口
+		$deviceManagement:{
+			get(){
+				return deviceManagement
+			}
+		}
 	})
 }
 

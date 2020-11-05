@@ -14,10 +14,14 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
           <el-col :span="5">
-            <el-form-item label="停车场">
-              <el-select v-model="parkingLotNameList.pkName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
-                  :key="index"></el-option>
+            <el-form-item label="停车场：">
+              <el-select v-model="queryParkId" placeholder="请选择停车场">
+                <el-option
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -42,7 +46,7 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="CameraList" ref="selectCameraList" :header-cell-style="{
+      <el-table :data="cameraList" ref="selectCameraList" :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -52,17 +56,16 @@
           fontWeight: '100'
         }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
         <el-table-column type="selection" />
-        <el-table-column fixed prop="pkLotNum" label="停车场编号" />
-        <el-table-column prop="pkLotName" :show-overflow-tooltip="true" label="停车场名称" />
+        <el-table-column fixed prop="parkId" label="停车场编号" />
+        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" />
         <el-table-column prop="importExport" :show-overflow-tooltip="true" label="归属出入口" />
-        <el-table-column prop="cameraNum" :show-overflow-tooltip="true" label="进出口摄像头编号" />
-        <el-table-column prop="cameraName" :show-overflow-tooltip="true" label="进出口摄像头名称" />
-        <el-table-column prop="IPAddr" :show-overflow-tooltip="true" label="IP地址" />
-        <el-table-column prop="port" :show-overflow-tooltip="true" label="端口" />
-        <el-table-column prop="workStation" :show-overflow-tooltip="true" label="所属工作站" />
+        <el-table-column prop="passagewayCameraId" :show-overflow-tooltip="true" label="进出口摄像头编号" />
+        <el-table-column prop="passagewayCameraName" :show-overflow-tooltip="true" label="进出口摄像头名称" />
+        <el-table-column prop="ipAddress" :show-overflow-tooltip="true" label="IP地址" />
+        <el-table-column prop="portNumber" :show-overflow-tooltip="true" label="端口" />
+        <el-table-column prop="workstationId" :show-overflow-tooltip="true" label="所属工作站" />
         <el-table-column prop="userName" :show-overflow-tooltip="true" label="用户名" />
-
-        <el-table-column prop="producer" :show-overflow-tooltip="true" label="制造商" />
+        <el-table-column prop="manufacturer" :show-overflow-tooltip="true" label="制造商" />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="editCameraDialog(scope.row)" type="text" size="small">修改
@@ -72,6 +75,16 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+          style="position: relative;right:-60%;margin-top:20px;"
+          background
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+      >
+      </el-pagination>
       <!--新增表单弹框-->
       <el-dialog id="add" title="新增出入口摄像头" :visible.sync="addListDialog">
         <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
@@ -79,9 +92,13 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="newCamera.pkLotName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
-                    :key="index"></el-option>
+                <el-select v-model="newCamera.parkId" placeholder="请选择">
+                  <el-option
+                      v-for="(item, index) in parkingLotList"
+                      :label="item.name"
+                      :value="item.code"
+                      :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -98,24 +115,24 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="进出口摄像头编号:" label-width="150px">
-                <el-input v-model="newCamera.videoParkingNum" />
+                <el-input v-model="newCamera.passagewayCameraId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="进出口摄像头名称:" label-width="150px">
-                <el-input v-model="newCamera.videoParkingName" />
+                <el-input v-model="newCamera.passagewayCameraName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item label="IP地址:" label-width="150px">
-                <el-input v-model="newCamera.IPAddr"></el-input>
+                <el-input v-model="newCamera.ipAddress"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="端口:" label-width="150px">
-                <el-input v-model="newCamera.port"></el-input>
+                <el-input v-model="newCamera.portNumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -126,20 +143,15 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="地址:" label-width="150px">
-                <el-input v-model="newCamera.addr"></el-input>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="所属工作站:" label-width="150px">
+              <el-input v-model="newCamera.workstationId"></el-input>
+            </el-form-item>
+          </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="所属工作站:" label-width="150px">
-                <el-input v-model="newCamera.workStation"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
               <el-form-item label="制造商:" label-width="150px">
-                <el-input v-model="newCamera.producer"></el-input>
+                <el-input v-model="newCamera.manufacturer"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -156,9 +168,13 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="editCamera.pkLotName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
-                    :key="index"></el-option>
+                <el-select v-model="editCamera.parkId" placeholder="请选择">
+                  <el-option
+                      v-for="(item, index) in parkingLotList"
+                      :label="item.name"
+                      :value="item.code"
+                      :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -175,24 +191,24 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="进出口摄像头编号:" label-width="150px">
-                <el-input v-model="editCamera.cameraNum" />
+                <el-input v-model="editCamera.passagewayCameraId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="进出口摄像头名称:" label-width="150px">
-                <el-input v-model="editCamera.cameraName" />
+                <el-input v-model="editCamera.passagewayCameraName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item label="IP地址:" label-width="150px">
-                <el-input v-model="editCamera.IPAddr"></el-input>
+                <el-input v-model="editCamera.ipAddress"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="端口:" label-width="150px">
-                <el-input v-model="editCamera.port"></el-input>
+                <el-input v-model="editCamera.portNumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -203,20 +219,15 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="地址:" label-width="150px">
-                <el-input v-model="editCamera.addr"></el-input>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="所属工作站:" label-width="150px">
+              <el-input v-model="editCamera.workstationId"></el-input>
+            </el-form-item>
+          </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="所属工作站:" label-width="150px">
-                <el-input v-model="editCamera.workStation"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
               <el-form-item label="制造商:" label-width="150px">
-                <el-input v-model="editCamera.producer"></el-input>
+                <el-input v-model="editCamera.manufacturer"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -233,25 +244,10 @@
   export default {
     data() {
       return {
+        // 查询数据暂存处
+        queryParkId: "",
         //停车场名称列表
-        parkingLotNameList: [
-          {
-            pkName: "新能源停车场",
-            id: "1"
-          },
-          {
-            pkName: "免费停车场",
-            id: "2"
-          },
-          {
-            pkName: "新能源停车场",
-            id: "3"
-          },
-          {
-            pkName: "新能源停车场",
-            id: "4"
-          }
-        ],
+        parkingLotList: [],
         //出入口名称列表
         importExportNameList: [
           {
@@ -279,56 +275,7 @@
           }
         ],
         //地磁车列表
-        CameraList: [
-          {
-            pkLotNum: "B179",
-            pkLotName: "东厦门停车场",
-            importExport: "11",
-            cameraName: "不知",
-            cameraNum: "不知",
-            IPAddr: "192.168.1.1",
-            port: "8080",
-            userName: "小王",
-            workStation: "江苏省南京市",
-            producer: "东腾电器"
-          },
-          {
-            pkLotNum: "B179",
-            pkLotName: "东厦门停车场",
-            importExport: "11",
-            cameraName: "不知",
-            cameraNum: "不知",
-            IPAddr: "192.168.1.1",
-            port: "8080",
-            userName: "小王",
-            workStation: "江苏省南京市",
-            producer: "东腾电器"
-          },
-          {
-            pkLotNum: "B179",
-            pkLotName: "东厦门停车场",
-            importExport: "11",
-            cameraName: "不知",
-            cameraNum: "不知",
-            IPAddr: "192.168.1.1",
-            port: "8080",
-            userName: "小王",
-            workStation: "江苏省南京市",
-            producer: "东腾电器"
-          },
-          {
-            pkLotNum: "B179",
-            pkLotName: "东厦门停车场",
-            importExport: "11",
-            cameraName: "不知",
-            cameraNum: "不知",
-            IPAddr: "192.168.1.1",
-            port: "8080",
-            userName: "小王",
-            workStation: "江苏省南京市",
-            producer: "东腾电器"
-          }
-        ],
+        cameraList: [],
         //新增表单弹框
         addListDialog: false,
         //新增摄像头数据暂存
@@ -340,13 +287,45 @@
         //批量删除暂存id
         idList: [],
         //多选后数据暂存
-        selectCameraList: []
+        selectCameraList: [],
+        // 分页
+        pageNum: 1,
+        pageSize: 10,
+        pageTotal: 2,
       };
     },
     methods: {
       //查询
       queryPkLot() {
-        console.log("查询的停车场名称", this.parkingLotNameList.pkName);
+        console.log("查询的停车场名称");
+      },
+      // 查询停车场下拉表单
+      queryParking() {
+        var that = this;
+        this.parkingLotList = [];
+        const param = {
+          columnName: ["park_id", "park_name"],
+          tableName: "t_bim_park",
+          whereStr: "district_code = '321302'"
+        };
+        this.$ysParking.queryDictData(param).then(res => {
+          console.log("下拉表单查询数据显示", res);
+          that.parkingLotList = res.data.dataList;
+          console.log("下拉菜单", this.parkingLotList);
+        });
+      },
+      //摄像头列表
+      queryPassagewayCamera() {
+        this.cameraList = [];
+        const param = {
+          pageSize: this.pageSize,
+          pageNum: this.pageNum
+        }
+        this.$deviceManagement.queryPassagewayCamera(param).then(res=> {
+          console.log("摄像头列表接口数据", res);
+          this.cameraList = res.data.dataList;
+          console.log("摄像头列表数据", res);
+        })
       },
       //新增摄像头
       addNewCamera() {
@@ -372,6 +351,11 @@
           .catch(() => {
             this.$message({ type: "info", message: "已取消删除" });
           });
+      },
+      // 分页
+      handleCurrentModify(val) {
+        this.pageNum = val;
+        this.queryVideoDetecter();
       },
       //修改
       editCameraDialog(row) {
@@ -415,6 +399,10 @@
         });
         console.log(this.selectCameraList);
       }
+    },
+    mounted() {
+      this.queryPassagewayCamera();
+      this.queryParking();
     }
   };
 </script>

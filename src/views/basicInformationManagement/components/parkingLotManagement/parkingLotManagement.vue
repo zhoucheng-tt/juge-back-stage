@@ -387,7 +387,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        // console.log(this.idList)
+       // console.log(this.idList)
         const param = {
           parkId: this.idList
         };
@@ -400,7 +400,7 @@ export default {
       }).catch(() => {
         this.$message({type: "info", message: "已取消删除"});
       });
-      // console.log(this.selectParkingLotList);
+    //  console.log(this.selectParkingLotList);
     },
     //单个删除
     deleteListDialogue(row) {
@@ -409,7 +409,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        // console.log("你要删除的id是" + row.parkId);
+       // console.log("你要删除的id是" + row.parkId);
         this.idList = [];
         this.idList.push(row.parkId);
         const param = {

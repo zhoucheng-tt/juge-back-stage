@@ -262,7 +262,7 @@ export default {
     },
     //新增地锁
     addNewLock() {
-      // console.log("新增弹框弹出");
+      console.log("新增弹框弹出");
       this.newLock = {};
       this.districtList = [];
       this.parkingLotNameList = [];
@@ -270,17 +270,17 @@ export default {
     },
     //批量导入
     bulkImport() {
-      // console.log("批量导入");
+      console.log("批量导入");
     },
     //批量删除
     batchDelete() {
-      // console.log("批量删除", this.idList);
+      console.log("批量删除", this.idList);
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$homePage.delGroundLock(this.idList).then(res => {
+        this.$deviceManagement.delGroundLock(this.idList).then(res => {
           this.$message({type: "success", message: "删除成功!"});
           this.queryGroundLock();
         })
@@ -293,11 +293,11 @@ export default {
     editLockDialog(row) {
       this.editLock = row;
       this.editListDialog = true;
-      // console.log("修改弹窗弹出");
+      console.log("修改弹窗弹出");
     },
     //删除
     deleteLock(row) {
-      // console.log("删除的地锁Id", row.groundLockId);
+      console.log("删除的地锁Id", row.groundLockId);
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -309,7 +309,7 @@ export default {
           parkId: row.parkId
         };
         this.idList.push(params);
-        this.$homePage.delGroundLock(this.idList).then(res => {
+        this.$deviceManagement.delGroundLock(this.idList).then(res => {
           this.$message({type: "success", message: "删除成功!"});
           this.queryGroundLock();
         })
@@ -319,18 +319,18 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      // console.log("新增数据", this.newLock);
-      this.$homePage.addGroundLock(this.newLock).then(res => {
-        // console.log(res)
+      console.log("新增数据", this.newLock);
+      this.$deviceManagement.addGroundLock(this.newLock).then(res => {
+        console.log(res)
       });
       this.queryGroundLock();
       this.addListDialog = false;
     },
     //修改表单提交
     onSubmitEdit() {
-      // console.log("修改数据", this.editLock);
-      this.$homePage.updateGroundLock(this.editLock).then(res=>{
-        // console.log("打印响应",res);
+      console.log("修改数据", this.editLock);
+      this.$deviceManagement.updateGroundLock(this.editLock).then(res=>{
+        console.log("打印响应",res);
         this.queryGroundLock();
       });
       this.editListDialog = false;
@@ -361,7 +361,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
-      this.$homePage.queryGroundLock(param).then(res => {
+      this.$deviceManagement.queryGroundLock(param).then(res => {
         this.floorLockList = res.data.dataList;
         this.pageTotal = res.data.totalRecord;
       });
@@ -373,7 +373,7 @@ export default {
         "tableName": "t_d_city",
         "whereStr": ""
       };
-      this.$homePage.queryDictData(cityParam).then(res => {
+      this.$deviceManagement.queryDictData(cityParam).then(res => {
         this.cityList = res.data.dataList;
       });
     }
@@ -400,7 +400,7 @@ export default {
               "whereStr": "city_code = " + item.code
             };
             //初始化区县下拉菜单
-            this.$homePage.queryDictData(params).then(res => {
+            this.$deviceManagement.queryDictData(params).then(res => {
               this.districtList = res.data.dataList;
             });
           }
@@ -414,7 +414,7 @@ export default {
               "whereStr": "district_code = " + item.code
             };
             //停车场名称下拉菜单
-            this.$homePage.queryDictData(param).then(res => {
+            this.$deviceManagement.queryDictData(param).then(res => {
               this.parkingLotNameList = res.data.dataList;
             });
           }
@@ -436,7 +436,7 @@ export default {
               "whereStr": "city_code = " + item.code
             };
             //初始化区县下拉菜单
-            this.$homePage.queryDictData(params).then(res => {
+            this.$deviceManagement.queryDictData(params).then(res => {
               this.districtList = res.data.dataList;
             });
           }
@@ -450,7 +450,7 @@ export default {
               "whereStr": "district_code = " + item.code
             };
             //停车场名称下拉菜单
-            this.$homePage.queryDictData(param).then(res => {
+            this.$deviceManagement.queryDictData(param).then(res => {
               this.parkingLotNameList = res.data.dataList;
             });
           }
@@ -480,7 +480,7 @@ export default {
               "whereStr": "city_code = " + item.code
             };
             //初始化区县下拉菜单
-            this.$homePage.queryDictData(params).then(res => {
+            this.$deviceManagement.queryDictData(params).then(res => {
               this.districtList = res.data.dataList;
             });
           }
@@ -494,7 +494,7 @@ export default {
               "whereStr": "district_code = " + item.code
             };
             //停车场名称下拉菜单
-            this.$homePage.queryDictData(param).then(res => {
+            this.$deviceManagement.queryDictData(param).then(res => {
               this.parkingLotNameList = res.data.dataList;
             });
           }
