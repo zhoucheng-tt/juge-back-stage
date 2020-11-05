@@ -506,7 +506,7 @@ export default {
         "tableName": "t_d_city",
         "whereStr": ""
       };
-      this.$homePage.queryDictData(cityParam).then(res => {
+      this.$ysParking.queryDictData(cityParam).then(res => {
         this.cityList = res.data.dataList;
       });
     },
@@ -518,7 +518,7 @@ export default {
         "tableName": "t_d_park_type",
         "whereStr": ""
       }
-      this.$homePage.queryDictData(paramTypes).then(res => {
+      this.$ysParking.queryDictData(paramTypes).then(res => {
         that.parkingLotType = res.data.dataList;
         // console.log("that.parkingLotType", that.parkingLotType)
       });
@@ -531,7 +531,7 @@ export default {
         "tableName": "t_bim_company",
         "whereStr": ""
       };
-      this.$homePage.queryDictData(companyParam).then(res => {
+      this.$ysParking.queryDictData(companyParam).then(res => {
         that.enterprises = res.data.dataList;
       });
     },
@@ -542,7 +542,7 @@ export default {
         "tableName": "t_bm_billing_rule_def",
         "whereStr": ""
       };
-      this.$homePage.queryDictData(billParam).then(res => {
+      this.$ysParking.queryDictData(billParam).then(res => {
         this.chargingRules = res.data.dataList;
       });
     },
@@ -579,7 +579,7 @@ export default {
               "tableName": "t_d_district",
               "whereStr": "city_code = " + item.code
             };
-            this.$homePage.queryDictData(params).then(res => {
+            this.$ysParking.queryDictData(params).then(res => {
               this.districtList = res.data.dataList;
             });
           }
@@ -612,7 +612,7 @@ export default {
               "tableName": "t_d_district",
               "whereStr": "city_code = " + item.code
             };
-            this.$homePage.queryDictData(params).then(res => {
+            this.$ysParking.queryDictData(params).then(res => {
               this.districtList = res.data.dataList;
             });
           }

@@ -48,7 +48,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="5">
+          <el-col :span="5">
             <el-form-item label="停车场">
               <el-select v-model="query.parkId" placeholder="请选择">
                 <el-option label="全部" value="0"></el-option>
@@ -61,7 +61,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col span="6">
+          <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
                 <el-option
@@ -81,7 +81,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="12">
+          <el-col :span="12">
             <el-button type="primary" @click="addNewGeo()"
               >新增地磁车检测器</el-button
             >
@@ -413,7 +413,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.$homePage.delMagneticDetecter(this.idList);
+          this.$deviceManagement.delMagneticDetecter(this.idList);
           this.$message({ type: "success", message: "删除成功!" });
           this.queryMagneticDetecter();
         })
@@ -446,7 +446,7 @@ export default {
             parkId: row.parkId
           };
           this.idList.push(params);
-          this.$homePage.delMagneticDetecter(this.idList);
+          this.$deviceManagement.delMagneticDetecter(this.idList);
           this.$message({ type: "success", message: "删除成功!" });
           this.queryMagneticDetecter();
         })
@@ -464,7 +464,7 @@ export default {
         sensorId: this.newGeo.sensorId,
         manufacturer: this.newGeo.manufacturer
       };
-      this.$homePage.addMagneticDetecter(param).then(res => {
+      this.$deviceManagement.addMagneticDetecter(param).then(res => {
         console.log("打印响应", res);
       });
       this.queryMagneticDetecter();
@@ -483,7 +483,7 @@ export default {
         sensorId: this.editGeo.sensorId,
         manufacturer: this.editGeo.manufacturer
       };
-      this.$homePage.updateMagneticDetecter(param).then(res => {
+      this.$deviceManagement.updateMagneticDetecter(param).then(res => {
         console.log("打印响应", res);
         this.queryMagneticDetecter();
       });
@@ -517,7 +517,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
-      this.$homePage.queryMagneticDetecter(param).then(res => {
+      this.$deviceManagement.queryMagneticDetecter(param).then(res => {
         this.geoList = res.data.dataList;
         this.pageTotal = res.data.totalRecord;
       });
@@ -529,7 +529,7 @@ export default {
         tableName: "t_d_city",
         whereStr: ""
       };
-      this.$homePage.queryDictData(cityParam).then(res => {
+      this.$deviceManagement.queryDictData(cityParam).then(res => {
         res.data.dataList.forEach(item => this.cityList.push(item));
       });
     },
@@ -540,7 +540,7 @@ export default {
         tableName: "t_d_district",
         whereStr: "city_code = " + code
       };
-      this.$homePage.queryDictData(params).then(res => {
+      this.$deviceManagement.queryDictData(params).then(res => {
         this.districtList = res.data.dataList;
       });
     },
@@ -551,7 +551,7 @@ export default {
         tableName: "t_bim_park",
         whereStr: "district_code = " + code
       };
-      this.$homePage.queryDictData(params).then(res => {
+      this.$deviceManagement.queryDictData(params).then(res => {
         this.parkingLotNameList = res.data.dataList;
       });
     }
