@@ -143,3 +143,12 @@ export function queryParkSpaceList(param) {
     })
 }
 
+//停车场管理-车位管理-新增 insertParkLayer
+export function insertParkLayer(param) {
+    return request({
+        url: '/parkFunc/insertParkLayer',
+        method: 'url',
+        data: param
+    })
+}
+
