@@ -127,7 +127,7 @@ export default {
       //列表数据
       reportList: [
         {
-          mounth: "2020-11-04",
+          mounth: "2020-11",
           parkName: "p2员工停车场",
           parkNum: 130,
           usedNum: 300,
@@ -143,7 +143,7 @@ export default {
           owe: 0
         },
         {
-          mounth: "2020-11-04",
+          mounth: "2020-11",
           parkName: "p2员工停车场",
           parkNum: 130,
           usedNum: 300,
@@ -159,7 +159,7 @@ export default {
           owe: 0
         },
         {
-          mounth: "2020-11-04",
+          mounth: "2020-11",
           parkName: "p2员工停车场",
           parkNum: 130,
           usedNum: 300,
@@ -175,7 +175,7 @@ export default {
           owe: 0
         },
         {
-          mounth: "2020-11-04",
+          mounth: "2020-11",
           parkName: "p2员工停车场",
           parkNum: 130,
           usedNum: 300,
