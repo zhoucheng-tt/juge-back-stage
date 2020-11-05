@@ -15,8 +15,8 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="停车场">
-              <el-select v-model="parkingLotNameList.parkName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.name"
+              <el-select v-model="parkId" placeholder="请选择停车场">
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                            :key="index"></el-option>
               </el-select>
             </el-form-item>
@@ -77,20 +77,19 @@
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="newGate.parkName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.parkName" :value="item.parkName"
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                              :key="index">
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="停车场编号:" label-width="150px">
-                <el-input v-model="newGate.parkId"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
               <el-form-item label="归属出入口:" label-width="150px">
-                <el-input v-model="newGate.passagewayName"/>
+                <el-select v-model="newGate.passagewayName" placeholder="请选择">
+                  <el-option v-for="(item, index) in passagesList" :label="item.name" :value="item.code"
+                             :key="index">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -140,14 +139,17 @@
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editGate.parkName" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.pkName" :value="item.pkName"
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                              :key="index"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="停车场编号:" label-width="150px">
-                <el-input v-model="editGate.parkId"/>
+              <el-form-item label="归属出入口:" label-width="150px">
+                <el-select v-model="editGate.passagewayName" placeholder="请选择">
+                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
+                             :key="index"></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -166,8 +168,13 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="传感器ID:" label-width="150px">
-                <el-input v-model="editGate.sensorId"></el-input>
+              <el-form-item label="ip地址:" label-width="150px">
+                <el-input v-model="editGate.ipAddress"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="串口号:" label-width="150px">
+                <el-input v-model="editGate.serialNumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -190,12 +197,18 @@
 
   data() {
     return {
-      queryparkId:"",
+      //查询数据暂留处
+      parkId:"",
       parkName:"",
+      passagewayName:"",
       //表格数据
       gateList:[],
+      //停车场ID暂存
+      parkingIdList:[],
       //停车场名称列表
       parkingLotNameList: [],
+      //出入口名称列表
+      passagesList:[],
       //header param
       cityCode:"",
       districtCode:"",
@@ -234,34 +247,24 @@
   },
   mounted() {
   //引入查询表格方法
+    //查询表格
     this.queryPassagewayGate();
-    this.queryDictData();
+    //查询停车场名称下拉
+    this.queryParking();
+    //停车场出口下拉
+    this.queryExit();
+    //新增弹窗
+    this.addNewGate();
+    //新增表单提交
+    this.onSubmitAdd();
   },
   methods: {
-    //下拉查询
-    queryDictData(){
-      var that=this;
-      this.parkingLotNameList=[];
-      this.parkName="";
-     const param={
-       columnName:["park_id","park_name"],
-       tableName:"t_bim_park",
-       whereStr:"district_code = '321302'"
-     }
-      this.$deviceManagement.queryDictData(param).then(response=>{
-        console.log("下拉表单查询数据显示", response);
-        this.parkingLotNameList = response.data.dataList;
-        console.log("下拉菜单", that.parkingLotNameList);
-      })
-    },
     //查询按钮
     queryPkLot() {
-      console.log("查询的停车场编号", this.queryparkId);
+      console.log("查询的停车场编号", this.parkId);
       this.gateList = [];
       const param = {
-        cityCode:this.cityCode,
-        districtCode:this.districtCode,
-        parkId:this.queryparkId,
+        parkId:this.parkId,
         pageSize: this.pageSize,
         pageNum: this.pageNum
       };
@@ -298,12 +301,65 @@
       this.pageNum = val;
       this.queryPassagewayGate();
     },
-
+    //归属停车场名称下拉查询
+    queryParking(){
+      var that=this;
+      this.parkingLotNameList=[];
+      const param={
+        columnName:["park_id","park_name"],
+        tableName:"t_bim_park",
+        whereStr:"district_code = '321302'"
+      }
+      this.$deviceManagement.queryDictData(param).then(response=>{
+        console.log("下拉停车场名称", response);
+        this.parkingLotNameList = response.data.dataList;
+        console.log("下拉菜单", that.parkingLotNameList);
+      })
+    },
+    //归属出入口下拉查询
+    queryExit(){
+      var that=this;
+      this.passagesList=[];
+      const param={
+        columnName:["passageway_id","passageway_name"],
+        tableName:"t_bim_passageway",
+        whereStr:"park_id = 'BM01'"
+      }
+      this.$deviceManagement.queryDictData(param).then(response=>{
+        console.log("下拉出口", response);
+        this.passagesList = response.data.dataList;
+        console.log("下拉菜单", that.passagesList);
+      })
+    },
     //新增道闸机
     addNewGate() {
       console.log("新增道闸机弹框弹出");
       this.newGate = {};
       this.addListDialog = true;
+    },
+    //新增表单提交
+    onSubmitAdd() {
+      console.log("新增数据", this.newGate);
+
+      const param ={
+        parkId:this.newGate.parkName,
+        parkName:this.newGate.parkName,
+        passagewayId:this.newGate.passagewayId,
+        passagewayName:this.newGate.passagewayName,
+        passagewayGateId:this.newGate.passagewayGateId,
+        passagewayGateName:this.newGate.passagewayGateName,
+        ipAddress:this.newGate.ipAddress,
+        serialNumber:this.newGate.serialNumber,
+        manufacturer:this.newGate.manufacturer
+      }
+      this.$deviceManagement.addPassagewayGate(param).then(response => {
+        this.newGate.parkId=response.data.datalist.parkId;
+        this.newGate.passagewayName=response.data.datalist.passagewayName;
+        console.log("打印新增响应数据", response);
+      });
+      this.$message({type: "success", message: "添加成功!"});
+      this.addListDialog = false;
+      this.queryPassagewayGate();
     },
     //批量导入
     bulkImport() {
@@ -343,12 +399,7 @@
             this.$message({type: "info", message: "已取消删除"});
           });
     },
-    //新增表单提交
-    onSubmitAdd() {
-      console.log("新增数据", this.newGate);
-      this.gateList.push(this.newGate);
-      this.addListDialog = false;
-    },
+
     //修改表单提交
     onSubmitEdit() {
       console.log("修改数据", this.editGate);
