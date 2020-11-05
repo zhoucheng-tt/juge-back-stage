@@ -44,12 +44,15 @@
         >
           <el-form
               :inline="true"
+              :rules="rules"
+              ref="addPassageWay"
               :model="addListDialogueandoffList"
               class="demo-form-inline"
+              label-width="100px"
           >
             <div><h3>归属停车场信息</h3></div>
-            <el-col offset="1">
-              <el-form-item label="归属停车场:">
+            <el-col :offset="1">
+              <el-form-item label="归属停车场:" prop="parkId">
                 <el-select
                     v-model="addListDialogueandoffList.parkId"
                     placeholder="请选择停车场"
@@ -65,15 +68,15 @@
               </el-form-item>
             </el-col>
             <div><h3>出入口信息</h3></div>
-            <el-col offset="1">
-              <el-form-item label="出入口编号:">
+            <el-col :offset="1">
+              <el-form-item label="出入口编号:" prop="passagewayId">
                 <el-input
                     v-model="addListDialogueandoffList.passagewayId"
                     placeholder="请输入出入口编号"
                     style="width: 300px"
                 ></el-input>
               </el-form-item>
-              <el-form-item label="出入口名称:">
+              <el-form-item label="出入口名称:" prop="passagewayName">
                 <el-input
                     v-model="addListDialogueandoffList.passagewayName"
                     placeholder="请输入出入口名称"
@@ -81,8 +84,8 @@
                 ></el-input>
               </el-form-item>
             </el-col>
-            <el-col offset="1">
-              <el-form-item label="出入口类型:">
+            <el-col :offset="1">
+              <el-form-item label="出入口类型:" prop="passagewayTypeCode">
                 <el-select
                     v-model="addListDialogueandoffList.passagewayTypeCode"
                     placeholder="请选择出入口类型"
@@ -97,7 +100,7 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col offset="1">
+            <el-col :offset="1">
               <el-form-item label="出入口描述:">
                 <el-input
                     type="textarea"
@@ -275,11 +278,14 @@
       <el-dialog title="修改出入口管理" :visible.sync="editListDialogueandoff">
         <el-form
             :inline="true"
+            ref="editPassageway"
+            rules="rules"
             :model="editListDialogueandoffList"
             class="demo-form-inline"
+            label-width="100px"
         >
           <div><h3>归属停车场信息</h3></div>
-          <el-col offset="1">
+          <el-col :offset="1">
             <el-form-item label="归属停车场:">
               <el-select
                   disabled
@@ -297,7 +303,7 @@
             </el-form-item>
           </el-col>
           <div><h3>出入口信息</h3></div>
-          <el-col offset="1">
+          <el-col :offset="1">
             <el-form-item label="出入口编号:">
               <el-input
                   disabled
@@ -306,7 +312,7 @@
                   style="width: 300px"
               ></el-input>
             </el-form-item>
-            <el-form-item label="出入口名称:">
+            <el-form-item label="出入口名称:" prop="passagewayName">
               <el-input
                   v-model="editListDialogueandoffList.passagewayName"
                   placeholder="请输入出入口名称"
@@ -314,7 +320,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col offset="1">
+          <el-col :offset="1">
             <el-form-item label="出入口类型:">
               <el-select
                   v-model="editListDialogueandoffList.passagewayTypeCode"
@@ -330,7 +336,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col offset="1">
+          <el-col :offset="1">
             <el-form-item label="出入口描述:">
               <el-input
                   type="textarea"
@@ -360,7 +366,7 @@ export default {
       // 查询数据暂存处
       queryParkId: "0",
       //多选后数据暂存
-      selectManageEntryAndExit: [],
+      selectManageEntryAndExit: undefined,
       // 停车场下拉框数据暂存
       parkingLotList: [],
       // 出入口下拉框数据暂存
@@ -380,7 +386,19 @@ export default {
       // 新增数据暂存数组
       addListDialogueandoffList: [],
       // 批量删除暂存id
-      idList: []
+      idList: [],
+      // 表单校验
+      rules: {
+        parkId: [
+          {required: true, message: "停车场名称不能为空", trigger: "blur"}
+        ],
+        passagewayId: [
+          {required: true, message: "出入口编号不能为空", trigger: "blur"}
+        ],
+        passagewayName: [
+          {required: true, message: "出入口名称不能为空", trigger: "blur"}
+        ]
+      }
     };
   },
   methods: {
@@ -395,24 +413,29 @@ export default {
       console.log(this.selectManageEntryAndExit);
     },
     //批量删除
-    deleteSelect() {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        console.log("你要批量删除的id是" + this.idList);
-        const param = {
-          passagewayId: this.idList
-        };
-        this.$ysParking.deletePassagewayList(param).then(res => {
-          console.log("批量删除成功", res);
+    deleteSelect: function () {
+      if (this.selectManageEntryAndExit != undefined) {
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          console.log("你要批量删除的id是" + this.idList);
+          const param = {
+            passagewayId: this.idList
+          };
+          this.$ysParking.deletePassagewayList(param).then(res => {
+            console.log("批量删除成功", res);
+            this.selectManageEntryAndExit = undefined;
+          });
+          this.$message({type: "success", message: "删除成功!"});
+          this.queryPassagewayList();
+        }).catch(() => {
+          this.$message({type: "info", message: "已取消删除"});
         });
-        this.$message({type: "success", message: "删除成功!"});
-        this.queryPassagewayList();
-      }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
+      } else {
+        console.log("123");
+      }
     },
     //单个删除
     deleteListDialogue(row) {
@@ -485,15 +508,19 @@ export default {
     },
     // 点击保存
     addInfoInsert() {
-      console.log("保存后打印出来的数据", this.addListDialogueandoffList);
-      this.$ysParking
-          .insertPassagewayList(this.addListDialogueandoffList)
-          .then(res => {
-            // console.log("打印相应", res);
-          });
-      this.$message({type: "success", message: "添加成功!"});
-      this.queryPassagewayList();
-      this.addListDialogueandoff = false;
+      this.$refs["addPassageWay"].validate(valid => {
+        if (valid) {
+          console.log("保存后打印出来的数据", this.addListDialogueandoffList);
+          this.$ysParking
+              .insertPassagewayList(this.addListDialogueandoffList)
+              .then(res => {
+                // console.log("打印相应", res);
+              });
+          this.$message({type: "success", message: "添加成功!"});
+          this.queryPassagewayList();
+          this.addListDialogueandoff = false;
+        }
+      });
     },
     // 点击修改按钮执行的操作
     editListDialogue(row) {
@@ -537,7 +564,7 @@ export default {
       this.$ysParking.queryDictData(param).then(res => {
         console.log("下拉表单查询数据显示", res);
         this.parkingLotList = res.data.dataList;
-       // console.log("下拉菜单", this.parkingLotList);
+        // console.log("下拉菜单", this.parkingLotList);
       });
     },
     // 出入口下拉表单
