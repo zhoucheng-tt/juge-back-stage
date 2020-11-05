@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-10-14 15:15:20
+ * @LastEditTime: 2020-11-03 19:23:27
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \g524-comprehensive-displayd:\TingCar\src\components\charts\charts.vue
+-->
 <template>
     <div class="x-bar">
       <div :id="id"
@@ -20,7 +28,6 @@
 
     mounted() {
       HighCharts.chart(this.id,this.option);
-    //   HighCharts3d(HighCharts)
     }
   }
   </script>
