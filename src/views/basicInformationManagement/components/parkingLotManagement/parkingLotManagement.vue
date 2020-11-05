@@ -83,16 +83,16 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="停车场类型名称:" label-width="150px">
-              <el-select v-model="newParkingLot.parkTypeName" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotType" :label="item.name" :value="item.name"
+              <el-select v-model="newParkingLot.parkTypeCode" placeholder="请选择">
+                <el-option v-for="(item, index) in parkingLotType" :label="item.name" :value="item.code"
                            :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="归属企业名称:" label-width="150px">
-              <el-select v-model="newParkingLot.companyName" placeholder="请选择">
-                <el-option v-for="(item, index) in enterprises" :label="item.name"
+              <el-select v-model="newParkingLot.companyId" placeholder="请选择">
+                <el-option v-for="(item, index) in enterprises" :label="item.code"
                            :value="item.name"
                            :key="index"></el-option>
               </el-select>
@@ -110,9 +110,10 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属地市:" label-width="150px">
-              <el-select v-model="newParkingLot.cityName" placeholder="请选择">
+              <el-select v-model="newParkingLot.cityCode" placeholder="请选择"
+                         @change="queryDisList(newParkingLot.cityCode)">
                 <el-option v-for="(item, index) in cityList" :label="item.name"
-                           :value="item.name"
+                           :value="item.code"
                            :key="index">
                 </el-option>
               </el-select>
@@ -120,9 +121,9 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="归属区县:" label-width="150px">
-              <el-select v-model="newParkingLot.districtName" placeholder="请选择">
+              <el-select v-model="newParkingLot.districtCode" placeholder="请选择">
                 <el-option v-for="(item, index) in districtList" :label="item.name"
-                           :value="item.name"
+                           :value="item.code"
                            :key="index">
                 </el-option>
               </el-select>
@@ -152,8 +153,8 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="计费规则:" label-width="150px">
-              <el-select v-model="newParkingLot.billingRuleDesc" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingRules" :label="item.name" :value="item.name"
+              <el-select v-model="newParkingLot.billingRuleDefId" placeholder="请选择">
+                <el-option v-for="(item, index) in chargingRules" :label="item.name" :value="item.code"
                            :key="index"/>
               </el-select>
             </el-form-item>
@@ -241,9 +242,10 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属地市:" label-width="150px">
-              <el-select v-model="editParkingLot.cityName" placeholder="请选择" @change="chooseCity()">
+              <el-select v-model="editParkingLot.cityCode" placeholder="请选择"
+                         @change="queryDisList(newParkingLot.cityCode)">
                 <el-option v-for="(item, index) in cityList" :label="item.name"
-                           :value="item.name"
+                           :value="item.code"
                            :key="index"
                 >
                 </el-option>
@@ -252,9 +254,9 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="归属区县:" label-width="150px">
-              <el-select v-model="editParkingLot.districtName" placeholder="请选择">
+              <el-select v-model="editParkingLot.districtCode" placeholder="请选择">
                 <el-option v-for="(item, index) in districtList" :label="item.name"
-                           :value="item.name"
+                           :value="item.code"
                            :key="index">
                 </el-option>
               </el-select>
@@ -284,8 +286,8 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="计费规则:" label-width="150px">
-              <el-select v-model="editParkingLot.billingRuleDesc" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingRules" :label="item.name" :value="item.name"
+              <el-select v-model="editParkingLot.billingRuleDefId" placeholder="请选择">
+                <el-option v-for="(item, index) in chargingRules" :label="item.name" :value="item.code"
                            :key="index"/>
               </el-select>
             </el-form-item>
@@ -372,7 +374,7 @@ export default {
   },
   methods: {
     //斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
@@ -387,7 +389,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-       // console.log(this.idList)
+        // console.log(this.idList)
         const param = {
           parkId: this.idList
         };
@@ -400,7 +402,7 @@ export default {
       }).catch(() => {
         this.$message({type: "info", message: "已取消删除"});
       });
-    //  console.log(this.selectParkingLotList);
+      //  console.log(this.selectParkingLotList);
     },
     //单个删除
     deleteListDialogue(row) {
@@ -409,7 +411,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-       // console.log("你要删除的id是" + row.parkId);
+        // console.log("你要删除的id是" + row.parkId);
         this.idList = [];
         this.idList.push(row.parkId);
         const param = {
@@ -449,28 +451,62 @@ export default {
       // console.log(this.newParkingLot);
       //将新增数据展示到页面（仅做展示用）
       // this.parkList.push(this.newParkingLot);
-      this.$ysParking.insertPark(this.newParkingLot).then(res => {
-        // console.log("打印响应", res);
-      });
+      const param = {
+        parkId: this.newParkingLot.parkId,
+        parkName: this.newParkingLot.parkName,
+        parkTypeCode: this.newParkingLot.parkTypeCode,
+        companyId: this.newParkingLot.companyId,
+        cityCode: this.newParkingLot.cityCode,
+        districtCode: this.newParkingLot.districtCode,
+        address: this.newParkingLot.address,
+        longitude: this.newParkingLot.longitude,
+        latitude: this.newParkingLot.latitude,
+        parkSpaceNum: this.newParkingLot.parkSpaceNum,
+        billingRuleDesc: this.newParkingLot.billingRuleDesc,
+        billingRuleDefId: this.newParkingLot.billingRuleDefId,
+        contact: this.newParkingLot.contact,
+        contactPhoneNumber: this.newParkingLot.contactPhoneNumber,
+        externalSystemImportFlag: 1,
+        parkOptIntegratorCode: 1
+      };
+      this.$ysParking.insertPark(param);
       this.queryParkList();
       this.addListDialogueandoff = false;
     },
     //修改弹框弹出
     editListDialogue(row) {
       // console.log(row);
-      this.districtList = [];
+
       this.editListDialogueandoff = true;
       this.editParkingLot = row;
+      this.queryDisList(row.cityCode);
     },
     //修改表单提交
     onSubmitEdit() {
       // console.log(this.editParkingLot);
-      this.$ysParking.updatePark(this.editParkingLot).then(res => {
+      const param = {
+        parkId: this.editParkingLot.parkId,
+        parkName: this.editParkingLot.parkName,
+        parkTypeCode: this.editParkingLot.parkTypeCode,
+        companyId: this.editParkingLot.companyId,
+        cityCode: this.editParkingLot.cityCode,
+        districtCode: this.editParkingLot.districtCode,
+        address: this.editParkingLot.address,
+        longitude: this.editParkingLot.longitude,
+        latitude: this.editParkingLot.latitude,
+        parkSpaceNum: this.editParkingLot.parkSpaceNum,
+        billingRuleDesc: this.editParkingLot.billingRuleDesc,
+        billingRuleDefId: this.editParkingLot.billingRuleDefId,
+        contact: this.editParkingLot.contact,
+        contactPhoneNumber: this.editParkingLot.contactPhoneNumber,
+      };
+      this.$ysParking.updatePark(param).then(res => {
         // console.log("打印响应", res);
         this.queryParkList();
       });
       this.editListDialogueandoff = false;
     },
+    //多选监听
     handleSelectionChange(val) {
       this.selectParkingLotList = val;
       this.idList = [];
@@ -546,6 +582,17 @@ export default {
         this.chargingRules = res.data.dataList;
       });
     },
+    //查询区县数据
+    queryDisList(code) {
+      const params = {
+        columnName: ["district_code", "district_name"],
+        tableName: "t_d_district",
+        whereStr: "city_code = "+code
+      };
+      this.$deviceManagement.queryDictData(params).then(res => {
+        this.districtList = res.data.dataList;
+      });
+    },
     //导出Excel
     exportExcel() {
 
@@ -566,32 +613,9 @@ export default {
   watch: {
     newParkingLot: {
       handler(newVal) {
-        this.parkingLotType.forEach((item) => {
-          if (item.name == newVal.parkTypeName) {
-            newVal.parkTypeCode = item.code;
-          }
-        });
-        this.cityList.forEach((item) => {
-          if (item.name == newVal.cityName) {
-            newVal.cityCode = item.code;
-            const params = {
-              "columnName": ["district_code", "district_name"],
-              "tableName": "t_d_district",
-              "whereStr": "city_code = " + item.code
-            };
-            this.$ysParking.queryDictData(params).then(res => {
-              this.districtList = res.data.dataList;
-            });
-          }
-        });
-        this.enterprises.forEach((item) => {
-          if (item.name == newVal.companyName) {
-            newVal.companyId = item.code;
-          }
-        });
-        this.districtList.forEach((item) => {
-          if (item.name == newVal.districtName) {
-            newVal.districtCode = item.code;
+        this.chargingRules.forEach((item) => {
+          if (item.code === newVal.billingRuleDefId) {
+            newVal.billingRuleDesc = item.name ;
           }
         });
       },
@@ -599,32 +623,9 @@ export default {
     },
     editParkingLot: {
       handler(newVal) {
-        this.parkingLotType.forEach((item) => {
-          if (item.name == newVal.parkTypeName) {
-            newVal.parkTypeCode = item.code;
-          }
-        });
-        this.cityList.forEach((item) => {
-          if (item.name == newVal.cityName) {
-            newVal.cityCode = item.code;
-            const params = {
-              "columnName": ["district_code", "district_name"],
-              "tableName": "t_d_district",
-              "whereStr": "city_code = " + item.code
-            };
-            this.$ysParking.queryDictData(params).then(res => {
-              this.districtList = res.data.dataList;
-            });
-          }
-        });
-        this.enterprises.forEach((item) => {
-          if (item.name == newVal.companyName) {
-            newVal.companyId = item.code;
-          }
-        });
-        this.districtList.forEach((item) => {
-          if (item.name == newVal.districtName) {
-            newVal.districtCode = item.code;
+        this.chargingRules.forEach((item) => {
+          if (item.code === newVal.billingRuleDefId) {
+            item.name = newVal.billingRuleDesc;
           }
         });
       },

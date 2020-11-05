@@ -83,8 +83,8 @@
         <el-row>
           <el-col :span="12">
             <el-button type="primary" @click="addNewGeo()"
-              >新增地磁车检测器</el-button
-            >
+              >新增地磁车检测器
+            </el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="danger" @click="batchDelete()">批量删除</el-button>
           </el-col>
@@ -377,6 +377,8 @@ export default {
       districtList: [],
       //修改前停车场Id暂存
       oldParkId: "",
+      //修改前地磁车Id暂存
+      oldMagneticDetecterId: "",
       //查询暂存
       query: {}
     };
@@ -425,6 +427,7 @@ export default {
     editGeoDialog(row) {
       this.editGeo = row;
       this.oldParkId = row.parkId;
+      this.oldMagneticDetecterId = row.magneticDetecterId;
       //初始化下拉菜单
       this.queryDisList(row.cityCode);
       this.queryParkList(row.districtCode);
@@ -478,7 +481,8 @@ export default {
         magneticDetecterId: this.editGeo.magneticDetecterId,
         //原来的停车场ID
         parkCode: this.oldParkId,
-        magneticDetecterCode: this.editGeo.magneticDetecterId,
+        //原来的地磁车Id
+        magneticDetecterCode: this.oldMagneticDetecterId,
         magneticDetecterName: this.editGeo.magneticDetecterName,
         sensorId: this.editGeo.sensorId,
         manufacturer: this.editGeo.manufacturer
@@ -510,17 +514,32 @@ export default {
     },
     //列表查询
     queryMagneticDetecter() {
-      const param = {
-        cityCode: this.query.cityCode,
-        districtCode: this.query.districtCode,
-        parkId: this.query.parkId,
-        pageNum: this.pageNum,
-        pageSize: this.pageSize
-      };
-      this.$deviceManagement.queryMagneticDetecter(param).then(res => {
-        this.geoList = res.data.dataList;
-        this.pageTotal = res.data.totalRecord;
-      });
+      if (
+        this.query.cityCode === "0" ||
+        this.query.districtCode === "0" ||
+        this.query.parkId === "0"
+      ) {
+        const param = {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
+        };
+        this.$deviceManagement.queryMagneticDetecter(param).then(res => {
+          this.geoList = res.data.dataList;
+          this.pageTotal = res.data.totalRecord;
+        });
+      } else {
+        const param = {
+          cityCode: this.query.cityCode,
+          districtCode: this.query.districtCode,
+          parkId: this.query.parkId,
+          pageNum: this.pageNum,
+          pageSize: this.pageSize
+        };
+        this.$deviceManagement.queryMagneticDetecter(param).then(res => {
+          this.geoList = res.data.dataList;
+          this.pageTotal = res.data.totalRecord;
+        });
+      }
     },
     //查询地市数据
     queryCityList() {
