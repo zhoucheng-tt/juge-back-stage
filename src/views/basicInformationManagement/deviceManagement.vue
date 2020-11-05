@@ -11,25 +11,25 @@
     <div>
         <el-tabs v-model="activeName" type="card">
             <el-tab-pane label="视频车位检测器" name="first">
-                <video-Parking-Detector />
+                <video-Parking-Detector v-if="activeName === 'first'"/>
             </el-tab-pane>
             <el-tab-pane label="地磁车位检测器" name="second">
-                <geomagnetic-Parking-Detector />
+                <geomagnetic-Parking-Detector v-if="activeName === 'second'" />
             </el-tab-pane>
             <el-tab-pane label="地锁" name="thired">
-                <floor-Lock />
+                <floor-Lock v-if="activeName === 'thired'" />
             </el-tab-pane>
             <el-tab-pane label="进出口摄像头管理" name="four">
-                <import-Export-Camera-Management />
+                <import-Export-Camera-Management v-if="activeName === 'four'" />
             </el-tab-pane>
             <el-tab-pane label="道闸机管理" name="five">
-                <gate-Machine-Management />
+                <gate-Machine-Management v-if="activeName === 'five'" />
             </el-tab-pane>
             <el-tab-pane label="充电桩管理" name="sixe">
-                <charge-Point-Management />
+                <charge-Point-Management v-if="activeName === 'sixe'" />
             </el-tab-pane>
             <el-tab-pane label="洗车机管理" name="serve">
-                <car-Washing-Machine-Management />
+                <car-Washing-Machine-Management v-if="activeName === 'serve'" />
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -39,7 +39,7 @@
     import geomagneticParkingDetector from './deviceManagement/geomagneticParkingDetector'
     // 地锁
     import floorLock from './deviceManagement/floorLock'
-    // 进出口摄像头管理  
+    // 进出口摄像头管理
     import importExportCameraManagement from './deviceManagement/importExportCameraManagement'
     // 道闸机管理  gateMachineManagement
     import gateMachineManagement from './deviceManagement/gateMachineManagement'
