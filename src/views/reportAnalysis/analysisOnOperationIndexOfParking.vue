@@ -2,7 +2,7 @@
   停车场运营指标分袖
  * @Author: 邵青阳
  * @Date: 2020-10-20 10:05:17
- * @LastEditTime: 2020-11-07 13:44:53
+ * @LastEditTime: 2020-11-07 16:45:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\reportAnalysis\analysisOnOperationIndexOfParking.vue
@@ -39,13 +39,21 @@
         <Xchart id="averageParkingTime" :option="averageParkingTimeOptions"></Xchart>
       </div>
       <!-- 车位利用率  parkingSpaceUtilization -->
-      <div class="echartStyle"></div>
+      <div class="echartStyle" id="parkingSpaceUtilization">
+        <Xchart id="parkingSpaceUtilization" :option="parkingSpaceUtilizationOptions"></Xchart>
+      </div>
       <!-- 车位周转率  parkingSpaceTurnoverRate-->
-      <div class="echartStyle"></div>
+      <div class="echartStyle" id="parkingSpaceTurnoverRate">
+        <Xchart id="parkingSpaceTurnoverRate" :option="parkingSpaceTurnoverRateOptions"></Xchart>
+      </div>
       <!-- 平均充电时间 averageChargingTime-->
-      <div class="echartStyle"></div>
+      <div class="echartStyle" id="averageChargingTime">
+        <Xchart id="averageChargingTime" :option="averageChargingTimeOptions"></Xchart>
+      </div>
       <!-- 平均洗车时长 averageWashingTime-->
-      <div class="echartStyle"></div>
+      <div class="echartStyle" id="averageWashingTime">
+        <Xchart id="averageWashingTime" :option="averageWashingTimeOptions"></Xchart>
+      </div>
     </div>
     <!-- 底部表格部分 -->
     <div class="down">
@@ -116,10 +124,55 @@
           27387, 29459, 31056, 31982, 32040, 31233, 29224],
         averageParkingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
         averageParkingTimeName: '平均停车时长',
+
+        // 车位利用率
+        parkingSpaceUtilization: '',
+        parkingSpaceUtilizationOptions: {},
+        // 图表数据
+        parkingSpaceUtilizationData: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224],
+        parkingSpaceUtilizationXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+        parkingSpaceUtilizationName: '车位利用率',
+
+        // 车位周转率  
+        parkingSpaceTurnoverRate: '',
+        parkingSpaceTurnoverRateOptions: {},
+        // 图表数据
+        parkingSpaceTurnoverRateData: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224],
+        parkingSpaceTurnoverRateXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+        parkingSpaceTurnoverRateName: '车位周转率',
+
+        // 平均充电时间  
+        averageChargingTime: '',
+        averageChargingTimeOptions: {},
+        // 图表数据
+        averageChargingTimeData: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224],
+        averageChargingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+        averageChargingTimeName: '平均充电时间',
+
+        // 平均洗车时长 
+        averageWashingTime: '',
+        averageWashingTimeOptions: {},
+        // 图表数据
+        averageWashingTimeData: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224],
+        averageWashingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+        averageWashingTimeName: '平均洗车时长',
       }
     },
     mounted() {
-      this.queryNumberOfParking()
+      this.queryNumberOfParking();
+      this.queryaverageParkingTime();
+      this.queryparkingSpaceUtilization();
+      this.queryparkingSpaceTurnoverRate();
+      this.queryaverageChargingTime();
+      this.queryaverageWashingTime();
     },
     methods: {
       // 查询方法
@@ -134,7 +187,7 @@
         // 自定义绑定的options的字段名
         this.lineOptions = 'lineOptions';
         // 自定义停车时长
-        this.lineTitle = '平均停车时长';
+        this.lineTitle = '停车数量';
         // 定义图表类型
         this.lineChartsType = 'area';
         // 将数据绑定到暂存数组中
@@ -146,14 +199,59 @@
         // 调用折线图的方法
         this.queryLine(this.lineId, this.lineOptions);
       },
+      // 平均停车时长
       queryaverageParkingTime() {
-        this.lineId = 'numberOfParking';
-        this.lineOptions = 'lineOptions';
+        this.lineId = 'averageParkingTime';
+        this.lineOptions = 'averageParkingTimeOptions';
         this.lineTitle = '平均停车时长';
         this.lineChartsType = 'area';
-        this.lineChartsList = this.numberOfParkingData;
-        this.lineChartsX = this.numberOfParkingXz;
-        this.lineChartsName = this.numberOfParkingName;
+        this.lineChartsList = this.averageParkingTimeData;
+        this.lineChartsX = this.averageParkingTimeXz;
+        this.lineChartsName = this.averageParkingTimeName;
+        this.queryLine(this.lineId, this.lineOptions);
+      },
+      // 车位利用率
+      queryparkingSpaceUtilization() {
+        this.lineId = 'parkingSpaceUtilization';
+        this.lineOptions = 'parkingSpaceUtilizationOptions';
+        this.lineTitle = '车位利用率';
+        this.lineChartsType = 'area';
+        this.lineChartsList = this.parkingSpaceUtilizationData;
+        this.lineChartsX = this.parkingSpaceUtilizationXz;
+        this.lineChartsName = this.parkingSpaceUtilizationName;
+        this.queryLine(this.lineId, this.lineOptions);
+      },
+      // 车位周转率
+      queryparkingSpaceTurnoverRate() {
+        this.lineId = 'parkingSpaceTurnoverRate';
+        this.lineOptions = 'parkingSpaceTurnoverRateOptions';
+        this.lineTitle = '车位周转率';
+        this.lineChartsType = 'area';
+        this.lineChartsList = this.parkingSpaceTurnoverRateData;
+        this.lineChartsX = this.parkingSpaceTurnoverRateXz;
+        this.lineChartsName = this.parkingSpaceTurnoverRateName;
+        this.queryLine(this.lineId, this.lineOptions);
+      },
+      // 平均充电时长  
+      queryaverageChargingTime() {
+        this.lineId = 'averageChargingTime';
+        this.lineOptions = 'averageChargingTimeOptions';
+        this.lineTitle = '平均充电时间';
+        this.lineChartsType = 'area';
+        this.lineChartsList = this.averageChargingTimeData;
+        this.lineChartsX = this.averageChargingTimeXz;
+        this.lineChartsName = this.averageChargingTimeName;
+        this.queryLine(this.lineId, this.lineOptions);
+      },
+      // 平均洗车时长   
+      queryaverageWashingTime() {
+        this.lineId = 'averageWashingTime';
+        this.lineOptions = 'averageWashingTimeOptions';
+        this.lineTitle = '平均洗车时长';
+        this.lineChartsType = 'area';
+        this.lineChartsList = this.averageWashingTimeData;
+        this.lineChartsX = this.averageWashingTimeXz;
+        this.lineChartsName = this.averageWashingTimeName;
         this.queryLine(this.lineId, this.lineOptions);
       },
       // 折线图的方法
