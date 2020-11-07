@@ -9,7 +9,7 @@
 -->
 <template>
     <div class="about">
-        <p>当前位置：系统管理>用户管理</p>
+        <p>用户管理</p>
 <!--上边部分-->
       <div class="top">
           <el-form :inline="true" class="demo-form-inline">
@@ -75,7 +75,7 @@
             </el-pagination>
 <!--新增用户弹窗-->
             <el-dialog
-                    title="当前位置：系统管理>用户管理>新增用户"
+                    title="新增用户"
                     :visible.sync="addListDialog"
                     width="70%"
                     overflow="hidden">
@@ -154,11 +154,11 @@
             </el-dialog>
 <!--查看用户弹窗-->
             <el-dialog
-                    title="当前位置：系统管理>用户管理>新增用户"
+                    title="查看"
                     :visible.sync="selectListDialog"
                     width="70%"
-                    top="2vh"
-                    lock-scroll="false">
+                    top="8vh"
+            >
 <!-- 基础信息表单-->
                 <div class="table-basic">
                     <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
@@ -209,8 +209,8 @@
                                 <div style="font-size: 20px">赋予的权限</div>
 <!--                                功能权限-->
                                 <div class="table-function">功能权限</div>
-                                <div class="table-function-1">
-                                    <div class="table-function-scr">
+                                <el-row class="table-function-1">
+                                    <el-row class="table-function-scr">
                                         <el-scrollbar style="height: 100%">
                                             <el-tree
                                                     :data="treeData"
@@ -223,8 +223,8 @@
                                             >
                                             </el-tree>
                                         </el-scrollbar>
-                                    </div>
-                                </div>
+                                    </el-row>
+                                </el-row>
                             </el-form>
                         </div>
                 <span slot="footer" class="dialog-footer">
@@ -233,11 +233,11 @@
             </el-dialog>
 <!--            修改弹框-->
             <el-dialog
-                    title="当前位置：系统管理>用户管理>新增用户"
+                    title="修改"
                     :visible.sync="modLisDialog"
                     width="70%"
                     overflow="hidden">
-                <!--                基本信息-->
+                <!--基本信息-->
                 <div class="table-mod">
                     <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                         <p style="font-size: 20px">基本信息</p>
@@ -267,7 +267,7 @@
                         </el-row>
                     </el-form>
                 </div >
-                <!--                   选择角色-->
+                <!--选择角色-->
                 <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                     <div class="table-mod-sel">
                     <p style="font-size: 20px">选择角色</p>
@@ -298,6 +298,18 @@
                     <el-button @click="delListDialog = false">取 消</el-button>
                     </span>
             </el-dialog>
+<!--            密码重置弹框-->
+            <el-dialog
+                    title="提示信息"
+                    :visible.sync="retListDialog"
+                    top="30vh"
+                    width="20%">
+                <span style="margin-left:25%;font-size: 20px ">你确定要重置密码吗？</span>
+                <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="onSubmitRet()">确 定</el-button>
+                    <el-button @click="retListDialog = false">取 消</el-button>
+                    </span>
+            </el-dialog>
         </div>
 
     </div>
@@ -310,7 +322,6 @@
                 pageNum:1,
                 pageSize:10,
                 pageTotal:2,
-                //输入框中
                 //用户账号
                 userId: "",
                 //用户密码
@@ -334,6 +345,8 @@
                 modLisDialog:false,
                 //删除弹窗
                 delListDialog:false,
+                //密码重置弹窗
+                retListDialog:false,
                 //树形下拉获取数据暂存
                 treeList:[],
                 //查看按钮中的树形下拉
@@ -447,12 +460,16 @@
                 },
             //表格操作中密码重置方法
             retPassword(row){
-                console.log(row);
+                this.retListDialog=true;
                 const params = {
                     //row.password  = "888888"传入行中用户的密码
                     password: row.password
                 };
                 this.retList.push(params);
+            },
+            //密码重置方法
+            onSubmitRet(){
+                this.retListDialog=false;
             },
             //树形下拉获取参数
             checkChange(data1, data2, data3){
@@ -511,11 +528,9 @@
     /*新增弹窗样式*/
     /*基本信息*/
     .table .table-add{
-        border: 1px solid black
     }
     /*选择角色*/
     .table .table-sel{
-        border: 1px solid black;
         margin-top: 10px
     }
     /*选择角色第一行*/
@@ -549,11 +564,9 @@
     /*用户查看弹出样式*/
     /*弹出查看基础信息*/
     .table-basic{
-        border: 1px solid black
     }
     /*归属角色*/
     .table-belong{
-        border: 1px solid black;
         margin-top: 10px
     }
     /*归属角色选择*/
@@ -562,9 +575,7 @@
         margin-bottom: 10px;
         margin-left: 5%
     }
-
     .table-give{
-        border: 1px solid black;
         margin-top: 10px;
     }
     /*权限功能*/
@@ -575,7 +586,6 @@
         width: 85px
     }
     .table-function-1{
-        border: solid 1px black;
         width: 90%;
         margin-left: 5%;
         margin-bottom: 20px
@@ -590,21 +600,17 @@
     .el-scrollbar .el-scrollbar__wrap {
         overflow-x: hidden;
     }
-
 /*    按钮修改样式*/
 /*    修改基本信息样式*/
     .table-mod{
-        border: 1px solid black;
     }
 /*    修改选择角色样式*/
     .table-mod-sel{
-        border:1px solid black;
     }
     /*修改选择角色中的选择按钮*/
     .table-mod-sel-temp{
         margin-top: 10px;
         margin-left: 5%;
         margin-bottom: 20px;
-
     }
 </style>
