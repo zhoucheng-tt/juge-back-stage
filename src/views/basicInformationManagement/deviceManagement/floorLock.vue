@@ -509,7 +509,7 @@ export default {
           pageNum: this.pageNum,
           pageSize: this.pageSize
         };
-        this.$deviceManagement.queryMagneticDetecter(param).then(res => {
+        this.$deviceManagement.queryGroundLock(param).then(res => {
           this.floorLockList = res.data.dataList;
           this.pageTotal = res.data.totalRecord;
         });
@@ -521,7 +521,7 @@ export default {
           pageNum: this.pageNum,
           pageSize: this.pageSize
         };
-        this.$deviceManagement.queryMagneticDetecter(param).then(res => {
+        this.$deviceManagement.queryGroundLock(param).then(res => {
           this.floorLockList = res.data.dataList;
           this.pageTotal = res.data.totalRecord;
         });
