@@ -166,10 +166,17 @@
               },
               // 报表分析（日报，月报，年报）  
               {
-                code: '3-2',
+                code: '3-3',
                 logo: 'el-icon-menu',
                 name: '报表分析',
                 routeName: 'operationReport'
+              },
+              // 支付台账统计  paymentAccountStatistics
+              {
+                code: '3-4',
+                logo: 'el-icon-menu',
+                name: '支付台账统计',
+                routeName: 'paymentAccountStatistics'
               },
             ]
           },

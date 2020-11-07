@@ -1,7 +1,7 @@
 <!--
  * @Author: 邵青阳
  * @Date: 2020-10-13 11:39:37
- * @LastEditTime: 2020-11-05 19:38:29
+ * @LastEditTime: 2020-11-07 10:09:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\homePage\homePage.vue
@@ -89,6 +89,7 @@
     </div>
 </template>
 <script>
+    // 导入相关的依赖
     import Xchart from "../../components/charts/charts.vue"
     import Xchart3d from "../../components/charts/charts3d.vue"
     import HighCharts from 'highcharts'

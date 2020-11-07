@@ -2,7 +2,7 @@
   停车场运营指标分袖
  * @Author: 邵青阳
  * @Date: 2020-10-20 10:05:17
- * @LastEditTime: 2020-11-02 20:35:25
+ * @LastEditTime: 2020-11-07 13:44:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\reportAnalysis\analysisOnOperationIndexOfParking.vue
@@ -16,7 +16,7 @@
         <el-form-item label="统计日期:">
           <el-date-picker v-model="upQueryList.dataTimeIn" type="date" placeholder="选择日期" value-format="yyyyMMddhhmm">
           </el-date-picker>
-      </el-form-item>
+        </el-form-item>
         <el-form-item label="停车场：">
           <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
             <el-option v-for="(item, index) in parkingLotList" :label="item.parkingName" :value="item.parkingName"
@@ -31,9 +31,13 @@
     <!-- 中间图标部分内容 -->
     <div class="center">
       <!-- 停车数量 numberOfParking-->
-      <div class="echartStyle"></div>
+      <div class="echartStyle" id="numberOfParking">
+        <Xchart id="numberOfParking" :option="numberOfParkingOptions"></Xchart>
+      </div>
       <!-- 平均停车时长 averageParkingTime -->
-      <div class="echartStyle"></div>
+      <div class="echartStyle" id="averageParkingTime">
+        <Xchart id="averageParkingTime" :option="averageParkingTimeOptions"></Xchart>
+      </div>
       <!-- 车位利用率  parkingSpaceUtilization -->
       <div class="echartStyle"></div>
       <!-- 车位周转率  parkingSpaceTurnoverRate-->
@@ -50,7 +54,16 @@
   </div>
 </template>
 <script>
+  import Xchart from "../../components/charts/charts.vue"
+  import Xchart3d from "../../components/charts/charts3d.vue"
+  import HighCharts from 'highcharts'
+  import HighCharts3d from 'highcharts-3d'
   export default {
+    // 组件导入
+    components: {
+      Xchart,
+      Xchart3d
+    },
     data() {
       return {
         // 顶部查询数据暂存处
@@ -70,13 +83,152 @@
             id: 2
           }
         ],
+        // 动态绑定的停车折线图的id和option
+        lineId: '',
+        lineOptions: {},
+        // 动态绑定标题
+        lineTitle: '',
+        // 图表类型
+        lineChartsType: '',
+        // 暂存数据数组
+        lineChartsList: [],
+        // x轴坐标的信息
+        lineChartsX: [],
+        // serise中的那么数据
+        lineChartsName: '',
+
+        // 停车数量折线图
+        numberOfParking: "",
+        numberOfParkingOptions: {},
+        // 图表数据
+        numberOfParkingData: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224],
+        numberOfParkingXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+        numberOfParkingName: '停车数量',
+
+        // 平均停车时长
+        averageParkingTime: '',
+        averageParkingTimeOptions: {},
+        // 图表数据
+        averageParkingTimeData: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224],
+        averageParkingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+        averageParkingTimeName: '平均停车时长',
       }
     },
     mounted() {
-
+      this.queryNumberOfParking()
     },
     methods: {
+      // 查询方法
+      SelectQueryList() {
 
+      },
+      // 停车数量折线图的绑定id和option方法
+      queryNumberOfParking() {
+        //这边就是把参数等于对应的值就行了
+        // 绑定自定义的id的字段名
+        this.lineId = 'numberOfParking';
+        // 自定义绑定的options的字段名
+        this.lineOptions = 'lineOptions';
+        // 自定义停车时长
+        this.lineTitle = '平均停车时长';
+        // 定义图表类型
+        this.lineChartsType = 'area';
+        // 将数据绑定到暂存数组中
+        this.lineChartsList = this.numberOfParkingData;
+        // 自定义x轴坐标数据
+        this.lineChartsX = this.numberOfParkingXz;
+        // 绑定定义的名字
+        this.lineChartsName = this.numberOfParkingName;
+        // 调用折线图的方法
+        this.queryLine(this.lineId, this.lineOptions);
+      },
+      queryaverageParkingTime() {
+        this.lineId = 'numberOfParking';
+        this.lineOptions = 'lineOptions';
+        this.lineTitle = '平均停车时长';
+        this.lineChartsType = 'area';
+        this.lineChartsList = this.numberOfParkingData;
+        this.lineChartsX = this.numberOfParkingXz;
+        this.lineChartsName = this.numberOfParkingName;
+        this.queryLine(this.lineId, this.lineOptions);
+      },
+      // 折线图的方法
+      queryLine() {
+        var that = this;
+        that.lineOptions = {
+          chart: {
+            type: that.lineChartsType,
+            backgroundColor: 'rgba(0,0,0,0)',
+            renderTo: that.lineId,
+          },
+          title: {
+            text: that.lineTitle
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: that.lineChartsX
+          },
+          yAxis: {
+            title: {
+              text: '单位（辆）'
+            },
+            labels: {
+              formatter: function () {
+                return this.value / 1000 + 'k';
+              }
+            }
+          },
+          legend: {
+            enabled: true,
+            align: 'center',
+            verticalAlign: 'left',
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: '#cccccc',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              fill: '#cccccc',
+            },
+            itemHoverStyle: {
+              color: '#666666',
+            },
+            itemHiddenStyle: {
+              color: '#333333'
+            }
+          },
+          tooltip: {
+            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>辆'
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          },
+          series: [{
+            name: this.lineChartsName,
+            data: that.lineChartsList
+          }]
+        }
+        // 绘制
+        new HighCharts.Chart(that.lineOptions);
+      },
     }
   }
 </script>
