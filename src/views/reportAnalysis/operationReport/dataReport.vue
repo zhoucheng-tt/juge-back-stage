@@ -7,7 +7,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\reportAnalysis\operationReport\dataReport.vue
 -->
-<template xmlns:el-col="http://www.w3.org/1999/html">
+<template>
   <div class="all">
     <!--上半部分查询-->
     <div class="up">
@@ -17,8 +17,12 @@
             <el-col :span="6">
               <el-form-item label="统计日期:">
                 <el-select v-model="query.date">
-                  <el-option v-for="(item,index) in dateList" :label="item.date" :value="item.date"
-                             :key="index"></el-option>
+                  <el-option
+                    v-for="(item, index) in dateList"
+                    :label="item.date"
+                    :value="item.date"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -26,14 +30,20 @@
               <el-form-item label="停车场：">
                 <el-select v-model="query.parkId" placeholder="请选择停车场">
                   <el-option label="全部" value="0"></el-option>
-                  <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
+                  <el-option
+                    v-for="(item, index) in parkList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6" :offset="6">
               <el-form-item>
-                <el-button type="primary" @click="queryDateReport">查询</el-button>
+                <el-button type="primary" @click="queryDateReport"
+                  >查询</el-button
+                >
                 <el-button type="primary" @click="exportReport">导出</el-button>
               </el-form-item>
             </el-col>
@@ -43,37 +53,116 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-table :data="reportList"
-                :row-class-name="tableRowClassName"
-                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
+      <el-table
+        :data="reportList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
       >
-        <el-table-column width="120" prop="date" :show-overflow-tooltip="true" label="统计日期"/>
-        <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-        <el-table-column width="120" prop="parkNum" :show-overflow-tooltip="true" label="车位数"/>
-        <el-table-column width="120" prop="usedNum" :show-overflow-tooltip="true" label="停车数"/>
-        <el-table-column width="120" prop="avgParkingTime" :show-overflow-tooltip="true" label="平均停车时长"/>
-        <el-table-column width="120" prop="utilization" :show-overflow-tooltip="true" label="车位利用率"/>
-        <el-table-column width="120" prop="velocity" :show-overflow-tooltip="true" label="车辆周转率"/>
-        <el-table-column width="120" prop="orderNum" :show-overflow-tooltip="true" label="预约停车数量"/>
-        <el-table-column width="120" prop="orderComRate" :show-overflow-tooltip="true" label="预约完成率"/>
-        <el-table-column width="120" prop="totalEarn" :show-overflow-tooltip="true" label="总收入"/>
-        <el-table-column width="120" prop="wechatEarn" :show-overflow-tooltip="true" label="微信缴费金额"/>
-        <el-table-column width="120" prop="alipayEarn" :show-overflow-tooltip="true" label="支付宝缴费金额"/>
-        <el-table-column width="120" prop="ETCEarn" :show-overflow-tooltip="true" label="ETC缴费金额"/>
-        <el-table-column width="120" prop="owe" :show-overflow-tooltip="true" label="欠费金额"/>
+        <el-table-column
+          width="120"
+          prop="date"
+          :show-overflow-tooltip="true"
+          label="统计日期"
+        />
+        <el-table-column
+          width="120"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
+        />
+        <el-table-column
+          width="120"
+          prop="parkNum"
+          :show-overflow-tooltip="true"
+          label="车位数"
+        />
+        <el-table-column
+          width="120"
+          prop="usedNum"
+          :show-overflow-tooltip="true"
+          label="停车数"
+        />
+        <el-table-column
+          width="120"
+          prop="avgParkingTime"
+          :show-overflow-tooltip="true"
+          label="平均停车时长"
+        />
+        <el-table-column
+          width="120"
+          prop="utilization"
+          :show-overflow-tooltip="true"
+          label="车位利用率"
+        />
+        <el-table-column
+          width="120"
+          prop="velocity"
+          :show-overflow-tooltip="true"
+          label="车辆周转率"
+        />
+        <el-table-column
+          width="120"
+          prop="orderNum"
+          :show-overflow-tooltip="true"
+          label="预约停车数量"
+        />
+        <el-table-column
+          width="120"
+          prop="orderComRate"
+          :show-overflow-tooltip="true"
+          label="预约完成率"
+        />
+        <el-table-column
+          width="120"
+          prop="totalEarn"
+          :show-overflow-tooltip="true"
+          label="总收入"
+        />
+        <el-table-column
+          width="120"
+          prop="wechatEarn"
+          :show-overflow-tooltip="true"
+          label="微信缴费金额"
+        />
+        <el-table-column
+          width="120"
+          prop="alipayEarn"
+          :show-overflow-tooltip="true"
+          label="支付宝缴费金额"
+        />
+        <el-table-column
+          width="120"
+          prop="ETCEarn"
+          :show-overflow-tooltip="true"
+          label="ETC缴费金额"
+        />
+        <el-table-column
+          width="120"
+          prop="owe"
+          :show-overflow-tooltip="true"
+          label="欠费金额"
+        />
       </el-table>
       <el-pagination
-          style="position: relative;left: 78%"
-          background
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
+        style="position: relative;left: 78%"
+        background
+        layout="total, prev, pager, next, jumper"
+        :page-size="pageSize"
+        @current-change="handleCurrentModify"
+        :current-page="pageNum"
+        :total="pageTotal"
       />
     </div>
-
   </div>
 </template>
 
@@ -84,7 +173,7 @@ export default {
       // 顶部查询数据暂存处
       query: {},
       //统计日期下拉菜单
-      dateList:[
+      dateList: [
         {
           date: "2020-11-04"
         },
@@ -191,20 +280,20 @@ export default {
           ETCEarn: 132,
           owe: 0
         }
-      ],
+      ]
     };
   },
   methods: {
     // 查询
     queryDateReport() {
-      console.log("打印出来点击查询后所产生的值", this.query)
+      console.log("打印出来点击查询后所产生的值", this.query);
     },
     //导出
     exportReport() {
-      console.log("导出报表")
+      console.log("导出报表");
     },
     // 斑马纹样式
-    tableRowClassName({ rowIndex}) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -217,8 +306,7 @@ export default {
       this.pageNum = val;
     }
   }
-}
-
+};
 </script>
 <style scoped>
 .all {
@@ -250,27 +338,10 @@ export default {
 }
 
 /* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
-}
 
 /* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
 
 /* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
 
 /* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
 </style>

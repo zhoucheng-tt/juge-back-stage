@@ -195,7 +195,7 @@ export default {
   methods: {
     // 查询
     queryYearReport() {
-      console.log("打印出来点击查询后所产生的值", this.query)
+      console.log("打印出来点击查询后所产生的值", this.query);
     },
     //导出
     exportReport() {

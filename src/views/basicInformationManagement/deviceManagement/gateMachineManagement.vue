@@ -15,7 +15,8 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="停车场">
-              <el-select v-model="parkId" placeholder="请选择停车场">
+              <el-select v-model="parkId" placeholder="请选择停车场"
+               @change="queryExit(parkId)">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                            :key="index"></el-option>
               </el-select>
@@ -33,7 +34,7 @@
             <el-button type="primary" @click="addNewGate()">新增道闸机</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
-            <el-button type="primary" @click="queryPkLot()">查 询</el-button>
+            <el-button type="primary" @click="queryPassagewayGate()">查 询</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -66,8 +67,8 @@
           @current-change="handleCurrentModify"
           layout="total, prev, pager, next, jumper"
           :current-page="pageNum"
-          :total="pageTotal"
-          :page-size="pageSize">
+          :page-size="pageSize"
+          :total="pageTotal">
       </el-pagination>
       <!--新增表单弹框-->
       <el-dialog id="add" title="新增道闸机" :visible.sync="addListDialog">
@@ -76,7 +77,8 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="newGate.parkName" placeholder="请选择">
+                <el-select v-model="newGate.parkId" placeholder="请选择"
+                @change="queryExit(newGate.parkId)">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                              :key="index">
                   </el-option>
@@ -85,7 +87,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="归属出入口:" label-width="150px">
-                <el-select v-model="newGate.passagewayName" placeholder="请选择">
+                <el-select v-model="newGate.passagewayId" placeholder="请选择">
                   <el-option v-for="(item, index) in passagesList" :label="item.name" :value="item.code"
                              :key="index">
                   </el-option>
@@ -138,7 +140,8 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="editGate.parkName" placeholder="请选择">
+                <el-select v-model="editGate.parkId" placeholder="请选择"
+                @change="queryExit(editGate.parkId)">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                              :key="index"></el-option>
                 </el-select>
@@ -199,23 +202,25 @@
     return {
       //查询数据暂留处
       parkId:"",
-      parkName:"",
-      passagewayName:"",
+      //header param
+      cityCode:"",
+      districtCode:"",
       //表格数据
       gateList:[],
-      //停车场ID暂存
-      parkingIdList:[],
       //停车场名称列表
       parkingLotNameList: [],
       //出入口名称列表
       passagesList:[],
-      //header param
-      cityCode:"",
-      districtCode:"",
       //初始化分页
       pageNum: 1,
       pageSize: 10,
       pageTotal: 2,
+      //新增表单弹框
+      addListDialog: false,
+      //新增道闸机数据暂存
+      newGate: {},
+      //删除一行暂存
+      delList:[],
       //设备状态
       eqStatusList: [
         {
@@ -231,10 +236,6 @@
           id: "3"
         }
       ],
-      //新增表单弹框
-      addListDialog: false,
-      //新增道闸机数据暂存
-      newGate: {},
       //修改表单弹框
       editListDialog: false,
       //修改道闸机数据暂存
@@ -245,48 +246,27 @@
       selectGateList: []
     };
   },
+    //加载一级页面时候调用
   mounted() {
-  //引入查询表格方法
-    //查询表格
+    //调用查询表格
     this.queryPassagewayGate();
     //查询停车场名称下拉
     this.queryParking();
-    //停车场出口下拉
-    this.queryExit();
-    //新增弹窗
-    this.addNewGate();
-    //新增表单提交
-    this.onSubmitAdd();
   },
   methods: {
-    //查询按钮
-    queryPkLot() {
-      console.log("查询的停车场编号", this.parkId);
-      this.gateList = [];
-      const param = {
-        parkId:this.parkId,
-        pageSize: this.pageSize,
-        pageNum: this.pageNum
-      };
-      this.$deviceManagement.queryPassagewayGate(param).then(response => {
-        console.log("查询响应", response);
-        this.gateList = response.data.dataList;
-        console.log("查询道闸机列表信息", this.gateList);
-      })
-    },
     //查询表格数据
     queryPassagewayGate(){
       //指代this
       var that = this;
       const param={
-        //传入参数
+        //传入查询要用的参数
         cityCode:this.cityCode,
         districtCode:this.districtCode,
         parkId:this.parkId,
         pageNum:this.pageNum,
         pageSize:this.pageSize
       };
-      //引用deviceManagement中的接口方法
+      //引用deviceManagement中的查询接口方法
       this.$deviceManagement.queryPassagewayGate(param).then(response => {
         console.log("查询表格数据", response)
         console.log("that.gateList", that.gateList)
@@ -296,8 +276,9 @@
         that.gateList=response.data.dataList;
       })
     },
-    //分页
+    //分页（跳转页面）//val选中的所有行
     handleCurrentModify(val) {
+      //查询
       this.pageNum = val;
       this.queryPassagewayGate();
     },
@@ -306,6 +287,7 @@
       var that=this;
       this.parkingLotNameList=[];
       const param={
+        //停车场参数
         columnName:["park_id","park_name"],
         tableName:"t_bim_park",
         whereStr:"district_code = '321302'"
@@ -317,16 +299,19 @@
       })
     },
     //归属出入口下拉查询
-    queryExit(){
+    queryExit(code){
       var that=this;
       this.passagesList=[];
       const param={
+        //出入口下拉的参数
         columnName:["passageway_id","passageway_name"],
         tableName:"t_bim_passageway",
-        whereStr:"park_id = 'BM01'"
+        //park_id=''通过拼接
+        whereStr:"park_id = '"+code+"'"
       }
       this.$deviceManagement.queryDictData(param).then(response=>{
         console.log("下拉出口", response);
+        //响应中的数据传给出入口
         this.passagesList = response.data.dataList;
         console.log("下拉菜单", that.passagesList);
       })
@@ -334,18 +319,18 @@
     //新增道闸机
     addNewGate() {
       console.log("新增道闸机弹框弹出");
+      //清空弹出框
       this.newGate = {};
+      //弹出框显示
       this.addListDialog = true;
     },
     //新增表单提交
     onSubmitAdd() {
       console.log("新增数据", this.newGate);
-
       const param ={
-        parkId:this.newGate.parkName,
-        parkName:this.newGate.parkName,
+        //道闸机需要传入的参数
+        parkId:this.newGate.parkId,
         passagewayId:this.newGate.passagewayId,
-        passagewayName:this.newGate.passagewayName,
         passagewayGateId:this.newGate.passagewayGateId,
         passagewayGateName:this.newGate.passagewayGateName,
         ipAddress:this.newGate.ipAddress,
@@ -353,31 +338,42 @@
         manufacturer:this.newGate.manufacturer
       }
       this.$deviceManagement.addPassagewayGate(param).then(response => {
-        this.newGate.parkId=response.data.datalist.parkId;
-        this.newGate.passagewayName=response.data.datalist.passagewayName;
         console.log("打印新增响应数据", response);
+        //添加成功弹出
+        this.$message({type: "success", message: "添加成功!"});
+        //添加成功 弹出框隐藏
+        this.addListDialog = false;
+        //添加成功 刷新页面 调用查询方法
+        this.queryPassagewayGate();
       });
-      this.$message({type: "success", message: "添加成功!"});
-      this.addListDialog = false;
-      this.queryPassagewayGate();
     },
-    //批量导入
-    bulkImport() {
-      console.log("批量导入");
-    },
-    //批量删除
-    batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+    //删除一行
+    deleteGate(row) {
+      //点击删除按钮出现的提示框
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
-      })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
+        //清空删除
+        this.delList=[];
+        //设定传入行数据
+        const param={
+          passagewayGateId:row.passagewayGateId,
+          parkId:row.parkId
+        }
+        //将参数传到delList中
+        this.delList.push(param);
+        //调用接口中的删除方法 删除要删除的delList
+        this.$deviceManagement.delPassagewayGate(this.delList);
+        //提示删除成功
+        this.$message({type: 'success', message: '删除成功!'});
+        //重新执行查询 （重新加载页面）
+        this.queryPassagewayGate();
+      }).catch(() => {
+        //取消删除按钮
+        this.$message({type: 'info', message: '已取消删除'});
+      });
     },
     //修改
     editGateDialog(row) {
@@ -385,20 +381,7 @@
       this.editListDialog = true;
       console.log("修改弹窗弹出");
     },
-    //删除
-    deleteGate(row) {
-      console.log("删除的道闸机Id", row.passagewayGateId);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
-      })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
-    },
+
 
     //修改表单提交
     onSubmitEdit() {
@@ -414,6 +397,24 @@
         this.idList.push(item.passagewayGateId);
       });
       console.log(this.selectGateList);
+    },
+    //批量导入
+    bulkImport() {
+      console.log("批量导入");
+    },
+    //批量删除
+    batchDelete() {
+      console.log("批量删除", this.idList);
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.$message({type: "success", message: "删除成功!"});
+      })
+              .catch(() => {
+                this.$message({type: "info", message: "已取消删除"});
+              });
     },
 
   }

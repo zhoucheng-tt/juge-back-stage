@@ -7,7 +7,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\reportAnalysis\operationReport\mounthReport.vue
 -->
-<template xmlns:el-col="http://www.w3.org/1999/html">
+<template>
   <div class="all">
     <!--上半部分查询-->
     <div class="up">
@@ -17,22 +17,32 @@
             <el-col :span="6">
               <el-form-item label="统计月份:">
                 <el-select v-model="query.mounth">
-                  <el-option v-for="(item,index) in mounthList" :label="item.mounth" :value="item.mounth"
-                             :key="index"></el-option>
+                  <el-option
+                    v-for="(item, index) in mounthList"
+                    :label="item.mounth"
+                    :value="item.mounth"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="停车场：">
                 <el-select v-model="query.parkId" placeholder="请选择停车场">
-                  <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
+                  <el-option
+                    v-for="(item, index) in parkList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6" :offset="6">
               <el-form-item>
-                <el-button type="primary" @click="queryMounthReport">查询</el-button>
+                <el-button type="primary" @click="queryMounthReport"
+                  >查询</el-button
+                >
                 <el-button type="primary" @click="exportReport">导出</el-button>
               </el-form-item>
             </el-col>
@@ -42,10 +52,11 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-table :data="reportList"
-                :row-class-name="tableRowClassName"
-                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
+      <el-table
+        :data="reportList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+        :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
       >
         <el-table-column width="120" prop="mounth" :show-overflow-tooltip="true" label="统计月份"/>
         <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>

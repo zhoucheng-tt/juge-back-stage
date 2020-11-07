@@ -161,3 +161,13 @@ export function addPassagewayGate(param) {
         }
     )
 }
+//道闸机删除 delPassagewayGate
+export function delPassagewayGate(param) {
+    return request(
+        {
+            url: 'DeviceFunc/delPassagewayGate.xhtml',
+            method: 'post',
+            data: param
+        }
+    )
+}
