@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-17 10:24:37
- * @LastEditTime: 2020-11-02 19:52:48
+ * @LastEditTime: 2020-11-06 09:43:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \sac-tpms-webe:\TingCar\src\views\Home\Home.vue
@@ -333,18 +333,18 @@
 	computed: {},
 	mounted() {
 		// 暂时关闭
-	//   this.queryImgUrl();
-	//   this.queryNum();
+	  this.queryImgUrl();
+	  this.queryNum();
 	  this.timer = setInterval(() => {
-		// this.queryImgUrl();
-		// this.queryNum();
+		this.queryImgUrl();
+		this.queryNum();
 	  }, 50000);
 	},
 	methods: {
 	  queryNum() {
 		var that = this;
 		var shengList = [];
-		queryList()
+		this.$ysParking.queryList()
 		  .then(response => {
 			that.TcarList = response.data.list;
 			that.zongNum = that.TcarList.length;
@@ -371,7 +371,7 @@
 	  },
 	  queryImgUrl() {
 		var that = this;
-		queryImgUrl()
+		this.$ysParking.queryImgUrl()
 		  .then(response => {
 			console.log("res", response);
 			that.imgUrl =

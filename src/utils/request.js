@@ -17,17 +17,17 @@ const service = axios.create({
   // baseURL:'http://120.26.146.64:8052/e-parking-web',
   // 服务器版本
   // baseURL:'/e-parking-api',
-  baseURL:'/e-parking-web',
+  baseURL: '/e-parking-web',
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   transformRequest: [
     function (data) {
-        let reqInfo = {
-            param:JSON.stringify(data),//对象转json
-        }
-        return qs.stringify(reqInfo)//json转表单
+      let reqInfo = {
+        param: JSON.stringify(data),//对象转json
+      }
+      return qs.stringify(reqInfo)//json转表单
     }
-]
+  ]
 })
 
 // const CancelToken = axios.CancelToken;
@@ -70,20 +70,24 @@ service.interceptors.response.use(
     //   //   duration: 5 * 1000,
     //   //   showClose: true
     //   // })
-      // router.push({ name: 'login' })
+    // router.push({ name: 'login' })
     //   return Promise.reject(res.resultMsg || 'error')
     // } else
-     if (res.status !== '0') {
-      Message({
-        message: res.resultMsg || '系统错误，请联系管理员',
-        type: 'error',
-        duration: 5 * 1000,
-        showClose: true
-      })
-      // router.push({ name: '/login' })
-      return Promise.reject(res.resultMsg || 'error')
-    } else {
+    if (response.config.flag === 'out') {
       return res
+    } else {
+      if (res.status !== '0') {
+        Message({
+          message: res.resultMsg || '系统错误，请联系管理员',
+          type: 'error',
+          duration: 5 * 1000,
+          showClose: true
+        })
+        // router.push({ name: '/login' })
+        return Promise.reject(res.resultMsg || 'error')
+      } else {
+        return res
+      }
     }
   },
   error => {

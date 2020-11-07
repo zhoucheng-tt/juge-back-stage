@@ -1,7 +1,7 @@
 <!--
  * @Author: 邵青阳
  * @Date: 2020-10-13 11:39:37
- * @LastEditTime: 2020-10-15 11:39:56
+ * @LastEditTime: 2020-11-05 19:38:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\homePage\homePage.vue
@@ -257,7 +257,7 @@
                         shared: true
                     },
                     legend: {
-                        enabled: false,
+                        enabled: true,
                         align: 'center',
                         verticalAlign: 'top',
                         x: 0,
