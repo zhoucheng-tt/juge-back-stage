@@ -2,7 +2,7 @@
     实时监测洗车机运营数据
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-22 10:39:37
+ * @LastEditTime: 2020-11-07 17:22:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
@@ -134,8 +134,6 @@
         }
         // 根据方法中传过来的index的值进行判断
         this.upSelectList[index].struts = 1;
-        // console.log("设置点击状态", index)
-        // console.log("设置点击状态", this.upSelectList)
       },
       // 洗车按照时间段报表分析
       queryanalysisCarWashingTimes() {
