@@ -31,7 +31,8 @@
             <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)</el-button
+            <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)
+            </el-button
             >
           </el-form-item>
         </el-form>
@@ -61,6 +62,14 @@
                         :key="index"
                     ></el-option>
                   </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="车位数:" class="form-all">
+                  <el-input
+                      v-model="addListDialogueandoffList.parkSpaceNum"
+                      placeholder="请输入车位数">
+                  </el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -129,15 +138,17 @@
               <el-col>
                 <el-form-item label="图片尺寸（像素）:">
                   <el-input
-                      v-model="addListDialogueandoffList.pictureWidth"
-                      placeholder="请输入图片宽度"
-                  ></el-input>
+                      v-model="addListDialogueandoffList.imageWidth"
+                      placeholder="请输入图片宽度">
+                    <template slot="append">px</template>
+                  </el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-input
-                      v-model="addListDialogueandoffList.pictureHight"
-                      placeholder="请输入图片高度"
-                  ></el-input>
+                      v-model="addListDialogueandoffList.imageHeight"
+                      placeholder="请输入图片高度">
+                    <template slot="append">px</template>
+                  </el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -546,7 +557,7 @@ export default {
       // 新增弹窗显示和隐藏属性
       addListDialogueandoff: false,
       // 新增数据暂存数组
-      addListDialogueandoffList: {}
+      addListDialogueandoffList: []
     };
   },
   methods: {
@@ -688,9 +699,18 @@ export default {
     },
     // 点击保存
     addInfoInsert() {
+      const param = {
+        parkId: this.addListDialogueandoffList.parkId,
+        parkLayerId: this.addListDialogueandoffList.parkLayerId,
+        parkLayerName: this.addListDialogueandoffList.parkLayerName,
+        remark: this.addListDialogueandoffList.remark,
+        parkSpaceNum: this.addListDialogueandoffList.parkSpaceNum,
+        imageHeight: this.addListDialogueandoffList.imageHeight,
+        imageWidth: this.addListDialogueandoffList.imageWidth
+      }
       console.log("保存后打印出来的数据", this.addListDialogueandoffList);
-      this.$ysParking.insertParkLayer(this.addListDialogueandoffList).then(res => {
-        console.log("打印保存的数据",res);
+      this.$ysParking.insertParkLayer(param).then(res => {
+        console.log("打印保存的数据", res);
       })
       this.$message({type: "success", message: "添加成功!"});
       this.queryParkLayerList();
