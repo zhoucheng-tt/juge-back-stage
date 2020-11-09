@@ -81,29 +81,29 @@
                     overflow="hidden">
 <!--                基本信息-->
                 <div class="table-add">
-                    <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+                    <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px" v-model="addUserList">
                         <p style="font-size: 20px">基本信息</p>
                         <el-row style="padding-top: 20px">
                             <el-col :span="12">
                                 <el-form-item label="用户账号:" label-width="150px">
-                                    <el-input v-model="addList.userId"/>
+                                    <el-input v-model="addUserList.userId"/>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
                                 <el-form-item label="姓名:" label-width="150px">
-                                    <el-input v-model="addList.userName"/>
+                                    <el-input v-model="addUserList.userName"/>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="12">
                                 <el-form-item label="手机号:" label-width="150px">
-                                    <el-input v-model="addList.phoneNum"></el-input>
+                                    <el-input v-model="addUserList.phoneNum"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
                                 <el-form-item label="邮箱:" label-width="150px">
-                                    <el-input v-model="addList.mailBox"></el-input>
+                                    <el-input v-model="addUserList.mailBox"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -114,36 +114,15 @@
                     <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                         <p style="font-size: 20px">选择角色</p>
                         <div class="table-sel-1">
-                            <template>
-                                <el-checkbox label="角色1"></el-checkbox>
-                                <el-checkbox label="角色2"></el-checkbox>
-                                <el-checkbox label="角色3"></el-checkbox>
-                                <el-checkbox label="角色4"></el-checkbox>
-                            </template>
+                            <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRolesChange">
+                                <el-checkbox v-for="item in roles" :label="item.label" :key="item.value">{{item.label}}</el-checkbox>
+                            </el-checkbox-group>
                         </div>
                         <div class="table-sel-2">
-                            <template>
-                                <el-checkbox label="角色1"></el-checkbox>
-                                <el-checkbox label="角色2"></el-checkbox>
-                                <el-checkbox label="角色3"></el-checkbox>
-                                <el-checkbox label="角色4"></el-checkbox>
-                            </template>
                         </div>
                         <div class="table-sel-3">
-                            <template>
-                                <el-checkbox label="角色1"></el-checkbox>
-                                <el-checkbox label="角色2"></el-checkbox>
-                                <el-checkbox label="角色3"></el-checkbox>
-                                <el-checkbox label="角色4"></el-checkbox>
-                            </template>
                         </div>
                         <div class="table-sel-4">
-                            <template>
-                                <el-checkbox label="角色1"></el-checkbox>
-                                <el-checkbox label="角色2"></el-checkbox>
-                                <el-checkbox label="角色3"></el-checkbox>
-                                <el-checkbox label="角色4"></el-checkbox>
-                            </template>
                         </div>
                     </el-form>
                 </div>
@@ -166,24 +145,24 @@
                             <el-row style="padding-top: 20px">
                                 <el-col :span="12">
                                     <el-form-item label="用户账号:" label-width="150px">
-                                        <el-input v-model="addList.userId"/>
+                                        <el-input v-model="selectList.userId"/>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="姓名:" label-width="150px">
-                                        <el-input v-model="addList.userName"/>
+                                        <el-input v-model="selectList.userName"/>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="12">
                                     <el-form-item label="手机号:" label-width="150px">
-                                        <el-input v-model="addList.phoneNum"></el-input>
+                                        <el-input v-model="selectList.phoneNum"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="邮箱:" label-width="150px">
-                                        <el-input v-model="addList.mailBox"></el-input>
+                                        <el-input v-model="selectList.mailBox"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -194,12 +173,9 @@
                             <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                                 <p style="font-size: 20px">归属角色</p>
                                 <div class="table-belong-1">
-                                    <template>
-                                        <el-checkbox label="角色1"></el-checkbox>
-                                        <el-checkbox label="角色2"></el-checkbox>
-                                        <el-checkbox label="角色3"></el-checkbox>
-                                        <el-checkbox label="角色4"></el-checkbox>
-                                    </template>
+<!--                                    <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRolesChange">-->
+<!--                                        <el-checkbox v-for="item in roles" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>-->
+<!--                                    </el-checkbox-group>-->
                                 </div>
                             </el-form>
                         </div>
@@ -316,6 +292,7 @@
   </template>
 <script>
     export default {
+
         data() {
             return {
                 //初始化分页
@@ -324,7 +301,7 @@
                 pageTotal:2,
                 //用户账号
                 userId: "",
-                //用户密码
+                //用户姓名
                 userName:"",
                 //表格数据
                 tableData: [{
@@ -333,14 +310,29 @@
                     phoneNum: '上海',
                     mailBox: '普陀区',
                 }],
-                //新增用户暂存
-                addList:{},
+                //新增弹出数据暂存
+                addUserList:{},
                 //新增用户弹窗
                 addListDialog: false,
                 //新增用户弹窗中的复选框
-                checkList: [],
+                checkedRoles: [],
+                roles: [{
+                    label:'角色1',
+                    value:'1'
+                },{
+                    label:'角色2',
+                    value:'2'
+                },{
+                    label:'角色3',
+                    value:'3'
+                },{
+                    label:'角色4',
+                    value:'4'
+                }],
                 //查看用户弹窗
                 selectListDialog:false,
+                //查看数据暂存
+                selectList:{},
                 //修改用户弹窗
                 modLisDialog:false,
                 //删除弹窗
@@ -413,11 +405,12 @@
         methods: {
             //上边按钮查询功能
             select() {
-                console.log('select!');
+                console.log("打印用户账号和用户姓名",this.userId,this.userName);
             },
             //上边部分按钮导出功能
             exPort(){
-                console.log('export');
+
+                console.log("导出用户账号和用户姓名",this.userId,this.userName);
             },
             //分页方法
             handleCurrentModify(val){
@@ -425,13 +418,25 @@
             },
             //新增用户弹窗
             addUser(){
+                //显示弹窗
                 this.addListDialog=true;
-                this.checkList=[];
-                console.log('新增');
+                //清空新增对象
+                this.addUserList={};
+                // 清空多选框
+                this.checkedRoles=[];
+            },
+            //新增选择框返回数据
+            handleCheckedRolesChange(value) {
+                console.log('绑定值 ',value);
+                // console.log('绑定值 ',this.checkedRoles);
             },
             //新增用户确认提交
             onSubmitAdd(){
                 this.addListDialog=false;
+                //清空新增用户中的复选框
+                // this.checkedRoles=[];
+                console.log('打印新增用户属性',this.checkedRoles);
+                console.log('打印确认新增提交数据',this.addUserList);
             },
             //表格操作中的查看方法
             //查看用户弹窗
@@ -478,12 +483,10 @@
                 console.log(data3)
                 console.log("获取树形下拉参数",this.treeList);
             },
-
-
         }
     }
 </script>
-<style>
+<style scoped>
     .about {
         width: 100%;
         height: 100%;
@@ -537,7 +540,7 @@
     .table .table-sel .table-sel-1{
         margin-left: 5%;
         display: flex;
-        justify-content: space-around
+        justify-content: space-around;
     }
     /*选择角色第二行*/
     .table .table-sel .table-sel-2 {
