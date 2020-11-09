@@ -23,7 +23,7 @@
   <script>
     // 白名单管理
     import whiteListManagementCompent from './listManagement/whiteListManagementCompent'
-    // 黑名单管理 
+    // 黑名单管理
     import blackListManagementCompent from './listManagement/blackListManagementCompent'
 
     export default {
@@ -38,4 +38,3 @@
       }
     }
   </script>
-  
