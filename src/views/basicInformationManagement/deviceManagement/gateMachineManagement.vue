@@ -239,11 +239,15 @@
       //修改表单弹框
       editListDialog: false,
       //修改道闸机数据暂存
-      editGate: {},
+      editGate: [],
       //批量删除暂存id
       idList: [],
       //多选后数据暂存
-      selectGateList: []
+      selectGateList: [],
+      //旧停车场id
+      oldParkId: [],
+      //旧的出口id
+      oldpassagewayGateId: []
     };
   },
     //加载一级页面时候调用
@@ -379,22 +383,46 @@
     editGateDialog(row) {
       this.editGate = row;
       this.editListDialog = true;
-      console.log("修改弹窗弹出");
+      // console.log("打印修改的参数",row);
+      this.oldParkId = row.parkId;
+      this.oldpassagewayGateId = row.passagewayGateId
     },
-
 
     //修改表单提交
     onSubmitEdit() {
       console.log("修改数据", this.editGate);
+      const param = {
+        parkId:this.editGate.parkId,
+        passagewayId:this.editGate.passagewayId,
+        parkCode:this.oldParkId,
+        passagewayGateCode:this.oldpassagewayGateId,
+        passagewayGateId:this.editGate.passagewayGateId,
+        passagewayGateName:this.editGate.passagewayGateName,
+        ipAddress:this.editGate.ipAddress,
+        serialNumber:this.editGate.serialNumber,
+        manufacturer:this.editGate.manufacturer
+      };
+      this.$deviceManagement.updatePassagewayGate(param).then(response => {
+        console.log("打印修改传入数据", response);
+        this.$message({type: "success", message: "修改成功!"});
+        this.queryPassagewayGate();
+        console.log("修改后的数据", this.editGate);
+      });
       this.editListDialog = false;
     },
+
+
     //批量删除监听
     handleSelectionChange(val) {
       this.selectGateList = val;
       this.idList = [];
       //获取批量删除id
-      val.forEach((item) => {
-        this.idList.push(item.passagewayGateId);
+      val.forEach(item => {
+        const param = {
+          passagewayGateId: item.passagewayGateId,
+          parkId: item.parkId
+        };
+        this.idList.push(param);
       });
       console.log(this.selectGateList);
     },
@@ -409,12 +437,16 @@
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
       })
-              .catch(() => {
-                this.$message({type: "info", message: "已取消删除"});
-              });
+              .then(() => {
+                this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
+                  console.log("批量删除成功", res)
+                })
+                this.$message({type: "success", message: "删除成功!"});
+                this.queryPassagewayGate();
+              }).catch(() => {
+        this.$message({type: "info", message: "已取消删除"});
+      });
     },
 
   }
