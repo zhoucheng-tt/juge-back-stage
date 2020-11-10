@@ -152,3 +152,12 @@ export function insertParkLayer(param) {
     })
 }
 
+//停车场管理-车位管理-删除 deleteParkLayer
+export function deleteParkLayer(param) {
+    return request({
+        url: '/parkFunc/insertParkLayer',
+        method: 'url',
+        data: param
+    })
+}
+
