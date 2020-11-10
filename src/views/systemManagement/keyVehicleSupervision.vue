@@ -418,7 +418,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       }
-      this.$systemManagement.queryUserList(param).then(res => {
+      this.$systemUser.queryUserList(param).then(res => {
         this.pageTotal = res.data.totalRecord;
         this.tableData = res.data.dataList;
       })
@@ -429,7 +429,7 @@ export default {
       const param = {
         "userId": ""
       };
-      this.$systemManagement.queryRoleListByUser(param).then(res => {
+      this.$systemUser.queryRoleListByUser(param).then(res => {
         this.roleList = res.data.dataList;
         console.log("角色列表", this.roleList);
       })
@@ -468,7 +468,7 @@ export default {
         userAccount: this.addUserForm.userAccount,
         roleId: this.checkRoles
       }
-      this.$systemManagement.addUser(param).then(res => {
+      this.$systemUser.addUser(param).then(res => {
         console.log("打印新增的数据", res);
         this.select();
       })
@@ -480,8 +480,8 @@ export default {
       const param = {
         userId: row.userId
       };
-      this.$systemManagement.queryFuncListByUser(param);
-      this.$systemManagement.queryRoleListByUser(param).then(res => {
+      this.$systemUser.queryFuncListByUser(param);
+      this.$systemUser.queryRoleListByUser(param).then(res => {
       })
       this.selectListDialog = true;
       this.checkRoles = row.userId;
