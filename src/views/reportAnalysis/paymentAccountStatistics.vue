@@ -87,7 +87,7 @@
     <!-- 底部表格部分 -->
     <div class="down">
       <div class="echartStyle" id="payAna">
-        <Xchart id="payAna" :option="chartOptions"/>
+        <Xchart id="payAna" :option="payAnaChart"/>
       </div>
       <!-- 平均洗车时长 averageWashingTime-->
       <el-scrollbar class="echartStyle" id="payMethod">
@@ -158,19 +158,12 @@ export default {
       pageNum: 1,
       pageSize: 5,
       pageTotal: 12,
-      // 动态绑定的停车折线图的id和option
-      chartId: '',
-      chartOptions: {},
-      // 动态绑定标题
-      chartTitle: '',
-      // 图表类型
-      chartType: '',
-      // 暂存数据数组
-      lineChartsList: [],
-      // x轴坐标的信息
-      chartX: [],
-      // serise中的那么数据
-      dataList: [],
+      // 柱状图serise中的数据
+      dataListC: [],
+      payAnaChart: {},
+      //饼图数据
+      dataListP: [],
+      payMethodChart: {}
 
     };
   },
@@ -178,13 +171,12 @@ export default {
     //初始化列表
     this.queryPayList();
     this.drawPayAnaChart();
+    this.drawPayMethodChart();
   },
   methods: {
     //查询
     queryButton() {
       this.queryPayList();
-      this.chartX = [];
-      this.dataList = [];
       this.drawPayAnaChart();
     },
     //斑马纹样式
@@ -215,113 +207,152 @@ export default {
       });
     },
     drawPayMethodChart() {
-      this.chartId = 'payMethod';
-      this.chartOptions = 'payMethodChart';
-      this.chartTitle = 0;
-      this.drawChart();
-    },
-    drawPayAnaChart() {
-      this.chartId = 'payAna';
-      this.chartTitle = '缴费金额按月分析';
-      this.chartType = 'column';
       const param = {
         startStatisDate: this.query.startStatisDate,
         endStatisDate: this.query.endStatisDate
       };
+      this.$reportAnalysis.paymentAnalysis(param).then(res => {
+        const param = {
+          type: 'pie',
+          name: '收入分析',
+          data: [
+            ['支付宝', Number(res.data.dataList[0].alipayPaymentMoneyAmount)],
+            ['微信', Number(res.data.dataList[0].wechatPaymentMoneyAmount)],
+            ['现金', Number(res.data.dataList[0].cashPaymentMoneyAmount)],
+            ['扫码', Number(res.data.dataList[0].qrCodePaymentMoneyAmount)]
+          ]
+        };
+        console.log("dayinshuju",this.dataListP)
+        this.dataListP.push(param);
+        this.payMethodChart = {
+          chart: {
+            type: "pie",
+            renderTo: "payMethod",
+            options3d: {
+              enabled: true,
+              alpha: 45,
+              beta: 0
+            }
+          },
+          title: {
+            text: "收入构成分析"
+          },
+          credits: {
+            enabled: false
+          },
+          tooltip: {
+            pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: "pointer",
+              innerSize: 100,
+              depth: 45,
+              dataLabels: {
+                enabled: true,
+                format: "{point.name}"
+              }
+            }
+          },
+          series: this.dataListP
+        }
+        new HighCharts.chart(this.payMethodChart);
+      })
+    },
+    drawPayAnaChart() {
+      const param = {
+        startStatisDate: this.query.startStatisDate,
+        endStatisDate: this.query.endStatisDate
+      };
+      var chartX = [];
       this.$reportAnalysis.trendAnalysis(param).then(res => {
         var dataListA = [];
         var dataListB = [];
         var dataListC = [];
         res.data.dataList.forEach((item) => {
-          this.chartX.push(item.date);
-          dataListA.push(item.arrearageMoneyAmount);
-          dataListB.push(item.memberRechargeMoneyAmount);
-          dataListC.push(item.paymentMoneyAmount);
+          chartX.push(item.date);
+          dataListA.push(Number(item.arrearageMoneyAmount));
+          dataListB.push(Number(item.memberRechargeMoneyAmount));
+          dataListC.push(Number(item.paymentMoneyAmount));
         });
         const paramA = {
           name: '欠费金额',
           data: dataListA
         };
-        this.dataList.push(paramA);
+        this.dataListC.push(paramA);
         const paramB = {
           name: '月卡充值金额',
           data: dataListB
         };
-        this.dataList.push(paramB);
+        this.dataListC.push(paramB);
         const paramC = {
           name: '普通用户缴费金额',
           data: dataListC
         };
-        this.dataList.push(paramC);
-        this.drawChart();
-      });
-    },
-    // 绘图方法
-    drawChart() {
-      var that = this;
-      that.chartOptions = {
-        chart: {
-          type: that.chartType,
-          renderTo: that.chartId,
-          // height:'100%',
-          // width:'100%'
-        },
-        title: {
-          text: that.chartTitle
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: that.chartX
-        },
-        yAxis: {
+        this.dataListC.push(paramC);
+        this.payAnaChart = {
+          chart: {
+            type: 'column',
+            renderTo: 'payAna'
+          },
           title: {
-            text: ''
-          }
-        },
-        legend: {
-          enabled: true,
-          align: 'center',
-          verticalAlign: 'left',
-          x: 300,
-          y: 10,
-          itemStyle: {
-            color: '#cccccc',
-            cursor: 'pointer',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            fill: '#cccccc',
+            text: '收入趋势按月分析'
           },
-          itemHoverStyle: {
-            color: '#666666',
+          credits: {
+            enabled: false
           },
-          itemHiddenStyle: {
-            color: '#333333'
-          }
-        },
-        tooltip: {
-          pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>元'
-        },
-        plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: 'circle',
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
+          xAxis: {
+            categories: chartX
+          },
+          yAxis: {
+            title: {
+              text: ''
+            }
+          },
+          legend: {
+            enabled: true,
+            align: 'center',
+            verticalAlign: 'left',
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: '#cccccc',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              fill: '#cccccc',
+            },
+            itemHoverStyle: {
+              color: '#666666',
+            },
+            itemHiddenStyle: {
+              color: '#333333'
+            }
+          },
+          tooltip: {
+            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>元'
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
                 }
               }
             }
-          }
-        },
-        series: that.dataList
-      };
-      // 绘制
-      new HighCharts.Chart(that.chartOptions);
+          },
+          series: this.dataListC
+        }
+        new HighCharts.chart(this.payAnaChart);
+      });
     },
+
 
   }
 }
