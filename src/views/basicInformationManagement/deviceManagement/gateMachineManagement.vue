@@ -411,7 +411,6 @@
       this.editListDialog = false;
     },
 
-
     //批量删除监听
     handleSelectionChange(val) {
       this.selectGateList = val;
