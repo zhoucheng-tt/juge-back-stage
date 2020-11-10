@@ -178,6 +178,13 @@
                 name: '支付台账统计',
                 routeName: 'paymentAccountStatistics'
               },
+              // 出入口监测  
+              {
+                code: '3-5',
+                logo: 'el-icon-menu',
+                name: '出入口监测',
+                routeName: 'entranceExitMonitoring'
+              },
             ]
           },
           {

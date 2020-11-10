@@ -15,13 +15,16 @@
           <el-col :span="7">
             <el-form-item label="统计日期">
               <el-date-picker
-                  v-model="query.date"
-                  type="datetimerange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-              style="width: 350px;"
-              value-format="yyyy-mm-dd hh:mm:ss">
+                  v-model="query.startStatisDate"
+                  style="width: 170px;"
+                  value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="~">
+              <el-date-picker
+                  v-model="query.endStatisDate"
+                  style="width: 170px;"
+                  value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -56,39 +59,40 @@
     </div>
     <!-- 中间图标部分内容 -->
     <div class="center">
-      <el-scrollbar style="height: 90%">
-        <el-table :data="payList"
-                  :row-class-name="tableRowClassName"
-                  :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                  :cell-style="{ 'text-align': 'center' }" style="width: 100%;height:100%"
-        >
-          <el-table-column prop="payDate" :show-overflow-tooltip="true" label="缴费日期"/>
-          <el-table-column prop="parkId" :show-overflow-tooltip="true" label="停车场编号"/>
-          <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-          <el-table-column prop="orderId" :show-overflow-tooltip="true" label="订单号"/>
-          <el-table-column prop="carNum" :show-overflow-tooltip="true" label="车牌号"/>
-          <el-table-column prop="enterTime" :show-overflow-tooltip="true" label="进场时间"/>
-          <el-table-column prop="leaveTime" :show-overflow-tooltip="true" label="出场时间"/>
-          <el-table-column prop="parkingTime" :show-overflow-tooltip="true" label="停车时长"/>
-          <el-table-column prop="payMoney" :show-overflow-tooltip="true" label="应收金额"/>
-          <el-table-column prop="gotMoney" :show-overflow-tooltip="true" label="实收金额"/>
-          <el-table-column prop="payMethod" :show-overflow-tooltip="true" label="支付方式"/>
-        </el-table>
-      </el-scrollbar>
+      <el-table :data="payList"
+                :row-class-name="tableRowClassName"
+                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+                :cell-style="{ 'text-align': 'center' }" style="width: 100%;height:90%%"
+      >
+        <el-table-column prop="statisDate" :show-overflow-tooltip="true" label="日期"/>
+        <el-table-column prop="incomeMoneyAmount" :show-overflow-tooltip="true" label="总收入金额"/>
+        <el-table-column prop="memberRechargeMoneyAmount" :show-overflow-tooltip="true" label="月卡会员充值金额"/>
+        <el-table-column prop="paymentMoneyAmount" :show-overflow-tooltip="true" label="普通用户缴费金额"/>
+        <el-table-column prop="cashPaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：现金缴费金额"/>
+        <el-table-column prop="wechatPaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：微信缴费金额"/>
+        <el-table-column prop="alipayPaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：支付宝支付"/>
+        <el-table-column prop="qrCodePaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：扫码缴费金额"/>
+        <el-table-column prop="arrearageMoneyAmount" :show-overflow-tooltip="true" label="欠费金额"/>
+      </el-table>
       <!--分页条-->
-      <el-pagination style="position: relative;left: 78%;height: 9%;margin-top: 1%" background layout="total, prev, pager, next, jumper"
-                     :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
-                     :total="pageTotal"/>
+      <div style="width:100%;height:9%;margin-top: 1%">
+        <el-pagination style="position: absolute;right: 1px;"
+                       background
+                       layout="total, prev, pager, next, jumper"
+                       :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
+                       :total="pageTotal"/>
+      </div>
+
     </div>
     <!-- 底部表格部分 -->
     <div class="down">
       <div class="echartStyle" id="payAna">
-        <Xchart id="payAna" :option="payAnaChart"></Xchart>
+        <Xchart id="payAna" :option="chartOptions"/>
       </div>
       <!-- 平均洗车时长 averageWashingTime-->
-      <div class="echartStyle" id="payMethod">
+      <el-scrollbar class="echartStyle" id="payMethod">
         <Xchart id="payMethod" :option="payMethodChart"></Xchart>
-      </div>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -96,15 +100,16 @@
 import Xchart from "../../components/charts/charts.vue"
 import HighCharts from 'highcharts'
 import Xchart3d from "@/components/charts/charts3d";
+
 export default {
   // 组件导入
   components: {
     Xchart,
   },
   data() {
-    return{
+    return {
       //查询内容暂存
-      query:{},
+      query: {},
       // 停车场下拉框数据暂存处
       parkList: [
         {
@@ -129,286 +134,61 @@ export default {
         }
       ],
       //支付方式下拉框数据暂存处
-      payMethodList:[
-      {
-        name:"支付宝",
-        code:1
-      },
-      {
-        name:"微信",
-        code:2
-      },
-      {
-        name:"ETC",
-        code:3
-      },
+      payMethodList: [
         {
-          name:"现金",
+          name: "支付宝",
+          code: 1
+        },
+        {
+          name: "微信",
+          code: 2
+        },
+        {
+          name: "ETC",
+          code: 3
+        },
+        {
+          name: "现金",
           code: 4
         }
-    ],
-      //支付明细列表
-      payList:[
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },{
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },{
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },{
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        },
-        {
-          payDate:'2020-11-7',
-          parkId:1,
-          parkName:'公共停车场',
-          orderId:'1',
-          carNum:'苏A888888',
-          enterTime:'13:00',
-          leaveTime:'15:00',
-          parkingTime:'2小时',
-          payMoney:'8元',
-          gotMoney:'8元',
-          payMethod:'微信'
-        }
       ],
+      //支付明细列表
+      payList: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 5,
       pageTotal: 12,
-      //支付方式分析
-      payMethodChart: {
-        chart: {
-          type: "pie",
-          renderTo: "payMethod",
-          options3d: {
-            enabled: true,
-            alpha: 45,
-            beta: 0
-          }
-        },
-        title: {
-          text: "支付方式分析"
-        },
-        credits: {
-          enabled: false
-        },
-        tooltip: {
-          pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: "pointer",
-            innerSize: 100,
-            depth: 45,
-            dataLabels: {
-              enabled: true,
-              format: "{point.name}"
-            }
-          }
-        },
-        series: [
-          {
-            type: "pie",
-            name: "支付占比",
-            data: [
-              ["支付宝支付", 50.0],
-              ["微信支付", 30.0],
-              ["ETC支付", 20.0]
-            ]
-          }
-        ]
-      },
-      //缴费金额按月分析
-      payAnaChart: {
-        chart: {
-          type: "column",
-          renderTo: "payAna",
-          options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25
-          }
-        },
-        title: {
-          text: "缴费金额按月分析"
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          series: {
-            depth: 25,
-            colorByPoint: true
-          }
-        },
-        series: [
-          {
-            data: [
-              29.9,
-              71.5,
-              106.4,
-              129.2,
-              144.0,
-              176.0,
-              135.6,
-              148.5,
-              216.4,
-              194.1,
-              95.6,
-              54.4
-            ],
-            name: "Cylinders",
-            showInLegend: false
-          }
-        ]
-      }
+      // 动态绑定的停车折线图的id和option
+      chartId: '',
+      chartOptions: {},
+      // 动态绑定标题
+      chartTitle: '',
+      // 图表类型
+      chartType: '',
+      // 暂存数据数组
+      lineChartsList: [],
+      // x轴坐标的信息
+      chartX: [],
+      // serise中的那么数据
+      dataList: [],
+
     };
   },
   mounted() {
-    this.drawChart();
+    //初始化列表
+    this.queryPayList();
+    this.drawPayAnaChart();
   },
-  methods:{
-    // 查询
+  methods: {
+    //查询
     queryButton() {
-      console.log("打印出来点击查询后所产生的值", this.query);
+      this.queryPayList();
+      this.chartX = [];
+      this.dataList = [];
+      this.drawPayAnaChart();
     },
     //斑马纹样式
-    tableRowClassName({ rowIndex}) {
+    tableRowClassName({rowIndex}) {
       if (rowIndex % 2) {
         return "successRow11";
       } else {
@@ -419,13 +199,129 @@ export default {
     handleCurrentModify(val) {
       this.pageNum = val;
       // 查询列表方法
-      // this.queryParkList();
+      this.queryPayList();
     },
-    //绘表
-    drawChart(){
-      new HighCharts.Chart(this.payMethodChart);
-      new HighCharts.chart(this.payAnaChart);
-    }
+    //列表查询
+    queryPayList() {
+      const param = {
+        endStatisDate: this.query.endStatisDate,
+        startStatisDate: this.query.startStatisDate,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      };
+      this.$reportAnalysis.queryAccountStatisList(param).then(res => {
+        this.payList = res.data.dataList;
+        this.pageTotal = res.data.totalRecord;
+      });
+    },
+    drawPayMethodChart() {
+      this.chartId = 'payMethod';
+      this.chartOptions = 'payMethodChart';
+      this.chartTitle = 0;
+      this.drawChart();
+    },
+    drawPayAnaChart() {
+      this.chartId = 'payAna';
+      this.chartTitle = '缴费金额按月分析';
+      this.chartType = 'column';
+      const param = {
+        startStatisDate: this.query.startStatisDate,
+        endStatisDate: this.query.endStatisDate
+      };
+      this.$reportAnalysis.trendAnalysis(param).then(res => {
+        var dataListA = [];
+        var dataListB = [];
+        var dataListC = [];
+        res.data.dataList.forEach((item) => {
+          this.chartX.push(item.date);
+          dataListA.push(item.arrearageMoneyAmount);
+          dataListB.push(item.memberRechargeMoneyAmount);
+          dataListC.push(item.paymentMoneyAmount);
+        });
+        const paramA = {
+          name: '欠费金额',
+          data: dataListA
+        };
+        this.dataList.push(paramA);
+        const paramB = {
+          name: '月卡充值金额',
+          data: dataListB
+        };
+        this.dataList.push(paramB);
+        const paramC = {
+          name: '普通用户缴费金额',
+          data: dataListC
+        };
+        this.dataList.push(paramC);
+        this.drawChart();
+      });
+    },
+    // 绘图方法
+    drawChart() {
+      var that = this;
+      that.chartOptions = {
+        chart: {
+          type: that.chartType,
+          renderTo: that.chartId,
+          // height:'100%',
+          // width:'100%'
+        },
+        title: {
+          text: that.chartTitle
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          categories: that.chartX
+        },
+        yAxis: {
+          title: {
+            text: ''
+          }
+        },
+        legend: {
+          enabled: true,
+          align: 'center',
+          verticalAlign: 'left',
+          x: 300,
+          y: 10,
+          itemStyle: {
+            color: '#cccccc',
+            cursor: 'pointer',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            fill: '#cccccc',
+          },
+          itemHoverStyle: {
+            color: '#666666',
+          },
+          itemHiddenStyle: {
+            color: '#333333'
+          }
+        },
+        tooltip: {
+          pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>元'
+        },
+        plotOptions: {
+          area: {
+            marker: {
+              enabled: false,
+              symbol: 'circle',
+              radius: 2,
+              states: {
+                hover: {
+                  enabled: true
+                }
+              }
+            }
+          }
+        },
+        series: that.dataList
+      };
+      // 绘制
+      new HighCharts.Chart(that.chartOptions);
+    },
 
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-11-07 13:47:22
+ * @LastEditTime: 2020-11-09 10:11:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -95,6 +95,13 @@ const routes = [
         name: "paymentAccountStatistics",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/paymentAccountStatistics.vue")
+      },
+      // 出入口监测  entranceExitMonitoring
+      {
+        path: "/entranceExitMonitoring",
+        name: "entranceExitMonitoring",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/entranceExitMonitoring.vue")
       },
       // 订单管理
       // 停车订单查询
