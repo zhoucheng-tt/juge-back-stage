@@ -52,7 +52,7 @@ export function queryFuncListByRole(param) {
     )
 }
 
-import request from '@/utils/request'
+
 
 // 用户信息列表
 export function queryUserList(param) {
