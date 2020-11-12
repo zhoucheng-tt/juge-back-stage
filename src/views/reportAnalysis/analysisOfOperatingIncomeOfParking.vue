@@ -14,20 +14,20 @@
       <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-form-item label="统计日期:">
           <el-date-picker
-            v-model="query.date"
-            type="date"
-            placeholder="选择日期"
-            value-format="yyyyMMddhhmm"
+              v-model="query.date"
+              type="date"
+              placeholder="选择日期"
+              value-format="yyyyMMddhhmm"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select v-model="query.parkId" placeholder="请选择停车场">
             <el-option
-              v-for="(item, index) in parkList"
-              :label="item.name"
-              :value="item.code"
-              :key="index"
+                v-for="(item, index) in parkList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -41,43 +41,43 @@
     <div class="center">
       <!-- 收入对比分析 numberOfParking-->
       <div
-        style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="earnCompare"
+          style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
+          id="earnCompare"
       >
         <Xchart id="earnCompare" :option="earnCompareChart"></Xchart>
       </div>
       <!-- 收入与欠费金额趋势分析 -->
       <div
-        style="width: 57%;height: 35%; float: left; margin-top: 1%;margin-left: 1%;"
-        id="earnAndOwe"
+          style="width: 57%;height: 35%; float: left; margin-top: 1%;margin-left: 1%;"
+          id="earnAndOwe"
       >
         <Xchart id="earnAndOwe" :option="earnAndOweChart"></Xchart>
       </div>
       <!--收入构成分析-->
       <div
-        style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="earnComponent"
+          style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
+          id="earnComponent"
       >
-        <Xchart id="earnComponent" :option="earnAndOweChart"></Xchart>
+        <Xchart id="earnComponent" :option="earnComponentChart"></Xchart>
       </div>
       <!--停车场收入及欠费分析-->
       <div
-        style="width: 57%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="parkEarnAndOwe"
+          style="width: 57%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
+          id="parkEarnAndOwe"
       >
         <Xchart id="parkEarnAndOwe" :option="parkEarnAndOweChart"></Xchart>
       </div>
       <!-- 平均充电时间 averageChargingTime-->
       <div
-        style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="chargeEarn"
+          style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"
+          id="chargeEarn"
       >
         <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
       </div>
       <!-- 平均洗车时长 averageWashingTime-->
       <div
-        style="width: 48.5%;height: 27%;float: left; margin-top: 1%;margin-left: 1%;"
-        id="washEarn"
+          style="width: 48.5%;height: 27%;float: left; margin-top: 1%;margin-left: 1%;"
+          id="washEarn"
       >
         <Xchart id="washEarn" :option="washEarnChart"></Xchart>
       </div>
@@ -125,313 +125,27 @@ export default {
         }
       ],
       //收入对比分析表
-      earnCompareChart: {
-        chart: {
-          zoomType: "xy",
-          renderTo: "earnCompare"
-        },
-        title: {
-          text: "收入对比分析"
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: [
-          {
-            categories: ["上月同期", "上期", "本期"],
-            crosshair: true
-          }
-        ],
-        yAxis: [
-          {
-            // Secondary yAxis
-            title: {
-              text: ""
-            },
-            labels: {
-              format: "{value}%"
-            },
-            min: 0,
-            max: 4,
-            opposite: true
-          },
-          {
-            // Primary yAxis
-            labels: {
-              format: "{value}元"
-            },
-            title: {
-              text: ""
-            },
-            min: 60000,
-            max: 68000
-          }
-        ],
-        tooltip: {
-          shared: true
-        },
-        legend: {
-          align: "center",
-          verticalAlign: "top",
-          x: 0,
-          y: -20
-        },
-        series: [
-          {
-            name: "总收入",
-            type: "column",
-            yAxis: 1,
-            data: [66666, 67888, 64222]
-          },
-          {
-            name: "同比增幅",
-            type: "spline",
-            data: [2.6, 3.6, 1.6]
-          }
-        ]
-      },
+      earnComChartX: [],
+      earnComDataList: [],
+      earnCompareChart: {},
       //收入及欠费金额趋势分析
-      earnAndOweChart: {
-        chart: {
-          type: "line",
-          renderTo: "earnAndOwe"
-        },
-        title: {
-          text: "收入及欠费金额趋势分析"
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: [
-            "2017-6-20",
-            "2017-6-21",
-            "2017-6-22",
-            "2017-6-23",
-            "2017-6-24",
-            "2017-6-25",
-            "2017-6-26",
-            "2017-6-27",
-            "2017-6-28",
-            "2017-6-29",
-            "2017-6-30",
-            "2017-7-1",
-            "2017-7-2"
-          ]
-        },
-        yAxis: {
-          title: {
-            text: ""
-          },
-          max: 3000,
-          min: 0
-        },
-        legend: {
-          align: "center",
-          verticalAlign: "top",
-          x: 0,
-          y: -20
-        },
-        tooltip: {
-          pointFormat: "洗车： <b>{point.y:,.0f}</b>辆"
-        },
-        plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: "circle",
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
-                }
-              }
-            }
-          }
-        },
-        series: [
-          {
-            name: "总收入金额",
-            data: [
-              2700,
-              2000,
-              3000,
-              2600,
-              2800,
-              3000,
-              1900,
-              2000,
-              2500,
-              2800,
-              3000,
-              2800,
-              2900
-            ]
-          },
-          {
-            name: "欠费金额",
-            data: [
-              800,
-              700,
-              600,
-              900,
-              600,
-              800,
-              850,
-              780,
-              660,
-              950,
-              800,
-              700,
-              800
-            ]
-          }
-        ]
-      },
+      earnAndOweChartX: [],
+      earnAndOweDataList: [],
+      earnAndOweChart: {},
       //收入构成分析
-      earnComponentChart: {
-        chart: {
-          type: "pie",
-          renderTo: "earnComponent",
-          options3d: {
-            enabled: true,
-            alpha: 45,
-            beta: 0
-          }
-        },
-        title: {
-          text: "收入构成分析"
-        },
-        credits: {
-          enabled: false
-        },
-        tooltip: {
-          pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: "pointer",
-            innerSize: 100,
-            depth: 45,
-            dataLabels: {
-              enabled: true,
-              format: "{point.name}"
-            }
-          }
-        },
-        series: [
-          {
-            type: "pie",
-            name: "支付占比",
-            data: [
-              ["支付宝支付", 50.0],
-              ["微信支付", 30.0],
-              ["ETC支付", 20.0]
-            ]
-          }
-        ]
-      },
+      earnComponentDataList: [],
+      earnComponentChart: {},
       //停车场收入及欠费分析
-      parkEarnAndOweChart: {
-        chart: {
-          type: "column",
-          renderTo: "parkEarnAndOwe"
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: "停车场收入及欠费分析"
-        },
-        xAxis: {
-          categories: ["收入金额", "欠费金额"]
-        },
-        yAxis: {
-          min: 0,
-          max: 6000,
-          title: {
-            text: ""
-          }
-        },
-        tooltip: {
-          pointFormat:
-            '<span style="color:{series.color}"></span>: {point.y}' + "元",
-          shared: true
-        },
-        legend: {
-          enabled: false,
-          align: "center",
-          verticalAlign: "top",
-          x: 0,
-          y: -20,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
-          },
-          itemHoverStyle: {
-            color: "#666666"
-          },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        series: [
-          {
-            data: [5600, 2400]
-          }
-        ]
-      },
+      parkEarnAndOweChartX: [],
+      parkEarnAndOweDataList: [],
+      parkEarnAndOweChart: {},
       //自助充电设备收入按时段分析
-      chargeEarnChart: {
-        chart: {
-          type: "column",
-          renderTo: "chargeEarn",
-          options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25
-          }
-        },
-        title: {
-          text: "自助充电设备收入按时段分析"
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          series: {
-            depth: 25,
-            colorByPoint: true
-          }
-        },
-        series: [
-          {
-            data: [
-              29.9,
-              71.5,
-              106.4,
-              129.2,
-              144.0,
-              176.0,
-              135.6,
-              148.5,
-              216.4,
-              194.1,
-              95.6,
-              54.4
-            ],
-            name: "Cylinders",
-            showInLegend: false
-          }
-        ]
-      },
+      chargeEarnChartX: [],
+      chargeEarnDataList: [],
+      chargeEarnChart: {},
       //自助洗车设备收入按时段分析
+      washEarnChartX:[],
+      washEarnDataList:[],
       washEarnChart: {
         chart: {
           type: "column",
@@ -480,20 +194,388 @@ export default {
     };
   },
   mounted() {
-    this.drawChart();
+    this.drawEarnCompareChart();
+    this.drawEarnAndOweChart();
+    this.drawEarnComponentChart();
+    this.drawParkEarnAndOweChart();
+    this.drawChargeEarnChart();
+    this.drawWashEarnChart();
   },
   methods: {
     // 查询
     queryButton() {
       console.log("打印出来点击查询后所产生的值", this.query);
     },
-    //
-    drawChart() {
+    //绘表收入对比分析
+    drawEarnCompareChart() {
+      this.earnComChartX = ["上月同期", "上期", "本期"];
+      this.earnComDataList = [
+        {
+          name: "总收入",
+          type: "column",
+          yAxis: 1,
+          data: [66666, 67888, 64222]
+        },
+        {
+          name: "同比增幅",
+          type: "spline",
+          data: [2.6, 3.6, 1.6]
+        }
+      ];
+      this.earnCompareChart = {
+        chart: {
+          zoomType: "xy",
+          renderTo: "earnCompare"
+        },
+        title: {
+          text: "收入对比分析"
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: [
+          {
+            categories: this.earnComChartX,
+            crosshair: true
+          }
+        ],
+        yAxis: [
+          {
+            // Secondary yAxis
+            title: {
+              text: ""
+            },
+            labels: {
+              format: "{value}%"
+            },
+            min: 0,
+            max: 4,
+            opposite: true
+          },
+          {
+            // Primary yAxis
+            labels: {
+              format: "{value}元"
+            },
+            title: {
+              text: ""
+            },
+            min: 60000,
+            max: 68000
+          }
+        ],
+        tooltip: {
+          shared: true
+        },
+        legend: {
+          align: "center",
+          verticalAlign: "top",
+          x: 0,
+          y: -20
+        },
+        series: this.earnComDataList
+      };
       new HighCharts.Chart(this.earnCompareChart);
+    },
+    //绘表收入及欠费金额趋势分析
+    drawEarnAndOweChart() {
+      this.earnAndOweChartX = [
+        "2017-6-20",
+        "2017-6-21",
+        "2017-6-22",
+        "2017-6-23",
+        "2017-6-24",
+        "2017-6-25",
+        "2017-6-26",
+        "2017-6-27",
+        "2017-6-28",
+        "2017-6-29",
+        "2017-6-30",
+        "2017-7-1",
+        "2017-7-2"
+      ];
+      this.earnAndOweDataList = [
+        {
+          name: "总收入金额",
+          data: [
+            2700,
+            2000,
+            3000,
+            2600,
+            2800,
+            3000,
+            1900,
+            2000,
+            2500,
+            2800,
+            3000,
+            2800,
+            2900
+          ]
+        },
+        {
+          name: "欠费金额",
+          data: [
+            800,
+            700,
+            600,
+            900,
+            600,
+            800,
+            850,
+            780,
+            660,
+            950,
+            800,
+            700,
+            800
+          ]
+        }
+      ];
+      this.earnAndOweChart = {
+        chart: {
+          type: "line",
+          renderTo: "earnAndOwe"
+        },
+        title: {
+          text: "收入及欠费金额趋势分析"
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          categories: this.earnAndOweChartX
+        },
+        yAxis: {
+          title: {
+            text: ""
+          },
+          max: 3000,
+          min: 0
+        },
+        legend: {
+          align: "center",
+          verticalAlign: "top",
+          x: 0,
+          y: -20
+        },
+        tooltip: {
+          pointFormat: "洗车： <b>{point.y:,.0f}</b>辆"
+        },
+        plotOptions: {
+          area: {
+            marker: {
+              enabled: false,
+              symbol: "circle",
+              radius: 2,
+              states: {
+                hover: {
+                  enabled: true
+                }
+              }
+            }
+          }
+        },
+        series: this.earnAndOweDataList
+      };
       new HighCharts.chart(this.earnAndOweChart);
+    },
+    //绘表收入构成分析
+    drawEarnComponentChart() {
+      this.earnComponentDataList = [
+        {
+          type: "pie",
+          name: "支付占比",
+          data: [
+            ["支付宝支付", 50.0],
+            ["微信支付", 30.0],
+            ["ETC支付", 20.0]
+          ]
+        }
+      ];
+      this.earnComponentChart = {
+        chart: {
+          type: "pie",
+          renderTo: "earnComponent",
+          options3d: {
+            enabled: true,
+            alpha: 45,
+            beta: 0
+          }
+        },
+        title: {
+          text: "收入构成分析"
+        },
+        credits: {
+          enabled: false
+        },
+        tooltip: {
+          pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            innerSize: 100,
+            depth: 45,
+            dataLabels: {
+              enabled: true,
+              format: "{point.name}"
+            }
+          }
+        },
+        series: this.earnComponentDataList
+      };
       new HighCharts.chart(this.earnComponentChart);
+    },
+    //绘表停车场收入及欠费分析
+    drawParkEarnAndOweChart() {
+      this.parkEarnAndOweChartX = ["收入金额", "欠费金额"];
+      this.parkEarnAndOweDataList = [
+        {
+          data: [5600, 2400]
+        }
+      ];
+      this.parkEarnAndOweChart = {
+        chart: {
+          type: "column",
+          renderTo: "parkEarnAndOwe"
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: "停车场收入及欠费分析"
+        },
+        xAxis: {
+          categories: this.parkEarnAndOweChartX
+        },
+        yAxis: {
+          min: 0,
+          max: 6000,
+          title: {
+            text: ""
+          }
+        },
+        tooltip: {
+          pointFormat:
+              '<span style="color:{series.color}"></span>: {point.y}' + "元",
+          shared: true
+        },
+        legend: {
+          enabled: false,
+          align: "center",
+          verticalAlign: "top",
+          x: 0,
+          y: -20,
+          itemStyle: {
+            color: "#cccccc",
+            cursor: "pointer",
+            fontSize: "12px",
+            fontWeight: "bold",
+            fill: "#cccccc"
+          },
+          itemHoverStyle: {
+            color: "#666666"
+          },
+          itemHiddenStyle: {
+            color: "#333333"
+          }
+        },
+        series: this.parkEarnAndOweDataList
+      };
       new HighCharts.chart(this.parkEarnAndOweChart);
+    },
+    //绘表自助充电设备收入按时段分析
+    drawChargeEarnChart() {
+      this.chargeEarnChartX = ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'];
+      this.chargeEarnDataList = [{
+        name: "收入金额",
+        showInLegend: false,
+        data: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224]
+      }];
+      this.chargeEarnChart = {
+        chart: {
+          type: "column",
+          renderTo: "chargeEarn",
+          options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25
+          }
+        },
+        title: {
+          text: "自助充电设备收入按时段分析"
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis:{
+          categories: this.chargeEarnChartX
+        },
+        yAxis:{
+          title:{
+            text:''
+          }
+        },
+        plotOptions: {
+          series: {
+            depth: 25,
+            colorByPoint: true
+          }
+        },
+        series: this.chargeEarnDataList
+      };
       new HighCharts.chart(this.chargeEarnChart);
+    },
+    //绘表自助洗车设备收入按时段分析
+    drawWashEarnChart() {
+      this.washEarnChartX = ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'];
+      this.washEarnDataList = [{
+        name: "收入金额",
+        showInLegend: false,
+        data: [6, 11, 32, 110, 235, 369, 640,
+          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+          27387, 29459, 31056, 31982, 32040, 31233, 29224]
+      }];
+      this.washEarnChart = {
+        chart: {
+          type: "column",
+          renderTo: "washEarn",
+          options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25
+          }
+        },
+        title: {
+          text: "自助洗车设备收入按时段分析"
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis:{
+          categories: this.washEarnChartX
+        },
+        yAxis:{
+          title:{
+            text:''
+          }
+        },
+        plotOptions: {
+          series: {
+            depth: 25,
+            colorByPoint: true
+          }
+        },
+        series: this.washEarnDataList
+      };
       new HighCharts.chart(this.washEarnChart);
     }
   }
