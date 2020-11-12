@@ -1,5 +1,59 @@
 import request from '@/utils/request'
 
+
+//系统管理角色管理列表查询
+export function queryRoleList(param) {
+    return request(
+        {
+            url: 'systemManageFunc/queryRoleList.xhtml',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//系统管理角色管理新增角色
+export function addRole(param) {
+    return request(
+        {
+            url: 'systemManageFunc/addRole.xhtml',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//系统管理角色管理删除行
+export function deleteRole(param) {
+    return request(
+        {
+            url: 'systemManageFunc/deleteRole.xhtml',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//系统管理角色新增查询选择用户
+export function queryUserListByRole(param) {
+    return request(
+        {
+            url: 'systemManageFunc/queryUserListByRole.xhtml',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//系统管理中新增功能权限的tabs
+export function queryFuncListByRole(param) {
+    return request(
+        {
+            url: 'systemManageFunc/queryFuncListByRole.xhtml',
+            method: 'post',
+            data: param
+        }
+    )
+}
+
+
+
 // 用户信息列表
 export function queryUserList(param) {
     return  request({
