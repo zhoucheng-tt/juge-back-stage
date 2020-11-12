@@ -156,24 +156,24 @@
             <el-row style="padding-top: 20px">
               <el-col :span="12">
                 <el-form-item label="用户账号:" label-width="150px">
-                  <el-input v-model="showForm.userAccount"/>
+                  <el-input v-model="showForm.userAccount" disabled/>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="姓名:" label-width="150px">
-                  <el-input v-model="showForm.name"/>
+                  <el-input v-model="showForm.name" disabled/>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
                 <el-form-item label="手机号:" label-width="150px">
-                  <el-input v-model="showForm.phoneNumber"></el-input>
+                  <el-input v-model="showForm.phoneNumber" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="邮箱:" label-width="150px">
-                  <el-input v-model="showForm.email"></el-input>
+                  <el-input v-model="showForm.email" disabled/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -185,7 +185,7 @@
             <p style="font-size: 20px">归属角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="showForm.checkRoles" @change="handleCheckRolesChange">
+                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange" disabled>
                   <el-checkbox v-for="(item, index) in roleList"
                                :label="item.roleId"
                                v-model="checked"
@@ -267,7 +267,7 @@
             <p style="font-size: 20px">选择角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="modForm.checkRoles" @change="handleCheckRolesChange">
+                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange">
                   <el-checkbox v-for="(item, index) in roleList"
                                :label="item.roleId"
                                :key="index">{{ item.roleName }}
@@ -326,11 +326,7 @@ export default {
       //新增用户暂存
       addUserForm: {},
       //查看用户暂存
-      showForm: {
-        //角色多选暂存
-        checkRoles: {
-        },
-      },
+      showForm: {},
       //新增用户弹窗
       addListDialog: false,
       //查看用户弹窗
@@ -405,8 +401,6 @@ export default {
       checkRoles: [],
       //角色暂存id
       roleIdList: [],
-
-      checked: true,
     }
   },
   mounted() {
@@ -482,31 +476,56 @@ export default {
     //表格操作中的查看方法
     //查看用户弹窗
     check(row) {
-      this.showForm = row;
+      this.checkRoles = [],
+          this.showForm = row;
       const param = {
         userId: row.userId
       };
-      let dataList1 = {
-    };
       this.$systemUser.queryFuncListByUser(param);
       this.$systemUser.queryRoleListByUser(param).then(res => {
-        dataList1 = res.data.dataList.permission;
+        res.data.dataList.forEach(item => {
+          if (item.permission == true) {
+            this.checkRoles.push(item.roleId)
+          }
+        });
+        console.log("打印存储的id", this.checkRoles)
       })
       this.selectListDialog = true;
-      this.checkRoles = row.userId;
       console.log(row);
     },
     //表格操作中修改方法
     alter(row) {
+      this.checkRoles = [];
+      const param = {
+        userId: row.userId
+      };
+      this.$systemUser.queryRoleListByUser(param).then(res => {
+        res.data.dataList.forEach(item => {
+          if (item.permission == true) {
+            this.checkRoles.push(item.roleId)
+          }
+        });
+        console.log("打印存储的id", this.checkRoles)
+      })
       this.modForm = row;
-      this.modForm.checkRoles = row.roleId;
       this.modFormDialog = true;
       console.log(row);
     },
     //修改确认按钮
     onSubmitMod() {
+      const param = {
+        userId: this.modForm.userId,
+        phoneNumber: this.modForm.phoneNumber,
+        email: this.modForm.email,
+        name: this.modForm.name,
+        userAccount: this.modForm.userAccount,
+        roleId: this.checkRoles
+      }
+      this.$systemUser.updateUser(param).then(() => {
+        this.$message({type: "success", message: "修改成功!"});
+        this.select()
+      });
       this.modFormDialog = false;
-      console.log("修改成功");
     },
     //删除按钮
     del(row) {
