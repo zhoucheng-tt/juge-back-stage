@@ -181,3 +181,21 @@ export function updatePassagewayGate(param) {
         }
     )
 }
+
+//新增出入口摄像头
+export function addPassagewayCamera(param) {
+    return request({
+        url: 'DeviceFunc/addPassagewayCamera',
+        method: 'post',
+        data: param
+    })
+}
+
+//出入口摄像头列表查询
+export function queryPassagewayCamera(param) {
+    return request({
+        url: 'DeviceFunc/queryPassagewayCamera',
+        method: 'post',
+        data: param
+    })
+}

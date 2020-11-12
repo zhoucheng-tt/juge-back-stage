@@ -98,7 +98,7 @@ export function queryRoleListByUser(param) {
         data: param
     })
 }
-
+//新增角色查询
 export function queryFuncListByUser(param) {
     return request({
         url: '/systemManageFunc/queryFuncListByUser',
@@ -106,3 +106,14 @@ export function queryFuncListByUser(param) {
         data: param
     })
 }
+
+//日志管理列表查询
+export function queryLogList(param) {
+    return request({
+        url: 'systemManageFunc/queryLogList.xhtml',
+        method: 'post',
+        data: param
+    })
+}
+
+
