@@ -21,3 +21,14 @@ export function trendAnalysis(param) {
         }
     )
 }
+
+//缴费组成分析
+export function paymentAnalysis(param) {
+    return request(
+        {
+            url:'accountStatisFunc/paymentAnalysis',
+            method:'post',
+            data:param
+        }
+    )
+}
