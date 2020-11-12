@@ -16,24 +16,24 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="统计月份:">
-                <el-select v-model="query.mounth">
-                  <el-option
-                    v-for="(item, index) in mounthList"
-                    :label="item.mounth"
-                    :value="item.mounth"
-                    :key="index"
-                  ></el-option>
-                </el-select>
+                <el-date-picker
+                    v-model="query.date"
+                    type="month"
+                    placeholder="选择日期"
+                    value-format="yyyy-MM"
+                >
+                </el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="停车场：">
                 <el-select v-model="query.parkId" placeholder="请选择停车场">
+                  <el-option label="全部" value=""></el-option>
                   <el-option
-                    v-for="(item, index) in parkList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                      v-for="(item, index) in parkList"
+                      :label="item.name"
+                      :value="item.code"
+                      :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -41,7 +41,8 @@
             <el-col :span="6" :offset="6">
               <el-form-item>
                 <el-button type="primary" @click="queryMounthReport"
-                  >查询</el-button
+                >查询
+                </el-button
                 >
                 <el-button type="primary" @click="exportReport">导出</el-button>
               </el-form-item>
@@ -53,10 +54,10 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="reportList"
-        :row-class-name="tableRowClassName"
-        :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-        :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
+          :data="reportList"
+          :row-class-name="tableRowClassName"
+          :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+          :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
       >
         <el-table-column width="120" prop="mounth" :show-overflow-tooltip="true" label="统计月份"/>
         <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
@@ -92,117 +93,23 @@ export default {
   data() {
     return {
       // 顶部查询数据暂存处
-      query: {},
-      //统计月份下拉菜单
-      mounthList:[
-        {
-          mounth: "2020-11"
-        },
-        {
-          mounth: "2020-11"
-        },
-        {
-          mounth: "2020-11"
-        },
-        {
-          mounth: "2020-11"
-        }
-      ],
+      query: {
+        date:'2020-08',
+        parkId:''
+      },
       // 停车场下拉框数据暂存处
-      parkList: [
-        {
-          name: "公共停车场",
-          code: 1
-        },
-        {
-          name: "公共停车场",
-          code: 1
-        },
-        {
-          name: "公共停车场",
-          code: 1
-        },
-        {
-          name: "公共停车场",
-          code: 1
-        },
-        {
-          name: "公共停车场",
-          code: 1
-        }
-      ],
+      parkList: [],
       // 分页
       pageNum: 1,
       pageSize: 10,
       pageTotal: 4,
       //列表数据
-      reportList: [
-        {
-          mounth: "2020-11",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        },
-        {
-          mounth: "2020-11",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        },
-        {
-          mounth: "2020-11",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        },
-        {
-          mounth: "2020-11",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        }
-      ],
+      reportList: []
     };
+  },
+  mounted() {
+    this.queryParkList();
+    this.queryReportList();
   },
   methods: {
     // 查询
@@ -214,7 +121,7 @@ export default {
       console.log("导出报表")
     },
     // 斑马纹样式
-    tableRowClassName({ rowIndex}) {
+    tableRowClassName({rowIndex}) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -225,6 +132,30 @@ export default {
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
+      this.queryReportList();
+    },
+    //列表查询
+    queryReportList() {
+      const param = {
+        statisDate: this.query.date,
+        parkId: this.query.parkId,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      };
+      this.$reportAnalysis.queryOpeReportStatisMonthAnal(param).then(res=>{
+        this.reportList = res.data.dataList;
+      })
+    },
+    //查询停车场列表数据
+    queryParkList() {
+      const params = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = 321302"
+      };
+      this.$deviceManagement.queryDictData(params).then(res => {
+        this.parkList = res.data.dataList;
+      });
     }
   }
 }
