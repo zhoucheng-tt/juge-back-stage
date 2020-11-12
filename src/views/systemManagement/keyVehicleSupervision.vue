@@ -185,9 +185,10 @@
             <p style="font-size: 20px">归属角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange">
+                <el-checkbox-group v-model="showForm.checkRoles" @change="handleCheckRolesChange">
                   <el-checkbox v-for="(item, index) in roleList"
                                :label="item.roleId"
+                               v-model="checked"
                                :key="index">{{ item.roleName }}
                   </el-checkbox>
                 </el-checkbox-group>
@@ -266,7 +267,7 @@
             <p style="font-size: 20px">选择角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange">
+                <el-checkbox-group v-model="modForm.checkRoles" @change="handleCheckRolesChange">
                   <el-checkbox v-for="(item, index) in roleList"
                                :label="item.roleId"
                                :key="index">{{ item.roleName }}
@@ -281,7 +282,7 @@
                     <el-button @click="modFormDialog = false">取 消</el-button>
         </span>
       </el-dialog>
-      <!--            删除弹窗-->
+      <!--删除弹窗-->
       <el-dialog
           title="提示信息"
           :visible.sync="delListDialog"
@@ -325,7 +326,11 @@ export default {
       //新增用户暂存
       addUserForm: {},
       //查看用户暂存
-      showForm: {},
+      showForm: {
+        //角色多选暂存
+        checkRoles: {
+        },
+      },
       //新增用户弹窗
       addListDialog: false,
       //查看用户弹窗
@@ -397,11 +402,11 @@ export default {
       //角色数据暂存
       roleList: [],
       //角色多选暂存
-      checkRoles: [
-        '系统管理人员'
-      ],
+      checkRoles: [],
       //角色暂存id
-      roleIdList: []
+      roleIdList: [],
+
+      checked: true,
     }
   },
   mounted() {
@@ -417,11 +422,11 @@ export default {
         name: this.name,
         pageNum: this.pageNum,
         pageSize: this.pageSize
-      }
+      };
       this.$systemUser.queryUserList(param).then(res => {
         this.pageTotal = res.data.totalRecord;
         this.tableData = res.data.dataList;
-      })
+      });
     },
     //角色数据暂存
     queryRoleListByUser() {
@@ -467,7 +472,7 @@ export default {
         password: "",
         userAccount: this.addUserForm.userAccount,
         roleId: this.checkRoles
-      }
+      };
       this.$systemUser.addUser(param).then(res => {
         console.log("打印新增的数据", res);
         this.select();
@@ -477,11 +482,15 @@ export default {
     //表格操作中的查看方法
     //查看用户弹窗
     check(row) {
+      this.showForm = row;
       const param = {
         userId: row.userId
       };
+      let dataList1 = {
+    };
       this.$systemUser.queryFuncListByUser(param);
       this.$systemUser.queryRoleListByUser(param).then(res => {
+        dataList1 = res.data.dataList.permission;
       })
       this.selectListDialog = true;
       this.checkRoles = row.userId;
@@ -500,13 +509,28 @@ export default {
       console.log("修改成功");
     },
     //删除按钮
-    del() {
-      this.delListDialog = true;
+    del(row) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+          .then(() => {
+            //   this.delListDialog = true;
+            const param = {
+              userId: [row.userId]
+            };
+            this.delList.push(param);
+            this.$systemUser.deleteUser(param);
+            //this.delListDialog = false;
+            this.select();
+          }).catch(() => {
+        this.$message({type: "info", message: "已取消删除"});
+      })
     },
     //表格操作中的删除方法
     onSubmitDel() {
-      this.delListDialog = false;
-      this.confirm();
+      ;
     },
     //表格操作中密码重置方法
     retPassword(row) {
@@ -531,7 +555,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .about {
   width: 100%;
   height: 100%;
