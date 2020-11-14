@@ -129,56 +129,13 @@ export default {
       //自助洗车设备收入按时段分析
       washEarnChartX: [],
       washEarnDataList: [],
-      washEarnChart: {
-        chart: {
-          type: "column",
-          renderTo: "washEarn",
-          options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25
-          }
-        },
-        title: {
-          text: "自助洗车设备收入按时段分析"
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          series: {
-            depth: 25,
-            colorByPoint: true
-          }
-        },
-        series: [
-          {
-            data: [
-              29.9,
-              71.5,
-              106.4,
-              129.2,
-              144.0,
-              176.0,
-              135.6,
-              148.5,
-              216.4,
-              194.1,
-              95.6,
-              54.4
-            ],
-            name: "Cylinders",
-            showInLegend: false
-          }
-        ]
-      }
+      washEarnChart: {}
     };
   },
   mounted() {
     //初始化停车场下拉菜单
     this.queryParkList();
+    //绘表
     this.drawEarnCompareChart();
     this.drawEarnAndOweChart();
     this.drawEarnComponentChart();
@@ -189,7 +146,8 @@ export default {
   methods: {
     // 查询
     queryButton() {
-      console.log("打印出来点击查询后所产生的值", this.query);
+      // console.log("打印出来点击查询后所产生的值", this.query);
+      //重新绘表
       this.drawEarnCompareChart();
       this.drawEarnAndOweChart();
       this.drawEarnComponentChart();
