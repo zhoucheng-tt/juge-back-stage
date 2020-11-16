@@ -2,7 +2,7 @@
     停车场运营收入分析
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-10-20 10:24:11
+ * @LastEditTime: 2020-11-12 19:38:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
@@ -129,51 +129,7 @@ export default {
       //自助洗车设备收入按时段分析
       washEarnChartX: [],
       washEarnDataList: [],
-      washEarnChart: {
-        chart: {
-          type: "column",
-          renderTo: "washEarn",
-          options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25
-          }
-        },
-        title: {
-          text: "自助洗车设备收入按时段分析"
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          series: {
-            depth: 25,
-            colorByPoint: true
-          }
-        },
-        series: [
-          {
-            data: [
-              29.9,
-              71.5,
-              106.4,
-              129.2,
-              144.0,
-              176.0,
-              135.6,
-              148.5,
-              216.4,
-              194.1,
-              95.6,
-              54.4
-            ],
-            name: "Cylinders",
-            showInLegend: false
-          }
-        ]
-      }
+      washEarnChart: {}
     };
   },
   mounted() {

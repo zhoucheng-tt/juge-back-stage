@@ -2,7 +2,7 @@
     停车场运营收入分析
  * @Author: 王思远
  * @Date: 2020-10-20 09:41:41
- * @LastEditTime: 2020-11-02 20:59:38
+ * @LastEditTime: 2020-11-12 20:27:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
@@ -432,6 +432,7 @@ export default {
           this.queryPassagewayList();
         }).catch(() => {
           this.$message({type: "info", message: "已取消删除"});
+          this.selectManageEntryAndExit = undefined;
         });
       } else {
         console.log("123");

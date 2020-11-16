@@ -2,7 +2,7 @@
     首页高保真版本
 * @Author: 邵青阳
 * @Date: 2020-11-10 10:23:28
- * @LastEditTime: 2020-11-12 19:13:31
+ * @LastEditTime: 2020-11-13 15:54:41
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\homePage\homePage.vue
@@ -255,9 +255,11 @@
         },
         methods: {
             queryTest(){
-                var jsonStr = {};
+                var jsonStr = {
+                    queryDate: '2020-08-02'
+                };
                 // debugger
-                this.$homePage.test().then(res => {
+                this.$homePage.test(jsonStr).then(res => {
                     console.log("测试新建后台地址", res)
                 })
             },
