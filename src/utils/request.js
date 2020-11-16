@@ -75,7 +75,7 @@ service.interceptors.response.use(
     // } else
     if (response.config.flag === 'out') {
       return res
-    } else {
+    }  else {
       if (res.status !== '0') {
         Message({
           message: res.resultMsg || '系统错误，请联系管理员',

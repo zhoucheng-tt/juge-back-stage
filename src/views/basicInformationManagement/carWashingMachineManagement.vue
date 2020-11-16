@@ -328,7 +328,21 @@
           this.idList.push(item.chargeModeNumber);
         });
         console.log(this.selectChargeModeManagement);
+      },
+      //停车场下拉菜单数据
+      queryParkList() {
+        const params = {
+          columnName: ["park_id", "park_name"],
+          tableName: "t_bim_park",
+          whereStr: "district_code = '321302'"
+        };
+        this.$deviceManagement.queryDictData(params).then(res => {
+          this.parkingLotNameList = res.data.dataList;
+        });
       }
+    },
+    mounted() {
+        this.queryParkList();
     }
   };
 </script>

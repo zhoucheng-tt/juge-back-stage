@@ -32,3 +32,68 @@ export function paymentAnalysis(param) {
         }
     )
 }
+
+//收入对比分析
+export function queryParkOpeIncomeCompAnal(param) {
+    return request(
+        {
+            url:'decisionAnalysisFunc/queryParkOpeIncomeCompAnal',
+            method:'post',
+            data:param
+        }
+    )
+}
+
+//收入及欠费金额趋势分析
+export function queryParkOpeIncomeArrearsAnal(param) {
+    return request(
+        {
+            url:'/decisionAnalysisFunc/queryParkOpeIncomeArrearsAnal',
+            method:'post',
+            data:param
+        }
+    )
+}
+
+//收入构成分析
+export function queryParkOpeIncomeTypeAnal(param) {
+    return request(
+        {
+            url:'/decisionAnalysisFunc/queryParkOpeIncomeTypeAnal',
+            method:'post',
+            data:param
+        }
+    )
+}
+
+export function queryParkOpeIncomeArrearsChart(param) {
+    return request(
+        {
+            url:'/decisionAnalysisFunc/queryParkOpeIncomeArrearsChart',
+            method:'post',
+            data:param
+        }
+    )
+}
+
+//报表分析日报
+export function queryOpeReportStatisDayAnal(param) {
+    return request(
+        {
+            url:'decisionAnalysisFunc/queryOpeReportStatisDayAnal',
+            method:'post',
+            data:param
+        }
+    )
+}
+
+//报表分析月报
+export function queryOpeReportStatisMonthAnal(param) {
+    return request(
+        {
+            url:'decisionAnalysisFunc/queryOpeReportStatisMonthAnal',
+            method:'post',
+            data:param
+        }
+    )
+}

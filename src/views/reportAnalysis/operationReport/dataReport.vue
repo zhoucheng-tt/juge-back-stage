@@ -16,34 +16,20 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="统计日期:">
-                <el-select v-model="query.date">
-                  <el-option
-                    v-for="(item, index) in dateList"
-                    :label="item.date"
-                    :value="item.date"
-                    :key="index"
-                  ></el-option>
-                </el-select>
+                <el-date-picker v-model="query.date" type="date" placeholder="选择日期" value-format="yyyy-MM-dd"/>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="停车场：">
                 <el-select v-model="query.parkId" placeholder="请选择停车场">
-                  <el-option label="全部" value="0"></el-option>
-                  <el-option
-                    v-for="(item, index) in parkList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
-                  ></el-option>
+                  <el-option label="全部" value=""></el-option>
+                  <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code" :key="index"/>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6" :offset="6">
               <el-form-item>
-                <el-button type="primary" @click="queryDateReport"
-                  >查询</el-button
-                >
+                <el-button type="primary" @click="queryReportList">查询</el-button>
                 <el-button type="primary" @click="exportReport">导出</el-button>
               </el-form-item>
             </el-col>
@@ -53,10 +39,7 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-table
-        :data="reportList"
-        :row-class-name="tableRowClassName"
-        :header-cell-style="{
+      <el-table :data="reportList" :row-class-name="tableRowClassName" :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -64,104 +47,23 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-      >
-        <el-table-column
-          width="120"
-          prop="date"
-          :show-overflow-tooltip="true"
-          label="统计日期"
-        />
-        <el-table-column
-          width="120"
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-        />
-        <el-table-column
-          width="120"
-          prop="parkNum"
-          :show-overflow-tooltip="true"
-          label="车位数"
-        />
-        <el-table-column
-          width="120"
-          prop="usedNum"
-          :show-overflow-tooltip="true"
-          label="停车数"
-        />
-        <el-table-column
-          width="120"
-          prop="avgParkingTime"
-          :show-overflow-tooltip="true"
-          label="平均停车时长"
-        />
-        <el-table-column
-          width="120"
-          prop="utilization"
-          :show-overflow-tooltip="true"
-          label="车位利用率"
-        />
-        <el-table-column
-          width="120"
-          prop="velocity"
-          :show-overflow-tooltip="true"
-          label="车辆周转率"
-        />
-        <el-table-column
-          width="120"
-          prop="orderNum"
-          :show-overflow-tooltip="true"
-          label="预约停车数量"
-        />
-        <el-table-column
-          width="120"
-          prop="orderComRate"
-          :show-overflow-tooltip="true"
-          label="预约完成率"
-        />
-        <el-table-column
-          width="120"
-          prop="totalEarn"
-          :show-overflow-tooltip="true"
-          label="总收入"
-        />
-        <el-table-column
-          width="120"
-          prop="wechatEarn"
-          :show-overflow-tooltip="true"
-          label="微信缴费金额"
-        />
-        <el-table-column
-          width="120"
-          prop="alipayEarn"
-          :show-overflow-tooltip="true"
-          label="支付宝缴费金额"
-        />
-        <el-table-column
-          width="120"
-          prop="ETCEarn"
-          :show-overflow-tooltip="true"
-          label="ETC缴费金额"
-        />
-        <el-table-column
-          width="120"
-          prop="owe"
-          :show-overflow-tooltip="true"
-          label="欠费金额"
-        />
+        }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
+        <el-table-column width="120" prop="date" :show-overflow-tooltip="true" label="统计日期"/>
+        <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column width="120" prop="parkNum" :show-overflow-tooltip="true" label="车位数"/>
+        <el-table-column width="120" prop="usedNum" :show-overflow-tooltip="true" label="停车数"/>
+        <el-table-column width="120" prop="avgParkingTime" :show-overflow-tooltip="true" label="平均停车时长"/>
+        <el-table-column width="120" prop="utilization" :show-overflow-tooltip="true" label="车位利用率"/>
+        <el-table-column width="120" prop="velocity" :show-overflow-tooltip="true" label="车辆周转率"/>
+        <el-table-column width="120" prop="orderNum" :show-overflow-tooltip="true" label="预约停车数量"/>
+        <el-table-column width="120" prop="orderComRate" :show-overflow-tooltip="true" label="预约完成率"/>
+        <el-table-column width="120" prop="totalEarn" :show-overflow-tooltip="true" label="总收入"/>
+        <el-table-column width="120" prop="wechatEarn" :show-overflow-tooltip="true" label="微信缴费金额"/>
+        <el-table-column width="120" prop="alipayEarn" :show-overflow-tooltip="true" label="支付宝缴费金额"/>
+        <el-table-column width="120" prop="ETCEarn" :show-overflow-tooltip="true" label="ETC缴费金额"/>
+        <el-table-column width="120" prop="owe" :show-overflow-tooltip="true" label="欠费金额"/>
       </el-table>
-      <el-pagination
-        style="position: relative;left: 78%"
-        background
-        layout="total, prev, pager, next, jumper"
-        :page-size="pageSize"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-      />
+      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
     </div>
   </div>
 </template>
@@ -171,22 +73,11 @@ export default {
   data() {
     return {
       // 顶部查询数据暂存处
-      query: {},
-      //统计日期下拉菜单
-      dateList: [
-        {
-          date: "2020-11-04"
-        },
-        {
-          date: "2020-11-04"
-        },
-        {
-          date: "2020-11-04"
-        },
-        {
-          date: "2020-11-04"
-        }
-      ],
+      query: {
+        date: '2020-08-01',
+        parkId: ''
+      },
+
       // 停车场下拉框数据暂存处
       parkList: [
         {
@@ -215,72 +106,7 @@ export default {
       pageSize: 10,
       pageTotal: 4,
       //列表数据
-      reportList: [
-        {
-          date: "2020-11-04",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        },
-        {
-          date: "2020-11-04",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        },
-        {
-          date: "2020-11-04",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        },
-        {
-          date: "2020-11-04",
-          parkName: "p2员工停车场",
-          parkNum: 130,
-          usedNum: 300,
-          avgParkingTime: 40,
-          utilization: "80%",
-          velocity: "100%",
-          orderNum: 21,
-          orderComRate: "100%",
-          totalEarn: 632,
-          wechatEarn: 300,
-          alipayEarn: 200,
-          ETCEarn: 132,
-          owe: 0
-        }
-      ]
+      reportList: []
     };
   },
   methods: {
@@ -293,7 +119,7 @@ export default {
       console.log("导出报表");
     },
     // 斑马纹样式
-    tableRowClassName({ rowIndex }) {
+    tableRowClassName({rowIndex}) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -304,7 +130,37 @@ export default {
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
+      this.queryReportList()
+    },
+    //列表查询
+    queryReportList() {
+      const param = {
+        statisDate: this.query.date,
+        parkId: this.query.parkId,
+        pageNum: this.pageNum,
+        pagesize: this.pageSize
+      };
+      this.$reportAnalysis.queryOpeReportStatisDayAnal(param).then(res => {
+        this.reportList = res.data.dataList;
+      });
+    },
+    //查询停车场列表数据
+    queryParkList() {
+      const params = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = 321302"
+      };
+      this.$deviceManagement.queryDictData(params).then(res => {
+        this.parkList = res.data.dataList;
+      });
     }
+  },
+  mounted() {
+    //列表查询
+    this.queryReportList();
+    //停车场下拉菜单
+    this.queryParkList();
   }
 };
 </script>

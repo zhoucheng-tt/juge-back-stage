@@ -53,8 +53,8 @@
           <el-table-column width="120" prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
           <el-table-column width="120" :show-overflow-tooltip="true" label="操作">
             <template slot-scope="scope">
-              <el-button @click="editListDialogue(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="deleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
+              <el-button @click="handleEditListDialogue(scope.row)" type="text" size="small">修改</el-button>
+              <el-button @click="HandleDeleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -405,7 +405,7 @@ export default {
       //  console.log(this.selectParkingLotList);
     },
     //单个删除
-    deleteListDialogue(row) {
+    HandleDeleteListDialogue(row) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -474,7 +474,7 @@ export default {
       this.addListDialogueandoff = false;
     },
     //修改弹框弹出
-    editListDialogue(row) {
+    HandleEditListDialogue(row) {
       // console.log(row);
 
       this.editListDialogueandoff = true;
@@ -587,7 +587,7 @@ export default {
       const params = {
         columnName: ["district_code", "district_name"],
         tableName: "t_d_district",
-        whereStr: "city_code = "+code
+        whereStr: "city_code = " + code
       };
       this.$deviceManagement.queryDictData(params).then(res => {
         this.districtList = res.data.dataList;
@@ -615,7 +615,7 @@ export default {
       handler(newVal) {
         this.chargingRules.forEach((item) => {
           if (item.code === newVal.billingRuleDefId) {
-            newVal.billingRuleDesc = item.name ;
+            newVal.billingRuleDesc = item.name;
           }
         });
       },
