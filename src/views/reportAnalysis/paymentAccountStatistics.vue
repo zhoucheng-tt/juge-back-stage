@@ -55,7 +55,7 @@
     <div class="center">
       <el-table :data="payList" :row-class-name="tableRowClassName"
         :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-        :cell-style="{ 'text-align': 'center' }" style="width: 100%;height:90%%">
+        :cell-style="{ 'text-align': 'center' }" style="width: 100%;height:90%">
         <el-table-column prop="statisDate" :show-overflow-tooltip="true" label="日期" />
         <el-table-column prop="incomeMoneyAmount" :show-overflow-tooltip="true" label="总收入金额" />
         <el-table-column prop="memberRechargeMoneyAmount" :show-overflow-tooltip="true" label="月卡会员充值金额" />
@@ -99,28 +99,7 @@
         //查询内容暂存
         query: {},
         // 停车场下拉框数据暂存处
-        parkList: [
-          {
-            name: "公共停车场",
-            code: 1
-          },
-          {
-            name: "公共停车场",
-            code: 1
-          },
-          {
-            name: "公共停车场",
-            code: 1
-          },
-          {
-            name: "公共停车场",
-            code: 1
-          },
-          {
-            name: "公共停车场",
-            code: 1
-          }
-        ],
+        parkList: [],
         //支付方式下拉框数据暂存处
         payMethodList: [
           {

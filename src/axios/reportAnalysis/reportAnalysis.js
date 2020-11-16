@@ -140,3 +140,13 @@ export function queryWashEarn(param) {
         }
     )
 }
+
+export function queryParkOpeIdxParkDetailAnal(param) {
+    return request(
+        {
+            url: 'decisionAnalysisFunc/queryParkOpeIdxParkDetailAnal',
+            method: 'post',
+            data: param
+        }
+    )
+}
