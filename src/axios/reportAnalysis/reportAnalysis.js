@@ -26,9 +26,9 @@ export function trendAnalysis(param) {
 export function paymentAnalysis(param) {
     return request(
         {
-            url:'accountStatisFunc/paymentAnalysis',
-            method:'post',
-            data:param
+            url: 'accountStatisFunc/paymentAnalysis',
+            method: 'post',
+            data: param
         }
     )
 }
@@ -37,9 +37,9 @@ export function paymentAnalysis(param) {
 export function queryParkOpeIncomeCompAnal(param) {
     return request(
         {
-            url:'decisionAnalysisFunc/queryParkOpeIncomeCompAnal',
-            method:'post',
-            data:param
+            url: 'decisionAnalysisFunc/queryParkOpeIncomeCompAnal',
+            method: 'post',
+            data: param
         }
     )
 }
@@ -48,9 +48,9 @@ export function queryParkOpeIncomeCompAnal(param) {
 export function queryParkOpeIncomeArrearsAnal(param) {
     return request(
         {
-            url:'/decisionAnalysisFunc/queryParkOpeIncomeArrearsAnal',
-            method:'post',
-            data:param
+            url: '/decisionAnalysisFunc/queryParkOpeIncomeArrearsAnal',
+            method: 'post',
+            data: param
         }
     )
 }
@@ -59,9 +59,9 @@ export function queryParkOpeIncomeArrearsAnal(param) {
 export function queryParkOpeIncomeTypeAnal(param) {
     return request(
         {
-            url:'/decisionAnalysisFunc/queryParkOpeIncomeTypeAnal',
-            method:'post',
-            data:param
+            url: '/decisionAnalysisFunc/queryParkOpeIncomeTypeAnal',
+            method: 'post',
+            data: param
         }
     )
 }
@@ -70,9 +70,9 @@ export function queryParkOpeIncomeTypeAnal(param) {
 export function queryParkOpeIncomeArrearsChart(param) {
     return request(
         {
-            url:'/decisionAnalysisFunc/queryParkOpeIncomeArrearsChart',
-            method:'post',
-            data:param
+            url: '/decisionAnalysisFunc/queryParkOpeIncomeArrearsChart',
+            method: 'post',
+            data: param
         }
     )
 }
@@ -81,9 +81,9 @@ export function queryParkOpeIncomeArrearsChart(param) {
 export function queryOpeReportStatisDayAnal(param) {
     return request(
         {
-            url:'decisionAnalysisFunc/queryOpeReportStatisDayAnal',
-            method:'post',
-            data:param
+            url: 'decisionAnalysisFunc/queryOpeReportStatisDayAnal',
+            method: 'post',
+            data: param
         }
     )
 }
@@ -92,34 +92,51 @@ export function queryOpeReportStatisDayAnal(param) {
 export function queryOpeReportStatisMonthAnal(param) {
     return request(
         {
-            url:'decisionAnalysisFunc/queryOpeReportStatisMonthAnal',
-            method:'post',
-            data:param
+            url: 'decisionAnalysisFunc/queryOpeReportStatisMonthAnal',
+            method: 'post',
+            data: param
         }
     )
 }
 
 //停车场运营收入分析
-export function queryParkOpeIdxParkDetailQtyAnal(param){
+export function queryParkOpeIdxParkDetailQtyAnal(param) {
     return request(
         {
-            url:'decisionAnalysisFunc/queryParkOpeIdxParkDetailQtyAnal',
-            method:'post',
-            data:param
+            url: 'decisionAnalysisFunc/queryParkOpeIdxParkDetailQtyAnal',
+            method: 'post',
+            data: param
         }
     )
 }
 
 
 //充电桩收入分析
-export function queryChargeEarn(param){
+export function queryChargeEarn(param) {
     return request(
         {
-            url:'http://127.0.0.1:8000/EarnAnalysisController/queryChargeEarnData',
-            method:'post',
-            dataType: 'json',
-            contentType:'application/json;charset=utf-8',
-            data:param
+            url: 'http://127.0.0.1:8000/EarnAnalysisController/queryChargeEarnData',
+            method: 'post',
+            header: {
+                'content-type': 'application/json;charset=utf-8'
+            },
+            data: param,
+            flag: 'out'
+        }
+    )
+}
+
+//洗车站收入分析
+export function queryWashEarn(param) {
+    return request(
+        {
+            url: 'http://127.0.0.1:8000/EarnAnalysisController/queryWashEarnData',
+            method: 'post',
+            header: {
+                'content-type': 'application/json;charset=utf-8'
+            },
+            data: param,
+            flag: 'out'
         }
     )
 }

@@ -448,101 +448,110 @@ export default {
     drawChargeEarnChart() {
       this.chargeEarnChartX = [];
       const param = {
-        queryDate:this.query.date
+        queryDate: this.query.date
       };
-      var dataList =[];
-      this.$reportAnalysis.queryChargeEarn(param).then(res=>{
-        res.resultEntity.forEach((item)=>{
+      var dataList = [];
+      this.$reportAnalysis.queryChargeEarn(param).then(res => {
+        res.resultEntity.forEach((item) => {
           this.chargeEarnChartX.push(item.hours);
           dataList.push(Number(item.income));
         });
-      })
-      this.chargeEarnDataList = [{
-        name: "收入金额",
-        showInLegend: false,
-        data: dataList
-      }];
-      this.chargeEarnChart = {
-        chart: {
-          type: "column",
-          renderTo: "chargeEarn",
-          options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25
-          }
-        },
-        title: {
-          text: "自助充电设备收入按时段分析"
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.chargeEarnChartX
-        },
-        yAxis: {
+        this.chargeEarnDataList = [{
+          name: "收入金额",
+          showInLegend: false,
+          data: dataList
+        }];
+        this.chargeEarnChart = {
+          chart: {
+            type: "column",
+            renderTo: "chargeEarn",
+            options3d: {
+              enabled: true,
+              alpha: 15,
+              beta: 15,
+              depth: 50,
+              viewDistance: 25
+            }
+          },
           title: {
-            text: ''
-          }
-        },
-        plotOptions: {
-          series: {
-            depth: 25,
-            colorByPoint: true
-          }
-        },
-        series: this.chargeEarnDataList
-      };
-      new HighCharts.chart(this.chargeEarnChart);
+            text: "自助充电设备收入按时段分析"
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.chargeEarnChartX
+          },
+          yAxis: {
+            title: {
+              text: ''
+            }
+          },
+          plotOptions: {
+            series: {
+              depth: 25,
+              colorByPoint: true
+            }
+          },
+          series: this.chargeEarnDataList
+        };
+        new HighCharts.chart(this.chargeEarnChart);
+      })
+
     },
     //绘表自助洗车设备收入按时段分析
     drawWashEarnChart() {
-      this.washEarnChartX = ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'];
-      this.washEarnDataList = [{
-        name: "收入金额",
-        showInLegend: false,
-        data: [6, 11, 32, 110, 235, 369, 640,
-          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-          27387, 29459, 31056, 31982, 32040, 31233, 29224]
-      }];
-      this.washEarnChart = {
-        chart: {
-          type: "column",
-          renderTo: "washEarn",
-          options3d: {
-            enabled: true,
-            alpha: 15,
-            beta: 15,
-            depth: 50,
-            viewDistance: 25
-          }
-        },
-        title: {
-          text: "自助洗车设备收入按时段分析"
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.washEarnChartX
-        },
-        yAxis: {
-          title: {
-            text: ''
-          }
-        },
-        plotOptions: {
-          series: {
-            depth: 25,
-            colorByPoint: true
-          }
-        },
-        series: this.washEarnDataList
+      this.washEarnChartX = [];
+      const param = {
+        queryDate: this.query.date
       };
-      new HighCharts.chart(this.washEarnChart);
+      var dataList=[];
+      this.$reportAnalysis.queryWashEarn(param).then(res=>{
+        res.resultEntity.forEach(item=>{
+          this.washEarnChartX.push(item.hours);
+          dataList.push(Number(item.income));
+        });
+        this.washEarnDataList = [{
+          name: "收入金额",
+          showInLegend: false,
+          data: dataList
+        }];
+        this.washEarnChart = {
+          chart: {
+            type: "column",
+            renderTo: "washEarn",
+            options3d: {
+              enabled: true,
+              alpha: 15,
+              beta: 15,
+              depth: 50,
+              viewDistance: 25
+            }
+          },
+          title: {
+            text: "自助洗车设备收入按时段分析"
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.washEarnChartX
+          },
+          yAxis: {
+            title: {
+              text: ''
+            }
+          },
+          plotOptions: {
+            series: {
+              depth: 25,
+              colorByPoint: true
+            }
+          },
+          series: this.washEarnDataList
+        };
+        new HighCharts.chart(this.washEarnChart);
+      });
     },
     //查询停车场列表数据
     queryParkList() {

@@ -209,7 +209,6 @@ export default {
         // 将数据绑定到暂存数组中
         that.lineChartsList = that.numberOfParkingData;
         that.lineChartsX = that.numberOfParkingXz;
-        debugger;
         that.queryLine();
       })
     },
@@ -271,7 +270,7 @@ export default {
     // 折线图的方法
     queryLine() {
       var that = this;
-      debugger;
+
       that.lineOptions = {
         chart: {
           type: that.lineChartsType,
@@ -340,7 +339,7 @@ export default {
         }]
       }
       // 绘制
-      debugger;
+
       new HighCharts.Chart(that.lineOptions);
     },
   }
