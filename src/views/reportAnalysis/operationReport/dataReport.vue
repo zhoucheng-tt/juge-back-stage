@@ -16,34 +16,20 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="统计日期:">
-                <el-date-picker
-                    v-model="query.date"
-                    type="date"
-                    placeholder="选择日期"
-                    value-format="yyyy-MM-dd"
-                >
-                </el-date-picker>
+                <el-date-picker v-model="query.date" type="date" placeholder="选择日期" value-format="yyyy-MM-dd"/>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="停车场：">
                 <el-select v-model="query.parkId" placeholder="请选择停车场">
                   <el-option label="全部" value=""></el-option>
-                  <el-option
-                      v-for="(item, index) in parkList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
-                  ></el-option>
+                  <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code" :key="index"/>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6" :offset="6">
               <el-form-item>
-                <el-button type="primary" @click="queryReportList"
-                >查询
-                </el-button
-                >
+                <el-button type="primary" @click="queryReportList">查询</el-button>
                 <el-button type="primary" @click="exportReport">导出</el-button>
               </el-form-item>
             </el-col>
@@ -53,10 +39,7 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-table
-          :data="reportList"
-          :row-class-name="tableRowClassName"
-          :header-cell-style="{
+      <el-table :data="reportList" :row-class-name="tableRowClassName" :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -64,104 +47,23 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
-        }"
-          :cell-style="{ 'text-align': 'center' }"
-          style="width: 100%;"
-      >
-        <el-table-column
-            width="120"
-            prop="date"
-            :show-overflow-tooltip="true"
-            label="统计日期"
-        />
-        <el-table-column
-            width="120"
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
-        />
-        <el-table-column
-            width="120"
-            prop="parkNum"
-            :show-overflow-tooltip="true"
-            label="车位数"
-        />
-        <el-table-column
-            width="120"
-            prop="usedNum"
-            :show-overflow-tooltip="true"
-            label="停车数"
-        />
-        <el-table-column
-            width="120"
-            prop="avgParkingTime"
-            :show-overflow-tooltip="true"
-            label="平均停车时长"
-        />
-        <el-table-column
-            width="120"
-            prop="utilization"
-            :show-overflow-tooltip="true"
-            label="车位利用率"
-        />
-        <el-table-column
-            width="120"
-            prop="velocity"
-            :show-overflow-tooltip="true"
-            label="车辆周转率"
-        />
-        <el-table-column
-            width="120"
-            prop="orderNum"
-            :show-overflow-tooltip="true"
-            label="预约停车数量"
-        />
-        <el-table-column
-            width="120"
-            prop="orderComRate"
-            :show-overflow-tooltip="true"
-            label="预约完成率"
-        />
-        <el-table-column
-            width="120"
-            prop="totalEarn"
-            :show-overflow-tooltip="true"
-            label="总收入"
-        />
-        <el-table-column
-            width="120"
-            prop="wechatEarn"
-            :show-overflow-tooltip="true"
-            label="微信缴费金额"
-        />
-        <el-table-column
-            width="120"
-            prop="alipayEarn"
-            :show-overflow-tooltip="true"
-            label="支付宝缴费金额"
-        />
-        <el-table-column
-            width="120"
-            prop="ETCEarn"
-            :show-overflow-tooltip="true"
-            label="ETC缴费金额"
-        />
-        <el-table-column
-            width="120"
-            prop="owe"
-            :show-overflow-tooltip="true"
-            label="欠费金额"
-        />
+        }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
+        <el-table-column width="120" prop="date" :show-overflow-tooltip="true" label="统计日期"/>
+        <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column width="120" prop="parkNum" :show-overflow-tooltip="true" label="车位数"/>
+        <el-table-column width="120" prop="usedNum" :show-overflow-tooltip="true" label="停车数"/>
+        <el-table-column width="120" prop="avgParkingTime" :show-overflow-tooltip="true" label="平均停车时长"/>
+        <el-table-column width="120" prop="utilization" :show-overflow-tooltip="true" label="车位利用率"/>
+        <el-table-column width="120" prop="velocity" :show-overflow-tooltip="true" label="车辆周转率"/>
+        <el-table-column width="120" prop="orderNum" :show-overflow-tooltip="true" label="预约停车数量"/>
+        <el-table-column width="120" prop="orderComRate" :show-overflow-tooltip="true" label="预约完成率"/>
+        <el-table-column width="120" prop="totalEarn" :show-overflow-tooltip="true" label="总收入"/>
+        <el-table-column width="120" prop="wechatEarn" :show-overflow-tooltip="true" label="微信缴费金额"/>
+        <el-table-column width="120" prop="alipayEarn" :show-overflow-tooltip="true" label="支付宝缴费金额"/>
+        <el-table-column width="120" prop="ETCEarn" :show-overflow-tooltip="true" label="ETC缴费金额"/>
+        <el-table-column width="120" prop="owe" :show-overflow-tooltip="true" label="欠费金额"/>
       </el-table>
-      <el-pagination
-          style="position: relative;left: 78%"
-          background
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-      />
+      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
     </div>
   </div>
 </template>
@@ -255,7 +157,9 @@ export default {
     }
   },
   mounted() {
-    this.queryReportList()
+    //列表查询
+    this.queryReportList();
+    //停车场下拉菜单
     this.queryParkList();
   }
 };

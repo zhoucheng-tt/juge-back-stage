@@ -135,6 +135,7 @@ export default {
   mounted() {
     //初始化停车场下拉菜单
     this.queryParkList();
+    //绘表
     this.drawEarnCompareChart();
     this.drawEarnAndOweChart();
     this.drawEarnComponentChart();
@@ -145,7 +146,8 @@ export default {
   methods: {
     // 查询
     queryButton() {
-      console.log("打印出来点击查询后所产生的值", this.query);
+      // console.log("打印出来点击查询后所产生的值", this.query);
+      //重新绘表
       this.drawEarnCompareChart();
       this.drawEarnAndOweChart();
       this.drawEarnComponentChart();

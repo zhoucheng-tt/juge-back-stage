@@ -15,36 +15,17 @@
         <el-row>
           <el-col :span="5">
             <el-form-item label="地市">
-              <el-select
-                v-model="query.cityCode"
-                placeholder="请选择"
-                @change="queryDisList(query.cityCode)"
-              >
+              <el-select v-model="query.cityCode" placeholder="请选择" @change="queryDisList(query.cityCode)">
                 <el-option label="全部" value="0"></el-option>
-                <el-option
-                  v-for="(item, index) in cityList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="区县">
-              <el-select
-                v-model="query.districtCode"
-                placeholder="请选择"
-                @change="queryParkList(query.districtCode)"
-              >
+              <el-select v-model="query.districtCode" placeholder="请选择" @change="queryParkList(query.districtCode)">
                 <el-option label="全部" value="0"></el-option>
-                <el-option
-                  v-for="(item, index) in districtList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                >
-                </el-option>
+                <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -52,31 +33,19 @@
             <el-form-item label="停车场">
               <el-select v-model="query.parkId" placeholder="请选择">
                 <el-option label="全部" value="0"></el-option>
-                <el-option
-                  v-for="(item, index) in parkingLotNameList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option
-                  v-for="(item, index) in eqStatusList"
-                  :label="item.eqStatus"
-                  :value="item.eqStatus"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-button type="primary" @click="queryGroundLock()"
-              >查 询</el-button
-            >
+            <el-button type="primary" @click="queryGroundLock()">查 询</el-button>
             <el-button type="info" @click="exportList()">导 出</el-button>
           </el-col>
         </el-row>
@@ -91,11 +60,8 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table
-        :data="floorLockList"
-        ref="selectLockList"
-        :row-class-name="tableRowClassName"
-        :header-cell-style="{
+      <el-table :data="floorLockList" ref="selectLockList" :row-class-name="tableRowClassName"
+          :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -103,101 +69,39 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" />
-        <el-table-column prop="parkId" label="停车场编号" />
-        <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-        />
-        <el-table-column
-          prop="groundLockId"
-          :show-overflow-tooltip="true"
-          label="地锁编号"
-        />
-        <el-table-column
-          prop="groundLockName"
-          :show-overflow-tooltip="true"
-          label="地锁名称"
-        />
-        <el-table-column
-          prop="macAddress"
-          :show-overflow-tooltip="true"
-          label="mac地址"
-        />
-        <el-table-column
-          prop="gatewayId"
-          :show-overflow-tooltip="true"
-          label="网关ID"
-        />
+        }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
+        <el-table-column type="selection"/>
+        <el-table-column prop="parkId" label="停车场编号"/>
+        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column prop="groundLockId" :show-overflow-tooltip="true" label="地锁编号"/>
+        <el-table-column prop="groundLockName" :show-overflow-tooltip="true" label="地锁名称"/>
+        <el-table-column prop="macAddress" :show-overflow-tooltip="true" label="mac地址"/>
+        <el-table-column prop="gatewayId" :show-overflow-tooltip="true" label="网关ID"/>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button
-              @click="editLockDialog(scope.row)"
-              type="text"
-              size="small"
-              >修改</el-button
-            >
-            <el-button @click="deleteLock(scope.row)" type="text" size="small"
-              >删除</el-button
-            >
+            <el-button @click="editLockDialog(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="deleteLock(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--分页条-->
-      <el-pagination
-        style="position: relative;left: 78%"
-        background
-        layout="total, prev, pager, next, jumper"
-        :page-size="pageSize"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-      />
+      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
     </div>
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增地锁" :visible.sync="addListDialog">
-      <el-form
-        :inline="true"
-        class="demo-form-inline"
-        label-position="right"
-        label-width="100px"
-      >
+      <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
         <div style="font-size: 20px">归属停车场信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属地市:" label-width="150px">
-              <el-select
-                v-model="newLock.cityCode"
-                placeholder="请选择"
-                @change="queryDisList(newLock.cityCode)"
-              >
-                <el-option
-                  v-for="(item, index) in cityList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
+              <el-select v-model="newLock.cityCode" placeholder="请选择" @change="queryDisList(newLock.cityCode)"/>
+                <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-form-item label="归属区县:" label-width="150px">
-            <el-select
-              v-model="newLock.districtCode"
-              placeholder="请选择"
-              @change="queryParkList(newLock.districtCode)"
-            >
-              <el-option
-                v-for="(item, index) in districtList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
-              ></el-option>
+            <el-select v-model="newLock.districtCode" placeholder="请选择" @change="queryParkList(newLock.districtCode)"/>
+              <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
             </el-select>
           </el-form-item>
         </el-row>
@@ -205,12 +109,7 @@
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="newLock.parkId" placeholder="请选择">
-                <el-option
-                  v-for="(item, index) in parkingLotNameList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -219,12 +118,12 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="地锁编号:" label-width="150px">
-              <el-input v-model="newLock.groundLockId" />
+              <el-input v-model="newLock.groundLockId"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="地锁名称:" label-width="150px">
-              <el-input v-model="newLock.groundLockName" />
+              <el-input v-model="newLock.groundLockName"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -248,42 +147,19 @@
     </el-dialog>
     <!--修改表单弹框-->
     <el-dialog id="edit" title="修改地锁" :visible.sync="editListDialog">
-      <el-form
-        :inline="true"
-        class="demo-form-inline"
-        label-position="right"
-        label-width="100px"
-      >
+      <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
         <div style="font-size: 20px">归属停车场信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属地市:" label-width="150px">
-              <el-select
-                v-model="editLock.cityCode"
-                placeholder="请选择"
-                @change="queryDisList(editLock.cityCode)"
-              >
-                <el-option
-                  v-for="(item, index) in cityList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
+              <el-select v-model="editLock.cityCode" placeholder="请选择" @change="queryDisList(editLock.cityCode)">
+                <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-form-item label="归属区县:" label-width="150px">
-            <el-select
-              v-model="editLock.districtCode"
-              placeholder="请选择"
-              @change="queryParkList(editLock.districtCode)"
-            >
-              <el-option
-                v-for="(item, index) in districtList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
-              ></el-option>
+            <el-select v-model="editLock.districtCode" placeholder="请选择" @change="queryParkList(editLock.districtCode)">
+              <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
             </el-select>
           </el-form-item>
         </el-row>
@@ -291,12 +167,7 @@
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="editLock.parkId" placeholder="请选择">
-                <el-option
-                  v-for="(item, index) in parkingLotNameList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -305,12 +176,12 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="地锁编号:" label-width="150px">
-              <el-input v-model="editLock.groundLockId" />
+              <el-input v-model="editLock.groundLockId"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="地锁名称:" label-width="150px">
-              <el-input v-model="editLock.groundLockName" />
+              <el-input v-model="editLock.groundLockName"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -361,7 +232,11 @@ export default {
       pageSize: 10,
       pageTotal: 4,
       //条件查询
-      query: {},
+      query: {
+        cityCode: "0",
+        districtCode: "0",
+        parkId: "0"
+      },
       //修改前停车场Id暂存
       oldParkId: "",
       //修改前地磁车Id暂存
@@ -375,7 +250,7 @@ export default {
   methods: {
     //斑马纹样式
     // eslint-disable-next-line no-unused-vars
-    tableRowClassName({ rowIndex }) {
+    tableRowClassName({rowIndex}) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -403,14 +278,14 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          this.$deviceManagement.delGroundLock(this.idList);
-          this.$message({ type: "success", message: "删除成功!" });
-          this.queryGroundLock();
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
+          .then(() => {
+            this.$deviceManagement.delGroundLock(this.idList);
+            this.$message({type: "success", message: "删除成功!"});
+            this.queryGroundLock();
+          })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
     },
     //修改
     editLockDialog(row) {
@@ -431,20 +306,20 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          this.idList = [];
-          const params = {
-            groundLockId: row.groundLockId,
-            parkId: row.parkId
-          };
-          this.idList.push(params);
-          this.$deviceManagement.delGroundLock(this.idList);
-          this.$message({ type: "success", message: "删除成功!" });
-          this.queryGroundLock();
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
+          .then(() => {
+            this.idList = [];
+            const params = {
+              groundLockId: row.groundLockId,
+              parkId: row.parkId
+            };
+            this.idList.push(params);
+            this.$deviceManagement.delGroundLock(this.idList);
+            this.$message({type: "success", message: "删除成功!"});
+            this.queryGroundLock();
+          })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -501,9 +376,9 @@ export default {
     //列表查询
     queryGroundLock() {
       if (
-        this.query.cityCode === "0" ||
-        this.query.districtCode === "0" ||
-        this.query.parkId === "0"
+          this.query.cityCode === "0" ||
+          this.query.districtCode === "0" ||
+          this.query.parkId === "0"
       ) {
         const param = {
           pageNum: this.pageNum,
@@ -540,6 +415,7 @@ export default {
     },
     //查询区县数据
     queryDisList(code) {
+      this.parkingLotNameList = [];
       const params = {
         columnName: ["district_code", "district_name"],
         tableName: "t_d_district",
@@ -562,10 +438,13 @@ export default {
     }
   },
   mounted() {
+    //初始化列表
     this.queryGroundLock();
+    //初始化下拉菜单
     this.queryCityList();
   },
   watch: {
+    //监听弹框，弹框关闭时清空区县和停车场下拉菜单
     addListDialog: {
       handler(newVal) {
         if (!newVal) {
@@ -581,9 +460,21 @@ export default {
           this.parkingLotNameList = [];
         }
       }
+    },
+    //监听高级下拉菜单变动时，低级下拉菜单的值改变为全部
+    query: {
+      handler(newVal) {
+        if (newVal.cityCode === "0") {
+          this.query.districtCode = "0";
+        }
+        if (newVal.districtCode === "0") {
+          this.query.parkId = "0";
+        }
+      },
+      deep: true
     }
   }
-};
+}
 </script>
 <style scoped>
 .all {

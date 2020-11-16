@@ -16,13 +16,7 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="统计月份:">
-                <el-date-picker
-                    v-model="query.date"
-                    type="month"
-                    placeholder="选择日期"
-                    value-format="yyyy-MM"
-                >
-                </el-date-picker>
+                <el-date-picker v-model="query.date" type="month" placeholder="选择日期" value-format="yyyy-MM"/>
               </el-form-item>
             </el-col>
             <el-col :span="6">
@@ -94,8 +88,8 @@ export default {
     return {
       // 顶部查询数据暂存处
       query: {
-        date:'2020-08',
-        parkId:''
+        date: '2020-08',
+        parkId: ''
       },
       // 停车场下拉框数据暂存处
       parkList: [],
@@ -142,7 +136,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
-      this.$reportAnalysis.queryOpeReportStatisMonthAnal(param).then(res=>{
+      this.$reportAnalysis.queryOpeReportStatisMonthAnal(param).then(res => {
         this.reportList = res.data.dataList;
       })
     },

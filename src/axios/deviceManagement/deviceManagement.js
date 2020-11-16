@@ -199,3 +199,12 @@ export function queryPassagewayCamera(param) {
         data: param
     })
 }
+
+//基础信息管理信息ETC
+export function queryETC(param) {
+    return request({
+        url: 'ETCFunc/queryETC',
+        method: 'post',
+        data: param
+    })
+}
