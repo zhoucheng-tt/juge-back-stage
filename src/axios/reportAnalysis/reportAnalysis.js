@@ -66,6 +66,7 @@ export function queryParkOpeIncomeTypeAnal(param) {
     )
 }
 
+//停车场收入及欠费分析
 export function queryParkOpeIncomeArrearsChart(param) {
     return request(
         {
@@ -93,6 +94,31 @@ export function queryOpeReportStatisMonthAnal(param) {
         {
             url:'decisionAnalysisFunc/queryOpeReportStatisMonthAnal',
             method:'post',
+            data:param
+        }
+    )
+}
+
+//停车场运营收入分析
+export function queryParkOpeIdxParkDetailQtyAnal(param){
+    return request(
+        {
+            url:'decisionAnalysisFunc/queryParkOpeIdxParkDetailQtyAnal',
+            method:'post',
+            data:param
+        }
+    )
+}
+
+
+//充电桩收入分析
+export function queryChargeEarn(param){
+    return request(
+        {
+            url:'http://127.0.0.1:8000/EarnAnalysisController/queryChargeEarnData',
+            method:'post',
+            dataType: 'json',
+            contentType:'application/json;charset=utf-8',
             data:param
         }
     )

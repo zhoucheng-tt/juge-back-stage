@@ -446,13 +446,21 @@ export default {
     },
     //绘表自助充电设备收入按时段分析
     drawChargeEarnChart() {
-      this.chargeEarnChartX = ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'];
+      this.chargeEarnChartX = [];
+      const param = {
+        queryDate:this.query.date
+      };
+      var dataList =[];
+      this.$reportAnalysis.queryChargeEarn(param).then(res=>{
+        res.resultEntity.forEach((item)=>{
+          this.chargeEarnChartX.push(item.hours);
+          dataList.push(Number(item.income));
+        });
+      })
       this.chargeEarnDataList = [{
         name: "收入金额",
         showInLegend: false,
-        data: [6, 11, 32, 110, 235, 369, 640,
-          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-          27387, 29459, 31056, 31982, 32040, 31233, 29224]
+        data: dataList
       }];
       this.chargeEarnChart = {
         chart: {
