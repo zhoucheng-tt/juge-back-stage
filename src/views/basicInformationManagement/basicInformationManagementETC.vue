@@ -40,11 +40,11 @@
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column prop="ETCNumber" label="ETC编号" width="80"></el-table-column>
-        <el-table-column prop="nameOfParkingLot" :show-overflow-tooltip="true" label="所属停车场" width="">
+        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="所属停车场" width="">
         </el-table-column>
         <el-table-column prop="type" :show-overflow-tooltip="true" label="类型" width="">
         </el-table-column>
-        <el-table-column prop="description" :show-overflow-tooltip="true" label="描述"></el-table-column>
+        <el-table-column prop="remark" :show-overflow-tooltip="true" label="描述"></el-table-column>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="showListDialogue(scope.row)" type="text" size="small">查看</el-button>
@@ -65,13 +65,13 @@
           <el-input v-model="showListdialogueandoffList.ETCNumber"></el-input>
         </el-form-item>
         <el-form-item label="所属停车场:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.nameOfParkingLot"></el-input>
+          <el-input v-model="showListdialogueandoffList.parkName"></el-input>
         </el-form-item>
         <el-form-item label="类型:" class="el-form-item-dialog">
           <el-input v-model="showListdialogueandoffList.type"></el-input>
         </el-form-item>
         <el-form-item label="描述:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.description"></el-input>
+          <el-input v-model="showListdialogueandoffList.remark"></el-input>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -82,13 +82,13 @@
           <el-input v-model="editListDialogueandoffList.ETCNumber"></el-input>
         </el-form-item>
         <el-form-item label="所属停车场:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.nameOfParkingLot"></el-input>
+          <el-input v-model="editListDialogueandoffList.parkName"></el-input>
         </el-form-item>
         <el-form-item label="类型:" class="el-form-item-dialog">
           <el-input v-model="editListDialogueandoffList.type"></el-input>
         </el-form-item>
         <el-form-item label="描述:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.description"></el-input>
+          <el-input v-model="editListDialogueandoffList.remark"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -142,21 +142,21 @@
         ETCInformationManagement: [
           {
             ETCNumber: '1',
-            nameOfParkingLot: '一号停车场',
+            parkName: '一号停车场',
             type: '员工停车场',
-            description: '无'
+            remark: '无'
           },
           {
             ETCNumber: '2',
-            nameOfParkingLot: '二号停车场',
+            parkName: '二号停车场',
             type: '员工停车场',
-            description: '无'
+            remark: '无'
           },
           {
             ETCNumber: '2',
-            nameOfParkingLot: '三号停车场',
+            parkName: '三号停车场',
             type: '员工停车场',
-            description: '无'
+            remark: '无'
           }
         ],
         // 控制订单详情弹出框展示和隐藏属性
