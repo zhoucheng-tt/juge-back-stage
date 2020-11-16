@@ -458,11 +458,6 @@ export default {
           yAxis: {
             title: {
               text: '单位（%）'
-            },
-            labels: {
-              formatter: function () {
-                return this.value / 1000 + 'k';
-              }
             }
           },
           legend: {
@@ -551,11 +546,6 @@ export default {
           yAxis: {
             title: {
               text: '单位（%）'
-            },
-            labels: {
-              formatter: function () {
-                return this.value / 1000 + 'k';
-              }
             }
           },
           legend: {

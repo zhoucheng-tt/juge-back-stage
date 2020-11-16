@@ -92,7 +92,7 @@
           <el-col :span="12">
             <el-form-item label="归属企业名称:" label-width="150px">
               <el-select v-model="newParkingLot.companyId" placeholder="请选择">
-                <el-option v-for="(item, index) in enterprises" :label="item.code"
+                <el-option v-for="(item, index) in enterprises" :label="item.name"
                            :value="item.name"
                            :key="index"></el-option>
               </el-select>

@@ -141,6 +141,7 @@ export function queryWashEarn(param) {
     )
 }
 
+//停车场运营指标分析图表数据接口
 export function queryParkOpeIdxParkDetailAnal(param) {
     return request(
         {
