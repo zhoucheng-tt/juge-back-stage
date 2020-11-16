@@ -31,23 +31,28 @@
 <!--                查询按钮-->
                 <el-form-item>
                     <el-button type="primary"
-                               @click="select">查询</el-button>
+                               @click="select">
+                        查询
+                    </el-button>
+                    <!--            新增白名单-->
+                    <el-button type="primary"
+                               @click="addWhiteList">
+                        新增白名单
+                    </el-button>
+                        <!--            批量删除-->
+                    <el-button type="primary"
+                               @click="deleteInBatches">
+                        批量删除
+                    </el-button>
                 </el-form-item>
             </el-form>
         </div>
-<!--        第二行新增白名单，批量处理-->
-        <div class="add" style="display: flex">
-            <el-form>
-<!--            新增白名单-->
-            <el-form-item>
-                <el-button type="primary"
-                           @click="addWhiteList">新增白名单</el-button>
-<!--            批量删除-->
-                <el-button type="primary"
-                           @click="deleteInBatches">批量删除</el-button>
-            </el-form-item>
-            </el-form>
-        </div>
+<!--&lt;!&ndash;        第二行新增白名单，批量处理&ndash;&gt;-->
+<!--        <div class="add" style="display: flex">-->
+<!--            <el-form>-->
+
+<!--            </el-form>-->
+<!--        </div>-->
 <!--        表格内容-->
         <div class="table">
             <el-table :data="parkingLotInformation"

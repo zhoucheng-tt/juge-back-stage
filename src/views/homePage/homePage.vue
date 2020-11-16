@@ -74,9 +74,135 @@
         <!-- 中间样式 -->
         <div class="center">
             <div class="centerUp">
-                
+                <div class="leftUpContentSwitch">
+                    <div class="leftUpContentSwitch1" v-model="today"
+                         :class="classStrust1 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="jintian()">
+                        <span class="leftUpContentSwitchSpan">今日</span>
+                    </div>
+                    <div class="leftUpContentSwitch1"
+                         :class="classStrust2 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="zuotian()">
+                        <span class="leftUpContentSwitchSpan">昨日</span>
+                    </div>
+                    <div class="leftUpContentSwitch1"
+                         :class="classStrust3 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="benzhou()">
+                        <span class="leftUpContentSwitchSpan">本周</span>
+                    </div>
+                    <div class="leftUpContentSwitch1"
+                         :class="classStrust4 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="benyue()">
+                        <span class="leftUpContentSwitchSpan">本月</span>
+                    </div>
+                </div>
+                <div class="leftUpContentNum">
+                    <div class="leftUpContentNumContent" v-for="(item, index) in contentNumList" key="index">
+                        <!-- 车位统计部分内部文字部分 -->
+<!--                        第一行-->
+                        <el-row>
+                            <el-col :span="6">
+                                <el-row>
+                                    <span class="spanTop">
+                                        总收入（元）:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                    <span class="spanTopNum" style="color:#08F6E4;">
+                                          {{item.totalIncome}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-row>
+                                    <span class="spanTop">
+                                        应收金额（元）:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                    <span class="spanTopNum" style="color:#895EFC ">
+                                        {{item.receivableMoneyAmount}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="6">
+                                <el-row>
+                                    <span class="spanTop">
+                                        欠收金额（元）:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                    <span class="spanTopNum" style="color:#E9C503">
+                                      {{item.arrearageMoneyAmount}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                        </el-row>
+<!--                        第二行-->
+                        <el-row style="margin-top: 4%">
+                            <el-col :span="5">
+                                <el-row>
+                                    <span class="spanMid">
+                                            空闲充电桩总数:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                    <span class="spanMidNum">
+                                        {{item.totalRechargeLeft}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-row>
+                                      <span class="spanMid">
+                                         充电桩总收入:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                     <span class="spanMidNum">
+                                        {{item.rechargeLeftIncome}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-row>
+                                      <span class="spanMid">
+                                         空闲洗车位总数:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                     <span class="spanMidNum">
+                                        {{item.totalWashCarPort}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="4">
+                                <el-row>
+                                      <span class="spanMid">
+                                         洗车位收入:
+                                    </span>
+                                </el-row>
+                                <el-row>
+                                     <span class="spanMidNum">
+                                         {{item.washCarPortIncome}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="5">
+                                <el-row>
+                                    <span class="leftCarPlot">
+                                        剩余车位数:
+                                    </span>
+                                </el-row>
+                                <el-row class="leftCarPlotBorder">
+                                    <span class="leftCarPlotNum">
+                                        {{item.leftPort}}
+                                    </span>
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
             </div>
-            <div class="centerDown" id="map"></div>
+<!--            中间下半边的地图-->
+            <div class="centerDown" id="map">
+            </div>
         </div>
         <!-- 右边数据 -->
         <div class="right">
@@ -155,6 +281,32 @@
         },
         data() {
             return {
+                // 控制默认展示样式
+                classStrust1: 1,
+                classStrust2: 0,
+                classStrust3: 0,
+                classStrust4: 0,
+                // 充电桩统计数据 （暂时的数据）
+                contentNumList: [
+                    {
+                        //欠费金额
+                        arrearageMoneyAmount: "120",
+                        //应收金额
+                        receivableMoneyAmount: "620",
+                        //总收入
+                        totalIncome: "620",
+                        //空闲充电桩总数
+                        totalRechargeLeft: "20",
+                        //充电桩总收入
+                        rechargeLeftIncome: '5500',
+                        //空闲洗车位总数
+                        totalWashCarPort: "30",
+                        //洗车位收入
+                        washCarPortIncome: "3500",
+                        //剩余车位数
+                        leftPort: '666666'
+                    }
+                ],
                 // 地图中点击添加弹框
                 mapList: {
                     lng: 119.016937,
@@ -206,7 +358,7 @@
                 parkingSpaceUtilizationXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
                 parkingSpaceUtilizationName: '车位利用率',
 
-                // 车位周转率  
+                // 车位周转率
                 parkingSpaceTurnoverRate: '',
                 parkingSpaceTurnoverRateOptions: {},
                 // 图表数据
@@ -252,8 +404,139 @@
             // 停车场收入排行
             this.queryparkingRevenueRanking();
             this.queryTest();
+            //查询总收入
+            // this.queryTotalIncome();
         },
         methods: {
+            //获取总的收入的方法
+            queryTotalIncome(){
+                const param={
+                    // "statisType":"today"
+                };
+                console.log('总收入方法传入的参数',param)
+              this.$homePage.queryTotalIncome(param).then(res => {
+                  this.contentNumList=res.data.datalist;
+                  console.log("总收入参数",this.contentNumList)
+              })
+            },
+            // 今日点击数据处理方法
+            jintian() {
+                //控制显示今天
+                this.classStrust1 = 1
+                this.classStrust2 = 0
+                this.classStrust3 = 0
+                this.classStrust4 = 0
+                // 数据变动
+                this.contentNumList = [
+                    {
+                        //欠费金额
+                        arrearageMoneyAmount: "120",
+                        //应收金额
+                        receivableMoneyAmount: "620",
+                        //总收入
+                        totalIncome: "620",
+                        //空闲充电桩总数
+                        totalRechargeLeft: "20",
+                        //充电桩总收入
+                        rechargeLeftIncome: '5500',
+                        //空闲洗车位总数
+                        totalWashCarPort: "30",
+                        //洗车位收入
+                        washCarPortIncome: "3500",
+                        //剩余车位数
+                        leftPort: '666266'
+                    }
+                ];
+
+            },
+            // 昨日点击数据处理方法
+            zuotian() {
+                this.classStrust1 = 0
+                this.classStrust2 = 1
+                this.classStrust3 = 0
+                this.classStrust4 = 0
+                // 数据变动
+                this.contentNumList = [
+                    {
+                        //欠费金额
+                        arrearageMoneyAmount: "120",
+                        //应收金额
+                        receivableMoneyAmount: "620",
+                        //总收入
+                        totalIncome: "620",
+                        //空闲充电桩总数
+                        totalRechargeLeft: "20",
+                        //充电桩总收入
+                        rechargeLeftIncome: '5500',
+                        //空闲洗车位总数
+                        totalWashCarPort: "30",
+                        //洗车位收入
+                        washCarPortIncome: "3500",
+                        //剩余车位数
+                        leftPort: '666666'
+                    }
+                ];
+
+            },
+            // 本周点击数据处理方法
+            benzhou() {
+                this.classStrust1 = 0
+                this.classStrust2 = 0
+                this.classStrust3 = 1
+                this.classStrust4 = 0
+                // 数据变动
+                this.contentNumList = [
+                    {
+                        //欠费金额
+                        arrearageMoneyAmount: "120",
+                        //应收金额
+                        receivableMoneyAmount: "1200",
+                        //总收入
+                        totalIncome: "620",
+                        //空闲充电桩总数
+                        totalRechargeLeft: "20",
+                        //充电桩总收入
+                        rechargeLeftIncome: '5500',
+                        //空闲洗车位总数
+                        totalWashCarPort: "30",
+                        //洗车位收入
+                        washCarPortIncome: "3500",
+                        //剩余车位数
+                        leftPort: '666666'
+                    }
+                ];
+
+            },
+            // 本月点击数据处理方法
+            benyue() {
+                this.classStrust1 = 0
+                this.classStrust2 = 0
+                this.classStrust3 = 0
+                this.classStrust4 = 1
+                // 数据变动
+                this.contentNumList = [
+                    {
+                        //欠费金额
+                        arrearageMoneyAmount: "120",
+                        //应收金额
+                        receivableMoneyAmount: "6250",
+                        //总收入
+                        totalIncome: "620",
+                        //空闲充电桩总数
+                        totalRechargeLeft: "20",
+                        //充电桩总收入
+                        rechargeLeftIncome: '5500',
+                        //空闲洗车位总数
+                        totalWashCarPort: "30",
+                        //洗车位收入
+                        washCarPortIncome: "3500",
+                        //剩余车位数
+                        leftPort: '666666'
+                    }
+                ];
+
+            },
+            //测试查询
             queryTest(){
                 var jsonStr = {
                     queryDate: '2020-08-02'
@@ -754,4 +1037,114 @@
         overflow: hidden;
         float: left;
     }
+    /* 顶部切换控件部分 */
+    .leftUpContentSwitch {
+        width: 100%;
+        height: 10%;
+        margin-left: 30%;
+        /*float: left;*/
+    }
+    /* 今日、昨日、本周、本月 样式 */
+    /* 选中状态样式 */
+    .leftUpContentSwitch1 {
+        width: 8%;
+        height: 96%;
+        background-color: rgb(113, 190, 241);
+        float: left;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+    .leftUpContentSwitch2 {
+        background-color: rgb(244, 246, 248);
+    }
+
+    .leftUpContentSwitch1,
+    .leftUpContentSwitch1:hover {
+        cursor: pointer
+    }
+
+    /* 今日、昨日、本周、本月 文字样式 */
+    .leftUpContentSwitchSpan {
+        color: black;
+        font-size: 15px;
+        position: relative;
+        top: 20%;
+    }
+
+    /* 顶部统计部分样式 */
+    .leftUpContentNum {
+        width: 100%;
+        height: 85%;
+        float: left;
+    }
+
+    /* 统计部分外部整体样式 */
+    .leftUpContentNumContent {
+        width: 98%;
+        height: 90%;
+        float: left;
+        margin-top: 2%;
+        margin-left: 1%;
+        background-color: cadetblue;
+    }
+
+    /* 统计部分图片样式 */
+    .leftUpContentNumImg {
+        width: 30%;
+        height: 100%;
+        float: left;
+    }
+
+    /* 统计部分文字部分样式 */
+    /*总收入一行*/
+    .spanTop{
+        color: white;
+        line-height: 22px;
+        font-size: 16px;
+        letter-spacing: 0.57px;
+    }
+    /*总收入一行数字*/
+    .spanTopNum{
+        font-size: 56px;
+        line-height: 68px;
+        letter-spacing:2px;
+    }
+    /*空闲充电桩总数*/
+    .spanMid{
+        color: white;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.5px;
+    }
+    /*充电桩总数的数字*/
+    .spanMidNum{
+        color: #08B4F6;
+        font-size: 28px;
+        line-height: 40px;
+        letter-spacing: 1px;
+    }
+    /*剩余车位数*/
+    .leftCarPlot{
+        color: #286599;
+        font-size: 16px;
+        letter-spacing: 0.57px;
+        line-height: 22px;
+    }
+    /*剩余车位数数字*/
+    .leftCarPlotBorder{
+        border: 2px solid #66E3FB;
+        width: 120px;
+        height: 40px;
+    }
+    /*剩余车位数字*/
+    .leftCarPlotNum{
+        color: white;
+        font-size: 28px;
+        line-height: 40px;
+        letter-spacing: 1px;
+        /*text-align: center;*/
+        /*margin-left: 20%;*/
+    }
+
 </style>
