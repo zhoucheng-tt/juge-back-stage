@@ -115,7 +115,7 @@ export function queryParkOpeIdxParkDetailQtyAnal(param) {
 export function queryChargeEarn(param) {
     return request(
         {
-            url: 'http://127.0.0.1:8000/EarnAnalysisController/queryChargeEarnData',
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/queryChargeEarnData',
             method: 'post',
             header: {
                 'content-type': 'application/json;charset=utf-8'
@@ -130,7 +130,7 @@ export function queryChargeEarn(param) {
 export function queryWashEarn(param) {
     return request(
         {
-            url: 'http://127.0.0.1:8000/EarnAnalysisController/queryWashEarnData',
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/queryWashEarnData',
             method: 'post',
             header: {
                 'content-type': 'application/json;charset=utf-8'

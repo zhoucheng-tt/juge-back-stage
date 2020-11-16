@@ -35,7 +35,7 @@ export function queryTotalIncome(params) {
         data: params,
     })
 }
-//首页今日总收入接口方法
+//总停车数量
 export function queryParkOptByParkCount(params) {
     return request({
         url: 'indexPageFunc/queryParkOptByParkCount',
@@ -67,6 +67,24 @@ export function queryParkOptByParkSpaceTurnoverRate(params) {
         data: params,
     })
 }
+//停车场收入排行 indexPageFunc/queryParkIncomeRanking
+export function queryParkIncomeRanking(params) {
+    return request({
+        url: 'indexPageFunc/queryParkIncomeRanking',
+        method: 'post',
+        data: params,
+    })
+}
+//缴费行为分析 indexPageFunc/queryPaymentBehaviorAnalysis
+export function queryPaymentBehaviorAnalysis(params) {
+    return request({
+        url: 'indexPageFunc/queryPaymentBehaviorAnalysis',
+        method: 'post',
+        data: params,
+    })
+}
+
+
 
 
 

@@ -75,7 +75,7 @@
         <div class="center">
             <div class="centerUp">
                 <div class="leftUpContentSwitch">
-                    <div class="leftUpContentSwitch1" v-model="today"
+                    <div class="leftUpContentSwitch1"
                          :class="classStrust1 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="jintian()">
                         <span class="leftUpContentSwitchSpan">今日</span>
                     </div>
@@ -215,7 +215,7 @@
                     </div>
                     <!-- 停车场收入排行   -->
                     <div class="leftChartCenter" id="parkingRevenueRanking">
-                        <Xchart id="parkingRevenueRanking" :option="parkingRevenueRankingOptions"></Xchart>
+                        <Xchart id="parkingRevenueRanking" :option="parkingRevenueRankingChart"></Xchart>
                     </div>
                     <div class="leftChartDown">
                         <img src="../../assets/homePage/juxing.svg" alt="">
@@ -307,6 +307,10 @@
                         leftPort: '666666'
                     }
                 ],
+                //"statisType"存放
+                days:{
+                    statisType:"today"
+                },
                 // 地图中点击添加弹框
                 mapList: {
                     lng: 119.016937,
@@ -328,58 +332,55 @@
                 // serise中的那么数据
                 lineChartsName: '',
 
-                // 停车数量折线图
+                // 停车总数量折线图
                 numberOfParking: "",
                 numberOfParkingOptions: {},
                 // 图表数据
-                numberOfParkingData: [6, 11, 32, 110, 235, 369, 640,
-                    1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-                    27387, 29459, 31056, 31982, 32040, 31233, 29224],
-                numberOfParkingXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
-                numberOfParkingName: '停车数量',
+                numberOfParkingData: [],
+                numberOfParkingXz: [],
+                numberOfParkingName: '停车总数量',
 
                 // 平均停车时长
                 averageParkingTime: '',
                 averageParkingTimeOptions: {},
                 // 图表数据
-                averageParkingTimeData: [6, 11, 32, 110, 235, 369, 640,
-                    1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-                    27387, 29459, 31056, 31982, 32040, 31233, 29224],
-                averageParkingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+                averageParkingTimeData: [],
+                averageParkingTimeXz: [],
                 averageParkingTimeName: '平均停车时长',
 
                 // 车位利用率
                 parkingSpaceUtilization: '',
                 parkingSpaceUtilizationOptions: {},
                 // 图表数据
-                parkingSpaceUtilizationData: [6, 11, 32, 110, 235, 369, 640,
-                    1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-                    27387, 29459, 31056, 31982, 32040, 31233, 29224],
-                parkingSpaceUtilizationXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+                parkingSpaceUtilizationData: [],
+                parkingSpaceUtilizationXz: [],
                 parkingSpaceUtilizationName: '车位利用率',
 
                 // 车位周转率
                 parkingSpaceTurnoverRate: '',
                 parkingSpaceTurnoverRateOptions: {},
                 // 图表数据
-                parkingSpaceTurnoverRateData: [6, 11, 32, 110, 235, 369, 640,
-                    1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-                    27387, 29459, 31056, 31982, 32040, 31233, 29224],
-                parkingSpaceTurnoverRateXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+                parkingSpaceTurnoverRateData: [],
+                parkingSpaceTurnoverRateXz: [],
                 parkingSpaceTurnoverRateName: '车位周转率',
 
+                // 停车场收入排行
+                parkingRevenueRankingChartX: [],
+                parkingRevenueRankingChartY:[],
+                parkingRevenueRankingList: [],
+                parkingRevenueRankingChart:{},
+
                 // 支付收入排行
-                paymentIncomeAnalysis: '',
+                paymentIncomeAnalysis: [],
                 paymentIncomeAnalysisPie: {},
+
                 // 充电桩收入
                 chargingPileRevenue: '',
                 chargingPileRevenueLine: {},
                 // 自助洗车收入
                 selfServiceCarWashing: '',
                 selfServiceCarWashingLine: {},
-                // 停车场收入排行
-                parkingRevenueRanking: '',
-                parkingRevenueRankingOptions: {}
+
             }
         },
         mounted() {
@@ -388,21 +389,21 @@
             // 添加图标的方法
             this.addMoudel();
             // 支付方式
-            this.querypaymentIncomeAnalysisPie();
-            // 停车数量
-            this.queryNumberOfParking();
+            this.queryPaymentBehaviorAnalysis();
+            // 总停车数量
+            this.queryParkOptByParkCount();
             // 平均停车时长
-            this.queryaverageParkingTime();
+            this.queryParkOptByAvgParkDuration();
             // 车位利用率
-            this.queryparkingSpaceUtilization();
+            this.queryParkOptByParkSpaceUsedRate();
             // 车位周转率
-            this.queryparkingSpaceTurnoverRate();
+            this.queryParkOptByParkSpaceTurnoverRate();
+            // 停车场收入排行
+            this.queryParkIncomeRanking();
             // 充电桩收入排行
             this.querychargingPileRevenueLine();
             // 充电桩收入按月分析
             this.queryselfServiceCarWashingLine();
-            // 停车场收入排行
-            this.queryparkingRevenueRanking();
             this.queryTest();
             //查询总收入
             // this.queryTotalIncome();
@@ -411,7 +412,6 @@
             //获取总的收入的方法
             queryTotalIncome(){
                 const param={
-                    // "statisType":"today"
                 };
                 console.log('总收入方法传入的参数',param)
               this.$homePage.queryTotalIncome(param).then(res => {
@@ -426,6 +426,13 @@
                 this.classStrust2 = 0
                 this.classStrust3 = 0
                 this.classStrust4 = 0
+                this.days.statisType = "today"
+                this.queryParkOptByParkCount();
+                this.queryParkOptByAvgParkDuration();
+                this.queryParkOptByParkSpaceUsedRate();
+                this.queryParkOptByParkSpaceTurnoverRate();
+                this.queryParkIncomeRanking();
+                this.queryPaymentBehaviorAnalysis();
                 // 数据变动
                 this.contentNumList = [
                     {
@@ -455,6 +462,13 @@
                 this.classStrust2 = 1
                 this.classStrust3 = 0
                 this.classStrust4 = 0
+                this.days.statisType = "yesterday"
+                this.queryParkOptByParkCount();
+                this.queryParkOptByAvgParkDuration();
+                this.queryParkOptByParkSpaceUsedRate();
+                this.queryParkOptByParkSpaceTurnoverRate();
+                this.queryParkIncomeRanking();
+                this.queryPaymentBehaviorAnalysis();
                 // 数据变动
                 this.contentNumList = [
                     {
@@ -484,6 +498,13 @@
                 this.classStrust2 = 0
                 this.classStrust3 = 1
                 this.classStrust4 = 0
+                this.days.statisType = "currentWeek"
+                this.queryParkOptByParkCount();
+                this.queryParkOptByAvgParkDuration();
+                this.queryParkOptByParkSpaceUsedRate();
+                this.queryParkOptByParkSpaceTurnoverRate();
+                this.queryParkIncomeRanking();
+                this.queryPaymentBehaviorAnalysis();
                 // 数据变动
                 this.contentNumList = [
                     {
@@ -513,6 +534,13 @@
                 this.classStrust2 = 0
                 this.classStrust3 = 0
                 this.classStrust4 = 1
+                this.days.statisType = "currentMonth"
+                this.queryParkOptByParkCount();
+                this.queryParkOptByAvgParkDuration();
+                this.queryParkOptByParkSpaceUsedRate();
+                this.queryParkOptByParkSpaceTurnoverRate();
+                this.queryParkIncomeRanking();
+                this.queryPaymentBehaviorAnalysis();
                 // 数据变动
                 this.contentNumList = [
                     {
@@ -591,129 +619,501 @@
                 infoWindow.open(this.map, e.target.getPosition());
             },
             // 支付收入排行
-            querypaymentIncomeAnalysisPie() {
-                var that = this;
-                that.paymentIncomeAnalysisPie = {
-                    chart: {
-                        type: 'pie',
-                        renderTo: 'paymentIncomeAnalysis',
-                        backgroundColor: 'rgba(0,0,0,0)',
-                        options3d: {
-                            enabled: false,
-                            alpha: 45,
-                            beta: 0
+            queryPaymentBehaviorAnalysis() {
+                const param = {
+                    "statisType":this.days.statisType
+                };
+                this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
+                    var alipayDataList = ['支付宝支付', Number(res.data.dataList[0].alipayPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
+                    var cashDataList = ['现金支付', Number(res.data.dataList[0].cashPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
+                    var wechatDataList = ['微信支付', Number(res.data.dataList[0].wechatPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
+                    var qrCodeDataList = ['扫码支付', Number(res.data.dataList[0].qrCodePaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
+
+                    this.paymentIncomeAnalysis = [
+                        {
+                            type: "pie",
+                            name: "支付占比",
+                            data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList]
                         }
-                    },
-                    title: {
-                        text: ''
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'left',
-                        verticalAlign: 'top',
-                        y: 20,
-                        // padding: 10,
-                        //图例之间的间距
-                        itemMarginTop: 5,
-                        // itemMarginBottom: 20,
-                        itemStyle: {
-                            //内部还可以修改图例的颜色
-                            //    图例名字的间距
-                            lineHeight: '14px',
-                            color: 'white'
+                    ];
+                    this.paymentIncomeAnalysisPie = {
+                        chart: {
+                            type: "pie",
+                            renderTo: "paymentIncomeAnalysis",
+                            options3d: {
+                                enabled: true,
+                                alpha: 45,
+                                beta: 0
+                            }
                         },
-                        // 自定义图表后缀名
-                        labelFormatter: function () {
-                            console.log("ddddddddddd1");
-                            console.log(this);
-                            return this.name + this.y + "%";
+                        title: {
+                            text: "收入构成分析"
                         },
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            innerSize: 60,
-                            depth: 45,
-                            dataLabels: {
-                                enabled: false,
-                                format: '{point.name}'
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: '支付占比',
-                        data: [
-                            ['支付宝', 45.0],
-                            ['微信', 26.8],
-                            ['现金', 8.5],
-                            ['ETC', 6.2]
-                        ]
-                    }]
-                }
-                // 绘制
-                new HighCharts.Chart(that.paymentIncomeAnalysisPie);
+                        credits: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: "pointer",
+                                innerSize: 100,
+                                depth: 45,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: "{point.name}"
+                                }
+                            }
+                        },
+                        series: this.paymentIncomeAnalysis
+                    };
+                    new HighCharts.chart(this.paymentIncomeAnalysisPie);
+                });
             },
-            // 停车数量折线图的绑定id和option方法
-            queryNumberOfParking() {
-                //这边就是把参数等于对应的值就行了
-                // 绑定自定义的id的字段名
-                this.lineId = 'numberOfParking';
-                // 自定义绑定的options的字段名
-                this.lineOptions = 'lineOptions';
-                // 自定义停车时长
-                this.lineTitle = '停车数量';
-                // 定义图表类型
-                this.lineChartsType = 'area';
-                // 将数据绑定到暂存数组中
-                this.lineChartsList = this.numberOfParkingData;
-                // 自定义x轴坐标数据
-                this.lineChartsX = this.numberOfParkingXz;
-                // 绑定定义的名字
-                this.lineChartsName = this.numberOfParkingName;
-                // 调用折线图的方法
-                this.queryLine(this.lineId, this.lineOptions);
+            // 总停车数量折线图的绑定id和option方法
+            queryParkOptByParkCount() {
+                // //这边就是把参数等于对应的值就行了
+                // // 绑定自定义的id的字段名
+                // this.lineId = 'numberOfParking';
+                // // 自定义绑定的options的字段名
+                // this.lineOptions = 'lineOptions';
+                // // 自定义停车时长
+                // this.lineTitle = '停车数量';
+                // // 定义图表类型
+                // this.lineChartsType = 'area';
+                // // 将数据绑定到暂存数组中
+                // this.lineChartsList = this.numberOfParkingData;
+                // // 自定义x轴坐标数据
+                // this.lineChartsX = this.numberOfParkingXz;
+                // // 绑定定义的名字
+                // this.lineChartsName = this.numberOfParkingName;
+                // // 调用折线图的方法
+                // this.queryLine(this.lineId, this.lineOptions);
+                const param = {
+                    "statisType":this.days.statisType
+                };
+                this.$homePage.queryParkOptByParkCount(param).then(res => {
+                    this.numberOfParkingXz = [];
+                    this.numberOfParkingData = [];
+                    res.data.dataList.detail.forEach((item) => {
+                        this.numberOfParkingXz.push(item.date);
+                        this.numberOfParkingData.push(Number(item.val));
+                    });
+                    this.numberOfParkingOptions = {
+                        chart: {
+                            type: 'area',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: 'numberOfParking',
+                        },
+                        title: {
+                            text: this.numberOfParkingName
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: this.numberOfParkingXz
+                        },
+                        yAxis: {
+                            title: {
+                                text: '单位（辆）'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value / 1000 + 'k';
+                                }
+                            }
+                        },
+                        legend: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'left',
+                            x: 300,
+                            y: 10,
+                            itemStyle: {
+                                color: '#cccccc',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: 'bold',
+                                fill: '#cccccc',
+                            },
+                            itemHoverStyle: {
+                                color: '#666666',
+                            },
+                            itemHiddenStyle: {
+                                color: '#333333'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>辆'
+                        },
+                        plotOptions: {
+                            area: {
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: this.numberOfParkingName,
+                            data: this.numberOfParkingData
+                        }]
+                    };
+                    new HighCharts.chart(this.numberOfParkingOptions);
+                });
             },
             // 平均停车时长
-            queryaverageParkingTime() {
-                this.lineId = 'averageParkingTime';
-                this.lineOptions = 'averageParkingTimeOptions';
-                this.lineTitle = '平均停车时长';
-                this.lineChartsType = 'area';
-                this.lineChartsList = this.averageParkingTimeData;
-                this.lineChartsX = this.averageParkingTimeXz;
-                this.lineChartsName = this.averageParkingTimeName;
-                this.queryLine(this.lineId, this.lineOptions);
+            queryParkOptByAvgParkDuration() {
+                // this.lineId = 'averageParkingTime';
+                // this.lineOptions = 'averageParkingTimeOptions';
+                // this.lineTitle = '平均停车时长';
+                // this.lineChartsType = 'area';
+                // this.lineChartsList = this.averageParkingTimeData;
+                // this.lineChartsX = this.averageParkingTimeXz;
+                // this.lineChartsName = this.averageParkingTimeName;
+                // this.queryLine(this.lineId, this.lineOptions);
+                const param = {
+                    "statisType":this.days.statisType
+                };
+                this.$homePage.queryParkOptByAvgParkDuration(param).then(res => {
+                    this.averageParkingTimeXz = [];
+                    this.averageParkingTimeData = [];
+                    res.data.dataList.detail.forEach((item) => {
+                        this.averageParkingTimeXz.push(item.date);
+                        this.averageParkingTimeData.push(Number(item.val));
+                    });
+                    this.averageParkingTimeOptions = {
+                        chart: {
+                            type: 'area',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: 'averageParkingTime',
+                        },
+                        title: {
+                            text: this.averageParkingTimeName
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: this.averageParkingTimeXz
+                        },
+                        yAxis: {
+                            title: {
+                                text: '单位（分钟）'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value / 1000 + 'k';
+                                }
+                            }
+                        },
+                        legend: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'left',
+                            x: 300,
+                            y: 10,
+                            itemStyle: {
+                                color: '#cccccc',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: 'bold',
+                                fill: '#cccccc',
+                            },
+                            itemHoverStyle: {
+                                color: '#666666',
+                            },
+                            itemHiddenStyle: {
+                                color: '#333333'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>分钟'
+                        },
+                        plotOptions: {
+                            area: {
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: this.averageParkingTimeName,
+                            data: this.averageParkingTimeData
+                        }]
+                    };
+                    new HighCharts.chart(this.averageParkingTimeOptions);
+                });
+
             },
             // 车位利用率
-            queryparkingSpaceUtilization() {
-                this.lineId = 'parkingSpaceUtilization';
-                this.lineOptions = 'parkingSpaceUtilizationOptions';
-                this.lineTitle = '车位利用率';
-                this.lineChartsType = 'area';
-                this.lineChartsList = this.parkingSpaceUtilizationData;
-                this.lineChartsX = this.parkingSpaceUtilizationXz;
-                this.lineChartsName = this.parkingSpaceUtilizationName;
-                this.queryLine(this.lineId, this.lineOptions);
+            queryParkOptByParkSpaceUsedRate() {
+                // this.lineId = 'parkingSpaceUtilization';
+                // this.lineOptions = 'parkingSpaceUtilizationOptions';
+                // this.lineTitle = '车位利用率';
+                // this.lineChartsType = 'area';
+                // this.lineChartsList = this.parkingSpaceUtilizationData;
+                // this.lineChartsX = this.parkingSpaceUtilizationXz;
+                // this.lineChartsName = this.parkingSpaceUtilizationName;
+                // this.queryLine(this.lineId, this.lineOptions);
+                const param = {
+                    "statisType":this.days.statisType
+                };
+                this.$homePage.queryParkOptByParkSpaceUsedRate(param).then(res => {
+                    this.parkingSpaceUtilizationXz = [];
+                    this.parkingSpaceUtilizationData = [];
+                    res.data.dataList.detail.forEach((item) => {
+                        this.parkingSpaceUtilizationXz.push(item.date);
+                        this.parkingSpaceUtilizationData.push(Number(item.val));
+                    });
+                    this.parkingSpaceUtilizationOptions = {
+                        chart: {
+                            type: 'area',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: 'parkingSpaceUtilization',
+                        },
+                        title: {
+                            text: this.parkingSpaceUtilizationName
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: this.parkingSpaceUtilizationXz
+                        },
+                        yAxis: {
+                            title: {
+                                text: '单位（%）'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value / 1000 + 'k';
+                                }
+                            }
+                        },
+                        legend: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'left',
+                            x: 300,
+                            y: 10,
+                            itemStyle: {
+                                color: '#cccccc',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: 'bold',
+                                fill: '#cccccc',
+                            },
+                            itemHoverStyle: {
+                                color: '#666666',
+                            },
+                            itemHiddenStyle: {
+                                color: '#333333'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>%'
+                        },
+                        plotOptions: {
+                            area: {
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: this.parkingSpaceUtilizationName,
+                            data: this.parkingSpaceUtilizationData
+                        }]
+                    };
+                    new HighCharts.chart(this.parkingSpaceUtilizationOptions);
+                });
             },
             // 车位周转率
-            queryparkingSpaceTurnoverRate() {
-                this.lineId = 'parkingSpaceTurnoverRate';
-                this.lineOptions = 'parkingSpaceTurnoverRateOptions';
-                this.lineTitle = '车位周转率';
-                this.lineChartsType = 'area';
-                this.lineChartsList = this.parkingSpaceTurnoverRateData;
-                this.lineChartsX = this.parkingSpaceTurnoverRateXz;
-                this.lineChartsName = this.parkingSpaceTurnoverRateName;
-                this.queryLine(this.lineId, this.lineOptions);
+            queryParkOptByParkSpaceTurnoverRate() {
+                // this.lineId = 'parkingSpaceTurnoverRate';
+                // this.lineOptions = 'parkingSpaceTurnoverRateOptions';
+                // this.lineTitle = '车位周转率';
+                // this.lineChartsType = 'area';
+                // this.lineChartsList = this.parkingSpaceTurnoverRateData;
+                // this.lineChartsX = this.parkingSpaceTurnoverRateXz;
+                // this.lineChartsName = this.parkingSpaceTurnoverRateName;
+                // this.queryLine(this.lineId, this.lineOptions);
+                const param = {
+                    "statisType":this.days.statisType
+                };
+                this.$homePage.queryParkOptByParkSpaceTurnoverRate(param).then(res => {
+                    this.parkingSpaceTurnoverRateXz = [];
+                    this.parkingSpaceTurnoverRateData = [];
+                    res.data.dataList.detail.forEach((item) => {
+                        this.parkingSpaceTurnoverRateXz.push(item.date);
+                        this.parkingSpaceTurnoverRateData.push(Number(item.val));
+                    });
+                    this.parkingSpaceTurnoverRateOptions = {
+                        chart: {
+                            type: 'area',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: 'parkingSpaceTurnoverRate',
+                        },
+                        title: {
+                            text: this.parkingSpaceTurnoverRateName
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: this.parkingSpaceTurnoverRateXz
+                        },
+                        yAxis: {
+                            title: {
+                                text: '单位（%）'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value / 1000 + 'k';
+                                }
+                            }
+                        },
+                        legend: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'left',
+                            x: 300,
+                            y: 10,
+                            itemStyle: {
+                                color: '#cccccc',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: 'bold',
+                                fill: '#cccccc',
+                            },
+                            itemHoverStyle: {
+                                color: '#666666',
+                            },
+                            itemHiddenStyle: {
+                                color: '#333333'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>%'
+                        },
+                        plotOptions: {
+                            area: {
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: this.parkingSpaceTurnoverRateName,
+                            data: this.parkingSpaceTurnoverRateData
+                        }]
+                    };
+                    new HighCharts.chart(this.parkingSpaceTurnoverRateOptions);
+                });
+            },
+            // 停车场收入排行
+            queryParkIncomeRanking() {
+                this.parkingRevenueRankingChartX = [];
+                const param = {
+                    "statisType":this.days.statisType
+                };
+                var dataListA = [];
+                this.$homePage.queryParkIncomeRanking(param).then(res => {
+                    res.data.dataList.forEach((item) => {
+                        this.parkingRevenueRankingChartX.push(item.parkName);
+                        dataListA.push(Number(item.parkIncome));
+                        // dataListB.push(Number(item.arrearageMoneyAmount));
+                    });
+                    this.parkingRevenueRankingList = [
+                        {
+                            name: this.parkName,
+                            data: dataListA
+                        },
+                    ];
+                    this.parkingRevenueRankingChart = {
+                        chart: {
+                            type: "bar",
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: "parkingRevenueRanking"
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            text: "停车场收入排行"
+                        },
+                        xAxis: {
+                            categories: this.parkingRevenueRankingChartX,
+
+                            categories: this.parkingRevenueRankingChartY
+                        },
+                        yAxis: {
+                            title: {
+                                text: ""
+                            },
+                            categories: this.parkingRevenueRankingChartY,
+                            labels: {
+                                format: "{value}分"
+                            },
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        legend: {
+                            enabled: false,
+                            align: "center",
+                            verticalAlign: "top",
+                            x: 0,
+                            y: -20,
+                            itemStyle: {
+                                color: "#cccccc",
+                                cursor: "pointer",
+                                fontSize: "12px",
+                                fontWeight: "bold",
+                                fill: "#cccccc"
+                            },
+                            itemHoverStyle: {
+                                color: "#666666"
+                            },
+                            itemHiddenStyle: {
+                                color: "#333333"
+                            }
+                        },
+                        series: this.parkingRevenueRankingList
+                    };
+                    new HighCharts.chart(this.parkingRevenueRankingChart);
+                });
             },
             // 折线图的方法
             queryLine() {
@@ -876,57 +1276,7 @@
                 // 绘制
                 new HighCharts.Chart(that.selfServiceCarWashingLine);
             },
-            // 停车场收入排行
-            queryparkingRevenueRanking() {
-                var that = this;
-                that.parkingRevenueRankingOptions = {
-                    chart: {
-                        type: 'bar',
-                        renderTo: 'parkingRevenueRanking',
-                        backgroundColor: 'rgba(0,0,0,0)',
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: ['内部停车场', '专用停车场', '员工停车场', '新能源停车场', '公共停车场'],
-                        title: {
-                            text: null
-                        }
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: '单位（辆）',
-                            align: 'high'
-                        },
-                        labels: {
-                            overflow: 'justify'
-                        }
-                    },
-                    tooltip: {
-                        valueSuffix: ' 辆'
-                    },
-                    plotOptions: {
-                        bar: {
-                            dataLabels: {
-                                enabled: false,
-                                allowOverlap: false // 允许数据标签重叠
-                            },
-                            showInLegend: false
-                        }
-                    },
-                    series: [{
-                        name: '共',
-                        data: [107, 31, 635, 203, 2]
-                    }]
-                }
-                // 绘制
-                new HighCharts.Chart(that.parkingRevenueRankingOptions);
-            },
+
         }
     };
 </script>
