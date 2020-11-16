@@ -212,7 +212,7 @@
         >
           <el-table-column type="index" label="选择" align="center" width="80">
             <template slot-scope="scope">
-              <el-radio v-model="currentRowId" :label="scope.row.parkId" @change="changeRedio($event,scope.row)">
+              <el-radio v-model="currentRowId" :label="scope.row.parkLayerId" @change="changeRedio($event,scope.row)">
                 <span></span></el-radio>
             </template>
           </el-table-column>
@@ -587,6 +587,28 @@ export default {
         this.parkLayerList = res.data.dataList;
         console.log("上表列表数据", this.parkLayerList);
       })
+    },
+    // 删除
+    deleteListDialogue(row) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        const param = {
+          parkLayerId: [row.parkLayerId],
+        };
+        console.log(row,row.parkLayerId);
+        this.$ysParking.deleteParkLayer(param).then(res => {
+          // console.log("打印响应", res)
+          this.$message({
+            type: "success", message: "删除成功!"
+          });
+          this.queryParkLayerList();
+        });
+      }).catch(() => {
+        this.$message({type: "info", message: "已取消删除"});
+      });
     },
     // 切换单选框查询下表列表数据
     changeRedio(event, row) {

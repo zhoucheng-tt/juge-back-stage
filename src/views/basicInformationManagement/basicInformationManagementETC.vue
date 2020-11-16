@@ -174,6 +174,14 @@
       SelectQueryList() {
         console.log("打印出来点击查询后所产生的值", this.upQueryList)
       },
+      // 查询列表信息
+      queryETCList() {
+        this.ETCInformationManagement = [],
+        this.$deviceManagement.queryETCList().then(res => {
+          this.ETCInformationManagement = res.resultEntity;
+          console.log("etc列表信息",this.ETCInformationManagement)
+        })
+      },
       // 点击新增
       addETC() {
 
@@ -208,6 +216,10 @@
       // 点击确定提交修改信息
       ETCInfoInsert(row) {
       },
+    },
+
+    mounted() {
+      this.queryETCList();
     }
   }
 

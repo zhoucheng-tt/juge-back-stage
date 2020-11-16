@@ -188,7 +188,6 @@
                 <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange" disabled>
                   <el-checkbox v-for="(item, index) in roleList"
                                :label="item.roleId"
-                               v-model="checked"
                                :key="index">{{ item.roleName }}
                   </el-checkbox>
                 </el-checkbox-group>
@@ -426,7 +425,7 @@ export default {
     queryRoleListByUser() {
       this.roleList = [];
       const param = {
-        "userId": ""
+        userId: ""
       };
       this.$systemUser.queryRoleListByUser(param).then(res => {
         this.roleList = res.data.dataList;
@@ -450,6 +449,7 @@ export default {
     //分页方法
     handleCurrentModify(val) {
       this.pageNum = val;
+      this.select();
     },
     //新增用户弹窗
     addUser() {

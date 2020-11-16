@@ -147,7 +147,7 @@ export function queryParkSpaceList(param) {
 export function insertParkLayer(param) {
     return request({
         url: '/parkFunc/insertParkLayer',
-        method: 'url',
+        method: 'post',
         data: param
     })
 }
@@ -155,8 +155,8 @@ export function insertParkLayer(param) {
 //停车场管理-车位管理-删除 deleteParkLayer
 export function deleteParkLayer(param) {
     return request({
-        url: '/parkFunc/insertParkLayer',
-        method: 'url',
+        url: '/parkFunc/deleteParkLayer',
+        method: 'post',
         data: param
     })
 }

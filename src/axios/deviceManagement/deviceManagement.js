@@ -201,10 +201,11 @@ export function queryPassagewayCamera(param) {
 }
 
 //基础信息管理信息ETC
-export function queryETC(param) {
+export function queryETCList(param) {
     return request({
-        url: 'ETCFunc/queryETC',
+        url: 'http://localhost:8080/ETCFunc/queryETCList',
         method: 'post',
-        data: param
+        data: param,
+        flag: 'out',
     })
 }
