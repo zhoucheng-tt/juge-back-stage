@@ -595,7 +595,35 @@ export default {
     },
     //导出Excel
     exportExcel() {
+      var date = new Date();
+      var param = {
+        column_zh: ["停车场编号", "停车场名称", "停车场类型", "归属企业", "归属地市", "归属区县", "地址", "经度", "纬度", "规划总车位数", "计费规则", "联系人", "联系人电话", "停车场图片"],
+        column_en: ["parkId", "parkName", "parkTypeName", "companyName", "cityName", "districtName", "address", "longitude", "latitude", "parkSpaceNum", "billingRuleDesc", "contact", "contactPhoneNumber", "parkPictureFile"],
+        fileName: "停车场" + date.toLocaleString(),
+      };
+      this.$ysParking.exportParkList(param).then(res => {
+            const aLink = document.createElement("a");
+            let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+            aLink.href = URL.createObjectURL(blob)
+            aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+            aLink.click()
+//document.body.appendChild(aLink)
+            this.$refs.loadElement.appendChild(aLink);
+          }
+      )
+      /*  $.fileDownload("../parkFunc/exportParkList",{
+          httpMethod: 'POST',
+          data:{"param":JSON.stringify(param)},
+          prepareCallback:function(url){
 
+          },
+          successCallback:function(url){
+
+          },
+          failCallback: function (html, url) {
+
+          }
+        });*/
     }
   },
   mounted() {

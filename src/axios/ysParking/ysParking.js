@@ -88,6 +88,17 @@ export function updatePark(param) {
     })
 }
 
+//停车场管理-停车场管理-导出停车场
+export function exportParkList(param) {
+    return request({
+        url: '/parkFunc/exportParkList',
+        method: 'post',
+        flag: 'innerExt',
+        data: param,
+        responseType: 'blob'
+    })
+}
+
 //停车场管理-出入口管理-列表查询
 export function queryPassagewayList(param) {
     return request({

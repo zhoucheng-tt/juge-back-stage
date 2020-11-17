@@ -77,14 +77,19 @@ service.interceptors.response.use(
       return res
     }  else {
       if (res.status !== '0') {
-        Message({
-          message: res.resultMsg || '系统错误，请联系管理员',
-          type: 'error',
-          duration: 5 * 1000,
-          showClose: true
-        })
-        // router.push({ name: '/login' })
-        return Promise.reject(res.resultMsg || 'error')
+        if (response.config.flag === 'innerExt') {
+          return res
+        } else {
+          Message({
+            message: res.resultMsg || '系统错误，请联系管理员',
+            type: 'error',
+            duration: 5 * 1000,
+            showClose: true
+          })
+          // router.push({ name: '/login' })
+          return Promise.reject(res.resultMsg || 'error')
+        }
+
       } else {
         return res
       }
