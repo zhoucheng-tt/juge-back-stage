@@ -93,8 +93,8 @@ export function exportParkList(param) {
     return request({
         url: '/parkFunc/exportParkList',
         method: 'post',
-        flag: 'innerExt',
         data: param,
+        flag: 'innerExt',
         responseType: 'blob'
     })
 }
@@ -169,6 +169,17 @@ export function deleteParkLayer(param) {
         url: '/parkFunc/deleteParkLayer',
         method: 'post',
         data: param
+    })
+}
+
+//停车场管理-出入口管理-导出
+export function exportPassagewayList(param) {
+    return request({
+        url: '/parkFunc/exportPassagewayList',
+        method: 'post',
+        data: param,
+        flag: 'innerExt',
+        responseType: 'blob'
     })
 }
 

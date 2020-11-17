@@ -28,6 +28,9 @@
             <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
           <el-form-item>
+            <el-button type="info" @click="exportExcel()">导出</el-button>
+          </el-form-item>
+          <el-form-item>
             <el-button type="primary" @click="addInletAndOutlet"
             >新增出入口
             </el-button>
@@ -438,6 +441,26 @@ export default {
         console.log("123");
       }
     },
+    //导出
+    exportExcel() {
+      var date = new Date();
+      var param = {
+        "cityCode": this.cityCode,//地市编码
+        "districtCode": this.districtCode,//区县编码
+        "parkId": this.parkId,//停车场id
+        "column_zh": ["停车场编号", "停车场名称", "停车场类型", "出入口类型", "出入口编号", "出入口名称", "出入口描述", "摄像头编号", "道闸机编号"],
+        "column_en": ["parkId", "parkName", "parkTypeName", "passagewayTypeName", "passagewayId", "passagewayName", "passagewayDesc", "passagewayCameraId", "passagewayGateId"],
+        "fileName": "出入口管理" + date.toLocaleString(),
+      };
+      this.$ysParking.exportPassagewayList(param).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+        aLink.href = URL.createObjectURL(blob)
+        aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+        aLink.click()
+      })
+    },
+
     //单个删除
     deleteListDialogue(row) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -464,13 +487,15 @@ export default {
           .catch(() => {
             this.$message({type: "info", message: "已取消删除"});
           });
-    },
+    }
+    ,
     // 分页
     handleCurrentModify(val) {
       this.pageNum = val;
       this.queryPassagewayList();
       //查询列表方法
-    },
+    }
+    ,
     // 斑马纹样式
     tableRowClassName({rowIndex}) {
       if (rowIndex % 2 == 1) {
@@ -479,7 +504,8 @@ export default {
         return "successSecond";
       }
       return "";
-    },
+    }
+    ,
     // 点击查询调用的方法
     selectQueryList() {
       console.log("打印出来点击查询后所产生的值", this.queryParkId);
@@ -499,14 +525,16 @@ export default {
       } else {
         this.queryPassagewayList();
       }
-    },
+    }
+    ,
     // 点击新增
     addInletAndOutlet() {
       //提前清空表单中数据
       this.addListDialogueandoffList = {};
       this.addListDialogueandoff = true;
       // this.addListDialogueandoffList = row
-    },
+    }
+    ,
     // 点击保存
     addInfoInsert() {
       this.$refs["addPassageWay"].validate(valid => {
@@ -522,13 +550,15 @@ export default {
           this.addListDialogueandoff = false;
         }
       });
-    },
+    }
+    ,
     // 点击修改按钮执行的操作
     editListDialogue(row) {
       console.log(row);
       this.editListDialogueandoff = true;
       this.editListDialogueandoffList = row;
-    },
+    }
+    ,
     // 保存修改信息
     InfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
@@ -539,7 +569,8 @@ export default {
       this.$message({type: "success", message: "修改成功!"});
       this.queryPassagewayList();
       this.editListDialogueandoff = false;
-    },
+    }
+    ,
     //查询列表方法
     queryPassagewayList() {
       var that = this;
@@ -554,7 +585,8 @@ export default {
         that.manageEntryAndExit = res.data.dataList;
         // console.log("列表数据,", that.manageEntryAndExit);
       });
-    },
+    }
+    ,
     // 查询停车场下拉表单
     queryParking() {
       const param = {
@@ -567,7 +599,8 @@ export default {
         this.parkingLotList = res.data.dataList;
         // console.log("下拉菜单", this.parkingLotList);
       });
-    },
+    }
+    ,
     // 出入口下拉表单
     queryPassageway() {
       var that = this;

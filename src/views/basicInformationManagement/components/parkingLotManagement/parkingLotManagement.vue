@@ -607,23 +607,10 @@ export default {
             aLink.href = URL.createObjectURL(blob)
             aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
             aLink.click()
-//document.body.appendChild(aLink)
-            this.$refs.loadElement.appendChild(aLink);
+            // document.body.appendChild(aLink)
+            // this.$refs.loadElement.appendChild(aLink);
           }
       )
-      /*  $.fileDownload("../parkFunc/exportParkList",{
-          httpMethod: 'POST',
-          data:{"param":JSON.stringify(param)},
-          prepareCallback:function(url){
-
-          },
-          successCallback:function(url){
-
-          },
-          failCallback: function (html, url) {
-
-          }
-        });*/
     }
   },
   mounted() {
