@@ -624,10 +624,10 @@
                     "statisType":this.days.statisType
                 };
                 this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
-                    var alipayDataList = ['支付宝支付', Number(res.data.dataList[0].alipayPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-                    var cashDataList = ['现金支付', Number(res.data.dataList[0].cashPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-                    var wechatDataList = ['微信支付', Number(res.data.dataList[0].wechatPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-                    var qrCodeDataList = ['扫码支付', Number(res.data.dataList[0].qrCodePaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
+                    var alipayDataList = ['支付宝支付', Number(res.data.dataList[0].alipayPaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
+                    var cashDataList = ['现金支付', Number(res.data.dataList[0].cashPaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
+                    var wechatDataList = ['微信支付', Number(res.data.dataList[0].wechatPaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
+                    var qrCodeDataList = ['扫码支付', Number(res.data.dataList[0].qrCodePaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
 
                     this.paymentIncomeAnalysis = [
                         {
@@ -639,6 +639,7 @@
                     this.paymentIncomeAnalysisPie = {
                         chart: {
                             type: "pie",
+                            backgroundColor: 'rgba(0,0,0,0)',
                             renderTo: "paymentIncomeAnalysis",
                             options3d: {
                                 enabled: true,
@@ -659,7 +660,7 @@
                             pie: {
                                 allowPointSelect: true,
                                 cursor: "pointer",
-                                innerSize: 100,
+                                innerSize: 1,
                                 depth: 45,
                                 dataLabels: {
                                     enabled: true,

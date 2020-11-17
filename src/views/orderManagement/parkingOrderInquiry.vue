@@ -139,20 +139,20 @@
                 readonly: true,
                 // 列表中数据暂存处， 订单数据
                 orderParkingList: [
-                    {
-                        orderNumber: '01',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '支付宝'
-                    },
+                    // {
+                    //     orderNumber: '01',
+                    //     parkingLotNumber: '1',
+                    //     nameOfParkingLot: '一号停车场',
+                    //     carNum: '苏A00001',
+                    //     parkingNumber: '10',
+                    //     entryTime: '2020-10-20 10：20',
+                    //     deliveryTime: '2020-10-20 18：20',
+                    //     parkingTime: '8小时',
+                    //     chargingStatus: '未支付',
+                    //     amountReceivable: '12',
+                    //     paidInAmount: '12',
+                    //     paymentMethod: '支付宝'
+                    // },
                     {
                         orderNumber: '013',
                         parkingLotNumber: '1',
