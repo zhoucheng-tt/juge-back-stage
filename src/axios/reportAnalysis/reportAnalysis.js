@@ -81,9 +81,10 @@ export function queryParkOpeIncomeArrearsChart(param) {
 export function queryOpeReportStatisDayAnal(param) {
     return request(
         {
-            url: 'decisionAnalysisFunc/queryOpeReportStatisDayAnal',
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/reportDate',
             method: 'post',
-            data: param
+            data: param,
+            flag:'out'
         }
     )
 }
@@ -92,9 +93,22 @@ export function queryOpeReportStatisDayAnal(param) {
 export function queryOpeReportStatisMonthAnal(param) {
     return request(
         {
-            url: 'decisionAnalysisFunc/queryOpeReportStatisMonthAnal',
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/reportMonth',
             method: 'post',
-            data: param
+            data: param,
+            flag:'out'
+        }
+    )
+}
+
+//报表分析年报
+export function queryOpeReportStatisYearAnal(param) {
+    return request(
+        {
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/reportYear',
+            method: 'post',
+            data: param,
+            flag:'out'
         }
     )
 }
@@ -148,6 +162,36 @@ export function queryParkOpeIdxParkDetailAnal(param) {
             url: 'decisionAnalysisFunc/queryParkOpeIdxParkDetailAnal',
             method: 'post',
             data: param
+        }
+    )
+}
+
+//停车场运营指标分析平均充电时间
+export function queryAvgChargeTime(param) {
+    return request(
+        {
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/avgChargeTime',
+            method: 'post',
+            header: {
+                'content-type': 'application/json;charset=utf-8'
+            },
+            data: param,
+            flag: 'out'
+        }
+    )
+}
+
+//停车场运营指标分析平均充电时间
+export function queryAvgWashTime(param) {
+    return request(
+        {
+            url: 'http://192.168.1.163:8000/EarnAnalysisController/avgWashTime',
+            method: 'post',
+            header: {
+                'content-type': 'application/json;charset=utf-8'
+            },
+            data: param,
+            flag: 'out'
         }
     )
 }

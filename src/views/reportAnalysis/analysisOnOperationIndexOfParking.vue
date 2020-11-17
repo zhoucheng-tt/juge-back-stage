@@ -58,20 +58,21 @@
     </div>
     <!-- 底部表格部分 -->
     <div class="down">
-        <el-table :data="reportList" :row-class-name="tableRowClassName"
-                  :header-cell-style="{'text-align': 'center',background: '#24314A',color: '#FFF',border: 'none',padding: 'none',fontSize: '12px',fontWeight: '100'}"
-                  :cell-style="{ 'text-align': 'center' }" style="width: 100%;height: 90%">
-          <el-table-column prop="statisDate" label="日期"/>
-          <el-table-column prop="parkName" label="停车场"/>
-          <el-table-column prop="parkSpaceCount" label="车位数"/>
-          <el-table-column prop="parkCount" label="停车数量"/>
-          <el-table-column prop="parkDuration" label="平均停车时长"/>
-          <el-table-column prop="parkSpaceUsedRate" label="车位利用率"/>
-          <el-table-column prop="parkSpaceTurnoverRate" label="车位周转率"/>
-        </el-table>
+      <el-table :data="reportList" :row-class-name="tableRowClassName"
+                :header-cell-style="{'text-align': 'center',background: '#24314A',color: '#FFF',border: 'none',padding: 'none',fontSize: '12px',fontWeight: '100'}"
+                :cell-style="{ 'text-align': 'center' }" style="width: 100%;height: 90%">
+        <el-table-column prop="statisDate" label="日期"/>
+        <el-table-column prop="parkName" label="停车场"/>
+        <el-table-column prop="parkSpaceCount" label="车位数"/>
+        <el-table-column prop="parkCount" label="停车数量"/>
+        <el-table-column prop="parkDuration" label="平均停车时长"/>
+        <el-table-column prop="parkSpaceUsedRate" label="车位利用率"/>
+        <el-table-column prop="parkSpaceTurnoverRate" label="车位周转率"/>
+      </el-table>
       <div style="width:100%;height:10%;">
         <el-pagination style="position: absolute;right: 1px;" background layout="total, prev, pager, next, jumper"
-                       :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal" />
+                       :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
+                       :total="pageTotal"/>
       </div>
     </div>
   </div>
@@ -91,7 +92,7 @@ export default {
   data() {
     return {
       //表格数据
-      reportList:[],
+      reportList: [],
       //初始化分页
       pageNum: 1,
       pageSize: 3,
@@ -595,25 +596,175 @@ export default {
     },
     // 平均充电时长
     queryaverageChargingTime() {
-      this.lineId = 'averageChargingTime';
-      this.lineOptions = 'averageChargingTimeOptions';
-      this.lineTitle = '平均充电时间';
-      this.lineChartsType = 'area';
-      this.lineChartsList = this.averageChargingTimeData;
-      this.lineChartsX = this.averageChargingTimeXz;
-      this.lineChartsName = this.averageChargingTimeName;
-      this.queryLine(this.lineId, this.lineOptions);
+      // this.lineId = 'averageChargingTime';
+      // this.lineOptions = 'averageChargingTimeOptions';
+      // this.lineTitle = '平均充电时间';
+      // this.lineChartsType = 'area';
+      // this.lineChartsList = this.averageChargingTimeData;
+      // this.lineChartsX = this.averageChargingTimeXz;
+      // this.lineChartsName = this.averageChargingTimeName;
+      // this.queryLine(this.lineId, this.lineOptions);
+      const param = {
+        queryDate: this.upQueryList.dataTimeIn,
+      };
+      this.$reportAnalysis.queryAvgChargeTime(param).then(res => {
+        // console.log(res,"aa");
+        this.averageChargingTimeXz=[];
+        this.averageChargingTimeData=[]
+        res.resultEntity.forEach(item => {
+          this.averageChargingTimeXz.push(item.hours);
+          this.averageChargingTimeData.push(Number(item.avgChargeTime));
+        });
+        this.averageChargingTimeOptions = {
+          chart: {
+            type: 'area',
+            backgroundColor: 'rgba(0,0,0,0)',
+            renderTo: 'averageChargingTime',
+          },
+          title: {
+            text: "平均充电时间"
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.averageChargingTimeXz
+          },
+          yAxis: {
+            title: {
+              text: '单位（分钟）'
+            }
+          },
+          legend: {
+            enabled: true,
+            align: 'center',
+            verticalAlign: 'left',
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: '#cccccc',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              fill: '#cccccc',
+            },
+            itemHoverStyle: {
+              color: '#666666',
+            },
+            itemHiddenStyle: {
+              color: '#333333'
+            }
+          },
+          tooltip: {
+            pointFormat: '{series.name} 充电 <b>{point.y:,.0f}</b>分钟'
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          },
+          series: [{
+            name: this.averageChargingTimeName,
+            data: this.averageChargingTimeData
+          }]
+        };
+        new HighCharts.chart(this.averageChargingTimeOptions);
+      })
     },
     // 平均洗车时长
     queryaverageWashingTime() {
-      this.lineId = 'averageWashingTime';
-      this.lineOptions = 'averageWashingTimeOptions';
-      this.lineTitle = '平均洗车时长';
-      this.lineChartsType = 'area';
-      this.lineChartsList = this.averageWashingTimeData;
-      this.lineChartsX = this.averageWashingTimeXz;
-      this.lineChartsName = this.averageWashingTimeName;
-      this.queryLine(this.lineId, this.lineOptions);
+      // this.lineId = 'averageWashingTime';
+      // this.lineOptions = 'averageWashingTimeOptions';
+      // this.lineTitle = '平均洗车时长';
+      // this.lineChartsType = 'area';
+      // this.lineChartsList = this.averageWashingTimeData;
+      // this.lineChartsX = this.averageWashingTimeXz;
+      // this.lineChartsName = this.averageWashingTimeName;
+      // this.queryLine(this.lineId, this.lineOptions);
+      const param = {
+        queryDate: this.upQueryList.dataTimeIn
+      };
+      this.$reportAnalysis.queryAvgWashTime(param).then(res => {
+        // console.log(res,"aa");
+        this.averageWashingTimeXz=[];
+        this.averageWashingTimeData=[]
+        res.resultEntity.forEach(item => {
+          this.averageWashingTimeXz.push(item.hours);
+          this.averageWashingTimeData.push(Number(item.avgWashTime));
+        });
+        this.averageWashingTimeOptions = {
+          chart: {
+            type: 'area',
+            backgroundColor: 'rgba(0,0,0,0)',
+            renderTo: 'averageWashingTime',
+          },
+          title: {
+            text: "平均洗车时长"
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.averageWashingTimeXz
+          },
+          yAxis: {
+            title: {
+              text: '单位（分钟）'
+            }
+          },
+          legend: {
+            enabled: true,
+            align: 'center',
+            verticalAlign: 'left',
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: '#cccccc',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              fill: '#cccccc',
+            },
+            itemHoverStyle: {
+              color: '#666666',
+            },
+            itemHiddenStyle: {
+              color: '#333333'
+            }
+          },
+          tooltip: {
+            pointFormat: '{series.name} 洗车 <b>{point.y:,.0f}</b>分钟'
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          },
+          series: [{
+            name: this.averageWashingTimeName,
+            data: this.averageWashingTimeData
+          }]
+        };
+        new HighCharts.chart(this.averageWashingTimeOptions);
+      })
     },
     // 折线图的方法
     queryLine() {
@@ -704,16 +855,16 @@ export default {
     //列表查询
     queryReportList() {
       const param = {
-        "statisDate":this.upQueryList.dataTimeIn,
-        "cityCode":"321300",
-        "districtCode":"321302",
-        "parkId":this.upQueryList.TingNum,
-        "pageNum":this.pageNum,
-        "pageSize":this.pageSize
+        "statisDate": this.upQueryList.dataTimeIn,
+        "cityCode": "321300",
+        "districtCode": "321302",
+        "parkId": this.upQueryList.TingNum,
+        "pageNum": this.pageNum,
+        "pageSize": this.pageSize
       };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailAnal(param).then(res=>{
+      this.$reportAnalysis.queryParkOpeIdxParkDetailAnal(param).then(res => {
         this.reportList = res.data.dataList;
-        this.pageTotal=res.data.totalRecord;
+        this.pageTotal = res.data.totalRecord;
       });
     }
   }
@@ -766,6 +917,7 @@ export default {
   background-color: #ffffff;
   float: left;
 }
+
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
   background: #7de6f8 !important;
