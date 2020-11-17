@@ -105,7 +105,7 @@
                                 </el-row>
                                 <el-row>
                                     <span class="spanTopNum" style="color:#08F6E4;">
-                                          {{item.totalIncome}}
+                                          {{parseInt(item.totalIncome/100)}}
                                     </span>
                                 </el-row>
                             </el-col>
@@ -117,7 +117,7 @@
                                 </el-row>
                                 <el-row>
                                     <span class="spanTopNum" style="color:#895EFC ">
-                                        {{item.receivableMoneyAmount}}
+                                        {{parseInt(item.receivableMoneyAmount/100)}}
                                     </span>
                                 </el-row>
                             </el-col>
@@ -129,7 +129,7 @@
                                 </el-row>
                                 <el-row>
                                     <span class="spanTopNum" style="color:#E9C503">
-                                      {{item.arrearageMoneyAmount}}
+                                      {{parseInt(item.arrearageMoneyAmount/100)}}
                                     </span>
                                 </el-row>
                             </el-col>
@@ -287,26 +287,7 @@
                 classStrust3: 0,
                 classStrust4: 0,
                 // 充电桩统计数据 （暂时的数据）
-                contentNumList: [
-                    {
-                        //欠费金额
-                        arrearageMoneyAmount: "120",
-                        //应收金额
-                        receivableMoneyAmount: "620",
-                        //总收入
-                        totalIncome: "620",
-                        //空闲充电桩总数
-                        totalRechargeLeft: "20",
-                        //充电桩总收入
-                        rechargeLeftIncome: '5500',
-                        //空闲洗车位总数
-                        totalWashCarPort: "30",
-                        //洗车位收入
-                        washCarPortIncome: "3500",
-                        //剩余车位数
-                        leftPort: '666666'
-                    }
-                ],
+                contentNumList:[],
                 //"statisType"存放
                 days:{
                     statisType:"today"
@@ -388,37 +369,17 @@
             this.initMap();
             // 添加图标的方法
             this.addMoudel();
-            // 支付方式
-            this.queryPaymentBehaviorAnalysis();
-            // 总停车数量
-            this.queryParkOptByParkCount();
-            // 平均停车时长
-            this.queryParkOptByAvgParkDuration();
-            // 车位利用率
-            this.queryParkOptByParkSpaceUsedRate();
-            // 车位周转率
-            this.queryParkOptByParkSpaceTurnoverRate();
-            // 停车场收入排行
-            this.queryParkIncomeRanking();
             // 充电桩收入排行
             this.querychargingPileRevenueLine();
             // 充电桩收入按月分析
             this.queryselfServiceCarWashingLine();
             this.queryTest();
             //查询总收入
-            // this.queryTotalIncome();
+            this.jintian();
+            // this.jintian();
         },
         methods: {
-            //获取总的收入的方法
-            queryTotalIncome(){
-                const param={
-                };
-                console.log('总收入方法传入的参数',param)
-              this.$homePage.queryTotalIncome(param).then(res => {
-                  this.contentNumList=res.data.datalist;
-                  console.log("总收入参数",this.contentNumList)
-              })
-            },
+
             // 今日点击数据处理方法
             jintian() {
                 //控制显示今天
@@ -427,34 +388,22 @@
                 this.classStrust3 = 0
                 this.classStrust4 = 0
                 this.days.statisType = "today"
-                this.queryParkOptByParkCount();
-                this.queryParkOptByAvgParkDuration();
-                this.queryParkOptByParkSpaceUsedRate();
-                this.queryParkOptByParkSpaceTurnoverRate();
-                this.queryParkIncomeRanking();
+                // 支付方式
                 this.queryPaymentBehaviorAnalysis();
+                // 总停车数量
+                this.queryParkOptByParkCount();
+                // 平均停车时长
+                this.queryParkOptByAvgParkDuration();
+                // 车位利用率
+                this.queryParkOptByParkSpaceUsedRate();
+                // 车位周转率
+                this.queryParkOptByParkSpaceTurnoverRate();
+                // 停车场收入排行
+                this.queryParkIncomeRanking();
+                //顶部总收入查询
+                this.queryTotalIncome();
                 // 数据变动
-                this.contentNumList = [
-                    {
-                        //欠费金额
-                        arrearageMoneyAmount: "120",
-                        //应收金额
-                        receivableMoneyAmount: "620",
-                        //总收入
-                        totalIncome: "620",
-                        //空闲充电桩总数
-                        totalRechargeLeft: "20",
-                        //充电桩总收入
-                        rechargeLeftIncome: '5500',
-                        //空闲洗车位总数
-                        totalWashCarPort: "30",
-                        //洗车位收入
-                        washCarPortIncome: "3500",
-                        //剩余车位数
-                        leftPort: '666266'
-                    }
-                ];
-
+                this.contentNumList = [];
             },
             // 昨日点击数据处理方法
             zuotian() {
@@ -469,28 +418,10 @@
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //顶部总收入查询
+                this.queryTotalIncome();
                 // 数据变动
-                this.contentNumList = [
-                    {
-                        //欠费金额
-                        arrearageMoneyAmount: "120",
-                        //应收金额
-                        receivableMoneyAmount: "620",
-                        //总收入
-                        totalIncome: "620",
-                        //空闲充电桩总数
-                        totalRechargeLeft: "20",
-                        //充电桩总收入
-                        rechargeLeftIncome: '5500',
-                        //空闲洗车位总数
-                        totalWashCarPort: "30",
-                        //洗车位收入
-                        washCarPortIncome: "3500",
-                        //剩余车位数
-                        leftPort: '666666'
-                    }
-                ];
-
+                this.contentNumList = [];
             },
             // 本周点击数据处理方法
             benzhou() {
@@ -505,28 +436,10 @@
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //顶部总收入查询
+                this.queryTotalIncome();
                 // 数据变动
-                this.contentNumList = [
-                    {
-                        //欠费金额
-                        arrearageMoneyAmount: "120",
-                        //应收金额
-                        receivableMoneyAmount: "1200",
-                        //总收入
-                        totalIncome: "620",
-                        //空闲充电桩总数
-                        totalRechargeLeft: "20",
-                        //充电桩总收入
-                        rechargeLeftIncome: '5500',
-                        //空闲洗车位总数
-                        totalWashCarPort: "30",
-                        //洗车位收入
-                        washCarPortIncome: "3500",
-                        //剩余车位数
-                        leftPort: '666666'
-                    }
-                ];
-
+                this.contentNumList = [];
             },
             // 本月点击数据处理方法
             benyue() {
@@ -541,82 +454,22 @@
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //顶部总收入查询
+                this.queryTotalIncome();
                 // 数据变动
-                this.contentNumList = [
-                    {
-                        //欠费金额
-                        arrearageMoneyAmount: "120",
-                        //应收金额
-                        receivableMoneyAmount: "6250",
-                        //总收入
-                        totalIncome: "620",
-                        //空闲充电桩总数
-                        totalRechargeLeft: "20",
-                        //充电桩总收入
-                        rechargeLeftIncome: '5500',
-                        //空闲洗车位总数
-                        totalWashCarPort: "30",
-                        //洗车位收入
-                        washCarPortIncome: "3500",
-                        //剩余车位数
-                        leftPort: '666666'
-                    }
-                ];
-
+                this.contentNumList = [];
             },
-            //测试查询
-            queryTest(){
-                var jsonStr = {
-                    queryDate: '2020-08-02'
-                };
-                // debugger
-                this.$homePage.test(jsonStr).then(res => {
-                    console.log("测试新建后台地址", res)
-                })
-            },
-            // 地图方式开始
-            initMap() {//地图初始化
-                this.map = new AMap.Map('map', {
-                    zoom: 13,
-                    resizeEnable: true,
-                    mapStyle: "amap://styles/normal",
-                    center: [119.016937, 31.706205]
-                });
-                // this.map.addControl(new AMap.MapType({
-                //     defaultType: 0, //0代表默认，1代表卫星
-                //     showTraffic: true,//默认显示路况
-                //     showRoad: true//显示路况（右上角也可点击）
-                // }));
-            },
-            // 地图中添加标点方法
-            addMoudel() {
+            //获取总的收入的方法
+            queryTotalIncome(){
                 var that = this;
-                var icon = new AMap.Icon({
-                    size: new AMap.Size(20, 20),    // 图标尺寸
-                    image: that.xlicon,  // Icon的图像
-                    imageOffset: new AMap.Pixel(1, 1),  // 图像相对展示区域的偏移量，适于雪碧图等
-                    imageSize: new AMap.Size(15, 15)   // 根据所设置的大小拉伸或压缩图片
-                });
-                let marker = new AMap.Marker({
-                    icon: icon,
-                    position: [that.mapList.lng, that.mapList.lat],
-                    offset: new AMap.Pixel(-13, -30)
-                });
-                // 点击弹出标签方法，其中内容可以根据需要自己定义
-                marker.content = '停车场名:' + "停车场1" + '<br / >剩余车位:' + "剩余20个车位"
-                // 定义完标签后调用显示方法将其显示出来
-                marker.on('click', this.showInfoM);
-                // 点击时间暂时废弃
-                // marker.on('click', e => {
-                //   console.log("点击弹框弹出有")
-                // });
-                this.map.add(marker);
-            },
-            // 弹出框中标签
-            showInfoM(e) {
-                var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
-                infoWindow.setContent(e.target.content);
-                infoWindow.open(this.map, e.target.getPosition());
+                const param={
+                    statisType : this.days.statisType
+                };
+                console.log('总收入方法传入的参数',param)
+                this.$homePage.queryTotalIncome(param).then(res => {
+                    that.contentNumList=res.data.dataList;
+                    console.log("总收入参数",that.contentNumList)
+                })
             },
             // 支付收入排行
             queryPaymentBehaviorAnalysis() {
@@ -1276,6 +1129,60 @@
                 }
                 // 绘制
                 new HighCharts.Chart(that.selfServiceCarWashingLine);
+            },
+            //测试查询
+            queryTest(){
+                var jsonStr = {
+                    queryDate: '2020-08-02'
+                };
+                // debugger
+                this.$homePage.test(jsonStr).then(res => {
+                    console.log("测试新建后台地址", res)
+                })
+            },
+            // 地图方式开始
+            initMap() {//地图初始化
+                this.map = new AMap.Map('map', {
+                    zoom: 13,
+                    resizeEnable: true,
+                    mapStyle: "amap://styles/normal",
+                    center: [119.016937, 31.706205]
+                });
+                // this.map.addControl(new AMap.MapType({
+                //     defaultType: 0, //0代表默认，1代表卫星
+                //     showTraffic: true,//默认显示路况
+                //     showRoad: true//显示路况（右上角也可点击）
+                // }));
+            },
+            // 地图中添加标点方法
+            addMoudel() {
+                var that = this;
+                var icon = new AMap.Icon({
+                    size: new AMap.Size(20, 20),    // 图标尺寸
+                    image: that.xlicon,  // Icon的图像
+                    imageOffset: new AMap.Pixel(1, 1),  // 图像相对展示区域的偏移量，适于雪碧图等
+                    imageSize: new AMap.Size(15, 15)   // 根据所设置的大小拉伸或压缩图片
+                });
+                let marker = new AMap.Marker({
+                    icon: icon,
+                    position: [that.mapList.lng, that.mapList.lat],
+                    offset: new AMap.Pixel(-13, -30)
+                });
+                // 点击弹出标签方法，其中内容可以根据需要自己定义
+                marker.content = '停车场名:' + "停车场1" + '<br / >剩余车位:' + "剩余20个车位"
+                // 定义完标签后调用显示方法将其显示出来
+                marker.on('click', this.showInfoM);
+                // 点击时间暂时废弃
+                // marker.on('click', e => {
+                //   console.log("点击弹框弹出有")
+                // });
+                this.map.add(marker);
+            },
+            // 弹出框中标签
+            showInfoM(e) {
+                var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
+                infoWindow.setContent(e.target.content);
+                infoWindow.open(this.map, e.target.getPosition());
             },
 
         }

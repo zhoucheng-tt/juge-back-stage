@@ -70,25 +70,25 @@
         <el-dialog title="预约订单信息：" :visible.sync="showListDloageandoff">
             <el-form :inline="true" :model="showListDloageandoffList" class="demo-form-inline">
                 <el-form-item label="预约单编号:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.parkingLotNumber" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.orderSequence" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="停车场名称:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.nameOfParkingLot" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.parkName" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="车牌号:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.carNum" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.plateNumber" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="预约时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.timeAppoinTment" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="取消时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.appointmentStatus" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="预约状态:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.appointmentStatus" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.appointmentTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="预计到达时间:" class="el-form-item-dialog" style="width:40%">
+                    <el-input v-model="showListDloageandoffList.estimatedTimeArrival" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="取消时间:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.cancellationTime" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="预约状态:" class="el-form-item-dialog">
+                    <el-input v-model="showListDloageandoffList.appointmentOrderStatusName" readonly></el-input>
                 </el-form-item>
             </el-form>
             <div>
@@ -96,25 +96,25 @@
             </div>
             <el-form :inline="true" :model="showListDloageandoffList" class="demo-form-inline">
                 <el-form-item label="车位号:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.parkingNumber" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.parkSpaceNumber" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="进场时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.entryTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.entranceTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="出厂时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.deliveryTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.leaveTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="停车时长:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.parkingTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.parkDuration" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="收费状态:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.chargingStatus" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="应收金额:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.amountReceivable" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.receivableMoneyAmount" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="实收金额:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.paymentMethod" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.receivedMoneyAmount" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="支付方式:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.paymentMethod" readonly></el-input>
@@ -245,6 +245,7 @@
             showListDloage(row) {
                 this.showListDloageandoff = true;
                 this.showListDloageandoffList = row;
+                console.log('adadaaaaaaaaaaa',row)
             }
         }
     }
