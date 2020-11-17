@@ -16,6 +16,9 @@ import * as deviceManagement from './deviceManagement/deviceManagement.js'
 import * as reportAnalysis from './reportAnalysis/reportAnalysis.js'
 // 系统管理接口
 import * as systemUser from './systemUser/systemUser.js'
+//订单管理
+import * as orderManagement from './orderManagement/orderManagement.js'
+
 
 const install = function (Vue) {
 	if (install.installed) {
@@ -45,10 +48,16 @@ const install = function (Vue) {
 				return reportAnalysis
 			}
 		},
-		// 系统管理接口  
+		// 系统管理接口
 		$systemUser: {
 			get() {
 				return systemUser
+			}
+		},
+		//订单管理页面
+		$orderManagement: {
+			get() {
+				return orderManagement
 			}
 		},
 	})

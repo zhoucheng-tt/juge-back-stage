@@ -13,30 +13,29 @@
         <div class="up">
             <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
                 <el-form-item label="停车场：">
-                    <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
-                        <el-option v-for="(item, index) in parkingLotList" :label="item.parkingName"
-                            :value="item.parkingName" :key="index"></el-option>
-                        <!-- <el-option label="二楼" value="TingNum2"></el-option> -->
+                    <el-select v-model="upQueryList.parkId" placeholder="请选择停车场">
+                        <el-option v-for="(item, index) in parkingLotList" :label="item.name"
+                                   :value="item.code" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="车牌号:">
-                    <el-input v-model="upQueryList.carNum" placeholder="请输入车牌号"></el-input>
+                    <el-input v-model="upQueryList.plateNumber" placeholder="请输入车牌号"></el-input>
                 </el-form-item>
                 <!-- 时间日期选择器 -->
                 <el-form-item label="预约时间:">
-                    <el-date-picker v-model="upQueryList.dataTimeIn" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyyMMddhhmm">
+                    <el-date-picker v-model="upQueryList.minAppointmentTime" type="datetimerange" range-separator="至"
+                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item label="预约状态">
-                    <el-select v-model="upQueryList.struts" placeholder="请选择状态">
-                        <el-option v-for="(item, index) in strutsList" :label="item.struts"
-                            :value="item.struts" :key="index"></el-option>
+                    <el-select v-model="upQueryList.appointmentOrderStatusName" placeholder="请选择状态">
+                        <el-option v-for="(item, index) in strutsList" :label="item.name"
+                            :value="item.code" :key="index"></el-option>
                         <!-- <el-option label="二楼" value="TingNum2"></el-option> -->
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="SelectQueryList">查询</el-button>
+                    <el-button type="primary" @click="queryAppointmentStopOrder">查询</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -46,15 +45,16 @@
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
                 <el-table-column prop="reservationOrderNumber" label="预约单编号" width="80"></el-table-column>
-                <el-table-column prop="parkingLotNumber" :show-overflow-tooltip="true" label="停车场编号" width="">
+                <el-table-column prop="code" :show-overflow-tooltip="true" label="停车场编号" width="">
                 </el-table-column>
-                <el-table-column prop="nameOfParkingLot" :show-overflow-tooltip="true" label="停车场名称" width="">
+                <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" width="">
                 </el-table-column>
-                <el-table-column prop="carNum" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
-                <el-table-column prop="timeAppoinTment" :show-overflow-tooltip="true" label="预约时间"></el-table-column>
+                <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
+                <el-table-column prop="appointmentTime" :show-overflow-tooltip="true" label="预约时间"></el-table-column>
+                <!--             暂无-->
                 <el-table-column prop="estimatedTimeArrival" :show-overflow-tooltip="true" label="预计到达时间"></el-table-column>
                 <el-table-column prop="cancellationTime" :show-overflow-tooltip="true" label="取消时间"></el-table-column>
-                <el-table-column prop="appointmentStatus" :show-overflow-tooltip="true" label="预约状态"></el-table-column>
+                <el-table-column prop="appointmentOrderStatusName" :show-overflow-tooltip="true" label="预约状态"></el-table-column>
                 <el-table-column :show-overflow-tooltip="true" label="操作">
                     <template slot-scope="scope">
                         <el-button @click="showListDloage(scope.row)" type="text" size="small">查看</el-button>
@@ -63,7 +63,8 @@
             </el-table>
             <el-pagination style="position: absolute;right:4%;margin-top:20px" background
                 layout="total, prev, pager, next, jumper" @current-change="handleCurrentModify" :current-page="pageNum"
-                :total="pageTotal" :page-size="pageSize"></el-pagination>
+                :total="pageTotal" :page-size="pageSize">
+            </el-pagination>
         </div>
         <!-- 订单详情点击弹出框 -->
         <el-dialog title="预约订单信息：" :visible.sync="showListDloageandoff">
@@ -126,125 +127,31 @@
     export default {
         data() {
             return {
+                // 停车场下拉框数据暂存处
+                parkingLotList: [],
+                // 列表中数据暂存处， 订单数据
+                orderParkingList: [],
                 // 顶部查询数据暂存处
                 upQueryList: {
-                    TingNum: '',
+                    parkId: '',
                     carNum: '',
                     // 进场时间
                     dataTimeIn: '',
                     // 出场时间
                     dataTimeOut: '',
+                    appointmentOrderStatusName:''
                 },
+                //通过停车场名字获取id
+                parkIdList:[],
                 // 设置只读属性
                 readonly : true,
-                // 停车场下拉框数据暂存处
-                parkingLotList: [
-                    {
-                        parkingName: '停车场1',
-                        id: 1
-                    },
-                    {
-                        parkingName: '停车场2',
-                        id: 2
-                    }
-                ],
                 // 预约状态数据
-                strutsList:[
-                    {
-                        struts: "全部",
-                        id: 1
-                    },
-                    {
-                        struts: "预约成功",
-                        id: 2
-                    },
-                    {
-                        struts: "预约失败",
-                        id: 3
-                    }
-                ],
+                strutsList:[],
                 // 分页
                 pageNum: 1,
                 pageSize: 10,
                 pageTotal: 4,
-                // 列表中数据暂存处， 订单数据
-                orderParkingList: [
-                    {
-                        reservationOrderNumber: '01',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        timeAppoinTment: '2020-10-20 10：20',
-                        estimatedTimeArrival: '2020-10-20 10：20',
-                        cancellationTime: '2020-10-20 18：20',
-                        appointmentStatus: '预约成功',
-                        // 订单信息部分数据
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '支付宝'
-                    },
-                    {
-                        reservationOrderNumber: '013',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        timeAppoinTment: '2020-10-20 10：20',
-                        estimatedTimeArrival: '2020-10-20 10：20',
-                        cancellationTime: '2020-10-20 18：20',
-                        appointmentStatus: '预约成功',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '支付宝'
-                    },
-                    {
-                        reservationOrderNumber: '014',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        timeAppoinTment: '2020-10-20 18：20',
-                        estimatedTimeArrival: '2020-10-20 10：20',
-                        cancellationTime: '2020-10-20 18：20',
-                        appointmentStatus: '预约成功',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '支付宝'
-                    },
-                    {
-                        reservationOrderNumber: '014',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        timeAppoinTment: '2020-10-20 18：20',
-                        estimatedTimeArrival: '2020-10-20 10：20',
-                        cancellationTime: '2020-10-20 18：20',
-                        appointmentStatus: '预约成功',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '支付宝'
-                    }
-                ],
-                
-                
+
                 // 控制订单详情弹出框展示和隐藏属性
                 showListDloageandoff: false,
                 // 弹出框展示订单详情数据暂存
@@ -252,12 +159,73 @@
             }
         },
         mounted() {
-
+            //查询停车场下拉
+            this.queryPark();
+            //查询预约状态下拉
+            this.queryPrepare();
+            //预约订单查询
+            this.queryAppointmentStopOrder();
         },
         methods: {
+            //查询停车场接口
+            queryPark(){
+                var that=this;
+                this.parkingLotList=[];
+                const param={
+                    "columnName":["park_id","park_name"],
+                    "tableName":"t_bim_park",
+                    "whereStr":"district_code = '321302'"
+                }
+                this.$orderManagement.queryDictData(param).then(response=>{
+                    console.log("下拉停车场名称", response);
+                    this.parkingLotList = response.data.dataList;
+                    console.log("下拉菜单", that.parkingLotList);
+                })
+            },
+            //查询预约状态下拉
+            queryPrepare(){
+                    var that = this ;
+                    this.strutsList = [];
+                    const param = {
+                        columnName:["appointment_order_status_code","appointment_order_status_name"],
+                        tableName:"t_d_appointment_order_status",
+                        whereStr:""
+                    }
+                this.$orderManagement.queryDictData(param).then(response=>{
+                    console.log("预约状态下拉", response);
+                    this.strutsList = response.data.dataList;
+                    console.log("下拉菜单", that.strutsList);
+                })
+            },
             // 点击查询调用的方法
-            SelectQueryList() {
-                console.log("打印出来点击查询后所产生的值", this.upQueryList)
+            // SelectQueryList() {
+            //     // console.log("打印出来点击查询后所产生的值", this.upQueryList)
+            //
+            //     this.queryAppointmentStopOrder();
+            // },
+            queryAppointmentStopOrder(){
+                var that = this;
+                const param = {
+                    cityCode:"",
+                    districtCode:"",
+                    parkTypeCode:"",
+                    parkId:this.upQueryList.parkId,
+                    appointmentTypeCode:"",
+                    minAppointmentTime:this.upQueryList.minAppointmentTime,
+                    maxAppointmentTime:"",
+                    appointmentOrderStatusCode:"",
+                    plateNumber:this.upQueryList.plateNumber,
+                    pageNum:this.pageNum,
+                    pageSize:this.pageSize
+                    };
+                this.$orderManagement.queryAppointmentStopOrder(param).then(response =>{
+                    console.log("查询表格数据", response)
+                    // console.log("that.gateList", that.orderParkingList)
+                    //分页
+                    that.pageTotal = response.data.totalRecord;
+                    //查询
+                    that.orderParkingList=response.data.dataList;
+                })
             },
             // 斑马纹样式
             tableRowClassName({ row, rowIndex }) {
@@ -271,6 +239,7 @@
             // 分页查询方法
             handleCurrentModify(val) {
                 this.pageNum = val;
+                this.queryAppointmentStopOrder();
             },
             // 点击查看调用的方法
             showListDloage(row) {
@@ -293,12 +262,11 @@
         height: 15%;
         float: left;
     }
-
     /* 查询条件部分样式 */
     .demo-form-inline {
         width: 100%;
         height: 80%;
-        margin-top: 1%;
+        margin-top: 3%;
         padding-left: 2%;
     }
 

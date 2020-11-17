@@ -13,9 +13,9 @@
         <div class="up">
             <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
                 <el-form-item label="停车场：">
-                    <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
-                        <el-option v-for="(item, index) in parkingLotList" :label="item.parkingName"
-                            :value="item.parkingName" :key="index"></el-option>
+                    <el-select v-model="upQueryList.parkId" placeholder="请选择停车场">
+                        <el-option v-for="(item, index) in parkingLotList" :label="item.name"
+                            :value="item.code" :key="index"></el-option>
                         <!-- <el-option label="二楼" value="TingNum2"></el-option> -->
                     </el-select>
                 </el-form-item>
@@ -24,17 +24,17 @@
                 </el-form-item>
                 <!-- 时间日期选择器 -->
                 <el-form-item label="进场时间:">
-                    <el-date-picker v-model="upQueryList.dataTimeIn" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyyMMddhhmm">
+                    <el-date-picker v-model="upQueryList.minEntranceTime" type="datetimerange" range-separator="至"
+                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item label="出场时间:">
-                    <el-date-picker v-model="upQueryList.dataTimeOut" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyyyMMddhhmm">
+                    <el-date-picker v-model="upQueryList.leaveTime" type="datetimerange" range-separator="至"
+                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="SelectQueryList">查询</el-button>
+                    <el-button type="primary" @click="queryStopOrder">查询</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -43,19 +43,17 @@
             <el-table :data="orderParkingList" :row-class-name="tableRowClassName"
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
-                <el-table-column prop="orderNumber" label="订单编号" width="80"></el-table-column>
-                <el-table-column prop="parkingLotNumber" :show-overflow-tooltip="true" label="停车场编号" width="">
-                </el-table-column>
-                <el-table-column prop="nameOfParkingLot" :show-overflow-tooltip="true" label="停车场名称" width="">
-                </el-table-column>
-                <el-table-column prop="carNum" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
-                <el-table-column prop="parkingNumber" :show-overflow-tooltip="true" label="车位号"></el-table-column>
-                <el-table-column prop="entryTime" :show-overflow-tooltip="true" label="进场时间"></el-table-column>
-                <el-table-column prop="deliveryTime" :show-overflow-tooltip="true" label="出厂时间"></el-table-column>
-                <el-table-column prop="parkingTime" :show-overflow-tooltip="true" label="停车时长"></el-table-column>
-                <el-table-column prop="chargingStatus" :show-overflow-tooltip="true" label="收费状态"></el-table-column>
-                <el-table-column prop="amountReceivable" :show-overflow-tooltip="true" label="应收金额"></el-table-column>
-                <el-table-column prop="paidInAmount" :show-overflow-tooltip="true" label="实收金额"></el-table-column>
+                <el-table-column fixed prop="orderSequence" label="订单编号" width="310"></el-table-column>
+                <el-table-column prop="parkId" :show-overflow-tooltip="true" label="停车场编号" width=""></el-table-column>
+                <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" width=""></el-table-column>
+                <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
+                <el-table-column prop="parkSpaceNumber" :show-overflow-tooltip="true" label="车位号"></el-table-column>
+                <el-table-column prop="entranceTime" :show-overflow-tooltip="true" label="进场时间"></el-table-column>
+                <el-table-column prop="leaveTime" :show-overflow-tooltip="true" label="出场时间"></el-table-column>
+                <el-table-column prop="parkDuration" :show-overflow-tooltip="true" label="停车时长"></el-table-column>
+                <el-table-column prop="paymentStatus" :show-overflow-tooltip="true" label="收费状态"></el-table-column>
+                <el-table-column prop="receivableMoneyAmount" :show-overflow-tooltip="true" label="应收金额"></el-table-column>
+                <el-table-column prop="receivedMoneyAmount" :show-overflow-tooltip="true" label="实收金额"></el-table-column>
                 <el-table-column prop="paymentMethod" :show-overflow-tooltip="true" label="支付方式"></el-table-column>
                 <el-table-column :show-overflow-tooltip="true" label="操作">
                     <template slot-scope="scope">
@@ -65,7 +63,8 @@
             </el-table>
             <el-pagination style="position: absolute;right:4%;margin-top:20px" background
                 layout="total, prev, pager, next, jumper" @current-change="handleCurrentModify" :current-page="pageNum"
-                :total="pageTotal" :page-size="pageSize"></el-pagination>
+                :total="pageTotal" :page-size="pageSize">
+            </el-pagination>
         </div>
         <!-- 订单详情点击弹出框 -->
         <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
@@ -111,91 +110,19 @@
     export default {
         data() {
             return {
-                // 顶部查询数据暂存处
-                upQueryList: {
-                    TingNum: '',
-                    carNum: '',
-                    // 进场时间
-                    dataTimeIn: '',
-                    // 出场时间
-                    dataTimeOut: '',
-                },
                 // 停车场下拉框数据暂存处
-                parkingLotList: [
-                    {
-                        parkingName: '停车场1',
-                        id: 1
-                    },
-                    {
-                        parkingName: '停车场2',
-                        id: 2
-                    }
-                ],
+                parkingLotList: [],
+                // 列表中数据暂存处， 订单数据
+                orderParkingList: [],
+                // 顶部查询数据暂存处
+                upQueryList: {},
                 // 分页
                 pageNum: 1,
                 pageSize: 10,
                 pageTotal: 4,
                 // 设置只读属性
                 readonly: true,
-                // 列表中数据暂存处， 订单数据
-                orderParkingList: [
-                    // {
-                    //     orderNumber: '01',
-                    //     parkingLotNumber: '1',
-                    //     nameOfParkingLot: '一号停车场',
-                    //     carNum: '苏A00001',
-                    //     parkingNumber: '10',
-                    //     entryTime: '2020-10-20 10：20',
-                    //     deliveryTime: '2020-10-20 18：20',
-                    //     parkingTime: '8小时',
-                    //     chargingStatus: '未支付',
-                    //     amountReceivable: '12',
-                    //     paidInAmount: '12',
-                    //     paymentMethod: '支付宝'
-                    // },
-                    {
-                        orderNumber: '013',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '支付宝'
-                    },
-                    {
-                        orderNumber: '014',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '现金'
-                    },
-                    {
-                        orderNumber: '014',
-                        parkingLotNumber: '1',
-                        nameOfParkingLot: '一号停车场',
-                        carNum: '苏A00001',
-                        parkingNumber: '10',
-                        entryTime: '2020-10-20 10：20',
-                        deliveryTime: '2020-10-20 18：20',
-                        parkingTime: '8小时',
-                        chargingStatus: '未支付',
-                        amountReceivable: '12',
-                        paidInAmount: '12',
-                        paymentMethod: '微信'
-                    }
-                ],
+
                 // 控制订单详情弹出框展示和隐藏属性
                 showListDloageandoff: false,
                 // 弹出框展示订单详情数据暂存
@@ -203,21 +130,77 @@
             }
         },
         mounted() {
-            this.queryList()
+            // this.queryList();
+            this.queryStopOrder();
+            this.queryPark();
         },
         methods: {
-            queryList() {
-                var jsonStr = {
-                    startStatisDate: "2017-07-14",
-                    endStatisDate: "2017-07-14"
+            //停车场管理查询接口
+            queryStopOrder(){
+                var that =this;
+                const params={
+                    cityCode:"321300",
+                    districtCode:"321302",
+                    parkTypeCode:"",
+                    parkId:this.upQueryList.parkId,
+                    supervisorAccount:"",
+                    minEntranceTime:this.upQueryList.minEntranceTime,
+                    maxEntranceTime:"",
+                    minLeaveTime:"",
+                    maxLeaveTime:"",
+                    plateNumber:"",
+                    pageNum:this.pageNum,
+                    pageSize:this.pageSize,
                 }
-                this.$ysParking.trendAnalysis(jsonStr).then(response => {
-                    console.log("测试", response)
+                console.log('mmmmmmmmmmmmmmmmmm',params)
+                this.$orderManagement.queryStopOrder(params).then(response => {
+                    console.log("查询表格数据", response)
+                    // console.log("that.gateList", that.orderParkingList)
+                    //分页
+                    that.pageTotal = response.data.totalRecord;
+                    //查询
+                    that.orderParkingList=response.data.dataList;
                 })
             },
+            //查询停车场下拉接口
+            queryPark(){
+                var that=this;
+                this.parkingLotList=[];
+                const param={
+                    "columnName":["park_id","park_name"],
+                    "tableName":"t_bim_park",
+                    "whereStr":"district_code = '321302'"
+                }
+                this.$orderManagement.queryDictData(param).then(response=>{
+                    console.log("下拉停车场名称", response);
+                    this.parkingLotList = response.data.dataList;
+                    console.log("下拉菜单", that.parkingLotList);
+                })
+            },
+            // queryList() {
+            //     var jsonStr = {
+            //         startStatisDate: "2017-07-14",
+            //         endStatisDate: "2017-07-14"
+            //     }
+            //     this.$ysParking.trendAnalysis(jsonStr).then(response => {
+            //         console.log("测试", response)
+            //     })
+            // },
             // 点击查询调用的方法
-            SelectQueryList() {
-                console.log("打印出来点击查询后所产生的值", this.upQueryList)
+            // SelectQueryList() {
+            //     // console.log("打印出来点击查询后所产生的值", this.upQueryList)
+            //     //调用查询方法
+            //     this.queryStopOrder();
+            // },
+            // 分页查询方法
+            handleCurrentModify(val) {
+                this.pageNum = val;
+                this.queryStopOrder();
+            },
+            // 点击查看调用的方法
+            showListDloage(row) {
+                this.showListDloageandoff = true;
+                this.showListDloageandoffList = row;
             },
             // 斑马纹样式
             tableRowClassName({ row, rowIndex }) {
@@ -228,15 +211,6 @@
                 }
                 return '';
             },
-            // 分页查询方法
-            handleCurrentModify(val) {
-                this.pageNum = val;
-            },
-            // 点击查看调用的方法
-            showListDloage(row) {
-                this.showListDloageandoff = true;
-                this.showListDloageandoffList = row;
-            }
         }
     }
 </script>
