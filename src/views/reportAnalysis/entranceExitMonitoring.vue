@@ -15,7 +15,6 @@
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
           <el-form-item label="停车场：">
             <el-select v-model="queryParkId" placeholder="请选择停车场">
-              <el-option label="全部" value="0"></el-option>
               <el-option
                   v-for="(item, index) in parkingLotList"
                   :label="item.name"
@@ -30,13 +29,13 @@
     <!--下半部分图片-->
     <div class="down">
       <el-row>
-        <el-col :span="12" style="text-align: center">
-          <div>新能源停车场1号入口</div>
+        <el-col :span="12" :offset="1">
+          <h3>入口</h3>
         </el-col>
       </el-row>
       <el-row>
-        <el-col style="height: 70%" :offset="1" :span="10">
-          <img :src="entranceImgUrl" style="height: 500px;width: auto;" class="show">
+        <el-col style="height: 70%" :offset="1" :span="9">
+          <img :src="entranceImgUrl" style="position:relative;height: 250px;width: auto;" class="show">
         </el-col>
         <el-col :span="12">
           <!--          <el-carousel height="400px" direction="vertical" :autoplay="true" loop>-->
@@ -71,13 +70,13 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="12" style="text-align: center">
-          <div>新能源停车场1号出口</div>
+        <el-col :span="12" :offset="1">
+          <h3>出口</h3>
         </el-col>
       </el-row>
       <el-row>
-        <el-col style="height: 70%" :offset="1" :span="10">
-          <img :src="exitImgUrl" style="height: 500px;width: auto" class="show">
+        <el-col style="height: 70%" :offset="1" :span="9">
+          <img :src="exitImgUrl" style="position: relative;height: 250px;width: auto" class="show">
         </el-col>
         <el-col :span="12">
           <div class="marquee">
@@ -113,6 +112,10 @@
 export default {
   data() {
     return {
+      // 查询数据暂存处
+      queryParkId: "",
+      // 停车场下拉列表
+      parkingLotList: [],
       //图片路径
       entranceImgUrl: require("../../assets/images/cc1.png"),
       exitImgUrl: require("../../assets/images/rc1.png"),
@@ -151,10 +154,26 @@ export default {
       ]
     }
   },
-  created: function() {
-    setInterval(this.showMarquee, 2000)
+  created: function () {
+    setInterval(this.showMarquee, 2000);
   },
   methods: {
+    // 查询停车场下拉表单
+    queryParking() {
+      var that = this;
+      this.parkingLotList = [];
+      const param = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = '321302'"
+      };
+      this.$ysParking.queryDictData(param).then(res => {
+        console.log("下拉表单查询数据显示", res);
+        that.parkingLotList = res.data.dataList;
+        console.log("下拉菜单", this.parkingLotList);
+      });
+    },
+
     showMarquee: function () {
       this.animate = true;
 
@@ -165,6 +184,9 @@ export default {
       }, 1000);
 
     }
+  },
+  mounted() {
+    this.queryParking()
   }
 }
 </script>
@@ -175,6 +197,7 @@ export default {
   height: 100%;
   overflow: hidden;
 }
+
 
 .marquee_top {
   transition: all 1s;
@@ -261,6 +284,7 @@ export default {
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
 }
+
 .marquee {
   width: 100%;
   height: 150px;
@@ -270,6 +294,7 @@ export default {
   display: flex;
   box-sizing: border-box;
 }
+
 .marquee_box {
   display: block;
   position: relative;
@@ -277,6 +302,7 @@ export default {
   height: 150px;
   overflow: hidden;
 }
+
 .marquee_list li {
   height: 150px;
   /* line-height: 30px; */
