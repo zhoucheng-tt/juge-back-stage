@@ -453,8 +453,8 @@ export default {
       var dataList = [];
       this.$reportAnalysis.queryChargeEarn(param).then(res => {
         res.resultEntity.forEach((item) => {
-          this.chargeEarnChartX.push(item.hours);
-          dataList.push(Number(item.income));
+          this.chargeEarnChartX.push(item.X);
+          dataList.push(Number(item.dataY));
         });
         this.chargeEarnDataList = [{
           name: "收入金额",
@@ -508,8 +508,8 @@ export default {
       var dataList=[];
       this.$reportAnalysis.queryWashEarn(param).then(res=>{
         res.resultEntity.forEach(item=>{
-          this.washEarnChartX.push(item.hours);
-          dataList.push(Number(item.income));
+          this.washEarnChartX.push(item.X);
+          dataList.push(Number(item.dataY));
         });
         this.washEarnDataList = [{
           name: "收入金额",

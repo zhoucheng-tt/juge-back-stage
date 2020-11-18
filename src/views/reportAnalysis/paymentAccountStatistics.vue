@@ -14,17 +14,18 @@
         <el-row>
           <el-col :span="7">
             <el-form-item label="统计日期">
-              <el-date-picker v-model="query.startStatisDate" style="width: 170px;" value-format="yyyy-MM-dd">
+              <el-date-picker v-model="query.startStatisDate" style="width: 170px;" value-format="yyyy-MM-dd" placeholder="请选择起始日期">
               </el-date-picker>
             </el-form-item>
             <el-form-item label="~">
-              <el-date-picker v-model="query.endStatisDate" style="width: 170px;" value-format="yyyy-MM-dd">
+              <el-date-picker v-model="query.endStatisDate" style="width: 170px;" value-format="yyyy-MM-dd" placeholder="请选择截止日期">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="停车场">
               <el-select v-model="query.parkId" placeholder="请选择停车场">
+                <el-option label="全部" value=""></el-option>
                 <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code" :key="index">
                 </el-option>
               </el-select>
@@ -32,13 +33,14 @@
           </el-col>
           <el-col :span="5">
             <el-form-item label="车牌号">
-              <el-input v-model="query.carNum" palceholder="请输入车牌号"></el-input>
+              <el-input v-model="query.carNum" palceholder="请输入车牌号" placeholder="请输入车牌号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="支付方式">
               <el-select v-model="query.payMethod" placeholder="请选择支付方式">
-                <el-option v-for="(item, index) in payMethodList" :label="item.name" :value="item.code" :key="index">
+                <el-option label="全部" value=""></el-option>
+                <el-option v-for="(item, index) in payMethodList" :label="item.name" :value="item.name" :key="index">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -56,15 +58,14 @@
       <el-table :data="payList" :row-class-name="tableRowClassName"
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;height:90%">
-        <el-table-column prop="statisDate" :show-overflow-tooltip="true" label="日期"/>
-        <el-table-column prop="incomeMoneyAmount" :show-overflow-tooltip="true" label="总收入金额"/>
-        <el-table-column prop="memberRechargeMoneyAmount" :show-overflow-tooltip="true" label="月卡会员充值金额"/>
-        <el-table-column prop="paymentMoneyAmount" :show-overflow-tooltip="true" label="普通用户缴费金额"/>
-        <el-table-column prop="cashPaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：现金缴费金额"/>
-        <el-table-column prop="wechatPaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：微信缴费金额"/>
-        <el-table-column prop="alipayPaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：支付宝支付"/>
-        <el-table-column prop="qrCodePaymentMoneyAmount" :show-overflow-tooltip="true" label="其中：扫码缴费金额"/>
-        <el-table-column prop="arrearageMoneyAmount" :show-overflow-tooltip="true" label="欠费金额"/>
+        <el-table-column prop="statisticDate" :show-overflow-tooltip="true" label="支付时间"/>
+        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column prop="passagewayName" :show-overflow-tooltip="true" label="通过出口名称"/>
+        <el-table-column prop="passagewayGateName" :show-overflow-tooltip="true" label="通过道闸机名称"/>
+        <el-table-column prop="income" :show-overflow-tooltip="true" label="收费金额"/>
+        <el-table-column prop="carNum" :show-overflow-tooltip="true" label="车牌号"/>
+        <el-table-column prop="payMethod" :show-overflow-tooltip="true" label="支付方式"/>
+        <el-table-column prop="oweMoney" :show-overflow-tooltip="true" label="欠费金额"/>
       </el-table>
       <!--分页条-->
       <div style="width:100%;height:9%;margin-top: 1%">
@@ -98,7 +99,10 @@ export default {
   data() {
     return {
       //查询内容暂存
-      query: {},
+      query: {
+        parkId:"",
+        payMethod: ""
+      },
       // 停车场下拉框数据暂存处
       parkList: [],
       //支付方式下拉框数据暂存处
@@ -139,6 +143,7 @@ export default {
   mounted() {
     //初始化列表
     this.queryPayList();
+    this.queryParkList()
     this.drawPayAnaChart();
     this.drawPayMethodChart();
   },
@@ -166,14 +171,17 @@ export default {
     //列表查询
     queryPayList() {
       const param = {
-        endStatisDate: this.query.endStatisDate,
-        startStatisDate: this.query.startStatisDate,
+        endDate: this.query.endStatisDate,
+        startDate: this.query.startStatisDate,
+        parkId: this.query.parkId,
+        carNum: this.query.carNum,
+        payMethod: this.query.payMethod,
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
       this.$reportAnalysis.queryAccountStatisList(param).then(res => {
-        this.payList = res.data.dataList;
-        this.pageTotal = res.data.totalRecord;
+        this.payList = res.resultEntity.list;
+        this.pageTotal = res.resultEntity.total;
       });
     },
     drawPayMethodChart() {
@@ -324,6 +332,17 @@ export default {
         new HighCharts.chart(this.payAnaChart);
       });
     },
+    //查询停车场列表数据
+    queryParkList() {
+      const params = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = 321302"
+      };
+      this.$deviceManagement.queryDictData(params).then(res => {
+        this.parkList = res.data.dataList;
+      });
+    }
 
 
   }

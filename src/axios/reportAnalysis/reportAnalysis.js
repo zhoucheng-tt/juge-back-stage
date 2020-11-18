@@ -4,9 +4,10 @@ import request from '@/utils/request'
 export function queryAccountStatisList(param) {
     return request(
         {
-            url: 'accountStatisFunc/queryAccountStatisList',
+            url: 'http://192.168.1.163:8000/PayStatisticController/queryPayStatistic',
             method: 'post',
-            data: param
+            data: param,
+            flag:'out'
         }
     )
 }

@@ -155,20 +155,16 @@ export default {
       averageChargingTime: '',
       averageChargingTimeOptions: {},
       // 图表数据
-      averageChargingTimeData: [6, 11, 32, 110, 235, 369, 640,
-        1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-        27387, 29459, 31056, 31982, 32040, 31233, 29224],
-      averageChargingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+      averageChargingTimeData: [],
+      averageChargingTimeXz: [],
       averageChargingTimeName: '平均充电时间',
 
       // 平均洗车时长
       averageWashingTime: '',
       averageWashingTimeOptions: {},
       // 图表数据
-      averageWashingTimeData: [6, 11, 32, 110, 235, 369, 640,
-        1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-        27387, 29459, 31056, 31982, 32040, 31233, 29224],
-      averageWashingTimeXz: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时'],
+      averageWashingTimeData: [],
+      averageWashingTimeXz: [],
       averageWashingTimeName: '平均洗车时长',
     }
   },
@@ -612,8 +608,8 @@ export default {
         this.averageChargingTimeXz=[];
         this.averageChargingTimeData=[]
         res.resultEntity.forEach(item => {
-          this.averageChargingTimeXz.push(item.hours);
-          this.averageChargingTimeData.push(Number(item.avgChargeTime));
+          this.averageChargingTimeXz.push(item.X);
+          this.averageChargingTimeData.push(Number(item.dataY));
         });
         this.averageChargingTimeOptions = {
           chart: {
@@ -698,8 +694,8 @@ export default {
         this.averageWashingTimeXz=[];
         this.averageWashingTimeData=[]
         res.resultEntity.forEach(item => {
-          this.averageWashingTimeXz.push(item.hours);
-          this.averageWashingTimeData.push(Number(item.avgWashTime));
+          this.averageWashingTimeXz.push(item.X);
+          this.averageWashingTimeData.push(Number(item.dataY));
         });
         this.averageWashingTimeOptions = {
           chart: {

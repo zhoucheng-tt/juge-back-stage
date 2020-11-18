@@ -13,7 +13,8 @@
     <div class="up">
       <div class="upSelect">
         <!-- xuanzhong(item):传入点击后所选中的数据 -->
-        <div class="upSelectContent" v-for="(item, index) in upSelectList" :key="item.index" @click="xuanzhong(index)"
+        <div class="upSelectContent" v-for="(item, index) in upSelectList" :key="item.index"
+             @click="xuanzhong(index,item.code)"
              :class="item.struts == 0 ? 'upSelectContent' : 'upSelectContentHover'">
           <span class="upSelectContentSpan">{{ item.name }}</span>
         </div>
@@ -52,6 +53,7 @@ import Xchart from "../../components/charts/charts.vue"
 import Xchart3d from "../../components/charts/charts3d.vue"
 import HighCharts from 'highcharts'
 import HighCharts3d from 'highcharts-3d'
+import * as realTimemonitor from "@/axios/realTimeMonitor/realTimeMonitor";
 
 export default {
   // 组件导入
@@ -84,33 +86,37 @@ export default {
       upSelectList: [
         {
           name: "今日",
-          id: 0,
+          code: 'today',
           struts: 1
         },
         {
           name: "昨日",
-          id: 0,
+          code: 'yesterday',
           struts: 0
         },
         {
           name: "本周",
-          id: 0,
+          code: 'currentWeek',
           struts: 0
         },
         {
           name: "本月",
-          id: 0,
+          code: 'currentMonth',
           struts: 0
         },
       ],
       // 洗车次按时间段分析
       analysisCarWashingTimes: '',
+      analysisCarWashingTimesX: [],
+      analysisCarWashingTimesData: [],
       analysisCarWashingTimesOptions: {},
       // 洗车次数俺月份报表分析
       analysisCarWashingMonth: '',
       analysisCarWashingMonthOptions: {},
       // 收费金额按照时间段分析
       chargeAmountTimes: '',
+      chargeAmountTimesX:[],
+      chargeAmountTimesData:[],
       chargeAmountTimesOptions: {},
       // 收费金额按月份分析
       chargeAmountMonth: '',
@@ -118,290 +124,341 @@ export default {
     }
   },
   mounted() {
+    this.xuanzhong(0, 'today')
     // 洗车次数按时间段分析
-    this.queryanalysisCarWashingTimes();
+    // this.queryanalysisCarWashingTimes();
     // 洗车次数俺月份报表分析
-    this.queryanalysisCarWashingMonth();
+    // this.queryanalysisCarWashingMonth();
     // 收费金额按照时间分析
-    this.querychargeAmountTimes();
+    // this.querychargeAmountTimes();
     // 收费金额按照月份分析
-    this.querychargeAmountMonth();
+    // this.querychargeAmountMonth();
+
   },
   methods: {
-    xuanzhong(index) {
+    xuanzhong(index, code) {
       // console.log("打印出来的点击选中的数据", e)
       for (let i = 0; i < this.upSelectList.length; i++) {
         this.upSelectList[i].struts = 0;
       }
       // 根据方法中传过来的index的值进行判断
       this.upSelectList[index].struts = 1;
+      this.queryWashData(code);
+      this.queryanalysisCarWashingTimes(code);
+      this.querychargeAmountTimes(code);
     },
     // 洗车按照时间段报表分析
-    queryanalysisCarWashingTimes() {
-      var that = this;
-      that.analysisCarWashingTimesOptions = {
-        chart: {
-          type: 'line',
-          backgroundColor: 'rgba(0,0,0,0)',
-          renderTo: 'analysisCarWashingTimes',
-        },
-        title: {
-          text: '洗车数量'
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时']
-        },
-        yAxis: {
+    queryanalysisCarWashingTimes(code) {
+      const param = {
+        queryType: code
+      }
+      this.$realTimeMonitor.queryWashCount(param).then(res => {
+        this.analysisCarWashingTimesX = [];
+        this.analysisCarWashingTimesData = [];
+        res.resultEntity.forEach(item => {
+          this.analysisCarWashingTimesX.push(item.X);
+          this.analysisCarWashingTimesData.push(Number(item.dataY));
+        });
+        this.analysisCarWashingTimesOptions = {
+          chart: {
+            type: 'line',
+            backgroundColor: 'rgba(0,0,0,0)',
+            renderTo: 'analysisCarWashingTimes',
+          },
           title: {
-            text: '单位（辆）'
+            text: '洗车数量'
           },
-          labels: {
-            formatter: function () {
-              return this.value / 1000 + 'k';
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.analysisCarWashingTimesX
+          },
+          yAxis: {
+            title: {
+              text: '单位（辆）'
+            },
+            labels: {
+              formatter: function () {
+                return this.value / 1000 + 'k';
+              }
             }
-          }
-        },
-        legend: {
-          enabled: false,
-          align: 'center',
-          verticalAlign: 'top',
-          x: 0,
-          y: -20,
-          itemStyle: {
-            color: '#cccccc',
-            cursor: 'pointer',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            fill: '#cccccc',
           },
-          itemHoverStyle: {
-            color: '#666666',
+          legend: {
+            enabled: false,
+            align: 'center',
+            verticalAlign: 'top',
+            x: 0,
+            y: -20,
+            itemStyle: {
+              color: '#cccccc',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              fill: '#cccccc',
+            },
+            itemHoverStyle: {
+              color: '#666666',
+            },
+            itemHiddenStyle: {
+              color: '#333333'
+            }
           },
-          itemHiddenStyle: {
-            color: '#333333'
-          }
-        },
-        tooltip: {
-          pointFormat: '洗车： <b>{point.y:,.0f}</b>辆'
-        },
-        plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: 'circle',
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
+          tooltip: {
+            pointFormat: '洗车： <b>{point.y:,.0f}</b>辆'
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
                 }
               }
             }
-          }
-        },
-        series: [{
-          // name: '数量',
-          data: [6, 11, 32, 110, 235, 369, 640,
-            1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-            27387, 29459, 31056, 31982, 32040, 31233, 29224]
-        }]
-      }
-      // 绘制
-      new HighCharts.Chart(that.analysisCarWashingTimesOptions);
+          },
+          series: [{
+            name: '数量',
+            data: this.analysisCarWashingTimesData
+          }]
+        }
+        // 绘制
+        new HighCharts.Chart(this.analysisCarWashingTimesOptions);
+      })
+
+
     },
     // 洗车按照月份报表分析
-    queryanalysisCarWashingMonth() {
-      var that = this;
-      that.analysisCarWashingMonthOptions = {
-        chart: {
-          type: 'line',
-          backgroundColor: 'rgba(0,0,0,0)',
-          renderTo: 'analysisCarWashingMonth',
-        },
-        title: {
-          text: '洗车数量'
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-        },
-        yAxis: {
+    // queryanalysisCarWashingMonth() {
+    //   var that = this;
+    //   that.analysisCarWashingMonthOptions = {
+    //     chart: {
+    //       type: 'line',
+    //       backgroundColor: 'rgba(0,0,0,0)',
+    //       renderTo: 'analysisCarWashingMonth',
+    //     },
+    //     title: {
+    //       text: '洗车数量'
+    //     },
+    //     credits: {
+    //       enabled: false
+    //     },
+    //     xAxis: {
+    //       categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    //     },
+    //     yAxis: {
+    //       title: {
+    //         text: '单位（辆）'
+    //       },
+    //       labels: {
+    //         formatter: function () {
+    //           return this.value / 1000 + 'k';
+    //         }
+    //       }
+    //     },
+    //     legend: {
+    //       enabled: false,
+    //       align: 'center',
+    //       verticalAlign: 'top',
+    //       x: 0,
+    //       y: -20,
+    //       itemStyle: {
+    //         color: '#cccccc',
+    //         cursor: 'pointer',
+    //         fontSize: '12px',
+    //         fontWeight: 'bold',
+    //         fill: '#cccccc',
+    //       },
+    //       itemHoverStyle: {
+    //         color: '#666666',
+    //       },
+    //       itemHiddenStyle: {
+    //         color: '#333333'
+    //       }
+    //     },
+    //     tooltip: {
+    //       pointFormat: '洗车： <b>{point.y:,.0f}</b>辆'
+    //     },
+    //     plotOptions: {
+    //       area: {
+    //         marker: {
+    //           enabled: false,
+    //           symbol: 'circle',
+    //           radius: 2,
+    //           states: {
+    //             hover: {
+    //               enabled: true
+    //             }
+    //           }
+    //         }
+    //       }
+    //     },
+    //     series: [{
+    //       // name: '数量',
+    //       data: [6, 11, 32, 110, 235, 369, 640,
+    //         1005, 1436, 2063, 3057, 4618]
+    //     }]
+    //   }
+    //   // 绘制
+    //   new HighCharts.Chart(that.analysisCarWashingMonthOptions);
+    // },
+    // 收费金额按照时间端饭分析
+    //收费金额分析
+    querychargeAmountTimes(code) {
+      const param = {
+        queryType: code
+      }
+      this.$realTimeMonitor.queryWashEarn(param).then(res => {
+        this.chargeAmountTimesX = [];
+        this.chargeAmountTimesData = [];
+        res.resultEntity.forEach(item => {
+          this.chargeAmountTimesX.push(item.X);
+          this.chargeAmountTimesData.push(Number(item.dataY));
+        });
+        this.chargeAmountTimesOptions = {
+          chart: {
+            type: 'line',
+            backgroundColor: 'rgba(0,0,0,0)',
+            renderTo: 'chargeAmountTimes',
+          },
           title: {
-            text: '单位（辆）'
+            text: '洗车收入'
           },
-          labels: {
-            formatter: function () {
-              return this.value / 1000 + 'k';
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.chargeAmountTimesX
+          },
+          yAxis: {
+            title: {
+              text: '单位（元）'
+            },
+            labels: {
+              formatter: function () {
+                return this.value / 1000 + 'k';
+              }
             }
-          }
-        },
-        legend: {
-          enabled: false,
-          align: 'center',
-          verticalAlign: 'top',
-          x: 0,
-          y: -20,
-          itemStyle: {
-            color: '#cccccc',
-            cursor: 'pointer',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            fill: '#cccccc',
           },
-          itemHoverStyle: {
-            color: '#666666',
+          legend: {
+            enabled: false,
+            align: 'center',
+            verticalAlign: 'top',
+            x: 0,
+            y: -20,
+            itemStyle: {
+              color: '#cccccc',
+              cursor: 'pointer',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              fill: '#cccccc',
+            },
+            itemHoverStyle: {
+              color: '#666666',
+            },
+            itemHiddenStyle: {
+              color: '#333333'
+            }
           },
-          itemHiddenStyle: {
-            color: '#333333'
-          }
-        },
-        tooltip: {
-          pointFormat: '洗车： <b>{point.y:,.0f}</b>辆'
-        },
-        plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: 'circle',
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
+          tooltip: {
+            pointFormat: '收入： <b>{point.y:,.0f}</b>元'
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
                 }
               }
             }
-          }
-        },
-        series: [{
-          // name: '数量',
-          data: [6, 11, 32, 110, 235, 369, 640,
-            1005, 1436, 2063, 3057, 4618]
-        }]
-      }
-      // 绘制
-      new HighCharts.Chart(that.analysisCarWashingMonthOptions);
-    },
-    // 收费金额按照时间端饭分析
-    querychargeAmountTimes() {
-      var that = this;
-      that.chargeAmountTimesOptions = {
-        chart: {
-          type: 'column',
-          backgroundColor: 'rgba(0,0,0,0)',
-          renderTo: 'chargeAmountTimes',
-        },
-        title: {
-          text: '收费金额按照时间段分析'
-        },
-        xAxis: {
-          categories: ['00时', '01时', '02时', '03时', '04时', '05时', '06时', '07时', '08时', '09时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时']
-        },
-        credits: {
-          enabled: false
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: '单位（元）'
           },
-          stackLabels: {  // 堆叠数据标签
-            enabled: true,
-            style: {
-              fontWeight: 'bold',
-              // color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-            }
-          }
-        },
-        legend: {
-          enabled: false,
-          align: 'right',
-          x: -30,
-          verticalAlign: 'top',
-          y: 25,
-          floating: true,
-          // backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-          borderColor: '#CCC',
-          borderWidth: 1,
-          shadow: false
-        },
-        tooltip: {
-          formatter: function () {
-            return '<b>' + this.x + '</b><br/>' +
-                this.series.name + ': ' + this.y + '<br/>' +
-                '总量: ' + this.point.stackTotal;
-          }
-        },
-        series: [{
-          name: '小张',
-          data: [6, 11, 32, 110, 235, 369, 640,
-            1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-            27387, 29459, 31056, 31982, 32040, 31233, 29224]
-        }]
-      }
-      // 绘制
-      new HighCharts.Chart(that.chargeAmountTimesOptions);
+          series: [{
+            name: '数量',
+            data: this.chargeAmountTimesData
+          }]
+        }
+        // 绘制
+        new HighCharts.Chart(this.chargeAmountTimesOptions);
+      })
     },
     // 收费金额按照月份分析
-    querychargeAmountMonth() {
-      var that = this;
-      that.chargeAmountMonthOptions = {
-        chart: {
-          type: 'column',
-          backgroundColor: 'rgba(0,0,0,0)',
-          renderTo: 'chargeAmountMonth',
-        },
-        title: {
-          text: '收费金额按照月份分析'
-        },
-        xAxis: {
-          categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-        },
-        credits: {
-          enabled: false
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: '单位（元）'
-          },
-          stackLabels: {  // 堆叠数据标签
-            enabled: true,
-            style: {
-              fontWeight: 'bold',
-              // color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-            }
-          }
-        },
-        legend: {
-          enabled: false,
-          align: 'right',
-          x: -30,
-          verticalAlign: 'top',
-          y: 25,
-          floating: true,
-          // backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-          borderColor: '#CCC',
-          borderWidth: 1,
-          shadow: false
-        },
-        tooltip: {
-          formatter: function () {
-            return '<b>' + this.x + '</b><br/>' +
-                this.series.name + ': ' + this.y + '<br/>' +
-                '总量: ' + this.point.stackTotal;
-          }
-        },
-        series: [{
-          data: [6, 11, 32, 110, 235, 369, 640,
-            1005, 1436, 2063, 3057, 4618]
-        }]
-      }
-      // 绘制
-      new HighCharts.Chart(that.chargeAmountMonthOptions);
+    // querychargeAmountMonth() {
+    //   var that = this;
+    //   that.chargeAmountMonthOptions = {
+    //     chart: {
+    //       type: 'column',
+    //       backgroundColor: 'rgba(0,0,0,0)',
+    //       renderTo: 'chargeAmountMonth',
+    //     },
+    //     title: {
+    //       text: '收费金额按照月份分析'
+    //     },
+    //     xAxis: {
+    //       categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    //     },
+    //     credits: {
+    //       enabled: false
+    //     },
+    //     yAxis: {
+    //       min: 0,
+    //       title: {
+    //         text: '单位（元）'
+    //       },
+    //       stackLabels: {  // 堆叠数据标签
+    //         enabled: true,
+    //         style: {
+    //           fontWeight: 'bold',
+    //           // color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+    //         }
+    //       }
+    //     },
+    //     legend: {
+    //       enabled: false,
+    //       align: 'right',
+    //       x: -30,
+    //       verticalAlign: 'top',
+    //       y: 25,
+    //       floating: true,
+    //       // backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+    //       borderColor: '#CCC',
+    //       borderWidth: 1,
+    //       shadow: false
+    //     },
+    //     tooltip: {
+    //       formatter: function () {
+    //         return '<b>' + this.x + '</b><br/>' +
+    //             this.series.name + ': ' + this.y + '<br/>' +
+    //             '总量: ' + this.point.stackTotal;
+    //       }
+    //     },
+    //     series: [{
+    //       data: [6, 11, 32, 110, 235, 369, 640,
+    //         1005, 1436, 2063, 3057, 4618]
+    //     }]
+    //   }
+    //   // 绘制
+    //   new HighCharts.Chart(that.chargeAmountMonthOptions);
+    // },
+    //查看洗车机信息
+    queryWashData(code) {
+      const param = {
+        queryType: code
+      };
+      this.$realTimeMonitor.queryWashData(param).then(res => {
+        console.log(res, "aaa");
+        this.contentNumList[0].num = res.resultEntity[0].washCount;
+        this.contentNumList[1].num = res.resultEntity[0].orderCount;
+        this.contentNumList[2].num = res.resultEntity[0].income;
+      })
     },
   }
 }
