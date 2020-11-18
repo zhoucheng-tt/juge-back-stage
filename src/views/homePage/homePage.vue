@@ -288,7 +288,7 @@
                 classStrust4: 0,
                 // 充电桩统计数据 （暂时的数据）
                 contentNumList:[],
-                //"statisType"存放
+                //"statisType"存放 
                 days:{
                     statisType:"today"
                 },
@@ -471,7 +471,7 @@
                     console.log("总收入参数",that.contentNumList)
                 })
             },
-            // 支付收入排行
+            // 支付方式
             queryPaymentBehaviorAnalysis() {
                 const param = {
                     "statisType":this.days.statisType
@@ -491,17 +491,21 @@
                     ];
                     this.paymentIncomeAnalysisPie = {
                         chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
                             type: "pie",
                             backgroundColor: 'rgba(0,0,0,0)',
+                            color:'',
                             renderTo: "paymentIncomeAnalysis",
-                            options3d: {
-                                enabled: true,
-                                alpha: 45,
-                                beta: 0
-                            }
+                            // options3d: {
+                            //     enabled: true,
+                            //     alpha: 45,
+                            //     beta: 0
+                            // }
                         },
                         title: {
-                            text: "收入构成分析"
+                            text: ""
                         },
                         credits: {
                             enabled: false
@@ -512,8 +516,10 @@
                         plotOptions: {
                             pie: {
                                 allowPointSelect: true,
+                                //放到上面是小手
                                 cursor: "pointer",
-                                innerSize: 1,
+                                //控制距离中心的值
+                                innerSize: 40,
                                 depth: 45,
                                 dataLabels: {
                                     enabled: true,
@@ -1277,7 +1283,7 @@
     .centerUp {
         width: 100%;
         height: 40%;
-        background-color: blueviolet;
+        /*background-color: blueviolet;*/
         float: left;
     }
 
@@ -1344,7 +1350,7 @@
         float: left;
         margin-top: 2%;
         margin-left: 1%;
-        background-color: cadetblue;
+        /*background-color: cadetblue;*/
     }
 
     /* 统计部分图片样式 */
@@ -1357,7 +1363,7 @@
     /* 统计部分文字部分样式 */
     /*总收入一行*/
     .spanTop{
-        color: white;
+        color: #00DDFF;
         line-height: 22px;
         font-size: 16px;
         letter-spacing: 0.57px;

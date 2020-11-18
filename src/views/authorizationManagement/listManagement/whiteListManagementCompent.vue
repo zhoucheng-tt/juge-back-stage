@@ -11,51 +11,35 @@
     <div>
 <!--        顶部车牌号一栏-->
         <div class="plate">
-            <el-form :inline="true" class="demo-form-inline">
+            <el-form :inline="true"  :model="whiteManagementList" class="demo-form-inline">
 <!--        车牌号输入框-->
-                <el-col :span="6">
+                <el-col :span="4">
                     <el-form-item label="车牌号">
-                        <el-input v-model="plateNumber" ></el-input>
+                        <el-input v-model="whiteManagementList.plateNumber" ></el-input>
                     </el-form-item>
                 </el-col>
 <!--         停车场下拉框       -->
                 <el-col :span="6">
                     <el-form-item label="停车场">
-                        <el-select v-model="parkName" placeholder="请选择停车场"
-                                   @change="parkingName(parkName)">
-                            <el-option v-for="(item, index) in parkLotNameList" :label="item.name" :value="item.code"
-                                       :key="index"></el-option>
-                        </el-select>
+                            <el-select v-model="whiteManagementList.parkId" placeholder="请选择停车场">
+                                <el-option v-for="(item, index) in parkLotNameList" :label="item.name"
+                                           :value="item.code" :key="index"></el-option>
+                            </el-select>
                     </el-form-item>
                 </el-col>
 <!--                查询按钮-->
                 <el-form-item>
-                    <el-button type="primary"
-                               @click="select">
-                        查询
-                    </el-button>
-                    <!--            新增白名单-->
-                    <el-button type="primary"
-                               @click="addWhiteList">
-                        新增白名单
-                    </el-button>
-                        <!--            批量删除-->
-                    <el-button type="primary"
-                               @click="deleteInBatches">
-                        批量删除
-                    </el-button>
+                    <el-button type="primary" @click="queryWhiteList">查询</el-button>
+<!--            新增白名单-->
+                    <el-button type="primary" @click="addWhiteList">新增白名单</el-button>
+<!--            批量删除-->
+                    <el-button type="primary" @click="deleteInBatches">批量删除</el-button>
                 </el-form-item>
             </el-form>
         </div>
-<!--&lt;!&ndash;        第二行新增白名单，批量处理&ndash;&gt;-->
-<!--        <div class="add" style="display: flex">-->
-<!--            <el-form>-->
-
-<!--            </el-form>-->
-<!--        </div>-->
-<!--        表格内容-->
         <div class="table">
             <el-table :data="parkingLotInformation"
+                      :row-class-name="tableRowClassName"
                       :header-cell-style="{ 'text-align': 'center',background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                       :cell-style="{ 'text-align': 'center' }"
                       style="width: 100%;"
@@ -67,14 +51,14 @@
                 <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号"/>
                 <el-table-column prop="carOwnerName" :show-overflow-tooltip="true" label="车主姓名"/>
                 <el-table-column prop="phoneNumber" :show-overflow-tooltip="true" label="手机号"/>
-                <el-table-column prop="idCardInformation" :show-overflow-tooltip="true" label="身份证信息"/>
-                <el-table-column prop="carOwnerAddress" :show-overflow-tooltip="true" label="车主联系地址"/>
-                <el-table-column prop="plateColor" :show-overflow-tooltip="true" label="车牌颜色"/>
-                <el-table-column prop="effectTime" :show-overflow-tooltip="true" label="生效时间"/>
-                <el-table-column prop="finishTime" :show-overflow-tooltip="true" label="失效时间"/>
-                <el-table-column prop="carNumber" :show-overflow-tooltip="true" label="车位编号"/>
+                <el-table-column prop="idCardNumber" :show-overflow-tooltip="true" label="身份证信息"/>
+                <el-table-column prop="carOwnerContactAddress" :show-overflow-tooltip="true" label="车主联系地址"/>
+                <el-table-column prop="numberPlateColorName" :show-overflow-tooltip="true" label="车牌颜色"/>
+                <el-table-column prop="effectiveTime" :show-overflow-tooltip="true" label="生效时间"/>
+                <el-table-column prop="expirationTime" :show-overflow-tooltip="true" label="失效时间"/>
+                <el-table-column prop="parkSpaceId" :show-overflow-tooltip="true" label="车位编号"/>
                 <el-table-column prop="remark" :show-overflow-tooltip="true" label="备注"/>
-                <el-table-column prop="whitelistStatus" :show-overflow-tooltip="true" label="白名单状态"/>
+                <el-table-column prop="blackWhiteListStatusName" :show-overflow-tooltip="true" label="白名单状态"/>
                 <el-table-column
                         fixed="right"
                         label="操作"
@@ -114,7 +98,7 @@
                             <p>归属停车场:</p>
                         </div>
                         <el-form-item style="margin-left: 1%">
-                            <el-select v-model="addWhiteData.parkName" placeholder="请选择停车场">
+                            <el-select v-model="addWhiteData.parkId" placeholder="请选择停车场">
                                 <el-option v-for="(item, index) in parkLotNameList" :label="item.name" :value="item.code"
                                            :key="index"></el-option>
                             </el-select>
@@ -128,7 +112,7 @@
                         <el-row>
                             <el-col :span="12">
                                 <el-form-item label="车牌号码:" label-width="150px">
-                                    <el-input v-model="addWhiteData.carNumber"></el-input>
+                                    <el-input v-model="addWhiteData.plateNumber"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
@@ -146,7 +130,7 @@
                           </el-col>
                           <el-col :span="12">
                               <el-form-item label="身份证信息:" label-width="150px">
-                                  <el-input v-model="addWhiteData.idCardInformation"></el-input>
+                                  <el-input v-model="addWhiteData.idCardNumber"></el-input>
                               </el-form-item>
                           </el-col>
                         </el-row>
@@ -155,24 +139,19 @@
                             <el-col :span="12">
                                 <el-form-item label="车主联系地址:" label-width="150px">
                                     <el-input style="width: 400px"
-                                            v-model="addWhiteData.carOwnerAddress"></el-input>
+                                            v-model="addWhiteData.carOwnerContactAddress"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
 <!--                        白名单第四行车牌颜色-->
                         <el-row>
-                            <el-col :span="12" style="display: flex;margin-left: 6%">
-                                <div>
-                                    <p>车牌颜色:</p>
-                                </div>
-                                <el-form-item style="margin-left: 1%">
-                                    <el-select v-model="plateColorList.plateColor" placeholder="请选择车牌颜色"
-                                               >
-                                        <el-option v-for="(item, index) in plateColorList" :label="item.name" :value="item.code"
-                                                   :key="index"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
+                            <el-form-item label="车牌颜色:" label-width="150px">
+                                <el-select v-model="addWhiteData.numberPlateColorCode" placeholder="请选择">
+                                    <el-option v-for="(item, index) in plateColorList" :label="item.name" :value="item.code"
+                                               :key="index">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </el-row>
 <!--                        白名单第五行生效失效时间-->
                         <el-row class="addWhiteListDate">
@@ -182,8 +161,9 @@
                                     <p>生效时间:</p>
                                 </el-row>
                                 <el-date-picker
-                                        v-model="addWhiteData.effectTime"
+                                        v-model="addWhiteData.effectiveTime"
                                         type="datetime"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
                                         placeholder="请选择生效时间">
                                 </el-date-picker>
                             </el-row>
@@ -191,14 +171,22 @@
                             <div class="finishTime" style="margin-left: 29%">
                                 <span>失效时间:</span>
                                 <el-date-picker
-                                        v-model="addWhiteData.finishTime"
+                                        v-model="addWhiteData.expirationTime"
                                         type="datetime"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
                                         placeholder="请选择失效时间">
                                 </el-date-picker>
                             </div>
                         </el-row>
 <!--                        白名单最后一行备注-->
                         <el-row>
+<!--                        车位编号-->
+                            <el-col :span="12">
+                                <el-form-item label="车位编号:" label-width="150px">
+                                    <el-input v-model="addWhiteData.parkSpaceId"></el-input>
+                                </el-form-item>
+                            </el-col>
+<!--                        备注-->
                             <el-col :span="12">
                                 <el-form-item label="备注:" label-width="150px">
                                     <el-input v-model="addWhiteData.remark"></el-input>
@@ -328,18 +316,6 @@
                     <el-button @click="ModifyWhiteListDialog = false">取 消</el-button>
                 </span>
         </el-dialog>
-<!--        操作中的删除按钮弹窗-->
-        <el-dialog
-                title="提示信息"
-                :visible.sync="delRowDialog"
-                top="30vh"
-                width="20%">
-            <span style="margin-left:25%;font-size: 20px ">你确定要删除吗？</span>
-            <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitDel()">确 定</el-button>
-                    <el-button @click="delRowDialog = false">取 消</el-button>
-                    </span>
-        </el-dialog>
 <!--        操作中停用弹窗-->
         <el-dialog
                 title="提示信息"
@@ -370,6 +346,14 @@
    export default {
        data(){
             return{
+                // 顶部查询数据暂存处
+                whiteManagementList:{},
+                //顶部停车场下拉数据存放
+                parkLotNameList:[],
+                //车牌颜色下拉数据存放
+                plateColorList:[],
+                //表格数据存放
+                parkingLotInformation:[],
                 //初始化分页
                 pageNum:1,
                 pageSize:10,
@@ -378,65 +362,27 @@
                 plateNumber:"",
                 //顶部停车场名称绑定
                 parkName:"",
-                //顶部停车场下拉数据存放
-                parkLotNameList:[
-                    {
-                        name: "新能源停车场",
-                        code: "1"
-                     },
-                    {
-                        name: "公共停车场",
-                        code: "2"
-                    },
-                    {
-                        name: "员工停车场",
-                        code: "3"
-                    }],
-                //车牌颜色下拉数据存放
-                plateColorList:[
-                    {
-                        name:"蓝色",
-                        code:"1"
-                    },
-                    {
-                        name:"蓝色",
-                        code:"1"
-                    },
-                    {
-                        name:"蓝色",
-                        code:"1"
-                    },],
-                //表格数据存放
-                parkingLotInformation:[{
-                    parkId:"1",
-                    parkName:"东门停车场",
-                    plateNumber:"苏A000000",
-                    carOwnerName:"小黑",
-                    phoneNumber:"123456789",
-                    idCardInformation:"1234567891",
-                    carOwnerAddress:"江苏南京",
-                    plateColor:"蓝色",
-                    effectTime:"2020-06-06",
-                    finishTime:"2020-09-01",
-                    carNumber:"X01",
-                    remark:"暂停",
-                    whitelistStatus:"启用",
-                }],
                 //新增白名单的弹窗
                 addWhiteListDialog:false,
                 //新增白名单数据暂存
                 addWhiteData:{},
-                //操作中修改按钮弹窗
-                ModifyWhiteListDialog:false,
-                //修改数据暂存
-                modifyWhiteList:[],
-                //操作中的删除按钮弹窗
-                delRowDialog:false,
+                //删除数据暂存
+                delWhiteList:[],
                 //多选数据暂存
                 selectionRow: [],
                 //多选数据id暂存
                 idList: [],
-                //操作中停用数据暂存
+                //多选后数据暂存
+                selectGateList:[],
+
+
+                //操作中修改按钮弹窗
+                ModifyWhiteListDialog:false,
+                //修改数据暂存
+                modifyWhiteList:[],
+
+
+
 
                 //操作中停用弹窗
                 blockUpDialog:false,
@@ -446,31 +392,178 @@
                 startUpDialog:false,
             }
        },
-       mounted() {},
+       mounted() {
+           //停车场下拉
+           this.queryPark();
+           //白名单列表查询
+           this.queryWhiteList();
+           //白名单车牌颜色
+           this.queryPlate();
+       },
        methods:{
-       //顶部停车场下拉
-           parkingName(parkName){},
+       //车牌颜色
+           queryPlate(){
+               var that=this;
+               this.plateColorList=[];
+               const param={
+                   "columnName":["number_plate_color_code","number_plate_color_name"],
+                   "tableName":"t_d_number_plate_color",
+                   "whereStr":""
+               }
+               this.$listManagement.queryDictData(param).then(response=>{
+                   // console.log("下拉停车场名称", response);
+                   that.plateColorList = response.data.dataList;
+                   // console.log("黑名单停车场下拉名称", that.parkLotNameList);
+               })
+           },
+       //查询停车场下拉
+           queryPark(){
+               var that=this;
+               this.parkLotNameList=[];
+               const param={
+                   "columnName":["park_id","park_name"],
+                   "tableName":"t_bim_park",
+                   "whereStr":"district_code = '321302'"
+               }
+               this.$listManagement.queryDictData(param).then(response=>{
+                   // console.log("下拉停车场名称", response);
+                   this.parkLotNameList = response.data.dataList;
+                   // console.log("白名单停车场下拉名称", that.parkLotNameList);
+               })
+           },
        //顶部查询按钮获取参数
-           select(){
-               console.log("打印查询车牌号结果",this.plateNumber);
-               console.log("打印查询停车场结果",this.parkName);
+           queryWhiteList(){
+               var that =this;
+               const params={
+                   cityCode:"",
+                   districtCode:"",
+                   parkId:this.whiteManagementList.parkId,
+                   plateNumber:this.whiteManagementList.plateNumber,
+                   pageNum:this.pageNum,
+                   pageSize:this.pageSize
+               }
+               // console.log('白名单查询传入的参数',params)
+               this.$listManagement.queryWhiteList(params).then(response => {
+                   // console.log("查询白名单表格数据", response)
+                   //分页
+                   that.pageTotal = response.data.totalRecord;
+                   //查询
+                   that.parkingLotInformation=response.data.dataList;
+               })
+           },
+       //分页条
+           handleCurrentModify(val){
+               this.pageNum = val;
+               this.queryWhiteList();
            },
        //新增白名单
            addWhiteList(){
-               //点击新增白名单弹出未输入的空白框
-               this.addWhiteData=[];
                //显示新增白名单弹窗
                this.addWhiteListDialog=true;
+               //点击新增白名单弹出未输入的空白框
+               this.addWhiteData=[];
            },
        //新增白名单确认提交
            onSubmitAdd(){
                //点击提交隐藏弹窗
                this.addWhiteListDialog=false;
-               console.log("白名单新增数据",this.addWhiteData);
+               const param ={
+                   plateNumber:this.addWhiteData.plateNumber,
+                   carOwnerName:this.addWhiteData.carOwnerName,
+                   phoneNumber:this.addWhiteData.phoneNumber,
+                   idCardNumber:this.addWhiteData.idCardNumber,
+                   carOwnerContactAddress:this.addWhiteData.carOwnerContactAddress,
+                   effectiveTime:this.addWhiteData.effectiveTime,
+                   expirationTime:this.addWhiteData.expirationTime,
+                   parkSpaceId:this.addWhiteData.parkSpaceId,
+                   remark:this.addWhiteData.remark,
+                   //停车场编号 停车场名称
+                   parkId:this.addWhiteData.parkId,
+                   //车牌颜色
+                   numberPlateColorCode:this.addWhiteData.numberPlateColorCode,
+               }
+               console.log('新增白名单传入的参数',param)
+               this.$listManagement.insertWhiteList(param).then(response => {
+                   console.log("打印新增白名单数据", response);
+                   //添加成功弹出
+                   this.$message({type: "success", message: "添加成功!"});
+                   //添加成功 刷新页面 调用查询方法
+                   this.queryWhiteList();
+               });
            },
-       //分页条
-           handleCurrentModify(val){
-               this.pageNum = val;
+       //删除一行
+           reMove(row) {
+                   //点击删除按钮出现的提示框
+                   this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                       confirmButtonText: '确定',
+                       cancelButtonText: '取消',
+                       type: 'warning'
+                   }).then(() => {
+                       //清空删除
+                       this.delWhiteList=[];
+                       //设定传入行数据
+                       const param={
+                           whiteListId:[row.whiteListId]
+                       }
+                       console.log('白名单删除传入的参数',param)
+                       //将参数传到delWhiteList中
+                       this.delWhiteList = param;
+                       //调用接口中的删除方法 delWhiteList
+                       this.$listManagement.deleteWhiteList(this.delWhiteList);
+                       //提示删除成功
+                       this.$message({type: 'success', message: '删除成功!'});
+                       //重新执行查询 （重新加载页面）
+                       this.queryWhiteList();
+                   }).catch(() => {
+                       //取消删除按钮
+                       this.$message({type: 'info', message: '已取消删除'});
+                   });
+               },
+       //批量删除监听
+           handleSelectionChange(val) {
+               this.selectGateList = val;
+               this.idList = [];
+               //获取批量删除id
+               val.forEach(item => {
+                   this.idList.push(item.whiteListId);
+                   // console.log('打印批量删除选择框',param)
+                   // console.log("1111111111",this.idList)
+                   // this.selectGateList = this.idList;
+               });
+               // console.log('批量删除存放ID',this.selectGateList);
+           },
+        //批量删除
+           deleteInBatches() {
+               // console.log("批量删除id存放", this.idList);
+               const param = {
+                   whiteListId : this.idList
+               }
+               this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+                   confirmButtonText: "确定",
+                   cancelButtonText: "取消",
+                   type: "warning"
+               })
+                   .then(() => {
+                       this.$listManagement.deleteWhiteList(param).then(res => {
+                           console.log("批量删除成功", res)
+                           this.$message({type: "success", message: "删除成功!"});
+                           this.queryWhiteList();
+                       })
+                   }).catch(() => {
+                   this.$message({type: "info", message: "已取消删除"});
+               });
+           },
+       //操作中的修改按钮
+           aMend(row){
+               //修改白名单显示弹窗
+               this.modifyWhiteList = row;
+               this.ModifyWhiteListDialog=true;
+               console.log("查询修改表格数据",this.modifyWhiteList)
+           },
+           //操作中的修改按钮的提交
+           onSubmitModify(){
+               this.ModifyWhiteListDialog=false;
+               console.log("查询修改之后的表格数据",this.modifyWhiteList);
            },
        //操作中的启用按钮
            enAble(row){
@@ -488,51 +581,18 @@
            blockUp(){
                this.blockUpDialog=false;
            },
-       //操作中的修改按钮
-           aMend(row){
-               //修改白名单显示弹窗
-               this.modifyWhiteList = row;
-               this.ModifyWhiteListDialog=true;
-               console.log("查询修改表格数据",this.modifyWhiteList)
-           },
-       //操作中的修改按钮的提交
-           onSubmitModify(){
-               this.ModifyWhiteListDialog=false;
-               console.log("查询修改之后的表格数据",this.modifyWhiteList);
-           },
-       //操作中的删除按钮
-           reMove(row){
-               console.log("获取删除行数据",this.parkingLotInformation);
-               //显示删除弹窗
-               this.delRowDialog=true;
-           },
-       //操作中的删除按钮提交
-           onSubmitDel(row){
-               //确认删除提交隐藏
-                this.delRowDialog=false;
-           },
-       //删除监听
-           handleSelectionChange(val){
-               this.selectionRow = val;
-               this.idList = [];
-               val.forEach(item => {
-                   this.idList.push(item.parkId);
-                   console.log("多选id暂存",this.idList);
-               })
-           },
-       //批量删除
-           deleteInBatches(){
-               console.log("批量删除", this.idList);
-               this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-                   confirmButtonText: "确定",
-                   cancelButtonText: "取消",
-                   type: "warning"
-               }).then(() => {
-                   this.$message({type: "success", message: "删除成功!"});
-               })
-                   .catch(() => {
-                       this.$message({type: "info", message: "已取消删除"});
-                   });
+
+
+
+
+           // 斑马纹样式
+           tableRowClassName({ row, rowIndex }) {
+               if (rowIndex % 2 == 1) {
+                   return 'successRow11';
+               } else if (rowIndex % 2 == 0) {
+                   return 'successSecond';
+               }
+               return '';
            },
        }
    }
@@ -542,4 +602,12 @@
     .addWhiteListDate{
         display:flex;
     }
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+    background: #7de6f8 !important;
+}
+/deep/ .el-table .successSecond {
+    background: #8ed3e7 !important;
+}
+
 </style>

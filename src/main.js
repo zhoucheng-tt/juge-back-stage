@@ -16,8 +16,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 // 引入svg
 import './assets'
-
-// 自定义全局样式方法 
+import '@/utils/date.js';
+// 自定义全局样式方法
 // import '@/styles/element-ul.css';
 Vue.use(ElementUI)
 import echarts from 'echarts'

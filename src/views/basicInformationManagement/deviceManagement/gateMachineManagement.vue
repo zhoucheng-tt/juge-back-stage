@@ -379,6 +379,39 @@
         this.$message({type: 'info', message: '已取消删除'});
       });
     },
+    //批量删除监听
+    handleSelectionChange(val) {
+      this.selectGateList = val;
+      this.idList = [];
+      //获取批量删除id
+      val.forEach(item => {
+        const param = {
+          passagewayGateId: item.passagewayGateId,
+          parkId: item.parkId
+        };
+        this.idList.push(param);
+      });
+      console.log(this.selectGateList);
+    },
+    //批量删除
+    batchDelete() {
+      console.log("批量删除", this.idList);
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+              .then(() => {
+                this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
+                  console.log("批量删除成功", res)
+                })
+                this.$message({type: "success", message: "删除成功!"});
+                this.queryPassagewayGate();
+              }).catch(() => {
+        this.$message({type: "info", message: "已取消删除"});
+      });
+    },
+
     //修改
     editGateDialog(row) {
       this.editGate = row;
@@ -411,42 +444,12 @@
       this.editListDialog = false;
     },
 
-    //批量删除监听
-    handleSelectionChange(val) {
-      this.selectGateList = val;
-      this.idList = [];
-      //获取批量删除id
-      val.forEach(item => {
-        const param = {
-          passagewayGateId: item.passagewayGateId,
-          parkId: item.parkId
-        };
-        this.idList.push(param);
-      });
-      console.log(this.selectGateList);
-    },
+
     //批量导入
     bulkImport() {
       console.log("批量导入");
     },
-    //批量删除
-    batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-              .then(() => {
-                this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
-                  console.log("批量删除成功", res)
-                })
-                this.$message({type: "success", message: "删除成功!"});
-                this.queryPassagewayGate();
-              }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
-    },
+
 
   }
 };
