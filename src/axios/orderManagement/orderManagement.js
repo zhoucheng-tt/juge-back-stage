@@ -1,7 +1,6 @@
 import request from '@/utils/request'
 
 //停车场订单管理的下拉接口 DictDimFunc/queryDictData.xhtml
-//转deviceManagement中的停车场下拉接口
 export function queryDictData(param) {
     return request(
         {
