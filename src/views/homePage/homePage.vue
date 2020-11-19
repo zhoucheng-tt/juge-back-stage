@@ -15,6 +15,10 @@
                 <!-- 支付方式  paymentMethod -->
                 <div class="leftCharts">
                     <div class="leftChartUp">
+                        <!--                支付方式两个脚-->
+                        <div class="img-top-left"></div>
+                        <div class="img-top-mid"></div>
+                        <div class="img-top-right"></div>
                         <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
                         <span class="spanStyle">支付方式</span>
                     </div>
@@ -31,7 +35,12 @@
                 <div class="leftCharts">
                     <div class="leftChartUp">
                         <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
-                        <span class="spanStyle">总停车数量</span>
+                        <span class="spanStyle">
+                            总停车数量
+                        </span>
+                        <span style="color: rgba(8,246,228,1);margin-left: 2%">
+                            234辆
+                        </span>
                     </div>
                     <!-- 总停车数量   -->
                     <div class="leftChartCenter" id="numberOfParking">
@@ -68,6 +77,8 @@
                     <div class="leftChartDown">
                         <img src="../../assets/homePage/juxing.svg" alt="">
                     </div>
+                    <div class="img-bottom-left"></div>
+                    <div class="img-bottom-right"></div>
                 </div>
             </div>
         </div>
@@ -96,11 +107,12 @@
                     <div class="leftUpContentNumContent" v-for="(item, index) in contentNumList" key="index">
                         <!-- 车位统计部分内部文字部分 -->
 <!--                        第一行-->
-                        <el-row>
-                            <el-col :span="6">
+                        <el-row style="display: flex;width: 600px">
+                            <el-row style="width: 200px">
+                                <!--                                总收入-->
                                 <el-row>
                                     <span class="spanTop">
-                                        总收入（元）:
+                                        总收入（元）
                                     </span>
                                 </el-row>
                                 <el-row>
@@ -108,11 +120,12 @@
                                           {{parseInt(item.totalIncome/100)}}
                                     </span>
                                 </el-row>
-                            </el-col>
-                            <el-col :span="6">
+                            </el-row>
+                            <el-row style="width: 200px">
+                                <!--                                应收金额-->
                                 <el-row>
                                     <span class="spanTop">
-                                        应收金额（元）:
+                                        应收金额（元）
                                     </span>
                                 </el-row>
                                 <el-row>
@@ -120,11 +133,12 @@
                                         {{parseInt(item.receivableMoneyAmount/100)}}
                                     </span>
                                 </el-row>
-                            </el-col>
-                            <el-col :span="6">
+                            </el-row>
+                            <el-row style="width: 200px">
+                                <!--                                欠收金额-->
                                 <el-row>
                                     <span class="spanTop">
-                                        欠收金额（元）:
+                                        欠收金额（元）
                                     </span>
                                 </el-row>
                                 <el-row>
@@ -132,70 +146,81 @@
                                       {{parseInt(item.arrearageMoneyAmount/100)}}
                                     </span>
                                 </el-row>
-                            </el-col>
+                            </el-row>
                         </el-row>
 <!--                        第二行-->
-                        <el-row style="margin-top: 4%">
-                            <el-col :span="5">
-                                <el-row>
+                        <el-row style="margin-top: 4%;display: flex">
+                            <el-row  style="display:flex;width: 600px">
+                                <el-row style="width: 150px">
+                                    <!--                                空闲充电桩总数-->
+                                    <el-row>
                                     <span class="spanMid">
-                                            空闲充电桩总数:
+                                            空闲充电桩总数
                                     </span>
-                                </el-row>
-                                <el-row>
+                                    </el-row>
+                                    <el-row>
                                     <span class="spanMidNum">
                                         {{item.totalRechargeLeft}}
                                     </span>
+                                    </el-row>
+                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-right: 20px"></div>
                                 </el-row>
-                            </el-col>
-                            <el-col :span="5">
-                                <el-row>
+                                <el-row style="width: 150px">
+                                    <!--                                充电桩总收入-->
+                                    <el-row>
                                       <span class="spanMid">
-                                         充电桩总收入:
+                                         充电桩总收入
                                     </span>
-                                </el-row>
-                                <el-row>
+                                    </el-row>
+                                    <el-row>
                                      <span class="spanMidNum">
                                         {{item.rechargeLeftIncome}}
                                     </span>
+                                    </el-row>
+                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-right: 20px"></div>
                                 </el-row>
-                            </el-col>
-                            <el-col :span="5">
-                                <el-row>
+                                <el-row style="width: 150px">
+                                    <!--                     空闲洗车位总数-->
+                                    <el-row>
                                       <span class="spanMid">
-                                         空闲洗车位总数:
+                                         空闲洗车位总数
                                     </span>
-                                </el-row>
-                                <el-row>
+                                    </el-row>
+                                    <el-row>
                                      <span class="spanMidNum">
                                         {{item.totalWashCarPort}}
                                     </span>
+                                    </el-row>
+                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-right: 20px"></div>
                                 </el-row>
-                            </el-col>
-                            <el-col :span="4">
-                                <el-row>
+                                <el-row style="width: 150px">
+                                    <!--                     洗车位收入-->
+                                    <el-row>
                                       <span class="spanMid">
-                                         洗车位收入:
+                                         洗车位收入
                                     </span>
-                                </el-row>
-                                <el-row>
+                                    </el-row>
+                                    <el-row>
                                      <span class="spanMidNum">
                                          {{item.washCarPortIncome}}
                                     </span>
+                                    </el-row>
                                 </el-row>
-                            </el-col>
-                            <el-col :span="5">
+                            </el-row>
+<!--                    剩余车位数-->
+                            <el-row style="width: 150px;margin-left: 100px">
                                 <el-row>
                                     <span class="leftCarPlot">
-                                        剩余车位数:
+                                        剩余车位数
                                     </span>
                                 </el-row>
                                 <el-row class="leftCarPlotBorder">
                                     <span class="leftCarPlotNum">
-                                        {{item.leftPort}}
+<!--                                        {{item.leftPort}}-->
+                                        66666
                                     </span>
                                 </el-row>
-                            </el-col>
+                            </el-row>
                         </el-row>
                     </div>
                 </div>
@@ -210,8 +235,13 @@
                 <!-- 停车场收入排行  parkingRevenueRanking-->
                 <div class="leftCharts">
                     <div class="leftChartUp">
-                        <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
-                        <span class="spanStyle">停车场收入排行</span>
+                        <div class="img-top-left"></div>
+                        <div class="img-top-mid"></div>
+                        <div class="img-top-right"></div>
+                        <div>
+                            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+                            <span class="spanStyle">停车场收入排行</span>
+                        </div>
                     </div>
                     <!-- 停车场收入排行   -->
                     <div class="leftChartCenter" id="parkingRevenueRanking">
@@ -262,6 +292,8 @@
                     <div class="leftChartDown">
                         <img src="../../assets/homePage/juxing.svg" alt="">
                     </div>
+                    <div class="img-bottom-left"></div>
+                    <div class="img-bottom-right"></div>
                 </div>
             </div>
         </div>
@@ -288,7 +320,7 @@
                 classStrust4: 0,
                 // 充电桩统计数据 （暂时的数据）
                 contentNumList:[],
-                //"statisType"存放 
+                //"statisType"存放
                 days:{
                     statisType:"today"
                 },
@@ -319,7 +351,7 @@
                 // 图表数据
                 numberOfParkingData: [],
                 numberOfParkingXz: [],
-                numberOfParkingName: '停车总数量',
+                // numberOfParkingName: '停车总数量',
 
                 // 平均停车时长
                 averageParkingTime: '',
@@ -327,7 +359,7 @@
                 // 图表数据
                 averageParkingTimeData: [],
                 averageParkingTimeXz: [],
-                averageParkingTimeName: '平均停车时长',
+                // averageParkingTimeName: '平均停车时长',
 
                 // 车位利用率
                 parkingSpaceUtilization: '',
@@ -335,7 +367,7 @@
                 // 图表数据
                 parkingSpaceUtilizationData: [],
                 parkingSpaceUtilizationXz: [],
-                parkingSpaceUtilizationName: '车位利用率',
+                // parkingSpaceUtilizationName: '车位利用率',
 
                 // 车位周转率
                 parkingSpaceTurnoverRate: '',
@@ -343,7 +375,7 @@
                 // 图表数据
                 parkingSpaceTurnoverRateData: [],
                 parkingSpaceTurnoverRateXz: [],
-                parkingSpaceTurnoverRateName: '车位周转率',
+                // parkingSpaceTurnoverRateName: '车位周转率',
 
                 // 停车场收入排行
                 parkingRevenueRankingChartX: [],
@@ -361,7 +393,6 @@
                 // 自助洗车收入
                 selfServiceCarWashing: '',
                 selfServiceCarWashingLine: {},
-
             }
         },
         mounted() {
@@ -376,10 +407,8 @@
             this.queryTest();
             //查询总收入
             this.jintian();
-            // this.jintian();
         },
         methods: {
-
             // 今日点击数据处理方法
             jintian() {
                 //控制显示今天
@@ -568,7 +597,7 @@
                             renderTo: 'numberOfParking',
                         },
                         title: {
-                            text: this.numberOfParkingName
+                            text: ''
                         },
                         credits: {
                             enabled: false
@@ -593,17 +622,17 @@
                             x: 300,
                             y: 10,
                             itemStyle: {
-                                color: '#cccccc',
+                                color: '#FF2B3DA1',
                                 cursor: 'pointer',
                                 fontSize: '12px',
                                 fontWeight: 'bold',
-                                fill: '#cccccc',
+                                fill: '#FF2B3DA1',
                             },
                             itemHoverStyle: {
-                                color: '#666666',
+                                color: 'red',
                             },
                             itemHiddenStyle: {
-                                color: '#333333'
+                                color: 'red'
                             }
                         },
                         tooltip: {
@@ -624,7 +653,7 @@
                             }
                         },
                         series: [{
-                            name: this.numberOfParkingName,
+                            // name: this.numberOfParkingName,
                             data: this.numberOfParkingData
                         }]
                     };
@@ -658,7 +687,7 @@
                             renderTo: 'averageParkingTime',
                         },
                         title: {
-                            text: this.averageParkingTimeName
+                            text: ""
                         },
                         credits: {
                             enabled: false
@@ -714,7 +743,7 @@
                             }
                         },
                         series: [{
-                            name: this.averageParkingTimeName,
+                            // name: this.averageParkingTimeName,
                             data: this.averageParkingTimeData
                         }]
                     };
@@ -749,7 +778,7 @@
                             renderTo: 'parkingSpaceUtilization',
                         },
                         title: {
-                            text: this.parkingSpaceUtilizationName
+                            text: ""
                         },
                         credits: {
                             enabled: false
@@ -805,7 +834,7 @@
                             }
                         },
                         series: [{
-                            name: this.parkingSpaceUtilizationName,
+                            // name: this.parkingSpaceUtilizationName,
                             data: this.parkingSpaceUtilizationData
                         }]
                     };
@@ -839,7 +868,7 @@
                             renderTo: 'parkingSpaceTurnoverRate',
                         },
                         title: {
-                            text: this.parkingSpaceTurnoverRateName
+                            text: ""
                         },
                         credits: {
                             enabled: false
@@ -895,7 +924,7 @@
                             }
                         },
                         series: [{
-                            name: this.parkingSpaceTurnoverRateName,
+                            // name: this.parkingSpaceTurnoverRateName,
                             data: this.parkingSpaceTurnoverRateData
                         }]
                     };
@@ -931,7 +960,7 @@
                             enabled: false
                         },
                         title: {
-                            text: "停车场收入排行"
+                            text: ""
                         },
                         xAxis: {
                             categories: this.parkingRevenueRankingChartX,
@@ -1141,7 +1170,6 @@
                 var jsonStr = {
                     queryDate: '2020-08-02'
                 };
-                // debugger
                 this.$homePage.test(jsonStr).then(res => {
                     console.log("测试新建后台地址", res)
                 })
@@ -1202,7 +1230,77 @@
         overflow: hidden;
         background-image: linear-gradient(180deg, #13258A 0%, #010B2A 100%);
     }
-
+    /*左边内容部分 */
+    .leftContent {
+        width: 99%;
+        height: 100%;
+        position: relative;
+        background-color: #1a2d94;
+        border: 1px solid rgba(0,221,255,0.6);
+        padding: 0px;
+    }
+    /*上左脚*/
+    .img-top-left{
+        width: 10px;
+        height: 10px;
+        position: relative;
+        top: -7px;
+        border-top: 3px solid rgba(8,246,228,1);
+        border-left: 3px solid rgba(8,246,228,1)
+    }
+    /*上中横线*/
+    .img-top-mid{
+        width: 141px;
+        height: 10px;
+        top: -20px;
+        position: relative;
+        border-top: 4px solid rgba(8,246,228,1);
+        margin-left: 10%
+    }
+    /*上右脚*/
+    .img-top-right{
+        width: 10px;
+        height: 10px;
+        margin-top: -34px;
+        position: relative;
+        border-top: 3px solid rgba(8,246,228,1);
+        border-right: 3px solid rgba(8,246,228,1);
+        margin-left: 96.3%;
+    }
+    /*下左脚*/
+    .img-bottom-left{
+        width: 10px;
+        height: 10px;
+        position: relative;
+        margin-top: 201px;
+        border-bottom: 3px solid rgba(8,246,228,1);
+        border-left: 3px solid rgba(8,246,228,1);
+    }
+    /*下右脚*/
+    .img-bottom-right{
+        width: 10px;
+        height: 10px;
+        position: relative;
+        margin-top: -13px;
+        border-bottom: 3px solid rgba(8,246,228,1);
+        border-right: 3px solid rgba(8,246,228,1);
+        margin-left: 96.3%;
+    }
+    /* 每个表格上面的标题名左边小图片样式 */
+    .leftChartUpImage {
+        color: #1398FF ;
+        margin-left: 4%;
+        margin-top: 2.5%;
+    }
+    /* 每个表格上面的标题名支付方式样式 */
+    .spanStyle {
+        font-family: PingFangSC-Medium;
+        font-size: 16px;
+        color: #ECFFF5;
+        letter-spacing: 0.36px;
+        line-height: 22px;
+        margin-left: 2%;
+    }
     /* 左边部分内容 */
     .left {
         width: 22%;
@@ -1211,65 +1309,71 @@
         float: left;
     }
 
-    /*左边内容部分 */
-    .leftContent {
-        width: 96%;
-        height: 96%;
-        position: relative;
-        top: 2%;
-        left: 2%;
-        background-color: #1a2d94;
-        /* border: 1px solid rgba(0, 221, 255, 0.60); */
-    }
-
     /* 支付方式 */
     .leftCharts {
+        position: relative;
         width: 100%;
         height: 24%;
         margin-top: 2%;
         /* background-color: darkorange; */
         float: left;
     }
-
     /* 图表部分标题 */
     .leftChartUp {
         width: 100%;
         height: 10%;
-        /* background-color: aquamarine; */
         float: left;
     }
-
-    /* 标题图表部分样式 */
-    .leftChartUpImage {
-        width: 14px;
-        height: 14px;
-    }
-
-    /* 标题文字部分样式 */
-    .spanStyle {
-        font-family: PingFangSC-Medium;
-        font-size: 16px;
-        color: #ECFFF5;
-        letter-spacing: 0.36px;
-        margin-left: 10px;
-    }
-
     /* 图表部分 */
     .leftChartCenter {
         width: 100%;
         height: 80%;
-        /* background-color: aqua; */
+         /*background-color: aqua;*/
+        margin-top: 10px;
         float: left;
     }
-
     /* 图表底部装饰条样式 */
     .leftChartDown {
         width: 100%;
         height: 10%;
-        /* background-color: aquamarine; */
         float: left;
     }
-
+    /* 今日、昨日、本周、本月 样式 */
+    /* 选中状态样式 */
+    .leftUpContentSwitch1 {
+        width: 50px;
+        height: 96%;
+        background-color:rgba(0,221,255,1);
+        float: left;
+        text-align: center;
+        border: 1px solid black;
+    }
+    /*未选中的样式*/
+    .leftUpContentSwitch2{
+        background-color: rgba(32,52,156,1);
+    }
+    .leftUpContentSwitch1,
+    .leftUpContentSwitch1:hover {
+        cursor: pointer;
+    }
+    /*文字状态*/
+    .leftUpContentSwitch1
+    .leftUpContentSwitchSpan:hover{
+        color: white;
+        cursor: pointer;
+    }
+    /* 今日、昨日、本周、本月 文字样式 */
+    .leftUpContentSwitchSpan {
+       color: rgba(71,100,252,1);
+        font-size: 12px;
+        position: relative;
+        line-height: 18px;
+        letter-spacing: -0.29px;
+    }
+    /*文字框*/
+    .leftUpContentSwitch{
+        margin-left: 350px;
+    }
     /* 中间部分样式 */
     .center {
         width: 56%;
@@ -1282,16 +1386,16 @@
     /* 中间内容上部分 */
     .centerUp {
         width: 100%;
-        height: 40%;
-        /*background-color: blueviolet;*/
+        height: 35%;
         float: left;
     }
 
     /* 中间内容下部分 */
     .centerDown {
-        width: 100%;
-        height: 60%;
-        float: left;
+        width: 96%;
+        height: 75%;
+        margin-left: 2%;
+        /*float: left;*/
     }
 
     /* 右边部分样式 */
@@ -1300,40 +1404,6 @@
         height: 100%;
         overflow: hidden;
         float: left;
-    }
-    /* 顶部切换控件部分 */
-    .leftUpContentSwitch {
-        width: 100%;
-        height: 10%;
-        margin-left: 30%;
-        /*float: left;*/
-    }
-    /* 今日、昨日、本周、本月 样式 */
-    /* 选中状态样式 */
-    .leftUpContentSwitch1 {
-        width: 8%;
-        height: 96%;
-        background-color: rgb(113, 190, 241);
-        float: left;
-        text-align: center;
-        border: 1px solid black;
-    }
-
-    .leftUpContentSwitch2 {
-        background-color: rgb(244, 246, 248);
-    }
-
-    .leftUpContentSwitch1,
-    .leftUpContentSwitch1:hover {
-        cursor: pointer
-    }
-
-    /* 今日、昨日、本周、本月 文字样式 */
-    .leftUpContentSwitchSpan {
-        color: black;
-        font-size: 15px;
-        position: relative;
-        top: 20%;
     }
 
     /* 顶部统计部分样式 */
@@ -1345,11 +1415,11 @@
 
     /* 统计部分外部整体样式 */
     .leftUpContentNumContent {
-        width: 98%;
+        width: 96%;
         height: 90%;
         float: left;
         margin-top: 2%;
-        margin-left: 1%;
+        margin-left: 2%;
         /*background-color: cadetblue;*/
     }
 
@@ -1363,7 +1433,7 @@
     /* 统计部分文字部分样式 */
     /*总收入一行*/
     .spanTop{
-        color: #00DDFF;
+        color: white;
         line-height: 22px;
         font-size: 16px;
         letter-spacing: 0.57px;
@@ -1397,9 +1467,12 @@
     }
     /*剩余车位数数字*/
     .leftCarPlotBorder{
-        border: 2px solid #66E3FB;
-        width: 120px;
-        height: 40px;
+        /*border: 2px solid #66E3FB;*/
+        width: 185px;
+        height: 51px;
+        margin-top: 15px;
+        background: url("../../assets/images/Bg.png");
+        background-size: 100%;
     }
     /*剩余车位数字*/
     .leftCarPlotNum{
@@ -1407,8 +1480,7 @@
         font-size: 28px;
         line-height: 40px;
         letter-spacing: 1px;
-        /*text-align: center;*/
-        /*margin-left: 20%;*/
+        margin-left: 10%;
     }
 
 </style>
