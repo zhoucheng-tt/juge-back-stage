@@ -20,6 +20,8 @@ import * as systemUser from './systemUser/systemUser.js'
 import * as orderManagement from './orderManagement/orderManagement.js'
 //实时监测
 import * as realTimeMonitor from './realTimeMonitor/realTimeMonitor'
+//白黑名单
+import * as listManagement from './listManagement/listManagement'
 
 const install = function (Vue) {
     if (install.installed) {
@@ -65,6 +67,12 @@ const install = function (Vue) {
         $realTimeMonitor: {
             get() {
                 return realTimeMonitor
+            }
+        },
+        //实时监测
+        $listManagement: {
+            get() {
+                return listManagement
             }
         }
     })
