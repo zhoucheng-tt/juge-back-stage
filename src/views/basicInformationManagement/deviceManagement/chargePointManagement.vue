@@ -164,33 +164,7 @@ export default {
         }
       ],
       //地锁列表
-      chargingPointList: [
-        {
-          chargPileId: "1",
-          chargPileName: "啊",
-          chargPileDesc: "啊是第哈切夫你去偶的弄请问你都去",
-          addTime: "2020-10-30",
-          addPerson: "小王",
-          changeTime: "2020-10-30",
-          modifier: "小王",
-        }, {
-          chargPileId: "1",
-          chargPileName: "啊",
-          chargPileDesc: "啊是第哈切夫你去偶的弄请问你都去",
-          addTime: "2020-10-30",
-          addPerson: "小王",
-          changeTime: "2020-10-30",
-          modifier: "小王",
-        }, {
-          chargPileId: "1",
-          chargPileName: "啊",
-          chargPileDesc: "啊是第哈切夫你去偶的弄请问你都去",
-          addTime: "2020-10-30",
-          addPerson: "小王",
-          changeTime: "2020-10-30",
-          modifier: "小王",
-        },
-      ],
+      chargingPointList: [],
       //新增表单弹框
       addListDialog: false,
       //新增充电桩数据暂存
