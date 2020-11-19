@@ -261,6 +261,30 @@ export default {
     };
   },
   methods: {
+    //导出
+    exportList() {
+      var date = new Date();
+      var param = {
+        "column_zh": ['停车场编号', '停车场名称', '地磁车位检测器编号', '地磁车位检测器名称', '传感器ID', '制造商'],
+        "column_en": ["parkId", "parkName", "magneticDetecterId", "magneticDetecterName", "sensorId", "manufacturer"],
+        "fileName": "地磁车位检测器" + date.toLocaleString(),
+        "cityCode": this.city,
+        "districtCode": this.districtCode,
+        "parkId": this.parking,
+        "pageNum": "",
+        "pageSize": "",
+      };
+      this.$deviceManagement.exportMagneticDetecter(param).then(res => {
+            const aLink = document.createElement("a");
+            let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+            aLink.href = URL.createObjectURL(blob)
+            aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+            aLink.click()
+            // document.body.appendChild(aLink)
+            // this.$refs.loadElement.appendChild(aLink);
+          }
+      )
+    },
     //斑马纹样式
     tableRowClassName({rowIndex}) {
       if (rowIndex % 2 === 1) {

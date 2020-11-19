@@ -32,6 +32,7 @@
           </el-col>
           <el-col :span="12">
             <el-button type="primary" @click="addNewGate()">新增道闸机</el-button>
+            <el-button type="info" @click="exportExcel()">导 出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
             <el-button type="primary" @click="queryPassagewayGate()">查 询</el-button>
@@ -258,6 +259,29 @@
     this.queryParking();
   },
   methods: {
+    //导出
+    exportExcel() {
+      var date = new Date();
+      var param = {
+        "column_zh": ['停车场编号','停车场名称','归属出入口','道闸机编号','道闸机名称','IP地址','串口号','制造商'],
+        "column_en":["parkId","parkName","passagewayName","passagewayGateId","passagewayGateName","ipAddress","serialNumber","manufacturer"],
+        "fileName": "道闸机管理" + date.toLocaleString(),
+        "cityCode": this.city,
+        "districtCode": this.districtCode,
+        "parkId": this.parking,
+        "pageNum": "",
+        "pageSize": "",
+      };
+      this.$deviceManagement.exportPassagewayGate(param).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+        aLink.href = URL.createObjectURL(blob)
+        aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+        aLink.click()
+        // document.body.appendChild(aLink)
+        // this.$refs.loadElement.appendChild(aLink);
+      })
+    },
     //查询表格数据
     queryPassagewayGate(){
       //指代this

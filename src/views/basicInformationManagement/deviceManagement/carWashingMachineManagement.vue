@@ -74,7 +74,11 @@
 
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增洗车机" :visible.sync="addListDialog">
-      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+      <el-form :inline="true"
+               :rules="rules"
+               ref="addWasher"
+               :model="newWasher"
+               class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
@@ -167,33 +171,7 @@ export default {
         }
       ],
       //洗车机列表
-      washerList: [
-        {
-          washerId: "1",
-          washerName: "啊",
-          washerDesc: "啊是第哈切夫你去偶的弄请问你都去",
-          addDate: "2020-10-30",
-          addUser: "小王",
-          updateDate: "2020-10-30",
-          updateUser: "小王",
-        }, {
-          washerId: "1",
-          washerName: "啊",
-          washerDesc: "啊是第哈切夫你去偶的弄请问你都去",
-          addDate: "2020-10-30",
-          addUser: "小王",
-          updateDate: "2020-10-30",
-          updateUser: "小王",
-        }, {
-          washerId: "1",
-          washerName: "啊",
-          washerDesc: "啊是第哈切夫你去偶的弄请问你都去",
-          addDate: "2020-10-30",
-          addUser: "小王",
-          updateDate: "2020-10-30",
-          updateUser: "小王",
-        },
-      ],
+      washerList: [],
       //新增表单弹框
       addListDialog: false,
       //新增洗车机数据暂存
@@ -209,13 +187,32 @@ export default {
       //分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: 4
+      pageTotal: 4,
+      // 表单校验
+      rules: {
+        washerId: [
+          {required: true, message: "洗车机编号不能为空", trigger: "blur"}
+        ],
+        washerName: [
+          {required: true, message: "洗车机名称不能为空", trigger: "blur"}
+        ]
+      }
     };
   },
   methods: {
     //查询
     queryWasher() {
-      console.log("查询的洗车机名称");
+      this.washerList = [];
+      const param = {
+        washerName: this.washerName,
+        washerStatus: this.washerStatus,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      };
+      this.$deviceManagement.queryCarWashingMachineList(param).then(res => {
+        this.washerList = res.resultEntity.list;
+        this.pageTotal = res.resultEntity.total;
+      })
     },
     //新增洗车机
     addWasher() {
@@ -235,7 +232,11 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
+        this.$deviceManagement.delCarWashingMachine(this.idList).then(res => {
+          console.log("删除成功", res)
+          this.$message({type: "success", message: "删除成功!"});
+          this.queryWasher();
+        })
       })
           .catch(() => {
             this.$message({type: "info", message: "已取消删除"});
@@ -255,7 +256,17 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
+        const param = [
+          {washerId: row.washerId}
+        ];
+        this.$deviceManagement.delCarWashingMachine(param).then(res => {
+          console.log("删除成功", res);
+        });
+        this.$message({
+          type: "success",
+          message: "删除成功!"
+        });
+        this.queryWasher();
       })
           .catch(() => {
             this.$message({type: "info", message: "已取消删除"});
@@ -263,13 +274,27 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      console.log("新增数据", this.newWasher);
-      this.washerList.push(this.newWasher);
-      this.addListDialog = false;
+      this.$refs["addWasher"].validate(valid => {
+        if (valid) {
+          console.log("保存后打印出来的数据", this.newWasher);
+          this.$deviceManagement
+              .addCarWashingMachine(this.newWasher)
+              .then(res => {
+                // console.log("打印相应", res);
+                this.$message({type: "success", message: "添加成功!"});
+                this.queryWasher();
+              });
+          this.addListDialog = false;
+        }
+      });
     },
     //修改表单提交
     onSubmitEdit() {
-      console.log("修改数据", this.editLock);
+      this.$deviceManagement.updateCarWashingMachine(this.editWasher).then(res => {
+        console.log("打印更新数据", res);
+        this.$message({type: "success", message: "修改成功!"});
+        this.queryWasher();
+      })
       this.editListDialog = false;
     },
     //批量删除监听
@@ -278,7 +303,10 @@ export default {
       this.idList = [];
       //获取批量删除id
       val.forEach((item) => {
-        this.idList.push(item.LockNum);
+        const param = {
+          washerId: item.washerId
+        };
+        this.idList.push(param);
       });
       console.log(this.selectList);
     },
@@ -286,7 +314,11 @@ export default {
     handleCurrentModify(val) {
       this.pageNum = val;
     }
+  },
+  mounted() {
+    this.queryWasher();
   }
+
 };
 
 </script>

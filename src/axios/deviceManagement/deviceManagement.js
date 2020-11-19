@@ -11,6 +11,56 @@ export function updateVideoDetecter(param) {
         }
     )
 }
+//视频车位导出
+export function exportVideoDetecter(param) {
+    return request({
+        url: '/DeviceFunc/exportVideoDetecter',
+        method: 'post',
+        data: param,
+        flag: 'innerExt',
+        responseType: 'blob'
+    })
+}
+//地锁车位导出
+export function exportGroundLock(param) {
+    return request({
+        url: '/DeviceFunc/exportGroundLock',
+        method: 'post',
+        data: param,
+        flag: 'innerExt',
+        responseType: 'blob'
+    })
+}
+//进出口摄像头导出
+export function exportPassagewayCamera(param) {
+    return request({
+        url: '/DeviceFunc/exportPassagewayCamera',
+        method: 'post',
+        data: param,
+        flag: 'innerExt',
+        responseType: 'blob'
+    })
+}
+//道闸机导出
+export function exportPassagewayGate(param) {
+    return request({
+        url: '/DeviceFunc/exportPassagewayGate',
+        method: 'post',
+        data: param,
+        flag: 'innerExt',
+        responseType: 'blob'
+    })
+}
+//地磁车位导出
+export function exportMagneticDetecter(param) {
+    return request({
+        url: '/DeviceFunc/exportMagneticDetecter',
+        method: 'post',
+        data: param,
+        flag: 'innerExt',
+        responseType: 'blob'
+    })
+}
 //下拉框数据查询
 export function queryDictData(params) {
     return request(
@@ -203,7 +253,117 @@ export function queryPassagewayCamera(param) {
 //基础信息管理信息ETC
 export function queryETCList(param) {
     return request({
-        url: 'http://localhost:8080/ETCFunc/queryETCList',
+        url: 'http://localhost:8000/ETCFunc/queryETCList',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//修改ETC updateETC
+export function updateETC(param) {
+    return request({
+        url: 'http://localhost:8000/ETCFunc/updateETC',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//新增ETC addETC
+export function addETC(param) {
+    return request({
+        url: 'http://localhost:8000/ETCFunc/addETC',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//删除ETC
+export function delETC(param) {
+    return request({
+        url: 'http://localhost:8000/ETCFunc/delETC',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//洗车机列表
+export function queryCarWashingMachineList(param) {
+    return request({
+        url: 'http://localhost:8000/carWashingMachineFunc/queryCarWashingMachineList',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//新增洗车机 addCarWashingMachine
+export function addCarWashingMachine(param) {
+    return request({
+        url: 'http://localhost:8000/carWashingMachineFunc/addCarWashingMachine',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//修改洗车机 updateCarWashingMachine
+export function updateCarWashingMachine(param) {
+    return request({
+        url: 'http://localhost:8000/carWashingMachineFunc/updateCarWashingMachine',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//删除洗车机 delCarWashingMachine
+export function delCarWashingMachine(param) {
+    return request({
+        url: 'http://localhost:8000/carWashingMachineFunc/delCarWashingMachine',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//充电桩列表查询 queryChargePileList
+export function queryChargePileList(param) {
+    return request({
+        url: 'http://localhost:8000/chargePlieFunc/queryChargePileList',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//删除充电桩 delChargePile
+export function delChargePile(param) {
+    return request({
+        url: 'http://localhost:8000/chargePlieFunc/delChargePile',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//新增充电桩 addChargePile
+export function addChargePile(param) {
+    return request({
+        url: 'http://localhost:8000/chargePlieFunc/addChargePile',
+        method: 'post',
+        data: param,
+        flag: 'out',
+    })
+}
+
+//修改充电桩 updateChargePile
+export function updateChargePile(param) {
+    return request({
+        url: 'http://localhost:8000/chargePlieFunc/updateChargePile',
         method: 'post',
         data: param,
         flag: 'out',

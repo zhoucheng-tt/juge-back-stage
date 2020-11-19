@@ -83,6 +83,16 @@ export function queryPaymentBehaviorAnalysis(params) {
         data: params,
     })
 }
+//模版下载
+export function downloadResource(params) {
+    return request({
+        url: '/CommonController/downloadResource',
+        method: 'post',
+        data: params,
+        flag: 'innerExt',
+        responseType: 'blob'
+    })
+}
 
 
 
