@@ -59,6 +59,23 @@
           </el-col>
         </el-row>
       </el-form>
+      <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
+        <el-form>
+          <el-container>
+            <el-header style="text-align: center">
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+            </el-header>
+            <el-main style="text-align: center">
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+
+            </el-main>
+          </el-container>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="importDialog = false">取 消</el-button>
+          <el-button type="primary" @click="commitImport()">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
@@ -250,7 +267,9 @@ export default {
       //归属地市下拉菜单
       cityList: [],
       //归属区县下拉菜单
-      districtList: []
+      districtList: [],
+      // 导入弹框
+      importDialog: false
     };
   },
   methods: {
@@ -297,6 +316,7 @@ export default {
     },
     //批量导入
     bulkImport() {
+      this.importDialog = true;
       console.log("批量导入");
     },
     //批量删除
@@ -464,7 +484,25 @@ export default {
       this.$deviceManagement.queryDictData(params).then(res => {
         this.parkingLotNameList = res.data.dataList;
       });
+    },
+
+    //下载模版
+    downModel() {
+      const param = "地锁.xls";
+      let reqInfo = {
+        template: param
+      };
+      this.$homePage.downloadResource(reqInfo).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        aLink.href = URL.createObjectURL(blob);
+        aLink.setAttribute('download', "地锁" + '.xls') // 设置下载文件名称
+        aLink.click();
+        document.body.appendChild(aLink);
+        this.$refs.loadElement.appendChild(aLink);
+      })
     }
+
   },
   mounted() {
     //初始化列表

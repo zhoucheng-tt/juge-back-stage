@@ -38,6 +38,23 @@
           </el-col>
         </el-row>
       </el-form>
+      <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
+        <el-form>
+          <el-container>
+            <el-header style="text-align: center">
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+            </el-header>
+            <el-main style="text-align: center">
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+
+            </el-main>
+          </el-container>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="importDialog = false">取 消</el-button>
+          <el-button type="primary" @click="commitImport()">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
@@ -196,7 +213,9 @@ export default {
         washerName: [
           {required: true, message: "洗车机名称不能为空", trigger: "blur"}
         ]
-      }
+      },
+      // 导入弹框
+      importDialog: false
     };
   },
   methods: {
@@ -222,6 +241,7 @@ export default {
     },
     //批量导入
     bulkImport() {
+      this.importDialog = true;
       console.log("批量导入");
     },
     //批量删除

@@ -55,11 +55,21 @@
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+              <el-upload
+                  class="upload-demo"
+                  ref="upload"
+                  action="url"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  :file-list="fileList"
+                  :auto-upload="false">
+                <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+                </el-button>
+              </el-upload>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
-
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
+                  class="el-icon-download el-icon--right"></i></el-button>
             </el-main>
           </el-container>
         </el-form>
@@ -506,7 +516,7 @@ export default {
     },
     //批量导入
     bulkImport() {
-      this.importDialog  = true;
+      this.importDialog = true;
       console.log("批量导入");
     },
     //批量删除
@@ -608,19 +618,35 @@ export default {
     },
     //下载模版
     downModel() {
-      const param = {
-        column_zh: ['停车场编号', '停车场名称', '视频车位检测器编号', '视频车位检测器名称', '监控类型', 'IP地址', '端口', '用户名', '地址', '制造商'],
-        column_en: ["parkId", "parkName", "videoDetecterId", "videoDetecterName", "videoDetecterMntrTypeName", "ipAddress", "portNumber", "userName", "address", "manufacturer"],
+      const param = "视频车位检测器.xls";
+      let reqInfo = {
+        template: param
       }
-      this.$homePage.downloadResource(param).then(res => {
+      /*      let reqInfo = {
+              template: param,//对象转json
+            }
+            let req = qs.stringify(reqInfo)//json转表单
+            axios.post('http://120.26.146.64:8052/e-parking-web/CommonController/downloadResource', req)
+            .then(res => {
+              const aLink = document.createElement("a");
+                let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+                aLink.href = URL.createObjectURL(blob)
+                aLink.setAttribute('download', "视频车位检测器" + '.xlsx') // 设置下载文件名称
+                aLink.click()
+                document.body.appendChild(aLink)
+                this.$refs.loadElement.appendChild(aLink);
+            }).catch( err => {
+              console.log(err)
+            })*/
+      this.$homePage.downloadResource(reqInfo).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
-        aLink.href = URL.createObjectURL(blob)
-        aLink.setAttribute('download', "视频车位检测器" + '.xlsx') // 设置下载文件名称
-        aLink.click()
-        document.body.appendChild(aLink)
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        aLink.href = URL.createObjectURL(blob);
+        aLink.setAttribute('download', "视频车位检测器" + '.xls'); // 设置下载文件名称
+        aLink.click();
+        document.body.appendChild(aLink);
         this.$refs.loadElement.appendChild(aLink);
-      })
+      });
     }
   },
   mounted() {

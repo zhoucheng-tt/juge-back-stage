@@ -14,21 +14,21 @@
       <el-row>
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
           <el-form-item label="ETC名称:">
-            <el-input v-model="upQueryList.ETCName" placeholder="请输入ETC名称"></el-input>
+            <el-input v-model="upQueryList.etcName" placeholder="请输入ETC名称"></el-input>
           </el-form-item>
           <el-form-item label="停车场：">
             <el-select v-model="upQueryList.queryParkId" placeholder="请选择停车场">
-              <el-option label="全部" value="0"></el-option>
+              <el-option label="全部" value=""></el-option>
               <el-option
                   v-for="(item, index) in parkingLotList"
                   :label="item.name"
-                  :value="item.code"
+                  :value="item.name"
                   :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="SelectQueryList">查询</el-button>
+            <el-button type="primary" @click="queryETCList">查询</el-button>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="addETC">新增ETC</el-button>
@@ -155,8 +155,9 @@ export default {
     return {
       // 顶部查询数据暂存处
       upQueryList: {
+        etcName: '',
         // 查询数据暂存处
-        queryParkId: "0",
+        queryParkId: '',
       },
       // 停车场下拉框数据暂存处
       parkingLotList: [],
@@ -209,15 +210,12 @@ export default {
         // console.log("下拉菜单", this.parkingLotList);
       });
     },
-    // 点击查询调用的方法
-    SelectQueryList() {
-      console.log("打印出来点击查询后所产生的值", this.upQueryList)
-    },
     // 查询列表信息
     queryETCList() {
       this.manageEntryAndExit = [];
       const param = {
-        parkName: this.parkName,
+        etcName: this.upQueryList.etcName,
+        parkName: this.upQueryList.queryParkId,
         pageSize: this.pageSize,
         pageNum: this.pageNum
       };
@@ -225,7 +223,7 @@ export default {
         this.ETCInformationManagement = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
         console.log("etc列表信息", this.ETCInformationManagement)
-      })
+      });
     },
     // 点击新增
     addETC() {

@@ -369,3 +369,12 @@ export function updateChargePile(param) {
         flag: 'out',
     })
 }
+
+//导入视频车 batchInsertVideoDetecter
+export function batchInsertVideoDetecter(param) {
+    return request({
+        url: '/DeviceFunc/batchInsertVideoDetecter',
+        method: 'post',
+        data: param,
+    })
+}
