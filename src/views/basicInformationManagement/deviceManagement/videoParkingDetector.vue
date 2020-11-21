@@ -40,8 +40,8 @@
           <el-col :span="12">
             <el-button type="primary" @click="addNewVideoParking()"
             >新增视频车位检测器
-            </el-button
-            >
+            </el-button>
+            <el-button type="info" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()"
             >批量删除
@@ -51,6 +51,33 @@
           </el-col>
         </el-row>
       </el-form>
+      <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
+        <el-form>
+          <el-container>
+            <el-header style="text-align: center">
+              <el-upload
+                  class="upload-demo"
+                  ref="upload"
+                  action="url"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  :file-list="fileList"
+                  :auto-upload="false">
+                <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+                </el-button>
+              </el-upload>
+            </el-header>
+            <el-main style="text-align: center">
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
+                  class="el-icon-download el-icon--right"></i></el-button>
+            </el-main>
+          </el-container>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="importDialog = false">取 消</el-button>
+          <el-button type="primary" @click="commitImport()">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
@@ -383,7 +410,9 @@ export default {
       //旧停车场id
       oldParkId: [],
       //旧视频车位检测器编号
-      oldvideoDetecterId: []
+      oldvideoDetecterId: [],
+      //导入弹框
+      importDialog: false
     };
   },
   methods: {
@@ -461,8 +490,33 @@ export default {
       this.pageNum = val;
       this.queryVideoDetecter();
     },
+    //导出
+    exportExcel() {
+      var date = new Date();
+      var fileName = "视频车位检测器";
+      var adcColumnTitleArry = ['停车场编号', '停车场名称', '视频车位检测器编号', '视频车位检测器名称', '监控类型', 'IP地址', '端口', '用户名', '地址', '制造商'];
+
+      var param = {
+        column_zh: adcColumnTitleArry,
+        column_en: ["parkId", "parkName", "videoDetecterId", "videoDetecterName", "videoDetecterMntrTypeName", "ipAddress", "portNumber", "userName", "address", "manufacturer"],
+        fileName: fileName + date.toLocaleString(),
+        cityCode: this.city,
+        districtCode: this.county,
+        parkId: this.parking,
+        pageNum: "",
+        pageSize: "",
+      };
+      this.$deviceManagement.exportVideoDetecter(param).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+        aLink.href = URL.createObjectURL(blob)
+        aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+        aLink.click()
+      })
+    },
     //批量导入
     bulkImport() {
+      this.importDialog = true;
       console.log("批量导入");
     },
     //批量删除
@@ -561,6 +615,38 @@ export default {
         this.idList.push(param);
       });
       console.log(this.selectVideoList);
+    },
+    //下载模版
+    downModel() {
+      const param = "视频车位检测器.xls";
+      let reqInfo = {
+        template: param
+      }
+      /*      let reqInfo = {
+              template: param,//对象转json
+            }
+            let req = qs.stringify(reqInfo)//json转表单
+            axios.post('http://120.26.146.64:8052/e-parking-web/CommonController/downloadResource', req)
+            .then(res => {
+              const aLink = document.createElement("a");
+                let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+                aLink.href = URL.createObjectURL(blob)
+                aLink.setAttribute('download', "视频车位检测器" + '.xlsx') // 设置下载文件名称
+                aLink.click()
+                document.body.appendChild(aLink)
+                this.$refs.loadElement.appendChild(aLink);
+            }).catch( err => {
+              console.log(err)
+            })*/
+      this.$homePage.downloadResource(reqInfo).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        aLink.href = URL.createObjectURL(blob);
+        aLink.setAttribute('download', "视频车位检测器" + '.xls'); // 设置下载文件名称
+        aLink.click();
+        document.body.appendChild(aLink);
+        this.$refs.loadElement.appendChild(aLink);
+      });
     }
   },
   mounted() {

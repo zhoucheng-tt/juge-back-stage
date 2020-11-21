@@ -23,13 +23,20 @@ const service = axios.create({
   // 这边也走两套
   transformRequest: [
     function (data) {
-      let reqInfo = {
-        param: JSON.stringify(data),//对象转json
+      let reqInfo;
+      if (data.template !== undefined) {
+        reqInfo = {
+          template: data.template
+        }
+      } else {
+        reqInfo = {
+          param: JSON.stringify(data),//对象转json
+        }
       }
       return qs.stringify(reqInfo)//json转表单
     }
   ]
-})
+});
 
 // const CancelToken = axios.CancelToken;
 // const source = CancelToken.source();
@@ -38,6 +45,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
+    console.log("dddd")
     config.headers['userToken'] = localStorage.getItem('userToken')
     // config.cancelToken = source.token; // 全局添加cancelToken
     return config

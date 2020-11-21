@@ -33,14 +33,16 @@
             <el-form-item label="停车场">
               <el-select v-model="query.parkId" placeholder="请选择">
                 <el-option label="全部" value="0"></el-option>
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code" :key="index"/>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
+                           :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="设备状态">
               <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus" :key="index"/>
+                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
+                           :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -57,11 +59,28 @@
           </el-col>
         </el-row>
       </el-form>
+      <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
+        <el-form>
+          <el-container>
+            <el-header style="text-align: center">
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+            </el-header>
+            <el-main style="text-align: center">
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+
+            </el-main>
+          </el-container>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="importDialog = false">取 消</el-button>
+          <el-button type="primary" @click="commitImport()">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
       <el-table :data="floorLockList" ref="selectLockList" :row-class-name="tableRowClassName"
-          :header-cell-style="{
+                :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -85,7 +104,9 @@
         </el-table-column>
       </el-table>
       <!--分页条-->
-      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
+      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper"
+                     :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
+                     :total="pageTotal"/>
     </div>
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增地锁" :visible.sync="addListDialog">
@@ -95,13 +116,13 @@
           <el-col :span="12">
             <el-form-item label="归属地市:" label-width="150px">
               <el-select v-model="newLock.cityCode" placeholder="请选择" @change="queryDisList(newLock.cityCode)"/>
-                <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
+              <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
           <el-form-item label="归属区县:" label-width="150px">
             <el-select v-model="newLock.districtCode" placeholder="请选择" @change="queryParkList(newLock.districtCode)"/>
-              <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
+            <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
             </el-select>
           </el-form-item>
         </el-row>
@@ -109,7 +130,8 @@
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="newLock.parkId" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code" :key="index"/>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
+                           :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -167,7 +189,8 @@
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="editLock.parkId" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code" :key="index"/>
+                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
+                           :key="index"/>
               </el-select>
             </el-form-item>
           </el-col>
@@ -244,10 +267,35 @@ export default {
       //归属地市下拉菜单
       cityList: [],
       //归属区县下拉菜单
-      districtList: []
+      districtList: [],
+      // 导入弹框
+      importDialog: false
     };
   },
   methods: {
+    //导出
+    exportList() {
+      var date = new Date();
+      var param = {
+        "column_zh": ['停车场编号', '停车场名称', '地锁编号', '地锁名称', 'mac地址', '网关id'],
+        "column_en": ["parkId", "parkName", "groundLockId", "groundLockName", "macAddress", "gatewayId"],
+        "fileName": "地锁" + date.toLocaleString(),
+        "cityCode": this.city,
+        "districtCode": this.districtCode,
+        "parkId": this.parking,
+        "pageNum": "",
+        "pageSize": "",
+      };
+      this.$deviceManagement.exportGroundLock(param).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+        aLink.href = URL.createObjectURL(blob)
+        aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+        aLink.click()
+        // document.body.appendChild(aLink)
+        // this.$refs.loadElement.appendChild(aLink);
+      })
+    },
     //斑马纹样式
     // eslint-disable-next-line no-unused-vars
     tableRowClassName({rowIndex}) {
@@ -268,6 +316,7 @@ export default {
     },
     //批量导入
     bulkImport() {
+      this.importDialog = true;
       console.log("批量导入");
     },
     //批量删除
@@ -435,7 +484,25 @@ export default {
       this.$deviceManagement.queryDictData(params).then(res => {
         this.parkingLotNameList = res.data.dataList;
       });
+    },
+
+    //下载模版
+    downModel() {
+      const param = "地锁.xls";
+      let reqInfo = {
+        template: param
+      };
+      this.$homePage.downloadResource(reqInfo).then(res => {
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        aLink.href = URL.createObjectURL(blob);
+        aLink.setAttribute('download', "地锁" + '.xls') // 设置下载文件名称
+        aLink.click();
+        document.body.appendChild(aLink);
+        this.$refs.loadElement.appendChild(aLink);
+      })
     }
+
   },
   mounted() {
     //初始化列表

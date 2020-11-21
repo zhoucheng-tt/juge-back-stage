@@ -2,7 +2,7 @@
     首页高保真版本
 * @Author: 邵青阳
 * @Date: 2020-11-10 10:23:28
- * @LastEditTime: 2020-11-19 16:03:29
+ * @LastEditTime: 2020-11-21 09:36:14
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\homePage\homePage.vue
@@ -217,7 +217,7 @@
                                 <el-row class="leftCarPlotBorder">
                                     <span class="leftCarPlotNum">
 <!--                                        {{item.leftPort}}-->
-                                        66666
+                                        666666
                                     </span>
                                 </el-row>
                             </el-row>
@@ -604,14 +604,34 @@
                         },
                         xAxis: {
                             categories: this.numberOfParkingXz,
+                            labels: {
+                                //设置文字横着放
+                                rotation: 270,
+                                //设置刻度
+                                // tickPositions: [],
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
+                                },
+                            }
                         },
                         yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
                             title: {
-                                text: '单位（辆）'
+                                text: ''
                             },
                             labels: {
                                 formatter: function () {
                                     return this.value / 1000 + 'k';
+                                },
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
                                 }
                             }
                         },
@@ -622,17 +642,17 @@
                             x: 300,
                             y: 10,
                             itemStyle: {
-                                color: '#FF2B3DA1',
+                                color: '#cccccc',
                                 cursor: 'pointer',
                                 fontSize: '12px',
                                 fontWeight: 'bold',
-                                fill: '#FF2B3DA1',
+                                fill: '#cccccc',
                             },
                             itemHoverStyle: {
-                                color: 'red',
+                                color: '#666666',
                             },
                             itemHiddenStyle: {
-                                color: 'red'
+                                color: '#333333'
                             }
                         },
                         tooltip: {
@@ -642,6 +662,7 @@
                             area: {
                                 marker: {
                                     enabled: false,
+                                    color:'rgba(3,215,233,1)',
                                     symbol: 'circle',
                                     radius: 2,
                                     states: {
@@ -652,9 +673,11 @@
                                 }
                             }
                         },
+                        //区域颜色
+
                         series: [{
                             // name: this.numberOfParkingName,
-                            data: this.numberOfParkingData
+                            data: this.numberOfParkingData,
                         }]
                     };
                     new HighCharts.chart(this.numberOfParkingOptions);
@@ -693,11 +716,25 @@
                             enabled: false
                         },
                         xAxis: {
-                            categories: this.averageParkingTimeXz
+                            categories: this.averageParkingTimeXz,
+                            labels:{
+                                //设置文字横着放
+                                rotation: 270,
+                                //设置刻度
+                                // tickPositions: [],
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
+                                }
+                            }
                         },
                         yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
                             title: {
-                                text: '单位（分钟）'
+                                text: ''
                             },
                             labels: {
                                 formatter: function () {
@@ -733,6 +770,7 @@
                                 marker: {
                                     enabled: false,
                                     symbol: 'circle',
+                                    color: '#fff',
                                     radius: 2,
                                     states: {
                                         hover: {
@@ -784,15 +822,35 @@
                             enabled: false
                         },
                         xAxis: {
-                            categories: this.parkingSpaceUtilizationXz
+                            categories: this.parkingSpaceUtilizationXz,
+                            labels:{
+                                //设置文字横着放
+                                rotation: 270,
+                                //设置刻度
+                                // tickPositions: [],
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
+                                }
+                            }
                         },
                         yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
                             title: {
-                                text: '单位（%）'
+                                text: ''
                             },
                             labels: {
                                 formatter: function () {
                                     return this.value / 1000 + 'k';
+                                },
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
                                 }
                             }
                         },
@@ -874,15 +932,35 @@
                             enabled: false
                         },
                         xAxis: {
-                            categories: this.parkingSpaceTurnoverRateXz
+                            categories: this.parkingSpaceTurnoverRateXz,
+                            labels:{
+                                //设置文字横着放
+                                rotation: 270,
+                                //设置刻度
+                                // tickPositions: [],
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
+                                }
+                            }
                         },
                         yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
                             title: {
-                                text: '单位（%）'
+                                text: ''
                             },
                             labels: {
                                 formatter: function () {
                                     return this.value / 1000 + 'k';
+                                },
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
                                 }
                             }
                         },
@@ -965,15 +1043,33 @@
                         xAxis: {
                             categories: this.parkingRevenueRankingChartX,
 
-                            categories: this.parkingRevenueRankingChartY
+                            categories: this.parkingRevenueRankingChartY,
+
+                            labels: {
+                                format: "{value}",
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                }
+                            },
                         },
                         yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
                             title: {
                                 text: ""
                             },
                             categories: this.parkingRevenueRankingChartY,
-                            labels: {
-                                format: "{value}分"
+                            labels:{
+                                //设置文字横着放
+                                rotation: 270,
+                                //设置刻度
+                                // tickPositions: [],
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
+                                }
                             },
                         },
                         tooltip: {
@@ -1028,7 +1124,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: '单位（辆）'
+                            text: ''
                         },
                         labels: {
                             formatter: function () {
@@ -1480,7 +1576,9 @@
         font-size: 28px;
         line-height: 40px;
         letter-spacing: 1px;
-        margin-left: 10%;
+        display:block;
+        /*vertical-align: middle;*/
+        text-align: center;
     }
 
 </style>

@@ -15,9 +15,9 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="充电桩编号">
-              <el-select v-model="chargingPointNumList.chargingPointNum" placeholder="请选择">
-                <el-option v-for="(item, index) in chargingPointNumList" :label="item.chargingPointNum"
-                           :value="item.chargingPointNum" :key="index"></el-option>
+              <el-select v-model="chargPileIdList.chargPileId" placeholder="请选择">
+                <el-option v-for="(item, index) in chargPileIdList" :label="item.chargPileId"
+                           :value="item.chargPileId" :key="index"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -37,6 +37,23 @@
           </el-col>
         </el-row>
       </el-form>
+      <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
+        <el-form>
+          <el-container>
+            <el-header style="text-align: center">
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+            </el-header>
+            <el-main style="text-align: center">
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+
+            </el-main>
+          </el-container>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="importDialog = false">取 消</el-button>
+          <el-button type="primary" @click="commitImport()">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
@@ -45,13 +62,13 @@
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                 @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column fixed prop="chargingPointNum" label="充电桩编号"/>
-        <el-table-column prop="chargingPointName" :show-overflow-tooltip="true" label="充电桩名称"/>
-        <el-table-column prop="chargingPointDescribe" :show-overflow-tooltip="true" label="充电桩描述"/>
+        <el-table-column fixed prop="chargPileId" label="充电桩编号"/>
+        <el-table-column prop="chargPileName" :show-overflow-tooltip="true" label="充电桩名称"/>
+        <el-table-column prop="chargPileDesc" :show-overflow-tooltip="true" label="充电桩描述"/>
         <el-table-column prop="addTime" :show-overflow-tooltip="true" label="添加时间"/>
-        <el-table-column prop="addName" :show-overflow-tooltip="true" label="添加人"/>
-        <el-table-column prop="editTime" :show-overflow-tooltip="true" label="修改时间"/>
-        <el-table-column prop="editName" :show-overflow-tooltip="true" label="修改人"/>
+        <el-table-column prop="addPerson" :show-overflow-tooltip="true" label="添加人"/>
+        <el-table-column prop="changeTime" :show-overflow-tooltip="true" label="修改时间"/>
+        <el-table-column prop="modifier" :show-overflow-tooltip="true" label="修改人"/>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="editDialog(scope.row)" type="text" size="small">修改</el-button>
@@ -76,18 +93,18 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="充电桩编号:" label-width="150px">
-              <el-input v-model="newChargingPoint.chargingPointNum"/>
+              <el-input v-model="newChargingPoint.chargPileId"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="充电桩名称:" label-width="150px">
-              <el-input v-model="newChargingPoint.chargingPointName"/>
+              <el-input v-model="newChargingPoint.chargPileName"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
           <el-form-item label="充电桩描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="newChargingPoint.chargingPointDescribe"/>
+            <el-input type="textarea" style="width: 655px;" v-model="newChargingPoint.chargPileDesc"/>
           </el-form-item>
         </el-row>
       </el-form>
@@ -103,18 +120,18 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="充电桩编号:" label-width="150px">
-              <el-input v-model="editChargingPoint.chargingPointNum"/>
+              <el-input v-model="editChargingPoint.chargPileId"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="充电桩名称:" label-width="150px">
-              <el-input v-model="editChargingPoint.chargingPointName"/>
+              <el-input v-model="editChargingPoint.chargPileName"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
           <el-form-item label="充电桩描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="editChargingPoint.chargingPointDescribe"/>
+            <el-input type="textarea" style="width: 655px;" v-model="editChargingPoint.chargPileDesc"/>
           </el-form-item>
         </el-row>
       </el-form>
@@ -130,21 +147,21 @@ export default {
   data() {
     return {
       //充电桩编号列表
-      chargingPointNumList: [
+      chargPileIdList: [
         {
-          chargingPointNum: "1号",
+          chargPileId: "1号",
           id: "1"
         },
         {
-          chargingPointNum: "2号",
+          chargPileId: "2号",
           id: "2"
         },
         {
-          chargingPointNum: "3号",
+          chargPileId: "3号",
           id: "3"
         },
         {
-          chargingPointNum: "4号",
+          chargPileId: "4号",
           id: "4"
         }
       ],
@@ -164,33 +181,7 @@ export default {
         }
       ],
       //地锁列表
-      chargingPointList: [
-          {
-        chargingPointNum: "1",
-        chargingPointName: "啊",
-        chargingPointDescribe: "啊是第哈切夫你去偶的弄请问你都去",
-        addTime: "2020-10-30",
-        addName: "小王",
-        editTime: "2020-10-30",
-        editName: "小王",
-      }, {
-        chargingPointNum: "1",
-        chargingPointName: "啊",
-        chargingPointDescribe: "啊是第哈切夫你去偶的弄请问你都去",
-        addTime: "2020-10-30",
-        addName: "小王",
-        editTime: "2020-10-30",
-        editName: "小王",
-      }, {
-        chargingPointNum: "1",
-        chargingPointName: "啊",
-        chargingPointDescribe: "啊是第哈切夫你去偶的弄请问你都去",
-        addTime: "2020-10-30",
-        addName: "小王",
-        editTime: "2020-10-30",
-        editName: "小王",
-      },
-      ],
+      chargingPointList: [],
       //新增表单弹框
       addListDialog: false,
       //新增充电桩数据暂存
@@ -206,13 +197,25 @@ export default {
       //分页
       pageNum: 1,
       pageSize: 10,
-      pageTotal: 4
+      pageTotal: 4,
+      // 导入弹框
+      importDialog: false
     };
   },
   methods: {
     //查询
     queryChargingPoint() {
-      console.log("查询的停车场名称", this.parkingLotNameList.pkName);
+      this.chargingPointList = [];
+      const param = {
+        chargPileId: this.chargPileId,
+        chargStatus: this.chargStatus,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      };
+      this.$deviceManagement.queryChargePileList(param).then(res => {
+        this.chargingPointList = res.resultEntity.list;
+        this.pageTotal = res.resultEntity.total;
+      })
     },
     //新增充电桩
     addChargingPoint() {
@@ -222,6 +225,7 @@ export default {
     },
     //批量导入
     bulkImport() {
+      this.importDialog = true;
       console.log("批量导入");
     },
     //批量删除
@@ -232,7 +236,10 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
+        this.$deviceManagement.delChargePile(this.idList).then(() => {
+          this.$message({type: "success", message: "删除成功!"});
+          this.queryChargingPoint();
+        })
       })
           .catch(() => {
             this.$message({type: "info", message: "已取消删除"});
@@ -246,13 +253,21 @@ export default {
     },
     //删除
     deleteChargingPoint(row) {
-      console.log("删除的充电桩Id", row.chargingPointNum);
+      console.log("删除的充电桩Id", row.chargPileId);
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$message({type: "success", message: "删除成功!"});
+        const param = [
+          {
+            chargPileId: row.chargPileId
+          }
+        ];
+        this.$deviceManagement.delChargePile(param).then(() => {
+          this.$message({type: "success", message: "删除成功!"});
+          this.queryChargingPoint();
+        })
       })
           .catch(() => {
             this.$message({type: "info", message: "已取消删除"});
@@ -260,13 +275,18 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      console.log("新增数据", this.newChargingPoint);
-      this.chargingPointList.push(this.newChargingPoint);
+      this.$deviceManagement.addChargePile(this.newChargingPoint).then(res => {
+        this.$message({type: "success", message: "添加成功!"});
+        this.queryChargingPoint();
+      })
       this.addListDialog = false;
     },
     //修改表单提交
     onSubmitEdit() {
-      console.log("修改数据", this.editLock);
+      this.$deviceManagement.updateChargePile(this.editChargingPoint).then(res => {
+        this.$message({type: "success", message: "修改成功!"});
+        this.queryChargingPoint();
+      })
       this.editListDialog = false;
     },
     //批量删除监听
@@ -275,14 +295,19 @@ export default {
       this.idList = [];
       //获取批量删除id
       val.forEach((item) => {
-        this.idList.push(item.LockNum);
+        const param = {
+          chargPileId: item.chargPileId
+        }
+        this.idList.push(param);
       });
-      console.log(this.selectList);
     },
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
     }
+  },
+  mounted() {
+    this.queryChargingPoint();
   }
 };
 
