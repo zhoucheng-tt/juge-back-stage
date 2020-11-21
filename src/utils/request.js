@@ -20,6 +20,7 @@ const service = axios.create({
   baseURL: '/e-parking-web',
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
+  // 这边也走两套
   transformRequest: [
     function (data) {
       let reqInfo = {
@@ -48,6 +49,7 @@ service.interceptors.request.use(
   }
 )
 
+// 这边是拦截代码
 // response interceptor
 service.interceptors.response.use(
   /**
@@ -60,6 +62,7 @@ service.interceptors.response.use(
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
+  // 拦截方法
   response => {
     const res = response.data
     // if (res.struts === '1') {

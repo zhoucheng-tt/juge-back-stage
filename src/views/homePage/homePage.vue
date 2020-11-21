@@ -2,7 +2,7 @@
     首页高保真版本
 * @Author: 邵青阳
 * @Date: 2020-11-10 10:23:28
- * @LastEditTime: 2020-11-13 15:54:41
+ * @LastEditTime: 2020-11-19 16:03:29
  * @LastEditors: Please set LastEditors
 * @Description: In User Settings Edit
 * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\homePage\homePage.vue
@@ -603,7 +603,7 @@
                             enabled: false
                         },
                         xAxis: {
-                            categories: this.numberOfParkingXz
+                            categories: this.numberOfParkingXz,
                         },
                         yAxis: {
                             title: {

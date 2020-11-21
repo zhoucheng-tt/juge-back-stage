@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-10-13 15:20:16
+ * @LastEditTime: 2020-11-19 19:24:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\main.js
@@ -22,8 +22,6 @@ import '@/utils/date.js';
 Vue.use(ElementUI)
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
-
-import $ from 'jquery'
 
 
 // 引入highcharts

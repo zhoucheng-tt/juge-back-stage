@@ -2,14 +2,14 @@
     出入口检测
  * @Author:邵青阳
  * @Date: 2020-11-09 10:10:54
- * @LastEditTime: 2020-11-09 10:11:32
+ * @LastEditTime: 2020-11-19 19:28:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\reportAnalysis\entranceExitMonitoring.vue
 -->
 <template>
   <div class="all">
-    <div class="up">
+    <div clfass="up">
       <!--上半部分查询-->
       <el-row>
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
