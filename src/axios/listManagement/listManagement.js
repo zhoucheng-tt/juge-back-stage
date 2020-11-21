@@ -40,6 +40,26 @@ export function deleteWhiteList(param) {
         }
     )
 }
+//白名单修改接口 MemberFunc/updateWhiteList
+export function updateWhiteList(param) {
+    return request(
+        {
+            url: 'MemberFunc/updateWhiteList',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//白名单修改状态 MemberFunc/updateWhiteListStatus
+export function updateWhiteListStatus(param) {
+    return request(
+        {
+            url: 'MemberFunc/updateWhiteListStatus',
+            method: 'post',
+            data: param
+        }
+    )
+}
 
 //查询黑名单列表 MemberFunc/queryBlackList
 export function queryBlackList(param) {
@@ -66,6 +86,26 @@ export function deleteBlackList(param) {
     return request(
         {
             url: 'MemberFunc/deleteBlackList',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//黑名单修改接口 MemberFunc/updateBlackList
+export function updateBlackList(param) {
+    return request(
+        {
+            url: 'MemberFunc/updateBlackList',
+            method: 'post',
+            data: param
+        }
+    )
+}
+//黑名单修改状态 MemberFunc/updateBlackListStatus
+export function updateBlackListStatus(param) {
+    return request(
+        {
+            url: 'MemberFunc/updateBlackListStatus',
             method: 'post',
             data: param
         }

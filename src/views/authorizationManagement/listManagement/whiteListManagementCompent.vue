@@ -218,7 +218,8 @@
                                 <p>归属停车场:</p>
                             </div>
                             <el-form-item style="margin-left: 1%">
-                                <el-select v-model="modifyWhiteList.parkName" placeholder="请选择停车场">
+                                <el-select v-model="modifyWhiteList.parkId" :disabled="true"
+                                           placeholder="请选择停车场">
                                     <el-option v-for="(item, index) in parkLotNameList" :label="item.name" :value="item.code"
                                                :key="index"></el-option>
                                 </el-select>
@@ -232,7 +233,8 @@
                         <el-row>
                             <el-col :span="12">
                                 <el-form-item label="车牌号码:" label-width="150px">
-                                    <el-input v-model="modifyWhiteList.carNumber"></el-input>
+                                    <el-input v-model="modifyWhiteList.plateNumber"
+                                              :disabled="true"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
@@ -250,7 +252,7 @@
                             </el-col>
                             <el-col :span="12">
                                 <el-form-item label="身份证信息:" label-width="150px">
-                                    <el-input v-model="modifyWhiteList.idCardInformation"></el-input>
+                                    <el-input v-model="modifyWhiteList.idCardNumber"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -259,23 +261,19 @@
                             <el-col :span="12">
                                 <el-form-item label="车主联系地址:" label-width="150px">
                                     <el-input style="width: 400px"
-                                              v-model="modifyWhiteList.carOwnerAddress"></el-input>
+                                              v-model="modifyWhiteList.carOwnerContactAddress"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <!--                        白名单第四行车牌颜色-->
                         <el-row>
-                            <el-col :span="12" style="display: flex;margin-left: 6%">
-                                <div>
-                                    <p>车牌颜色:</p>
-                                </div>
-                                <el-form-item style="margin-left: 1%">
-                                    <el-select v-model="modifyWhiteList.plateColor" placeholder="请选择车牌颜色">
-                                        <el-option v-for="(item, index) in plateColorList" :label="item.name" :value="item.code"
-                                                   :key="index"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
+                            <el-form-item label="车牌颜色:" label-width="150px">
+                                <el-select v-model="modifyWhiteList.numberPlateColorCode" placeholder="请选择">
+                                    <el-option v-for="(item, index) in plateColorList" :label="item.name" :value="item.code"
+                                               :key="index">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
                         </el-row>
                         <!--                        白名单第五行生效失效时间-->
                         <el-row class="addWhiteListDate">
@@ -285,8 +283,9 @@
                                     <p>生效时间:</p>
                                 </el-row>
                                 <el-date-picker
-                                        v-model="modifyWhiteList.effectTime"
+                                        v-model="modifyWhiteList.effectiveTime"
                                         type="datetime"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
                                         placeholder="请选择生效时间">
                                 </el-date-picker>
                             </el-row>
@@ -294,14 +293,22 @@
                             <div class="finishTime" style="margin-left: 29%">
                                 <span>失效时间:</span>
                                 <el-date-picker
-                                        v-model="modifyWhiteList.finishTime"
+                                        v-model="modifyWhiteList.expirationTime"
                                         type="datetime"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
                                         placeholder="请选择失效时间">
                                 </el-date-picker>
                             </div>
                         </el-row>
-<!--                        白名单最后一行备注-->
+                        <!--                        白名单最后一行备注-->
                         <el-row>
+                            <!--                        车位编号-->
+                            <el-col :span="12">
+                                <el-form-item label="车位编号:" label-width="150px">
+                                    <el-input v-model="modifyWhiteList.parkSpaceId"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <!--                        备注-->
                             <el-col :span="12">
                                 <el-form-item label="备注:" label-width="150px">
                                     <el-input v-model="modifyWhiteList.remark"></el-input>
@@ -374,22 +381,18 @@
                 idList: [],
                 //多选后数据暂存
                 selectGateList:[],
-
-
                 //操作中修改按钮弹窗
                 ModifyWhiteListDialog:false,
                 //修改数据暂存
                 modifyWhiteList:[],
-
-
-
-
                 //操作中停用弹窗
                 blockUpDialog:false,
-                //修改中启用数据暂存
-
+                //修改中停用用数据暂存
+                blockUpList:[],
                 //操作中启用弹窗
                 startUpDialog:false,
+                //修改中启用数据暂存
+                startUpList:[]
             }
        },
        mounted() {
@@ -553,33 +556,80 @@
                    this.$message({type: "info", message: "已取消删除"});
                });
            },
-       //操作中的修改按钮
+           //操作中的修改按钮
            aMend(row){
-               //修改白名单显示弹窗
+               //修改黑名单显示弹窗
                this.modifyWhiteList = row;
                this.ModifyWhiteListDialog=true;
-               console.log("查询修改表格数据",this.modifyWhiteList)
+               // console.log("查询修改表格数据",this.modifyWhiteList)
            },
            //操作中的修改按钮的提交
            onSubmitModify(){
-               this.ModifyWhiteListDialog=false;
-               console.log("查询修改之后的表格数据",this.modifyWhiteList);
+               const param = {
+                   whiteListId:this.modifyWhiteList.whiteListId,
+                   parkId:this.modifyWhiteList.parkId,
+                   plateNumber:this.modifyWhiteList.plateNumber,
+                   carOwnerName:this.modifyWhiteList.carOwnerName,
+                   phoneNumber:this.modifyWhiteList.phoneNumber,
+                   idCardNumber:this.modifyWhiteList.idCardNumber,
+                   carOwnerContactAddress:this.modifyWhiteList.carOwnerContactAddress,
+                   numberPlateColorCode:this.modifyWhiteList.numberPlateColorCode,
+                   effectiveTime:this.modifyWhiteList.effectiveTime,
+                   expirationTime:this.modifyWhiteList.expirationTime,
+                   parkSpaceId:this.modifyWhiteList.parkSpaceId,
+                   remark:this.modifyWhiteList.remark,
+                   blackWhiteListStatusCode:this.modifyWhiteList.blackWhiteListStatusCode
+               };
+               console.log('传入的参数',param)
+               this.$listManagement.updateWhiteList(param).then(response => {
+                   console.log("打印修改传入数据", response);
+                   this.$message({type: "success", message: "修改成功!"});
+                   this.queryWhiteList();
+                   console.log("修改后的数据", this.modifyBlackList);
+               });
+               this.ModifyWhiteListDialog = false;
            },
        //操作中的启用按钮
            enAble(row){
+               // console.log('一行。。。。。。。。。。。。。',row)
+               this.startUpList = row;
+               // console.log('22222222222222',this.startUpList)
                this.startUpDialog=true;
            },
        //启用按钮弹窗
            startUp(){
                this.startUpDialog=false;
+               const param = {
+                   whiteListId:this.startUpList.whiteListId,
+                   blackWhiteListStatusCode:"0"
+               };
+               console.log('传入的参数',param)
+               this.$listManagement.updateWhiteListStatus(param).then(response => {
+                   console.log("打印修改传入数据", response);
+                   this.$message({type: "success", message: "修改成功!"});
+                   this.queryWhiteList();
+                   console.log("修改后的数据", this.startUpList);
+               });
            },
        //停用按钮
            endUse(row){
+               this.blockUpList = row;
                this.blockUpDialog=true;
            },
        //停用按钮弹窗
            blockUp(){
                this.blockUpDialog=false;
+               const param = {
+                   whiteListId:this.blockUpList.whiteListId,
+                   blackWhiteListStatusCode:"1"
+               };
+               console.log('传入的参数',param)
+               this.$listManagement.updateWhiteListStatus(param).then(response => {
+                   console.log("打印修改传入数据", response);
+                   this.$message({type: "success", message: "修改成功!"});
+                   this.queryWhiteList();
+                   console.log("修改后的数据", this.blockUpList);
+               });
            },
 
 
