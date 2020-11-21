@@ -55,6 +55,9 @@
                     <div class="leftChartUp">
                         <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
                         <span class="spanStyle">平均停车时长</span>
+                        <span style="color: rgba(8,246,228,1);margin-left: 2%">
+                            50分钟
+                        </span>
                     </div>
                     <!-- 平均停车时长   -->
                     <div class="leftChartCenter" id="averageParkingTime">
@@ -71,8 +74,15 @@
                         <span class="spanStyle">充电桩收入按月分析</span>
                     </div>
                     <!-- 充电桩收入按月分析   -->
-                    <div class="leftChartCenter" id="chargingPileRevenue">
-                        <Xchart id="chargingPileRevenue" :option="chargingPileRevenueLine"></Xchart>
+<!--                    <div class="leftChartCenter" id="chargingPileRevenue">-->
+<!--                        <Xchart id="chargingPileRevenue" :option="chargingPileRevenueLine"></Xchart>-->
+<!--                    </div>-->
+                    <!-- 平均充电时间 averageChargingTime-->
+                    <div
+                            class="leftChartCenter"
+                            id="chargeEarn"
+                    >
+                        <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
                     </div>
                     <div class="leftChartDown">
                         <img src="../../assets/homePage/juxing.svg" alt="">
@@ -256,6 +266,9 @@
                     <div class="leftChartUp">
                         <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
                         <span class="spanStyle">车位利用率</span>
+                        <span style="color: rgba(8,246,228,1);margin-left: 2%">
+                            85%
+                        </span>
                     </div>
                     <!-- 车位利用率   -->
                     <div class="leftChartCenter" id="parkingSpaceUtilization">
@@ -270,6 +283,9 @@
                     <div class="leftChartUp">
                         <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
                         <span class="spanStyle">车位周转率</span>
+                        <span style="color: rgba(8,246,228,1);margin-left: 2%">
+                            95%
+                        </span>
                     </div>
                     <!-- 车位周转率   -->
                     <div class="leftChartCenter" id="parkingSpaceTurnoverRate">
@@ -286,8 +302,11 @@
                         <span class="spanStyle">自助洗车收入按月分析</span>
                     </div>
                     <!-- 自助洗车收入按月分析   -->
-                    <div class="leftChartCenter" id="selfServiceCarWashing">
-                        <Xchart id="selfServiceCarWashing" :option="selfServiceCarWashingLine"></Xchart>
+<!--                    <div class="leftChartCenter" id="selfServiceCarWashing">-->
+<!--                        <Xchart id="selfServiceCarWashing" :option="selfServiceCarWashingLine"></Xchart>-->
+<!--                    </div>-->
+                    <div class="leftChartCenter" id="chargeAmountTimes">
+                        <Xchart id="chargeAmountTimes" :option="chargeAmountTimesOptions"></Xchart>
                     </div>
                     <div class="leftChartDown">
                         <img src="../../assets/homePage/juxing.svg" alt="">
@@ -393,6 +412,18 @@
                 // 自助洗车收入
                 selfServiceCarWashing: '',
                 selfServiceCarWashingLine: {},
+
+
+                //自助充电设备收入按时段分析
+                chargeEarnChartX: [],
+                chargeEarnDataList: [],
+                chargeEarnChart: {},
+
+                // 收费金额按照时间段分析
+                chargeAmountTimes: '',
+                chargeAmountTimesX:[],
+                chargeAmountTimesData:[],
+                chargeAmountTimesOptions: {},
             }
         },
         mounted() {
@@ -400,10 +431,10 @@
             this.initMap();
             // 添加图标的方法
             this.addMoudel();
-            // 充电桩收入排行
-            this.querychargingPileRevenueLine();
-            // 充电桩收入按月分析
-            this.queryselfServiceCarWashingLine();
+            // // 充电桩收入排行
+            // this.querychargingPileRevenueLine();
+            // // 充电桩收入按月分析
+            // this.queryselfServiceCarWashingLine();
             this.queryTest();
             //查询总收入
             this.jintian();
@@ -431,6 +462,10 @@
                 this.queryParkIncomeRanking();
                 //顶部总收入查询
                 this.queryTotalIncome();
+                //按月洗车收入
+                this.querychargeAmountTimes("currentMonth");
+                //洗车收入
+                this.drawChargeEarnChart();
                 // 数据变动
                 this.contentNumList = [];
             },
@@ -447,8 +482,13 @@
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //按月洗车收入
+                this.querychargeAmountTimes("currentMonth");
+                //洗车收入
+                this.drawChargeEarnChart();
                 //顶部总收入查询
                 this.queryTotalIncome();
+
                 // 数据变动
                 this.contentNumList = [];
             },
@@ -465,6 +505,10 @@
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //按月洗车收入
+                this.querychargeAmountTimes("currentMonth");
+                //洗车收入
+                this.drawChargeEarnChart();
                 //顶部总收入查询
                 this.queryTotalIncome();
                 // 数据变动
@@ -483,6 +527,10 @@
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //按月洗车收入
+                this.querychargeAmountTimes("currentMonth");
+                //洗车收入
+                this.drawChargeEarnChart();
                 //顶部总收入查询
                 this.queryTotalIncome();
                 // 数据变动
@@ -602,11 +650,10 @@
                         credits: {
                             enabled: false
                         },
+                        color:['#03D7E9 '],
                         xAxis: {
                             categories: this.numberOfParkingXz,
                             labels: {
-                                //设置文字横着放
-                                rotation: 270,
                                 //设置刻度
                                 // tickPositions: [],
                                 style:{
@@ -624,9 +671,6 @@
                                 text: ''
                             },
                             labels: {
-                                formatter: function () {
-                                    return this.value / 1000 + 'k';
-                                },
                                 style:{
                                     color:'rgba(90,142,227,1)',
                                     letterSpacing: '0.27px',
@@ -673,8 +717,6 @@
                                 }
                             }
                         },
-                        //区域颜色
-
                         series: [{
                             // name: this.numberOfParkingName,
                             data: this.numberOfParkingData,
@@ -683,6 +725,7 @@
                     new HighCharts.chart(this.numberOfParkingOptions);
                 });
             },
+
             // 平均停车时长
             queryParkOptByAvgParkDuration() {
                 // this.lineId = 'averageParkingTime';
@@ -715,11 +758,10 @@
                         credits: {
                             enabled: false
                         },
+                        colors: ['#E9C503'],
                         xAxis: {
                             categories: this.averageParkingTimeXz,
                             labels:{
-                                //设置文字横着放
-                                rotation: 270,
                                 //设置刻度
                                 // tickPositions: [],
                                 style:{
@@ -737,10 +779,16 @@
                                 text: ''
                             },
                             labels: {
-                                formatter: function () {
-                                    return this.value / 1000 + 'k';
-                                }
-                            }
+                                // formatter: function () {
+                                //     return this.value / 1000 + 'k';
+                                // },
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                    letterSpacing: '0.27px',
+                                    lineHeight:'17px',
+                                    fontSize:'12px',
+                                },
+                            },
                         },
                         legend: {
                             enabled: true,
@@ -789,6 +837,7 @@
                 });
 
             },
+
             // 车位利用率
             queryParkOptByParkSpaceUsedRate() {
                 // this.lineId = 'parkingSpaceUtilization';
@@ -821,11 +870,10 @@
                         credits: {
                             enabled: false
                         },
+                        colors: ['#895EFC'],
                         xAxis: {
                             categories: this.parkingSpaceUtilizationXz,
                             labels:{
-                                //设置文字横着放
-                                rotation: 270,
                                 //设置刻度
                                 // tickPositions: [],
                                 style:{
@@ -843,9 +891,6 @@
                                 text: ''
                             },
                             labels: {
-                                formatter: function () {
-                                    return this.value / 1000 + 'k';
-                                },
                                 style:{
                                     color:'rgba(90,142,227,1)',
                                     letterSpacing: '0.27px',
@@ -899,6 +944,7 @@
                     new HighCharts.chart(this.parkingSpaceUtilizationOptions);
                 });
             },
+
             // 车位周转率
             queryParkOptByParkSpaceTurnoverRate() {
                 // this.lineId = 'parkingSpaceTurnoverRate';
@@ -931,11 +977,10 @@
                         credits: {
                             enabled: false
                         },
+                        colors: ['#E9C503'],
                         xAxis: {
                             categories: this.parkingSpaceTurnoverRateXz,
                             labels:{
-                                //设置文字横着放
-                                rotation: 270,
                                 //设置刻度
                                 // tickPositions: [],
                                 style:{
@@ -953,9 +998,6 @@
                                 text: ''
                             },
                             labels: {
-                                formatter: function () {
-                                    return this.value / 1000 + 'k';
-                                },
                                 style:{
                                     color:'rgba(90,142,227,1)',
                                     letterSpacing: '0.27px',
@@ -1009,6 +1051,7 @@
                     new HighCharts.chart(this.parkingSpaceTurnoverRateOptions);
                 });
             },
+
             // 停车场收入排行
             queryParkIncomeRanking() {
                 this.parkingRevenueRankingChartX = [];
@@ -1018,9 +1061,8 @@
                 var dataListA = [];
                 this.$homePage.queryParkIncomeRanking(param).then(res => {
                     res.data.dataList.forEach((item) => {
-                        this.parkingRevenueRankingChartX.push(item.parkName);
+                        this.parkingRevenueRankingChartY.push(item.parkName);
                         dataListA.push(Number(item.parkIncome));
-                        // dataListB.push(Number(item.arrearageMoneyAmount));
                     });
                     this.parkingRevenueRankingList = [
                         {
@@ -1041,8 +1083,6 @@
                             text: ""
                         },
                         xAxis: {
-                            categories: this.parkingRevenueRankingChartX,
-
                             categories: this.parkingRevenueRankingChartY,
 
                             labels: {
@@ -1058,12 +1098,7 @@
                             title: {
                                 text: ""
                             },
-                            categories: this.parkingRevenueRankingChartY,
                             labels:{
-                                //设置文字横着放
-                                rotation: 270,
-                                //设置刻度
-                                // tickPositions: [],
                                 style:{
                                     color:'rgba(90,142,227,1)',
                                     letterSpacing: '0.27px',
@@ -1072,6 +1107,7 @@
                                 }
                             },
                         },
+
                         tooltip: {
                             shared: true
                         },
@@ -1100,7 +1136,209 @@
                     new HighCharts.chart(this.parkingRevenueRankingChart);
                 });
             },
-            // 折线图的方法
+
+            //收费按月分析金额分析
+            querychargeAmountTimes(code) {
+                const param = {
+                    queryType: code
+                }
+                this.$realTimeMonitor.queryWashEarn(param).then(res => {
+                    this.chargeAmountTimesX = [];
+                    this.chargeAmountTimesData = [];
+                    res.resultEntity.forEach(item => {
+                        this.chargeAmountTimesX.push(item.X);
+                        this.chargeAmountTimesData.push(Number(item.dataY));
+                    });
+                    this.chargeAmountTimesOptions = {
+                        chart: {
+                            type: 'column',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: 'chargeAmountTimes',
+                        },
+                        title: {
+                            text: ''
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: this.chargeAmountTimesX,
+                            labels: {
+                                format: "{value}",
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                }
+                            },
+                        },
+                        yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                format: "{value}",
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                }
+                            },
+
+                        },
+                        legend: {
+                            enabled: false,
+                            align: 'center',
+                            verticalAlign: 'top',
+                            x: 0,
+                            y: -20,
+                            itemStyle: {
+                                color: '#cccccc',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                fontWeight: 'bold',
+                                fill: '#cccccc',
+                            },
+                            itemHoverStyle: {
+                                color: '#666666',
+                            },
+                            itemHiddenStyle: {
+                                color: '#333333'
+                            }
+                        },
+                        tooltip: {
+                            pointFormat: '收入： <b>{point.y:,.0f}</b>元'
+                        },
+                        plotOptions: {
+                            area: {
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    radius: 2,
+                                    states: {
+                                        hover: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: '数量',
+                            data: this.chargeAmountTimesData
+                        }]
+                    }
+                    // 绘制
+                    new HighCharts.Chart(this.chargeAmountTimesOptions);
+                })
+            },
+
+            //绘表自助充电设备收入按时段分析
+            drawChargeEarnChart() {
+                this.chargeEarnChartX = [];
+                const param = {
+                    "statisType":this.days.statisType,
+                };
+                var dataList = [];
+                this.$reportAnalysis.queryChargeEarn(param).then(res => {
+                    res.resultEntity.forEach((item) => {
+                        this.chargeEarnChartX.push(item.X);
+                        dataList.push(Number(item.dataY));
+                    });
+                    this.chargeEarnDataList = [{
+                        name: "收入金额",
+                        showInLegend: false,
+                        data: dataList
+                    }];
+                    this.chargeEarnChart = {
+                        chart: {
+                            type: "column",
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            renderTo: "chargeEarn",
+                        },
+                        title: {
+                            text: ""
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: this.chargeEarnChartX,
+                            labels: {
+                                format: "{value}",
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                }
+                            },
+                        },
+                        yAxis: {
+                            //设置网格线颜色
+                            gridLineColor : '#2B3DA1',
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                format: "{value}",
+                                style:{
+                                    color:'rgba(90,142,227,1)',
+                                }
+                            },
+                        },
+                        plotOptions: {
+                            series: {
+                                depth: 25,
+                                // colorByPoint: true
+                            }
+                        },
+                        series: this.chargeEarnDataList
+                    };
+                    new HighCharts.chart(this.chargeEarnChart);
+                })
+
+            },
+
+            // // 充电桩收入排行(暂时先放一张3d的图)
+            // querychargingPileRevenueLine() {
+            //     var that = this;
+            //     that.chargingPileRevenueLine = {
+            //         chart: {
+            //             type: 'column',
+            //             renderTo: 'chargingPileRevenue',
+            //             backgroundColor: 'rgba(0,0,0,0)',
+            //             options3d: {
+            //                 enabled: false,
+            //                 alpha: 15,
+            //                 beta: 15,
+            //                 depth: 50,
+            //                 viewDistance: 25
+            //             }
+            //         },
+            //         title: {
+            //             text: ''
+            //         },
+            //         yAxis: {
+            //             title: {
+            //                 text: ''
+            //             },
+            //         },
+            //         credits: {
+            //             enabled: false
+            //         },
+            //         plotOptions: {
+            //             series: {
+            //                 depth: 25,
+            //                 colorByPoint: true
+            //             }
+            //         },
+            //         series: [{
+            //             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            //             name: 'Cylinders',
+            //             showInLegend: false
+            //         }]
+            //     }
+            //     // 绘制
+            //     new HighCharts.Chart(that.chargingPileRevenueLine);
+            // },
+
+
             queryLine() {
                 var that = this;
                 that.lineOptions = {
@@ -1176,90 +1414,6 @@
                 }
                 // 绘制
                 new HighCharts.Chart(that.lineOptions);
-            },
-            // 充电桩收入排行(暂时先放一张3d的图)
-            querychargingPileRevenueLine() {
-                var that = this;
-                that.chargingPileRevenueLine = {
-                    chart: {
-                        type: 'column',
-                        renderTo: 'chargingPileRevenue',
-                        backgroundColor: 'rgba(0,0,0,0)',
-                        options3d: {
-                            enabled: false,
-                            alpha: 15,
-                            beta: 15,
-                            depth: 50,
-                            viewDistance: 25
-                        }
-                    },
-                    title: {
-                        text: ''
-                    },
-                    yAxis: {
-                        title: {
-                            text: ''
-                        },
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        series: {
-                            depth: 25,
-                            colorByPoint: true
-                        }
-                    },
-                    series: [{
-                        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-                        name: 'Cylinders',
-                        showInLegend: false
-                    }]
-                }
-                // 绘制
-                new HighCharts.Chart(that.chargingPileRevenueLine);
-            },
-            // 自助洗车收入(暂时先放一张3d的图)
-            queryselfServiceCarWashingLine() {
-                var that = this;
-                that.selfServiceCarWashingLine = {
-                    chart: {
-                        type: 'column',
-                        renderTo: 'selfServiceCarWashing',
-                        backgroundColor: 'rgba(0,0,0,0)',
-                        options3d: {
-                            enabled: false,
-                            alpha: 15,
-                            beta: 15,
-                            depth: 50,
-                            viewDistance: 25
-                        }
-                    },
-                    title: {
-                        text: ''
-                    },
-                    yAxis: {
-                        title: {
-                            text: ''
-                        }
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        series: {
-                            depth: 25,
-                            colorByPoint: true
-                        }
-                    },
-                    series: [{
-                        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-                        name: 'Cylinders',
-                        showInLegend: false
-                    }]
-                }
-                // 绘制
-                new HighCharts.Chart(that.selfServiceCarWashingLine);
             },
             //测试查询
             queryTest(){
