@@ -4,7 +4,7 @@ import request from '@/utils/request'
 export function queryWashData(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/RealTimeMonitorController/washData',
+            url: 'http://192.168.1.161:8000/RealTimeMonitorController/washData',
             method: 'post',
             data: param,
             flag: 'out'
@@ -15,7 +15,7 @@ export function queryWashData(param) {
 export function queryWashCount(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/RealTimeMonitorController/washCarCount',
+            url: 'http://192.168.1.161:8000/RealTimeMonitorController/washCarCount',
             method: 'post',
             data: param,
             flag: 'out'
@@ -27,7 +27,7 @@ export function queryWashCount(param) {
 export function queryWashEarn(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/RealTimeMonitorController/washEarn',
+            url: 'http://192.168.1.161:8000/RealTimeMonitorController/washEarn',
             method: 'post',
             data: param,
             flag: 'out'
