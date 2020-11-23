@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-11-09 10:11:59
+ * @LastEditTime: 2020-11-23 10:06:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -103,6 +103,13 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/entranceExitMonitoring.vue")
       },
+      // 洗车机报警信息统计  
+      {
+        path: "/alarmInformationCarWashingMachine",
+        name: "alarmInformationCarWashingMachine",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/alarmInformationCarWashingMachine.vue")
+      },
       // 订单管理
       // 停车订单查询
       {
@@ -117,6 +124,13 @@ const routes = [
         name: "reservationOrderInquiry",
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/orderManagement/reservationOrderInquiry.vue")
+      },
+      // 自助充电订单查询
+      {
+        path: "/querySelfServiceChargingOrder",
+        name: "querySelfServiceChargingOrder",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "@/views/orderManagement/querySelfServiceChargingOrder.vue")
       },
       // 基础信息管理
       // 基础信息管理ETC

@@ -185,6 +185,13 @@
                 name: '出入口监测',
                 routeName: 'entranceExitMonitoring'
               },
+              // 洗车机报警信息统计
+              {
+                code: '3-6',
+                logo: 'el-icon-menu',
+                name: '洗车机报警信息统计',
+                routeName: 'alarmInformationCarWashingMachine'
+              }
             ]
           },
           {
@@ -211,6 +218,13 @@
                 name: '预约订单查询',
                 routeName: 'reservationOrderInquiry'
               },
+              // 充电订单查询
+              {
+                code: '5-3',
+                logo: 'el-icon-menu',
+                name: '自助充电订单查询',
+                routeName: 'querySelfServiceChargingOrder'
+              }
             ]
           },
           // 基础信息管理
