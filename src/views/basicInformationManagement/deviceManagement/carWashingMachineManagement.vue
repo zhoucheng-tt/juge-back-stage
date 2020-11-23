@@ -63,7 +63,6 @@
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                 @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
-        <el-table-column fixed prop="parkName" label="停车场名称"/>
         <el-table-column prop="washerId" :show-overflow-tooltip="true" label="洗车机编号"/>
         <el-table-column prop="washerName" :show-overflow-tooltip="true" label="洗车机名称"/>
         <el-table-column prop="washerDesc" :show-overflow-tooltip="true" label="洗车机描述"/>

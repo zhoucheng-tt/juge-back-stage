@@ -11,6 +11,7 @@ export function updateVideoDetecter(param) {
         }
     )
 }
+
 //视频车位导出
 export function exportVideoDetecter(param) {
     return request({
@@ -21,6 +22,7 @@ export function exportVideoDetecter(param) {
         responseType: 'blob'
     })
 }
+
 //地锁车位导出
 export function exportGroundLock(param) {
     return request({
@@ -31,6 +33,7 @@ export function exportGroundLock(param) {
         responseType: 'blob'
     })
 }
+
 //进出口摄像头导出
 export function exportPassagewayCamera(param) {
     return request({
@@ -41,6 +44,7 @@ export function exportPassagewayCamera(param) {
         responseType: 'blob'
     })
 }
+
 //道闸机导出
 export function exportPassagewayGate(param) {
     return request({
@@ -51,6 +55,7 @@ export function exportPassagewayGate(param) {
         responseType: 'blob'
     })
 }
+
 //地磁车位导出
 export function exportMagneticDetecter(param) {
     return request({
@@ -61,6 +66,7 @@ export function exportMagneticDetecter(param) {
         responseType: 'blob'
     })
 }
+
 //下拉框数据查询
 export function queryDictData(params) {
     return request(
@@ -146,6 +152,7 @@ export function delGroundLock(params) {
         }
     )
 }
+
 //修改地锁
 export function updateGroundLock(params) {
     return request(
@@ -211,6 +218,7 @@ export function addPassagewayGate(param) {
         }
     )
 }
+
 //道闸机删除 delPassagewayGate
 export function delPassagewayGate(param) {
     return request(
@@ -221,6 +229,7 @@ export function delPassagewayGate(param) {
         }
     )
 }
+
 //道闸机修改 updatePassagewayGate
 export function updatePassagewayGate(param) {
     return request(
@@ -253,7 +262,7 @@ export function queryPassagewayCamera(param) {
 //基础信息管理信息ETC
 export function queryETCList(param) {
     return request({
-        url: 'http://localhost:8000/ETCFunc/queryETCList',
+        url: 'http://192.168.1.161:8000/ETCFunc/queryETCList',
         method: 'post',
         data: param,
         flag: 'out',
@@ -263,7 +272,7 @@ export function queryETCList(param) {
 //修改ETC updateETC
 export function updateETC(param) {
     return request({
-        url: 'http://localhost:8000/ETCFunc/updateETC',
+        url: 'http://192.168.1.161:8000/ETCFunc/updateETC',
         method: 'post',
         data: param,
         flag: 'out',
@@ -273,7 +282,7 @@ export function updateETC(param) {
 //新增ETC addETC
 export function addETC(param) {
     return request({
-        url: 'http://localhost:8000/ETCFunc/addETC',
+        url: 'http://192.168.1.161:8000/ETCFunc/addETC',
         method: 'post',
         data: param,
         flag: 'out',
@@ -283,7 +292,7 @@ export function addETC(param) {
 //删除ETC
 export function delETC(param) {
     return request({
-        url: 'http://localhost:8000/ETCFunc/delETC',
+        url: 'http://192.168.1.161:8000/ETCFunc/delETC',
         method: 'post',
         data: param,
         flag: 'out',
@@ -293,7 +302,7 @@ export function delETC(param) {
 //洗车机列表
 export function queryCarWashingMachineList(param) {
     return request({
-        url: 'http://localhost:8000/carWashingMachineFunc/queryCarWashingMachineList',
+        url: 'http://192.168.1.161:8000/carWashingMachineFunc/queryCarWashingMachineList',
         method: 'post',
         data: param,
         flag: 'out',
@@ -303,7 +312,7 @@ export function queryCarWashingMachineList(param) {
 //新增洗车机 addCarWashingMachine
 export function addCarWashingMachine(param) {
     return request({
-        url: 'http://localhost:8000/carWashingMachineFunc/addCarWashingMachine',
+        url: 'http://192.168.1.161:8000/carWashingMachineFunc/addCarWashingMachine',
         method: 'post',
         data: param,
         flag: 'out',
@@ -313,7 +322,7 @@ export function addCarWashingMachine(param) {
 //修改洗车机 updateCarWashingMachine
 export function updateCarWashingMachine(param) {
     return request({
-        url: 'http://localhost:8000/carWashingMachineFunc/updateCarWashingMachine',
+        url: 'http://192.168.1.161:8000/carWashingMachineFunc/updateCarWashingMachine',
         method: 'post',
         data: param,
         flag: 'out',
@@ -323,7 +332,7 @@ export function updateCarWashingMachine(param) {
 //删除洗车机 delCarWashingMachine
 export function delCarWashingMachine(param) {
     return request({
-        url: 'http://localhost:8000/carWashingMachineFunc/delCarWashingMachine',
+        url: 'http://192.168.1.161:8000/carWashingMachineFunc/delCarWashingMachine',
         method: 'post',
         data: param,
         flag: 'out',
@@ -333,7 +342,7 @@ export function delCarWashingMachine(param) {
 //充电桩列表查询 queryChargePileList
 export function queryChargePileList(param) {
     return request({
-        url: 'http://localhost:8000/chargePlieFunc/queryChargePileList',
+        url: 'http://192.168.1.161:8000/chargePlieFunc/queryChargePileList',
         method: 'post',
         data: param,
         flag: 'out',
@@ -343,7 +352,7 @@ export function queryChargePileList(param) {
 //删除充电桩 delChargePile
 export function delChargePile(param) {
     return request({
-        url: 'http://localhost:8000/chargePlieFunc/delChargePile',
+        url: 'http://192.168.1.161:8000/chargePlieFunc/delChargePile',
         method: 'post',
         data: param,
         flag: 'out',
@@ -353,7 +362,7 @@ export function delChargePile(param) {
 //新增充电桩 addChargePile
 export function addChargePile(param) {
     return request({
-        url: 'http://localhost:8000/chargePlieFunc/addChargePile',
+        url: 'http://192.168.1.161:8000/chargePlieFunc/addChargePile',
         method: 'post',
         data: param,
         flag: 'out',
@@ -363,7 +372,7 @@ export function addChargePile(param) {
 //修改充电桩 updateChargePile
 export function updateChargePile(param) {
     return request({
-        url: 'http://localhost:8000/chargePlieFunc/updateChargePile',
+        url: 'http://192.168.1.161:8000/chargePlieFunc/updateChargePile',
         method: 'post',
         data: param,
         flag: 'out',

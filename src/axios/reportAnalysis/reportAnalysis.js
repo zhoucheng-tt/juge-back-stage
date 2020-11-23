@@ -4,7 +4,7 @@ import request from '@/utils/request'
 export function queryAccountStatisList(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/PayStatisticController/queryPayStatistic',
+            url: 'http://192.168.1.161:8000/PayStatisticController/queryPayStatistic',
             method: 'post',
             data: param,
             flag:'out'
@@ -82,7 +82,7 @@ export function queryParkOpeIncomeArrearsChart(param) {
 export function queryOpeReportStatisDayAnal(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/reportDate',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/reportDate',
             method: 'post',
             data: param,
             flag:'out'
@@ -94,7 +94,7 @@ export function queryOpeReportStatisDayAnal(param) {
 export function queryOpeReportStatisMonthAnal(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/reportMonth',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/reportMonth',
             method: 'post',
             data: param,
             flag:'out'
@@ -106,7 +106,7 @@ export function queryOpeReportStatisMonthAnal(param) {
 export function queryOpeReportStatisYearAnal(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/reportYear',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/reportYear',
             method: 'post',
             data: param,
             flag:'out'
@@ -130,7 +130,7 @@ export function queryParkOpeIdxParkDetailQtyAnal(param) {
 export function queryChargeEarn(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/queryChargeEarnData',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/queryChargeEarnData',
             method: 'post',
             header: {
                 'content-type': 'application/json;charset=utf-8'
@@ -145,7 +145,7 @@ export function queryChargeEarn(param) {
 export function queryWashEarn(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/queryWashEarnData',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/queryWashEarnData',
             method: 'post',
             header: {
                 'content-type': 'application/json;charset=utf-8'
@@ -171,7 +171,7 @@ export function queryParkOpeIdxParkDetailAnal(param) {
 export function queryAvgChargeTime(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/avgChargeTime',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/avgChargeTime',
             method: 'post',
             header: {
                 'content-type': 'application/json;charset=utf-8'
@@ -186,7 +186,7 @@ export function queryAvgChargeTime(param) {
 export function queryAvgWashTime(param) {
     return request(
         {
-            url: 'http://192.168.1.163:8000/EarnAnalysisController/avgWashTime',
+            url: 'http://192.168.1.161:8000/EarnAnalysisController/avgWashTime',
             method: 'post',
             header: {
                 'content-type': 'application/json;charset=utf-8'

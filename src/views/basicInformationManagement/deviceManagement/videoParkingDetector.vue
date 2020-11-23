@@ -58,13 +58,19 @@
               <el-upload
                   class="upload-demo"
                   ref="upload"
-                  action="url"
+                  enctype="multipart/form-data"
+                  action=""
                   :on-preview="handlePreview"
                   :on-remove="handleRemove"
-                  :file-list="fileList"
-                  :auto-upload="false">
-                <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+                  :before-remove="beforeRemove"
+                  :http-request="uploadFile"
+                  multiple
+                  :limit="1"
+                  :on-exceed="handleExceed"
+                  :file-list="fileList">
+                <el-button type="primary" size="medium" @click=handlePreview()>导 入<i class="el-icon-upload el-icon--right"></i>
                 </el-button>
+                <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>
               </el-upload>
             </el-header>
             <el-main style="text-align: center">
@@ -647,7 +653,34 @@ export default {
         document.body.appendChild(aLink);
         this.$refs.loadElement.appendChild(aLink);
       });
+    },
+
+    // 自定义上传 导入数据
+    uploadFile(item) {
+      const form = new FormData();
+      const columnEn = ["videoDetecterId", "videoDetecterName", "parkId", "videoDetecterMntrTypeCode", "ipAddress", "portNumber", "userName", "address", "manufacturer"];
+      form.append("column_en", columnEn);
+      //form.append('token', this.token);
+      form.append('file1', item.file);
+      this.$deviceManagement.batchInsertVideoDetecter(form).then(res => {
+        let data = res.data;
+        if (data.code == 200) {
+          this.$message({
+            type: 'success',
+            message: '导入成功!'
+          });
+          this.queryVideoDetecter(); //导入成功刷新列表
+          this.importDialog = false;
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg
+          });
+        }
+      }).catch(err => {
+      })
     }
+
   },
   mounted() {
     this.queryParking();
