@@ -16,10 +16,10 @@ export function login(params) {
         data: params,
     })
 }
-// 测试接口   http://192.168.1.163:8000/queryChartData/queryChargeEarnData
+// 测试接口   http://123.207.189.27:7138/queryChartData/queryChargeEarnData
 export function test(params) {
     return request({
-        url: 'http://192.168.1.163:8000/EarnAnalysisController/queryChargeEarnData',
+        url: 'http://123.207.189.27:7138/EarnAnalysisController/queryChargeEarnData',
         method: 'post',
         data: params,
         flag: 'out'
