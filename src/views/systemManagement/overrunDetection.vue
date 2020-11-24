@@ -148,7 +148,7 @@
                 <div class="table-sel">
                     <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                         <p style="font-size: 20px">选择用户</p>
-                        <el-checkbox-group v-model="addChooseUser" @change="handleCheckedUserChoose">
+                        <el-checkbox-group v-model="xuanzhongList" @change="handleCheckedUserChoose">
                             <el-checkbox v-for="item  in addChooseList"
                                          :label="item.userId"
                                          :key="item.userId">
@@ -242,7 +242,7 @@
                 <div class="table-sel">
                     <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                         <p style="font-size: 20px">选择用户</p>
-                        <el-checkbox-group v-model="addChooseUser" @change="handleCheckedUserChoose">
+                        <el-checkbox-group v-model="xuanzhongList" @change="handleCheckedUserChoose">
                             <el-checkbox v-for="item  in addChooseList"
                                          :label="item.userId"
                                          :key="item.userId">
@@ -336,7 +336,7 @@
                 <div class="table-sel">
                     <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
                         <p style="font-size: 20px">选择用户</p>
-                        <el-checkbox-group v-model="addChooseUser" @change="handleCheckedUserChoose">
+                        <el-checkbox-group v-model="xuanzhongList" @change="handleCheckedUserChoose">
                             <el-checkbox v-for="item  in addChooseList"
                                          :label="item.userId"
                                          :key="item.userId">
@@ -483,7 +483,7 @@
                 console.log("角色管理新增弹框弹出");
                 //清空弹出框
                 this.addRoleList = {};
-                this.addChooseUser=[];
+                this.xuanzhongList=[];
                 this.queryFuncListByRole();
             },
             //新增角色按钮确认提交
@@ -496,7 +496,7 @@
                     roleDesc: this.addRoleList.roleDesc,
                     creater: this.creater,
                     funcId:this.funcIdSplit,
-                    userId: this.addChooseUser
+                    userId: this.xuanzhongList
                 }
                 console.log("新增全部参数",param)
                 this.$systemUser.addRole(param).then(response => {
@@ -596,8 +596,8 @@
             },
             //新增中的权限功能选择用户多选框
             handleCheckedUserChoose(val) {
-                this.addChooseUser=val;
-                console.log('打印传入选择用户的userId',this.addChooseUser)
+                this.xuanzhongList=val;
+                console.log('打印传入选择用户的userId',this.xuanzhongList)
             },
             //新增子集
             handleCheckChange(val, item, innerItem) {
@@ -692,6 +692,7 @@
                 this.viewList.roleDesc = row.roleDesc;
                 this.viewListDialog = true;
                 this.zixunazhogList=[];
+                this.xuanzhongList = [];
                 const param1 = {
                     roleId:row.roleId,
                     funcId:"10"
@@ -706,8 +707,6 @@
                     for(let i = 0; i<this.chakanList.length; i++){
                        // this.fuxuanzhongList.push(this.chakanList[i].permission);
                         for (let j = 0; j < this.chakanList[i].children.length; j++) {
-                         //   this.zixunazhogList.push([this.chakanList[i].children[j].permission])
-                            // this.zixunazhogList[j]= this.chakanList[i].children.permission
                             if (this.chakanList[i].children[j].permission === true) {
                                 this.zixunazhogList.push(this.chakanList[i].children[j].id)
                         }
@@ -766,6 +765,7 @@
                 this.alterRoleList.roleName = row.roleName;
                 this.alterRoleList.roleDesc = row.roleDesc;
                 this.zixunazhogList=[];
+                this.xuanzhongList = [];
                 const param1 = {
                     roleId:row.roleId,
                     funcId:"10"

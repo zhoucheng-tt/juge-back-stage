@@ -335,7 +335,7 @@
         data() {
             return {
                 //洗车经济总收入
-                washCarPortIncome: '',
+                washCarPortIncome: 0,
                 //充电桩总收入
                 rechargeLeftIncome:[],
                 // 控制默认展示样式
@@ -348,6 +348,12 @@
                 //"statisType"存放
                 days:{
                     statisType:"today"
+                },
+                xicheParam:{
+                    queryType:"today",
+                },
+                chongdianParam:{
+                    queryType:"currentWeek",
                 },
                 // 地图中点击添加弹框
                 mapList: {
@@ -444,10 +450,7 @@
             this.queryTest();
             //查询总收入
             this.jintian();
-            //洗车机总收入
-            this.countWashFee();
-            //充电桩总收入
-            this.countChargeFee();
+
         },
         methods: {
             // 今日点击数据处理方法
@@ -458,6 +461,8 @@
                 this.classStrust3 = 0
                 this.classStrust4 = 0
                 this.days.statisType = "today"
+                this.chongdianParam.queryType="today"
+                this.xicheParam.queryType="today"
                 // 支付方式
                 this.queryPaymentBehaviorAnalysis();
                 // 总停车数量
@@ -472,6 +477,10 @@
                 this.queryParkIncomeRanking();
                 //顶部总收入查询
                 this.queryTotalIncome();
+                //洗车机总收入
+                this.countWashFee();
+                //充电桩总收入
+                this.countChargeFee();
                 //按月洗车收入
                 this.querychargeAmountTimes("currentMonth");
                 //洗车收入
@@ -486,12 +495,18 @@
                 this.classStrust3 = 0
                 this.classStrust4 = 0
                 this.days.statisType = "yesterday"
+                this.chongdianParam.queryType="yesterday"
+                this.xicheParam.queryType="yesterday"
                 this.queryParkOptByParkCount();
                 this.queryParkOptByAvgParkDuration();
                 this.queryParkOptByParkSpaceUsedRate();
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //洗车机总收入
+                this.countWashFee();
+                //充电桩总收入
+                this.countChargeFee();
                 //按月洗车收入
                 this.querychargeAmountTimes("currentMonth");
                 //洗车收入
@@ -509,12 +524,18 @@
                 this.classStrust3 = 1
                 this.classStrust4 = 0
                 this.days.statisType = "currentWeek"
+                this.chongdianParam.queryType="currentWeek"
+                this.xicheParam.queryType="currentWeek"
                 this.queryParkOptByParkCount();
                 this.queryParkOptByAvgParkDuration();
                 this.queryParkOptByParkSpaceUsedRate();
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //洗车机总收入
+                this.countWashFee();
+                //充电桩总收入
+                this.countChargeFee();
                 //按月洗车收入
                 this.querychargeAmountTimes("currentMonth");
                 //洗车收入
@@ -531,12 +552,18 @@
                 this.classStrust3 = 0
                 this.classStrust4 = 1
                 this.days.statisType = "currentMonth"
+                this.chongdianParam.queryType="currentMonth"
+                this.xicheParam.queryType="currentMonth"
                 this.queryParkOptByParkCount();
                 this.queryParkOptByAvgParkDuration();
                 this.queryParkOptByParkSpaceUsedRate();
                 this.queryParkOptByParkSpaceTurnoverRate();
                 this.queryParkIncomeRanking();
                 this.queryPaymentBehaviorAnalysis();
+                //洗车机总收入
+                this.countWashFee();
+                //充电桩总收入
+                this.countChargeFee();
                 //按月洗车收入
                 this.querychargeAmountTimes("currentMonth");
                 //洗车收入
@@ -558,32 +585,38 @@
                     console.log("总收入参数",that.contentNumList)
                 })
             },
-            //查询洗车机总收入
-            countWashFee(){
-                var that = this;
-                const param={
-                    // statisType : this.days.statisType
-                    "queryType":"today"
-                };
-                console.log('洗车机总收入惨参',param)
-                this.$homePage.countWashFee(param).then(res => {
-                    console.log('resres',res)
-                    that.washCarPortIncome=res.resultEntity;
-                    console.log("洗车机总收入",that.washCarPortIncome)
-                })
-            },
             //查询充电桩总收入总收入
             countChargeFee(){
                 var that = this;
                 const param={
                     // statisType : this.days.statisType
-                    "queryType":"currentWeek"
+                    "queryType":this.chongdianParam.queryType
                 };
                 console.log('充电桩总收入惨参',param)
                 this.$homePage.countChargeFee(param).then(res => {
                     console.log('resres',res)
                     that.rechargeLeftIncome=res.resultEntity;
+                    if (that.rechargeLeftIncome == null) {
+                        that.rechargeLeftIncome = 0;
+                    }
                     console.log("洗车机总收入",that.rechargeLeftIncome)
+                })
+            },
+            //查询洗车机总收入
+            countWashFee(){
+                var that = this;
+                const param={
+                    // statisType : this.days.statisType
+                    "queryType":this.xicheParam.queryType
+                };
+                console.log('洗车机总收入惨参',param)
+                this.$homePage.countWashFee(param).then(res => {
+                    console.log('resres',res)
+                    that.washCarPortIncome=res.resultEntity;
+                    if (that.washCarPortIncome == null) {
+                        that.washCarPortIncome = 0;
+                    }
+                    console.log("洗车机总收入",that.washCarPortIncome)
                 })
             },
             // 支付方式
