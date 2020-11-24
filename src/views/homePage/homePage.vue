@@ -185,8 +185,7 @@
                                     </el-row>
                                     <el-row style="display: flex">
                                      <span class="spanMidNum">
-<!--                                        {{item.rechargeLeftIncome}}-->
-                                         234
+                                        {{rechargeLeftIncome}}
                                     </span>
                                      <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
                                     </el-row>
@@ -215,7 +214,7 @@
                                     </el-row>
                                     <el-row>
                                      <span class="spanMidNum">
-                                         {{item.washCarPortIncome}}
+                                         {{washCarPortIncome}}
                                     </span>
                                     </el-row>
                                 </el-row>
@@ -335,6 +334,9 @@
         },
         data() {
             return {
+                //洗车经济总收入
+                washCarPortIncome: '',
+                //充电桩总收入
                 // 控制默认展示样式
                 classStrust1: 1,
                 classStrust2: 0,
@@ -441,6 +443,10 @@
             this.queryTest();
             //查询总收入
             this.jintian();
+            //洗车机总收入
+            this.countWashFee();
+            //充电桩总收入
+            this.countChargeFee();
         },
         methods: {
             // 今日点击数据处理方法
@@ -549,6 +555,34 @@
                 this.$homePage.queryTotalIncome(param).then(res => {
                     that.contentNumList=res.data.dataList;
                     console.log("总收入参数",that.contentNumList)
+                })
+            },
+            //查询洗车机总收入
+            countWashFee(){
+                var that = this;
+                const param={
+                    // statisType : this.days.statisType
+                    "queryType":"today"
+                };
+                console.log('洗车机总收入惨参',param)
+                this.$homePage.countWashFee(param).then(res => {
+                    console.log('resres',res)
+                    that.washCarPortIncome=res.resultEntity;
+                    console.log("洗车机总收入",that.washCarPortIncome)
+                })
+            },
+            //查询充电桩总收入总收入
+            countWashFee(){
+                var that = this;
+                const param={
+                    // statisType : this.days.statisType
+                    "queryType":"currentWeek"
+                };
+                console.log('充电桩总收入惨参',param)
+                this.$homePage.countWashFee(param).then(res => {
+                    console.log('resres',res)
+                    that.washCarPortIncome=res.resultEntity;
+                    console.log("洗车机总收入",that.washCarPortIncome)
                 })
             },
             // 支付方式
