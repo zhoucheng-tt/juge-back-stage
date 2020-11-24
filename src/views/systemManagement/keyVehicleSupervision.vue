@@ -20,6 +20,10 @@
           <el-input v-model="name"></el-input>
         </el-form-item>
         <el-form-item>
+          <!--新增用户-->
+          <el-button type="primary" class="middle-add"
+                     @click="addUser">新增用户
+          </el-button>
           <el-button type="primary" class="top-select"
                      @click="select">查询
           </el-button>
@@ -28,12 +32,6 @@
           </el-button>
         </el-form-item>
       </el-form>
-    </div>
-    <!--新增用户-->
-    <div class="middle">
-      <el-button type="primary" class="middle-add"
-                 @click="addUser">新增用户
-      </el-button>
     </div>
     <!--表格部分-->
     <div class="table">
@@ -614,18 +612,18 @@ export default {
 }
 
 /*middle中新增用户按钮样式*/
-.middle-add {
-  margin-top: 0.75%;
-  margin-left: 4%;
-}
+/*.middle-add {*/
+/*  margin-top: 0.75%;*/
+/*  margin-left: 4%;*/
+/*}*/
 
 /* 中间部分新增用户 */
-.middle {
-  width: 100%;
-  height: 7.5%;
-  float: left;
-  /*background-color: red*/
-}
+/*.middle {*/
+/*  width: 100%;*/
+/*  height: 7.5%;*/
+/*  float: left;*/
+/*  !*background-color: red*!*/
+/*}*/
 
 /*数据表格样式*/
 /*分页*/

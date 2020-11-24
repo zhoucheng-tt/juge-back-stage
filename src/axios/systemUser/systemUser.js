@@ -106,6 +106,14 @@ export function queryFuncListByUser(param) {
         data: param
     })
 }
+//角色修改 systemManageFunc/updateRole.xhtml
+export function updateRole(param) {
+    return request({
+        url: 'systemManageFunc/updateRole.xhtml',
+        method: 'post',
+        data: param
+    })
+}
 
 //日志管理列表查询
 export function queryLogList(param) {

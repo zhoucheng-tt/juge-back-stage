@@ -268,7 +268,7 @@
         </el-table>
       </el-scrollbar>
       <el-pagination
-          style="position: relative;right:-80%;margin-top:20px"
+          style="position: relative;margin-left:75%;margin-top:20px"
           background
           layout="total, prev, pager, next, jumper"
           @current-change="handleCurrentModify"
