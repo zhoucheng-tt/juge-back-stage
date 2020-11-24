@@ -93,7 +93,15 @@ export function downloadResource(params) {
         responseType: 'blob'
     })
 }
-
+//首页洗车机收入  http://123.207.189.27:7133/homePageFunc/countWashFee
+export function countWashFee(params) {
+    return request({
+        url: 'http://123.207.189.27:7133/homePageFunc/countWashFee',
+        method: 'post',
+        data: params,
+        flag: 'out' ,
+    })
+}
 
 
 

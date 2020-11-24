@@ -32,16 +32,16 @@
             <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)
-            </el-button
-            >
+            <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)</el-button>
           </el-form-item>
           </div>
         </el-form>
+<!--        -->
         <el-dialog
             id="add"
             title="新增停车场平面(层)"
             :visible.sync="addListDialogueandoff"
+            width="60%"
         >
           <el-form
               label-width="170px"
