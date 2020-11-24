@@ -337,6 +337,7 @@
                 //洗车经济总收入
                 washCarPortIncome: '',
                 //充电桩总收入
+                rechargeLeftIncome:[],
                 // 控制默认展示样式
                 classStrust1: 1,
                 classStrust2: 0,
@@ -572,17 +573,17 @@
                 })
             },
             //查询充电桩总收入总收入
-            countWashFee(){
+            countChargeFee(){
                 var that = this;
                 const param={
                     // statisType : this.days.statisType
                     "queryType":"currentWeek"
                 };
                 console.log('充电桩总收入惨参',param)
-                this.$homePage.countWashFee(param).then(res => {
+                this.$homePage.countChargeFee(param).then(res => {
                     console.log('resres',res)
-                    that.washCarPortIncome=res.resultEntity;
-                    console.log("洗车机总收入",that.washCarPortIncome)
+                    that.rechargeLeftIncome=res.resultEntity;
+                    console.log("洗车机总收入",that.rechargeLeftIncome)
                 })
             },
             // 支付方式

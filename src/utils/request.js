@@ -44,7 +44,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    // do something before request is sent
+    // do something before request is sent  
     console.log("dddd")
     config.headers['userToken'] = localStorage.getItem('userToken')
     // config.cancelToken = source.token; // 全局添加cancelToken
