@@ -1,5 +1,5 @@
 <!--
-   地磁车位检测器
+   进出口摄像头管理
  * @Author: 王思远
  * @Date: 2020-10-22 09:26:58
  * @LastEditTime: 2020-10-30 13:57:52
@@ -65,7 +65,7 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="cameraList" ref="selectCameraList" :header-cell-style="{
+      <el-table :data="cameraList":row-class-name="tableRowClassName" ref="selectCameraList" :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -73,6 +73,7 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
+
         }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
         <el-table-column type="selection"/>
         <el-table-column fixed prop="parkId" label="停车场编号"/>
@@ -459,7 +460,16 @@ export default {
         document.body.appendChild(aLink);
         this.$refs.loadElement.appendChild(aLink);
       })
-    }
+    },
+    // 斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return 'successRow11';
+      } else if (rowIndex % 2 == 0) {
+        return 'successSecond';
+      }
+      return '';
+    },
   },
   mounted() {
     this.queryPassagewayCamera();
@@ -524,4 +534,5 @@ export default {
 #add {
   height: auto;
 }
+
 </style>

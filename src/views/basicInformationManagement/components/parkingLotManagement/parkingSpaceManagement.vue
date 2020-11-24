@@ -14,9 +14,9 @@
     <div class="up">
       <el-row>
         <el-form :inline="true" class="demo-form-inline">
-          <el-col :span="5">
-            <el-form-item label="停车场：">
-              <el-select v-model="queryParkId" placeholder="请选择停车场">
+            <div class="top-p">请选择停车场:</div>
+            <el-form-item>
+              <el-select v-model="queryParkId"  style="margin-left: 10px" placeholder="请选择停车场">
                 <el-option label="全部" value="0"></el-option>
                 <el-option
                     v-for="(item, index) in parkingLotList"
@@ -26,7 +26,6 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
           <el-form-item>
             <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
@@ -782,6 +781,7 @@ export default {
   height: 80%;
   margin-top: 3%;
   padding-left: 2%;
+  display: flex;
 }
 
 /* 下班部分列表部分 */
@@ -838,4 +838,10 @@ export default {
 .form-all {
   width: 100%;
 }
+  .top-p{
+    width: 100px;
+    height: 30px;
+    /*background-color: red;*/
+    margin-top: 10px;
+  }
 </style>

@@ -61,9 +61,9 @@
         <el-table-column width="120" prop="wechatPaymentMoneyAmount" :show-overflow-tooltip="true" label="微信缴费金额"/>
         <el-table-column width="120" prop="alipayPaymentMoneyAmount" :show-overflow-tooltip="true" label="支付宝缴费金额"/>
         <el-table-column width="120" prop="ETCEarn" :show-overflow-tooltip="true" label="ETC缴费金额"/>
-        <el-table-column width="120" prop="arrearageMoneyAmount" :show-overflow-tooltip="true" label="欠费金额"/>
+        <el-table-column width="100" prop="arrearageMoneyAmount" :show-overflow-tooltip="true" label="欠费金额"/>
       </el-table>
-      <el-pagination style="position: relative;left: 60%" background layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
+      <el-pagination style="position: relative;left: 80%" background layout="total, prev, pager, next, jumper" :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum" :total="pageTotal"/>
     </div>
   </div>
 </template>
@@ -183,4 +183,7 @@ export default {
 /* 设置弹出框样式 */
 
 /* 弹出框内表单样式控制 */
+/deep/ .el-table__body-wrapper is-scrolling-left{
+  overflow-x: hidden !important;
+}
 </style>

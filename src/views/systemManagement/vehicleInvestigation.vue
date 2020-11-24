@@ -144,5 +144,7 @@
    }
 </script>
 <style scoped>
-
+    .about{
+        overflow-x: hidden;
+    }
 </style>

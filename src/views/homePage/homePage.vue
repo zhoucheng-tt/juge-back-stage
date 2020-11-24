@@ -168,12 +168,13 @@
                                             空闲充电桩总数
                                     </span>
                                     </el-row>
-                                    <el-row>
+                                    <el-row style="display: flex">
                                     <span class="spanMidNum">
-                                        {{item.totalRechargeLeft}}
+<!--                                        {{item.totalRechargeLeft}}-->
+                                    111
                                     </span>
+                                        <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
                                     </el-row>
-                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-right: 20px"></div>
                                 </el-row>
                                 <el-row style="width: 150px">
                                     <!--                                充电桩总收入-->
@@ -182,12 +183,13 @@
                                          充电桩总收入
                                     </span>
                                     </el-row>
-                                    <el-row>
+                                    <el-row style="display: flex">
                                      <span class="spanMidNum">
-                                        {{item.rechargeLeftIncome}}
+<!--                                        {{item.rechargeLeftIncome}}-->
+                                         234
                                     </span>
+                                     <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
                                     </el-row>
-                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-right: 20px"></div>
                                 </el-row>
                                 <el-row style="width: 150px">
                                     <!--                     空闲洗车位总数-->
@@ -196,12 +198,13 @@
                                          空闲洗车位总数
                                     </span>
                                     </el-row>
-                                    <el-row>
+                                    <el-row style="display: flex">
                                      <span class="spanMidNum">
-                                        {{item.totalWashCarPort}}
+<!--                                        {{item.totalWashCarPort}}-->
+                                         333
                                     </span>
+                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
                                     </el-row>
-                                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-right: 20px"></div>
                                 </el-row>
                                 <el-row style="width: 150px">
                                     <!--                     洗车位收入-->
@@ -573,7 +576,6 @@
                             plotShadow: false,
                             type: "pie",
                             backgroundColor: 'rgba(0,0,0,0)',
-                            color:'',
                             renderTo: "paymentIncomeAnalysis",
                             // options3d: {
                             //     enabled: true,
@@ -600,7 +602,7 @@
                                 depth: 45,
                                 dataLabels: {
                                     enabled: true,
-                                    format: "{point.name}"
+                                    // format: "{point.name}"
                                 }
                             }
                         },
@@ -1111,7 +1113,16 @@
                         tooltip: {
                             shared: true
                         },
-                        legend: {
+                        plotOptions: {
+                        series: {
+                            depth: 25,
+                                colorByPoint: true,
+                                // color : '#B9A32B'
+                        }
+                    },
+
+
+                    legend: {
                             enabled: false,
                             align: "center",
                             verticalAlign: "top",
@@ -1208,6 +1219,11 @@
                             pointFormat: '收入： <b>{point.y:,.0f}</b>元'
                         },
                         plotOptions: {
+                                series: {
+                                    depth: 25,
+                                    // colorByPoint: true,
+                                    color:'#00ABFF',
+                                },
                             area: {
                                 marker: {
                                     enabled: false,
@@ -1285,7 +1301,8 @@
                         plotOptions: {
                             series: {
                                 depth: 25,
-                                // colorByPoint: true
+                                // colorByPoint: true,
+                               color:'#08F6E4',
                             }
                         },
                         series: this.chargeEarnDataList

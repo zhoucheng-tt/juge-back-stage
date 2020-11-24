@@ -26,12 +26,6 @@
                 </el-button>
             </el-form>
         </div>
-        <!--新增角色-->
-        <!--        <div class="middle">-->
-        <!--            <el-button type="primary" class="middle-add"-->
-        <!--                       @click="addRole">新增角色-->
-        <!--            </el-button>-->
-        <!--        </div>-->
         <!--表格部分-->
         <div class="table">
             <!--数据表格-->
@@ -112,7 +106,7 @@
                                     <!--                        功能权限 城市智能停车管理与服务平台-->
                                     <div v-for="(item,index) in cityOptions1"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
                                         <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
@@ -127,7 +121,7 @@
                                 <el-tab-pane label="采集与发布平台" name="20">
                                     <div v-for="(item,index) in cityOptions2"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
                                         <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
@@ -139,7 +133,7 @@
                                 <el-tab-pane label="手持终端(PDA)平台" name="30">
                                     <div v-for="(item,index) in cityOptions3"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
                                         <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
@@ -172,7 +166,7 @@
             </el-dialog>
             <!--操作中的查看弹窗-->
             <el-dialog
-                    title="新增角色"
+                    title="查看角色"
                     :visible.sync="viewListDialog"
                     width="80%"
                     top="2vh">
@@ -207,11 +201,11 @@
                             <el-tabs v-model="activeName" @tab-click="handleTabClick">
                                 <el-tab-pane label="城市智能停车管理与服务平台" name="10">
                                     <!--                        功能权限 城市智能停车管理与服务平台-->
-                                    <div v-for="(item,index) in cityOptions1"
+                                    <div v-for="(item,index) in chakanList"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
-                                        <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
+                                        <el-checkbox-group v-model="zixunazhogList" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
                                                          :label="innerItem.id"
                                                          :key="innerIndex">{{innerItem.name}}</el-checkbox>
@@ -219,14 +213,12 @@
                                     </div>
 
                                 </el-tab-pane>
-
-
                                 <el-tab-pane label="采集与发布平台" name="20">
                                     <div v-for="(item,index) in cityOptions2"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
-                                        <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
+                                        <el-checkbox-group v-model="zixunazhogList" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
                                                          :label="innerItem.id"
                                                          :key="innerIndex">{{innerItem.name}}</el-checkbox>
@@ -236,9 +228,9 @@
                                 <el-tab-pane label="手持终端(PDA)平台" name="30">
                                     <div v-for="(item,index) in cityOptions3"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
-                                        <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
+                                        <el-checkbox-group v-model="zixunazhogList" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
                                                          :label="innerItem.id"
                                                          :key="innerIndex">{{innerItem.name}}</el-checkbox>
@@ -305,7 +297,7 @@
                                     <!--                        功能权限 城市智能停车管理与服务平台-->
                                     <div v-for="(item,index) in cityOptions1"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
                                         <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
@@ -315,12 +307,10 @@
                                     </div>
 
                                 </el-tab-pane>
-
-
                                 <el-tab-pane label="采集与发布平台" name="20">
                                     <div v-for="(item,index) in cityOptions2"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
                                         <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
@@ -332,7 +322,7 @@
                                 <el-tab-pane label="手持终端(PDA)平台" name="30">
                                     <div v-for="(item,index) in cityOptions3"
                                          :key="index">
-                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.check"
+                                        <el-checkbox :indeterminate="item.isIndeterminate" v-model="item.fuxuanzhongList"
                                                      @change="(val) => handleCheckAllChange1(val, item)">{{item.name }}</el-checkbox>
                                         <el-checkbox-group v-model="item.idList1" @change="handleCheckedCitiesChange1">
                                             <el-checkbox @change="(val) => handleCheckChange(val, item, innerItem)" v-for="(innerItem, innerIndex) in item.children"
@@ -363,8 +353,6 @@
                     <el-button @click="modRoleLisDialog = false">取 消</el-button>
                 </span>
             </el-dialog>
-
-
         </div>
     </div>
 </template>
@@ -418,10 +406,15 @@
                 viewListDialog: false,
                 //查看角色暂存
                 viewList: [],
+
                 //表格操作中修改弹窗
                 modRoleLisDialog: false,
                 //表格修改弹窗中传入的数据暂存
                 alterRoleList: [],
+                //查看数据暂存点
+                chakanList:[],
+                fuxuanzhongList :[],
+                zixunazhogList:[]
             }
         },
         mounted() {
@@ -481,30 +474,32 @@
                 this.pageNum = val;
                 this.queryRoleList();
             },
+            //新增标签页的tabs事件
+            handleTabClick(tab, event) {
+                console.log(tab, event);
+            },
             //新增角色按钮
             addRole() {
                 this.addRoleListDialog = true;
                 console.log("角色管理新增弹框弹出");
                 //清空弹出框
                 this.addRoleList = {};
-                this.funcIdList=[];
-                this.userId=[];
+                // this.funcIdList=[];
+                // this.funcIdSplit=[];
+                // this.userId=[];
+                this.fuxuanzhongList = [];
                 this.queryFuncListByRole();
-            },
-            //新增标签页的tabs事件
-            handleTabClick(tab, event) {
-                console.log(tab, event);
             },
             //新增角色按钮确认提交
             onSubmitAdd() {
                 this.addRoleListDialog = false;
                 console.log("打印新增角色列表", this.addRoleList);
+                //角色管理新增要传入参数
                 const param = {
-                    //角色管理新增要传入参数
                     roleName: this.addRoleList.roleName,
                     roleDesc: this.addRoleList.roleDesc,
                     creater: this.creater,
-                    funcId:this.funcIdList,
+                    funcId:this.funcIdSplit,
                     userId: this.addChooseUser
                 }
                 console.log("新增全部参数",param)
@@ -520,14 +515,17 @@
             },
             //新增页面中功能权限，城市智能停车管理与服务平台
             queryFuncListByRole() {
+                //tabs第一个页面
                 const param1 = {
                     funcId: "10"
                 }
                 this.$systemUser.queryFuncListByRole(param1).then(res => {
                     let list= res.data.dataList
+                    //遍历tabs第一个页面中的dataList,默认未选中
                     for(var i = 0; i < list.length; i++) {
                         let item=list[i]
-                        item.check=false
+                        item.fuxuanzhongList=false
+                        //如果没有子集默认未选中
                         if(item.children != undefined) {
                             for (var j = 0; j < item.children.length; j++) {
                                 let data = item.children[j]
@@ -536,11 +534,13 @@
                         }
                     }
                     console.log('处理完成后的新增权限',list)
+                    //遍历子集的list置空
                     for(let i = 0 ; i < list.length ; i++){
                         list[i].idList1 = []
                     }
                     this.cityOptions1=list
                 });
+                //tabs标签页第二页
                 const param2 = {
                     funcId: "20"
                 }
@@ -549,7 +549,7 @@
                     let list= res.data.dataList
                     for(var i = 0; i < list.length; i++) {
                         let item=list[i]
-                        item.check=false
+                        item.fuxuanzhongList=false
                         if(item.children != undefined) {
                             for (var j = 0; j < item.children.length; j++) {
                                 let data = item.children[j]
@@ -564,6 +564,7 @@
                     this.cityOptions2 = res.data.dataList;
 
                 });
+                //tabs标签页第三页
                 const param3 = {
                     funcId: "30"
                 }
@@ -572,7 +573,7 @@
                     let list= res.data.dataList
                     for(var i = 0; i < list.length; i++) {
                         let item=list[i]
-                        item.check=false
+                        item.fuxuanzhongList=false
                         if(item.children != undefined){
                             for (var j = 0; j < item.children.length; j++) {
                                 let data=item.children[j]
@@ -585,7 +586,6 @@
                         list[i].idList1 = []
                     }
                     this.cityOptions3 = res.data.dataList;
-
                 })
             },
             //调用接口方法获取新增选择用户数据
@@ -598,31 +598,38 @@
                     console.log("打印出userId参数",this.addChooseList);
                 })
             },
+            //新增中的权限功能选择用户多选框
+            handleCheckedUserChoose(val) {
+                this.addChooseUser=val;
+                console.log('打印传入选择用户的userId',this.addChooseUser)
+            },
             //新增子集
             handleCheckChange(val, item, innerItem) {
-
+                //父集元素跟着子集的选中个数变化
                 item.isIndeterminate = item.idList1.length > 0 && item.idList1.length < item.children.length;
 
                 if(item.idList1.length == item.children.length){
-                    item.check = true
+                    item.fuxuanzhongList = true
                 }else{
-                    item.check = false
+                    item.fuxuanzhongList = false
                 }
-
+                //如果选中了
                 if(val == true){
+                    //就把父集id存放到funcIdList中
                     if(this.funcIdList.indexOf(item.id) == -1){
                         this.funcIdList.push(item.id)
                     }
-
+                    //如果选中了就把子集id存放到funcIdList中
                     if(this.funcIdList.indexOf(innerItem.id) == -1){
                         this.funcIdList.push(innerItem.id)
                     }
                 }else{
+                    //取消选中就讲子集的id从list中剔除
                     if(this.funcIdList.indexOf(innerItem.id) != -1){
                         this.funcIdList.splice(this.funcIdList.indexOf(innerItem.id),1)
                     }
 
-                    if(item.check == false && item.isIndeterminate == false){
+                    if(item.fuxuanzhongList == false && item.isIndeterminate == false){
                         if(this.funcIdList.indexOf(item.id) != -1){
                             this.funcIdList.splice(this.funcIdList.indexOf(item.id),1)
                         }
@@ -630,6 +637,11 @@
                 }
 
                 console.log("this.funcIdList",this.funcIdList);
+                //分离funcIdList
+                for (let i = 0; i < this.funcIdList.length; i++) {
+                    this.funcIdSplit.push(this.funcIdList[i].split("_")[1])
+                    console.log("123123", this.funcIdSplit)
+                }
             },
             //新增中的权限功能多选框 全选 和 全不选
             handleCheckAllChange1(val, item) {
@@ -664,6 +676,11 @@
                 }
                 console.log("存放要传入的funcId未分离的最终结果", this.funcIdList)
 
+                //分离funcIdList
+                for (let i = 0; i < this.funcIdList.length; i++) {
+                    this.funcIdSplit.push(this.funcIdList[i].split("_")[1])
+                    console.log("123123", this.funcIdSplit)
+                }
 
             },
             handleCheckedCitiesChange1(value) {
@@ -671,36 +688,69 @@
                 this.checkAll1 = checkedCount === this.idList1.length;
                 this.isIndeterminate = checkedCount > 0 && checkedCount < this.idList1.length;
             },
-            //新增中的权限功能选择用户多选框
-            handleCheckedUserChoose(val) {
-                this.addChooseUser=val;
-                console.log('打印传入选择用户的userId',this.addChooseUser)
-            },
+
             //操作中的查看按钮
             check(row) {
-                // this.addChooseUser = [],
-                //     this.funcIdList=[],
-                //     this.viewList = row;
-                // const param = {
-                //     // roleId: row.roleId
-                // };
-                // this.$systemUser.queryFuncListByRole(param).then(res => {
-                //     res.data.dataList.forEach(item => {
-                //         if (item.permission == true) {
-                //             this.addChooseUser.push(item.roleId)
-                //         }
-                //     });
-                //     console.log("打印存储的id", this.addChooseUser)
-                // });
-                // this.$systemUser.queryUserListByRole(param).then(res => {
-                //     res.data.dataList.forEach(item => {
-                //         if (item.permission == true) {
-                //             this.addChooseUser.push(item.roleId)
-                //         }
-                //     });
-                //     console.log("打印存储的id", this.addChooseUser)
-                // });
+
                 this.viewListDialog = true;
+                this.zixunazhogList=[];
+                const param1 = {
+                    roleId:row.roleId,
+                    funcId:"10"
+                };
+                console.log('传入的参数',param1)
+                this.$systemUser.queryFuncListByRole(param1).then(response => {
+                    console.log("打印传入的数据", response);
+                    var list = response.data.dataList;
+                    console.log('list',list)
+                    this.chakanList = list;
+                    console.log("查看部分处理完的数据", this.chakanList)
+                    for(let i = 0; i<this.chakanList.length; i++){
+                       // this.fuxuanzhongList.push(this.chakanList[i].permission);
+                        for (let j = 0; j < this.chakanList[i].children.length; j++) {
+                         //   this.zixunazhogList.push([this.chakanList[i].children[j].permission])
+                            // this.zixunazhogList[j]= this.chakanList[i].children.permission
+                            if (this.chakanList[i].children[j].permission === true) {
+                                this.zixunazhogList.push(this.chakanList[i].children[j].id)
+                        }
+
+                            }
+                            if (this.chakanList[i].permission === true) {
+                                this.fuxuanzhongList.push(this.chakanList[i].id);
+
+                        }
+
+                    }
+                    //打印父选中框中的数据
+                    console.log("父选中框中的check", this.fuxuanzhongList);
+                    //子选中框中的数据
+                    console.log("子选中框中的check", this.zixunazhogList);
+
+                    console.log("子idlist", this.idList1)
+                });
+                const param2 = {
+                    roleId:row.roleId,
+                    funcId:"20"
+                };
+                console.log('传入的参数',param2)
+                this.$systemUser.queryFuncListByRole(param2).then(response => {
+                    console.log("打印传入的数据", response);
+                });
+                const param3 = {
+                    roleId:row.roleId,
+                    funcId:"30"
+                };
+                console.log('传入的参数',param3)
+                this.$systemUser.queryFuncListByRole(param3).then(response => {
+                    console.log("打印传入的数据", response);
+                });
+                const param4 = {
+                    roleId:row.roleId,
+                };
+                console.log('传入的参数',param4)
+                this.$systemUser.queryUserListByRole(param4).then(response => {
+                    console.log("打印传入的数据", response);
+                });
             },
             //操作中的修改按钮
             alter(row) {

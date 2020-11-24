@@ -1,5 +1,5 @@
 <!--
-   地磁车位检测器
+   视频车位检测器
  * @Author: 王思远
  * @Date: 2020-10-22 09:26:58
  * @LastEditTime: 2020-10-28 09:39:24
@@ -38,15 +38,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-button type="primary" @click="addNewVideoParking()"
-            >新增视频车位检测器
-            </el-button>
+            <el-button type="primary" @click="addNewVideoParking()">新增视频车位检测器</el-button>
             <el-button type="info" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()"
-            >批量删除
-            </el-button
-            >
+            <el-button type="primary" @click="batchDelete()">批量删除</el-button>
             <el-button type="primary" @click="queryPkLot()">查 询</el-button>
           </el-col>
         </el-row>
@@ -88,6 +83,7 @@
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
       <el-table
+          :row-class-name="tableRowClassName"
           :data="videoList"
           ref="selectVideoList"
           :header-cell-style="{
@@ -679,8 +675,16 @@ export default {
         }
       }).catch(err => {
       })
-    }
-
+    },
+    // 斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return 'successRow11';
+      } else if (rowIndex % 2 == 0) {
+        return 'successSecond';
+      }
+      return '';
+    },
   },
   mounted() {
     this.queryParking();
@@ -745,5 +749,13 @@ export default {
 
 #add {
   height: auto;
+}
+
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+  background: #7de6f8 !important;
+}
+/deep/ .el-table .successSecond {
+  background: #8ed3e7 !important;
 }
 </style>

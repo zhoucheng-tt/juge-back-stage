@@ -58,6 +58,7 @@
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
       <el-table :data="chargingPointList" ref="selectList"
+                :row-class-name="tableRowClassName"
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
                 @selection-change="handleSelectionChange">
@@ -304,7 +305,16 @@ export default {
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
-    }
+    },
+    // 斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return 'successRow11';
+      } else if (rowIndex % 2 == 0) {
+        return 'successSecond';
+      }
+      return '';
+    },
   },
   mounted() {
     this.queryChargingPoint();

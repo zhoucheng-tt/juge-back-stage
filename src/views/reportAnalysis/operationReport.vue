@@ -27,7 +27,7 @@
     import dataReport from './operationReport/dataReport'
     // 月报
     import mounthReport from './operationReport/mounthReport'
-    // 年报  
+    // 年报
     import yearReport from './operationReport/yearReport'
 
     export default {
@@ -43,4 +43,6 @@
       }
     }
   </script>
-  
+<style scoped>
+
+</style>
