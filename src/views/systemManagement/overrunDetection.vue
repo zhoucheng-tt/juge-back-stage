@@ -30,6 +30,7 @@
         <div class="table">
             <!--数据表格-->
             <el-table
+                    :row-class-name="tableRowClassName"
                     :data="roleManagementData"
                     :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                     :cell-style="{ 'text-align': 'center' }">
@@ -760,7 +761,15 @@
             onSubmitMod() {
                 this.modRoleLisDialog = false;
             },
-
+            // 斑马纹样式
+            tableRowClassName({ row, rowIndex }) {
+                if (rowIndex % 2 == 1) {
+                    return 'successRow11';
+                } else if (rowIndex % 2 == 0) {
+                    return 'successSecond';
+                }
+                return '';
+            },
         }
     }
 </script>
@@ -877,6 +886,13 @@
         /*height: 700px;*/
         overflow-y: scroll;
         overflow-x: hidden;
+    }
+    /* 斑马纹样式 */
+    /deep/ .el-table .successRow11 {
+        background: #7de6f8 !important;
+    }
+    /deep/ .el-table .successSecond {
+        background: #8ed3e7 !important;
     }
 
 </style>

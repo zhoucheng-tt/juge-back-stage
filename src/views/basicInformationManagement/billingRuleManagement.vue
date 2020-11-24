@@ -29,7 +29,12 @@
     </div>
     <!-- 表格 -->
     <div class="table">
-      <el-table :data="tableData" border style="width: 100%">
+      <el-table :data="tableData"
+                :row-class-name="tableRowClassName"
+                :header-cell-style="{ 'text-align': 'center',background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+                :cell-style="{ 'text-align': 'center' }"
+                style="width: 100%;"
+                ref="selectionRow">
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="date" label="计费规则编号" width="220" align="center">
         </el-table-column>
@@ -217,7 +222,16 @@
       //表格操作
       onHandle() { },
       onUpdate() { },
-      onDelete() { }
+      onDelete() { },
+      // 斑马纹样式
+      tableRowClassName({ row, rowIndex }) {
+        if (rowIndex % 2 == 1) {
+          return 'successRow11';
+        } else if (rowIndex % 2 == 0) {
+          return 'successSecond';
+        }
+        return '';
+      },
     }
   };
 </script>
@@ -230,13 +244,15 @@
     text-align: right;
     padding: 0 40px;
   }
-
-  .table {
-    padding: 20px 40px 0 40px;
-  }
-
   /* 弹窗信息标题 */
   .dialogFormTitle {
     font-size: 16px;
+  }
+  /* 斑马纹样式 */
+  /deep/ .el-table .successRow11 {
+    background: #7de6f8 !important;
+  }
+  /deep/ .el-table .successSecond {
+    background: #8ed3e7 !important;
   }
 </style>

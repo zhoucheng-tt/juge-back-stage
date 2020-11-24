@@ -38,6 +38,7 @@
     <!--表格部分-->
     <div class="table">
       <el-table
+          :row-class-name="tableRowClassName"
           :data="tableData"
           :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
           :cell-style="{ 'text-align': 'center' }">
@@ -571,6 +572,15 @@ export default {
       console.log(data3)
       console.log("获取树形下拉参数", this.treeList);
     },
+    // 斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return 'successRow11';
+      } else if (rowIndex % 2 == 0) {
+        return 'successSecond';
+      }
+      return '';
+    },
   }
 }
 </script>
@@ -702,5 +712,12 @@ export default {
   margin-top: 10px;
   margin-left: 5%;
   margin-bottom: 20px;
+}
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+  background: #7de6f8 !important;
+}
+/deep/ .el-table .successSecond {
+  background: #8ed3e7 !important;
 }
 </style>

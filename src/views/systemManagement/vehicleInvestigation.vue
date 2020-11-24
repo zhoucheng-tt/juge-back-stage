@@ -45,6 +45,7 @@
         <div class="table">
             <!--数据表格-->
             <el-table
+                    :row-class-name="tableRowClassName"
                     :data="logManagementData"
                     :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                     :cell-style="{ 'text-align': 'center' }">
@@ -78,7 +79,7 @@
             </el-table>
             <!--分页条-->
             <el-pagination
-                    style="position: relative;left: 65%"
+                    style="position: relative;left: 63%"
                     @current-change="handleCurrentModify"
                     layout=" prev, pager, next,total, jumper"
                     :current-page="pageNum"
@@ -98,7 +99,7 @@
                maxLogTime:"",
                //初始化分页
                pageNum: 1,
-               pageSize: 10,
+               pageSize: 9,
                pageTotal: 1,
                 //日志管理表格数据存放
                logManagementData:[],
@@ -139,6 +140,16 @@
                this.pageNum = val;
                this.queryLogList();
            },
+           // 斑马纹样式
+           tableRowClassName({ row, rowIndex }) {
+               if (rowIndex % 2 == 1) {
+                   return 'successRow11';
+               } else if (rowIndex % 2 == 0) {
+                   return 'successSecond';
+               }
+               return '';
+           },
+
 
        }
    }
@@ -146,5 +157,12 @@
 <style scoped>
     .about{
         overflow-x: hidden;
+    }
+    /* 斑马纹样式 */
+    /deep/ .el-table .successRow11 {
+        background: #7de6f8 !important;
+    }
+    /deep/ .el-table .successSecond {
+        background: #8ed3e7 !important;
     }
 </style>
