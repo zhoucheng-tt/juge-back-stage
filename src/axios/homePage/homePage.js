@@ -116,7 +116,7 @@ export function countChargeFee(params) {
 //首页 按月分析充电桩图表
 export function queryChargeEarn(params) {
   return request({
-    url: "http://localhost:8000/homePageFunc/queryChargeEarn",
+    url: "http://123.207.189.27:7138/homePageFunc/queryChargeEarn",
     method: "post",
     data: params,
     flag: "out"
@@ -126,7 +126,7 @@ export function queryChargeEarn(params) {
 //首页按日周月分析停车数量
 export function queryParkCount(params) {
   return request({
-    url: "http://localhost:8000/homePageFunc/queryParkCount",
+    url: "http://123.207.189.27:7138/homePageFunc/queryParkCount",
     method: "post",
     data: params,
     flag: "out"
