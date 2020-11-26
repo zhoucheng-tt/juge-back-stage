@@ -94,7 +94,7 @@ export function downloadResource(params) {
     responseType: "blob"
   });
 }
-//首页中间部分洗车机收入  http://localhost:8000/homePageFunc/countWashFee
+//首页洗车机收入  http://123.207.189.27:7138/homePageFunc/countWashFee
 export function countWashFee(params) {
   return request({
     url: "http://123.207.189.27:7138/homePageFunc/countWashFee",
@@ -104,14 +104,14 @@ export function countWashFee(params) {
   });
 }
 
-//首页中间部分充电桩收入 http://localhost:8000/homePageFunc/countChargeFee
+//首页充电桩收入 http://123.207.189.27:7138/homePageFunc/countChargeFee
 export function countChargeFee(params) {
-  return request({
-    url: "http://123.207.189.27:7138/homePageFunc/countChargeFee",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
+    return request({
+        url: 'http://123.207.189.27:7138/homePageFunc/countChargeFee',
+        method: 'post',
+        data: params,
+        flag: 'out' ,
+    })
 }
 //首页 按月分析充电桩图表
 export function queryChargeEarn(params) {
