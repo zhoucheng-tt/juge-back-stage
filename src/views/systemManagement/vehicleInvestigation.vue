@@ -47,7 +47,7 @@
             <el-table
                     :row-class-name="tableRowClassName"
                     :data="logManagementData"
-                    :header-cell-style="{ 'text-align': 'center'}"
+                    :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                     :cell-style="{ 'text-align': 'center' }">
                 <el-table-column
                         fixed
