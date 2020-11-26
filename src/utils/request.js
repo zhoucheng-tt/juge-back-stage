@@ -8,6 +8,7 @@ import axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
 import router from '@/router/index'
+import da from "element-ui/src/locale/lang/da";
 
 // create an axios instance
 const service = axios.create({
@@ -28,13 +29,15 @@ const service = axios.create({
         reqInfo = {
           template: data.template
         }
+      } else { if (data.upload !== undefined) {
+        reqInfo = data;
       } else {
         reqInfo = {
           param: JSON.stringify(data),//对象转json
         }
       }
       return qs.stringify(reqInfo)//json转表单
-    }
+    }}
   ]
 });
 
@@ -44,7 +47,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    // do something before request is sent  
+    // do something before request is sent
     console.log("dddd")
     config.headers['userToken'] = localStorage.getItem('userToken')
     // config.cancelToken = source.token; // 全局添加cancelToken

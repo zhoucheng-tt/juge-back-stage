@@ -115,13 +115,15 @@ export function updateRole(param) {
     })
 }
 
-//日志管理列表查询
+//日志管理列表查询按时间查询
 export function queryLogList(param) {
     return request({
-        url: 'systemManageFunc/queryLogList.xhtml',
+        url: 'http://localhost:8000/systemManageFunc/queryLogList',
         method: 'post',
-        data: param
+        data: param,
+        flag: "out"
     })
 }
+
 
 

@@ -14,11 +14,21 @@
         <el-row>
           <el-col :span="7">
             <el-form-item label="统计日期">
-              <el-date-picker v-model="query.startStatisDate" style="width: 170px;" value-format="yyyy-MM-dd" placeholder="请选择起始日期">
+              <el-date-picker
+                v-model="query.startStatisDate"
+                style="width: 170px;"
+                value-format="yyyy-MM-dd"
+                placeholder="请选择起始日期"
+              >
               </el-date-picker>
             </el-form-item>
             <el-form-item label="~">
-              <el-date-picker v-model="query.endStatisDate" style="width: 170px;" value-format="yyyy-MM-dd" placeholder="请选择截止日期">
+              <el-date-picker
+                v-model="query.endStatisDate"
+                style="width: 170px;"
+                value-format="yyyy-MM-dd"
+                placeholder="请选择截止日期"
+              >
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -26,21 +36,35 @@
             <el-form-item label="停车场">
               <el-select v-model="query.parkId" placeholder="请选择停车场">
                 <el-option label="全部" value=""></el-option>
-                <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code" :key="index">
+                <el-option
+                  v-for="(item, index) in parkList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
+                >
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="车牌号">
-              <el-input v-model="query.carNum" palceholder="请输入车牌号" placeholder="请输入车牌号"></el-input>
+              <el-input
+                v-model="query.carNum"
+                palceholder="请输入车牌号"
+                placeholder="请输入车牌号"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="支付方式">
               <el-select v-model="query.payMethod" placeholder="请选择支付方式">
                 <el-option label="全部" value=""></el-option>
-                <el-option v-for="(item, index) in payMethodList" :label="item.name" :value="item.name" :key="index">
+                <el-option
+                  v-for="(item, index) in payMethodList"
+                  :label="item.name"
+                  :value="item.name"
+                  :key="index"
+                >
                 </el-option>
               </el-select>
             </el-form-item>
@@ -55,29 +79,79 @@
     </div>
     <!-- 中间图标部分内容 -->
     <div class="center">
-      <el-table :data="payList" :row-class-name="tableRowClassName"
-                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                :cell-style="{ 'text-align': 'center' }" style="width: 100%;height:90%">
-        <el-table-column prop="statisticDate" :show-overflow-tooltip="true" label="支付时间"/>
-        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-        <el-table-column prop="passagewayName" :show-overflow-tooltip="true" label="通过出口名称"/>
-        <el-table-column prop="passagewayGateName" :show-overflow-tooltip="true" label="通过道闸机名称"/>
-        <el-table-column prop="income" :show-overflow-tooltip="true" label="收费金额"/>
-        <el-table-column prop="carNum" :show-overflow-tooltip="true" label="车牌号"/>
-        <el-table-column prop="payMethod" :show-overflow-tooltip="true" label="支付方式"/>
-        <el-table-column prop="oweMoney" :show-overflow-tooltip="true" label="欠费金额"/>
+      <el-table
+        :data="payList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;height:90%"
+      >
+        <el-table-column
+          prop="statisticDate"
+          :show-overflow-tooltip="true"
+          label="支付时间"
+        />
+        <el-table-column
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
+        />
+        <el-table-column
+          prop="passagewayName"
+          :show-overflow-tooltip="true"
+          label="通过出口名称"
+        />
+        <el-table-column
+          prop="passagewayGateName"
+          :show-overflow-tooltip="true"
+          label="通过道闸机名称"
+        />
+        <el-table-column
+          prop="income"
+          :show-overflow-tooltip="true"
+          label="收费金额"
+        />
+        <el-table-column
+          prop="carNum"
+          :show-overflow-tooltip="true"
+          label="车牌号"
+        />
+        <el-table-column
+          prop="payMethod"
+          :show-overflow-tooltip="true"
+          label="支付方式"
+        />
+        <el-table-column
+          prop="oweMoney"
+          :show-overflow-tooltip="true"
+          label="欠费金额"
+        />
       </el-table>
       <!--分页条-->
       <div style="width:100%;height:9%;margin-top: 1%">
-        <el-pagination style="position: absolute;right: 1px;" background layout="total, prev, pager, next, jumper"
-                       :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
-                       :total="pageTotal"/>
+        <el-pagination
+          style="position: absolute;right: 1px;"
+          background
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+        />
       </div>
     </div>
     <!-- 底部表格部分 -->
     <div class="down">
       <div class="echartStyle" id="payAna">
-        <Xchart id="payAna" :option="payAnaChart"/>
+        <Xchart id="payAna" :option="payAnaChart" />
       </div>
       <!-- 平均洗车时长 averageWashingTime-->
       <el-scrollbar class="echartStyle" id="payMethod">
@@ -87,20 +161,20 @@
   </div>
 </template>
 <script>
-import Xchart from "../../components/charts/charts.vue"
-import HighCharts from 'highcharts'
+import Xchart from "../../components/charts/charts.vue";
+import HighCharts from "highcharts";
 import Xchart3d from "@/components/charts/charts3d";
 
 export default {
   // 组件导入
   components: {
-    Xchart,
+    Xchart
   },
   data() {
     return {
       //查询内容暂存
       query: {
-        parkId:"",
+        parkId: "",
         payMethod: ""
       },
       // 停车场下拉框数据暂存处
@@ -137,13 +211,12 @@ export default {
       //饼图数据
       dataListP: [],
       payMethodChart: {}
-
     };
   },
   mounted() {
     //初始化列表
     this.queryPayList();
-    this.queryParkList()
+    this.queryParkList();
     this.drawPayAnaChart();
     this.drawPayMethodChart();
   },
@@ -155,7 +228,7 @@ export default {
       this.drawPayMethodChart();
     },
     //斑马纹样式
-    tableRowClassName({rowIndex}) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2) {
         return "successRow11";
       } else {
@@ -191,16 +264,16 @@ export default {
       };
       this.$reportAnalysis.paymentAnalysis(param).then(res => {
         const param = {
-          type: 'pie',
-          name: '收入分析',
+          type: "pie",
+          name: "收入分析",
           data: [
-            ['支付宝', Number(res.data.dataList[0].alipayPaymentMoneyAmount)],
-            ['微信', Number(res.data.dataList[0].wechatPaymentMoneyAmount)],
-            ['现金', Number(res.data.dataList[0].cashPaymentMoneyAmount)],
-            ['扫码', Number(res.data.dataList[0].qrCodePaymentMoneyAmount)]
+            ["支付宝", Number(res.data.dataList[0].alipayPaymentMoneyAmount)],
+            ["微信", Number(res.data.dataList[0].wechatPaymentMoneyAmount)],
+            ["现金", Number(res.data.dataList[0].cashPaymentMoneyAmount)],
+            ["扫码", Number(res.data.dataList[0].qrCodePaymentMoneyAmount)]
           ]
         };
-        console.log("dayinshuju", this.dataListP)
+        console.log("dayinshuju", this.dataListP);
         this.dataListP.push(param);
         this.payMethodChart = {
           chart: {
@@ -234,9 +307,9 @@ export default {
             }
           },
           series: this.dataListP
-        }
+        };
         new HighCharts.chart(this.payMethodChart);
-      })
+      });
     },
     drawPayAnaChart() {
       const param = {
@@ -250,34 +323,34 @@ export default {
         var dataListA = [];
         var dataListB = [];
         var dataListC = [];
-        res.data.dataList.forEach((item) => {
+        res.data.dataList.forEach(item => {
           this.payAnaX.push(item.date);
           dataListA.push(Number(item.arrearageMoneyAmount));
           dataListB.push(Number(item.memberRechargeMoneyAmount));
           dataListC.push(Number(item.paymentMoneyAmount));
         });
         const paramA = {
-          name: '欠费金额',
+          name: "欠费金额",
           data: dataListA
         };
         this.dataListC.push(paramA);
         const paramB = {
-          name: '月卡充值金额',
+          name: "月卡充值金额",
           data: dataListB
         };
         this.dataListC.push(paramB);
         const paramC = {
-          name: '普通用户缴费金额',
+          name: "普通用户缴费金额",
           data: dataListC
         };
         this.dataListC.push(paramC);
         this.payAnaChart = {
           chart: {
-            type: 'column',
-            renderTo: 'payAna'
+            type: "column",
+            renderTo: "payAna"
           },
           title: {
-            text: '收入趋势按月分析'
+            text: "收入趋势按月分析"
           },
           credits: {
             enabled: false
@@ -287,37 +360,37 @@ export default {
           },
           yAxis: {
             title: {
-              text: ''
+              text: ""
             }
           },
           legend: {
             enabled: true,
-            align: 'center',
-            verticalAlign: 'left',
+            align: "center",
+            verticalAlign: "left",
             x: 300,
             y: 10,
             itemStyle: {
-              color: '#cccccc',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              fill: '#cccccc',
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
             },
             itemHoverStyle: {
-              color: '#666666',
+              color: "#666666"
             },
             itemHiddenStyle: {
-              color: '#333333'
+              color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>元'
+            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>元"
           },
           plotOptions: {
             area: {
               marker: {
                 enabled: false,
-                symbol: 'circle',
+                symbol: "circle",
                 radius: 2,
                 states: {
                   hover: {
@@ -328,7 +401,7 @@ export default {
             }
           },
           series: this.dataListC
-        }
+        };
         new HighCharts.chart(this.payAnaChart);
       });
     },
@@ -343,10 +416,8 @@ export default {
         this.parkList = res.data.dataList;
       });
     }
-
-
   }
-}
+};
 </script>
 <style scoped>
 /* 总体的页面样式 */

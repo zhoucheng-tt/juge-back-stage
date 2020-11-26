@@ -47,7 +47,7 @@
             <el-table
                     :row-class-name="tableRowClassName"
                     :data="logManagementData"
-                    :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+                    :header-cell-style="{ 'text-align': 'center'}"
                     :cell-style="{ 'text-align': 'center' }">
                 <el-table-column
                         fixed
@@ -98,8 +98,8 @@
                //顶部结束时间
                maxLogTime:"",
                //初始化分页
-               pageNum: 1,
-               pageSize: 9,
+               pageNum:1,
+               pageSize:10,
                pageTotal: 1,
                 //日志管理表格数据存放
                logManagementData:[],
@@ -108,7 +108,6 @@
        mounted() {
            //查询日志管理列表
            this.queryLogList();
-
        },
        methods:{
            //顶部导出按钮
@@ -120,17 +119,17 @@
                    //传入查询要用的参数
                    minLogTime:this.minLogTime,
                    maxLogTime:this.maxLogTime,
-                   pageSize:this.pageSize,
+                   pageSize:'',
                    pageNum:this.pageNum
                };
                console.log("param",param)
-               //引用deviceManagement中的查询接口方法
                this.$systemUser.queryLogList(param).then(response => {
                    console.log("打印查询response", response)
                    //分页
-                   that.pageTotal = response.data.totalRecord;
+                   that.pageTotal = response.resultEntity.list;
+                   console.log('that.pageTotal',that.pageTotal)
                    //查询
-                   that.logManagementData = response.data.dataList;
+                   that.logManagementData = response.resultEntity.list;
                    console.log("查询日志管理表格数据", that.logManagementData)
                })
            },
