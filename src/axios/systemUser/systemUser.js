@@ -123,7 +123,7 @@ export function updateRole(param) {
 //日志管理列表查询
 export function queryLogList(param) {
     return request({
-        url: 'http://localhost:8000/systemManageFunc/queryLogList',
+        url: 'http://123.207.189.27:7138/systemManageFunc/queryLogList',
         method: 'post',
         data: param,
         flag: "out"
