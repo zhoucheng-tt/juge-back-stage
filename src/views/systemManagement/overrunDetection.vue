@@ -573,7 +573,7 @@
                         if(item.children != undefined){
                             for (var j = 0; j < item.children.length; j++) {
                                 let data=item.children[j]
-                                data.check=false
+                                data.check=false;
                             }
                         }
                     }
