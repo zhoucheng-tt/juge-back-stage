@@ -119,14 +119,14 @@
                    //传入查询要用的参数
                    minLogTime:this.minLogTime,
                    maxLogTime:this.maxLogTime,
-                   pageSize:'',
+                   pageSize:this.pageSize,
                    pageNum:this.pageNum
                };
                console.log("param",param)
                this.$systemUser.queryLogList(param).then(response => {
                    console.log("打印查询response", response)
                    //分页
-                   that.pageTotal = response.resultEntity.list;
+                   that.pageTotal = response.resultEntity.total;
                    console.log('that.pageTotal',that.pageTotal)
                    //查询
                    that.logManagementData = response.resultEntity.list;

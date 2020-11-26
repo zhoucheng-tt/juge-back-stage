@@ -11,6 +11,7 @@ export function queryRoleList(param) {
         }
     )
 }
+
 //系统管理角色管理新增角色
 export function addRole(param) {
     return request(
@@ -21,6 +22,7 @@ export function addRole(param) {
         }
     )
 }
+
 //系统管理角色管理删除行
 export function deleteRole(param) {
     return request(
@@ -31,6 +33,7 @@ export function deleteRole(param) {
         }
     )
 }
+
 //系统管理角色新增查询选择用户
 export function queryUserListByRole(param) {
     return request(
@@ -41,6 +44,7 @@ export function queryUserListByRole(param) {
         }
     )
 }
+
 //系统管理中新增功能权限的tabs
 export function queryFuncListByRole(param) {
     return request(
@@ -53,10 +57,9 @@ export function queryFuncListByRole(param) {
 }
 
 
-
 // 用户信息列表
 export function queryUserList(param) {
-    return  request({
+    return request({
         url: '/systemManageFunc/queryUserList.xhtml',
         method: 'post',
         data: param
@@ -98,6 +101,7 @@ export function queryRoleListByUser(param) {
         data: param
     })
 }
+
 //新增角色查询
 export function queryFuncListByUser(param) {
     return request({
@@ -106,6 +110,7 @@ export function queryFuncListByUser(param) {
         data: param
     })
 }
+
 //角色修改 systemManageFunc/updateRole.xhtml
 export function updateRole(param) {
     return request({
@@ -115,7 +120,7 @@ export function updateRole(param) {
     })
 }
 
-//日志管理列表查询按时间查询
+//日志管理列表查询
 export function queryLogList(param) {
     return request({
         url: 'http://localhost:8000/systemManageFunc/queryLogList',
@@ -124,6 +129,4 @@ export function queryLogList(param) {
         flag: "out"
     })
 }
-
-
 
