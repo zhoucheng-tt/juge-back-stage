@@ -35,18 +35,18 @@
     </div>
 </template>
 <script>
-    import videoParkingDetector from './deviceManagement/videoParkingDetector'
-    import geomagneticParkingDetector from './deviceManagement/geomagneticParkingDetector'
+    import videoParkingDetector from './components/deviceManagement/videoParkingDetector'
+    import geomagneticParkingDetector from './components/deviceManagement/geomagneticParkingDetector'
     // 地锁
-    import floorLock from './deviceManagement/floorLock'
+    import floorLock from './components/deviceManagement/floorLock'
     // 进出口摄像头管理
-    import importExportCameraManagement from './deviceManagement/importExportCameraManagement'
+    import importExportCameraManagement from './components/deviceManagement/importExportCameraManagement'
     // 道闸机管理  gateMachineManagement
-    import gateMachineManagement from './deviceManagement/gateMachineManagement'
+    import gateMachineManagement from './components/deviceManagement/gateMachineManagement'
     // 充电桩管理  chargePointManagement
-    import chargePointManagement from './deviceManagement/chargePointManagement'
+    import chargePointManagement from './components/deviceManagement/chargePointManagement'
     // 洗车机管理  carWashingMachineManagement
-    import carWashingMachineManagement from './deviceManagement/carWashingMachineManagement'
+    import carWashingMachineManagement from './components/deviceManagement/carWashingMachineManagement'
 
 
     export default {
