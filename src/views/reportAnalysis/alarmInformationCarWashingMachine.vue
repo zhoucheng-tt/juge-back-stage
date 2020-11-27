@@ -82,7 +82,7 @@
       <el-table
         :data="payList"
         :row-class-name="tableRowClassName"
-        :header-cell-style="{ 'text-align': 'center' }"
+        :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
         :cell-style="{ 'text-align': 'center' }"
         style="width: 100%;height:90%"
       >

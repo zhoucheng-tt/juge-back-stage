@@ -22,20 +22,53 @@
                 <el-form-item label="车牌号:">
                     <el-input v-model="upQueryList.carNum" placeholder="请输入车牌号"></el-input>
                 </el-form-item>
-                <!-- 时间日期选择器 -->
-                <el-form-item label="进场时间:">
-                    <el-date-picker v-model="upQueryList.minEntranceTime" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
+                <el-row>
+                <el-col :span="8">
+                    <span>
+                        进厂时间
+                    </span>
+                    <!-- 时间日期选择器 -->
+                    <el-date-picker
+                            v-model="upQueryList.minEntranceTime"
+                            type="datetime"
+                            placeholder="选择最小进入"
+                            value-format="yyyy-MM-dd hh:mm:ss">
                     </el-date-picker>
-                </el-form-item>
-                <el-form-item label="出场时间:">
-                    <el-date-picker v-model="upQueryList.leaveTime" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
+                    <span>
+                        ~
+                    </span>
+                    <el-date-picker
+                            v-model="upQueryList.maxEntranceTime"
+                            type="datetime"
+                            placeholder="选择最大进入"
+                            value-format="yyyy-MM-dd hh:mm:ss">
                     </el-date-picker>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="queryStopOrder">查询</el-button>
-                </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <span>
+                        出场时间
+                    </span>
+                        <el-date-picker
+                                v-model="upQueryList.minLeaveTime"
+                                type="datetime"
+                                placeholder="选择日期时间"
+                                value-format="yyyy-MM-dd hh:mm:ss">
+                        </el-date-picker>
+                     <span>
+                        ~
+                    </span>
+                        <el-date-picker
+                                v-model="upQueryList.maxLeaveTime"
+                                type="datetime"
+                                placeholder="选择日期时间"
+                                value-format="yyyy-MM-dd hh:mm:ss">
+                        </el-date-picker>
+                </el-col>
+                    <el-form-item>
+                        <el-button type="primary" @click="queryStopOrder">查询</el-button>
+                    </el-form-item>
+                </el-row>
+
             </el-form>
         </div>
         <!-- 下半部分列表 -->
@@ -82,10 +115,10 @@
                     <el-input v-model="showListDloageandoffList.parkSpaceNumber" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="进场时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.entranceTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.minEntranceTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="出场时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.leaveTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.minLeaveTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="停车时长:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.parkDuration" readonly></el-input>
@@ -122,7 +155,6 @@
                 pageTotal: 4,
                 // 设置只读属性
                 readonly: true,
-
                 // 控制订单详情弹出框展示和隐藏属性
                 showListDloageandoff: false,
                 // 弹出框展示订单详情数据暂存
@@ -141,14 +173,14 @@
                 const params={
                     cityCode:"321300",
                     districtCode:"321302",
-                    parkTypeCode:"",
                     parkId:this.upQueryList.parkId,
-                    supervisorAccount:"",
                     minEntranceTime:this.upQueryList.minEntranceTime,
-                    maxEntranceTime:"",
-                    minLeaveTime:"",
-                    maxLeaveTime:"",
-                    plateNumber:"",
+                    maxEntranceTime:this.upQueryList.maxEntranceTime,
+                    minLeaveTime:this.upQueryList.minLeaveTime,
+                    maxLeaveTime:this.upQueryList.maxLeaveTime,
+                    parkTypeCode:this.upQueryList.parkTypeCode,
+                    supervisorAccount:this.upQueryList.supervisorAccount,
+                    plateNumber:this.upQueryList.plateNumber,
                     pageNum:this.pageNum,
                     pageSize:this.pageSize,
                 }
@@ -224,7 +256,7 @@
     /* 上半部分查询部分 */
     .up {
         width: 100%;
-        height: 15%;
+        height: 20%;
         float: left;
     }
 

@@ -192,7 +192,7 @@
                 :row-class-name="tableRowClassName"
                 ref="selectParkLayerList"
                 @selection-change="handleSelectParkLayerList"
-                :header-cell-style="{ 'text-align': 'center' }"
+                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }"
                 style="width: 100%;"
         >
@@ -368,7 +368,7 @@
                 :row-class-name="tableRowClassName"
                 ref="selectParkSpaceList"
                 @selection-change="handleSelectParkSpaceList"
-                :header-cell-style="{ 'text-align': 'center' }"
+                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }"
                 style="width: 100%;"
         >
@@ -557,16 +557,15 @@
       handlePreview(file) {
         console.log(file);
       },
-      //删除上传图片
-      handleRemovePicture(picture, pictureList) {
-        console.log(picture, pictureList);
-      },
-      //图片上传预览
-      handlePreviewPicture(picture) {
-        console.log(picture);
-      },
-      // submitUploadPicture() {
-      //   this.$refs.upload.submit();
+      beforeRemove(){},
+      handleExceed(){},
+      // //删除上传图片
+      // handleRemovePicture(picture, pictureList) {
+      //   console.log(picture, pictureList);
+      // },
+      // //图片上传预览
+      // handlePreviewPicture(picture) {
+      //   console.log(picture);
       // },
       //上传图片接口
       uploadPicture(picture) {
@@ -616,15 +615,16 @@
       },
       // 查询停车场下拉表单
       queryParking() {
+        var that =this;
         const param = {
           columnName: ["park_id", "park_name"],
           tableName: "t_bim_park",
           whereStr: "district_code = '321302'"
         };
         this.$ysParking.queryDictData(param).then(res => {
-          // console.log("下拉表单查询数据显示", res);
+          console.log("下拉表单查询数据显示", res);
           that.parkingLotList = res.data.dataList;
-          res.data.dataList.forEach(item => this.parkingLotList.push(item));
+          // res.data.dataList.forEach(item => this.parkingLotList.push(item));
           // console.log("下拉菜单", this.parkingLotList);
         });
       },
