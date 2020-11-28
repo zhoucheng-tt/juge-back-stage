@@ -31,6 +31,7 @@
             <el-button type="primary" @click="queryETCList">查询</el-button>
           </el-form-item>
           <el-form-item>
+            <el-button type="info" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="addETC">新增ETC</el-button>
             <el-button type="primary" @click="deleteETC">批量删除</el-button>
           </el-form-item>
@@ -332,9 +333,8 @@ export default {
       console.log(row);
       this.editListDialogueandoff = true;
       this.editListDialogueandoffList = row;
-    }
-    ,
-// 点击确定提交修改信息
+    },
+    // 点击确定提交修改信息
     ETCInfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.$deviceManagement.updateETC(this.editListDialogueandoffList)
@@ -344,16 +344,26 @@ export default {
             this.queryETCList();
           });
       this.editListDialogueandoff = false;
+    },
+    // 导出Excel
+    exportExcel() {
+      const param = {
+        etcName: this.upQueryList.etcName,
+        parkName: this.upQueryList.queryParkId,
+        pageSize: this.pageSize,
+        pageNum: this.pageNum
+      };
+      this.$deviceManagement.exportETC(param).then(res => {
+
+      })
     }
-    ,
   },
 
   mounted() {
     this.queryETCList();
-    this.queryParking()
+    this.queryParking();
   }
-}
-
+};
 </script>
 <style scoped>
 .all {

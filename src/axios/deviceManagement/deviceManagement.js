@@ -387,3 +387,23 @@ export function batchInsertVideoDetecter(param) {
         data: param,
     })
 }
+
+//文件上传
+export function uploadFile(param) {
+    return request({
+        url: 'http://localhost:8000/FileController/upFile',
+        method: 'post',
+        data: param,
+        flag: 'out'
+    })
+}
+
+//导出ETC数据
+export function exportETC(param) {
+    return request({
+        url: 'http://localhost:8000/ETCFunc/exportETC',
+        method: 'post',
+        data: param,
+        flag: 'out'
+    })
+}

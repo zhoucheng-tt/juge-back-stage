@@ -506,15 +506,15 @@ export default {
         districtCode: this.county,
         parkId: this.parking,
         pageNum: "",
-        pageSize: "",
+        pageSize: ""
       };
       this.$deviceManagement.exportVideoDetecter(param).then(res => {
         const aLink = document.createElement("a");
         let blob = new Blob([res], {type: "application/vnd.ms-excel"})
-        aLink.href = URL.createObjectURL(blob)
+        aLink.href = URL.createObjectURL(blob);
         aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
-        aLink.click()
-      })
+        aLink.click();
+      });
     },
     //批量导入
     bulkImport() {
