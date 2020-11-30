@@ -123,7 +123,7 @@
               <el-col :span="8">
                 <el-upload
                         class="upload-demo"
-                        action="CommonController/uploadFile"
+                        action="/e-parking-web/CommonController/uploadFile"
                         :on-preview="handlePreview"
                         :on-remove="handleRemove"
                         :before-remove="beforeRemove"

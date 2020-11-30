@@ -29,13 +29,14 @@ const service = axios.create({
         reqInfo = {
           template: data.template
         }
-      } else { if (data.upload !== undefined) {
-        reqInfo = data;
       } else {
-        reqInfo = {
-          param: JSON.stringify(data),//对象转json
+        if (data.upload !== undefined) {
+          reqInfo = data;
+        } else {
+          reqInfo = {
+            param: JSON.stringify(data),//对象转json
+          }
         }
-      }
       return qs.stringify(reqInfo)//json转表单
     }}
   ]

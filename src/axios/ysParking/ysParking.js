@@ -177,10 +177,10 @@ export function deleteParkLayer(param) {
 //停车场管理车位管理的上传图片接口 CommonController/uploadFile
 export function uploadFile(param) {
   return request({
-    url: "CommonController/uploadFile",
+    url: "/CommonController/uploadFile",
     method: "post",
     data: param,
-    headers: { "Content-Type": "application/json" },
+    // headers: { "Content-Type": "application/json" },
   });
 }
 //停车场管理车位管理的上传接口 parkFunc/insertParkLayer

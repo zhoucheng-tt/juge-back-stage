@@ -19,10 +19,10 @@ module.exports = {
       // 配置跨域
       // 当遇见所有的跨域问题中需要进行这边调整
       "/e-parking-web": {
-        target: "http://120.26.146.64:8052/e-parking-web",
+        target: "http://120.26.146.64:8052",
         ws: false,
         pathRewrite: {
-          "^/e-parking-web/": "/"
+          "^/e-parking-web/": "/e-parking-web/"
           //pathRewrite: {'^/api': '/'} 重写之后url为 http://192.168.1.16:8085/xxxx
           //pathRewrite: {'^/api': '/api'} 重写之后url为 http://192.168.1.16:8085/api/xxxx
         }
