@@ -486,7 +486,6 @@
         Cert: {
           upload: 1,
           dir: 'park',
-          file:''
         },
         headers: {
           token: localStorage.getItem("token")
@@ -572,7 +571,7 @@
         const param = {
           upload: 1,
           dir: "park",
-          upfile:picture
+         upfile:picture
         };
         this.$ysParking.uploadFile(param).then(res => {
           this.addListDialogueandoffList.uploadPictureList.push(res.data);
@@ -588,11 +587,9 @@
       addInfoInsert() {
         console.log("this.pictureList", this.pictureList);
         // return;
-
         for (let i = 0; i < this.pictureList.length; i++) {
           this.uploadFile(this.pictureList[i]);
         }
-
         const param = {
           parkId: this.addListDialogueandoffList.parkId,
           parkLayerId: this.addListDialogueandoffList.parkLayerId,

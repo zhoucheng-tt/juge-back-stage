@@ -155,16 +155,16 @@
               {
                 code: '3-1',
                 logo: 'el-icon-menu',
-                name: '停车场运营指标分析',
+                name: '运营指标分析',
                 routeName: 'analysisOnOperationIndexOfParking'
               },
               {
                 code: '3-2',
                 logo: 'el-icon-menu',
-                name: '停车场运营收入分析',
+                name: '运营收入分析',
                 routeName: 'analysisOfOperatingIncomeOfParking'
               },
-              // 报表分析（日报，月报，年报）  
+              // 报表分析（日报，月报，年报）
               {
                 code: '3-3',
                 logo: 'el-icon-menu',
@@ -178,7 +178,7 @@
                 name: '支付台账统计',
                 routeName: 'paymentAccountStatistics'
               },
-              // 出入口监测  
+              // 出入口监测
               {
                 code: '3-5',
                 logo: 'el-icon-menu',
@@ -197,8 +197,15 @@
           {
             code: '4',
             logo: 'el-icon-document',
-            name: '实时监测-洗车机运营数据',
-            routeName: 'realTimeMonitoringCarWaring'
+            name: '实时监测',
+            // routeName: 'realTimeMonitoringCarWaring',
+              children: [
+                  {
+                      code: '4-1',
+                      logo: 'el-icon-menu',
+                      name: '洗车机运营数据',
+                      routeName: 'realTimeMonitoringCarWaring'
+                  }]
           },
           // 订单管理
           {
@@ -239,14 +246,14 @@
                 name: '基础信息管理ETC',
                 routeName: 'basicInformationManagementETC'
               },
-              // 计费规则管理  
+              // 计费规则管理
               {
                 code: '6-2',
                 logo: 'el-icon-menu',
                 name: '计费规则管理',
                 routeName: 'billingRuleManagement'
               },
-              // 洗车机计费规则管理   
+              // 洗车机计费规则管理
               {
                 code: '6-3',
                 logo: 'el-icon-menu',
@@ -277,7 +284,7 @@
               {
                 code: '7-1',
                 logo: 'el-icon-menu',
-                name: '白名单管理',
+                name: '名单管理',
                 routeName: 'whitelistManagement'
               },
             ]
