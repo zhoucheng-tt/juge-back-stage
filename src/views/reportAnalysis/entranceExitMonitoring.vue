@@ -1,5 +1,5 @@
 <!--
-    出入口检测
+    出入口监测
  * @Author:邵青阳
  * @Date: 2020-11-09 10:10:54
  * @LastEditTime: 2020-11-19 19:28:35
@@ -13,6 +13,7 @@
       <!--上半部分查询-->
       <el-row>
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+<!--      停车场-->
           <el-form-item label="停车场：">
             <el-select v-model="queryParkId" placeholder="请选择停车场">
               <el-option
@@ -22,6 +23,25 @@
                   :key="index"
               ></el-option>
             </el-select>
+          </el-form-item>
+<!--    时间-->
+          <el-form-item label="选择时间:">
+              <el-date-picker
+                v-model="upQueryList.dateTime"
+                type="datetime"
+                value-format="yyyy-MM-dd hh:mm:ss"
+                placeholder="选择日期时间">
+              </el-date-picker>
+          </el-form-item>
+<!--    车牌号-->
+          <el-form-item label="车牌号:">
+              <el-input v-model="upQueryList.plateNum" palceholder="请输入车牌号"></el-input>
+          </el-form-item>
+<!--      查询按钮-->
+          <el-form-item>
+            <el-button type="primary">
+              查询
+            </el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -35,15 +55,9 @@
       </el-row>
       <el-row>
         <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="entranceImgUrl" style="position:relative;height: 250px;width: auto;" class="show">
+          <img :src="entranceImgUrl"  class="show">
         </el-col>
         <el-col :span="12">
-          <!--          <el-carousel height="400px" direction="vertical" :autoplay="true" loop>-->
-          <!--            <el-carousel-item v-for="item in infoList" :key="item">-->
-          <!--              <h3 class="medium">{{ item.msg }}</h3>-->
-          <!--            </el-carousel-item>-->
-          <!--          </el-carousel>-->
-
           <div class="marquee">
             <!-- <el-scrollbar style="height: 100%"> -->
             <div class="marquee_box">
@@ -57,15 +71,6 @@
                 </li>
               </ul>
             </div>
-            <!-- <div style="height: 100%;">
-                 <el-card v-for="item in blackTextList" class="alarm-card">
-                   <div> <span>{{item.text}} </span>车牌:<span>{{item.plateNum}}</span></div>
-                   <div>施工路段：<span>{{item.roadName}}</span></div>
-                   <div>桩号：<span>{{item.Station}}</span></div>
-                   <div>检测时间：<span>{{item.inspectionTime}}</span></div>
-                 </el-card>
-               </div> -->
-            <!-- </el-scrollbar> -->
           </div>
         </el-col>
       </el-row>
@@ -76,7 +81,7 @@
       </el-row>
       <el-row>
         <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="exitImgUrl" style="position: relative;height: 250px;width: auto" class="show">
+          <img :src="exitImgUrl" class="show">
         </el-col>
         <el-col :span="12">
           <div class="marquee">
@@ -92,15 +97,6 @@
                 </li>
               </ul>
             </div>
-            <!-- <div style="height: 100%;">
-                 <el-card v-for="item in blackTextList" class="alarm-card">
-                   <div> <span>{{item.text}} </span>车牌:<span>{{item.plateNum}}</span></div>
-                   <div>施工路段：<span>{{item.roadName}}</span></div>
-                   <div>桩号：<span>{{item.Station}}</span></div>
-                   <div>检测时间：<span>{{item.inspectionTime}}</span></div>
-                 </el-card>
-               </div> -->
-            <!-- </el-scrollbar> -->
           </div>
         </el-col>
       </el-row>
@@ -116,6 +112,10 @@ export default {
       queryParkId: "",
       // 停车场下拉列表
       parkingLotList: [],
+      //查询绑定
+        upQueryList:[],
+      //时间选择器绑定
+      value1:'',
       //图片路径
       entranceImgUrl: require("../../assets/images/cc1.png"),
       exitImgUrl: require("../../assets/images/rc1.png"),
@@ -215,14 +215,15 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
+  margin-top: 0.5%;
   padding-left: 2%;
 }
 
 .show {
   height: 100%;
-  width: 93%;
+  width: 70%;
   padding-left: 18px;
+  position:relative;
 }
 
 /* 下班部分列表部分 */

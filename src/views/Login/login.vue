@@ -14,10 +14,17 @@
             <h1><span>欢迎使用&nbsp;</span>溧水停车采集与发布平台</h1>
             <form class="login-form-horizontal">
                 <div class="login-form-group">
-                    <input type="text" class="login-form-control" placeholder="账号或手机号" v-model="loginName" />
+                    <input type="text"
+                           class="login-form-control"
+                           placeholder="账号或手机号"
+                           v-model="loginName"
+                    />
                 </div>
                 <div class="login-form-group">
-                    <input type="password" class="login-form-control" placeholder="密码" v-model="loginPassword" />
+                    <input type="password"
+                           class="login-form-control"
+                           placeholder="密码"
+                           v-model="loginPassword" />
                 </div>
                 <div class="login-form-group">
                     <a class="login-btn" @click="loginBtn()">登录</a>

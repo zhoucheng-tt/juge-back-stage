@@ -16,23 +16,47 @@
                     <el-select v-model="upQueryList.parkId" placeholder="请选择停车场">
                         <el-option v-for="(item, index) in parkingLotList" :label="item.name"
                             :value="item.code" :key="index"></el-option>
-                        <!-- <el-option label="二楼" value="TingNum2"></el-option> -->
                     </el-select>
                 </el-form-item>
                 <el-form-item label="车牌号:" v-if = "false">
                     <el-input v-model="upQueryList.carNum" placeholder="请输入车牌号"></el-input>
                 </el-form-item>
                 <!-- 时间日期选择器 -->
-                <el-form-item label="开始时间:">
-                    <el-date-picker v-model="upQueryList.minEntranceTime" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
+                <el-form-item label="进场时间:">
+                    <!-- 时间日期选择器 -->
+                    <el-date-picker
+                      v-model="upQueryList.minEntranceTime"
+                      type="datetime"
+                      placeholder="请选择起始日期"
+                      value-format="yyyy-MM-dd hh:mm:ss">
+                    </el-date-picker>
+                    <span>
+                        ~
+                    </span>
+                    <el-date-picker
+                      v-model="upQueryList.maxEntranceTime"
+                      type="datetime"
+                      placeholder="请选择截止日期"
+                      value-format="yyyy-MM-dd hh:mm:ss">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="结束时间:">
-                    <el-date-picker v-model="upQueryList.leaveTime" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
-                    </el-date-picker>
-                </el-form-item>
+                    <el-form-item label="出场时间:">
+                        <el-date-picker
+                          v-model="upQueryList.minLeaveTime"
+                          type="datetime"
+                          placeholder="请选择起始日期"
+                          value-format="yyyy-MM-dd hh:mm:ss">
+                        </el-date-picker>
+                        <span>
+                        ~
+                        </span>
+                        <el-date-picker
+                          v-model="upQueryList.maxLeaveTime"
+                          type="datetime"
+                          placeholder="请选择截止日期"
+                          value-format="yyyy-MM-dd hh:mm:ss">
+                        </el-date-picker>
+                    </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="queryStopOrder">查询</el-button>
                 </el-form-item>
@@ -50,10 +74,6 @@
                 <el-table-column prop="leaveTime" :show-overflow-tooltip="true" label="结束时间"></el-table-column>
                 <el-table-column prop="parkName" :show-overflow-tooltip="true" label="充电时长" width=""></el-table-column>
                 <el-table-column prop="parkSpaceNumber" :show-overflow-tooltip="true" label="订单金额"></el-table-column>
-                <!-- <el-table-column prop="parkDuration" :show-overflow-tooltip="true" label="停车时长"></el-table-column>
-                <el-table-column prop="paymentStatus" :show-overflow-tooltip="true" label="收费状态"></el-table-column>
-                <el-table-column prop="receivableMoneyAmount" :show-overflow-tooltip="true" label="应收金额"></el-table-column>
-                <el-table-column prop="receivedMoneyAmount" :show-overflow-tooltip="true" label="实收金额"></el-table-column> -->
                 <el-table-column prop="paymentMethod" :show-overflow-tooltip="true" label="支付方式"></el-table-column>
                 <el-table-column :show-overflow-tooltip="true" label="操作">
                     <template slot-scope="scope">
@@ -69,38 +89,31 @@
         <!-- 订单详情点击弹出框 -->
         <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
             <el-form :inline="true" :model="showListDloageandoffList" class="demo-form-inline">
-                <el-form-item label="停车场编号:" class="el-form-item-dialog">
+                <el-form-item label="订单编号:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.parkingLotNumber" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="停车场名称:" class="el-form-item-dialog">
+                <el-form-item label="充电桩号:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.nameOfParkingLot" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="车牌号:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.carNum" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="车位号:" class="el-form-item-dialog">
+                <el-form-item label="开始时间:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.parkingNumber" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="进场时间:" class="el-form-item-dialog">
+                <el-form-item label="充电时长:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.entryTime" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="出厂时间:" class="el-form-item-dialog">
+                <el-form-item label="订单金额:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.deliveryTime" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="停车时长:" class="el-form-item-dialog">
+                <el-form-item label="支付方式:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.parkingTime" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="收费状态:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.chargingStatus" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="应收金额:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.amountReceivable" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="实收金额:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.paymentMethod" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="支付方式:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.paymentMethod" readonly></el-input>
+                <el-form-item>
+                    <el-button @click="handleBack">
+                        返回
+                    </el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -177,21 +190,6 @@
                     console.log("下拉菜单", that.parkingLotList);
                 })
             },
-            // queryList() {
-            //     var jsonStr = {
-            //         startStatisDate: "2017-07-14",
-            //         endStatisDate: "2017-07-14"
-            //     }
-            //     this.$ysParking.trendAnalysis(jsonStr).then(response => {
-            //         console.log("测试", response)
-            //     })
-            // },
-            // 点击查询调用的方法
-            // SelectQueryList() {
-            //     // console.log("打印出来点击查询后所产生的值", this.upQueryList)
-            //     //调用查询方法
-            //     this.queryStopOrder();
-            // },
             // 分页查询方法
             handleCurrentModify(val) {
                 this.pageNum = val;
@@ -201,6 +199,10 @@
             showListDloage(row) {
                 this.showListDloageandoff = true;
                 this.showListDloageandoffList = row;
+            },
+            //查看弹窗的返回事件
+            handleBack(){
+                this.showListDloageandoff = false;
             },
             // 斑马纹样式
             tableRowClassName({ row, rowIndex }) {
@@ -224,15 +226,15 @@
     /* 上半部分查询部分 */
     .up {
         width: 100%;
-        height: 15%;
+        height: 7%;
         float: left;
     }
 
     /* 查询条件部分样式 */
     .demo-form-inline {
         width: 100%;
-        height: 80%;
-        margin-top: 3%;
+        height: 85%;
+        margin-top: 0.5%;
         padding-left: 2%;
     }
 

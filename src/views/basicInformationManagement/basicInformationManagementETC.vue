@@ -31,7 +31,7 @@
             <el-button type="primary" @click="queryETCList">查询</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="info" @click="exportExcel()">导出</el-button>
+            <el-button type="primary" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="addETC">新增ETC</el-button>
             <el-button type="primary" @click="deleteETC">批量删除</el-button>
           </el-form-item>
@@ -48,7 +48,6 @@
             <el-select
                 v-model="addETCForm.parkName"
                 placeholder="请选择停车场"
-                style="width: 300px"
             >
               <el-option
                   v-for="(item, index) in parkingLotList"
@@ -59,16 +58,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="ETC编号:" prop="etcNumber">
-            <el-input v-model="addETCForm.etcNumber" placeholder="请输入ETC编号" style="width: 300px"/>
+            <el-input v-model="addETCForm.etcNumber" placeholder="请输入ETC编号"/>
           </el-form-item>
           <el-form-item label="ETC名称:" prop="etcName">
-            <el-input v-model="addETCForm.etcName" placeholder="请输入ETC名称" style="width: 300px"/>
+            <el-input v-model="addETCForm.etcName" placeholder="请输入ETC名称"/>
           </el-form-item>
           <el-form-item label="类型:" prop="type">
-            <el-input v-model="addETCForm.type" placeholder="请输入类型" style="width: 300px"/>
+            <el-input v-model="addETCForm.type" placeholder="请输入类型"/>
           </el-form-item>
           <el-form-item label="描述:" prop="description">
-            <el-input v-model="addETCForm.description" placeholder="请输入描述" style="width: 300px"/>
+            <el-input v-model="addETCForm.description" placeholder="请输入描述"/>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -86,7 +85,8 @@
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="etcNumber" label="ETC编号" width="80"></el-table-column>
+<!--        <el-table-column prop="etcNumber" label="ETC编号"></el-table-column>-->
+        <el-table-column prop="etcName" label="ETC名称"></el-table-column>
         <el-table-column prop="parkName" :show-overflow-tooltip="true" label="所属停车场" width="">
         </el-table-column>
         <el-table-column prop="type" :show-overflow-tooltip="true" label="类型" width="">
@@ -320,14 +320,13 @@ export default {
       this.pageNum = val;
       // 查询列表方法
       this.queryETCList();
-    }
-    ,
+    },
 // 点击查看调用的方法
     showListDialogue(row) {
       this.showListdialogueandoff = true;
       this.showListdialogueandoffList = row;
-    }
-    ,
+    },
+
 // 点击修改调用的方法
     editListDialogue(row) {
       console.log(row);
@@ -375,15 +374,15 @@ export default {
 /* 上半部分查询部分 */
 .up {
   width: 100%;
-  height: 15%;
+  height: 7%;
   float: left;
 }
 
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 3%;
+  height: 85%;
+  margin-top: 0.5%;
   padding-left: 2%;
 }
 

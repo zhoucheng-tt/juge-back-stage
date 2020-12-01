@@ -13,27 +13,19 @@
     <div class="up">
       <el-row>
         <el-form :inline="true" class="demo-form-inline">
-          <el-row>
-            <el-col :span="6">
               <el-form-item label="统计日期:">
                 <el-date-picker v-model="query.date" type="date" placeholder="选择日期" value-format="yyyy-MM-dd"/>
               </el-form-item>
-            </el-col>
-            <el-col :span="6">
               <el-form-item label="停车场：">
                 <el-select v-model="query.parkId" placeholder="请选择停车场">
                   <el-option label="全部" value=""></el-option>
                   <el-option v-for="(item, index) in parkList" :label="item.name" :value="item.code" :key="index"/>
                 </el-select>
               </el-form-item>
-            </el-col>
-            <el-col :span="6" :offset="6">
               <el-form-item>
                 <el-button type="primary" @click="queryReportList">查询</el-button>
                 <el-button type="primary" @click="exportReport">导出</el-button>
               </el-form-item>
-            </el-col>
-          </el-row>
         </el-form>
       </el-row>
     </div>
@@ -158,7 +150,7 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
+  margin-top: 0.5%;
   padding-left: 2%;
 }
 

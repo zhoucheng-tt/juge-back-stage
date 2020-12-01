@@ -12,9 +12,7 @@
     <!-- 上部分查询内容 -->
     <div class="up">
       <el-form :inline="true" :model="query" class="demo-form-inline">
-        <el-row>
-          <el-col :span="7">
-            <el-form-item label="统计日期">
+            <el-form-item label="统计日期:">
               <el-date-picker
                 v-model="query.startStatisDate"
                 style="width: 170px;"
@@ -32,9 +30,7 @@
               >
               </el-date-picker>
             </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="停车场">
+            <el-form-item label="停车场:">
               <el-select v-model="query.parkId" placeholder="请选择停车场">
                 <el-option label="全部" value=""></el-option>
                 <el-option
@@ -46,17 +42,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="洗车机名称">
+            <el-form-item label="洗车机名称:">
               <el-input
                 v-model="query.carNum"
                 palceholder="请输入洗车机名称"
               ></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="5" v-if="false">
-            <el-form-item label="支付方式">
+            <el-form-item label="支付方式:">
               <el-select v-model="query.payMethod" placeholder="请选择支付方式">
                 <el-option label="全部" value=""></el-option>
                 <el-option
@@ -68,13 +60,9 @@
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col :span="2">
             <el-form-item>
               <el-button type="primary" @click="queryButton">查询</el-button>
             </el-form-item>
-          </el-col>
-        </el-row>
       </el-form>
     </div>
     <!-- 中间图标部分内容 -->

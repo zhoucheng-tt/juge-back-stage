@@ -140,12 +140,12 @@
                         routeName: 'homePage',
                         children: []
                     },
-                    {
-                        code: '2',
-                        logo: 'el-icon-document',
-                        name: '高位视频',
-                        routeName: 'GwVedio'
-                    },
+                    // {
+                    //     code: '2',
+                    //     logo: 'el-icon-document',
+                    //     name: '高位视频',
+                    //     routeName: 'GwVedio'
+                    // },
                     // 导航栏添加（包含导航栏中的子页面添加）
                     {
                         code: '3',
@@ -204,7 +204,7 @@
                                 code: '4-1',
                                 logo: 'el-icon-menu',
                                 name: '洗车机运营数据',
-                                routeName: 'parkingOrderInquiry'
+                                routeName: 'realTimeMonitoringCarWaring'
                             }]
                     },
                     // 订单管理

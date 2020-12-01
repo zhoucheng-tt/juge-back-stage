@@ -1,4 +1,5 @@
 <!--
+  支付台账统计
  * @Author: 邵青阳
  * @Date: 2020-11-07 13:46:25
  * @LastEditTime: 2020-11-12 19:43:11
@@ -11,9 +12,7 @@
     <!-- 上部分查询内容 -->
     <div class="up">
       <el-form :inline="true" :model="query" class="demo-form-inline">
-        <el-row>
-          <el-col :span="7">
-            <el-form-item label="统计日期">
+            <el-form-item label="统计日期:">
               <el-date-picker
                 v-model="query.startStatisDate"
                 style="width: 170px;"
@@ -31,10 +30,8 @@
               >
               </el-date-picker>
             </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="停车场">
-              <el-select v-model="query.parkId" placeholder="请选择停车场">
+            <el-form-item label="停车场:">
+              <el-select v-model="query.parkId">
                 <el-option label="全部" value=""></el-option>
                 <el-option
                   v-for="(item, index) in parkList"
@@ -45,18 +42,12 @@
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="车牌号">
+            <el-form-item label="车牌号:">
               <el-input
                 v-model="query.carNum"
-                palceholder="请输入车牌号"
-                placeholder="请输入车牌号"
               ></el-input>
             </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="支付方式">
+            <el-form-item label="支付方式:">
               <el-select v-model="query.payMethod" placeholder="请选择支付方式">
                 <el-option label="全部" value=""></el-option>
                 <el-option
@@ -68,13 +59,9 @@
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col :span="2">
             <el-form-item>
               <el-button type="primary" @click="queryButton">查询</el-button>
             </el-form-item>
-          </el-col>
-        </el-row>
       </el-form>
     </div>
     <!-- 中间图标部分内容 -->

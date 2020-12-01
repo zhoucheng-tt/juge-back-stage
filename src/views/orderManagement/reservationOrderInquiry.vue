@@ -27,7 +27,7 @@
                         start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="预约状态">
+                <el-form-item label="预约状态:">
                     <el-select v-model="upQueryList.appointmentOrderStatusName" placeholder="请选择状态">
                         <el-option v-for="(item, index) in strutsList" :label="item.name"
                             :value="item.code" :key="index"></el-option>
@@ -44,14 +44,11 @@
             <el-table :data="orderParkingList" :row-class-name="tableRowClassName"
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
-                <el-table-column prop="reservationOrderNumber" label="预约单编号" width="80"></el-table-column>
-                <el-table-column prop="code" :show-overflow-tooltip="true" label="停车场编号" width="">
-                </el-table-column>
-                <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" width="">
-                </el-table-column>
+                <el-table-column prop="orderSequence" label="预约单编号" width="200"></el-table-column>
+                <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" width=""></el-table-column>
                 <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
                 <el-table-column prop="appointmentTime" :show-overflow-tooltip="true" label="预约时间"></el-table-column>
-                <!--             暂无-->
+                <!--暂无-->
                 <el-table-column prop="estimatedTimeArrival" :show-overflow-tooltip="true" label="预计到达时间"></el-table-column>
                 <el-table-column prop="cancellationTime" :show-overflow-tooltip="true" label="取消时间"></el-table-column>
                 <el-table-column prop="appointmentOrderStatusName" :show-overflow-tooltip="true" label="预约状态"></el-table-column>
@@ -92,7 +89,7 @@
                 </el-form-item>
             </el-form>
             <div>
-                <h3>订单信息：</h3>
+                <h3>订单信息:</h3>
             </div>
             <el-form :inline="true" :model="showListDloageandoffList" class="demo-form-inline">
                 <el-form-item label="车位号:" class="el-form-item-dialog">
@@ -108,7 +105,7 @@
                     <el-input v-model="showListDloageandoffList.parkDuration" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="收费状态:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.chargingStatus" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.paymentStatus" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="应收金额:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.receivableMoneyAmount" readonly></el-input>
@@ -118,6 +115,11 @@
                 </el-form-item>
                 <el-form-item label="支付方式:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.paymentMethod" readonly></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="handleBack">
+                        返回
+                    </el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -197,12 +199,6 @@
                     console.log("下拉菜单", that.strutsList);
                 })
             },
-            // 点击查询调用的方法
-            // SelectQueryList() {
-            //     // console.log("打印出来点击查询后所产生的值", this.upQueryList)
-            //
-            //     this.queryAppointmentStopOrder();
-            // },
             queryAppointmentStopOrder(){
                 var that = this;
                 const param = {
@@ -246,6 +242,10 @@
                 this.showListDloageandoff = true;
                 this.showListDloageandoffList = row;
                 console.log('adadaaaaaaaaaaa',row)
+            },
+            //弹窗查看点击返回事件
+            handleBack(){
+                this.showListDloageandoff = false;
             }
         }
     }
@@ -260,14 +260,14 @@
     /* 上半部分查询部分 */
     .up {
         width: 100%;
-        height: 15%;
+        height: 7%;
         float: left;
     }
     /* 查询条件部分样式 */
     .demo-form-inline {
         width: 100%;
         height: 80%;
-        margin-top: 3%;
+        margin-top: 0.5%;
         padding-left: 2%;
     }
 

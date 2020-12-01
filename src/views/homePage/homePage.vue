@@ -863,9 +863,9 @@ export default {
               text: ''
             },
             labels: {
-              // formatter: function () {
-              //     return this.value / 1000 + 'k';
-              // },
+              formatter: function () {
+                  return this.value / 1
+              },
               style: {
                 color: 'rgba(90,142,227,1)',
                 letterSpacing: '0.27px',
@@ -1172,7 +1172,6 @@ export default {
           },
           xAxis: {
             categories: this.parkingRevenueRankingChartY,
-
             labels: {
               format: "{value}",
               style: {
@@ -1187,6 +1186,9 @@ export default {
               text: ""
             },
             labels: {
+                formatter: function () {
+                    return this.value / 1;
+                },
               style: {
                 color: 'rgba(90,142,227,1)',
                 letterSpacing: '0.27px',
@@ -1195,8 +1197,7 @@ export default {
               }
             },
           },
-
-          tooltip: {
+            tooltip: {
             shared: true
           },
           plotOptions: {
@@ -1206,8 +1207,6 @@ export default {
               // color : '#B9A32B'
             }
           },
-
-
           legend: {
             enabled: false,
             align: "center",

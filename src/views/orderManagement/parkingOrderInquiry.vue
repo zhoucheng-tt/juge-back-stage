@@ -16,59 +16,51 @@
                     <el-select v-model="upQueryList.parkId" placeholder="请选择停车场">
                         <el-option v-for="(item, index) in parkingLotList" :label="item.name"
                             :value="item.code" :key="index"></el-option>
-                        <!-- <el-option label="二楼" value="TingNum2"></el-option> -->
                     </el-select>
                 </el-form-item>
                 <el-form-item label="车牌号:">
                     <el-input v-model="upQueryList.carNum" placeholder="请输入车牌号"></el-input>
                 </el-form-item>
-                <el-row>
-                <el-col :span="8">
-                    <span>
-                        进厂时间
-                    </span>
-                    <!-- 时间日期选择器 -->
-                    <el-date-picker
-                            v-model="upQueryList.minEntranceTime"
-                            type="datetime"
-                            placeholder="选择最小进入"
-                            value-format="yyyy-MM-dd hh:mm:ss">
-                    </el-date-picker>
-                    <span>
+                <el-form-item label="进场时间:">
+                  <!-- 时间日期选择器 -->
+                  <el-date-picker
+                    v-model="upQueryList.minEntranceTime"
+                    type="datetime"
+                    placeholder="请选择起始日期"
+                    value-format="yyyy-MM-dd hh:mm:ss">
+                  </el-date-picker>
+                  <span>
                         ~
                     </span>
-                    <el-date-picker
-                            v-model="upQueryList.maxEntranceTime"
-                            type="datetime"
-                            placeholder="选择最大进入"
-                            value-format="yyyy-MM-dd hh:mm:ss">
-                    </el-date-picker>
-                </el-col>
-                <el-col :span="8">
-                    <span>
-                        出场时间
-                    </span>
-                        <el-date-picker
-                                v-model="upQueryList.minLeaveTime"
-                                type="datetime"
-                                placeholder="选择日期时间"
-                                value-format="yyyy-MM-dd hh:mm:ss">
-                        </el-date-picker>
-                     <span>
+                  <el-date-picker
+                    v-model="upQueryList.maxEntranceTime"
+                    type="datetime"
+                    placeholder="请选择截止日期"
+                    value-format="yyyy-MM-dd hh:mm:ss">
+                  </el-date-picker>
+                </el-form-item>
+              <el-row>
+                <el-form-item label="出场时间:">
+                  <el-date-picker
+                    v-model="upQueryList.minLeaveTime"
+                    type="datetime"
+                    placeholder="请选择起始日期"
+                    value-format="yyyy-MM-dd hh:mm:ss">
+                  </el-date-picker>
+                  <span>
                         ~
                     </span>
-                        <el-date-picker
-                                v-model="upQueryList.maxLeaveTime"
-                                type="datetime"
-                                placeholder="选择日期时间"
-                                value-format="yyyy-MM-dd hh:mm:ss">
-                        </el-date-picker>
-                </el-col>
-                    <el-form-item>
-                        <el-button type="primary" @click="queryStopOrder">查询</el-button>
-                    </el-form-item>
-                </el-row>
-
+                  <el-date-picker
+                    v-model="upQueryList.maxLeaveTime"
+                    type="datetime"
+                    placeholder="请选择截止日期"
+                    value-format="yyyy-MM-dd hh:mm:ss">
+                  </el-date-picker>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="queryStopOrder">查询</el-button>
+                </el-form-item>
+              </el-row>
             </el-form>
         </div>
         <!-- 下半部分列表 -->
@@ -77,7 +69,6 @@
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
                 <el-table-column fixed prop="orderSequence" label="订单编号" width="310"></el-table-column>
-                <el-table-column prop="parkId" :show-overflow-tooltip="true" label="停车场编号" width=""></el-table-column>
                 <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" width=""></el-table-column>
                 <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
                 <el-table-column prop="parkSpaceNumber" :show-overflow-tooltip="true" label="车位号"></el-table-column>
@@ -102,23 +93,26 @@
         <!-- 订单详情点击弹出框 -->
         <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
             <el-form :inline="true" :model="showListDloageandoffList" class="demo-form-inline">
-                <el-form-item label="停车场编号:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.parkId" readonly></el-input>
+              <el-row>
+                <el-form-item label="订单编号:" class="el-form-item-dialog">
+                  <el-input v-model="showListDloageandoffList.orderSequence" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="停车场名称:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.parkName" readonly></el-input>
+                  <el-input v-model="showListDloageandoffList.parkName" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="车牌号:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.plateNumber" readonly></el-input>
+                  <el-input v-model="showListDloageandoffList.plateNumber" readonly></el-input>
                 </el-form-item>
+              </el-row>
+
                 <el-form-item label="车位号:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.parkSpaceNumber" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="进场时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.minEntranceTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.entranceTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="出场时间:" class="el-form-item-dialog">
-                    <el-input v-model="showListDloageandoffList.minLeaveTime" readonly></el-input>
+                    <el-input v-model="showListDloageandoffList.leaveTime" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="停车时长:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.parkDuration" readonly></el-input>
@@ -135,6 +129,11 @@
                 <el-form-item label="支付方式:" class="el-form-item-dialog">
                     <el-input v-model="showListDloageandoffList.paymentMethod" readonly></el-input>
                 </el-form-item>
+              <el-form-item>
+                <el-button @click="handleBack">
+                  返回
+                </el-button>
+              </el-form-item>
             </el-form>
         </el-dialog>
     </div>
@@ -162,7 +161,6 @@
             }
         },
         mounted() {
-            // this.queryList();
             this.queryStopOrder();
             this.queryPark();
         },
@@ -173,7 +171,6 @@
                 const params={
                     cityCode:"321300",
                     districtCode:"321302",
-                    parkId:this.upQueryList.parkId,
                     minEntranceTime:this.upQueryList.minEntranceTime,
                     maxEntranceTime:this.upQueryList.maxEntranceTime,
                     minLeaveTime:this.upQueryList.minLeaveTime,
@@ -184,9 +181,9 @@
                     pageNum:this.pageNum,
                     pageSize:this.pageSize,
                 }
-                console.log('mmmmmmmmmmmmmmmmmm',params)
+                // console.log('mmmmmmmmmmmmmmmmmm',params)
                 this.$orderManagement.queryStopOrder(params).then(response => {
-                    console.log("查询表格数据", response)
+                    // console.log("查询表格数据", response)
                     // console.log("that.gateList", that.orderParkingList)
                     //分页
                     that.pageTotal = response.data.totalRecord;
@@ -209,21 +206,6 @@
                     console.log("下拉菜单", that.parkingLotList);
                 })
             },
-            // queryList() {
-            //     var jsonStr = {
-            //         startStatisDate: "2017-07-14",
-            //         endStatisDate: "2017-07-14"
-            //     }
-            //     this.$ysParking.trendAnalysis(jsonStr).then(response => {
-            //         console.log("测试", response)
-            //     })
-            // },
-            // 点击查询调用的方法
-            // SelectQueryList() {
-            //     // console.log("打印出来点击查询后所产生的值", this.upQueryList)
-            //     //调用查询方法
-            //     this.queryStopOrder();
-            // },
             // 分页查询方法
             handleCurrentModify(val) {
                 this.pageNum = val;
@@ -233,6 +215,10 @@
             showListDloage(row) {
                 this.showListDloageandoff = true;
                 this.showListDloageandoffList = row;
+            },
+            //弹窗中的返回点击
+            handleBack(){
+                this.showListDloageandoff=false;
             },
             // 斑马纹样式
             tableRowClassName({ row, rowIndex }) {
@@ -256,7 +242,7 @@
     /* 上半部分查询部分 */
     .up {
         width: 100%;
-        height: 20%;
+        height: 15%;
         float: left;
     }
 
@@ -264,7 +250,7 @@
     .demo-form-inline {
         width: 100%;
         height: 80%;
-        margin-top: 3%;
+        margin-top: 0.5%;
         padding-left: 2%;
     }
 
