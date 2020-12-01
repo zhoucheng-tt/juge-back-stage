@@ -16,26 +16,31 @@
             <el-tab-pane label="地磁车位检测器" name="second">
                 <geomagnetic-Parking-Detector v-if="activeName === 'second'" />
             </el-tab-pane>
-            <el-tab-pane label="地锁" name="thired">
-                <floor-Lock v-if="activeName === 'thired'" />
+            <el-tab-pane label="地锁" name="third">
+                <floor-Lock v-if="activeName === 'third'" />
             </el-tab-pane>
-            <el-tab-pane label="进出口摄像头管理" name="four">
-                <import-Export-Camera-Management v-if="activeName === 'four'" />
+            <el-tab-pane label="进出口摄像头管理" name="forth">
+                <import-Export-Camera-Management v-if="activeName === 'forth'" />
             </el-tab-pane>
             <el-tab-pane label="道闸机管理" name="five">
                 <gate-Machine-Management v-if="activeName === 'five'" />
             </el-tab-pane>
-            <el-tab-pane label="充电桩管理" name="sixe">
-                <charge-Point-Management v-if="activeName === 'sixe'" />
+            <el-tab-pane label="充电桩管理" name="six">
+                <charge-Point-Management v-if="activeName === 'six'" />
             </el-tab-pane>
-            <el-tab-pane label="洗车机管理" name="serve">
-                <car-Washing-Machine-Management v-if="activeName === 'serve'" />
+            <el-tab-pane label="洗车机管理" name="seven">
+                <car-Washing-Machine-Management v-if="activeName === 'seven'" />
+            </el-tab-pane>
+            <el-tab-pane label="ETC管理" name="eight">
+                <basic-Information-Management-ETC v-if="activeName === 'eight'" />
             </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 <script>
+    //视频车位
     import videoParkingDetector from './components/deviceManagement/videoParkingDetector'
+    //地磁车
     import geomagneticParkingDetector from './components/deviceManagement/geomagneticParkingDetector'
     // 地锁
     import floorLock from './components/deviceManagement/floorLock'
@@ -47,6 +52,8 @@
     import chargePointManagement from './components/deviceManagement/chargePointManagement'
     // 洗车机管理  carWashingMachineManagement
     import carWashingMachineManagement from './components/deviceManagement/carWashingMachineManagement'
+    //ETC basicInformationManagementETC
+    import basicInformationManagementETC from './components/deviceManagement/basicInformationManagementETC'
 
 
     export default {
@@ -57,7 +64,8 @@
             importExportCameraManagement,
             gateMachineManagement,
             chargePointManagement,
-            carWashingMachineManagement
+            carWashingMachineManagement,
+            basicInformationManagementETC
         },
         data() {
             return {

@@ -241,12 +241,12 @@
                         logo: 'el-icon-s-grid',
                         name: '基础信息管理',
                         children: [
-                            {
-                                code: '6-1',
-                                logo: 'el-icon-menu',
-                                name: '基础信息管理ETC',
-                                routeName: 'basicInformationManagementETC'
-                            },
+                            // {
+                            //     code: '6-1',
+                            //     logo: 'el-icon-menu',
+                            //     name: '基础信息管理ETC',
+                            //     routeName: 'basicInformationManagementETC'
+                            // },
                             // 计费规则管理
                             {
                                 code: '6-2',
