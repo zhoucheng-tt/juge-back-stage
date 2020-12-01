@@ -231,7 +231,7 @@
                     plateNumber:this.upQueryList.plateNumber,
                     pageNum:this.pageNum,
                     pageSize:this.pageSize
-                    };
+                };
                 this.$orderManagement.queryAppointmentStopOrder(param).then(response =>{
                     console.log("查询表格数据", response)
                     // console.log("that.gateList", that.orderParkingList)

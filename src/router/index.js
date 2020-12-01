@@ -47,7 +47,7 @@ const routes = [
           type: "list"
         }
       },
-      {
+/*      {
         path: "/GwVedio",
         name: "GwVedio",
         component: () => import("@/views/GwVedio/GwVedio"),
@@ -56,7 +56,7 @@ const routes = [
           icon: "",
           type: "list"
         }
-      },
+      },*/
       {
         path: "/realTimeMonitoringCarWaring",
         name: "realTimeMonitoringCarWaring",
@@ -103,7 +103,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ "@/views/reportAnalysis/entranceExitMonitoring.vue")
       },
-      // 洗车机报警信息统计  
+      // 洗车机报警信息统计
       {
         path: "/alarmInformationCarWashingMachine",
         name: "alarmInformationCarWashingMachine",
@@ -134,12 +134,12 @@ const routes = [
       },
       // 基础信息管理
       // 基础信息管理ETC
-      {
+/*      {
         path: "/basicInformationManagementETC",
         name: "basicInformationManagementETC",
         component: () =>
-          import(/* webpackChunkName: "about" */ "@/views/basicInformationManagement/basicInformationManagementETC.vue")
-      },
+          import(/!* webpackChunkName: "about" *!/ "@/views/basicInformationManagement/basicInformationManagementETC.vue")
+      },*/
       // 计费规则管理
       {
         path: "/billingRuleManagement",

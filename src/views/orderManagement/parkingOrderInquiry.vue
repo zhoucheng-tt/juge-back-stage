@@ -19,7 +19,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="车牌号:">
-                    <el-input v-model="upQueryList.carNum" placeholder="请输入车牌号"></el-input>
+                    <el-input v-model="upQueryList.plateNumber" placeholder="请输入车牌号"></el-input>
                 </el-form-item>
                 <el-form-item label="进场时间:">
                   <!-- 时间日期选择器 -->
