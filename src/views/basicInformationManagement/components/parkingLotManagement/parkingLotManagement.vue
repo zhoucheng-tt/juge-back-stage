@@ -17,7 +17,7 @@
             <el-form-item>
               <el-button type="primary" @click="addInletAndOutlet()">新增停车场</el-button>
               <el-button type="danger" @click="deleteSelect()">批量删除</el-button>
-              <el-button type="info" @click="exportExcel()">导出</el-button>
+              <el-button type="primary" @click="exportExcel()">导出</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -25,40 +25,32 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-scrollbar style="height:100%;">
         <el-table :data="parkList" ref="selectParkingLotList"
                   :row-class-name="tableRowClassName"
                   :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                  :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
+                  :cell-style="{ 'text-align': 'center' }"
+                  style="width: 100%;"
                   @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55"/>
-          <el-table-column width="120" prop="parkId" :show-overflow-tooltip="true" label="停车场编号"/>
-          <el-table-column width="120" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-          <el-table-column width="120" prop="parkTypeCode" :show-overflow-tooltip="true" label="停车场类型编码"/>
-          <el-table-column width="120" prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称"/>
-          <el-table-column width="120" prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>
-          <el-table-column width="120" prop="companyId" :show-overflow-tooltip="true" label="归属企业id"/>
-          <el-table-column width="120" prop="companyName" :show-overflow-tooltip="true" label="归属企业名称"/>
-          <el-table-column width="120" prop="cityCode" :show-overflow-tooltip="true" label="归属地市id"/>
-          <el-table-column width="120" prop="cityName" :show-overflow-tooltip="true" label="归属地市名称"/>
-          <el-table-column width="120" prop="districtCode" :show-overflow-tooltip="true" label="归属区县id"/>
-          <el-table-column width="120" prop="districtName" :show-overflow-tooltip="true" label="归属区县名称"/>
-          <el-table-column width="120" prop="address" :show-overflow-tooltip="true" label="地址"/>
-          <el-table-column width="120" prop="longitude" :show-overflow-tooltip="true" label="经度"/>
-          <el-table-column width="120" prop="latitude" :show-overflow-tooltip="true" label="纬度"/>
-          <el-table-column width="120" prop="parkSpaceNum" :show-overflow-tooltip="true" label="规划总车位数"/>
-          <el-table-column width="120" prop="billingRuleDesc" :show-overflow-tooltip="true" label="计费规则"/>
-          <el-table-column width="120" prop="contact" :show-overflow-tooltip="true" label="联系人"/>
-          <el-table-column width="120" prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话"/>
-          <el-table-column width="120" prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
-          <el-table-column width="120" :show-overflow-tooltip="true" label="操作">
+          <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+          <el-table-column prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称"/>
+          <el-table-column prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>
+          <el-table-column prop="companyName" :show-overflow-tooltip="true" label="归属企业名称"/>
+          <el-table-column prop="cityName" :show-overflow-tooltip="true" label="归属地市名称"/>
+          <el-table-column prop="districtName" :show-overflow-tooltip="true" label="归属区县名称"/>
+          <el-table-column prop="address" :show-overflow-tooltip="true" label="地址"/>
+          <el-table-column prop="parkSpaceNum" :show-overflow-tooltip="true" label="规划总车位数"/>
+          <el-table-column prop="billingRuleDesc" :show-overflow-tooltip="true" label="计费规则"/>
+          <el-table-column prop="contact" :show-overflow-tooltip="true" label="联系人"/>
+          <el-table-column prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话"/>
+          <el-table-column prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
+          <el-table-column :show-overflow-tooltip="true" label="操作">
             <template slot-scope="scope">
               <el-button @click="handleEditListDialogue(scope.row)" type="text" size="small">修改</el-button>
               <el-button @click="HandleDeleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
-      </el-scrollbar>
       <!--分页条-->
       <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper"
                      :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
@@ -197,10 +189,13 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" title="修改停车场信息" :visible.sync="editListDialogueandoff">
+    <el-dialog id="edit" :visible.sync="editListDialogueandoff"
+                          top="1vh"
+                          style="overflow-y: hidden"
+    >
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基础信息</div>
-        <el-row style="padding-top: 20px">
+        <el-row>
           <el-col :span="12">
             <el-form-item label="停车场名称:" label-width="150px">
               <el-input v-model="editParkingLot.parkName" placeholder="请输入停车场名称"/>
@@ -474,9 +469,7 @@ export default {
       this.addListDialogueandoff = false;
     },
     //修改弹框弹出
-    HandleEditListDialogue(row) {
-      // console.log(row);
-
+      handleEditListDialogue(row) {
       this.editListDialogueandoff = true;
       this.editParkingLot = row;
       this.queryDisList(row.cityCode);
@@ -597,8 +590,8 @@ export default {
     exportExcel() {
       var date = new Date();
       var param = {
-        column_zh: ["停车场编号", "停车场名称", "停车场类型", "归属企业", "归属地市", "归属区县", "地址", "经度", "纬度", "规划总车位数", "计费规则", "联系人", "联系人电话", "停车场图片"],
-        column_en: ["parkId", "parkName", "parkTypeName", "companyName", "cityName", "districtName", "address", "longitude", "latitude", "parkSpaceNum", "billingRuleDesc", "contact", "contactPhoneNumber", "parkPictureFile"],
+        column_zh: ["停车场名称",  "归属企业", "归属地市", "归属区县", "地址",  "规划总车位数", "计费规则", "联系人", "联系人电话", "停车场图片"],
+        column_en: ["parkName", "parkTypeName", "companyName", "cityName", "districtName", "address",  "parkSpaceNum", "billingRuleDesc", "contact", "contactPhoneNumber", "parkPictureFile"],
         fileName: "停车场" + date.toLocaleString(),
       };
       this.$ysParking.exportParkList(param).then(res => {

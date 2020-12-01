@@ -777,9 +777,8 @@
   .demo-form-inline {
     width: 100%;
     height: 80%;
-    margin-top: 3%;
+    margin-top: 0.5%;
     padding-left: 2%;
-    /*display: flex;*/
   }
 
   /* 下班部分列表部分 */

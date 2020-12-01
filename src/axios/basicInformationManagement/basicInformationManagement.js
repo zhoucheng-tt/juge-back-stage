@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-//停车场下拉查询
+//停车场下拉查询 停车场计费规则下拉
 export function queryDictData(param) {
     return request(
         {

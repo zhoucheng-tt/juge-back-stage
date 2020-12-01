@@ -11,19 +11,20 @@
   <div class="about">
     <el-row class="up">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="计费规则名称">
-          <el-input v-model="formInline.billingRuleDefName" placeholder="计费规则名称"></el-input>
-        </el-form-item>
-        <el-form-item label="停车场：">
-          <el-select v-model="formInline.parkId" placeholder="请选择停车场">
-            <el-option v-for="(item, index) in parkLotNameList" :label="item.name"
-                       :value="item.code" :key="index"></el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="计费规则名称">-->
+<!--          <el-input v-model="formInline.billingRuleDefName" placeholder="计费规则名称"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="停车场：">-->
+<!--          <el-select v-model="formInline.parkId" placeholder="请选择停车场">-->
+<!--            <el-option v-for="(item, index) in parkLotNameList" :label="item.name"-->
+<!--                       :value="item.code" :key="index"></el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>
+<!--          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>-->
           <el-button type="primary" @click="dialogAdd = true">新增规则</el-button>
           <el-button type="primary" @click="onBatch">批量删除</el-button>
+          <el-button type="primary" @click="handleExport">导出</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -128,8 +129,8 @@
           parkLotNameList:[],
           // 搜索条件
           formInline: {
-              parkId:'',
-              billingRuleDefName:''
+              // parkId:'',
+              // billingRuleDefName:''
           },
           // 表格数据
           accountRules: [],
@@ -137,6 +138,7 @@
           pageNum:1,
           pageSize:10,
           pageTotal:2,
+
         //新增计费弹窗
         dialogAdd: false,
         // 弹窗-新增计费
@@ -158,24 +160,24 @@
     },
     mounted() {
       //停车场下拉查询
-        this.queryPark();
+      //   this.queryPark();
       //列表查询
         this.queryBillingRuleList();
     },
     methods: {
         //查询停车场下拉
-        queryPark(){
-            var that=this;
-            this.parkLotNameList=[];
-            const param={
-                "columnName":["park_id","park_name"],
-                "tableName":"t_bim_park",
-                "whereStr":"district_code = '321302'"
-            }
-            this.$basicInformationManagement.queryDictData(param).then(response=>{
-                this.parkLotNameList = response.data.dataList;
-            })
-        },
+        // queryPark(){
+        //     var that=this;
+        //     this.parkLotNameList=[];
+        //     const param={
+        //         "columnName":["park_id","park_name"],
+        //         "tableName":"t_bim_park",
+        //         "whereStr":"district_code = '321302'"
+        //     }
+        //     this.$basicInformationManagement.queryDictData(param).then(response=>{
+        //         this.parkLotNameList = response.data.dataList;
+        //     })
+        // },
         //顶部查询按钮获取参数
         queryBillingRuleList(){
             var that =this;
@@ -198,12 +200,12 @@
             this.pageNum = val;
             this.queryBillingRuleList();
         },
-      // 搜索
-      onSubmit() {},
+      //导出
+        handleExport(){
+
+        },
       //批量删除
       onBatch() { },
-      //表格操作
-      onHandle() { },
       onUpdate() { },
       onDelete() { },
       // 斑马纹样式
