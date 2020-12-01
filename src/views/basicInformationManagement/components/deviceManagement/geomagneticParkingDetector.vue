@@ -13,24 +13,24 @@
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
-<!--          <el-col :span="5">
-            <el-form-item label="地市">
-              <el-select v-model="query.cityCode" placeholder="请选择" @change="queryDisList(query.cityCode)">
-                <el-option label="全部" value="0"></el-option>
-                <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="5">
-            <el-form-item label="区县">
-              <el-select v-model="query.districtCode" placeholder="请选择" @change="queryParkList(query.districtCode)">
-                <el-option label="全部" value="0"></el-option>
-                <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>-->
+          <!--          <el-col :span="5">
+                      <el-form-item label="地市">
+                        <el-select v-model="query.cityCode" placeholder="请选择" @change="queryDisList(query.cityCode)">
+                          <el-option label="全部" value="0"></el-option>
+                          <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="5">
+                      <el-form-item label="区县">
+                        <el-select v-model="query.districtCode" placeholder="请选择" @change="queryParkList(query.districtCode)">
+                          <el-option label="全部" value="0"></el-option>
+                          <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>-->
           <el-col :span="5">
             <el-form-item label="停车场">
               <el-select v-model="query.parkId" placeholder="请选择">
@@ -51,7 +51,7 @@
           <el-col :span="3">
             <el-button type="primary" @click="queryMagneticDetecter()">查 询
             </el-button>
-            <el-button type="info" @click="exportList()">导 出</el-button>
+            <el-button type="primary" @click="exportList()">导 出</el-button>
           </el-col>
         </el-row>
         <el-row>
@@ -67,10 +67,12 @@
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
+                  class="el-icon-download el-icon--right"></i></el-button>
 
             </el-main>
           </el-container>
@@ -116,22 +118,22 @@
       <el-dialog id="add" title="新增地磁车位检测器" :visible.sync="addListDialog">
         <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
-<!--          <el-row style="padding-top: 20px">
-            <el-col :span="12">
-              <el-form-item label="归属地市:" label-width="150px">
-                <el-select v-model="newGeo.cityCode" placeholder="请选择" @change="queryDisList(newGeo.cityCode)">
-                  <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-form-item label="归属区县:" label-width="150px">
-              <el-select v-model="newGeo.districtCode" placeholder="请选择" @change="queryParkList(newGeo.districtCode)">
-                <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-row>-->
+          <!--          <el-row style="padding-top: 20px">
+                      <el-col :span="12">
+                        <el-form-item label="归属地市:" label-width="150px">
+                          <el-select v-model="newGeo.cityCode" placeholder="请选择" @change="queryDisList(newGeo.cityCode)">
+                            <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index">
+                            </el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                      <el-form-item label="归属区县:" label-width="150px">
+                        <el-select v-model="newGeo.districtCode" placeholder="请选择" @change="queryParkList(newGeo.districtCode)">
+                          <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-row>-->
           <el-row>
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
@@ -177,20 +179,20 @@
       <el-dialog id="edit" title="修改地磁车位检测器" :visible.sync="editListDialog">
         <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
-<!--          <el-row style="padding-top: 20px">
-            <el-col :span="12">
-              <el-form-item label="归属地市:" label-width="150px">
-                <el-select v-model="editGeo.cityCode" placeholder="请选择" @change="queryDisList(editGeo.cityCode)">
-                  <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-form-item label="归属区县:" label-width="150px">
-              <el-select v-model="editGeo.districtCode" placeholder="请选择" @change="queryParkList(editGeo.districtCode)">
-                <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
-              </el-select>
-            </el-form-item>
-          </el-row>-->
+          <!--          <el-row style="padding-top: 20px">
+                      <el-col :span="12">
+                        <el-form-item label="归属地市:" label-width="150px">
+                          <el-select v-model="editGeo.cityCode" placeholder="请选择" @change="queryDisList(editGeo.cityCode)">
+                            <el-option v-for="(item, index) in cityList" :label="item.name" :value="item.code" :key="index"/>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+                      <el-form-item label="归属区县:" label-width="150px">
+                        <el-select v-model="editGeo.districtCode" placeholder="请选择" @change="queryParkList(editGeo.districtCode)">
+                          <el-option v-for="(item, index) in districtList" :label="item.name" :value="item.code" :key="index"/>
+                        </el-select>
+                      </el-form-item>
+                    </el-row>-->
           <el-row>
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
@@ -261,10 +263,10 @@ export default {
       pageNum: 1,
       pageSize: 10,
       pageTotal: 4,
-/*      //归属地市下拉菜单
-      cityList: [],
-      //归属区县下拉菜单
-      districtList: [],*/
+      /*      //归属地市下拉菜单
+            cityList: [],
+            //归属区县下拉菜单
+            districtList: [],*/
       //修改前停车场Id暂存
       oldParkId: "",
       //修改前地磁车Id暂存
@@ -317,8 +319,8 @@ export default {
     addNewGeo() {
       console.log("新增地磁车弹框弹出");
       this.newGeo = {};
-/*      //初始化下拉菜单
-      this.districtList = [];*/
+      /*      //初始化下拉菜单
+            this.districtList = [];*/
       this.parkingLotNameList = [];
       this.addListDialog = true;
     },
@@ -329,20 +331,28 @@ export default {
     },
     //批量删除
     batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-          .then(() => {
-            this.$deviceManagement.delMagneticDetecter(this.idList);
-            this.$message({type: "success", message: "删除成功!"});
-            this.queryMagneticDetecter();
-          })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+            .then(() => {
+              this.$deviceManagement.delMagneticDetecter(this.idList);
+              this.$message({type: "success", message: "删除成功!"});
+              this.queryMagneticDetecter();
+            })
+            .catch(() => {
+              this.$message({type: "info", message: "已取消删除"});
+            });
+      }
     },
     //修改弹框弹出
     editGeoDialog(row) {
@@ -350,7 +360,7 @@ export default {
       this.oldParkId = row.parkId;
       this.oldMagneticDetecterId = row.magneticDetecterId;
       //初始化下拉菜单
- //     this.queryDisList(row.cityCode);
+      //     this.queryDisList(row.cityCode);
       this.queryParkList();
       this.editListDialog = true;
       console.log("修改弹窗弹出");
@@ -436,8 +446,8 @@ export default {
     //列表查询
     queryMagneticDetecter() {
       if (
-/*          this.query.cityCode === "0" ||
-          this.query.districtCode === "0" ||*/
+          /*          this.query.cityCode === "0" ||
+                    this.query.districtCode === "0" ||*/
           this.query.parkId === "0"
       ) {
         const param = {
@@ -450,8 +460,8 @@ export default {
         });
       } else {
         const param = {
-/*          cityCode: this.query.cityCode,
-          districtCode: this.query.districtCode,*/
+          /*          cityCode: this.query.cityCode,
+                    districtCode: this.query.districtCode,*/
           parkId: this.query.parkId,
           pageNum: this.pageNum,
           pageSize: this.pageSize
@@ -462,29 +472,29 @@ export default {
         });
       }
     },
-/*    //查询地市数据
-    queryCityList() {
-      const cityParam = {
-        columnName: ["city_code", "city_name"],
-        tableName: "t_d_city",
-        whereStr: ""
-      };
-      this.$deviceManagement.queryDictData(cityParam).then(res => {
-        this.cityList = res.data.dataList;
-      });
-    },
-    //查询区县数据
-    queryDisList(code) {
-      this.parkingLotNameList = [];
-      const params = {
-        columnName: ["district_code", "district_name"],
-        tableName: "t_d_district",
-        whereStr: "city_code = " + code
-      };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.districtList = res.data.dataList;
-      });
-    },*/
+    /*    //查询地市数据
+        queryCityList() {
+          const cityParam = {
+            columnName: ["city_code", "city_name"],
+            tableName: "t_d_city",
+            whereStr: ""
+          };
+          this.$deviceManagement.queryDictData(cityParam).then(res => {
+            this.cityList = res.data.dataList;
+          });
+        },
+        //查询区县数据
+        queryDisList(code) {
+          this.parkingLotNameList = [];
+          const params = {
+            columnName: ["district_code", "district_name"],
+            tableName: "t_d_district",
+            whereStr: "city_code = " + code
+          };
+          this.$deviceManagement.queryDictData(params).then(res => {
+            this.districtList = res.data.dataList;
+          });
+        },*/
     //查询停车场列表数据
     queryParkList(code) {
       const params = {
@@ -519,37 +529,37 @@ export default {
     //初始化停车场下拉菜单
     this.queryParkList();
   },
-/*  watch: {
-    //监听弹框，关闭时初始化区县停车场下拉菜单数据
-    addListDialog: {
-      handler(newVal) {
-        if (!newVal) {
-          this.districtList = [];
-          this.parkingLotNameList = [];
-        }
-      }
-    },
-    editListDialog: {
-      handler(newVal) {
-        if (!newVal) {
-          this.districtList = [];
-          this.parkingLotNameList = [];
-        }
-      }
-    },
-    //监听高级下拉菜单变动时，低级下拉菜单的值改变为全部
-    query: {
-      handler(newVal) {
-        if (newVal.cityCode === "0") {
-          this.query.districtCode = "0";
-        }
-        if (newVal.districtCode === "0") {
-          this.query.parkId = "0";
+  /*  watch: {
+      //监听弹框，关闭时初始化区县停车场下拉菜单数据
+      addListDialog: {
+        handler(newVal) {
+          if (!newVal) {
+            this.districtList = [];
+            this.parkingLotNameList = [];
+          }
         }
       },
-      deep: true
-    }
-  }*/
+      editListDialog: {
+        handler(newVal) {
+          if (!newVal) {
+            this.districtList = [];
+            this.parkingLotNameList = [];
+          }
+        }
+      },
+      //监听高级下拉菜单变动时，低级下拉菜单的值改变为全部
+      query: {
+        handler(newVal) {
+          if (newVal.cityCode === "0") {
+            this.query.districtCode = "0";
+          }
+          if (newVal.districtCode === "0") {
+            this.query.parkId = "0";
+          }
+        },
+        deep: true
+      }
+    }*/
 }
 </script>
 <style scoped>

@@ -38,11 +38,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-button type="primary" @click="addNewVideoParking()">新增视频车位检测器</el-button>
-            <el-button type="info" @click="exportExcel()">导出</el-button>
-            <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()">批量删除</el-button>
             <el-button type="primary" @click="queryPkLot()">查 询</el-button>
+            <el-button type="primary" @click="addNewVideoParking()">新增视频车位检测器</el-button>
+            <el-button type="primary" @click="exportExcel()">导出</el-button>
+            <el-button type="primary" @click="bulkImport()">批量导入</el-button>
+            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -63,7 +63,8 @@
                   :limit="1"
                   :on-exceed="handleExceed"
                   :file-list="fileList">
-                <el-button type="primary" size="medium" @click=handlePreview()>导 入<i class="el-icon-upload el-icon--right"></i>
+                <el-button type="primary" size="medium" @click=handlePreview()>导 入<i
+                    class="el-icon-upload el-icon--right"></i>
                 </el-button>
                 <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>
               </el-upload>
@@ -523,21 +524,29 @@ export default {
     },
     //批量删除
     batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-          .then(() => {
-            this.$deviceManagement.delVideoDetecter(this.idList).then(res => {
-              console.log("批量删除成功", res)
-            })
-            this.$message({type: "success", message: "删除成功!"});
-            this.queryVideoDetecter();
-          }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+            .then(() => {
+              this.$deviceManagement.delVideoDetecter(this.idList).then(res => {
+                console.log("批量删除成功", res)
+              })
+              this.$message({type: "success", message: "删除成功!"});
+              this.queryVideoDetecter();
+            }).catch(() => {
+          this.$message({type: "info", message: "已取消删除"});
+        });
+      }
     },
     //修改
     editVideoDialog(row) {
@@ -677,7 +686,7 @@ export default {
       })
     },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return 'successRow11';
       } else if (rowIndex % 2 == 0) {
@@ -755,6 +764,7 @@ export default {
 /deep/ .el-table .successRow11 {
   background: #7de6f8 !important;
 }
+
 /deep/ .el-table .successSecond {
   background: #8ed3e7 !important;
 }

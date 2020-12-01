@@ -28,7 +28,7 @@
           <el-form-item>
             <el-button type="primary" @click="addChargeMode">新增规则
             </el-button>
-            <el-button type="primary" @click="batchDelete()">批量删除
+            <el-button type="danger" @click="batchDelete()">批量删除
             </el-button>
           </el-form-item>
         </el-form>

@@ -28,13 +28,13 @@
             <el-button type="primary" @click="selectQueryList">查询</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button type="info" @click="exportExcel()">导出</el-button>
+            <el-button type="primary" @click="exportExcel()">导出</el-button>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="addInletAndOutlet"
             >新增出入口
             </el-button>
-            <el-button type="primary" @click="deleteSelect()"
+            <el-button type="danger" @click="deleteSelect()"
             >批量删除
             </el-button>
           </el-form-item>
@@ -417,7 +417,13 @@ export default {
     },
     //批量删除
     deleteSelect: function () {
-      if (this.selectManageEntryAndExit != undefined) {
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -429,16 +435,12 @@ export default {
           };
           this.$ysParking.deletePassagewayList(param).then(res => {
             console.log("批量删除成功", res);
-            this.selectManageEntryAndExit = undefined;
           });
           this.$message({type: "success", message: "删除成功!"});
           this.queryPassagewayList();
         }).catch(() => {
           this.$message({type: "info", message: "已取消删除"});
-          this.selectManageEntryAndExit = undefined;
         });
-      } else {
-        console.log("123");
       }
     },
     //导出

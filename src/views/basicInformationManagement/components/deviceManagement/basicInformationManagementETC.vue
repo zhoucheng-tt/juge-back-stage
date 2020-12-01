@@ -33,7 +33,7 @@
           <el-form-item>
             <el-button type="primary" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="addETC">新增ETC</el-button>
-            <el-button type="primary" @click="deleteETC">批量删除</el-button>
+            <el-button type="danger" @click="deleteETC">批量删除</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -85,7 +85,7 @@
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
         <el-table-column type="selection" width="55">
         </el-table-column>
-<!--        <el-table-column prop="etcNumber" label="ETC编号"></el-table-column>-->
+        <!--        <el-table-column prop="etcNumber" label="ETC编号"></el-table-column>-->
         <el-table-column prop="etcName" label="ETC名称"></el-table-column>
         <el-table-column prop="parkName" :show-overflow-tooltip="true" label="所属停车场" width="">
         </el-table-column>
@@ -263,20 +263,28 @@ export default {
     },
     // 批量删除
     deleteETC() {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        console.log("你要批量删除的id是" + this.idList);
-        this.$deviceManagement.delETC(this.idList).then(res => {
-          console.log("批量删除成功", res);
-          this.$message({type: "success", message: "删除成功!"});
-          this.queryETCList();
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         });
-      }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
+      } else {
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          console.log("你要批量删除的id是" + this.idList);
+          this.$deviceManagement.delETC(this.idList).then(res => {
+            console.log("批量删除成功", res);
+            this.$message({type: "success", message: "删除成功!"});
+            this.queryETCList();
+          });
+        }).catch(() => {
+          this.$message({type: "info", message: "已取消删除"});
+        });
+      }
     },
     // 单个删除
     deleteListDialogue(row) {

@@ -31,10 +31,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-button type="primary" @click="queryWasher()">查 询</el-button>
             <el-button type="primary" @click="addWasher()">新增洗车机</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()">批量删除</el-button>
-            <el-button type="primary" @click="queryWasher()">查 询</el-button>
+            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -42,10 +42,12 @@
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
+                  class="el-icon-download el-icon--right"></i></el-button>
 
             </el-main>
           </el-container>
@@ -246,21 +248,29 @@ export default {
     },
     //批量删除
     batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        this.$deviceManagement.delCarWashingMachine(this.idList).then(res => {
-          console.log("删除成功", res)
-          this.$message({type: "success", message: "删除成功!"});
-          this.queryWasher();
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          this.$deviceManagement.delCarWashingMachine(this.idList).then(res => {
+            console.log("删除成功", res)
+            this.$message({type: "success", message: "删除成功!"});
+            this.queryWasher();
+          })
         })
-      })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
+            .catch(() => {
+              this.$message({type: "info", message: "已取消删除"});
+            });
+      }
     },
     //修改
     editDialog(row) {
@@ -335,7 +345,7 @@ export default {
       this.pageNum = val;
     },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return 'successRow11';
       } else if (rowIndex % 2 == 0) {

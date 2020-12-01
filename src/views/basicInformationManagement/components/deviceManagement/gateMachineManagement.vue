@@ -16,7 +16,7 @@
           <el-col :span="6">
             <el-form-item label="停车场">
               <el-select v-model="parkId" placeholder="请选择停车场"
-               @change="queryExit(parkId)">
+                         @change="queryExit(parkId)">
                 <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                            :key="index"></el-option>
               </el-select>
@@ -31,11 +31,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-button type="primary" @click="queryPassagewayGate()">查 询</el-button>
             <el-button type="primary" @click="addNewGate()">新增道闸机</el-button>
             <el-button type="primary" @click="exportExcel()">导 出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()">批量删除</el-button>
-            <el-button type="primary" @click="queryPassagewayGate()">查 询</el-button>
+            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -43,10 +43,12 @@
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i class="el-icon-download el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
+                  class="el-icon-download el-icon--right"></i></el-button>
 
             </el-main>
           </el-container>
@@ -97,7 +99,7 @@
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="newGate.parkId" placeholder="请选择"
-                @change="queryExit(newGate.parkId)">
+                           @change="queryExit(newGate.parkId)">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                              :key="index">
                   </el-option>
@@ -160,7 +162,7 @@
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editGate.parkId" placeholder="请选择"
-                @change="queryExit(editGate.parkId)">
+                           @change="queryExit(editGate.parkId)">
                   <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
                              :key="index"></el-option>
                 </el-select>
@@ -215,21 +217,21 @@
   </div>
 </template>
 <script>
-  export default {
+export default {
 
   data() {
     return {
       //查询数据暂留处
-      parkId:"",
+      parkId: "",
       //header param
-      cityCode:"",
-      districtCode:"",
+      cityCode: "",
+      districtCode: "",
       //表格数据
-      gateList:[],
+      gateList: [],
       //停车场名称列表
       parkingLotNameList: [],
       //出入口名称列表
-      passagesList:[],
+      passagesList: [],
       //初始化分页
       pageNum: 1,
       pageSize: 10,
@@ -239,7 +241,7 @@
       //新增道闸机数据暂存
       newGate: {},
       //删除一行暂存
-      delList:[],
+      delList: [],
       //设备状态
       eqStatusList: [
         {
@@ -271,7 +273,7 @@
       importDialog: false
     };
   },
-    //加载一级页面时候调用
+  //加载一级页面时候调用
   mounted() {
     //调用查询表格
     this.queryPassagewayGate();
@@ -283,8 +285,8 @@
     exportExcel() {
       var date = new Date();
       var param = {
-        "column_zh": ['停车场编号','停车场名称','归属出入口','道闸机编号','道闸机名称','IP地址','串口号','制造商'],
-        "column_en":["parkId","parkName","passagewayName","passagewayGateId","passagewayGateName","ipAddress","serialNumber","manufacturer"],
+        "column_zh": ['停车场编号', '停车场名称', '归属出入口', '道闸机编号', '道闸机名称', 'IP地址', '串口号', '制造商'],
+        "column_en": ["parkId", "parkName", "passagewayName", "passagewayGateId", "passagewayGateName", "ipAddress", "serialNumber", "manufacturer"],
         "fileName": "道闸机管理" + date.toLocaleString(),
         "cityCode": this.city,
         "districtCode": this.districtCode,
@@ -303,16 +305,16 @@
       })
     },
     //查询表格数据
-    queryPassagewayGate(){
+    queryPassagewayGate() {
       //指代this
       var that = this;
-      const param={
+      const param = {
         //传入查询要用的参数
-        cityCode:this.cityCode,
-        districtCode:this.districtCode,
-        parkId:this.parkId,
-        pageNum:this.pageNum,
-        pageSize:this.pageSize
+        cityCode: this.cityCode,
+        districtCode: this.districtCode,
+        parkId: this.parkId,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
       };
       //引用deviceManagement中的查询接口方法
       this.$deviceManagement.queryPassagewayGate(param).then(response => {
@@ -321,7 +323,7 @@
         //分页
         that.pageTotal = response.data.totalRecord;
         //查询
-        that.gateList=response.data.dataList;
+        that.gateList = response.data.dataList;
       })
     },
     //分页（跳转页面）//val选中的所有行
@@ -331,33 +333,33 @@
       this.queryPassagewayGate();
     },
     //归属停车场名称下拉查询
-    queryParking(){
-      var that=this;
-      this.parkingLotNameList=[];
-      const param={
+    queryParking() {
+      var that = this;
+      this.parkingLotNameList = [];
+      const param = {
         //停车场参数
-        columnName:["park_id","park_name"],
-        tableName:"t_bim_park",
-        whereStr:"district_code = '321302'"
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = '321302'"
       }
-      this.$deviceManagement.queryDictData(param).then(response=>{
+      this.$deviceManagement.queryDictData(param).then(response => {
         console.log("下拉停车场名称", response);
         this.parkingLotNameList = response.data.dataList;
         console.log("下拉菜单", that.parkingLotNameList);
       })
     },
     //归属出入口下拉查询
-    queryExit(code){
-      var that=this;
-      this.passagesList=[];
-      const param={
+    queryExit(code) {
+      var that = this;
+      this.passagesList = [];
+      const param = {
         //出入口下拉的参数
-        columnName:["passageway_id","passageway_name"],
-        tableName:"t_bim_passageway",
+        columnName: ["passageway_id", "passageway_name"],
+        tableName: "t_bim_passageway",
         //park_id=''通过拼接
-        whereStr:"park_id = '"+code+"'"
+        whereStr: "park_id = '" + code + "'"
       }
-      this.$deviceManagement.queryDictData(param).then(response=>{
+      this.$deviceManagement.queryDictData(param).then(response => {
         console.log("下拉出口", response);
         //响应中的数据传给出入口
         this.passagesList = response.data.dataList;
@@ -375,15 +377,15 @@
     //新增表单提交
     onSubmitAdd() {
       console.log("新增数据", this.newGate);
-      const param ={
+      const param = {
         //道闸机需要传入的参数
-        parkId:this.newGate.parkId,
-        passagewayId:this.newGate.passagewayId,
-        passagewayGateId:this.newGate.passagewayGateId,
-        passagewayGateName:this.newGate.passagewayGateName,
-        ipAddress:this.newGate.ipAddress,
-        serialNumber:this.newGate.serialNumber,
-        manufacturer:this.newGate.manufacturer
+        parkId: this.newGate.parkId,
+        passagewayId: this.newGate.passagewayId,
+        passagewayGateId: this.newGate.passagewayGateId,
+        passagewayGateName: this.newGate.passagewayGateName,
+        ipAddress: this.newGate.ipAddress,
+        serialNumber: this.newGate.serialNumber,
+        manufacturer: this.newGate.manufacturer
       }
       this.$deviceManagement.addPassagewayGate(param).then(response => {
         console.log("打印新增响应数据", response);
@@ -404,11 +406,11 @@
         type: 'warning'
       }).then(() => {
         //清空删除
-        this.delList=[];
+        this.delList = [];
         //设定传入行数据
-        const param={
-          passagewayGateId:row.passagewayGateId,
-          parkId:row.parkId
+        const param = {
+          passagewayGateId: row.passagewayGateId,
+          parkId: row.parkId
         }
         //将参数传到delList中
         this.delList.push(param);
@@ -439,21 +441,29 @@
     },
     //批量删除
     batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-              .then(() => {
-                this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
-                  console.log("批量删除成功", res)
-                })
-                this.$message({type: "success", message: "删除成功!"});
-                this.queryPassagewayGate();
-              }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+            .then(() => {
+              this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
+                console.log("批量删除成功", res)
+              })
+              this.$message({type: "success", message: "删除成功!"});
+              this.queryPassagewayGate();
+            }).catch(() => {
+          this.$message({type: "info", message: "已取消删除"});
+        });
+      }
     },
 
     //修改
@@ -469,15 +479,15 @@
     onSubmitEdit() {
       console.log("修改数据", this.editGate);
       const param = {
-        parkId:this.editGate.parkId,
-        passagewayId:this.editGate.passagewayId,
-        parkCode:this.oldParkId,
-        passagewayGateCode:this.oldpassagewayGateId,
-        passagewayGateId:this.editGate.passagewayGateId,
-        passagewayGateName:this.editGate.passagewayGateName,
-        ipAddress:this.editGate.ipAddress,
-        serialNumber:this.editGate.serialNumber,
-        manufacturer:this.editGate.manufacturer
+        parkId: this.editGate.parkId,
+        passagewayId: this.editGate.passagewayId,
+        parkCode: this.oldParkId,
+        passagewayGateCode: this.oldpassagewayGateId,
+        passagewayGateId: this.editGate.passagewayGateId,
+        passagewayGateName: this.editGate.passagewayGateName,
+        ipAddress: this.editGate.ipAddress,
+        serialNumber: this.editGate.serialNumber,
+        manufacturer: this.editGate.manufacturer
       };
       this.$deviceManagement.updatePassagewayGate(param).then(response => {
         console.log("打印修改传入数据", response);
@@ -511,7 +521,7 @@
       });
     },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return 'successRow11';
       } else if (rowIndex % 2 == 0) {

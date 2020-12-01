@@ -16,8 +16,8 @@
           <el-col :span="12">
             <el-form-item>
               <el-button type="primary" @click="addInletAndOutlet()">新增停车场</el-button>
-              <el-button type="danger" @click="deleteSelect()">批量删除</el-button>
               <el-button type="primary" @click="exportExcel()">导出</el-button>
+              <el-button type="danger" @click="deleteSelect()">批量删除</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -25,32 +25,32 @@
     </div>
     <!--下半部分列表-->
     <div class="down">
-        <el-table :data="parkList" ref="selectParkingLotList"
-                  :row-class-name="tableRowClassName"
-                  :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                  :cell-style="{ 'text-align': 'center' }"
-                  style="width: 100%;"
-                  @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="55"/>
-          <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-          <el-table-column prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称"/>
-          <el-table-column prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>
-          <el-table-column prop="companyName" :show-overflow-tooltip="true" label="归属企业名称"/>
-          <el-table-column prop="cityName" :show-overflow-tooltip="true" label="归属地市名称"/>
-          <el-table-column prop="districtName" :show-overflow-tooltip="true" label="归属区县名称"/>
-          <el-table-column prop="address" :show-overflow-tooltip="true" label="地址"/>
-          <el-table-column prop="parkSpaceNum" :show-overflow-tooltip="true" label="规划总车位数"/>
-          <el-table-column prop="billingRuleDesc" :show-overflow-tooltip="true" label="计费规则"/>
-          <el-table-column prop="contact" :show-overflow-tooltip="true" label="联系人"/>
-          <el-table-column prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话"/>
-          <el-table-column prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
-          <el-table-column :show-overflow-tooltip="true" label="操作">
-            <template slot-scope="scope">
-              <el-button @click="handleEditListDialogue(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="HandleDeleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+      <el-table :data="parkList" ref="selectParkingLotList"
+                :row-class-name="tableRowClassName"
+                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+                :cell-style="{ 'text-align': 'center' }"
+                style="width: 100%;"
+                @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55"/>
+        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
+        <el-table-column prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称"/>
+        <el-table-column prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>
+        <el-table-column prop="companyName" :show-overflow-tooltip="true" label="归属企业名称"/>
+        <el-table-column prop="cityName" :show-overflow-tooltip="true" label="归属地市名称"/>
+        <el-table-column prop="districtName" :show-overflow-tooltip="true" label="归属区县名称"/>
+        <el-table-column prop="address" :show-overflow-tooltip="true" label="地址"/>
+        <el-table-column prop="parkSpaceNum" :show-overflow-tooltip="true" label="规划总车位数"/>
+        <el-table-column prop="billingRuleDesc" :show-overflow-tooltip="true" label="计费规则"/>
+        <el-table-column prop="contact" :show-overflow-tooltip="true" label="联系人"/>
+        <el-table-column prop="contactPhoneNumber" :show-overflow-tooltip="true" label="联系人电话"/>
+        <el-table-column prop="parkPictureFile" :show-overflow-tooltip="true" label="停车场图片"/>
+        <el-table-column :show-overflow-tooltip="true" label="操作">
+          <template slot-scope="scope">
+            <el-button @click="handleEditListDialogue(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="HandleDeleteListDialogue(scope.row)" type="text" size="small">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
       <!--分页条-->
       <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper"
                      :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
@@ -190,8 +190,8 @@
     </el-dialog>
     <!--修改表单弹框-->
     <el-dialog id="edit" :visible.sync="editListDialogueandoff"
-                          top="1vh"
-                          style="overflow-y: hidden"
+               top="1vh"
+               style="overflow-y: hidden"
     >
       <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
         <div style="font-size: 20px">基础信息</div>
@@ -379,25 +379,33 @@ export default {
     },
     //批量删除
     deleteSelect() {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        // console.log(this.idList)
-        const param = {
-          parkId: this.idList
-        };
-        this.$ysParking.deletePark(param).then(res => {
-          this.$message({
-            type: "success", message: "删除成功!"
-          });
-          this.queryParkList();
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         });
-      }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
-      //  console.log(this.selectParkingLotList);
+      } else {
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          // console.log(this.idList)
+          const param = {
+            parkId: this.idList
+          };
+          this.$ysParking.deletePark(param).then(res => {
+            this.$message({
+              type: "success", message: "删除成功!"
+            });
+            this.queryParkList();
+          });
+        }).catch(() => {
+          this.$message({type: "info", message: "已取消删除"});
+        });
+        //  console.log(this.selectParkingLotList);
+      }
     },
     //单个删除
     HandleDeleteListDialogue(row) {
@@ -469,7 +477,7 @@ export default {
       this.addListDialogueandoff = false;
     },
     //修改弹框弹出
-      handleEditListDialogue(row) {
+    handleEditListDialogue(row) {
       this.editListDialogueandoff = true;
       this.editParkingLot = row;
       this.queryDisList(row.cityCode);
@@ -590,8 +598,8 @@ export default {
     exportExcel() {
       var date = new Date();
       var param = {
-        column_zh: ["停车场名称",  "归属企业", "归属地市", "归属区县", "地址",  "规划总车位数", "计费规则", "联系人", "联系人电话", "停车场图片"],
-        column_en: ["parkName", "parkTypeName", "companyName", "cityName", "districtName", "address",  "parkSpaceNum", "billingRuleDesc", "contact", "contactPhoneNumber", "parkPictureFile"],
+        column_zh: ["停车场名称", "归属企业", "归属地市", "归属区县", "地址", "规划总车位数", "计费规则", "联系人", "联系人电话", "停车场图片"],
+        column_en: ["parkName", "parkTypeName", "companyName", "cityName", "districtName", "address", "parkSpaceNum", "billingRuleDesc", "contact", "contactPhoneNumber", "parkPictureFile"],
         fileName: "停车场" + date.toLocaleString(),
       };
       this.$ysParking.exportParkList(param).then(res => {

@@ -36,9 +36,9 @@
           <el-col :span="12">
             <el-button type="primary" @click="queryPkLot()">查 询</el-button>
             <el-button type="primary" @click="addNewCamera()">新增摄像头</el-button>
-            <el-button type="info" @click="exportExcel()">导出</el-button>
+            <el-button type="primary" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="primary" @click="batchDelete()">批量删除
+            <el-button type="danger" @click="batchDelete()">批量删除
             </el-button>
           </el-col>
         </el-row>
@@ -65,7 +65,7 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="cameraList":row-class-name="tableRowClassName" ref="selectCameraList" :header-cell-style="{
+      <el-table :data="cameraList" :row-class-name="tableRowClassName" ref="selectCameraList" :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -385,18 +385,26 @@ export default {
     },
     //批量删除
     batchDelete() {
-      console.log("批量删除", this.idList);
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-          .then(() => {
-            this.$message({type: "success", message: "删除成功!"});
-          })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        console.log("批量删除", this.idList);
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+            .then(() => {
+              this.$message({type: "success", message: "删除成功!"});
+            })
+            .catch(() => {
+              this.$message({type: "info", message: "已取消删除"});
+            });
+      }
     },
     // 分页
     handleCurrentModify(val) {
@@ -462,7 +470,7 @@ export default {
       })
     },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return 'successRow11';
       } else if (rowIndex % 2 == 0) {
