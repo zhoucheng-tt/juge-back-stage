@@ -32,7 +32,7 @@
           </el-col>
           <el-col :span="12">
             <el-button type="primary" @click="addNewGate()">新增道闸机</el-button>
-            <el-button type="info" @click="exportExcel()">导 出</el-button>
+            <el-button type="primary" @click="exportExcel()">导 出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="primary" @click="batchDelete()">批量删除</el-button>
             <el-button type="primary" @click="queryPassagewayGate()">查 询</el-button>

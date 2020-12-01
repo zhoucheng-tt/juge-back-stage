@@ -22,6 +22,8 @@ import * as orderManagement from './orderManagement/orderManagement.js'
 import * as realTimeMonitor from './realTimeMonitor/realTimeMonitor'
 //白黑名单
 import * as listManagement from './listManagement/listManagement'
+//基础信息管理 计费规则 basicInformationManagement
+import * as basicInformationManagement from './basicInformationManagement/basicInformationManagement'
 
 const install = function (Vue) {
     if (install.installed) {
@@ -73,6 +75,13 @@ const install = function (Vue) {
         $listManagement: {
             get() {
                 return listManagement
+            }
+        },
+        //基础信息管理
+        //实时监测
+        $basicInformationManagement: {
+            get() {
+                return basicInformationManagement
             }
         }
     })

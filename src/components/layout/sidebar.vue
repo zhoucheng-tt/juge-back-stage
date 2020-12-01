@@ -178,13 +178,6 @@
                                 name: '支付台账统计',
                                 routeName: 'paymentAccountStatistics'
                             },
-                            // 出入口监测
-                            {
-                                code: '3-5',
-                                logo: 'el-icon-menu',
-                                name: '出入口监测',
-                                routeName: 'entranceExitMonitoring'
-                            },
                             // 洗车机报警信息统计
                             {
                                 code: '3-6',
@@ -205,7 +198,15 @@
                                 logo: 'el-icon-menu',
                                 name: '洗车机运营数据',
                                 routeName: 'realTimeMonitoringCarWaring'
-                            }]
+                            },
+                            // 出入口监测
+                            {
+                                code: '4-2',
+                                logo: 'el-icon-menu',
+                                name: '出入口监测',
+                                routeName: 'entranceExitMonitoring'
+                            },
+                            ]
                     },
                     // 订单管理
                     {

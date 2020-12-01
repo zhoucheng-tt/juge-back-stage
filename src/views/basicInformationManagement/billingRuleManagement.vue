@@ -9,51 +9,55 @@
 -->
 <template>
   <div class="about">
-    <el-form :inline="true" :model="formInline" class="form">
-      <el-form-item label="计费规则名称">
-        <el-input v-model="formInline.user" placeholder="计费规则名称"></el-input>
-      </el-form-item>
-      <el-form-item label="停车场">
-        <el-select v-model="formInline.region" placeholder="请选择" clearable>
-          <el-option v-for="item in parkingSelections" :key="item.objId" :label="item.dicText" :value="item.dicCode">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="onSubmit">查询</el-button>
-      </el-form-item>
-    </el-form>
-    <div class="btn">
-      <el-button @click="dialogAdd = true">新增规则</el-button>
-      <el-button type="info" @click="onBatch">批量删除</el-button>
-    </div>
+    <el-row class="up">
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="计费规则名称">
+          <el-input v-model="formInline.billingRuleDefName" placeholder="计费规则名称"></el-input>
+        </el-form-item>
+        <el-form-item label="停车场：">
+          <el-select v-model="formInline.parkId" placeholder="请选择停车场">
+            <el-option v-for="(item, index) in parkLotNameList" :label="item.name"
+                       :value="item.code" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>
+          <el-button type="primary" @click="dialogAdd = true">新增规则</el-button>
+          <el-button type="primary" @click="onBatch">批量删除</el-button>
+        </el-form-item>
+      </el-form>
+    </el-row>
     <!-- 表格 -->
     <div class="table">
-      <el-table :data="tableData"
+      <el-table :data="accountRules"
                 :row-class-name="tableRowClassName"
                 :header-cell-style="{ 'text-align': 'center',background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }"
                 style="width: 100%;"
                 ref="selectionRow">
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="date" label="计费规则编号" width="220" align="center">
-        </el-table-column>
-        <el-table-column prop="name" label="计费规则名称" width="220" align="center">
-        </el-table-column>
-        <el-table-column prop="address" label="计费规则类型" width="220" align="center">
-        </el-table-column>
-        <el-table-column prop="describ" label="描述" width="180" align="center">
-        </el-table-column>
-        <el-table-column label="操作" align="center">
+        <el-table-column type="selection"/>
+        <el-table-column prop="billingRuleDefId" :show-overflow-tooltip="true" label="计费规则编号"></el-table-column>
+        <el-table-column prop="billingRuleDefName" :show-overflow-tooltip="true" label="计费规则名称"></el-table-column>
+        <el-table-column prop="billingRuleTypeName" :show-overflow-tooltip="true" label="计费规则类型"></el-table-column>
+        <el-table-column prop="remark" :show-overflow-tooltip="true" label="描述"></el-table-column>
+        <el-table-column  :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button type="text" @click="onHandle(scope.$index, scope.row) == true">查看</el-button>
-            <el-button type="text" @click="onUpdate">修改</el-button>
-            <el-button type="text" @click="onDelete">删除</el-button>
+            <el-button @click="onHandle(scope.row)" type="text" size="small">查看</el-button>
+            <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="onDelete(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <!--分页条-->
+      <el-pagination
+        style="position: relative;left: 78%"
+        @current-change="handleCurrentModify"
+        layout="total, prev, pager, next, jumper"
+        :current-page="pageNum"
+        :page-size="pageSize"
+        :total="pageTotal">
+      </el-pagination>
     </div>
-
     <!-- 新增计费弹框 -->
     <el-dialog title="新增计费信息" :visible.sync="dialogAdd">
       <el-form :model="charging" label-width="150px">
@@ -120,6 +124,19 @@
   export default {
     data() {
       return {
+          //停车场下拉
+          parkLotNameList:[],
+          // 搜索条件
+          formInline: {
+              parkId:'',
+              billingRuleDefName:''
+          },
+          // 表格数据
+          accountRules: [],
+          //初始化分页
+          pageNum:1,
+          pageSize:10,
+          pageTotal:2,
         //新增计费弹窗
         dialogAdd: false,
         // 弹窗-新增计费
@@ -132,93 +149,59 @@
           { dicText: "按时计费", objId: "111", dicCode: "diedj" },
           { dicText: "按次计费", objId: "222", dicCode: "jwidnx" }
         ],
-        // 搜索条件
-        formInline: {
-          use: "",
-          region: "",
-          names: ""
-        },
-        // 表格数据
-        tableData: [
-          {
-            date: "2016-05-02",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄",
-            describ: "123"
-          },
-          {
-            date: "2016-05-02",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄",
-            describ: "123"
-          },
-          {
-            date: "2016-05-02",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄",
-            describ: "123"
-          }
-        ],
+
         //按时计费数据
-        tableDataHour: [{
-          type: "客车",
-          sun: "2",
-          moon: "3",
-          free: "4",
-          top: "100"
-        }, {
-          type: "汽车",
-          sun: "2",
-          moon: "3",
-          free: "4",
-          top: "100"
-        },
-        ],
+        tableDataHour: [],
         //按次计费数据
-        tableDataNum: [{
-          type: "客车",
-          sun: "2",
-          moon: "3",
-          free: "4",
-          top: "100"
-        }, {
-          type: "汽车",
-          sun: "2",
-          moon: "3",
-          free: "4",
-          top: "100"
-        },
-        ],
-        // 停车场选项
-        parkingSelections: [
-          { dicText: "公共停车场", objId: "1", dicCode: "111" },
-          { dicText: "临时停车场", objId: "2", dicCode: "222" }
-        ]
+        tableDataNum: [],
       };
     },
     mounted() {
-      this.searchParking(); //停车场选择
+      //停车场下拉查询
+        this.queryPark();
+      //列表查询
+        this.queryBillingRuleList();
     },
     methods: {
-      // 搜索条件-停车场
-      searchParking() {
-        this.$axios
-          .post(this.$api.getDictionaries, {
-            pcode: "deviceType"
-          })
-          .then(response => {
-            this.parking = response.data.data;
-            console.log("停车场类型打印", this.parking);
-          });
-      },
+        //查询停车场下拉
+        queryPark(){
+            var that=this;
+            this.parkLotNameList=[];
+            const param={
+                "columnName":["park_id","park_name"],
+                "tableName":"t_bim_park",
+                "whereStr":"district_code = '321302'"
+            }
+            this.$basicInformationManagement.queryDictData(param).then(response=>{
+                this.parkLotNameList = response.data.dataList;
+            })
+        },
+        //顶部查询按钮获取参数
+        queryBillingRuleList(){
+            var that =this;
+            const params={
+                pageNum:this.pageNum,
+                pageSize:this.pageSize,
+                billingRuleDefName:this.formInline.billingRuleDefName,
+            }
+            console.log('查询传入的参数',params)
+            this.$basicInformationManagement.queryBillingRuleList(params).then(response => {
+                // console.log("查询表格数据", response)
+                //分页
+                that.pageTotal = response.data.totalRecord;
+                //查询
+                that.accountRules=response.data.dataList;
+            })
+        },
+        //分页条
+        handleCurrentModify(val){
+            this.pageNum = val;
+            this.queryBillingRuleList();
+        },
       // 搜索
-      onSubmit() {
-        console.log("搜索数据打印", "");
-      },
+      onSubmit() {},
       //批量删除
-      onBatch() {
-        console.log("批量删除", "");
-      },
+      onBatch() { },
       //表格操作
       onHandle() { },
       onUpdate() { },
@@ -236,13 +219,18 @@
   };
 </script>
 <style scoped>
-  .form {
-    padding: 20px 0 0 40px;
+  /*顶部查询*/
+  .up{
+    width: 100%;
+    height: 7%;
+    float: left;
   }
-
-  .btn {
-    text-align: right;
-    padding: 0 40px;
+  /* 查询条件部分样式 */
+  .demo-form-inline {
+    width: 100%;
+    height: 85%;
+    margin-top: 0.5%;
+    padding-left: 2%;
   }
   /* 弹窗信息标题 */
   .dialogFormTitle {

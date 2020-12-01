@@ -22,10 +22,28 @@
                     <el-input v-model="upQueryList.plateNumber" placeholder="请输入车牌号"></el-input>
                 </el-form-item>
                 <!-- 时间日期选择器 -->
-                <el-form-item label="预约时间:">
-                    <el-date-picker v-model="upQueryList.minAppointmentTime" type="datetimerange" range-separator="至"
-                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">
+<!--                <el-form-item label="预约时间:">-->
+<!--                    <el-date-picker v-model="upQueryList.minAppointmentTime" type="datetimerange" range-separator="至"-->
+<!--                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">-->
+<!--                    </el-date-picker>-->
+<!--                </el-form-item>-->
+                <el-form-item label="预约订单:">
+                    <!-- 时间日期选择器 -->
+                    <el-date-picker
+                      v-model="upQueryList.minAppointmentTime"
+                      type="datetime"
+                      placeholder="请选择起始日期"
+                      value-format="yyyy-MM-dd hh:mm:ss">
                     </el-date-picker>
+                    <span>
+                        ~
+                    </span>
+                    <el-date-picker
+                      v-model="upQueryList.maxAppointmentTime"
+                      type="datetime"
+                      placeholder="请选择截止日期"
+                      value-format="yyyy-MM-dd hh:mm:ss">
+                        </el-date-picker>
                 </el-form-item>
                 <el-form-item label="预约状态:">
                     <el-select v-model="upQueryList.appointmentOrderStatusName" placeholder="请选择状态">
@@ -45,7 +63,7 @@
                 :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
                 :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
                 <el-table-column prop="orderSequence" label="预约单编号" width="200"></el-table-column>
-                <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称" width=""></el-table-column>
+                <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"></el-table-column>
                 <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号"></el-table-column>
                 <el-table-column prop="appointmentTime" :show-overflow-tooltip="true" label="预约时间"></el-table-column>
                 <!--暂无-->
@@ -208,7 +226,7 @@
                     parkId:this.upQueryList.parkId,
                     appointmentTypeCode:"",
                     minAppointmentTime:this.upQueryList.minAppointmentTime,
-                    maxAppointmentTime:"",
+                    maxAppointmentTime:this.upQueryList.maxAppointmentTime,
                     appointmentOrderStatusCode:"",
                     plateNumber:this.upQueryList.plateNumber,
                     pageNum:this.pageNum,
