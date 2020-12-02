@@ -23,8 +23,8 @@
         <el-form-item>
 <!--          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>-->
           <el-button type="primary" @click="dialogAdd = true">新增规则</el-button>
-          <el-button type="primary" @click="onBatch">批量删除</el-button>
           <el-button type="primary" @click="handleExport">导出</el-button>
+          <el-button type="danger" @click="onBatch">批量删除</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -224,15 +224,15 @@
   /*顶部查询*/
   .up{
     width: 100%;
-    height: 7%;
+    height: 75px;
     float: left;
   }
   /* 查询条件部分样式 */
   .demo-form-inline {
     width: 100%;
     height: 85%;
-    margin-top: 0.5%;
-    padding-left: 2%;
+    margin-top: 1%;
+    margin-left: 82%;
   }
   /* 弹窗信息标题 */
   .dialogFormTitle {

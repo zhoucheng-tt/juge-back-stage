@@ -9,7 +9,6 @@
 -->
 <template>
     <div class="about">
-        <p>日志管理</p>
 <!--       日志时间-->
       <div class="top">
           <el-form :inline="true" class="demo-form-inline">
@@ -148,14 +147,18 @@
                }
                return '';
            },
-
-
        }
    }
 </script>
 <style scoped>
     .about{
         overflow-x: hidden;
+    }
+    .demo-form-inline {
+      width: 100%;
+      height: 80%;
+      margin-top: 0.5%;
+      padding-left: 2%;
     }
     /* 斑马纹样式 */
     /deep/ .el-table .successRow11 {

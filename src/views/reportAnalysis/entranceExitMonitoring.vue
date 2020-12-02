@@ -14,7 +14,7 @@
       <el-row>
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
 <!--      停车场-->
-          <el-form-item label="停车场：">
+          <el-form-item label="停车场:">
             <el-select v-model="queryParkId" placeholder="请选择停车场">
               <el-option
                   v-for="(item, index) in parkingLotList"
@@ -27,21 +27,29 @@
 <!--    时间-->
           <el-form-item label="选择时间:">
               <el-date-picker
-                v-model="upQueryList.dateTime"
+                v-model="upQueryList.minDateTime"
                 type="datetime"
                 value-format="yyyy-MM-dd hh:mm:ss"
-                placeholder="选择日期时间">
+                placeholder="请选择起始时间">
               </el-date-picker>
+            <span>
+                        ~
+                    </span>
+            <el-date-picker
+              v-model="upQueryList.maxDateTime"
+              type="datetime"
+              placeholder="请选择截止日期"
+              value-format="yyyy-MM-dd hh:mm:ss">
+            </el-date-picker>
           </el-form-item>
 <!--    车牌号-->
           <el-form-item label="车牌号:">
-              <el-input v-model="upQueryList.plateNum" palceholder="请输入车牌号"></el-input>
+              <el-input v-model="upQueryList.plateNum" placeholder="请输入车牌号"></el-input>
           </el-form-item>
 <!--      查询按钮-->
           <el-form-item>
-            <el-button type="primary">
-              查询
-            </el-button>
+            <el-button type="primary">查询</el-button>
+            <el-button type="primary" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -158,6 +166,10 @@ export default {
     setInterval(this.showMarquee, 2000);
   },
   methods: {
+      //查询重置按钮
+      resetQuery(){
+          this.upQueryList={};
+      },
     // 查询停车场下拉表单
     queryParking() {
       var that = this;

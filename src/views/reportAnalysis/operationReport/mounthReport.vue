@@ -24,8 +24,13 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="queryReportList">查询</el-button>
-                <el-button type="primary" @click="exportReport">导出</el-button>
+                <el-button type="primary" @click="resetQuery">重置</el-button>
               </el-form-item>
+          <el-row class="demo-form-inline-two">
+            <el-form-item>
+              <el-button type="primary" @click="exportReport">导出</el-button>
+            </el-form-item>
+          </el-row>
         </el-form>
       </el-row>
     </div>
@@ -81,6 +86,10 @@ export default {
     this.queryReportList();
   },
   methods: {
+      //查询重置按钮
+      resetQuery(){
+          this.query={};
+      },
     // 查询
     queryMounthReport() {
       console.log("打印出来点击查询后所产生的值", this.query)
@@ -148,9 +157,12 @@ export default {
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 0.5%;
+  height: 85%;
   padding-left: 2%;
+}
+.demo-form-inline-two{
+  height: 45px;
+  margin-left: 93%;
 }
 
 /* 下班部分列表部分 */

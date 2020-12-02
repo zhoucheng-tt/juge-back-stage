@@ -13,13 +13,11 @@
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
         <el-row>
-          <el-col :span="12">
             <el-form-item>
               <el-button type="primary" @click="addInletAndOutlet()">新增停车场</el-button>
               <el-button type="primary" @click="exportExcel()">导出</el-button>
               <el-button type="danger" @click="deleteSelect()">批量删除</el-button>
             </el-form-item>
-          </el-col>
         </el-row>
       </el-form>
     </div>
@@ -660,7 +658,7 @@ export default {
 /* 上半部分查询部分 */
 .up {
   width: 100%;
-  height: 15%;
+  height: 55px;
   float: left;
 }
 
@@ -668,8 +666,8 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
-  padding-left: 2%;
+  /*margin-top: 1%;*/
+  margin-left: 80%;
 }
 
 /* 下班部分列表部分 */

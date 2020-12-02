@@ -34,6 +34,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="queryButton">查询</el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -144,6 +145,10 @@ export default {
     this.drawWashEarnChart();
   },
   methods: {
+      //查询重置按钮
+      resetQuery(){
+          this.query={};
+      },
     // 查询
     queryButton() {
       // console.log("打印出来点击查询后所产生的值", this.query);
@@ -578,7 +583,7 @@ export default {
 /* 顶部查询部分 */
 .up {
   width: 100%;
-  height: 7%;
+  height: 5%;
   float: left;
 }
 

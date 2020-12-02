@@ -13,13 +13,9 @@
     <!--上半部分查询-->
     <div class="up">
       <el-row>
-        <el-form :inline="true" class="demo-form-inline">
-          <div style="display: flex">
-            <div class="top-p">请选择停车场:</div>
+        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
             <el-form-item>
-              <el-select
-                      v-model="queryParkId"
-                      style="margin-left: 10px"
+              <el-select v-model="upQueryList.queryParkId"
                       placeholder="请选择停车场"
               >
                 <el-option label="全部" value="0"></el-option>
@@ -33,16 +29,13 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button type="primary" @click="selectQueryList"
-              >查询</el-button
-              >
+              <el-button type="primary" @click="selectQueryList">查询</el-button>
+              <el-button type="primary" @click="resetQuery">重置</el-button>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="addInletAndOutlet"
-              >新增停车场平面(层)</el-button
-              >
+              <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)</el-button>
             </el-form-item>
-          </div>
+
         </el-form>
         <!--        -->
         <el-dialog
@@ -483,6 +476,8 @@
   export default {
     data() {
       return {
+        //查询绑定
+          upQueryList:{},
         Cert: {
           upload: 1,
           dir: 'park',
@@ -541,6 +536,10 @@
       this.queryParkSpaceList();
     },
     methods: {
+        //查询重置按钮
+        resetQuery(){
+            this.upQueryList={};
+        },
       onBeforeUpload(file)
       {
         this.Cert.upfile = file

@@ -59,6 +59,7 @@
                 </el-form-item>
                 <el-form-item>
                   <el-button type="primary" @click="queryStopOrder">查询</el-button>
+                  <el-button type="primary" @click="resetQuery">重置</el-button>
                 </el-form-item>
               </el-row>
             </el-form>
@@ -165,6 +166,10 @@
             this.queryPark();
         },
         methods: {
+            //查询重置按钮
+            resetQuery(){
+                this.upQueryList={};
+            },
             //停车场管理查询接口
             queryStopOrder(){
                 var that =this;
@@ -242,15 +247,15 @@
     /* 上半部分查询部分 */
     .up {
         width: 100%;
-        height: 15%;
+        height: 15.5%;
         float: left;
     }
 
     /* 查询条件部分样式 */
     .demo-form-inline {
         width: 100%;
-        height: 80%;
-        margin-top: 0.5%;
+        height: 85%;
+        margin-top: 1%;
         padding-left: 2%;
     }
 

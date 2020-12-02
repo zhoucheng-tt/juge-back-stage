@@ -26,6 +26,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="SelectQueryList">查询</el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -181,6 +182,10 @@ export default {
     this.queryaverageWashingTime();
   },
   methods: {
+    //查询重置按钮
+      resetQuery(){
+          this.upQueryList={};
+      },
     //斑马纹样式
     tableRowClassName({rowIndex}) {
       if (rowIndex % 2) {

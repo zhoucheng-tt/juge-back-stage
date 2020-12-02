@@ -24,13 +24,14 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="selectQueryList">查询</el-button>
+            <el-button type="primary" @click="resetQuery">重置</el-button>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="addChargeMode">新增规则
-            </el-button>
-            <el-button type="danger" @click="batchDelete()">批量删除
-            </el-button>
-          </el-form-item>
+          <el-row class="demo-form-inline-two">
+            <el-form-item>
+              <el-button type="primary" @click="addChargeMode">新增规则</el-button>
+              <el-button type="danger" @click="batchDelete()">批量删除</el-button>
+            </el-form-item>
+          </el-row>
         </el-form>
       </el-row>
       <el-dialog id="add" title="新增洗车机计费规则" :visible.sync="addListDialogueandoff">
@@ -155,7 +156,6 @@
         upQueryList: {
           chargeModeName: "",
           TingNum: "",
-
           chargeMode: ""
         },
         //多选后数据暂存
@@ -245,6 +245,10 @@
       };
     },
     methods: {
+        //查询重置按钮
+        resetQuery(){
+            this.upQueryList={};
+        },
       //批量删除
       batchDelete() {
         console.log("批量删除", this.idList);
@@ -363,9 +367,14 @@
   /* 查询条件部分样式 */
   .demo-form-inline {
     width: 100%;
-    height: 80%;
-    margin-top: 3%;
+    height: 85%;
+    margin-top: 1%;
     padding-left: 2%;
+  }
+  .demo-form-inline-two{
+    height: 70px;
+    margin-left: 85%;
+    /*background-color: red;*/
   }
 
   /* 下班部分列表部分 */

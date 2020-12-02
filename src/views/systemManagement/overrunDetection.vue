@@ -9,7 +9,6 @@
 -->
 <template class="template">
     <div class="about">
-        <p>角色管理</p>
         <!--上边部分-->
         <div class="top">
             <el-form :inline="true" class="demo-form-inline">
@@ -883,8 +882,10 @@
 
     /*上半部输入框样式*/
     .demo-form-inline {
-        margin-top: 0.75%;
-        /*margin-left: 5%;*/
+        width: 100%;
+        height: 80%;
+        margin-top: 0.5%;
+        padding-left: 2%;
     }
 
     /*上半部查询按钮*/

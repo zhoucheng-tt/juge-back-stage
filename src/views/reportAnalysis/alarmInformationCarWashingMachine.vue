@@ -45,7 +45,7 @@
             <el-form-item label="洗车机名称:">
               <el-input
                 v-model="query.carNum"
-                palceholder="请输入洗车机名称"
+                placeholder="请选择洗车机名称"
               ></el-input>
             </el-form-item>
             <el-form-item label="支付方式:">
@@ -62,6 +62,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="queryButton">查询</el-button>
+              <el-button type="primary" @click="resetQuery">重置</el-button>
             </el-form-item>
       </el-form>
     </div>
@@ -194,6 +195,10 @@ export default {
     this.drawPayMethodChart();
   },
   methods: {
+      //查询重置按钮
+      resetQuery(){
+          this.query={};
+      },
     //查询
     queryButton() {
       this.queryPayList();
@@ -506,7 +511,7 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 0.5%;
+  margin-top: 1%;
   padding-left: 2%;
 }
 

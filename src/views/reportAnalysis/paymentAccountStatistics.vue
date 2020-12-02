@@ -31,7 +31,7 @@
               </el-date-picker>
             </el-form-item>
             <el-form-item label="停车场:">
-              <el-select v-model="query.parkId">
+              <el-select v-model="query.parkId" placeholder="请选择停车场">
                 <el-option label="全部" value=""></el-option>
                 <el-option
                   v-for="(item, index) in parkList"
@@ -45,6 +45,7 @@
             <el-form-item label="车牌号:">
               <el-input
                 v-model="query.carNum"
+                placeholder="请输入车牌号"
               ></el-input>
             </el-form-item>
             <el-form-item label="支付方式:">
@@ -61,6 +62,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="queryButton">查询</el-button>
+              <el-button type="primary" @click="resetQuery">重置</el-button>
             </el-form-item>
       </el-form>
     </div>
@@ -208,6 +210,10 @@ export default {
     this.drawPayMethodChart();
   },
   methods: {
+      //查询重置按钮
+      resetQuery(){
+          this.query={};
+      },
     //查询
     queryButton() {
       this.queryPayList();
@@ -425,7 +431,7 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 0.5%;
+  margin-top: 1%;
   padding-left: 2%;
 }
 

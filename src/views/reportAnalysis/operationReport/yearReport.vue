@@ -23,14 +23,23 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="queryReportList">查询</el-button>
-                <el-button type="primary" @click="exportReport">导出</el-button>
+                <el-button type="primary" @click="resetQuery">重置</el-button>
               </el-form-item>
+          <el-row class="demo-form-inline-two">
+            <el-form-item>
+              <el-button type="primary" @click="exportReport">导出</el-button>
+            </el-form-item>
+          </el-row>
         </el-form>
       </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
-      <el-table :data="reportList" :row-class-name="tableRowClassName" :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;">
+      <el-table :data="reportList"
+                :row-class-name="tableRowClassName"
+                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
+                :cell-style="{ 'text-align': 'center' }"
+                style="width: 100%;">
         <el-table-column width="120" prop="queryDate" :show-overflow-tooltip="true" label="统计年份"/>
         <el-table-column width="130" prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
         <el-table-column width="120" prop="parkSpace" :show-overflow-tooltip="true" label="车位数"/>
@@ -74,7 +83,10 @@ export default {
     };
   },
   methods: {
-
+      //查询重置按钮
+      resetQuery(){
+          this.query={};
+      },
     //导出
     exportReport() {
       console.log("导出报表")
@@ -143,9 +155,12 @@ export default {
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 0.5%;
+  height: 85%;
   padding-left: 2%;
+}
+.demo-form-inline-two{
+  height: 45px;
+  margin-left: 93%;
 }
 
 /* 下班部分列表部分 */
