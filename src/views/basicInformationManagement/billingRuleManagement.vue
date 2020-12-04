@@ -21,8 +21,9 @@
 <!--                       :value="item.code" :key="index"></el-option>-->
 <!--          </el-select>-->
 <!--        </el-form-item>-->
+        <!--          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>-->
         <el-form-item>
-<!--          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>-->
+
           <el-button type="primary" @click="addRule">新增规则</el-button>
           <el-button type="primary" @click="handleExport">导出</el-button>
           <el-button type="danger" @click="onBatch">批量删除</el-button>
