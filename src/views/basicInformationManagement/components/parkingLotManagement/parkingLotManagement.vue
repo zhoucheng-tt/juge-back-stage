@@ -32,7 +32,7 @@
         <el-table-column type="selection" width="55"/>
         <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
         <el-table-column prop="parkTypeName" :show-overflow-tooltip="true" label="停车场类型名称"/>
-        <el-table-column prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>
+<!--        <el-table-column prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>-->
         <el-table-column prop="companyName" :show-overflow-tooltip="true" label="归属企业名称"/>
         <el-table-column prop="cityName" :show-overflow-tooltip="true" label="归属地市名称"/>
         <el-table-column prop="districtName" :show-overflow-tooltip="true" label="归属区县名称"/>
@@ -56,7 +56,7 @@
     </div>
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增停车场信息" :visible.sync="addListDialogueandoff">
-      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+      <el-form :inline="true" class="demo-form-inline">
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
@@ -667,7 +667,7 @@ export default {
   width: 100%;
   height: 80%;
   /*margin-top: 1%;*/
-  margin-left: 80%;
+  /*margin-left: 80%;*/
 }
 
 /* 下班部分列表部分 */

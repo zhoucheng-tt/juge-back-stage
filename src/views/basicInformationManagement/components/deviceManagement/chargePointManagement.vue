@@ -1,5 +1,5 @@
 <!--
-    充电桩
+    充电桩管理
  * @Author: 邵青阳
  * @Date: 2020-10-29 09:32:31
  * @LastEditTime: 2020-10-29 09:33:14
@@ -11,43 +11,65 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" class="demo-form-inline">
+      <el-form :inline="true" :model="chargPileIdList" class="demo-form-inline">
         <el-row>
-          <el-col :span="6">
-            <el-form-item label="充电桩编号">
-              <el-select v-model="chargPileIdList.chargPileId" placeholder="请选择">
-                <el-option v-for="(item, index) in chargPileIdList" :label="item.chargPileId"
-                           :value="item.chargPileId" :key="index"></el-option>
-              </el-select>
+          <el-form-item label="充电桩编号">
+            <el-select
+              v-model="chargPileIdList.chargPileId"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="(item, index) in chargPileIdList"
+                :label="item.chargPileId"
+                :value="item.chargPileId"
+                :key="index"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <!--          <el-form-item label="设备状态">-->
+          <!--            <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
+          <!--              <el-option-->
+          <!--                v-for="(item, index) in eqStatusList"-->
+          <!--                :label="item.eqStatus"-->
+          <!--                :value="item.eqStatus"-->
+          <!--                :key="index"-->
+          <!--              ></el-option>-->
+          <!--            </el-select>-->
+          <!--          </el-form-item>-->
+          <el-form-item
+            ><el-button type="primary" @click="queryChargingPoint()"
+              >查 询</el-button
+            >
+            <el-button type="primary" @click="resetQuery">重置</el-button>
+          </el-form-item>
+          <el-row style="height: 45px">
+            <el-form-item>
+              <el-button type="primary" @click="addChargingPoint()"
+                >新增充电桩</el-button
+              >
+              <el-button type="primary" @click="bulkImport()"
+                >批量导入</el-button
+              >
+              <el-button type="danger" @click="batchDelete()"
+                >批量删除</el-button
+              >
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="设备状态">
-              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
-                           :key="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-button type="primary" @click="queryChargingPoint()">查 询</el-button>
-            <el-button type="primary" @click="addChargingPoint()">新增充电桩</el-button>
-            <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
-          </el-col>
+          </el-row>
         </el-row>
       </el-form>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              <el-button type="primary" size="medium" @click="imgbtn()"
+                >导 入<i class="el-icon-upload el-icon--right"></i>
               </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
-                  class="el-icon-download el-icon--right"></i></el-button>
-
+              <el-button type="primary" size="medium" @click="downModel()"
+                >下载模版<i class="el-icon-download el-icon--right"></i
+              ></el-button>
             </el-main>
           </el-container>
         </el-form>
@@ -59,55 +81,108 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="chargingPointList" ref="selectList"
-                :row-class-name="tableRowClassName"
-                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
-                @selection-change="handleSelectionChange">
-        <el-table-column type="selection"/>
-        <el-table-column fixed prop="chargPileId" label="充电桩编号"/>
-        <el-table-column prop="chargPileName" :show-overflow-tooltip="true" label="充电桩名称"/>
-        <el-table-column prop="chargPileDesc" :show-overflow-tooltip="true" label="充电桩描述"/>
-        <el-table-column prop="addTime" :show-overflow-tooltip="true" label="添加时间"/>
-        <el-table-column prop="addPerson" :show-overflow-tooltip="true" label="添加人"/>
-        <el-table-column prop="changeTime" :show-overflow-tooltip="true" label="修改时间"/>
-        <el-table-column prop="modifier" :show-overflow-tooltip="true" label="修改人"/>
+      <el-table
+        :data="chargingPointList"
+        ref="selectList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" />
+        <el-table-column fixed prop="chargPileId" label="充电桩编号" />
+        <el-table-column
+          prop="chargPileName"
+          :show-overflow-tooltip="true"
+          label="充电桩名称"
+        />
+        <el-table-column
+          prop="chargPileDesc"
+          :show-overflow-tooltip="true"
+          label="充电桩描述"
+        />
+        <el-table-column
+          prop="addTime"
+          :show-overflow-tooltip="true"
+          label="添加时间"
+        />
+        <el-table-column
+          prop="addPerson"
+          :show-overflow-tooltip="true"
+          label="添加人"
+        />
+        <el-table-column
+          prop="changeTime"
+          :show-overflow-tooltip="true"
+          label="修改时间"
+        />
+        <el-table-column
+          prop="modifier"
+          :show-overflow-tooltip="true"
+          label="修改人"
+        />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button @click="editDialog(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="deleteChargingPoint(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="editDialog(scope.row)" type="text" size="small"
+              >修改</el-button
+            >
+            <el-button
+              @click="deleteChargingPoint(scope.row)"
+              type="text"
+              size="small"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
-          style="position: relative;left: 78%"
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal">
+        style="position: relative;left: 78%"
+        layout="total, prev, pager, next, jumper"
+        :page-size="pageSize"
+        @current-change="handleCurrentModify"
+        :current-page="pageNum"
+        :total="pageTotal"
+      >
       </el-pagination>
     </div>
 
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增充电桩" :visible.sync="addListDialog">
-      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+        label-position="right"
+        label-width="100px"
+      >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="充电桩编号:" label-width="150px">
-              <el-input v-model="newChargingPoint.chargPileId"/>
+              <el-input v-model="newChargingPoint.chargPileId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="充电桩名称:" label-width="150px">
-              <el-input v-model="newChargingPoint.chargPileName"/>
+              <el-input v-model="newChargingPoint.chargPileName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
           <el-form-item label="充电桩描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="newChargingPoint.chargPileDesc"/>
+            <el-input
+              type="textarea"
+              style="width: 655px;"
+              v-model="newChargingPoint.chargPileDesc"
+            />
           </el-form-item>
         </el-row>
       </el-form>
@@ -118,23 +193,32 @@
     </el-dialog>
     <!--修改表单弹框-->
     <el-dialog id="edit" title="修改充电桩" :visible.sync="editListDialog">
-      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+        label-position="right"
+        label-width="100px"
+      >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="充电桩编号:" label-width="150px">
-              <el-input v-model="editChargingPoint.chargPileId"/>
+              <el-input v-model="editChargingPoint.chargPileId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="充电桩名称:" label-width="150px">
-              <el-input v-model="editChargingPoint.chargPileName"/>
+              <el-input v-model="editChargingPoint.chargPileName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
           <el-form-item label="充电桩描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="editChargingPoint.chargPileDesc"/>
+            <el-input
+              type="textarea"
+              style="width: 655px;"
+              v-model="editChargingPoint.chargPileDesc"
+            />
           </el-form-item>
         </el-row>
       </el-form>
@@ -206,6 +290,10 @@ export default {
     };
   },
   methods: {
+    //查询重置按钮
+    resetQuery() {
+      this.chargPileIdList = [];
+    },
     //查询
     queryChargingPoint() {
       this.chargingPointList = [];
@@ -218,7 +306,7 @@ export default {
       this.$deviceManagement.queryChargePileList(param).then(res => {
         this.chargingPointList = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
-      })
+      });
     },
     //新增充电桩
     addChargingPoint() {
@@ -245,15 +333,16 @@ export default {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(() => {
-          this.$deviceManagement.delChargePile(this.idList).then(() => {
-            this.$message({type: "success", message: "删除成功!"});
-            this.queryChargingPoint();
-          })
         })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
+          .then(() => {
+            this.$deviceManagement.delChargePile(this.idList).then(() => {
+              this.$message({ type: "success", message: "删除成功!" });
+              this.queryChargingPoint();
             });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //修改
@@ -269,35 +358,38 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {
-        const param = [
-          {
-            chargPileId: row.chargPileId
-          }
-        ];
-        this.$deviceManagement.delChargePile(param).then(() => {
-          this.$message({type: "success", message: "删除成功!"});
-          this.queryChargingPoint();
-        })
       })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
+        .then(() => {
+          const param = [
+            {
+              chargPileId: row.chargPileId
+            }
+          ];
+          this.$deviceManagement.delChargePile(param).then(() => {
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryChargingPoint();
           });
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //新增表单提交
     onSubmitAdd() {
       this.$deviceManagement.addChargePile(this.newChargingPoint).then(res => {
-        this.$message({type: "success", message: "添加成功!"});
+        this.$message({ type: "success", message: "添加成功!" });
         this.queryChargingPoint();
-      })
+      });
       this.addListDialog = false;
     },
     //修改表单提交
     onSubmitEdit() {
-      this.$deviceManagement.updateChargePile(this.editChargingPoint).then(res => {
-        this.$message({type: "success", message: "修改成功!"});
-        this.queryChargingPoint();
-      })
+      this.$deviceManagement
+        .updateChargePile(this.editChargingPoint)
+        .then(res => {
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryChargingPoint();
+        });
       this.editListDialog = false;
     },
     //批量删除监听
@@ -305,10 +397,10 @@ export default {
       this.selectList = val;
       this.idList = [];
       //获取批量删除id
-      val.forEach((item) => {
+      val.forEach(item => {
         const param = {
           chargPileId: item.chargPileId
-        }
+        };
         this.idList.push(param);
       });
     },
@@ -317,20 +409,19 @@ export default {
       this.pageNum = val;
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
-        return 'successRow11';
+        return "successRow11";
       } else if (rowIndex % 2 == 0) {
-        return 'successSecond';
+        return "successSecond";
       }
-      return '';
-    },
+      return "";
+    }
   },
   mounted() {
     this.queryChargingPoint();
   }
 };
-
 </script>
 <style scoped>
 .all {
@@ -350,7 +441,6 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
   padding-left: 2%;
 }
 
@@ -388,6 +478,5 @@ export default {
 
 #add {
   height: auto;
-
 }
 </style>

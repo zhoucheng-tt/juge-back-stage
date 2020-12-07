@@ -11,44 +11,70 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" class="demo-form-inline">
+      <el-form
+        :inline="true"
+        :model="carWashingMachineNameList"
+        class="demo-form-inline"
+      >
         <el-row>
-          <el-col :span="6">
-            <el-form-item label="洗车机名称">
-              <el-select v-model="carWashingMachineNameList.carWashingMachineName" placeholder="请选择">
-                <el-option v-for="(item, index) in carWashingMachineNameList" :label="item.carWashingMachineName"
-                           :value="item.carWashingMachineName" :key="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="洗车机状态状态">
-              <el-select v-model="washerStatusList.washerStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in washerStatusList" :label="item.washerStatus"
-                           :value="item.washerStatus"
-                           :key="index"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
+          <el-form-item label="洗车机名称">
+            <el-select
+              v-model="carWashingMachineNameList.carWashingMachineName"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="(item, index) in carWashingMachineNameList"
+                :label="item.carWashingMachineName"
+                :value="item.carWashingMachineName"
+                :key="index"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <!--            <el-form-item label="洗车机状态状态">-->
+          <!--              <el-select-->
+          <!--                v-model="washerStatusList.washerStatus"-->
+          <!--                placeholder="请选择"-->
+          <!--              >-->
+          <!--                <el-option-->
+          <!--                  v-for="(item, index) in washerStatusList"-->
+          <!--                  :label="item.washerStatus"-->
+          <!--                  :value="item.washerStatus"-->
+          <!--                  :key="index"-->
+          <!--                ></el-option>-->
+          <!--              </el-select>-->
+          <!--            </el-form-item>-->
+          <el-form-item>
             <el-button type="primary" @click="queryWasher()">查 询</el-button>
-            <el-button type="primary" @click="addWasher()">新增洗车机</el-button>
-            <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
-          </el-col>
+            <el-button type="primary" @click="resetQuery">重置</el-button>
+          </el-form-item>
+          <el-row style="height: 45px">
+            <el-form-item>
+              <el-button type="primary" @click="addWasher()"
+                >新增洗车机</el-button
+              >
+              <el-button type="primary" @click="bulkImport()"
+                >批量导入</el-button
+              >
+              <el-button type="danger" @click="batchDelete()"
+                >批量删除</el-button
+              >
+            </el-form-item>
+          </el-row>
         </el-row>
       </el-form>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              <el-button type="primary" size="medium" @click="imgbtn()"
+                >导 入<i class="el-icon-upload el-icon--right"></i>
               </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
-                  class="el-icon-download el-icon--right"></i></el-button>
-
+              <el-button type="primary" size="medium" @click="downModel()"
+                >下载模版<i class="el-icon-download el-icon--right"></i
+              ></el-button>
             </el-main>
           </el-container>
         </el-form>
@@ -60,60 +86,114 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="washerList" ref="selectList"
-                :row-class-name="tableRowClassName"
-                :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                :cell-style="{ 'text-align': 'center' }" style="width: 100%;"
-                @selection-change="handleSelectionChange">
-        <el-table-column type="selection"/>
-        <el-table-column prop="washerId" :show-overflow-tooltip="true" label="洗车机编号"/>
-        <el-table-column prop="washerName" :show-overflow-tooltip="true" label="洗车机名称"/>
-        <el-table-column prop="washerDesc" :show-overflow-tooltip="true" label="洗车机描述"/>
-        <el-table-column prop="washerStatus" :show-overflow-tooltip="true" label="洗车机状态"/>
-        <el-table-column prop="addDate" :show-overflow-tooltip="true" label="添加时间"/>
-        <el-table-column prop="addUser" :show-overflow-tooltip="true" label="添加人"/>
-        <el-table-column prop="updateDate" :show-overflow-tooltip="true" label="修改时间"/>
-        <el-table-column prop="updateUser" :show-overflow-tooltip="true" label="修改人"/>
+      <el-table
+        :data="washerList"
+        ref="selectList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" />
+        <!--        <el-table-column-->
+        <!--          prop="washerId"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="洗车机编号"-->
+        <!--        />-->
+        <el-table-column
+          prop="washerName"
+          :show-overflow-tooltip="true"
+          label="洗车机名称"
+        />
+        <el-table-column
+          prop="washerDesc"
+          :show-overflow-tooltip="true"
+          label="洗车机描述"
+        />
+        <el-table-column
+          prop="washerStatus"
+          :show-overflow-tooltip="true"
+          label="洗车机状态"
+        />
+        <el-table-column
+          prop="addDate"
+          :show-overflow-tooltip="true"
+          label="添加时间"
+        />
+        <el-table-column
+          prop="addUser"
+          :show-overflow-tooltip="true"
+          label="添加人"
+        />
+        <el-table-column
+          prop="updateDate"
+          :show-overflow-tooltip="true"
+          label="修改时间"
+        />
+        <el-table-column
+          prop="updateUser"
+          :show-overflow-tooltip="true"
+          label="修改人"
+        />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button @click="editDialog(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="deleteWasher(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="editDialog(scope.row)" type="text" size="small"
+              >修改</el-button
+            >
+            <el-button @click="deleteWasher(scope.row)" type="text" size="small"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
-          style="position: relative;left: 78%"
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal">
+        style="position: relative;left: 78%"
+        layout="total, prev, pager, next, jumper"
+        :page-size="pageSize"
+        @current-change="handleCurrentModify"
+        :current-page="pageNum"
+        :total="pageTotal"
+      >
       </el-pagination>
     </div>
 
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增洗车机" :visible.sync="addListDialog">
-      <el-form :inline="true"
-               :rules="rules"
-               ref="addWasher"
-               :model="newWasher"
-               class="demo-form-inline" label-position=right label-width="100px">
+      <el-form
+        :inline="true"
+        :rules="rules"
+        ref="addWasher"
+        :model="newWasher"
+        class="demo-form-inline"
+        label-position="right"
+        label-width="100px"
+      >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
-          <el-col :span="12">
-            <el-form-item label="洗车机编号:" label-width="150px">
-              <el-input v-model="newWasher.washerId"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="洗车机名称:" label-width="150px">
-              <el-input v-model="newWasher.washerName"/>
-            </el-form-item>
-          </el-col>
+          <!--          <!-·-            <el-form-item label="洗车机编号:" label-width="150px">&ndash;&gt;-->
+          <!--              <el-input v-model="newWasher.washerId" />-->
+          <!--            </el-form-item>-->
+
+          <el-form-item label="洗车机名称:" label-width="150px">
+            <el-input v-model="newWasher.washerName" />
+          </el-form-item>
         </el-row>
         <el-row style="padding-top: 20px">
           <el-form-item label="洗车机描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="newWasher.washerDesc"/>
+            <el-input
+              type="textarea"
+              style="width: 655px;"
+              v-model="newWasher.washerDesc"
+            />
           </el-form-item>
         </el-row>
       </el-form>
@@ -124,23 +204,32 @@
     </el-dialog>
     <!--修改表单弹框-->
     <el-dialog id="edit" title="修改洗车机" :visible.sync="editListDialog">
-      <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+        label-position="right"
+        label-width="100px"
+      >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="洗车机编号:" label-width="150px">
-              <el-input v-model="editWasher.washerId"/>
+              <el-input v-model="editWasher.washerId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="洗车机名称:" label-width="150px">
-              <el-input v-model="editWasher.washerName"/>
+              <el-input v-model="editWasher.washerName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
           <el-form-item label="洗车机描述:" label-width="150px">
-            <el-input type="textarea" style="width: 655px;" v-model="editWasher.washerDesc"/>
+            <el-input
+              type="textarea"
+              style="width: 655px;"
+              v-model="editWasher.washerDesc"
+            />
           </el-form-item>
         </el-row>
       </el-form>
@@ -210,10 +299,10 @@ export default {
       // 表单校验
       rules: {
         washerId: [
-          {required: true, message: "洗车机编号不能为空", trigger: "blur"}
+          { required: true, message: "洗车机编号不能为空", trigger: "blur" }
         ],
         washerName: [
-          {required: true, message: "洗车机名称不能为空", trigger: "blur"}
+          { required: true, message: "洗车机名称不能为空", trigger: "blur" }
         ]
       },
       // 导入弹框
@@ -221,6 +310,11 @@ export default {
     };
   },
   methods: {
+    //查询重置按钮
+    resetQuery() {
+      this.carWashingMachineNameList = {};
+    },
+
     //查询
     queryWasher() {
       this.washerList = [];
@@ -233,7 +327,7 @@ export default {
       this.$deviceManagement.queryCarWashingMachineList(param).then(res => {
         this.washerList = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
-      })
+      });
     },
     //新增洗车机
     addWasher() {
@@ -260,16 +354,19 @@ export default {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(() => {
-          this.$deviceManagement.delCarWashingMachine(this.idList).then(res => {
-            console.log("删除成功", res)
-            this.$message({type: "success", message: "删除成功!"});
-            this.queryWasher();
-          })
         })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
-            });
+          .then(() => {
+            this.$deviceManagement
+              .delCarWashingMachine(this.idList)
+              .then(res => {
+                console.log("删除成功", res);
+                this.$message({ type: "success", message: "删除成功!" });
+                this.queryWasher();
+              });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //修改
@@ -285,22 +382,21 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {
-        const param = [
-          {washerId: row.washerId}
-        ];
-        this.$deviceManagement.delCarWashingMachine(param).then(res => {
-          console.log("删除成功", res);
-        });
-        this.$message({
-          type: "success",
-          message: "删除成功!"
-        });
-        this.queryWasher();
       })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
+        .then(() => {
+          const param = [{ washerId: row.washerId }];
+          this.$deviceManagement.delCarWashingMachine(param).then(res => {
+            console.log("删除成功", res);
           });
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          this.queryWasher();
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -308,23 +404,25 @@ export default {
         if (valid) {
           console.log("保存后打印出来的数据", this.newWasher);
           this.$deviceManagement
-              .addCarWashingMachine(this.newWasher)
-              .then(res => {
-                // console.log("打印相应", res);
-                this.$message({type: "success", message: "添加成功!"});
-                this.queryWasher();
-              });
+            .addCarWashingMachine(this.newWasher)
+            .then(res => {
+              // console.log("打印相应", res);
+              this.$message({ type: "success", message: "添加成功!" });
+              this.queryWasher();
+            });
           this.addListDialog = false;
         }
       });
     },
     //修改表单提交
     onSubmitEdit() {
-      this.$deviceManagement.updateCarWashingMachine(this.editWasher).then(res => {
-        console.log("打印更新数据", res);
-        this.$message({type: "success", message: "修改成功!"});
-        this.queryWasher();
-      })
+      this.$deviceManagement
+        .updateCarWashingMachine(this.editWasher)
+        .then(res => {
+          console.log("打印更新数据", res);
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryWasher();
+        });
       this.editListDialog = false;
     },
     //批量删除监听
@@ -332,7 +430,7 @@ export default {
       this.selectList = val;
       this.idList = [];
       //获取批量删除id
-      val.forEach((item) => {
+      val.forEach(item => {
         const param = {
           washerId: item.washerId
         };
@@ -345,21 +443,19 @@ export default {
       this.pageNum = val;
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
-        return 'successRow11';
+        return "successRow11";
       } else if (rowIndex % 2 == 0) {
-        return 'successSecond';
+        return "successSecond";
       }
-      return '';
-    },
+      return "";
+    }
   },
   mounted() {
     this.queryWasher();
   }
-
 };
-
 </script>
 <style scoped>
 .all {
@@ -379,7 +475,6 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
   padding-left: 2%;
 }
 
@@ -417,6 +512,5 @@ export default {
 
 #add {
   height: auto;
-
 }
 </style>

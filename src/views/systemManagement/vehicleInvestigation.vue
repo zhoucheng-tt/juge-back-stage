@@ -8,163 +8,170 @@
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\realTimeMonitoringCarWaring\realTimeMonitoringCarWaring.vue
 -->
 <template>
-    <div class="about">
-<!--       日志时间-->
-      <div class="top">
-          <el-form :inline="true" class="demo-form-inline">
-          <span class="demonstration">日志时间:</span>
+  <div class="about">
+    <!--       日志时间-->
+    <div class="top">
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form-item>
           <el-date-picker
-                  v-model="minLogTime"
-                  format="yyyy-MM-dd HH:mm:ss"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  type="datetime"
-                  placeholder="选择日期时间">
+            v-model="upQueryList.minLogTime"
+            format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            type="datetime"
+            placeholder="选择日期时间"
+          >
           </el-date-picker>
           <span>~</span>
           <el-date-picker
-                  v-model="maxLogTime"
-                  format="yyyy-MM-dd HH:mm:ss"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  type="datetime"
-                  placeholder="选择日期时间">
+            v-model="upQueryList.maxLogTime"
+            format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            type="datetime"
+            placeholder="选择日期时间"
+          >
           </el-date-picker>
-            <el-form-item>
-              <el-button type="primary" @click="queryLogList">
-                    查询
-              </el-button>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="exportLogList">
-                    导出
-                </el-button>
-            </el-form-item>
-          </el-form>
-      </div>
-<!--        日志管理表格-->
-        <div class="table">
-            <!--数据表格-->
-            <el-table
-                    :row-class-name="tableRowClassName"
-                    :data="logManagementData"
-                    :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                    :cell-style="{ 'text-align': 'center' }">
-                <el-table-column
-                        fixed
-                        prop="logTime"
-                        label="日志时间">
-                </el-table-column>
-                <el-table-column
-                        prop="operator"
-                        label="操作人">
-                </el-table-column>
-                <el-table-column
-                        prop="sysOperationTypeName"
-                        label="操作类型">
-                </el-table-column>
-                <el-table-column
-                        prop="operateObject"
-                        label="操作对象">
-                </el-table-column>
-                <el-table-column
-                        fixed
-                        prop="operateResult"
-                        label="操作结果">
-                </el-table-column>
-                <el-table-column
-                        fixed
-                        prop="logDetail"
-                        label="日志详情">
-                </el-table-column>
-            </el-table>
-            <!--分页条-->
-            <el-pagination
-                    style="position: relative;left: 63%"
-                    @current-change="handleCurrentModify"
-                    layout=" prev, pager, next,total, jumper"
-                    :current-page="pageNum"
-                    :page-size="pageSize"
-                    :total="pageTotal">
-            </el-pagination>
-        </div>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="queryLogList">
+            查询
+          </el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
+        </el-form-item>
+        <el-row style="height: 45px">
+          <el-form-item>
+            <el-button type="primary" @click="exportLogList">
+              导出
+            </el-button>
+          </el-form-item>
+        </el-row>
+      </el-form>
     </div>
-  </template>
+    <!--        日志管理表格-->
+    <div class="table">
+      <!--数据表格-->
+      <el-table
+        :row-class-name="tableRowClassName"
+        :data="logManagementData"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+      >
+        <el-table-column fixed prop="logTime" label="日志时间">
+        </el-table-column>
+        <el-table-column prop="operator" label="操作人"> </el-table-column>
+        <el-table-column prop="sysOperationTypeName" label="操作类型">
+        </el-table-column>
+        <el-table-column prop="operateObject" label="操作对象">
+        </el-table-column>
+        <el-table-column fixed prop="operateResult" label="操作结果">
+        </el-table-column>
+        <el-table-column fixed prop="logDetail" label="日志详情">
+        </el-table-column>
+      </el-table>
+      <!--分页条-->
+      <el-pagination
+        style="position: relative;left: 63%"
+        @current-change="handleCurrentModify"
+        layout=" prev, pager, next,total, jumper"
+        :current-page="pageNum"
+        :page-size="pageSize"
+        :total="pageTotal"
+      >
+      </el-pagination>
+    </div>
+  </div>
+</template>
 <script>
-   export default {
-       data(){
-           return{
-               //顶部开始时间
-               minLogTime:"",
-               //顶部结束时间
-               maxLogTime:"",
-               //初始化分页
-               pageNum:1,
-               pageSize:10,
-               pageTotal: 1,
-                //日志管理表格数据存放
-               logManagementData:[],
-           }
-       },
-       mounted() {
-           //查询日志管理列表
-           this.queryLogList();
-       },
-       methods:{
-           //顶部导出按钮
-           exportLogList(){},
-           //顶部查询按钮
-           queryLogList() {
-               var that = this;
-               const param = {
-                   //传入查询要用的参数
-                   minLogTime:this.minLogTime,
-                   maxLogTime:this.maxLogTime,
-                   pageSize:this.pageSize,
-                   pageNum:this.pageNum
-               };
-               console.log("param",param)
-               this.$systemUser.queryLogList(param).then(response => {
-                   console.log("打印查询response", response)
-                   //分页
-                   that.pageTotal = response.resultEntity.total;
-                   console.log('that.pageTotal',that.pageTotal)
-                   //查询
-                   that.logManagementData = response.resultEntity.list;
-                   console.log("查询日志管理表格数据", that.logManagementData)
-               })
-           },
-           //分页方法
-           handleCurrentModify(val){
-               //查询
-               this.pageNum = val;
-               this.queryLogList();
-           },
-           // 斑马纹样式
-           tableRowClassName({ row, rowIndex }) {
-               if (rowIndex % 2 == 1) {
-                   return 'successRow11';
-               } else if (rowIndex % 2 == 0) {
-                   return 'successSecond';
-               }
-               return '';
-           },
-       }
-   }
+export default {
+  data() {
+    return {
+      //顶部查询条件存放
+      upQueryList: {},
+      //顶部开始时间
+      minLogTime: "",
+      //顶部结束时间
+      maxLogTime: "",
+      //初始化分页
+      pageNum: 1,
+      pageSize: 9,
+      pageTotal: 1,
+      //日志管理表格数据存放
+      logManagementData: []
+    };
+  },
+  mounted() {
+    //查询日志管理列表
+    this.queryLogList();
+  },
+  methods: {
+    //顶部导出按钮
+    exportLogList() {},
+    //查询重置按钮
+    resetQuery() {
+      this.upQueryList = {};
+    },
+    //顶部查询按钮
+    queryLogList() {
+      var that = this;
+      const param = {
+        //传入查询要用的参数
+        minLogTime: this.upQueryList.minLogTime,
+        maxLogTime: this.upQueryList.maxLogTime,
+        pageSize: this.pageSize,
+        pageNum: this.pageNum
+      };
+      console.log("param", param);
+      this.$systemUser.queryLogList(param).then(response => {
+        console.log("打印查询response", response);
+        //分页
+        that.pageTotal = response.resultEntity.total;
+        console.log("that.pageTotal", that.pageTotal);
+        //查询
+        that.logManagementData = response.resultEntity.list;
+        console.log("查询日志管理表格数据", that.logManagementData);
+      });
+    },
+    //分页方法
+    handleCurrentModify(val) {
+      //查询
+      this.pageNum = val;
+      this.queryLogList();
+    },
+    // 斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return "successRow11";
+      } else if (rowIndex % 2 == 0) {
+        return "successSecond";
+      }
+      return "";
+    }
+  }
+};
 </script>
 <style scoped>
-    .about{
-        overflow-x: hidden;
-    }
-    .demo-form-inline {
-      width: 100%;
-      height: 80%;
-      margin-top: 0.5%;
-      padding-left: 2%;
-    }
-    /* 斑马纹样式 */
-    /deep/ .el-table .successRow11 {
-        background: #7de6f8 !important;
-    }
-    /deep/ .el-table .successSecond {
-        background: #8ed3e7 !important;
-    }
+.about {
+  overflow-x: hidden;
+}
+.demo-form-inline {
+  width: 100%;
+  height: 80%;
+  margin-top: 0.5%;
+  padding-left: 2%;
+}
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+  background: #7de6f8 !important;
+}
+/deep/ .el-table .successSecond {
+  background: #8ed3e7 !important;
+}
 </style>

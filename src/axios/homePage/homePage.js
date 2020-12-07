@@ -132,3 +132,11 @@ export function queryParkCount(params) {
     flag: "out"
   });
 }
+//首页剩余车位接口 realtimeMonitorFunc/queryParkMonitorParkSpace
+  export function queryParkMonitorParkSpace(params) {
+    return request({
+      url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
+      method: "post",
+      data: params,
+    });
+}

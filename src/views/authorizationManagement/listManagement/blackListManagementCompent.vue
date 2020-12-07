@@ -10,84 +10,165 @@
   <div>
     <!--        顶部车牌号一栏-->
     <div class="plate">
-      <el-form :inline="true" :model="blackManagementList" class="demo-form-inline">
+      <el-form
+        :inline="true"
+        :model="blackManagementList"
+        class="demo-form-inline"
+      >
         <!--        车牌号输入框-->
-        <el-col :span="4">
-          <el-form-item label="车牌号">
-            <el-input v-model="blackManagementList.plateNumber"></el-input>
-          </el-form-item>
-        </el-col>
+
+        <el-form-item label="车牌号">
+          <el-input
+            v-model="blackManagementList.plateNumber"
+            placeholder="请输入车牌号"
+          ></el-input>
+        </el-form-item>
+
         <!--         停车场下拉框       -->
-        <el-col :span="6">
-          <el-form-item label="停车场">
-            <el-select v-model="blackManagementList.parkId" placeholder="请选择停车场">
-              <el-option v-for="(item, index) in parkLotNameList" :label="item.name"
-                         :value="item.code" :key="index"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+
+        <el-form-item label="停车场">
+          <el-select
+            v-model="blackManagementList.parkId"
+            placeholder="请选择停车场"
+          >
+            <el-option
+              v-for="(item, index) in parkLotNameList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+
         <!--                查询按钮-->
         <el-form-item>
           <el-button type="primary" @click="queryBlackList">查询</el-button>
-          <!--            新增黑名单-->
-          <el-button type="primary" @click="addBlackList">新增黑名单</el-button>
-          <!--            批量删除-->
-          <el-button type="danger" @click="deleteInBatches">批量删除</el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
+        <el-row style="height: 45px">
+          <el-form-item>
+            <!--            新增黑名单-->
+            <el-button type="primary" @click="addBlackList"
+              >新增黑名单</el-button
+            >
+            <!--            批量删除-->
+            <el-button type="danger" @click="deleteInBatches"
+              >批量删除</el-button
+            ></el-form-item
+          >
+        </el-row>
       </el-form>
     </div>
     <!--        表格内容-->
     <div class="table">
-      <el-table :data="parkingLotInformation"
-                :row-class-name="tableRowClassName"
-                :header-cell-style="{ 'text-align': 'center',background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-                :cell-style="{ 'text-align': 'center' }"
-                style="width: 100%;"
-                ref="selectionRow"
-                @selection-change="handleSelectionChange">
-        <el-table-column type="selection"/>
-        <el-table-column fixed prop="parkId" label="停车场编号"/>
-        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-        <el-table-column prop="plateNumber" :show-overflow-tooltip="true" label="车牌号码"/>
-        <el-table-column prop="arrearageMoneyAmount" :show-overflow-tooltip="true" label="欠费金额"/>
-        <el-table-column prop="carOwnerName" :show-overflow-tooltip="true" label="车主姓名"/>
-        <el-table-column prop="phoneNumber" :show-overflow-tooltip="true" label="手机号"/>
-        <el-table-column prop="joinBlackListTime" :show-overflow-tooltip="true" label="加入黑名单时间"/>
-        <el-table-column prop="joinBlackListReasonName" :show-overflow-tooltip="true" label="加入黑名单原因"/>
-        <el-table-column prop="remark" :show-overflow-tooltip="true" label="备注"/>
-        <el-table-column prop="blackWhiteListStatusName" :show-overflow-tooltip="true" label="黑名单状态"/>
+      <el-table
+        :data="parkingLotInformation"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+        ref="selectionRow"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" />
+        <!--        <el-table-column fixed prop="parkId" label="停车场编号" />-->
         <el-table-column
-            fixed="right"
-            label="操作"
-            width="200">
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
+        />
+        <el-table-column
+          prop="plateNumber"
+          :show-overflow-tooltip="true"
+          label="车牌号码"
+        />
+        <el-table-column
+          prop="arrearageMoneyAmount"
+          :show-overflow-tooltip="true"
+          label="欠费金额"
+        />
+        <el-table-column
+          prop="carOwnerName"
+          :show-overflow-tooltip="true"
+          label="车主姓名"
+        />
+        <el-table-column
+          prop="phoneNumber"
+          :show-overflow-tooltip="true"
+          label="手机号"
+        />
+        <el-table-column
+          prop="joinBlackListTime"
+          :show-overflow-tooltip="true"
+          label="加入黑名单时间"
+        />
+        <el-table-column
+          prop="joinBlackListReasonName"
+          :show-overflow-tooltip="true"
+          label="加入黑名单原因"
+        />
+        <el-table-column
+          prop="remark"
+          :show-overflow-tooltip="true"
+          label="备注"
+        />
+        <el-table-column
+          prop="blackWhiteListStatusName"
+          :show-overflow-tooltip="true"
+          label="黑名单状态"
+        />
+        <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="endUse(scope.row)" type="text" size="small">停用</el-button>
-            <el-button @click="enAble(scope.row)" type="text" size="small">启用</el-button>
-            <el-button @click="aMend(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="reMove(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="endUse(scope.row)" type="text" size="small"
+              >停用</el-button
+            >
+            <el-button @click="enAble(scope.row)" type="text" size="small"
+              >启用</el-button
+            >
+            <el-button @click="aMend(scope.row)" type="text" size="small"
+              >修改</el-button
+            >
+            <el-button @click="reMove(scope.row)" type="text" size="small"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
       <!--分页条-->
       <el-pagination
-          style="position: relative;left: 78%"
-          @current-change="handleCurrentModify"
-          layout="total, prev, pager, next, jumper"
-          :current-page="pageNum"
-          :page-size="pageSize"
-          :total="pageTotal">
+        style="position: relative;left: 78%"
+        @current-change="handleCurrentModify"
+        layout="total, prev, pager, next, jumper"
+        :current-page="pageNum"
+        :page-size="pageSize"
+        :total="pageTotal"
+      >
       </el-pagination>
     </div>
     <!--        新增黑名单弹窗-->
     <el-dialog
-        title="新增黑名单"
-        :visible.sync="addBlackListDialog"
-        width="70%"
-        overflow="hidden">
+      title="新增黑名单"
+      :visible.sync="addBlackListDialog"
+      width="70%"
+      overflow="hidden"
+    >
       <el-row>
         <!--          归属停车场信息-->
-        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px"
-                 v-model="addBlackData">
+        <el-form
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
+          v-model="addBlackData"
+        >
           <!--                    归属停车场信息-->
           <el-row>
             <p>归属停车场信息</p>
@@ -96,9 +177,16 @@
                 <p>归属停车场:</p>
               </div>
               <el-form-item style="margin-left: 1%">
-                <el-select v-model="addBlackData.parkId" placeholder="请选择停车场">
-                  <el-option v-for="(item, index) in parkLotNameList" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
+                <el-select
+                  v-model="addBlackData.parkId"
+                  placeholder="请选择停车场"
+                >
+                  <el-option
+                    v-for="(item, index) in parkLotNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -137,8 +225,10 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="车主联系地址:" label-width="150px">
-                  <el-input style="width: 400px"
-                            v-model="addBlackData.carOwnerContactAddress"></el-input>
+                  <el-input
+                    style="width: 400px"
+                    v-model="addBlackData.carOwnerContactAddress"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -156,8 +246,10 @@
                 <!--                                </el-form-item>-->
                 <!--                                欠费金额-->
                 <el-form-item label="欠费金额:" label-width="150px">
-                  <el-input style="width: 200px"
-                            v-model="addBlackData.arrearageMoneyAmount"></el-input>
+                  <el-input
+                    style="width: 200px"
+                    v-model="addBlackData.arrearageMoneyAmount"
+                  ></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -167,9 +259,16 @@
                 <p>加入黑名单原因:</p>
               </div>
               <el-form-item style="margin-left: 1%">
-                <el-select v-model="addBlackData.joinBlackListReasonCode" placeholder="请选择">
-                  <el-option v-for="(item, index) in addBlackListReason" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
+                <el-select
+                  v-model="addBlackData.joinBlackListReasonCode"
+                  placeholder="请选择"
+                >
+                  <el-option
+                    v-for="(item, index) in addBlackListReason"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-row>
@@ -185,20 +284,26 @@
         </el-form>
       </el-row>
       <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
-                    <el-button @click="addBlackListDialog = false">取 消</el-button>
-                </span>
+        <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
+        <el-button @click="addBlackListDialog = false">取 消</el-button>
+      </span>
     </el-dialog>
     <!--        修改黑名单弹窗-->
     <el-dialog
-        title="新增黑名单"
-        :visible.sync="ModifyBlackListDialog"
-        width="70%"
-        overflow="hidden">
+      title="新增黑名单"
+      :visible.sync="ModifyBlackListDialog"
+      width="70%"
+      overflow="hidden"
+    >
       <el-row>
         <!--          归属停车场信息-->
-        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px"
-                 v-model="modifyBlackList">
+        <el-form
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
+          v-model="modifyBlackList"
+        >
           <!--                    归属停车场信息-->
           <el-row>
             <p>归属停车场信息</p>
@@ -207,11 +312,17 @@
                 <p>归属停车场:</p>
               </div>
               <el-form-item style="margin-left: 1%">
-                <el-select v-model="modifyBlackList.parkId"
-                           :disabled="true"
-                           placeholder="请选择停车场">
-                  <el-option v-for="(item, index) in parkLotNameList" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
+                <el-select
+                  v-model="modifyBlackList.parkId"
+                  :disabled="true"
+                  placeholder="请选择停车场"
+                >
+                  <el-option
+                    v-for="(item, index) in parkLotNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -223,7 +334,10 @@
               <!--                黑名单信息第一行车牌号码-->
               <el-col :span="12">
                 <el-form-item label="车牌号码:" label-width="150px">
-                  <el-input v-model="modifyBlackList.plateNumber" :disabled="true"></el-input>
+                  <el-input
+                    v-model="modifyBlackList.plateNumber"
+                    :disabled="true"
+                  ></el-input>
                 </el-form-item>
               </el-col>
               <!--                黑名单信息第一行车主姓名-->
@@ -242,7 +356,10 @@
             <!--                        黑名单第四行车牌颜色-->
             <el-row>
               <el-form-item label="欠费金额:" label-width="150px">
-                <el-input style="width: 200px" v-model="modifyBlackList.arrearageMoneyAmount"></el-input>
+                <el-input
+                  style="width: 200px"
+                  v-model="modifyBlackList.arrearageMoneyAmount"
+                ></el-input>
               </el-form-item>
             </el-row>
             <!--                        黑名单第五行加入黑名单原因-->
@@ -251,9 +368,16 @@
                 <p>加入黑名单原因:</p>
               </div>
               <el-form-item style="margin-left: 1%">
-                <el-select v-model="modifyBlackList.joinBlackListReasonCode" placeholder="请选择">
-                  <el-option v-for="(item, index) in addBlackListReason" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
+                <el-select
+                  v-model="modifyBlackList.joinBlackListReasonCode"
+                  placeholder="请选择"
+                >
+                  <el-option
+                    v-for="(item, index) in addBlackListReason"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
                 </el-select>
               </el-form-item>
             </el-row>
@@ -267,33 +391,35 @@
         </el-form>
       </el-row>
       <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitModify()">确 定</el-button>
-                    <el-button @click="ModifyBlackListDialog = false">取 消</el-button>
-                </span>
+        <el-button type="primary" @click="onSubmitModify()">确 定</el-button>
+        <el-button @click="ModifyBlackListDialog = false">取 消</el-button>
+      </span>
     </el-dialog>
     <!--        操作中停用弹窗-->
     <el-dialog
-        title="提示信息"
-        :visible.sync="startUpDialog"
-        top="30vh"
-        width="20%">
+      title="提示信息"
+      :visible.sync="startUpDialog"
+      top="30vh"
+      width="20%"
+    >
       <span style="margin-left:25%;font-size: 20px ">你确定要启用吗？</span>
       <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="startUp()">确 定</el-button>
-                    <el-button @click="startUpDialog = false">取 消</el-button>
-                    </span>
+        <el-button type="primary" @click="startUp()">确 定</el-button>
+        <el-button @click="startUpDialog = false">取 消</el-button>
+      </span>
     </el-dialog>
     <!--        操作中启用弹窗-->
     <el-dialog
-        title="提示信息"
-        :visible.sync="blockUpDialog"
-        top="30vh"
-        width="20%">
+      title="提示信息"
+      :visible.sync="blockUpDialog"
+      top="30vh"
+      width="20%"
+    >
       <span style="margin-left:25%;font-size: 20px ">你确定要停用吗？</span>
       <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="blockUp()">确 定</el-button>
-                    <el-button @click="blockUpDialog = false">取 消</el-button>
-                    </span>
+        <el-button type="primary" @click="blockUp()">确 定</el-button>
+        <el-button @click="blockUpDialog = false">取 消</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -342,7 +468,7 @@ export default {
       startUpDialog: false,
       //修改中启用数据暂存
       startUpList: []
-    }
+    };
   },
   mounted() {
     //调用查询黑名单停车场下拉
@@ -355,50 +481,57 @@ export default {
     this.queryAddBlack();
   },
   methods: {
+    //查询重置按钮
+    resetQuery() {
+      this.blackManagementList = {};
+    },
     //加入黑名单原因下拉
     queryAddBlack() {
       var that = this;
       this.addBlackListReason = [];
       const param = {
-        "columnName": ["join_black_list_reason_code", "join_black_list_reason_name"],
-        "tableName": "t_d_join_black_list_reason",
-        "whereStr": ""
-      }
+        columnName: [
+          "join_black_list_reason_code",
+          "join_black_list_reason_name"
+        ],
+        tableName: "t_d_join_black_list_reason",
+        whereStr: ""
+      };
       this.$listManagement.queryDictData(param).then(response => {
         // console.log("下拉停车场名称", response);
         that.addBlackListReason = response.data.dataList;
         // console.log("黑名单停车场下拉名称", that.parkLotNameList);
-      })
+      });
     },
     //查询车牌颜色
     queryPlate() {
       var that = this;
       this.plateColorList = [];
       const param = {
-        "columnName": ["number_plate_color_code", "number_plate_color_name"],
-        "tableName": "t_d_number_plate_color",
-        "whereStr": ""
-      }
+        columnName: ["number_plate_color_code", "number_plate_color_name"],
+        tableName: "t_d_number_plate_color",
+        whereStr: ""
+      };
       this.$listManagement.queryDictData(param).then(response => {
         // console.log("下拉停车场名称", response);
         that.plateColorList = response.data.dataList;
         // console.log("黑名单停车场下拉名称", that.parkLotNameList);
-      })
+      });
     },
     //查询停车场下拉
     queryPark() {
       var that = this;
       this.parkLotNameList = [];
       const param = {
-        "columnName": ["park_id", "park_name"],
-        "tableName": "t_bim_park",
-        "whereStr": "district_code = '321302'"
-      }
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = '321302'"
+      };
       this.$listManagement.queryDictData(param).then(response => {
         // console.log("下拉停车场名称", response);
         that.parkLotNameList = response.data.dataList;
         // console.log("黑名单停车场下拉名称", that.parkLotNameList);
-      })
+      });
     },
     //顶部查询按钮获取参数
     queryBlackList() {
@@ -410,7 +543,7 @@ export default {
         plateNumber: this.blackManagementList.plateNumber,
         pageNum: this.pageNum,
         pageSize: this.pageSize
-      }
+      };
       // console.log('黑名单查询传入的参数',params)
       this.$listManagement.queryBlackList(params).then(response => {
         // console.log("查询黑名单表格数据", response)
@@ -418,7 +551,7 @@ export default {
         that.pageTotal = response.data.totalRecord;
         //查询
         that.parkingLotInformation = response.data.dataList;
-      })
+      });
     },
     //分页条
     handleCurrentModify(val) {
@@ -434,7 +567,7 @@ export default {
     },
     //新增黑名单确认提交
     onSubmitAdd() {
-      console.log(new Date().Format('yyyy-MM-dd hh:mm:ss'), new Date())
+      console.log(new Date().Format("yyyy-MM-dd hh:mm:ss"), new Date());
       //点击提交隐藏弹窗
       this.addBlackListDialog = false;
       const param = {
@@ -447,14 +580,14 @@ export default {
         //欠费金额
         arrearageMoneyAmount: this.addBlackData.arrearageMoneyAmount,
         //加入黑名单时间 加入黑名单原因
-        joinBlackListTime: new Date().Format('yyyy-MM-dd hh:mm:ss'),
-        joinBlackListReasonCode: this.addBlackData.joinBlackListReasonCode,
-      }
-      console.log('新增黑名单传入的参数', param)
+        joinBlackListTime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+        joinBlackListReasonCode: this.addBlackData.joinBlackListReasonCode
+      };
+      console.log("新增黑名单传入的参数", param);
       this.$listManagement.insertBlackList(param).then(response => {
         console.log("打印新增黑名单数据", response);
         //添加成功弹出
-        this.$message({type: "success", message: "添加成功!"});
+        this.$message({ type: "success", message: "添加成功!" });
         //添加成功 刷新页面 调用查询方法
         this.queryBlackList();
       });
@@ -462,30 +595,32 @@ export default {
     //操作中的删除按钮
     reMove(row) {
       //点击删除按钮出现的提示框
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        //清空删除
-        this.idList = [];
-        //设定传入行数据
-        const param = {
-          blackListId: [row.blackListId]
-        }
-        // console.log('黑名单删除传入的参数',param)
-        //将参数传到delWhiteList中
-        this.idList = param;
-        //调用接口中的删除方法
-        this.$listManagement.deleteBlackList(this.idList);
-        //提示删除成功
-        this.$message({type: 'success', message: '删除成功!'});
-        //重新执行查询 （重新加载页面）
-        this.queryBlackList();
-      }).catch(() => {
-        //取消删除按钮
-        this.$message({type: 'info', message: '已取消删除'});
-      });
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          //清空删除
+          this.idList = [];
+          //设定传入行数据
+          const param = {
+            blackListId: [row.blackListId]
+          };
+          // console.log('黑名单删除传入的参数',param)
+          //将参数传到delWhiteList中
+          this.idList = param;
+          //调用接口中的删除方法
+          this.$listManagement.deleteBlackList(this.idList);
+          //提示删除成功
+          this.$message({ type: "success", message: "删除成功!" });
+          //重新执行查询 （重新加载页面）
+          this.queryBlackList();
+        })
+        .catch(() => {
+          //取消删除按钮
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //批量删除监听
     handleSelectionChange(val) {
@@ -512,21 +647,22 @@ export default {
         // console.log("批量删除id存放", this.idList.blackListId);
         const param = {
           blackListId: this.idList
-        }
+        };
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$listManagement.deleteBlackList(param).then(res => {
-                console.log("批量删除成功", res)
-                this.$message({type: "success", message: "删除成功!"});
-                this.queryBlackList();
-              })
-            }).catch(() => {
-          this.$message({type: "info", message: "已取消删除"});
-        });
+          .then(() => {
+            this.$listManagement.deleteBlackList(param).then(res => {
+              console.log("批量删除成功", res);
+              this.$message({ type: "success", message: "删除成功!" });
+              this.queryBlackList();
+            });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //操作中的修改按钮
@@ -550,10 +686,10 @@ export default {
         phoneNumber: this.modifyBlackList.phoneNumber,
         joinBlackListTime: this.modifyBlackList.joinBlackListTime
       };
-      console.log('传入的参数', param)
+      console.log("传入的参数", param);
       this.$listManagement.updateBlackList(param).then(response => {
         console.log("打印修改传入数据", response);
-        this.$message({type: "success", message: "修改成功!"});
+        this.$message({ type: "success", message: "修改成功!" });
         this.queryBlackList();
         console.log("修改后的数据", this.modifyBlackList);
       });
@@ -573,10 +709,10 @@ export default {
         blackListId: this.startUpList.blackListId,
         blackWhiteListStatusCode: "0"
       };
-      console.log('传入的参数', param)
+      console.log("传入的参数", param);
       this.$listManagement.updateBlackListStatus(param).then(response => {
         console.log("打印修改传入数据", response);
-        this.$message({type: "success", message: "修改成功!"});
+        this.$message({ type: "success", message: "修改成功!" });
         this.queryBlackList();
         console.log("修改后的数据", this.startUpList);
       });
@@ -593,30 +729,35 @@ export default {
         blackListId: this.blockUpList.blackListId,
         blackBlackListStatusCode: "1"
       };
-      console.log('传入的参数', param)
+      console.log("传入的参数", param);
       this.$listManagement.updateBlackListStatus(param).then(response => {
         console.log("打印修改传入数据", response);
-        this.$message({type: "success", message: "修改成功!"});
+        this.$message({ type: "success", message: "修改成功!" });
         this.queryBlackList();
         console.log("修改后的数据", this.blockUpList);
       });
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
-        return 'successRow11';
+        return "successRow11";
       } else if (rowIndex % 2 == 0) {
-        return 'successSecond';
+        return "successSecond";
       }
-      return '';
-    },
+      return "";
+    }
   }
-}
+};
 </script>
 <style scoped>
 /*新增黑名单弹窗中的失效时间生效时间样式*/
 .addBlackListDate {
   display: flex;
+}
+.demo-form-inline {
+  width: 100%;
+  height: 80%;
+  padding-left: 2%;
 }
 
 /* 斑马纹样式 */
@@ -627,5 +768,4 @@ export default {
 /deep/ .el-table .successSecond {
   background: #8ed3e7 !important;
 }
-
 </style>

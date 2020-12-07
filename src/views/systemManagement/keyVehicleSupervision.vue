@@ -11,90 +11,114 @@
   <div class="about">
     <!--上边部分-->
     <div class="top">
-      <el-form :inline="true" class="demo-form-inline">
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="用户账号">
-          <el-input v-model="userAccount"></el-input>
+          <el-input
+            v-model="upQueryList.userAccount"
+            placeholder="请输入账号"
+          ></el-input>
         </el-form-item>
         <el-form-item label="用户姓名">
-          <el-input v-model="name"></el-input>
+          <el-input
+            v-model="upQueryList.name"
+            placeholder="请输入姓名"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <!--新增用户-->
-          <el-button type="primary" class="middle-add"
-                     @click="addUser">新增用户
+          <el-button type="primary" class="top-select" @click="select"
+            >查询
           </el-button>
-          <el-button type="primary" class="top-select"
-                     @click="select">查询
-          </el-button>
-          <el-button type="primary" class="top-exPort"
-                     @click="exPort">导出
-          </el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
+        <el-row>
+          <el-form-item>
+            <!--新增用户-->
+            <el-button type="primary" class="middle-add" @click="addUser"
+              >新增用户
+            </el-button>
+
+            <el-button type="primary" class="top-exPort" @click="exPort"
+              >导出
+            </el-button>
+          </el-form-item>
+        </el-row>
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table">
+    <div class="table" style="margin-top: 20px">
       <el-table
-          :row-class-name="tableRowClassName"
-          :data="tableData"
-          :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-          :cell-style="{ 'text-align': 'center' }">
-        <el-table-column
-            fixed
-            prop="userAccount"
-            label="用户账号">
+        :row-class-name="tableRowClassName"
+        :data="tableData"
+        :header-cell-style="{
+          'text-align': 'center',
+          background: '#24314A',
+          color: '#FFF',
+          border: 'none',
+          padding: 'none',
+          fontSize: '12px',
+          fontWeight: '100'
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+      >
+        <el-table-column fixed prop="userAccount" label="用户账号">
         </el-table-column>
-        <el-table-column
-            prop="name"
-            label="用户姓名">
-        </el-table-column>
-        <el-table-column
-            prop="phoneNumber"
-            label="手机号">
-        </el-table-column>
-        <el-table-column
-            prop="email"
-            label="邮箱">
-        </el-table-column>
-        <el-table-column
-            label="操作">
+        <el-table-column prop="name" label="用户姓名"> </el-table-column>
+        <el-table-column prop="phoneNumber" label="手机号"> </el-table-column>
+        <el-table-column prop="email" label="邮箱"> </el-table-column>
+        <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="check(scope.row)" type="text" size="small">查看</el-button>
-            <el-button @click="alter(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="del(scope.row)" type="text" size="small">删除</el-button>
-            <el-button @click="retPassword(scope.row)" type="text" size="small">密码重置</el-button>
+            <el-button @click="check(scope.row)" type="text" size="small"
+              >查看</el-button
+            >
+            <el-button @click="alter(scope.row)" type="text" size="small"
+              >修改</el-button
+            >
+            <el-button @click="del(scope.row)" type="text" size="small"
+              >删除</el-button
+            >
+            <el-button @click="retPassword(scope.row)" type="text" size="small"
+              >密码重置</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
       <!--分页条-->
       <el-pagination
-          @current-change="handleCurrentModify"
-          layout=" prev, pager, next,total, jumper"
-          :current-page="pageNum"
-          :page-size="pageSize"
-          :total="pageTotal">
+        @current-change="handleCurrentModify"
+        layout=" prev, pager, next,total, jumper"
+        :current-page="pageNum"
+        :page-size="pageSize"
+        :total="pageTotal"
+      >
       </el-pagination>
       <!--新增用户弹窗-->
       <el-dialog
-          title="新增用户"
-          :visible.sync="addListDialog"
-          width="70%"
-          overflow="hidden">
+        title="新增用户"
+        :visible.sync="addListDialog"
+        width="70%"
+        overflow="hidden"
+      >
         <!--                基本信息-->
         <div class="table-add">
-          <el-form :inline="true"
-                   ref="addUser"
-                   :model="addUserForm" class="demo-form-inline" label-position=right label-width="100px">
+          <el-form
+            :inline="true"
+            ref="addUser"
+            :model="addUserForm"
+            class="demo-form-inline"
+            label-position="right"
+            label-width="100px"
+          >
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
               <el-col :span="12">
                 <el-form-item label="用户账号:" label-width="150px">
-                  <el-input v-model="addUserForm.userAccount"/>
+                  <el-input v-model="addUserForm.userAccount" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="姓名:" label-width="150px">
-                  <el-input v-model="addUserForm.name"/>
+                  <el-input v-model="addUserForm.name" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -113,10 +137,15 @@
             <p style="font-size: 20px">选择角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange">
-                  <el-checkbox v-for="(item, index) in roleList"
-                               :label="item.roleId"
-                               :key="index">{{ item.roleName }}
+                <el-checkbox-group
+                  v-model="checkRoles"
+                  @change="handleCheckRolesChange"
+                >
+                  <el-checkbox
+                    v-for="(item, index) in roleList"
+                    :label="item.roleId"
+                    :key="index"
+                    >{{ item.roleName }}
                   </el-checkbox>
                 </el-checkbox-group>
               </el-col>
@@ -135,31 +164,36 @@
         <!--          </el-form>-->
         <!--        </div>-->
         <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
-                    <el-button @click="addListDialog = false">取 消</el-button>
-                </span>
+          <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
+          <el-button @click="addListDialog = false">取 消</el-button>
+        </span>
       </el-dialog>
       <!--查看用户弹窗-->
       <el-dialog
-          title="查看"
-          :visible.sync="selectListDialog"
-          width="70%"
-          top="8vh"
+        title="查看"
+        :visible.sync="selectListDialog"
+        width="70%"
+        top="8vh"
       >
         <!-- 基础信息表单-->
         <div class="table-basic">
-          <el-form :inline="true"
-                   v-model="showForm" class="demo-form-inline" label-position=right label-width="100px">
+          <el-form
+            :inline="true"
+            v-model="showForm"
+            class="demo-form-inline"
+            label-position="right"
+            label-width="100px"
+          >
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
               <el-col :span="12">
                 <el-form-item label="用户账号:" label-width="150px">
-                  <el-input v-model="showForm.userAccount" disabled/>
+                  <el-input v-model="showForm.userAccount" disabled />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="姓名:" label-width="150px">
-                  <el-input v-model="showForm.name" disabled/>
+                  <el-input v-model="showForm.name" disabled />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -171,7 +205,7 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="邮箱:" label-width="150px">
-                  <el-input v-model="showForm.email" disabled/>
+                  <el-input v-model="showForm.email" disabled />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -179,14 +213,25 @@
         </div>
         <!--归属角色-->
         <div class="table-belong">
-          <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+          <el-form
+            :inline="true"
+            class="demo-form-inline"
+            label-position="right"
+            label-width="100px"
+          >
             <p style="font-size: 20px">归属角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange" disabled>
-                  <el-checkbox v-for="(item, index) in roleList"
-                               :label="item.roleId"
-                               :key="index">{{ item.roleName }}
+                <el-checkbox-group
+                  v-model="checkRoles"
+                  @change="handleCheckRolesChange"
+                  disabled
+                >
+                  <el-checkbox
+                    v-for="(item, index) in roleList"
+                    :label="item.roleId"
+                    :key="index"
+                    >{{ item.roleName }}
                   </el-checkbox>
                 </el-checkbox-group>
               </el-col>
@@ -195,7 +240,12 @@
         </div>
         <!--赋予的权限-->
         <div class="table-give">
-          <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+          <el-form
+            :inline="true"
+            class="demo-form-inline"
+            label-position="right"
+            label-width="100px"
+          >
             <div style="font-size: 20px">赋予的权限</div>
             <!--                                功能权限-->
             <div class="table-function">功能权限</div>
@@ -203,13 +253,13 @@
               <el-row class="table-function-scr">
                 <el-scrollbar style="height: 100%">
                   <el-tree
-                      :data="treeData"
-                      show-checkbox
-                      node-key="id"
-                      ref="treeList"
-                      :default-expanded-keys="[2, 3]"
-                      :default-checked-keys="[5]"
-                      @check-change="checkChange"
+                    :data="treeData"
+                    show-checkbox
+                    node-key="id"
+                    ref="treeList"
+                    :default-expanded-keys="[2, 3]"
+                    :default-checked-keys="[5]"
+                    @check-change="checkChange"
                   >
                   </el-tree>
                 </el-scrollbar>
@@ -218,29 +268,35 @@
           </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
-                    <el-button @click="selectListDialog = false">返回</el-button>
-                </span>
+          <el-button @click="selectListDialog = false">返回</el-button>
+        </span>
       </el-dialog>
       <!--            修改弹框-->
       <el-dialog
-          title="修改"
-          :visible.sync="modFormDialog"
-          width="70%"
-          overflow="hidden">
+        title="修改"
+        :visible.sync="modFormDialog"
+        width="70%"
+        overflow="hidden"
+      >
         <!--基本信息-->
         <div class="table-mod">
-          <el-form :inline="true" class="demo-form-inline"
-                   v-model="modForm" label-position=right label-width="100px">
+          <el-form
+            :inline="true"
+            class="demo-form-inline"
+            v-model="modForm"
+            label-position="right"
+            label-width="100px"
+          >
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
               <el-col :span="12">
                 <el-form-item label="用户账号:" label-width="150px">
-                  <el-input v-model="modForm.userAccount"/>
+                  <el-input v-model="modForm.userAccount" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="姓名:" label-width="150px">
-                  <el-input v-model="modForm.name"/>
+                  <el-input v-model="modForm.name" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -259,15 +315,25 @@
           </el-form>
         </div>
         <!--选择角色-->
-        <el-form :inline="true" class="demo-form-inline" label-position=right label-width="100px">
+        <el-form
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
+        >
           <div class="table-mod-sel">
             <p style="font-size: 20px">选择角色</p>
             <el-row>
               <el-col>
-                <el-checkbox-group v-model="checkRoles" @change="handleCheckRolesChange">
-                  <el-checkbox v-for="(item, index) in roleList"
-                               :label="item.roleId"
-                               :key="index">{{ item.roleName }}
+                <el-checkbox-group
+                  v-model="checkRoles"
+                  @change="handleCheckRolesChange"
+                >
+                  <el-checkbox
+                    v-for="(item, index) in roleList"
+                    :label="item.roleId"
+                    :key="index"
+                    >{{ item.roleName }}
                   </el-checkbox>
                 </el-checkbox-group>
               </el-col>
@@ -275,33 +341,37 @@
           </div>
         </el-form>
         <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitMod()">确 定</el-button>
-                    <el-button @click="modFormDialog = false">取 消</el-button>
+          <el-button type="primary" @click="onSubmitMod()">确 定</el-button>
+          <el-button @click="modFormDialog = false">取 消</el-button>
         </span>
       </el-dialog>
       <!--删除弹窗-->
       <el-dialog
-          title="提示信息"
-          :visible.sync="delListDialog"
-          top="30vh"
-          width="20%">
+        title="提示信息"
+        :visible.sync="delListDialog"
+        top="30vh"
+        width="20%"
+      >
         <span style="margin-left:25%;font-size: 20px ">你确定要删除吗？</span>
         <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitDel()">确 定</el-button>
-                    <el-button @click="delListDialog = false">取 消</el-button>
-                    </span>
+          <el-button type="primary" @click="onSubmitDel()">确 定</el-button>
+          <el-button @click="delListDialog = false">取 消</el-button>
+        </span>
       </el-dialog>
       <!--            密码重置弹框-->
       <el-dialog
-          title="提示信息"
-          :visible.sync="retListDialog"
-          top="30vh"
-          width="20%">
-        <span style="margin-left:25%;font-size: 20px ">你确定要重置密码吗？</span>
+        title="提示信息"
+        :visible.sync="retListDialog"
+        top="30vh"
+        width="20%"
+      >
+        <span style="margin-left:25%;font-size: 20px "
+          >你确定要重置密码吗？</span
+        >
         <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="onSubmitRet()">确 定</el-button>
-                    <el-button @click="retListDialog = false">取 消</el-button>
-                    </span>
+          <el-button type="primary" @click="onSubmitRet()">确 定</el-button>
+          <el-button @click="retListDialog = false">取 消</el-button>
+        </span>
       </el-dialog>
     </div>
   </div>
@@ -314,6 +384,8 @@ export default {
       pageNum: 1,
       pageSize: 10,
       pageTotal: 2,
+      //顶部查询条件
+      upQueryList: {},
       //用户账号
       userAccount: "",
       //用户密码
@@ -337,54 +409,56 @@ export default {
       //树形下拉获取数据暂存
       treeList: [],
       //查看按钮中的树形下拉
-      treeData: [{
-        id: 1,
-        label: '溧水经济开发区管委会智慧停车管理平台',
-        children: [
-          {
-            id: 11,
-            label: '首页',
-          },
-          {
-            id: 12,
-            label: '报表分析',
-            children: [
-              {
-                id: 21,
-                label: '停车场运营指标分析',
-              },
-              {
-                id: 22,
-                label: '停车场运营收入分析',
-              },
-              {
-                id: 23,
-                label: '运营日报/月报',
-              },
-              {
-                id: 24,
-                label: '支付台账统计',
-              }
-            ]
-          },
-          {
-            id: 13,
-            label: '订单管理',
-          },
-          {
-            id: 14,
-            label: '基础信息管理',
-          },
-          {
-            id: 15,
-            label: '授权管理',
-          }
-        ]
-      }],
+      treeData: [
+        {
+          id: 1,
+          label: "溧水经济开发区管委会智慧停车管理平台",
+          children: [
+            {
+              id: 11,
+              label: "首页"
+            },
+            {
+              id: 12,
+              label: "报表分析",
+              children: [
+                {
+                  id: 21,
+                  label: "停车场运营指标分析"
+                },
+                {
+                  id: 22,
+                  label: "停车场运营收入分析"
+                },
+                {
+                  id: 23,
+                  label: "运营日报/月报"
+                },
+                {
+                  id: 24,
+                  label: "支付台账统计"
+                }
+              ]
+            },
+            {
+              id: 13,
+              label: "订单管理"
+            },
+            {
+              id: 14,
+              label: "基础信息管理"
+            },
+            {
+              id: 15,
+              label: "授权管理"
+            }
+          ]
+        }
+      ],
       //查看按钮中的树形下拉
       defaultProps: {
-        children: 'children',
-        label: 'label'
+        children: "children",
+        label: "label"
       },
       //修改数据暂存
       modForm: {},
@@ -397,20 +471,24 @@ export default {
       //角色多选暂存
       checkRoles: [],
       //角色暂存id
-      roleIdList: [],
-    }
+      roleIdList: []
+    };
   },
   mounted() {
     this.select();
     this.queryRoleListByUser();
   },
   methods: {
+    //查询重置按钮
+    resetQuery() {
+      this.upQueryList = {};
+    },
     //上边按钮查询功能
     select() {
       this.tableData = [];
       const param = {
-        userAccount: this.userAccount,
-        name: this.name,
+        userAccount: this.upQueryList.userAccount,
+        name: this.upQueryList.name,
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
@@ -428,7 +506,7 @@ export default {
       this.$systemUser.queryRoleListByUser(param).then(res => {
         this.roleList = res.data.dataList;
         console.log("角色列表", this.roleList);
-      })
+      });
     },
     //拿到角色数据多选数据
     handleCheckRolesChange(val) {
@@ -438,11 +516,11 @@ export default {
       //   this.roleIdList.push(item.roleId);
       // })
       console.log("角色暂存id", this.roleIdList);
-      console.log("checkbox数据", this.checkRoles)
+      console.log("checkbox数据", this.checkRoles);
     },
     //上边部分按钮导出功能
     exPort() {
-      console.log('export');
+      console.log("export");
     },
     //分页方法
     handleCurrentModify(val) {
@@ -453,7 +531,7 @@ export default {
     addUser() {
       this.addListDialog = true;
       this.checkRoles = [];
-      console.log('新增');
+      console.log("新增");
     },
     //新增用户确认提交
     onSubmitAdd() {
@@ -468,14 +546,13 @@ export default {
       this.$systemUser.addUser(param).then(res => {
         console.log("打印新增的数据", res);
         this.select();
-      })
+      });
       this.addListDialog = false;
     },
     //表格操作中的查看方法
     //查看用户弹窗
     check(row) {
-      this.checkRoles = [],
-          this.showForm = row;
+      (this.checkRoles = []), (this.showForm = row);
       const param = {
         userId: row.userId
       };
@@ -483,11 +560,11 @@ export default {
       this.$systemUser.queryRoleListByUser(param).then(res => {
         res.data.dataList.forEach(item => {
           if (item.permission == true) {
-            this.checkRoles.push(item.roleId)
+            this.checkRoles.push(item.roleId);
           }
         });
-        console.log("打印存储的id", this.checkRoles)
-      })
+        console.log("打印存储的id", this.checkRoles);
+      });
       this.selectListDialog = true;
       console.log(row);
     },
@@ -500,11 +577,11 @@ export default {
       this.$systemUser.queryRoleListByUser(param).then(res => {
         res.data.dataList.forEach(item => {
           if (item.permission == true) {
-            this.checkRoles.push(item.roleId)
+            this.checkRoles.push(item.roleId);
           }
         });
-        console.log("打印存储的id", this.checkRoles)
-      })
+        console.log("打印存储的id", this.checkRoles);
+      });
       this.modForm = row;
       this.modFormDialog = true;
       console.log(row);
@@ -518,10 +595,10 @@ export default {
         name: this.modForm.name,
         userAccount: this.modForm.userAccount,
         roleId: this.checkRoles
-      }
+      };
       this.$systemUser.updateUser(param).then(() => {
-        this.$message({type: "success", message: "修改成功!"});
-        this.select()
+        this.$message({ type: "success", message: "修改成功!" });
+        this.select();
       });
       this.modFormDialog = false;
     },
@@ -532,23 +609,22 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            //   this.delListDialog = true;
-            const param = {
-              userId: [row.userId]
-            };
-            this.delList.push(param);
-            this.$systemUser.deleteUser(param);
-            //this.delListDialog = false;
-            this.select();
-          }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      })
+        .then(() => {
+          //   this.delListDialog = true;
+          const param = {
+            userId: [row.userId]
+          };
+          this.delList.push(param);
+          this.$systemUser.deleteUser(param);
+          //this.delListDialog = false;
+          this.select();
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //表格操作中的删除方法
-    onSubmitDel() {
-      ;
-    },
+    onSubmitDel() {},
     //表格操作中密码重置方法
     retPassword(row) {
       this.retListDialog = true;
@@ -564,22 +640,22 @@ export default {
     },
     //树形下拉获取参数
     checkChange(data1, data2, data3) {
-      console.log(data1)
-      console.log(data2)
-      console.log(data3)
+      console.log(data1);
+      console.log(data2);
+      console.log(data3);
       console.log("获取树形下拉参数", this.treeList);
     },
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
-        return 'successRow11';
+        return "successRow11";
       } else if (rowIndex % 2 == 0) {
-        return 'successSecond';
+        return "successSecond";
       }
-      return '';
-    },
+      return "";
+    }
   }
-}
+};
 </script>
 <style scoped>
 .about {
@@ -591,7 +667,7 @@ export default {
 /* 上半部分输入框查询导出 */
 .top {
   width: 100%;
-  height: 7.5%;
+  height: 15%;
   float: left;
   /*background-color: rebeccapurple;*/
 }
@@ -630,7 +706,7 @@ export default {
 /*分页*/
 .el-pagination {
   position: relative;
-  left: 78%
+  left: 78%;
 }
 
 /*新增弹窗样式*/
@@ -640,14 +716,14 @@ export default {
 
 /*选择角色*/
 .table .table-sel {
-  margin-top: 10px
+  margin-top: 10px;
 }
 
 /*选择角色第一行*/
 .table .table-sel .table-sel-1 {
   margin-left: 5%;
   display: flex;
-  justify-content: space-around
+  justify-content: space-around;
 }
 
 /*用户查看弹出样式*/
@@ -657,14 +733,14 @@ export default {
 
 /*归属角色*/
 .table-belong {
-  margin-top: 10px
+  margin-top: 10px;
 }
 
 /*归属角色选择*/
 .table-belong-1 {
   width: 100%;
   margin-bottom: 10px;
-  margin-left: 5%
+  margin-left: 5%;
 }
 
 .table-give {
@@ -676,20 +752,20 @@ export default {
   font-size: 18px;
   margin-left: 5%;
   background-color: #007aff;
-  width: 85px
+  width: 85px;
 }
 
 .table-function-1 {
   width: 90%;
   margin-left: 5%;
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .table-function-scr {
   font-fsize: 20px;
   margin-bottom: 10px;
   margin-left: 5%;
-  height: 25vh
+  height: 25vh;
 }
 
 /*查询下拉横轴滚动条隐藏*/

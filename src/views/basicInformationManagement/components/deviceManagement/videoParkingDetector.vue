@@ -11,39 +11,43 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" class="demo-form-inline">
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="停车场：">
-              <el-select v-model="queryParkId" placeholder="请选择停车场">
-                <el-option
-                    v-for="(item, index) in parkingLotList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="设备状态">
-              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option
-                    v-for="(item, index) in eqStatusList"
-                    :label="item.eqStatus"
-                    :value="item.eqStatus"
-                    :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-button type="primary" @click="queryPkLot()">查 询</el-button>
-            <el-button type="primary" @click="addNewVideoParking()">新增视频车位检测器</el-button>
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form-item label="停车场：">
+          <el-select
+            v-model="upQueryList.queryParkId"
+            placeholder="请选择停车场"
+          >
+            <el-option
+              v-for="(item, index) in parkingLotList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <!--            <el-form-item label="设备状态">-->
+        <!--              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
+        <!--                <el-option-->
+        <!--                    v-for="(item, index) in eqStatusList"-->
+        <!--                    :label="item.eqStatus"-->
+        <!--                    :value="item.eqStatus"-->
+        <!--                    :key="index"-->
+        <!--                ></el-option>-->
+        <!--              </el-select>-->
+        <!--            </el-form-item>-->
+        <el-form-item>
+          <el-button type="primary" @click="queryPkLot()">查 询</el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
+        </el-form-item>
+        <el-row style="height: 45px">
+          <el-form-item>
+            <el-button type="primary" @click="addNewVideoParking()"
+              >新增视频车位检测器</el-button
+            >
             <el-button type="primary" @click="exportExcel()">导出</el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="danger" @click="batchDelete()">批量删除</el-button>
-          </el-col>
+          </el-form-item>
         </el-row>
       </el-form>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
@@ -51,27 +55,29 @@
           <el-container>
             <el-header style="text-align: center">
               <el-upload
-                  class="upload-demo"
-                  ref="upload"
-                  enctype="multipart/form-data"
-                  action=""
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  :before-remove="beforeRemove"
-                  :http-request="uploadFile"
-                  multiple
-                  :limit="1"
-                  :on-exceed="handleExceed"
-                  :file-list="fileList">
-                <el-button type="primary" size="medium" @click=handlePreview()>导 入<i
-                    class="el-icon-upload el-icon--right"></i>
+                class="upload-demo"
+                ref="upload"
+                enctype="multipart/form-data"
+                action=""
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :before-remove="beforeRemove"
+                :http-request="uploadFile"
+                multiple
+                :limit="1"
+                :on-exceed="handleExceed"
+                :file-list="fileList"
+              >
+                <el-button type="primary" size="medium" @click="handlePreview()"
+                  >导 入<i class="el-icon-upload el-icon--right"></i>
                 </el-button>
                 <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>
               </el-upload>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
-                  class="el-icon-download el-icon--right"></i></el-button>
+              <el-button type="primary" size="medium" @click="downModel()"
+                >下载模版<i class="el-icon-download el-icon--right"></i
+              ></el-button>
             </el-main>
           </el-container>
         </el-form>
@@ -82,12 +88,12 @@
       </el-dialog>
     </div>
     <!--下半部分列表-->
-    <div class="down" style="padding-top: 20px;">
+    <div class="down">
       <el-table
-          :row-class-name="tableRowClassName"
-          :data="videoList"
-          ref="selectVideoList"
-          :header-cell-style="{
+        :row-class-name="tableRowClassName"
+        :data="videoList"
+        ref="selectVideoList"
+        :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -96,97 +102,95 @@
           fontSize: '12px',
           fontWeight: '100'
         }"
-          :cell-style="{ 'text-align': 'center' }"
-          style="width: 100%;"
-          @selection-change="handleSelectionChange"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+        @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection"/>
-        <el-table-column fixed prop="parkId" label="停车场编号"/>
+        <el-table-column type="selection" />
+        <!--        <el-table-column fixed prop="parkId" label="停车场编号"/>-->
         <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
+        />
+        <!--        <el-table-column-->
+        <!--            prop="videoDetecterId"-->
+        <!--            :show-overflow-tooltip="true"-->
+        <!--            label="视频车位检测器编号"-->
+        <!--        />-->
+        <el-table-column
+          prop="videoDetecterName"
+          :show-overflow-tooltip="true"
+          label="视频车位检测器名称"
         />
         <el-table-column
-            prop="videoDetecterId"
-            :show-overflow-tooltip="true"
-            label="视频车位检测器编号"
+          prop="videoDetecterMntrTypeName"
+          :show-overflow-tooltip="true"
+          label="监控类型"
         />
         <el-table-column
-            prop="videoDetecterName"
-            :show-overflow-tooltip="true"
-            label="视频车位检测器名称"
+          prop="ipAddress"
+          :show-overflow-tooltip="true"
+          label="IP地址"
         />
         <el-table-column
-            prop="videoDetecterMntrTypeName"
-            :show-overflow-tooltip="true"
-            label="监控类型"
+          prop="portNumber"
+          :show-overflow-tooltip="true"
+          label="端口"
         />
         <el-table-column
-            prop="ipAddress"
-            :show-overflow-tooltip="true"
-            label="IP地址"
+          prop="userName"
+          :show-overflow-tooltip="true"
+          label="用户名"
         />
         <el-table-column
-            prop="portNumber"
-            :show-overflow-tooltip="true"
-            label="端口"
+          prop="address"
+          :show-overflow-tooltip="true"
+          label="地址"
         />
         <el-table-column
-            prop="userName"
-            :show-overflow-tooltip="true"
-            label="用户名"
-        />
-        <el-table-column
-            prop="address"
-            :show-overflow-tooltip="true"
-            label="地址"
-        />
-        <el-table-column
-            prop="manufacturer"
-            :show-overflow-tooltip="true"
-            label="制造商"
+          prop="manufacturer"
+          :show-overflow-tooltip="true"
+          label="制造商"
         />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-                @click="editVideoDialog(scope.row)"
-                type="text"
-                size="small"
-            >修改
-            </el-button
-            >
+              @click="editVideoDialog(scope.row)"
+              type="text"
+              size="small"
+              >修改
+            </el-button>
             <el-button
-                @click="deleteVideoParking(scope.row)"
-                type="text"
-                size="small"
-            >删除
-            </el-button
-            >
+              @click="deleteVideoParking(scope.row)"
+              type="text"
+              size="small"
+              >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
-          style="position: relative;right:-60%;margin-top:20px;"
-          background
-          layout="total, prev, pager, next, jumper"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-          :page-size="pageSize"
+        style="position: relative;right:-60%;margin-top:20px;"
+        background
+        layout="total, prev, pager, next, jumper"
+        @current-change="handleCurrentModify"
+        :current-page="pageNum"
+        :total="pageTotal"
+        :page-size="pageSize"
       >
       </el-pagination>
       <!--新增表单弹框-->
       <el-dialog
-          id="add"
-          title="新增视频车位检测器"
-          :visible.sync="addListDialog"
+        id="add"
+        title="新增视频车位检测器"
+        :visible.sync="addListDialog"
       >
         <el-form
-            :inline="true"
-            class="demo-form-inline"
-            label-position="right"
-            label-width="100px"
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
@@ -194,10 +198,10 @@
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="newVideo.parkId" placeholder="请选择">
                   <el-option
-                      v-for="(item, index) in parkingLotList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -205,14 +209,14 @@
           </el-row>
           <div style="font-size: 20px">检测器信息</div>
           <el-row style="padding-top: 20px">
-            <el-col :span="12">
-              <el-form-item label="视频车位检测器编号:" label-width="150px">
-                <el-input v-model="newVideo.videoDetecterId"/>
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="12">-->
+            <!--              <el-form-item label="视频车位检测器编号:" label-width="150px">-->
+            <!--                <el-input v-model="newVideo.videoDetecterId"/>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
             <el-col :span="12">
               <el-form-item label="视频车位检测器名称:" label-width="150px">
-                <el-input v-model="newVideo.videoDetecterName"/>
+                <el-input v-model="newVideo.videoDetecterName" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -220,14 +224,14 @@
             <el-col :span="12">
               <el-form-item label="监控类型:" label-width="150px">
                 <el-select
-                    v-model="newVideo.videoDetecterMntrTypeCode"
-                    placeholder="请选择"
+                  v-model="newVideo.videoDetecterMntrTypeCode"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in monitoringTypeList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in monitoringTypeList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -272,15 +276,15 @@
       </el-dialog>
       <!--修改表单弹框-->
       <el-dialog
-          id="edit"
-          title="修改视频车位检测器"
-          :visible.sync="editListDialog"
+        id="edit"
+        title="修改视频车位检测器"
+        :visible.sync="editListDialog"
       >
         <el-form
-            :inline="true"
-            class="demo-form-inline"
-            label-position="right"
-            label-width="100px"
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
@@ -288,10 +292,10 @@
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select v-model="editVideo.parkId" placeholder="请选择">
                   <el-option
-                      v-for="(item, index) in parkingLotList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -301,12 +305,12 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="视频车位检测器编号:" label-width="150px">
-                <el-input v-model="editVideo.videoDetecterId"/>
+                <el-input v-model="editVideo.videoDetecterId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="视频车位检测器名称:" label-width="150px">
-                <el-input v-model="editVideo.videoDetecterName"/>
+                <el-input v-model="editVideo.videoDetecterName" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -314,14 +318,14 @@
             <el-col :span="12">
               <el-form-item label="监控类型:" label-width="150px">
                 <el-select
-                    v-model="editVideo.videoDetecterMntrTypeCode"
-                    placeholder="请选择"
+                  v-model="editVideo.videoDetecterMntrTypeCode"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in monitoringTypeList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in monitoringTypeList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -371,6 +375,8 @@
 export default {
   data() {
     return {
+      //按钮查询数据绑定
+      upQueryList: [],
       // 查询数据暂存处
       queryParkId: "",
       // 停车场下拉框数据暂存
@@ -419,6 +425,10 @@ export default {
     };
   },
   methods: {
+    //查询重置按钮
+    resetQuery() {
+      this.upQueryList = {};
+    },
     // 查询停车场下拉表单
     queryParking() {
       var that = this;
@@ -465,7 +475,7 @@ export default {
         console.log("查询打印", res);
         this.videoList = res.data.dataList;
         console.log("查询列表信息", this.videoList);
-      })
+      });
     },
     //新增视频车
     addNewVideoParking() {
@@ -497,11 +507,33 @@ export default {
     exportExcel() {
       var date = new Date();
       var fileName = "视频车位检测器";
-      var adcColumnTitleArry = ['停车场编号', '停车场名称', '视频车位检测器编号', '视频车位检测器名称', '监控类型', 'IP地址', '端口', '用户名', '地址', '制造商'];
+      var adcColumnTitleArry = [
+        "停车场编号",
+        "停车场名称",
+        "视频车位检测器编号",
+        "视频车位检测器名称",
+        "监控类型",
+        "IP地址",
+        "端口",
+        "用户名",
+        "地址",
+        "制造商"
+      ];
 
       var param = {
         column_zh: adcColumnTitleArry,
-        column_en: ["parkId", "parkName", "videoDetecterId", "videoDetecterName", "videoDetecterMntrTypeName", "ipAddress", "portNumber", "userName", "address", "manufacturer"],
+        column_en: [
+          "parkId",
+          "parkName",
+          "videoDetecterId",
+          "videoDetecterName",
+          "videoDetecterMntrTypeName",
+          "ipAddress",
+          "portNumber",
+          "userName",
+          "address",
+          "manufacturer"
+        ],
         fileName: fileName + date.toLocaleString(),
         cityCode: this.city,
         districtCode: this.county,
@@ -511,9 +543,9 @@ export default {
       };
       this.$deviceManagement.exportVideoDetecter(param).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
         aLink.href = URL.createObjectURL(blob);
-        aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
+        aLink.setAttribute("download", param.fileName + ".xlsx"); // 设置下载文件名称
         aLink.click();
       });
     },
@@ -537,15 +569,16 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$deviceManagement.delVideoDetecter(this.idList).then(res => {
-                console.log("批量删除成功", res)
-              })
-              this.$message({type: "success", message: "删除成功!"});
-              this.queryVideoDetecter();
-            }).catch(() => {
-          this.$message({type: "info", message: "已取消删除"});
-        });
+          .then(() => {
+            this.$deviceManagement.delVideoDetecter(this.idList).then(res => {
+              console.log("批量删除成功", res);
+            });
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryVideoDetecter();
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //修改
@@ -554,7 +587,7 @@ export default {
       this.editListDialog = true;
       console.log("修改弹窗弹出");
       this.oldParkId = row.parkId;
-      this.oldvideoDetecterId = row.videoDetecterId
+      this.oldvideoDetecterId = row.videoDetecterId;
     },
     //删除
     deleteVideoParking(row) {
@@ -562,23 +595,26 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {
-        console.log("你要删除的id是", row.videoDetecterId)
-        this.idList = [];
-        this.idList.push(row.videoDetecterId);
-        const param = [
-          {
-            videoDetecterId: row.videoDetecterId,
-            parkId: row.parkId
-          }];
-        this.$deviceManagement.delVideoDetecter(param).then(res => {
-          console.log("删除成功", res);
+      })
+        .then(() => {
+          console.log("你要删除的id是", row.videoDetecterId);
+          this.idList = [];
+          this.idList.push(row.videoDetecterId);
+          const param = [
+            {
+              videoDetecterId: row.videoDetecterId,
+              parkId: row.parkId
+            }
+          ];
+          this.$deviceManagement.delVideoDetecter(param).then(res => {
+            console.log("删除成功", res);
+          });
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryVideoDetecter();
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
         });
-        this.$message({type: "success", message: "删除成功!"});
-        this.queryVideoDetecter();
-      }).catch(() => {
-        this.$message({type: "info", message: "已取消删除"});
-      });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -586,7 +622,7 @@ export default {
       this.$deviceManagement.addVideoDetecter(this.newVideo).then(res => {
         console.log("打印新增响应数据", res);
       });
-      this.$message({type: "success", message: "添加成功!"});
+      this.$message({ type: "success", message: "添加成功!" });
       this.queryVideoDetecter();
       this.addListDialog = false;
     },
@@ -609,7 +645,7 @@ export default {
       this.$deviceManagement.updateVideoDetecter(param).then(res => {
         console.log("打印修改传入数据", res);
       });
-      this.$message({type: "success", message: "修改成功!"});
+      this.$message({ type: "success", message: "修改成功!" });
       this.queryVideoDetecter();
       this.editListDialog = false;
     },
@@ -632,7 +668,7 @@ export default {
       const param = "视频车位检测器.xls";
       let reqInfo = {
         template: param
-      }
+      };
       /*      let reqInfo = {
               template: param,//对象转json
             }
@@ -651,9 +687,9 @@ export default {
             })*/
       this.$homePage.downloadResource(reqInfo).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
         aLink.href = URL.createObjectURL(blob);
-        aLink.setAttribute('download', "视频车位检测器" + '.xls'); // 设置下载文件名称
+        aLink.setAttribute("download", "视频车位检测器" + ".xls"); // 设置下载文件名称
         aLink.click();
         document.body.appendChild(aLink);
         this.$refs.loadElement.appendChild(aLink);
@@ -663,37 +699,49 @@ export default {
     // 自定义上传 导入数据
     uploadFile(item) {
       const form = new FormData();
-      const columnEn = ["videoDetecterId", "videoDetecterName", "parkId", "videoDetecterMntrTypeCode", "ipAddress", "portNumber", "userName", "address", "manufacturer"];
+      const columnEn = [
+        "videoDetecterId",
+        "videoDetecterName",
+        "parkId",
+        "videoDetecterMntrTypeCode",
+        "ipAddress",
+        "portNumber",
+        "userName",
+        "address",
+        "manufacturer"
+      ];
       form.append("column_en", columnEn);
       //form.append('token', this.token);
-      form.append('file1', item.file);
-      this.$deviceManagement.batchInsertVideoDetecter(form).then(res => {
-        let data = res.data;
-        if (data.code == 200) {
-          this.$message({
-            type: 'success',
-            message: '导入成功!'
-          });
-          this.queryVideoDetecter(); //导入成功刷新列表
-          this.importDialog = false;
-        } else {
-          this.$message({
-            type: 'error',
-            message: data.msg
-          });
-        }
-      }).catch(err => {
-      })
+      form.append("file1", item.file);
+      this.$deviceManagement
+        .batchInsertVideoDetecter(form)
+        .then(res => {
+          let data = res.data;
+          if (data.code == 200) {
+            this.$message({
+              type: "success",
+              message: "导入成功!"
+            });
+            this.queryVideoDetecter(); //导入成功刷新列表
+            this.importDialog = false;
+          } else {
+            this.$message({
+              type: "error",
+              message: data.msg
+            });
+          }
+        })
+        .catch(err => {});
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
-        return 'successRow11';
+        return "successRow11";
       } else if (rowIndex % 2 == 0) {
-        return 'successSecond';
+        return "successSecond";
       }
-      return '';
-    },
+      return "";
+    }
   },
   mounted() {
     this.queryParking();
@@ -720,8 +768,10 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
   padding-left: 2%;
+}
+.demo-form-inline-two {
+  height: 45px;
 }
 
 /* 下班部分列表部分 */

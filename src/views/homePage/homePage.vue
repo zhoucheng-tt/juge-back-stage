@@ -19,58 +19,83 @@
             <div class="img-top-left"></div>
             <div class="img-top-mid"></div>
             <div class="img-top-right"></div>
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">支付方式</span>
           </div>
           <!-- 支付方式图表   -->
           <div class="leftChartCenter" id="paymentIncomeAnalysis">
             <!-- 支付收入分析 -->
-            <Xchart id="paymentIncomeAnalysis" :option="paymentIncomeAnalysisPie"></Xchart>
+            <Xchart
+              id="paymentIncomeAnalysis"
+              :option="paymentIncomeAnalysisPie"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
         </div>
         <!-- 总停车数量 totalNumberParking-->
         <div class="leftCharts">
           <div class="leftChartUp">
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">
-                            总停车数量
-                        </span>
+              总停车数量
+            </span>
             <span style="color: rgba(8,246,228,1);margin-left: 2%">
-              {{ this.numberOfParkingTotal }} 辆
+              {{ numberOfParkingTotal }} 辆
             </span>
           </div>
           <!-- 总停车数量   -->
           <div class="leftChartCenter" id="numberOfParking">
-            <Xchart id="numberOfParking" :option="numberOfParkingOptions"></Xchart>
+            <Xchart
+              id="numberOfParking"
+              :option="numberOfParkingOptions"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
         </div>
         <!-- 平均停车时长 averageParkingTime-->
         <div class="leftCharts">
           <div class="leftChartUp">
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">平均停车时长</span>
             <span style="color: rgba(8,246,228,1);margin-left: 2%">
-              {{ this.averageParkingTimeTotal }} 分钟
+              {{ averageParkingTimeTotal }} 分钟
             </span>
           </div>
           <!-- 平均停车时长   -->
           <div class="leftChartCenter" id="averageParkingTime">
-            <Xchart id="averageParkingTime" :option="averageParkingTimeOptions"></Xchart>
+            <Xchart
+              id="averageParkingTime"
+              :option="averageParkingTimeOptions"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
         </div>
         <!-- 充电桩收入按月分析 chargingPileRevenue-->
         <div class="leftCharts">
           <div class="leftChartUp">
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">充电桩收入按月分析</span>
           </div>
           <!-- 充电桩收入按月分析   -->
@@ -78,7 +103,7 @@
             <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
           <div class="img-bottom-left"></div>
           <div class="img-bottom-right"></div>
@@ -89,65 +114,97 @@
     <div class="center">
       <div class="centerUp">
         <div class="leftUpContentSwitch">
-          <div class="leftUpContentSwitch1"
-               :class="classStrust1 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="today()">
+          <div
+            class="leftUpContentSwitch1"
+            :class="
+              classStrust1 == 0
+                ? 'leftUpContentSwitch2'
+                : 'leftUpContentSwitch1'
+            "
+            @click="today()"
+          >
             <span class="leftUpContentSwitchSpan">今日</span>
           </div>
-          <div class="leftUpContentSwitch1"
-               :class="classStrust2 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="yesterday()">
+          <div
+            class="leftUpContentSwitch1"
+            :class="
+              classStrust2 == 0
+                ? 'leftUpContentSwitch2'
+                : 'leftUpContentSwitch1'
+            "
+            @click="yesterday()"
+          >
             <span class="leftUpContentSwitchSpan">昨日</span>
           </div>
-          <div class="leftUpContentSwitch1"
-               :class="classStrust3 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="currentWeek()">
+          <div
+            class="leftUpContentSwitch1"
+            :class="
+              classStrust3 == 0
+                ? 'leftUpContentSwitch2'
+                : 'leftUpContentSwitch1'
+            "
+            @click="currentWeek()"
+          >
             <span class="leftUpContentSwitchSpan">本周</span>
           </div>
-          <div class="leftUpContentSwitch1"
-               :class="classStrust4 == 0 ? 'leftUpContentSwitch2' : 'leftUpContentSwitch1'" @click="currentMonth()">
+          <div
+            class="leftUpContentSwitch1"
+            :class="
+              classStrust4 == 0
+                ? 'leftUpContentSwitch2'
+                : 'leftUpContentSwitch1'
+            "
+            @click="currentMonth()"
+          >
             <span class="leftUpContentSwitchSpan">本月</span>
           </div>
         </div>
         <div class="leftUpContentNum">
-          <div class="leftUpContentNumContent" v-for="(item, index) in contentNumList" key="index">
+          <div
+            class="leftUpContentNumContent"
+            v-for="(item, index) in contentNumList"
+            key="index"
+          >
             <!-- 车位统计部分内部文字部分 -->
             <!--                        第一行-->
             <el-row style="display: flex;width: 600px">
               <el-row style="width: 200px">
                 <!--                                总收入-->
                 <el-row>
-                                    <span class="spanTop">
-                                        总收入（元）
-                                    </span>
+                  <span class="spanTop">
+                    总收入（元）
+                  </span>
                 </el-row>
                 <el-row>
-                                    <span class="spanTopNum" style="color:#08F6E4;">
-                                          {{ parseInt(item.totalIncome / 100) }}
-                                    </span>
+                  <span class="spanTopNum" style="color:#08F6E4;">
+                    {{ parseInt(item.totalIncome / 100) }}
+                  </span>
                 </el-row>
               </el-row>
               <el-row style="width: 200px">
                 <!--                                应收金额-->
                 <el-row>
-                                    <span class="spanTop">
-                                        应收金额（元）
-                                    </span>
+                  <span class="spanTop">
+                    应收金额（元）
+                  </span>
                 </el-row>
                 <el-row>
-                                    <span class="spanTopNum" style="color:#895EFC ">
-                                        {{ parseInt(item.receivableMoneyAmount / 100) }}
-                                    </span>
+                  <span class="spanTopNum" style="color:#895EFC ">
+                    {{ parseInt(item.receivableMoneyAmount / 100) }}
+                  </span>
                 </el-row>
               </el-row>
               <el-row style="width: 200px">
                 <!--                                欠收金额-->
                 <el-row>
-                                    <span class="spanTop">
-                                        欠收金额（元）
-                                    </span>
+                  <span class="spanTop">
+                    欠收金额（元）
+                  </span>
                 </el-row>
                 <el-row>
-                                    <span class="spanTopNum" style="color:#E9C503">
-                                      {{ parseInt(item.arrearageMoneyAmount / 100) }}
-                                    </span>
+                  <span class="spanTopNum" style="color:#E9C503">
+                    {{ parseInt(item.arrearageMoneyAmount / 100) }}
+                  </span>
                 </el-row>
               </el-row>
             </el-row>
@@ -157,73 +214,76 @@
                 <el-row style="width: 150px">
                   <!--                                空闲充电桩总数-->
                   <el-row>
-                                    <span class="spanMid">
-                                            空闲充电桩总数
-                                    </span>
+                    <span class="spanMid">
+                      空闲充电桩总数
+                    </span>
                   </el-row>
                   <el-row style="display: flex">
-                                    <span class="spanMidNum">
-<!--                                        {{item.totalRechargeLeft}}-->
-                                    111
-                                    </span>
-                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
+                    <span class="spanMidNum">
+                      <!--                                        {{item.totalRechargeLeft}}-->
+                      111
+                    </span>
+                    <div
+                      style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"
+                    ></div>
                   </el-row>
                 </el-row>
                 <el-row style="width: 150px">
                   <!--                                充电桩总收入-->
                   <el-row>
-                                      <span class="spanMid">
-                                         充电桩总收入
-                                    </span>
+                    <span class="spanMid">
+                      充电桩总收入
+                    </span>
                   </el-row>
                   <el-row style="display: flex">
-                                     <span class="spanMidNum">
-                                        {{ rechargeLeftIncome }}
-                                    </span>
-                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
+                    <span class="spanMidNum">
+                      {{ rechargeLeftIncome }}
+                    </span>
+                    <div
+                      style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"
+                    ></div>
                   </el-row>
                 </el-row>
                 <el-row style="width: 150px">
                   <!--                     空闲洗车位总数-->
                   <el-row>
-                                      <span class="spanMid">
-                                         空闲洗车位总数
-                                    </span>
+                    <span class="spanMid">
+                      空闲洗车位总数
+                    </span>
                   </el-row>
                   <el-row style="display: flex">
-                                     <span class="spanMidNum">
-<!--                                        {{item.totalWashCarPort}}-->
-                                         333
-                                    </span>
-                    <div style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"></div>
+                    <span class="spanMidNum">
+                      <!--                                        {{item.totalWashCarPort}}-->
+                      333
+                    </span>
+                    <div
+                      style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"
+                    ></div>
                   </el-row>
                 </el-row>
                 <el-row style="width: 150px">
-                  <!--                     洗车位收入-->
+                  <!--洗车位收入-->
                   <el-row>
-                                      <span class="spanMid">
-                                         洗车位收入
-                                    </span>
+                    <span class="spanMid">
+                      洗车位收入
+                    </span>
                   </el-row>
                   <el-row>
-                                     <span class="spanMidNum">
-                                         {{ washCarPortIncome }}
-                                    </span>
+                    <span class="spanMidNum">
+                      {{ washCarPortIncome }}
+                    </span>
                   </el-row>
                 </el-row>
               </el-row>
               <!--                    剩余车位数-->
               <el-row style="width: 150px;margin-left: 100px">
                 <el-row>
-                                    <span class="leftCarPlot">
-                                        剩余车位数
-                                    </span>
+                  <span class="leftCarPlot">剩余车位数</span>
                 </el-row>
                 <el-row class="leftCarPlotBorder">
-                                    <span class="leftCarPlotNum">
-<!--                                        {{item.leftPort}}-->
-                                        666666
-                                    </span>
+                  <el-row class="leftCarPlotNum">
+                    {{ leftPort }}
+                  </el-row>
                 </el-row>
               </el-row>
             </el-row>
@@ -231,8 +291,7 @@
         </div>
       </div>
       <!--            中间下半边的地图-->
-      <div class="centerDown" id="map">
-      </div>
+      <div class="centerDown" id="map"></div>
     </div>
     <!-- 右边数据 -->
     <div class="right">
@@ -244,56 +303,81 @@
             <div class="img-top-mid"></div>
             <div class="img-top-right"></div>
             <div>
-              <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+              <img
+                src="../../assets/homePage/fangkuai.svg"
+                class="leftChartUpImage"
+                alt=""
+              />
               <span class="spanStyle">停车场收入排行</span>
             </div>
           </div>
           <!-- 停车场收入排行   -->
           <div class="leftChartCenter" id="parkingRevenueRanking">
-            <Xchart id="parkingRevenueRanking" :option="parkingRevenueRankingChart"></Xchart>
+            <Xchart
+              id="parkingRevenueRanking"
+              :option="parkingRevenueRankingChart"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
         </div>
         <!-- 车位利用率 parkingSpaceUtilization-->
         <div class="leftCharts">
           <div class="leftChartUp">
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">车位利用率</span>
             <span style="color: rgba(8,246,228,1);margin-left: 2%">
-              {{ this.parkingSpaceUsedRateTotal }}
+              {{ parkingSpaceUsedRateTotal }}
             </span>
           </div>
           <!-- 车位利用率   -->
           <div class="leftChartCenter" id="parkingSpaceUtilization">
-            <Xchart id="parkingSpaceUtilization" :option="parkingSpaceUtilizationOptions"></Xchart>
+            <Xchart
+              id="parkingSpaceUtilization"
+              :option="parkingSpaceUtilizationOptions"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
         </div>
         <!-- 车位周转率 parkingSpaceTurnoverRate-->
         <div class="leftCharts">
           <div class="leftChartUp">
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">车位周转率</span>
             <span style="color: rgba(8,246,228,1);margin-left: 2%">
-              {{ this.parkingSpaceTurnoverRateTotal }}
+              {{ parkingSpaceTurnoverRateTotal }}
             </span>
           </div>
           <!-- 车位周转率   -->
           <div class="leftChartCenter" id="parkingSpaceTurnoverRate">
-            <Xchart id="parkingSpaceTurnoverRate" :option="parkingSpaceTurnoverRateOptions"></Xchart>
+            <Xchart
+              id="parkingSpaceTurnoverRate"
+              :option="parkingSpaceTurnoverRateOptions"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
         </div>
         <!-- 自助洗车收入按月分析 selfServiceCarWashing-->
         <div class="leftCharts">
           <div class="leftChartUp">
-            <img src="../../assets/homePage/fangkuai.svg" class="leftChartUpImage" alt="">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">自助洗车收入按月分析</span>
           </div>
           <!-- 自助洗车收入按月分析   -->
@@ -301,10 +385,13 @@
           <!--                        <Xchart id="selfServiceCarWashing" :option="selfServiceCarWashingLine"></Xchart>-->
           <!--                    </div>-->
           <div class="leftChartCenter" id="chargeAmountTimes">
-            <Xchart id="chargeAmountTimes" :option="chargeAmountTimesOptions"></Xchart>
+            <Xchart
+              id="chargeAmountTimes"
+              :option="chargeAmountTimesOptions"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="">
+            <img src="../../assets/homePage/juxing.svg" alt="" />
           </div>
           <div class="img-bottom-left"></div>
           <div class="img-bottom-right"></div>
@@ -328,10 +415,20 @@ export default {
   },
   data() {
     return {
+      //车位利用率图表数字
+      parkingSpaceUsedRateTotal: 0,
+      //车位周转率图表上的数字
+      parkingSpaceTurnoverRateTotal: 0,
+      //平均停车时长图表数字
+      averageParkingTimeTotal: 0,
+      //总停车数量图表数字
+      numberOfParkingTotal: 0,
       //中间部分洗车机总收入
       washCarPortIncome: 0,
       //中间部分充电桩总收入
       rechargeLeftIncome: 0,
+      //剩余车位数
+      leftPort: 0,
       // 控制默认展示样式
       classStrust1: 1,
       classStrust2: 0,
@@ -341,7 +438,7 @@ export default {
       contentNumList: [],
       //总停车数量传入参数存放
       newTypeParam: {
-        queryType: "today",
+        queryType: "today"
       },
       //总收入参数暂存存放
       oldTypeParam: {
@@ -352,21 +449,21 @@ export default {
         lng: 119.016937,
         lat: 31.706205
       },
-      map: '',
+      map: "",
       xlicon: require("../../assets/homePage/TCIcon.png"),
       // 动态绑定的停车折线图的id和option
-      lineId: '',
+      lineId: "",
       lineOptions: {},
       // 动态绑定标题
-      lineTitle: '',
+      lineTitle: "",
       // 图表类型
-      lineChartsType: '',
+      lineChartsType: "",
       // 暂存数据数组
       lineChartsList: [],
       // x轴坐标的信息
       lineChartsX: [],
       // serise中的那么数据
-      lineChartsName: '',
+      lineChartsName: "",
 
       // 停车总数量折线图
       numberOfParking: "",
@@ -377,7 +474,7 @@ export default {
       // numberOfParkingName: '停车总数量',
 
       // 平均停车时长
-      averageParkingTime: '',
+      averageParkingTime: "",
       averageParkingTimeOptions: {},
       // 图表数据
       averageParkingTimeData: [],
@@ -385,7 +482,7 @@ export default {
       // averageParkingTimeName: '平均停车时长',
 
       // 车位利用率
-      parkingSpaceUtilization: '',
+      parkingSpaceUtilization: "",
       parkingSpaceUtilizationOptions: {},
       // 图表数据
       parkingSpaceUtilizationData: [],
@@ -393,7 +490,7 @@ export default {
       // parkingSpaceUtilizationName: '车位利用率',
 
       // 车位周转率
-      parkingSpaceTurnoverRate: '',
+      parkingSpaceTurnoverRate: "",
       parkingSpaceTurnoverRateOptions: {},
       // 图表数据
       parkingSpaceTurnoverRateData: [],
@@ -411,12 +508,11 @@ export default {
       paymentIncomeAnalysisPie: {},
 
       // 充电桩收入
-      chargingPileRevenue: '',
+      chargingPileRevenue: "",
       chargingPileRevenueLine: {},
       // 自助洗车收入
-      selfServiceCarWashing: '',
+      selfServiceCarWashing: "",
       selfServiceCarWashingLine: {},
-
 
       //充电桩按月分析
       chargeEarnChartX: [],
@@ -424,11 +520,11 @@ export default {
       chargeEarnChart: {},
 
       // 收费金额按照时间段分析
-      chargeAmountTimes: '',
+      chargeAmountTimes: "",
       chargeAmountTimesX: [],
       chargeAmountTimesData: [],
-      chargeAmountTimesOptions: {},
-    }
+      chargeAmountTimesOptions: {}
+    };
   },
   mounted() {
     // 添加地图图标方式
@@ -439,18 +535,19 @@ export default {
     this.queryTest();
     //查询今天
     this.today();
-
+    //剩余车位数
+    this.queryParkMonitorParkSpace();
   },
   methods: {
     // 今日点击数据处理方法
     today() {
       //控制显示今天
-      this.classStrust1 = 1
-      this.classStrust2 = 0
-      this.classStrust3 = 0
-      this.classStrust4 = 0
-      this.oldTypeParam.statisType = "today"
-      this.newTypeParam.queryType = "today"
+      this.classStrust1 = 1;
+      this.classStrust2 = 0;
+      this.classStrust3 = 0;
+      this.classStrust4 = 0;
+      this.oldTypeParam.statisType = "today";
+      this.newTypeParam.queryType = "today";
       // 支付方式图表
       this.queryPaymentBehaviorAnalysis();
       // 总停车数量图表
@@ -474,18 +571,18 @@ export default {
       //中间充电桩总收入
       this.countChargeFee();
       //总停车数量图表上的数字
-      this.queryParkCount();
+      // this.queryParkCount();
       // 数据变动
       this.contentNumList = [];
     },
     // 昨日点击数据处理方法
     yesterday() {
-      this.classStrust1 = 0
-      this.classStrust2 = 1
-      this.classStrust3 = 0
-      this.classStrust4 = 0
-      this.oldTypeParam.statisType = "yesterday"
-      this.newTypeParam.queryType = "yesterday"
+      this.classStrust1 = 0;
+      this.classStrust2 = 1;
+      this.classStrust3 = 0;
+      this.classStrust4 = 0;
+      this.oldTypeParam.statisType = "yesterday";
+      this.newTypeParam.queryType = "yesterday";
 
       // 支付方式图表
       this.queryPaymentBehaviorAnalysis();
@@ -510,18 +607,18 @@ export default {
       //中间充电桩总收入
       this.countChargeFee();
       //总停车数量图表上的数字
-      this.queryParkCount();
+      // this.queryParkCount();
       // 数据变动
       this.contentNumList = [];
     },
     // 本周点击数据处理方法
     currentWeek() {
-      this.classStrust1 = 0
-      this.classStrust2 = 0
-      this.classStrust3 = 1
-      this.classStrust4 = 0
-      this.oldTypeParam.statisType = "currentWeek"
-      this.newTypeParam.queryType = "currentWeek"
+      this.classStrust1 = 0;
+      this.classStrust2 = 0;
+      this.classStrust3 = 1;
+      this.classStrust4 = 0;
+      this.oldTypeParam.statisType = "currentWeek";
+      this.newTypeParam.queryType = "currentWeek";
       // 支付方式图表
       this.queryPaymentBehaviorAnalysis();
       // 总停车数量图表
@@ -545,18 +642,18 @@ export default {
       //中间充电桩总收入
       this.countChargeFee();
       //总停车数量图表上的数字
-      this.queryParkCount();
+      // this.queryParkCount();
       // 数据变动
       this.contentNumList = [];
     },
     // 本月点击数据处理方法
     currentMonth() {
-      this.classStrust1 = 0
-      this.classStrust2 = 0
-      this.classStrust3 = 0
-      this.classStrust4 = 1
-      this.oldTypeParam.statisType = "currentMonth"
-      this.newTypeParam.queryType = "currentMonth"
+      this.classStrust1 = 0;
+      this.classStrust2 = 0;
+      this.classStrust3 = 0;
+      this.classStrust4 = 1;
+      this.oldTypeParam.statisType = "currentMonth";
+      this.newTypeParam.queryType = "currentMonth";
       // 支付方式图表
       this.queryPaymentBehaviorAnalysis();
       // 总停车数量图表
@@ -580,7 +677,7 @@ export default {
       //中间充电桩总收入
       this.countChargeFee();
       //总停车数量图表上的数字
-      this.queryParkCount();
+      // this.queryParkCount();
       // 数据变动
       this.contentNumList = [];
     },
@@ -594,14 +691,31 @@ export default {
       this.$homePage.queryTotalIncome(param).then(res => {
         that.contentNumList = res.data.dataList;
         // console.log("总收入参数",that.contentNumList)
-      })
+      });
     },
-
+    //首页剩余车位数
+    queryParkMonitorParkSpace() {
+      var that = this;
+      const param = {
+        cityCode: "321300",
+        districtCode: "321302",
+        statisType: this.oldTypeParam.statisType,
+        pageSize: 3,
+        pageNum: 1
+      };
+      this.$homePage.queryParkMonitorParkSpace(param).then(res => {
+        console.log("resres", res);
+        that.leftPort = res.data.dataList.info.remainderParkSpaceCount;
+        if (that.leftPort == null) {
+          that.leftPort = 0;
+        }
+      });
+    },
     //查询充电桩总收入总收入
     countChargeFee() {
       var that = this;
       const param = {
-        "queryType": this.newTypeParam.queryType
+        queryType: this.newTypeParam.queryType
       };
       // console.log('充电桩总收入惨参',param)
       this.$homePage.countChargeFee(param).then(res => {
@@ -611,14 +725,14 @@ export default {
           that.rechargeLeftIncome = 0;
         }
         // console.log("洗车机总收入",that.rechargeLeftIncome)
-      })
+      });
     },
 
     //中间部分查询洗车机总收入
     countWashFee() {
       var that = this;
       const param = {
-        "queryType": this.newTypeParam.queryType
+        queryType: this.newTypeParam.queryType
       };
       // console.log('洗车机总收入参数',param)
       this.$homePage.countWashFee(param).then(res => {
@@ -626,20 +740,36 @@ export default {
         if (that.washCarPortIncome == null) {
           that.washCarPortIncome = 0;
         }
-        console.log("洗车机总收入", that.washCarPortIncome)
-      })
+        // console.log("洗车机总收入", that.washCarPortIncome)
+      });
     },
 
     // 支付方式
     queryPaymentBehaviorAnalysis() {
       const param = {
-        "statisType": this.oldTypeParam.statisType
+        statisType: this.oldTypeParam.statisType
       };
       this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
-        var alipayDataList = ['支付宝支付', Number(res.data.dataList[0].alipayPaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
-        var cashDataList = ['现金支付', Number(res.data.dataList[0].cashPaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
-        var wechatDataList = ['微信支付', Number(res.data.dataList[0].wechatPaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
-        var qrCodeDataList = ['扫码支付', Number(res.data.dataList[0].qrCodePaymentMoneyAmount) / Number(res.data.dataList[0].paymentMoneyAmountTotalAll)];
+        var alipayDataList = [
+          "支付宝支付",
+          Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
+            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+        ];
+        var cashDataList = [
+          "现金支付",
+          Number(res.data.dataList[0].cashPaymentMoneyAmount) /
+            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+        ];
+        var wechatDataList = [
+          "微信支付",
+          Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
+            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+        ];
+        var qrCodeDataList = [
+          "扫码支付",
+          Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
+            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+        ];
 
         this.paymentIncomeAnalysis = [
           {
@@ -654,8 +784,8 @@ export default {
             plotBorderWidth: null,
             plotShadow: false,
             type: "pie",
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: "paymentIncomeAnalysis",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "paymentIncomeAnalysis"
             // options3d: {
             //     enabled: true,
             //     alpha: 45,
@@ -680,7 +810,7 @@ export default {
               innerSize: 40,
               depth: 45,
               dataLabels: {
-                enabled: true,
+                enabled: true
                 // format: "{point.name}"
               }
             }
@@ -711,86 +841,86 @@ export default {
       // // 调用折线图的方法
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        "statisType": this.oldTypeParam.statisType
+        statisType: this.oldTypeParam.statisType
       };
       this.$homePage.queryParkOptByParkCount(param).then(res => {
         this.numberOfParkingXz = [];
         this.numberOfParkingData = [];
-        res.data.dataList.detail.forEach((item) => {
+        res.data.dataList.detail.forEach(item => {
           this.numberOfParkingXz.push(item.date);
           this.numberOfParkingData.push(Number(item.val));
         });
         this.numberOfParkingTotal = Math.ceil(res.data.dataList.total);
         this.numberOfParkingOptions = {
           chart: {
-            type: 'area',
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: 'numberOfParking',
+            type: "area",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "numberOfParking"
           },
           title: {
-            text: ''
+            text: ""
           },
           credits: {
             enabled: false
           },
-          color: ['#03D7E9 '],
+          color: ["#03D7E9 "],
           xAxis: {
             categories: this.numberOfParkingXz,
             labels: {
               //设置刻度
               // tickPositions: [],
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
-              },
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
+              }
             }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
-              text: ''
+              text: ""
             },
             labels: {
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
             }
           },
           legend: {
             enabled: true,
-            align: 'center',
-            verticalAlign: 'left',
+            align: "center",
+            verticalAlign: "left",
             x: 300,
             y: 10,
             itemStyle: {
-              color: '#cccccc',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              fill: '#cccccc',
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
             },
             itemHoverStyle: {
-              color: '#666666',
+              color: "#666666"
             },
             itemHiddenStyle: {
-              color: '#333333'
+              color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>辆'
+            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
           },
           plotOptions: {
             area: {
               marker: {
                 enabled: false,
-                color: 'rgba(3,215,233,1)',
-                symbol: 'circle',
+                color: "rgba(3,215,233,1)",
+                symbol: "circle",
                 radius: 2,
                 states: {
                   hover: {
@@ -800,10 +930,12 @@ export default {
               }
             }
           },
-          series: [{
-            // name: this.numberOfParkingName,
-            data: this.numberOfParkingData,
-          }]
+          series: [
+            {
+              // name: this.numberOfParkingName,
+              data: this.numberOfParkingData
+            }
+          ]
         };
         new HighCharts.chart(this.numberOfParkingOptions);
       });
@@ -820,21 +952,21 @@ export default {
       // this.lineChartsName = this.averageParkingTimeName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        "statisType": this.oldTypeParam.statisType
+        statisType: this.oldTypeParam.statisType
       };
       this.$homePage.queryParkOptByAvgParkDuration(param).then(res => {
         this.averageParkingTimeXz = [];
         this.averageParkingTimeData = [];
-        res.data.dataList.detail.forEach((item) => {
+        res.data.dataList.detail.forEach(item => {
           this.averageParkingTimeXz.push(item.date);
           this.averageParkingTimeData.push(Number(item.val));
           this.averageParkingTimeTotal = Math.ceil(res.data.dataList.total);
         });
         this.averageParkingTimeOptions = {
           chart: {
-            type: 'area',
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: 'averageParkingTime',
+            type: "area",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "averageParkingTime"
           },
           title: {
             text: ""
@@ -842,67 +974,67 @@ export default {
           credits: {
             enabled: false
           },
-          colors: ['#E9C503'],
+          colors: ["#E9C503"],
           xAxis: {
             categories: this.averageParkingTimeXz,
             labels: {
               //设置刻度
               // tickPositions: [],
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
             }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
-              text: ''
+              text: ""
             },
             labels: {
-              formatter: function () {
-                  return this.value / 1
+              formatter: function() {
+                return this.value / 1;
               },
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
-              },
-            },
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
+              }
+            }
           },
           legend: {
             enabled: true,
-            align: 'center',
-            verticalAlign: 'left',
+            align: "center",
+            verticalAlign: "left",
             x: 300,
             y: 10,
             itemStyle: {
-              color: '#cccccc',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              fill: '#cccccc',
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
             },
             itemHoverStyle: {
-              color: '#666666',
+              color: "#666666"
             },
             itemHiddenStyle: {
-              color: '#333333'
+              color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>分钟'
+            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>分钟"
           },
           plotOptions: {
             area: {
               marker: {
                 enabled: false,
-                symbol: 'circle',
-                color: '#fff',
+                symbol: "circle",
+                color: "#fff",
                 radius: 2,
                 states: {
                   hover: {
@@ -912,14 +1044,15 @@ export default {
               }
             }
           },
-          series: [{
-            // name: this.averageParkingTimeName,
-            data: this.averageParkingTimeData
-          }]
+          series: [
+            {
+              // name: this.averageParkingTimeName,
+              data: this.averageParkingTimeData
+            }
+          ]
         };
         new HighCharts.chart(this.averageParkingTimeOptions);
       });
-
     },
 
     // 车位利用率
@@ -933,12 +1066,12 @@ export default {
       // this.lineChartsName = this.parkingSpaceUtilizationName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        "statisType": this.oldTypeParam.statisType
+        statisType: this.oldTypeParam.statisType
       };
       this.$homePage.queryParkOptByParkSpaceUsedRate(param).then(res => {
         this.parkingSpaceUtilizationXz = [];
         this.parkingSpaceUtilizationData = [];
-        res.data.dataList.detail.forEach((item) => {
+        res.data.dataList.detail.forEach(item => {
           this.parkingSpaceUtilizationXz.push(item.date);
           this.parkingSpaceUtilizationData.push(Number(item.val));
         });
@@ -946,9 +1079,9 @@ export default {
           (Number(res.data.dataList.total) * 100).toFixed(2) + "%";
         this.parkingSpaceUtilizationOptions = {
           chart: {
-            type: 'area',
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: 'parkingSpaceUtilization',
+            type: "area",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "parkingSpaceUtilization"
           },
           title: {
             text: ""
@@ -956,63 +1089,63 @@ export default {
           credits: {
             enabled: false
           },
-          colors: ['#895EFC'],
+          colors: ["#895EFC"],
           xAxis: {
             categories: this.parkingSpaceUtilizationXz,
             labels: {
               //设置刻度
               // tickPositions: [],
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
             }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
-              text: ''
+              text: ""
             },
             labels: {
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
             }
           },
           legend: {
             enabled: true,
-            align: 'center',
-            verticalAlign: 'left',
+            align: "center",
+            verticalAlign: "left",
             x: 300,
             y: 10,
             itemStyle: {
-              color: '#cccccc',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              fill: '#cccccc',
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
             },
             itemHoverStyle: {
-              color: '#666666',
+              color: "#666666"
             },
             itemHiddenStyle: {
-              color: '#333333'
+              color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>%'
+            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>%"
           },
           plotOptions: {
             area: {
               marker: {
                 enabled: false,
-                symbol: 'circle',
+                symbol: "circle",
                 radius: 2,
                 states: {
                   hover: {
@@ -1022,10 +1155,12 @@ export default {
               }
             }
           },
-          series: [{
-            // name: this.parkingSpaceUtilizationName,
-            data: this.parkingSpaceUtilizationData
-          }]
+          series: [
+            {
+              // name: this.parkingSpaceUtilizationName,
+              data: this.parkingSpaceUtilizationData
+            }
+          ]
         };
         new HighCharts.chart(this.parkingSpaceUtilizationOptions);
       });
@@ -1042,12 +1177,12 @@ export default {
       // this.lineChartsName = this.parkingSpaceTurnoverRateName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        "statisType": this.oldTypeParam.statisType
+        statisType: this.oldTypeParam.statisType
       };
       this.$homePage.queryParkOptByParkSpaceTurnoverRate(param).then(res => {
         this.parkingSpaceTurnoverRateXz = [];
         this.parkingSpaceTurnoverRateData = [];
-        res.data.dataList.detail.forEach((item) => {
+        res.data.dataList.detail.forEach(item => {
           this.parkingSpaceTurnoverRateXz.push(item.date);
           this.parkingSpaceTurnoverRateData.push(Number(item.val));
         });
@@ -1055,9 +1190,9 @@ export default {
           Number(res.data.dataList.total).toFixed(2) + "%";
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
-            type: 'area',
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: 'parkingSpaceTurnoverRate',
+            type: "area",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "parkingSpaceTurnoverRate"
           },
           title: {
             text: ""
@@ -1065,63 +1200,63 @@ export default {
           credits: {
             enabled: false
           },
-          colors: ['#E9C503'],
+          colors: ["#E9C503"],
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz,
             labels: {
               //设置刻度
               // tickPositions: [],
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
             }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
-              text: ''
+              text: ""
             },
             labels: {
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
             }
           },
           legend: {
             enabled: true,
-            align: 'center',
-            verticalAlign: 'left',
+            align: "center",
+            verticalAlign: "left",
             x: 300,
             y: 10,
             itemStyle: {
-              color: '#cccccc',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              fill: '#cccccc',
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
             },
             itemHoverStyle: {
-              color: '#666666',
+              color: "#666666"
             },
             itemHiddenStyle: {
-              color: '#333333'
+              color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>%'
+            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>%"
           },
           plotOptions: {
             area: {
               marker: {
                 enabled: false,
-                symbol: 'circle',
+                symbol: "circle",
                 radius: 2,
                 states: {
                   hover: {
@@ -1131,10 +1266,12 @@ export default {
               }
             }
           },
-          series: [{
-            // name: this.parkingSpaceTurnoverRateName,
-            data: this.parkingSpaceTurnoverRateData
-          }]
+          series: [
+            {
+              // name: this.parkingSpaceTurnoverRateName,
+              data: this.parkingSpaceTurnoverRateData
+            }
+          ]
         };
         new HighCharts.chart(this.parkingSpaceTurnoverRateOptions);
       });
@@ -1144,11 +1281,11 @@ export default {
     queryParkIncomeRanking() {
       this.parkingRevenueRankingChartX = [];
       const param = {
-        "statisType": this.oldTypeParam.statisType
+        statisType: this.oldTypeParam.statisType
       };
       var dataListA = [];
       this.$homePage.queryParkIncomeRanking(param).then(res => {
-        res.data.dataList.forEach((item) => {
+        res.data.dataList.forEach(item => {
           this.parkingRevenueRankingChartY.push(item.parkName);
           dataListA.push(Number(item.parkIncome));
         });
@@ -1156,12 +1293,12 @@ export default {
           {
             name: this.parkName,
             data: dataListA
-          },
+          }
         ];
         this.parkingRevenueRankingChart = {
           chart: {
             type: "bar",
-            backgroundColor: 'rgba(0,0,0,0)',
+            backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingRevenueRanking"
           },
           credits: {
@@ -1175,35 +1312,35 @@ export default {
             labels: {
               format: "{value}",
               style: {
-                color: 'rgba(90,142,227,1)',
+                color: "rgba(90,142,227,1)"
               }
-            },
+            }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
               text: ""
             },
             labels: {
-                formatter: function () {
-                    return this.value / 1;
-                },
+              formatter: function() {
+                return this.value / 1;
+              },
               style: {
-                color: 'rgba(90,142,227,1)',
-                letterSpacing: '0.27px',
-                lineHeight: '17px',
-                fontSize: '12px',
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
               }
-            },
+            }
           },
-            tooltip: {
+          tooltip: {
             shared: true
           },
           plotOptions: {
             series: {
               depth: 25,
-              colorByPoint: true,
+              colorByPoint: true
               // color : '#B9A32B'
             }
           },
@@ -1237,7 +1374,7 @@ export default {
     querychargeAmountTimes() {
       const param = {
         queryType: "currentMonth"
-      }
+      };
       this.$realTimeMonitor.queryWashEarn(param).then(res => {
         this.chargeAmountTimesX = [];
         this.chargeAmountTimesData = [];
@@ -1247,12 +1384,12 @@ export default {
         });
         this.chargeAmountTimesOptions = {
           chart: {
-            type: 'column',
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: 'chargeAmountTimes',
+            type: "column",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "chargeAmountTimes"
           },
           title: {
-            text: ''
+            text: ""
           },
           credits: {
             enabled: false
@@ -1262,57 +1399,56 @@ export default {
             labels: {
               format: "{value}",
               style: {
-                color: 'rgba(90,142,227,1)',
+                color: "rgba(90,142,227,1)"
               }
-            },
+            }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
-              text: ''
+              text: ""
             },
             labels: {
               format: "{value}",
               style: {
-                color: 'rgba(90,142,227,1)',
+                color: "rgba(90,142,227,1)"
               }
-            },
-
+            }
           },
           legend: {
             enabled: false,
-            align: 'center',
-            verticalAlign: 'top',
+            align: "center",
+            verticalAlign: "top",
             x: 0,
             y: -20,
             itemStyle: {
-              color: '#cccccc',
-              cursor: 'pointer',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              fill: '#cccccc',
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
             },
             itemHoverStyle: {
-              color: '#666666',
+              color: "#666666"
             },
             itemHiddenStyle: {
-              color: '#333333'
+              color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: '收入： <b>{point.y:,.0f}</b>元'
+            pointFormat: "收入： <b>{point.y:,.0f}</b>元"
           },
           plotOptions: {
             series: {
               depth: 25,
               // colorByPoint: true,
-              color: '#00ABFF',
+              color: "#00ABFF"
             },
             area: {
               marker: {
                 enabled: false,
-                symbol: 'circle',
+                symbol: "circle",
                 radius: 2,
                 states: {
                   hover: {
@@ -1322,14 +1458,16 @@ export default {
               }
             }
           },
-          series: [{
-            name: '数量',
-            data: this.chargeAmountTimesData
-          }]
-        }
+          series: [
+            {
+              name: "数量",
+              data: this.chargeAmountTimesData
+            }
+          ]
+        };
         // 绘制
         new HighCharts.Chart(this.chargeAmountTimesOptions);
-      })
+      });
     },
 
     //绘表自助充电设备收入按时段分析
@@ -1340,20 +1478,22 @@ export default {
       };
       var dataList = [];
       this.$homePage.queryChargeEarn(param).then(res => {
-        res.resultEntity.forEach((item) => {
+        res.resultEntity.forEach(item => {
           this.chargeEarnChartX.push(item.X);
           dataList.push(Number(item.dataY));
         });
-        this.chargeEarnDataList = [{
-          name: "收入金额",
-          showInLegend: false,
-          data: dataList
-        }];
+        this.chargeEarnDataList = [
+          {
+            name: "收入金额",
+            showInLegend: false,
+            data: dataList
+          }
+        ];
         this.chargeEarnChart = {
           chart: {
             type: "column",
-            backgroundColor: 'rgba(0,0,0,0)',
-            renderTo: "chargeEarn",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "chargeEarn"
           },
           title: {
             text: ""
@@ -1366,35 +1506,34 @@ export default {
             labels: {
               format: "{value}",
               style: {
-                color: 'rgba(90,142,227,1)',
+                color: "rgba(90,142,227,1)"
               }
-            },
+            }
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: '#2B3DA1',
+            gridLineColor: "#2B3DA1",
             title: {
-              text: ''
+              text: ""
             },
             labels: {
               format: "{value}",
               style: {
-                color: 'rgba(90,142,227,1)',
+                color: "rgba(90,142,227,1)"
               }
-            },
+            }
           },
           plotOptions: {
             series: {
               depth: 25,
               // colorByPoint: true,
-              color: '#08F6E4',
+              color: "#08F6E4"
             }
           },
           series: this.chargeEarnDataList
         };
         new HighCharts.chart(this.chargeEarnChart);
-      })
-
+      });
     },
 
     queryLine() {
@@ -1402,14 +1541,14 @@ export default {
       that.lineOptions = {
         chart: {
           type: that.lineChartsType,
-          backgroundColor: 'rgba(0,0,0,0)',
-          renderTo: that.lineId,
+          backgroundColor: "rgba(0,0,0,0)",
+          renderTo: that.lineId
         },
         title: {
           // text: that.lineTitle,
-          text: '',
+          text: "",
           style: {
-            color: 'white'
+            color: "white"
           }
         },
         credits: {
@@ -1420,42 +1559,42 @@ export default {
         },
         yAxis: {
           title: {
-            text: ''
+            text: ""
           },
           labels: {
-            formatter: function () {
-              return this.value / 1000 + 'k';
+            formatter: function() {
+              return this.value / 1000 + "k";
             }
           }
         },
         legend: {
           enabled: true,
-          align: 'center',
-          verticalAlign: 'left',
+          align: "center",
+          verticalAlign: "left",
           x: 300,
           y: 10,
           itemStyle: {
-            color: '#cccccc',
-            cursor: 'pointer',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            fill: '#cccccc',
+            color: "#cccccc",
+            cursor: "pointer",
+            fontSize: "12px",
+            fontWeight: "bold",
+            fill: "#cccccc"
           },
           itemHoverStyle: {
-            color: '#666666',
+            color: "#666666"
           },
           itemHiddenStyle: {
-            color: '#333333'
+            color: "#333333"
           }
         },
         tooltip: {
-          pointFormat: '{series.name} 停车 <b>{point.y:,.0f}</b>辆'
+          pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
         },
         plotOptions: {
           area: {
             marker: {
               enabled: false,
-              symbol: 'circle',
+              symbol: "circle",
               radius: 2,
               states: {
                 hover: {
@@ -1465,26 +1604,29 @@ export default {
             }
           }
         },
-        series: [{
-          name: this.lineChartsName,
-          data: that.lineChartsList
-        }]
-      }
+        series: [
+          {
+            name: this.lineChartsName,
+            data: that.lineChartsList
+          }
+        ]
+      };
       // 绘制
       new HighCharts.Chart(that.lineOptions);
     },
     //测试查询
     queryTest() {
       var jsonStr = {
-        queryDate: '2020-08-02'
+        queryDate: "2020-08-02"
       };
       this.$homePage.test(jsonStr).then(res => {
-        console.log("测试新建后台地址", res)
-      })
+        console.log("测试新建后台地址", res);
+      });
     },
     // 地图方式开始
-    initMap() {//地图初始化
-      this.map = new AMap.Map('map', {
+    initMap() {
+      //地图初始化
+      this.map = new AMap.Map("map", {
         zoom: 13,
         resizeEnable: true,
         mapStyle: "amap://styles/normal",
@@ -1500,10 +1642,10 @@ export default {
     addMoudel() {
       var that = this;
       var icon = new AMap.Icon({
-        size: new AMap.Size(20, 20),    // 图标尺寸
-        image: that.xlicon,  // Icon的图像
-        imageOffset: new AMap.Pixel(1, 1),  // 图像相对展示区域的偏移量，适于雪碧图等
-        imageSize: new AMap.Size(15, 15)   // 根据所设置的大小拉伸或压缩图片
+        size: new AMap.Size(20, 20), // 图标尺寸
+        image: that.xlicon, // Icon的图像
+        imageOffset: new AMap.Pixel(1, 1), // 图像相对展示区域的偏移量，适于雪碧图等
+        imageSize: new AMap.Size(15, 15) // 根据所设置的大小拉伸或压缩图片
       });
       let marker = new AMap.Marker({
         icon: icon,
@@ -1511,9 +1653,10 @@ export default {
         offset: new AMap.Pixel(-13, -30)
       });
       // 点击弹出标签方法，其中内容可以根据需要自己定义
-      marker.content = '停车场名:' + "停车场1" + '<br / >剩余车位:' + "剩余20个车位"
+      marker.content =
+        "停车场名:" + "停车场1" + "<br / >剩余车位:" + "剩余20个车位";
       // 定义完标签后调用显示方法将其显示出来
-      marker.on('click', this.showInfoM);
+      marker.on("click", this.showInfoM);
       // 点击时间暂时废弃
       // marker.on('click', e => {
       //   console.log("点击弹框弹出有")
@@ -1522,11 +1665,10 @@ export default {
     },
     // 弹出框中标签
     showInfoM(e) {
-      var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+      var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
       infoWindow.setContent(e.target.content);
       infoWindow.open(this.map, e.target.getPosition());
-    },
-
+    }
   }
 };
 </script>
@@ -1536,7 +1678,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-image: linear-gradient(180deg, #13258A 0%, #010B2A 100%);
+  background-image: linear-gradient(180deg, #13258a 0%, #010b2a 100%);
 }
 
 /*左边内容部分 */
@@ -1556,7 +1698,7 @@ export default {
   position: relative;
   top: -7px;
   border-top: 3px solid rgba(8, 246, 228, 1);
-  border-left: 3px solid rgba(8, 246, 228, 1)
+  border-left: 3px solid rgba(8, 246, 228, 1);
 }
 
 /*上中横线*/
@@ -1566,7 +1708,7 @@ export default {
   top: -20px;
   position: relative;
   border-top: 4px solid rgba(8, 246, 228, 1);
-  margin-left: 10%
+  margin-left: 10%;
 }
 
 /*上右脚*/
@@ -1603,7 +1745,7 @@ export default {
 
 /* 每个表格上面的标题名左边小图片样式 */
 .leftChartUpImage {
-  color: #1398FF;
+  color: #1398ff;
   margin-left: 4%;
   margin-top: 2.5%;
 }
@@ -1612,7 +1754,7 @@ export default {
 .spanStyle {
   font-family: PingFangSC-Medium;
   font-size: 16px;
-  color: #ECFFF5;
+  color: #ecfff5;
   letter-spacing: 0.36px;
   line-height: 22px;
   margin-left: 2%;
@@ -1681,8 +1823,7 @@ export default {
 }
 
 /*文字状态*/
-.leftUpContentSwitch1
-.leftUpContentSwitchSpan:hover {
+.leftUpContentSwitch1 .leftUpContentSwitchSpan:hover {
   color: white;
   cursor: pointer;
 }
@@ -1783,7 +1924,7 @@ export default {
 
 /*充电桩总数的数字*/
 .spanMidNum {
-  color: #08B4F6;
+  color: #08b4f6;
   font-size: 28px;
   line-height: 40px;
   letter-spacing: 1px;
@@ -1799,7 +1940,6 @@ export default {
 
 /*剩余车位数数字*/
 .leftCarPlotBorder {
-  /*border: 2px solid #66E3FB;*/
   width: 185px;
   height: 51px;
   margin-top: 15px;
@@ -1809,13 +1949,9 @@ export default {
 
 /*剩余车位数字*/
 .leftCarPlotNum {
+  margin-top: 7px;
   color: white;
   font-size: 28px;
-  line-height: 40px;
-  letter-spacing: 1px;
-  display: block;
-  /*vertical-align: middle;*/
   text-align: center;
 }
-
 </style>

@@ -11,7 +11,7 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" class="demo-form-inline">
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-row>
           <!--          <el-col :span="5">
                       <el-form-item label="地市">
@@ -31,32 +31,36 @@
                         </el-select>
                       </el-form-item>
                     </el-col>-->
-          <el-col :span="5">
-            <el-form-item label="停车场">
-              <el-select v-model="query.parkId" placeholder="请选择">
-                <el-option label="全部" value="0"></el-option>
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
-                           :key="index"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="设备状态">
-              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
-                           :key="index"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="3">
-            <el-button type="primary" @click="queryMagneticDetecter()">查 询
-            </el-button>
-            <el-button type="primary" @click="exportList()">导 出</el-button>
-          </el-col>
+
+          <el-form-item label="停车场">
+            <el-select v-model="upQueryList.parkId" placeholder="请选择">
+              <el-option label="全部" value="0"></el-option>
+              <el-option
+                v-for="(item, index) in parkingLotNameList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
+              />
+            </el-select>
+          </el-form-item>
+
+          <!--            <el-form-item label="设备状态">-->
+          <!--              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
+          <!--                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"-->
+          <!--                           :key="index"/>-->
+          <!--              </el-select>-->
+          <!--            </el-form-item>-->
+
+          <el-button type="primary" @click="queryMagneticDetecter()"
+            >查 询</el-button
+          >
+          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" @click="exportList()">导 出</el-button>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-button type="primary" @click="addNewGeo()">新增地磁车检测器
+            <el-button type="primary" @click="addNewGeo()"
+              >新增地磁车检测器
             </el-button>
             <el-button type="primary" @click="bulkImport()">批量导入</el-button>
             <el-button type="danger" @click="batchDelete()">批量删除</el-button>
@@ -67,13 +71,14 @@
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              <el-button type="primary" size="medium" @click="imgbtn()"
+                >导 入<i class="el-icon-upload el-icon--right"></i>
               </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
-                  class="el-icon-download el-icon--right"></i></el-button>
-
+              <el-button type="primary" size="medium" @click="downModel()"
+                >下载模版<i class="el-icon-download el-icon--right"></i
+              ></el-button>
             </el-main>
           </el-container>
         </el-form>
@@ -85,7 +90,11 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="geoList" ref="selectGeoList" :row-class-name="tableRowClassName" :header-cell-style="{
+      <el-table
+        :data="geoList"
+        ref="selectGeoList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -93,30 +102,74 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
-        }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
-        <el-table-column type="selection"/>
-        <el-table-column prop="parkId" label="停车场编号"/>
-        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-        <el-table-column prop="magneticDetecterId" :show-overflow-tooltip="true" label="地磁车位检测器编号"/>
-        <el-table-column prop="magneticDetecterName" :show-overflow-tooltip="true" label="地磁车位检测器名称"/>
-        <el-table-column prop="sensorId" :show-overflow-tooltip="true" label="传感器ID"/>
-        <el-table-column prop="manufacturer" :show-overflow-tooltip="true" label="制造商"/>
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" />
+        <!--        <el-table-column prop="parkId" label="停车场编号" />-->
+        <el-table-column
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
+        />
+        <!--        <el-table-column-->
+        <!--          prop="magneticDetecterId"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="地磁车位检测器编号"-->
+        <!--        />-->
+        <el-table-column
+          prop="magneticDetecterName"
+          :show-overflow-tooltip="true"
+          label="地磁车位检测器名称"
+        />
+        <el-table-column
+          prop="sensorId"
+          :show-overflow-tooltip="true"
+          label="传感器ID"
+        />
+        <el-table-column
+          prop="manufacturer"
+          :show-overflow-tooltip="true"
+          label="制造商"
+        />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button @click="editGeoDialog(scope.row)" type="text" size="small">修改
+            <el-button
+              @click="editGeoDialog(scope.row)"
+              type="text"
+              size="small"
+              >修改
             </el-button>
-            <el-button @click="deleteGeo(scope.row)" type="text" size="small">删除
+            <el-button @click="deleteGeo(scope.row)" type="text" size="small"
+              >删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--分页条-->
-      <el-pagination style="position: relative;left: 60%" background layout="total, prev, pager, next, jumper"
-                     :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
-                     :total="pageTotal"/>
+      <el-pagination
+        style="position: relative;left: 60%"
+        background
+        layout="total, prev, pager, next, jumper"
+        :page-size="pageSize"
+        @current-change="handleCurrentModify"
+        :current-page="pageNum"
+        :total="pageTotal"
+      />
       <!--新增表单弹框-->
-      <el-dialog id="add" title="新增地磁车位检测器" :visible.sync="addListDialog">
-        <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
+      <el-dialog
+        id="add"
+        title="新增地磁车位检测器"
+        :visible.sync="addListDialog"
+      >
+        <el-form
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
+        >
           <div style="font-size: 20px">归属停车场信息</div>
           <!--          <el-row style="padding-top: 20px">
                       <el-col :span="12">
@@ -135,39 +188,34 @@
                       </el-form-item>
                     </el-row>-->
           <el-row>
-            <el-col :span="12">
-              <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="newGeo.parkId" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
-                             :key="index"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="归属停车场:" label-width="150px">
+              <el-select v-model="newGeo.parkId" placeholder="请选择">
+                <el-option
+                  v-for="(item, index) in parkingLotNameList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
+                ></el-option>
+              </el-select>
+            </el-form-item>
           </el-row>
           <div style="font-size: 20px">检测器信息</div>
           <el-row style="padding-top: 20px">
-            <el-col :span="12">
-              <el-form-item label="地磁车位检测器编号:" label-width="150px">
-                <el-input v-model="newGeo.magneticDetecterId"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="地磁车位检测器名称:" label-width="150px">
-                <el-input v-model="newGeo.magneticDetecterName"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="传感器ID:" label-width="150px">
-                <el-input v-model="newGeo.sensorId"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="制造商:" label-width="150px">
-                <el-input v-model="newGeo.manufacturer"></el-input>
-              </el-form-item>
-            </el-col>
+            <!--              <el-form-item label="地磁车位检测器编号:" label-width="150px">-->
+            <!--                <el-input v-model="newGeo.magneticDetecterId" />-->
+            <!--              </el-form-item>-->
+
+            <el-form-item label="地磁车位检测器名称:" label-width="150px">
+              <el-input v-model="newGeo.magneticDetecterName" />
+            </el-form-item>
+
+            <el-form-item label="传感器ID:" label-width="150px">
+              <el-input v-model="newGeo.sensorId"></el-input>
+            </el-form-item>
+
+            <el-form-item label="制造商:" label-width="150px">
+              <el-input v-model="newGeo.manufacturer"></el-input>
+            </el-form-item>
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -176,8 +224,17 @@
         </div>
       </el-dialog>
       <!--修改表单弹框-->
-      <el-dialog id="edit" title="修改地磁车位检测器" :visible.sync="editListDialog">
-        <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
+      <el-dialog
+        id="edit"
+        title="修改地磁车位检测器"
+        :visible.sync="editListDialog"
+      >
+        <el-form
+          :inline="true"
+          class="demo-form-inline"
+          label-position="right"
+          label-width="100px"
+        >
           <div style="font-size: 20px">归属停车场信息</div>
           <!--          <el-row style="padding-top: 20px">
                       <el-col :span="12">
@@ -194,39 +251,35 @@
                       </el-form-item>
                     </el-row>-->
           <el-row>
-            <el-col :span="12">
-              <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="editGeo.parkId" placeholder="请选择">
-                  <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
-                             :key="index"/>
-                </el-select>
-              </el-form-item>
-            </el-col>
+            <el-form-item label="归属停车场:" label-width="150px">
+              <el-select v-model="editGeo.parkId" placeholder="请选择">
+                <el-option
+                  v-for="(item, index) in parkingLotNameList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
+                />
+              </el-select>
+            </el-form-item>
           </el-row>
           <div style="font-size: 20px">检测器信息</div>
           <el-row style="padding-top: 20px">
-            <el-col :span="12">
-              <el-form-item label="地磁车位检测器编号:" label-width="150px">
-                <el-input v-model="editGeo.magneticDetecterId"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="地磁车位检测器名称:" label-width="150px">
-                <el-input v-model="editGeo.magneticDetecterName"/>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="传感器ID:" label-width="150px">
-                <el-input v-model="editGeo.sensorId"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="制造商:" label-width="150px">
-                <el-input v-model="editGeo.manufacturer"></el-input>
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="12">-->
+            <!--              <el-form-item label="地磁车位检测器编号:" label-width="150px">-->
+            <!--                <el-input v-model="editGeo.magneticDetecterId" />-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
+            <el-form-item label="地磁车位检测器名称:" label-width="150px">
+              <el-input v-model="editGeo.magneticDetecterName" />
+            </el-form-item>
+
+            <el-form-item label="传感器ID:" label-width="150px">
+              <el-input v-model="editGeo.sensorId"></el-input>
+            </el-form-item>
+
+            <el-form-item label="制造商:" label-width="150px">
+              <el-input v-model="editGeo.manufacturer"></el-input>
+            </el-form-item>
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -241,6 +294,8 @@
 export default {
   data() {
     return {
+      //查询按钮重置按钮数据存放
+      upQueryList: [],
       //停车场名称列表
       parkingLotNameList: [],
       //设备状态
@@ -278,36 +333,61 @@ export default {
         parkId: "0"
       },
       //批量导入会话
-      importDialog: false,
+      importDialog: false
     };
   },
+  mounted() {
+    //初始化列表
+    this.queryMagneticDetecter();
+    //初始化停车场下拉菜单
+    this.queryParkList();
+  },
   methods: {
+    //重置按钮
+    //查询重置按钮
+    resetQuery() {
+      this.upQueryList = {};
+    },
+
     //导出
     exportList() {
       var date = new Date();
       var param = {
-        "column_zh": ['停车场编号', '停车场名称', '地磁车位检测器编号', '地磁车位检测器名称', '传感器ID', '制造商'],
-        "column_en": ["parkId", "parkName", "magneticDetecterId", "magneticDetecterName", "sensorId", "manufacturer"],
-        "fileName": "地磁车位检测器" + date.toLocaleString(),
-        "cityCode": this.city,
-        "districtCode": this.districtCode,
-        "parkId": this.parking,
-        "pageNum": "",
-        "pageSize": "",
+        column_zh: [
+          "停车场编号",
+          "停车场名称",
+          "地磁车位检测器编号",
+          "地磁车位检测器名称",
+          "传感器ID",
+          "制造商"
+        ],
+        column_en: [
+          "parkId",
+          "parkName",
+          "magneticDetecterId",
+          "magneticDetecterName",
+          "sensorId",
+          "manufacturer"
+        ],
+        fileName: "地磁车位检测器" + date.toLocaleString(),
+        cityCode: this.city,
+        districtCode: this.districtCode,
+        parkId: this.parking,
+        pageNum: "",
+        pageSize: ""
       };
       this.$deviceManagement.exportMagneticDetecter(param).then(res => {
-            const aLink = document.createElement("a");
-            let blob = new Blob([res], {type: "application/vnd.ms-excel"})
-            aLink.href = URL.createObjectURL(blob)
-            aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
-            aLink.click()
-            // document.body.appendChild(aLink)
-            // this.$refs.loadElement.appendChild(aLink);
-          }
-      )
+        const aLink = document.createElement("a");
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
+        aLink.href = URL.createObjectURL(blob);
+        aLink.setAttribute("download", param.fileName + ".xlsx"); // 设置下载文件名称
+        aLink.click();
+        // document.body.appendChild(aLink)
+        // this.$refs.loadElement.appendChild(aLink);
+      });
     },
     //斑马纹样式
-    tableRowClassName({rowIndex}) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -323,6 +403,7 @@ export default {
             this.districtList = [];*/
       this.parkingLotNameList = [];
       this.addListDialog = true;
+      this.queryParkList();
     },
     //批量导入
     bulkImport() {
@@ -344,14 +425,14 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$deviceManagement.delMagneticDetecter(this.idList);
-              this.$message({type: "success", message: "删除成功!"});
-              this.queryMagneticDetecter();
-            })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
-            });
+          .then(() => {
+            this.$deviceManagement.delMagneticDetecter(this.idList);
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryMagneticDetecter();
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //修改弹框弹出
@@ -373,20 +454,20 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            this.idList = [];
-            const params = {
-              magneticDetecterId: row.magneticDetecterId,
-              parkId: row.parkId
-            };
-            this.idList.push(params);
-            this.$deviceManagement.delMagneticDetecter(this.idList);
-            this.$message({type: "success", message: "删除成功!"});
-            this.queryMagneticDetecter();
-          })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
+        .then(() => {
+          this.idList = [];
+          const params = {
+            magneticDetecterId: row.magneticDetecterId,
+            parkId: row.parkId
+          };
+          this.idList.push(params);
+          this.$deviceManagement.delMagneticDetecter(this.idList);
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryMagneticDetecter();
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -446,9 +527,9 @@ export default {
     //列表查询
     queryMagneticDetecter() {
       if (
-          /*          this.query.cityCode === "0" ||
+        /*          this.query.cityCode === "0" ||
                     this.query.districtCode === "0" ||*/
-          this.query.parkId === "0"
+        this.upQueryList.parkId === "0"
       ) {
         const param = {
           pageNum: this.pageNum,
@@ -462,7 +543,7 @@ export default {
         const param = {
           /*          cityCode: this.query.cityCode,
                     districtCode: this.query.districtCode,*/
-          parkId: this.query.parkId,
+          parkId: this.upQueryList.parkId,
           pageNum: this.pageNum,
           pageSize: this.pageSize
         };
@@ -496,7 +577,7 @@ export default {
           });
         },*/
     //查询停车场列表数据
-    queryParkList(code) {
+    queryParkList() {
       const params = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
@@ -514,21 +595,16 @@ export default {
       };
       this.$homePage.downloadResource(reqInfo).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
         aLink.href = URL.createObjectURL(blob);
-        aLink.setAttribute('download', "地磁车位检测器" + '.xls'); // 设置下载文件名称
+        aLink.setAttribute("download", "地磁车位检测器" + ".xls"); // 设置下载文件名称
         aLink.click();
         document.body.appendChild(aLink);
         this.$refs.loadElement.appendChild(aLink);
-      })
+      });
     }
-  },
-  mounted() {
-    //初始化列表
-    this.queryMagneticDetecter();
-    //初始化停车场下拉菜单
-    this.queryParkList();
-  },
+  }
+
   /*  watch: {
       //监听弹框，关闭时初始化区县停车场下拉菜单数据
       addListDialog: {
@@ -560,7 +636,7 @@ export default {
         deep: true
       }
     }*/
-}
+};
 </script>
 <style scoped>
 .all {
@@ -580,7 +656,6 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
   padding-left: 2%;
 }
 

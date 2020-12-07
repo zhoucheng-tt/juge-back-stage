@@ -32,9 +32,12 @@
               <el-button type="primary" @click="selectQueryList">查询</el-button>
               <el-button type="primary" @click="resetQuery">重置</el-button>
             </el-form-item>
+          <el-row>
             <el-form-item>
               <el-button type="primary" @click="addInletAndOutlet">新增停车场平面(层)</el-button>
             </el-form-item>
+          </el-row>
+
 
         </el-form>
         <!--        -->
@@ -200,21 +203,21 @@
               </el-radio>
             </template>
           </el-table-column>
-          <el-table-column
-                  prop="parkId"
-                  label="停车场编号"
-                  width="100"
-          ></el-table-column>
+<!--          <el-table-column-->
+<!--                  prop="parkId"-->
+<!--                  label="停车场编号"-->
+<!--                  width="100"-->
+<!--          ></el-table-column>-->
           <el-table-column
                   prop="parkName"
                   :show-overflow-tooltip="true"
                   label="停车场名称"
           ></el-table-column>
-          <el-table-column
-                  prop="parkLayerId"
-                  :show-overflow-tooltip="true"
-                  label="停车场平面(层)编号"
-          ></el-table-column>
+<!--          <el-table-column-->
+<!--                  prop="parkLayerId"-->
+<!--                  :show-overflow-tooltip="true"-->
+<!--                  label="停车场平面(层)编号"-->
+<!--          ></el-table-column>-->
           <el-table-column
                   prop="parkLayerName"
                   :show-overflow-tooltip="true"
@@ -270,11 +273,11 @@
           >
             <el-row>
               <el-col :span="12">
-                <el-form-item label="停车场编号:" class="el-form-item-dialog">
-                  <el-input
-                          v-model="editListDialogueandoffList.parkId"
-                  ></el-input>
-                </el-form-item>
+<!--                <el-form-item label="停车场编号:" class="el-form-item-dialog">-->
+<!--                  <el-input-->
+<!--                          v-model="editListDialogueandoffList.parkId"-->
+<!--                  ></el-input>-->
+<!--                </el-form-item>-->
               </el-col>
               <el-col :span="12">
                 <el-form-item label="停车场名称:" class="el-form-item-dialog">
@@ -285,16 +288,16 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="12">
-                <el-form-item
-                        label="停车场平面(层)编号:"
-                        class="el-form-item-dialog"
-                >
-                  <el-input
-                          v-model="editListDialogueandoffList.parkLayerId"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
+<!--              <el-col :span="12">-->
+<!--                <el-form-item-->
+<!--                        label="停车场平面(层)编号:"-->
+<!--                        class="el-form-item-dialog"-->
+<!--                >-->
+<!--                  <el-input-->
+<!--                          v-model="editListDialogueandoffList.parkLayerId"-->
+<!--                  ></el-input>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
               <el-col :span="12">
                 <el-form-item
                         label="停车场平面(层)名称:"
@@ -382,16 +385,16 @@
                   label="车位检测器类型"
           >
           </el-table-column>
-          <el-table-column
-                  prop="parkSpaceDetecterId"
-                  :show-overflow-tooltip="true"
-                  label="车位检测器编号"
-          ></el-table-column>
-          <el-table-column
-                  prop="groundLock"
-                  :show-overflow-tooltip="true"
-                  label="地锁编号"
-          ></el-table-column>
+<!--          <el-table-column-->
+<!--                  prop="parkSpaceDetecterId"-->
+<!--                  :show-overflow-tooltip="true"-->
+<!--                  label="车位检测器编号"-->
+<!--          ></el-table-column>-->
+<!--          <el-table-column-->
+<!--                  prop="groundLock"-->
+<!--                  :show-overflow-tooltip="true"-->
+<!--                  label="地锁编号"-->
+<!--          ></el-table-column>-->
           <el-table-column :show-overflow-tooltip="true" label="操作">
             <template slot-scope="scope">
               <el-button
@@ -421,14 +424,14 @@
                       v-model="configurationDialogueandoffList.parkName"
               ></el-input>
             </el-form-item>
-            <el-form-item
-                    label="归属停车场平面（层）编号:"
-                    class="el-form-item-dialog"
-            >
-              <el-input
-                      v-model="configurationDialogueandoffList.parkLayerId"
-              ></el-input>
-            </el-form-item>
+<!--            <el-form-item-->
+<!--                    label="归属停车场平面（层）编号:"-->
+<!--                    class="el-form-item-dialog"-->
+<!--            >-->
+<!--              <el-input-->
+<!--                      v-model="configurationDialogueandoffList.parkLayerId"-->
+<!--              ></el-input>-->
+<!--            </el-form-item>-->
             <el-form-item
                     label="归属停车场平面（层）名称:"
                     class="el-form-item-dialog"
@@ -450,16 +453,16 @@
                 "
               ></el-input>
             </el-form-item>
-            <el-form-item label="车位检测器编号:" class="el-form-item-dialog">
-              <el-input
-                      v-model="configurationDialogueandoffList.parkSpaceDetecterId"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="地锁编号:" class="el-form-item-dialog">
-              <el-input
-                      v-model="configurationDialogueandoffList.groundLock"
-              ></el-input>
-            </el-form-item>
+<!--            <el-form-item label="车位检测器编号:" class="el-form-item-dialog">-->
+<!--              <el-input-->
+<!--                      v-model="configurationDialogueandoffList.parkSpaceDetecterId"-->
+<!--              ></el-input>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="地锁编号:" class="el-form-item-dialog">-->
+<!--              <el-input-->
+<!--                      v-model="configurationDialogueandoffList.groundLock"-->
+<!--              ></el-input>-->
+<!--            </el-form-item>-->
           </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button @click="configurationDialogueandoff = false"

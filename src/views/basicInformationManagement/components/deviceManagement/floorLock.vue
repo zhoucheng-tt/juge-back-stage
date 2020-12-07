@@ -11,7 +11,7 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" class="demo-form-inline">
+      <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-row>
           <!--          <el-col :span="5">
                       <el-form-item label="地市">
@@ -29,47 +29,52 @@
                         </el-select>
                       </el-form-item>
                     </el-col>-->
-          <el-col :span="5">
-            <el-form-item label="停车场">
-              <el-select v-model="query.parkId" placeholder="请选择">
-                <el-option label="全部" value="0"></el-option>
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
-                           :key="index"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="设备状态">
-              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">
-                <el-option v-for="(item, index) in eqStatusList" :label="item.eqStatus" :value="item.eqStatus"
-                           :key="index"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="3">
-            <el-button type="primary" @click="queryGroundLock()">查 询</el-button>
-            <el-button type="primary" @click="exportList()">导 出</el-button>
-          </el-col>
+
+          <el-form-item label="停车场">
+            <el-select v-model="query.parkId" placeholder="请选择">
+              <el-option label="全部" value="0"></el-option>
+              <el-option
+                v-for="(item, index) in parkingLotNameList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
+              />
+            </el-select>
+          </el-form-item>
+
+          <!--          <el-form-item label="设备状态">-->
+          <!--            <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
+          <!--              <el-option-->
+          <!--                v-for="(item, index) in eqStatusList"-->
+          <!--                :label="item.eqStatus"-->
+          <!--                :value="item.eqStatus"-->
+          <!--                :key="index"-->
+          <!--              />-->
+          <!--            </el-select>-->
+          <!--          </el-form-item>-->
+
+          <el-button type="primary" @click="queryGroundLock()">查 询</el-button>
+          <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-button type="primary" @click="addNewLock()">新增地锁</el-button>
-            <el-button type="primary" @click="bulkImport()">批量导入</el-button>
-            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
-          </el-col>
+          <el-button type="primary" @click="addNewLock()">新增地锁</el-button>
+          <el-button type="primary" @click="bulkImport()">批量导入</el-button>
+          <el-button type="primary" @click="exportList()">导 出</el-button>
+          <el-button type="danger" @click="batchDelete()">批量删除</el-button>
         </el-row>
       </el-form>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
         <el-form>
           <el-container>
             <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click=imgbtn()>导 入<i class="el-icon-upload el-icon--right"></i>
+              <el-button type="primary" size="medium" @click="imgbtn()"
+                >导 入<i class="el-icon-upload el-icon--right"></i>
               </el-button>
             </el-header>
             <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click=downModel()>下载模版<i
-                  class="el-icon-download el-icon--right"></i></el-button>
-
+              <el-button type="primary" size="medium" @click="downModel()"
+                >下载模版<i class="el-icon-download el-icon--right"></i
+              ></el-button>
             </el-main>
           </el-container>
         </el-form>
@@ -81,8 +86,11 @@
     </div>
     <!--下半部分列表-->
     <div class="down" style="padding-top: 20px;">
-      <el-table :data="floorLockList" ref="selectLockList" :row-class-name="tableRowClassName"
-                :header-cell-style="{
+      <el-table
+        :data="floorLockList"
+        ref="selectLockList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
           'text-align': 'center',
           background: '#24314A',
           color: '#FFF',
@@ -90,29 +98,71 @@
           padding: 'none',
           fontSize: '12px',
           fontWeight: '100'
-        }" :cell-style="{ 'text-align': 'center' }" style="width: 100%;" @selection-change="handleSelectionChange">
-        <el-table-column type="selection"/>
-        <el-table-column prop="parkId" label="停车场编号"/>
-        <el-table-column prop="parkName" :show-overflow-tooltip="true" label="停车场名称"/>
-        <el-table-column prop="groundLockId" :show-overflow-tooltip="true" label="地锁编号"/>
-        <el-table-column prop="groundLockName" :show-overflow-tooltip="true" label="地锁名称"/>
-        <el-table-column prop="macAddress" :show-overflow-tooltip="true" label="mac地址"/>
-        <el-table-column prop="gatewayId" :show-overflow-tooltip="true" label="网关ID"/>
+        }"
+        :cell-style="{ 'text-align': 'center' }"
+        style="width: 100%;"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" />
+        <el-table-column prop="parkId" label="停车场编号" />
+        <el-table-column
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
+        />
+        <el-table-column
+          prop="groundLockId"
+          :show-overflow-tooltip="true"
+          label="地锁编号"
+        />
+        <el-table-column
+          prop="groundLockName"
+          :show-overflow-tooltip="true"
+          label="地锁名称"
+        />
+        <el-table-column
+          prop="macAddress"
+          :show-overflow-tooltip="true"
+          label="mac地址"
+        />
+        <el-table-column
+          prop="gatewayId"
+          :show-overflow-tooltip="true"
+          label="网关ID"
+        />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
-            <el-button @click="editLockDialog(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="deleteLock(scope.row)" type="text" size="small">删除</el-button>
+            <el-button
+              @click="editLockDialog(scope.row)"
+              type="text"
+              size="small"
+              >修改</el-button
+            >
+            <el-button @click="deleteLock(scope.row)" type="text" size="small"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
       <!--分页条-->
-      <el-pagination style="position: relative;left: 78%" background layout="total, prev, pager, next, jumper"
-                     :page-size="pageSize" @current-change="handleCurrentModify" :current-page="pageNum"
-                     :total="pageTotal"/>
+      <el-pagination
+        style="position: relative;left: 78%"
+        background
+        layout="total, prev, pager, next, jumper"
+        :page-size="pageSize"
+        @current-change="handleCurrentModify"
+        :current-page="pageNum"
+        :total="pageTotal"
+      />
     </div>
     <!--新增表单弹框-->
     <el-dialog id="add" title="新增地锁" :visible.sync="addListDialog">
-      <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+        label-position="right"
+        label-width="100px"
+      >
         <div style="font-size: 20px">归属停车场信息</div>
         <!--        <el-row style="padding-top: 20px">
                   <el-col :span="12">
@@ -132,8 +182,12 @@
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="newLock.parkId" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
-                           :key="index"/>
+                <el-option
+                  v-for="(item, index) in parkingLotNameList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -142,12 +196,12 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="地锁编号:" label-width="150px">
-              <el-input v-model="newLock.groundLockId"/>
+              <el-input v-model="newLock.groundLockId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="地锁名称:" label-width="150px">
-              <el-input v-model="newLock.groundLockName"/>
+              <el-input v-model="newLock.groundLockName" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -171,7 +225,12 @@
     </el-dialog>
     <!--修改表单弹框-->
     <el-dialog id="edit" title="修改地锁" :visible.sync="editListDialog">
-      <el-form :inline="true" class="demo-form-inline" label-position="right" label-width="100px">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+        label-position="right"
+        label-width="100px"
+      >
         <div style="font-size: 20px">归属停车场信息</div>
         <!--        <el-row style="padding-top: 20px">
                   <el-col :span="12">
@@ -191,8 +250,12 @@
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="editLock.parkId" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotNameList" :label="item.name" :value="item.code"
-                           :key="index"/>
+                <el-option
+                  v-for="(item, index) in parkingLotNameList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -201,12 +264,12 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="地锁编号:" label-width="150px">
-              <el-input v-model="editLock.groundLockId"/>
+              <el-input v-model="editLock.groundLockId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="地锁名称:" label-width="150px">
-              <el-input v-model="editLock.groundLockName"/>
+              <el-input v-model="editLock.groundLockName" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -275,32 +338,50 @@ export default {
     };
   },
   methods: {
+    //重置按钮
+    resetQuery() {
+      this.query = {};
+    },
     //导出
     exportList() {
       var date = new Date();
       var param = {
-        "column_zh": ['停车场编号', '停车场名称', '地锁编号', '地锁名称', 'mac地址', '网关id'],
-        "column_en": ["parkId", "parkName", "groundLockId", "groundLockName", "macAddress", "gatewayId"],
-        "fileName": "地锁" + date.toLocaleString(),
-        "cityCode": this.city,
-        "districtCode": this.districtCode,
-        "parkId": this.parking,
-        "pageNum": "",
-        "pageSize": "",
+        column_zh: [
+          "停车场编号",
+          "停车场名称",
+          "地锁编号",
+          "地锁名称",
+          "mac地址",
+          "网关id"
+        ],
+        column_en: [
+          "parkId",
+          "parkName",
+          "groundLockId",
+          "groundLockName",
+          "macAddress",
+          "gatewayId"
+        ],
+        fileName: "地锁" + date.toLocaleString(),
+        cityCode: this.city,
+        districtCode: this.districtCode,
+        parkId: this.parking,
+        pageNum: "",
+        pageSize: ""
       };
       this.$deviceManagement.exportGroundLock(param).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"})
-        aLink.href = URL.createObjectURL(blob)
-        aLink.setAttribute('download', param.fileName + '.xlsx') // 设置下载文件名称
-        aLink.click()
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
+        aLink.href = URL.createObjectURL(blob);
+        aLink.setAttribute("download", param.fileName + ".xlsx"); // 设置下载文件名称
+        aLink.click();
         // document.body.appendChild(aLink)
         // this.$refs.loadElement.appendChild(aLink);
-      })
+      });
     },
     //斑马纹样式
     // eslint-disable-next-line no-unused-vars
-    tableRowClassName({rowIndex}) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -336,14 +417,14 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$deviceManagement.delGroundLock(this.idList);
-              this.$message({type: "success", message: "删除成功!"});
-              this.queryGroundLock();
-            })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
-            });
+          .then(() => {
+            this.$deviceManagement.delGroundLock(this.idList);
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryGroundLock();
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //修改
@@ -365,20 +446,20 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            this.idList = [];
-            const params = {
-              groundLockId: row.groundLockId,
-              parkId: row.parkId
-            };
-            this.idList.push(params);
-            this.$deviceManagement.delGroundLock(this.idList);
-            this.$message({type: "success", message: "删除成功!"});
-            this.queryGroundLock();
-          })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
-          });
+        .then(() => {
+          this.idList = [];
+          const params = {
+            groundLockId: row.groundLockId,
+            parkId: row.parkId
+          };
+          this.idList.push(params);
+          this.$deviceManagement.delGroundLock(this.idList);
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryGroundLock();
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -435,9 +516,9 @@ export default {
     //列表查询
     queryGroundLock() {
       if (
-          /* this.query.cityCode === "0" ||
+        /* this.query.cityCode === "0" ||
            this.query.districtCode === "0" ||*/
-          this.query.parkId === "0"
+        this.query.parkId === "0"
       ) {
         const param = {
           pageNum: this.pageNum,
@@ -504,22 +585,21 @@ export default {
       };
       this.$homePage.downloadResource(reqInfo).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
         aLink.href = URL.createObjectURL(blob);
-        aLink.setAttribute('download', "地锁" + '.xls') // 设置下载文件名称
+        aLink.setAttribute("download", "地锁" + ".xls"); // 设置下载文件名称
         aLink.click();
         document.body.appendChild(aLink);
         this.$refs.loadElement.appendChild(aLink);
-      })
+      });
     }
-
   },
   mounted() {
     //初始化列表
     this.queryGroundLock();
     //初始化下拉菜单
     this.queryParkList();
-  },
+  }
   /*  watch: {
       //监听弹框，弹框关闭时清空区县和停车场下拉菜单
       addListDialog: {
@@ -551,7 +631,7 @@ export default {
         deep: true
       }
     }*/
-}
+};
 </script>
 <style scoped>
 .all {
@@ -571,7 +651,6 @@ export default {
 .demo-form-inline {
   width: 100%;
   height: 80%;
-  margin-top: 3%;
   padding-left: 2%;
 }
 
