@@ -35,10 +35,10 @@
         </el-form>
       </el-row>
       <el-dialog id="add" title="新增洗车机计费规则" :visible.sync="addListDialogueandoff">
-        <el-form :inline="true" :model="addListDialogueandoffList" class="demo-form-inline">
+        <el-form :inline="true" :model="addListDialogueandoffList" class="demo-form-inline" :rules="addListDiaRules">
           <div style="font-size: 20px">停车场信息</div>
           <el-col offset="1">
-            <el-form-item label="归属停车场">
+            <el-form-item label="归属停车场" prop="TingNum">
               <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
                 <el-option v-for="(item, index) in parkingLotList" :label="item.parkingName" :value="item.parkingName"
                   :key="index"></el-option>
@@ -47,7 +47,7 @@
           </el-col>
           <div style="font-size: 20px">计费规则信息</div>
           <el-col offset="1">
-            <el-form-item label="计费规则类型">
+            <el-form-item label="计费规则类型" prop="chargeMode">
               <el-select v-model="upQueryList.chargeMode" placeholder="请选择计费类型">
                 <el-option v-for="(item, index) in chargeModeList" :label="item.chargeMode" :value="item.chargeMode"
                   :key="index"></el-option>
@@ -55,7 +55,7 @@
             </el-form-item>
           </el-col>
           <el-col offset="1">
-            <el-form-item label="计费规则名称">
+            <el-form-item label="计费规则名称" prop="chargeModeName">
               <el-input v-model="upQueryList.chargeModeName" placeholder="请输入计费规则名称"></el-input>
             </el-form-item>
           </el-col>
@@ -152,6 +152,24 @@
   export default {
     data() {
       return {
+        //新增规则
+        addListDiaRules:{
+          TingNum:[{
+            required: true,
+            message: '请选择归属停车场',
+            trigger: 'change'
+          }],
+          chargeMode:[{
+            required: true,
+            message: '请选择计费规则类型',
+            trigger: 'change'
+          }],
+          chargeModeName:[{
+            required: true,
+            message: '请输入计费规则名称',
+            trigger: 'blur'
+          }],
+        },
         // 顶部查询数据暂存处
         upQueryList: {
           chargeModeName: "",

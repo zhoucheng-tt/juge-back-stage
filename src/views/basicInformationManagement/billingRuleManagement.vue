@@ -62,8 +62,8 @@
       </el-pagination>
     </div>
     <!-- 新增计费弹框 -->
-    <el-dialog title="新增计费信息" :visible.sync="addChargeListDialog" top="10vh">
-      <el-form :model="addChargeList" label-width="150px">
+    <el-dialog title="新增计费信息" :visible.sync="addChargeListDialog" top="10vh" >
+      <el-form :model="addChargeList" label-width="150px" :rules="addChargeListRules">
 <!--        <span>停车场信息</span>-->
 <!--        <el-form-item label="归属停车场:">-->
 <!--          <el-select v-model="addChargeList.parkId" placeholder="请选择停车场">-->
@@ -72,16 +72,16 @@
 <!--          </el-select>-->
 <!--        </el-form-item>-->
         <span>计费规则信息</span>
-        <el-form-item label="计费规则类型:">
-          <el-select v-model="addChargeList.billingRuleTypeCode" placeholder="请选择计费规则">
+        <el-form-item label="计费规则类型:" prop="billingRuleTypeCode">
+          <el-select v-model="addChargeList.billingRuleTypeCode" placeholder="请选择计费规则" >
             <el-option v-for="(item, index) in chargeTypeList" :label="item.name"
                        :value="item.code" :key="index"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="计费规则名称:">
+        <el-form-item label="计费规则名称:" prop="billingRuleDefName">
           <el-input v-model="addChargeList.billingRuleDefName" placeholder="请输入" style="width:225px"></el-input>
         </el-form-item>
-        <el-form-item label="计费规则描述:">
+        <el-form-item label="计费规则描述:" >
           <el-input v-model="addChargeList.remark" placeholder="请输入" style="width:225px"></el-input>
         </el-form-item>
       </el-form>
@@ -742,6 +742,18 @@
   export default {
     data() {
       return {
+        addChargeListRules:{
+          billingRuleTypeCode:[{
+            required: true,
+            message: '请选择计费规则类型',
+            trigger: 'change'
+          }],
+          billingRuleDefName:[{
+            required: true,
+            message: '请输入计费规则名称',
+            trigger: 'blur'
+          }],
+        },
           //停车场下拉
           parkLotNameList:[],
           //计费规则下拉
