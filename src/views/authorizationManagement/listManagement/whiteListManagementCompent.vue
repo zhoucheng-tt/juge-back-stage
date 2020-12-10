@@ -49,14 +49,14 @@
           <el-form-item>
             <!--            新增白名单-->
             <el-button type="primary" @click="addWhiteList"
-              >新增白名单</el-button
-            >
+              >新增白名单
+            </el-button>
             <!--            批量删除-->
             <el-button type="danger" @click="deleteInBatches"
-              >批量删除</el-button
-            >
-          </el-form-item></el-row
-        >
+              >批量删除
+            </el-button>
+          </el-form-item>
+        </el-row>
       </el-form>
     </div>
     <div class="table">
@@ -142,17 +142,17 @@
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="endUse(scope.row)" type="text" size="small"
-              >停用</el-button
-            >
+              >停用
+            </el-button>
             <el-button @click="enAble(scope.row)" type="text" size="small"
-              >启用</el-button
-            >
+              >启用
+            </el-button>
             <el-button @click="aMend(scope.row)" type="text" size="small"
-              >修改</el-button
-            >
+              >修改
+            </el-button>
             <el-button @click="reMove(scope.row)" type="text" size="small"
-              >删除</el-button
-            >
+              >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -181,7 +181,8 @@
           class="demo-form-inline"
           label-position="right"
           label-width="100px"
-          v-model="addWhiteData"
+          :model="addWhiteData"
+          :rules="addListRules"
         >
           <!--                    归属停车场信息-->
           <el-row>
@@ -190,7 +191,7 @@
               <div>
                 <p>归属停车场:</p>
               </div>
-              <el-form-item style="margin-left: 1%">
+              <el-form-item style="margin-left: 1%" prop="parkId">
                 <el-select
                   v-model="addWhiteData.parkId"
                   placeholder="请选择停车场"
@@ -211,12 +212,20 @@
             <!--                白名单信息第一行车牌号 车主姓名-->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="车牌号码:" label-width="150px">
+                <el-form-item
+                  label="车牌号码:"
+                  label-width="150px"
+                  prop="plateNumber"
+                >
                   <el-input v-model="addWhiteData.plateNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="车主姓名:" label-width="150px">
+                <el-form-item
+                  label="车主姓名:"
+                  label-width="150px"
+                  prop="carOwnerName"
+                >
                   <el-input v-model="addWhiteData.carOwnerName"></el-input>
                 </el-form-item>
               </el-col>
@@ -224,12 +233,20 @@
             <!--                        白名单第二行手机号身份证信息-->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="手机号:" label-width="150px">
+                <el-form-item
+                  label="手机号:"
+                  label-width="150px"
+                  prop="phoneNumber"
+                >
                   <el-input v-model="addWhiteData.phoneNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="身份证信息:" label-width="150px">
+                <el-form-item
+                  label="身份证信息:"
+                  label-width="150px"
+                  prop="idCardNumber"
+                >
                   <el-input v-model="addWhiteData.idCardNumber"></el-input>
                 </el-form-item>
               </el-col>
@@ -237,7 +254,11 @@
             <!--                        白名单第三行车主联系地址-->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="车主联系地址:" label-width="150px">
+                <el-form-item
+                  label="车主联系地址:"
+                  label-width="150px"
+                  prop="carOwnerContactAddress"
+                >
                   <el-input
                     style="width: 400px"
                     v-model="addWhiteData.carOwnerContactAddress"
@@ -247,7 +268,11 @@
             </el-row>
             <!--                        白名单第四行车牌颜色-->
             <el-row>
-              <el-form-item label="车牌颜色:" label-width="150px">
+              <el-form-item
+                label="车牌颜色:"
+                label-width="150px"
+                prop="numberPlateColorCode"
+              >
                 <el-select
                   v-model="addWhiteData.numberPlateColorCode"
                   placeholder="请选择"
@@ -296,7 +321,11 @@
             <el-row>
               <!--                        车位编号-->
               <el-col :span="12">
-                <el-form-item label="车位编号:" label-width="150px">
+                <el-form-item
+                  label="车位编号:"
+                  label-width="150px"
+                  prop="parkSpaceId"
+                >
                   <el-input v-model="addWhiteData.parkSpaceId"></el-input>
                 </el-form-item>
               </el-col>
@@ -499,6 +528,73 @@
 export default {
   data() {
     return {
+      //新增字段约束
+
+      addListRules: {
+        parkId: [
+          {
+            required: true,
+            message: "请选择归属停车场",
+            trigger: "change"
+          }
+        ],
+        plateNumber: [
+          {
+            required: true,
+            message: "请输入车牌号码",
+            trigger: "blur"
+          }
+        ],
+        carOwnerName: [
+          {
+            required: true,
+            message: "请输入车主姓名",
+            trigger: "blur"
+          }
+        ],
+        phoneNumber: [
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: "blur"
+          }
+        ],
+        idCardNumber: [
+          {
+            required: true,
+            message: "请输入身份证信息",
+            trigger: "blur"
+          }
+        ],
+        carOwnerContactAddress: [
+          {
+            required: true,
+            message: "请输入车主联系地址",
+            trigger: "blur"
+          }
+        ],
+        numberPlateColorCode: [
+          {
+            required: true,
+            message: "请选择车牌颜色",
+            trigger: "blur"
+          }
+        ],
+        parkSpaceId: [
+          {
+            required: true,
+            message: "请输入车位编号",
+            trigger: "blur"
+          }
+        ],
+        effectiveTime: [
+          {
+            required: true,
+            message: "请选择生效时间",
+            trigger: "blur"
+          }
+        ]
+      },
       // 顶部查询数据暂存处
       whiteManagementList: {},
       //顶部停车场下拉数据存放
@@ -811,6 +907,7 @@ export default {
 .addWhiteListDate {
   display: flex;
 }
+
 .demo-form-inline {
   width: 100%;
   height: 80%;

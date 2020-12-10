@@ -56,7 +56,7 @@
           class="demo-form-inline"
           label-width="150px"
         >
-          <el-form-item label="归属停车场:">
+          <el-form-item label="归属停车场:" prop="parkName">
             <el-select v-model="addETCForm.parkName" placeholder="请选择停车场">
               <el-option
                 v-for="(item, index) in parkingLotList"
@@ -264,6 +264,9 @@ export default {
         ],
         etcName: [
           { required: true, message: "ETC名称不能为空", trigger: "blur" }
+        ],
+        type:[
+          {required: true, message: "类型不能为空", trigger: "blur"}
         ]
       }
     };
