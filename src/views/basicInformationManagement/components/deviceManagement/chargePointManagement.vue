@@ -162,16 +162,17 @@
         class="demo-form-inline"
         label-position="right"
         label-width="100px"
+        :rules="addListRules"
       >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
-            <el-form-item label="充电桩编号:" label-width="150px">
+            <el-form-item label="充电桩编号:" label-width="150px" prop="chargPileId">
               <el-input v-model="newChargingPoint.chargPileId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="充电桩名称:" label-width="150px">
+            <el-form-item label="充电桩名称:" label-width="150px" prop="chargPileName">
               <el-input v-model="newChargingPoint.chargPileName" />
             </el-form-item>
           </el-col>
@@ -233,6 +234,23 @@
 export default {
   data() {
     return {
+      //新增约束字段
+      addListRules: {
+        chargPileId: [
+          {
+            required: true,
+            message: "请输入充电桩编号",
+            trigger: "blur"
+          }
+        ],
+        chargPileName: [
+          {
+            required: true,
+            message: "请输入充电桩名称",
+            trigger: "blur"
+          }
+        ]
+      },
       //充电桩编号列表
       chargPileIdList: [
         {
