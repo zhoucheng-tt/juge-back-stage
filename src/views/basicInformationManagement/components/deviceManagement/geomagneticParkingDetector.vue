@@ -169,6 +169,7 @@
           class="demo-form-inline"
           label-position="right"
           label-width="100px"
+          :rules="addListRules"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <!--          <el-row style="padding-top: 20px">
@@ -188,7 +189,7 @@
                       </el-form-item>
                     </el-row>-->
           <el-row>
-            <el-form-item label="归属停车场:" label-width="150px">
+            <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
               <el-select v-model="newGeo.parkId" placeholder="请选择">
                 <el-option
                   v-for="(item, index) in parkingLotNameList"
@@ -205,15 +206,15 @@
             <!--                <el-input v-model="newGeo.magneticDetecterId" />-->
             <!--              </el-form-item>-->
 
-            <el-form-item label="地磁车位检测器名称:" label-width="150px">
+            <el-form-item label="地磁车位检测器名称:" label-width="150px" prop="magneticDetecterName">
               <el-input v-model="newGeo.magneticDetecterName" />
             </el-form-item>
 
-            <el-form-item label="传感器ID:" label-width="150px">
+            <el-form-item label="传感器ID:" label-width="150px" prop="sensorId">
               <el-input v-model="newGeo.sensorId"></el-input>
             </el-form-item>
 
-            <el-form-item label="制造商:" label-width="150px">
+            <el-form-item label="制造商:" label-width="150px" prop="manufacturer">
               <el-input v-model="newGeo.manufacturer"></el-input>
             </el-form-item>
           </el-row>
@@ -294,6 +295,36 @@
 export default {
   data() {
     return {
+      addListRules:{
+        parkId: [
+          {
+            required: true,
+            message: "归属停车场不能为空",
+            trigger: "change"
+          }
+        ],
+        magneticDetecterName:[
+          {
+            required:true,
+            message:"地磁车位检测器名称不能为空",
+            trigger:'blur'
+          }
+        ],
+        sensorId:[
+          {
+            required:true,
+            message:"传感器ID不能为空",
+            trigger:'blur'
+          }
+        ],
+        manufacturer:[
+          {
+            required:true,
+            message:"制造商不能为空",
+            trigger:'blur'
+          }
+        ],
+      },
       //查询按钮重置按钮数据存放
       upQueryList: [],
       //停车场名称列表

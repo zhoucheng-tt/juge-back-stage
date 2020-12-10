@@ -191,11 +191,12 @@
           class="demo-form-inline"
           label-position="right"
           label-width="100px"
+          :rules="addListRules"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
-              <el-form-item label="归属停车场:" label-width="150px">
+              <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
                 <el-select v-model="newVideo.parkId" placeholder="请选择">
                   <el-option
                     v-for="(item, index) in parkingLotList"
@@ -215,14 +216,14 @@
             <!--              </el-form-item>-->
             <!--            </el-col>-->
             <el-col :span="12">
-              <el-form-item label="视频车位检测器名称:" label-width="150px">
+              <el-form-item label="视频车位检测器名称:" label-width="150px" prop="videoDetecterName">
                 <el-input v-model="newVideo.videoDetecterName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="监控类型:" label-width="150px">
+              <el-form-item label="监控类型:" label-width="150px" prop="videoDetecterMntrTypeCode">
                 <el-select
                   v-model="newVideo.videoDetecterMntrTypeCode"
                   placeholder="请选择"
@@ -239,31 +240,31 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="IP地址:" label-width="150px">
+              <el-form-item label="IP地址:" label-width="150px" prop="ipAddress">
                 <el-input v-model="newVideo.ipAddress"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="端口:" label-width="150px">
+              <el-form-item label="端口:" label-width="150px" prop="portNumber">
                 <el-input v-model="newVideo.portNumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="用户名:" label-width="150px">
+              <el-form-item label="用户名:" label-width="150px" prop="userName">
                 <el-input v-model="newVideo.userName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="地址:" label-width="150px">
+              <el-form-item label="地址:" label-width="150px" prop="address">
                 <el-input v-model="newVideo.address"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="制造商:" label-width="150px">
+              <el-form-item label="制造商:" label-width="150px" prop="manufacturer">
                 <el-input v-model="newVideo.manufacturer"></el-input>
               </el-form-item>
             </el-col>
@@ -375,6 +376,65 @@
 export default {
   data() {
     return {
+      //添加规则
+      addListRules:{
+        parkId: [
+          {
+            required: true,
+            message: "请选择归属停车场",
+            trigger: "change"
+          }
+        ],
+        videoDetecterName :[
+          {
+            required:true,
+            message:"请输入视频车位检测器名称",
+            trigger:"blur"
+          }
+        ],
+        videoDetecterMntrTypeCode :[
+          {
+            required:true,
+            message:"监控类型不能为空",
+            trigger:"change"
+          }
+        ],
+        ipAddress :[
+          {
+            required:true,
+            message:"IP地址不能为空",
+            trigger:"blur"
+          }
+        ],
+        portNumber :[
+          {
+            required:true,
+            message:"端口不能为空",
+            trigger:"blur"
+          }
+        ],
+        userName :[
+          {
+            required:true,
+            message:"用户名不能为空",
+            trigger:"blur"
+          }
+        ],
+        address :[
+          {
+            required:true,
+            message:"地址不能为空",
+            trigger:"blur"
+          }
+        ],
+        manufacturer :[
+          {
+            required:true,
+            message:"制造商不能为空",
+            trigger:"blur"
+          }
+        ],
+      },
       //按钮查询数据绑定
       upQueryList: [],
       // 查询数据暂存处
