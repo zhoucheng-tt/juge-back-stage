@@ -167,7 +167,8 @@
           class="demo-form-inline"
           label-position="right"
           label-width="100px"
-          v-model="addBlackData"
+          :model="addBlackData"
+          :rules="addListRules"
         >
           <!--                    归属停车场信息-->
           <el-row>
@@ -176,7 +177,7 @@
               <div>
                 <p>归属停车场:</p>
               </div>
-              <el-form-item style="margin-left: 1%">
+              <el-form-item style="margin-left: 1%" prop="parkId">
                 <el-select
                   v-model="addBlackData.parkId"
                   placeholder="请选择停车场"
@@ -191,19 +192,19 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--                黑名单信息-->
+          <!--      黑名单信息-->
           <el-row>
             <p>黑名单信息</p>
             <el-row>
               <!--                黑名单信息第一行车牌号码-->
               <el-col :span="12">
-                <el-form-item label="车牌号码:" label-width="150px">
+                <el-form-item label="车牌号码:" label-width="150px" prop="plateNumber">
                   <el-input v-model="addBlackData.plateNumber"></el-input>
                 </el-form-item>
               </el-col>
               <!--                黑名单信息第一行车主姓名-->
               <el-col :span="12">
-                <el-form-item label="车主姓名:" label-width="150px">
+                <el-form-item label="车主姓名:" label-width="150px" prop="carOwnerName">
                   <el-input v-model="addBlackData.carOwnerName"></el-input>
                 </el-form-item>
               </el-col>
@@ -211,12 +212,12 @@
             <!--                        黑名单信息第二行手机号身份证信息-->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="手机号:" label-width="150px">
+                <el-form-item label="手机号:" label-width="150px" prop="phoneNumber">
                   <el-input v-model="addBlackData.phoneNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="身份证信息:" label-width="150px">
+                <el-form-item label="身份证信息:" label-width="150px" prop="idCardNumber">
                   <el-input v-model="addBlackData.idCardNumber"></el-input>
                 </el-form-item>
               </el-col>
@@ -224,7 +225,7 @@
             <!--                        黑名单第三行车主联系地址-->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="车主联系地址:" label-width="150px">
+                <el-form-item label="车主联系地址:" label-width="150px" prop="carOwnerContactAddress">
                   <el-input
                     style="width: 400px"
                     v-model="addBlackData.carOwnerContactAddress"
@@ -245,7 +246,7 @@
                 <!--                                    </el-select>-->
                 <!--                                </el-form-item>-->
                 <!--                                欠费金额-->
-                <el-form-item label="欠费金额:" label-width="150px">
+                <el-form-item label="欠费金额:" label-width="150px" prop="arrearageMoneyAmount">
                   <el-input
                     style="width: 200px"
                     v-model="addBlackData.arrearageMoneyAmount"
@@ -258,7 +259,7 @@
               <div>
                 <p>加入黑名单原因:</p>
               </div>
-              <el-form-item style="margin-left: 1%">
+              <el-form-item style="margin-left: 1%" prop="joinBlackListReasonCode">
                 <el-select
                   v-model="addBlackData.joinBlackListReasonCode"
                   placeholder="请选择"
@@ -275,7 +276,7 @@
             <!--                        黑名单最后一行备注-->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="备注:" label-width="150px">
+                <el-form-item label="备注:" label-width="150px" prop="remark">
                   <el-input v-model="addBlackData.remark"></el-input>
                 </el-form-item>
               </el-col>
@@ -427,6 +428,58 @@
 export default {
   data() {
     return {
+      //新增校验
+      addListRules: {
+        parkId: [
+          {
+            required: true,
+            message: "请选择归属停车场",
+            trigger: "change"
+          }
+        ],
+        plateNumber: [
+          {
+            required: true,
+            message: "请输入车牌号码",
+            trigger: "blur"
+          }
+        ],
+        carOwnerName: [
+          {
+            required: true,
+            message: "请输入车主姓名",
+            trigger: "blur"
+          }
+        ],
+        phoneNumber: [
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: "blur"
+          }
+        ],
+        idCardNumber: [
+          {
+            required: true,
+            message: "请输入身份证信息",
+            trigger: "blur"
+          }
+        ],
+        carOwnerContactAddress: [
+          {
+            required: true,
+            message: "请输入车主联系地址",
+            trigger: "blur"
+          }
+        ],
+        numberPlateColorCode: [
+          {
+            required: true,
+            message: "请输入车牌颜色",
+            trigger: "blur"
+          }
+        ],
+      },
       //顶部数据绑定
       blackManagementList: {},
       //顶部停车场下拉数据存放
