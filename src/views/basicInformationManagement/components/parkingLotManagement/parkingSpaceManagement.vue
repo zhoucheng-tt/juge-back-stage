@@ -53,11 +53,12 @@
             :inline="true"
             :model="addListDialogueandoffList"
             class="demo-form-inline"
+            :rules="addListDiaRules"
           >
             <div><h3>归属停车场信息</h3></div>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="归属停车场:" class="form-all">
+                <el-form-item label="归属停车场:" class="form-all" prop="parkId">
                   <el-select
                     v-model="addListDialogueandoffList.parkId"
                     placeholder="请选择停车场"
@@ -72,7 +73,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="车位数:" class="form-all">
+                <el-form-item label="车位数:" class="form-all" prop="parkSpaceNum">
                   <el-input
                     v-model="addListDialogueandoffList.parkSpaceNum"
                     placeholder="请输入车位数"
@@ -83,7 +84,7 @@
             <div><h3>停车场平面（层）信息</h3></div>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="停车场平面（层）编号:" class="form-all">
+                <el-form-item label="停车场平面（层）编号:" class="form-all" prop="parkLayerId">
                   <el-input
                     v-model="addListDialogueandoffList.parkLayerId"
                     placeholder="请输入停车场平面（层）编号"
@@ -91,7 +92,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="停车场平面（层）名称:" class="form-all">
+                <el-form-item label="停车场平面（层）名称:" class="form-all" prop="parkLayerName">
                   <el-input
                     v-model="addListDialogueandoffList.parkLayerName"
                     placeholder="请输入停车场平面（层）名称"
@@ -497,6 +498,36 @@
 export default {
   data() {
     return {
+      addListDiaRules: {
+        parkId: [
+          {
+            required: true,
+            message: "请输入归属停车场",
+            trigger: "change"
+          }
+        ],
+        parkSpaceNum: [
+          {
+            required: true,
+            message: "请输入车位数",
+            trigger: "blur"
+          }
+        ],
+        parkLayerId: [
+          {
+            required: true,
+            message: "请输入停车场平面（层）编号",
+            trigger: "blur"
+          }
+        ],
+        parkLayerName: [
+          {
+            required: true,
+            message: "请输入停车场平面（层）名称",
+            trigger: "blur"
+          }
+        ],
+      },
       //查询绑定
       upQueryList: {},
       Cert: {
