@@ -11,7 +11,7 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" :model="query" class="demo-form-inline">
+      <el-form :inline="true" :model="query" class="demo-form-inline" >
         <el-row>
           <!--          <el-col :span="5">
                       <el-form-item label="地市">
@@ -162,6 +162,7 @@
         class="demo-form-inline"
         label-position="right"
         label-width="100px"
+        :rules="addListRules"
       >
         <div style="font-size: 20px">归属停车场信息</div>
         <!--        <el-row style="padding-top: 20px">
@@ -180,7 +181,7 @@
                 </el-row>-->
         <el-row>
           <el-col :span="12">
-            <el-form-item label="归属停车场:" label-width="150px">
+            <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
               <el-select v-model="newLock.parkId" placeholder="请选择">
                 <el-option
                   v-for="(item, index) in parkingLotNameList"
@@ -195,24 +196,24 @@
         <div style="font-size: 20px">地锁信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
-            <el-form-item label="地锁编号:" label-width="150px">
+            <el-form-item label="地锁编号:" label-width="150px" prop="groundLockId">
               <el-input v-model="newLock.groundLockId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="地锁名称:" label-width="150px">
+            <el-form-item label="地锁名称:" label-width="150px" prop="groundLockName">
               <el-input v-model="newLock.groundLockName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="mac地址:" label-width="150px">
+            <el-form-item label="mac地址:" label-width="150px" prop="macAddress">
               <el-input v-model="newLock.macAddress"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="网关Id:" label-width="150px">
+            <el-form-item label="网关Id:" label-width="150px" prop="gatewayId">
               <el-input v-model="newLock.gatewayId"></el-input>
             </el-form-item>
           </el-col>
@@ -297,6 +298,44 @@
 export default {
   data() {
     return {
+      //新增约束规则
+      addListRules: {
+        parkId: [
+          {
+            required: true,
+            message: "归属停车场不能为空",
+            trigger: "change"
+          }
+        ],
+        groundLockId: [
+          {
+            required: true,
+            message: "地锁编号不能为空",
+            trigger: "blur"
+          }
+        ],
+        groundLockName: [
+          {
+            required: true,
+            message: "地锁名称不能为空",
+            trigger: "blur"
+          }
+        ],
+        macAddress: [
+          {
+            required: true,
+            message: "mac地址不能为空",
+            trigger: "blur"
+          }
+        ],
+        gatewayId: [
+          {
+            required: true,
+            message: "网关Id不能为空",
+            trigger: 'blur'
+          }
+        ],
+      },
       //停车场名称列表
       parkingLotNameList: [],
       //设备状态
