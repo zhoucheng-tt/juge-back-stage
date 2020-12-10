@@ -218,7 +218,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="进出口摄像头名称:" label-width="150px">
+              <el-form-item label="进出口摄像头名称:" label-width="150px" prop="passagewayCameraName">
                 <el-input v-model="newCamera.passagewayCameraName" />
               </el-form-item>
             </el-col>
@@ -375,6 +375,13 @@ export default {
             trigger: "blur"
           }
         ],
+        importExport: [
+          {
+            required: true,
+            message: "归属出入口不能为空",
+            trigger: "blur"
+          }
+        ],
         passagewayCameraName: [
           {
             required: true,
@@ -393,6 +400,27 @@ export default {
           {
             required: true,
             message: "端口不能为空",
+            trigger: "blur"
+          }
+        ],
+        userName: [
+          {
+            required: true,
+            message: "用户名不能为空",
+            trigger: "blur"
+          }
+        ],
+        workstationId: [
+          {
+            required: true,
+            message: "所属工作站不能为空",
+            trigger: "blur"
+          }
+        ],
+        manufacturer: [
+          {
+            required: true,
+            message: "制造商不能为空",
             trigger: "blur"
           }
         ],
