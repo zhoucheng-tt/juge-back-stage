@@ -108,28 +108,29 @@
             class="demo-form-inline"
             label-position="right"
             label-width="100px"
+            :rules="addListRules"
           >
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
               <el-col :span="12">
-                <el-form-item label="用户账号:" label-width="150px">
+                <el-form-item label="用户账号:" label-width="150px" prop="userAccount">
                   <el-input v-model="addUserForm.userAccount" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="姓名:" label-width="150px">
+                <el-form-item label="姓名:" label-width="150px" prop="name">
                   <el-input v-model="addUserForm.name" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="手机号:" label-width="150px">
+                <el-form-item label="手机号:" label-width="150px" prop="phoneNumber">
                   <el-input v-model="addUserForm.phoneNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="邮箱:" label-width="150px">
+                <el-form-item label="邮箱:" label-width="150px" prop="email">
                   <el-input v-model="addUserForm.email"></el-input>
                 </el-form-item>
               </el-col>
@@ -380,6 +381,38 @@
 export default {
   data() {
     return {
+      //新增约束
+      addListRules: {
+        userAccount: [
+          {
+            required: true,
+            message: "请输入用户账号",
+            trigger: "blur"
+          }
+        ],
+        name: [
+          {
+            required: true,
+            message: "请输入姓名",
+            trigger: "blur"
+          }
+        ],
+        phoneNumber: [
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: "blur"
+          }
+        ],
+        email: [
+          {
+            required: true,
+            message: "请输入邮箱",
+            trigger: "blur"
+          }
+        ]
+      },
+
       //初始化分页
       pageNum: 1,
       pageSize: 10,
