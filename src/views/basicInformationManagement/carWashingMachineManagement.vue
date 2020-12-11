@@ -52,7 +52,7 @@
       >
         <el-form
           :inline="true"
-          :model="addListDialogueandoffList"
+          :model="upQueryList"
           class="demo-form-inline"
           :rules="addListDiaRules"
         >

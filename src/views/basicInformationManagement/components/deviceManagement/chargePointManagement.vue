@@ -162,6 +162,7 @@
         class="demo-form-inline"
         label-position="right"
         label-width="100px"
+        :model="newChargingPoint"
         :rules="addListRules"
       >
         <div style="font-size: 20px">基本信息</div>

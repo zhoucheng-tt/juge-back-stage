@@ -191,6 +191,7 @@
           class="demo-form-inline"
           label-position="right"
           label-width="100px"
+          :model="newVideo"
           :rules="addListRules"
         >
           <div style="font-size: 20px">归属停车场信息</div>
