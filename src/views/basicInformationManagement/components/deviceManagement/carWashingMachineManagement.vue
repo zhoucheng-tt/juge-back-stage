@@ -176,7 +176,6 @@
         class="demo-form-inline"
         label-position="right"
         label-width="100px"
-
       >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
@@ -184,12 +183,16 @@
           <!--              <el-input v-model="newWasher.washerId" />-->
           <!--            </el-form-item>-->
 
-          <el-form-item label="洗车机名称:" label-width="150px" prop="washerName">
+          <el-form-item
+            label="洗车机名称:"
+            label-width="150px"
+            prop="washerName"
+          >
             <el-input v-model="newWasher.washerName" />
           </el-form-item>
         </el-row>
         <el-row style="padding-top: 20px">
-          <el-form-item label="洗车机描述:" label-width="150px" >
+          <el-form-item label="洗车机描述:" label-width="150px">
             <el-input
               type="textarea"
               style="width: 655px;"

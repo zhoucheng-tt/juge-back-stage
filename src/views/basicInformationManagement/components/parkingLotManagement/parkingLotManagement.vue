@@ -135,7 +135,12 @@
       title="新增停车场信息"
       :visible.sync="addListDialogueandoff"
     >
-      <el-form :inline="true" class="demo-form-inline" :model="newParkingLot" :rules="addListDiaRules">
+      <el-form
+        :inline="true"
+        class="demo-form-inline"
+        :model="newParkingLot"
+        :rules="addListDiaRules"
+      >
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">

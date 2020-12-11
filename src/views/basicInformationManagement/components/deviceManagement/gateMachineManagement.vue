@@ -174,7 +174,11 @@
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
-              <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
+              <el-form-item
+                label="归属停车场:"
+                label-width="150px"
+                prop="parkId"
+              >
                 <el-select
                   v-model="newGate.parkId"
                   placeholder="请选择"
@@ -191,7 +195,11 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="归属出入口:" label-width="150px" prop="passagewayId">
+              <el-form-item
+                label="归属出入口:"
+                label-width="150px"
+                prop="passagewayId"
+              >
                 <el-select v-model="newGate.passagewayId" placeholder="请选择">
                   <el-option
                     v-for="(item, index) in passagesList"
@@ -207,31 +215,51 @@
           <div style="font-size: 20px">道闸机信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
-              <el-form-item label="道闸机编号:" label-width="150px" prop="passagewayGateId">
+              <el-form-item
+                label="道闸机编号:"
+                label-width="150px"
+                prop="passagewayGateId"
+              >
                 <el-input v-model="newGate.passagewayGateId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="道闸机名称:" label-width="150px" prop="passagewayGateName">
+              <el-form-item
+                label="道闸机名称:"
+                label-width="150px"
+                prop="passagewayGateName"
+              >
                 <el-input v-model="newGate.passagewayGateName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="IP地址:" label-width="150px" prop="ipAddress">
+              <el-form-item
+                label="IP地址:"
+                label-width="150px"
+                prop="ipAddress"
+              >
                 <el-input v-model="newGate.ipAddress"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="串口号:" label-width="150px" prop="serialNumber">
+              <el-form-item
+                label="串口号:"
+                label-width="150px"
+                prop="serialNumber"
+              >
                 <el-input v-model="newGate.serialNumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="制造商:" label-width="150px" prop="manufacturer">
+              <el-form-item
+                label="制造商:"
+                label-width="150px"
+                prop="manufacturer"
+              >
                 <el-input v-model="newGate.manufacturer"></el-input>
               </el-form-item>
             </el-col>
@@ -377,7 +405,7 @@ export default {
             message: "请输入制造商",
             trigger: "blur"
           }
-        ],
+        ]
       },
       //查询数据
       upQueryList: [],

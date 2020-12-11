@@ -184,7 +184,11 @@
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
-              <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
+              <el-form-item
+                label="归属停车场:"
+                label-width="150px"
+                prop="parkId"
+              >
                 <el-select v-model="newCamera.parkId" placeholder="请选择">
                   <el-option
                     v-for="(item, index) in parkingLotList"
@@ -196,7 +200,11 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="归属出入口:" label-width="150px" prop="importExport">
+              <el-form-item
+                label="归属出入口:"
+                label-width="150px"
+                prop="importExport"
+              >
                 <el-select
                   v-model="newCamera.importExport"
                   placeholder="请选择"
@@ -214,19 +222,31 @@
           <div style="font-size: 20px">摄像头信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
-              <el-form-item label="进出口摄像头编号:" label-width="150px" prop="passagewayCameraId">
+              <el-form-item
+                label="进出口摄像头编号:"
+                label-width="150px"
+                prop="passagewayCameraId"
+              >
                 <el-input v-model="newCamera.passagewayCameraId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="进出口摄像头名称:" label-width="150px" prop="passagewayCameraName">
+              <el-form-item
+                label="进出口摄像头名称:"
+                label-width="150px"
+                prop="passagewayCameraName"
+              >
                 <el-input v-model="newCamera.passagewayCameraName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="IP地址:" label-width="150px" prop="ipAddress">
+              <el-form-item
+                label="IP地址:"
+                label-width="150px"
+                prop="ipAddress"
+              >
                 <el-input v-model="newCamera.ipAddress"></el-input>
               </el-form-item>
             </el-col>
@@ -243,14 +263,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="所属工作站:" label-width="150px" prop="workstationId">
+              <el-form-item
+                label="所属工作站:"
+                label-width="150px"
+                prop="workstationId"
+              >
                 <el-input v-model="newCamera.workstationId"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="制造商:" label-width="150px" prop="manufacturer">
+              <el-form-item
+                label="制造商:"
+                label-width="150px"
+                prop="manufacturer"
+              >
                 <el-input v-model="newCamera.manufacturer"></el-input>
               </el-form-item>
             </el-col>
@@ -424,8 +452,7 @@ export default {
             message: "制造商不能为空",
             trigger: "blur"
           }
-        ],
-
+        ]
       },
       //查询数据
       upQueryList: [],

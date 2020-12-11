@@ -11,7 +11,7 @@
   <div class="all">
     <!--上半部分表单-->
     <div class="up">
-      <el-form :inline="true" :model="query" class="demo-form-inline" >
+      <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-row>
           <!--          <el-col :span="5">
                       <el-form-item label="地市">
@@ -197,19 +197,31 @@
         <div style="font-size: 20px">地锁信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
-            <el-form-item label="地锁编号:" label-width="150px" prop="groundLockId">
+            <el-form-item
+              label="地锁编号:"
+              label-width="150px"
+              prop="groundLockId"
+            >
               <el-input v-model="newLock.groundLockId" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="地锁名称:" label-width="150px" prop="groundLockName">
+            <el-form-item
+              label="地锁名称:"
+              label-width="150px"
+              prop="groundLockName"
+            >
               <el-input v-model="newLock.groundLockName" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="mac地址:" label-width="150px" prop="macAddress">
+            <el-form-item
+              label="mac地址:"
+              label-width="150px"
+              prop="macAddress"
+            >
               <el-input v-model="newLock.macAddress"></el-input>
             </el-form-item>
           </el-col>
@@ -333,9 +345,9 @@ export default {
           {
             required: true,
             message: "网关Id不能为空",
-            trigger: 'blur'
+            trigger: "blur"
           }
-        ],
+        ]
       },
       //停车场名称列表
       parkingLotNameList: [],

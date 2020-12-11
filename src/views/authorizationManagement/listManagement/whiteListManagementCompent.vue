@@ -188,8 +188,11 @@
           <el-row>
             <p>归属停车场信息</p>
             <el-col :span="12" style="display: flex;margin-left: 6%">
-
-              <el-form-item style="margin-left: 1%" label="归属停车场" prop="parkId">
+              <el-form-item
+                style="margin-left: 1%"
+                label="归属停车场"
+                prop="parkId"
+              >
                 <el-select
                   v-model="addWhiteData.parkId"
                   placeholder="请选择停车场"
@@ -293,28 +296,27 @@
                 style="display:flex;margin-left: 6%;margin-bottom: 20px"
               >
                 <el-col :span="12">
-                  <el-form-item label="生效时间:"  prop="effectiveTime">
+                  <el-form-item label="生效时间:" prop="effectiveTime">
                     <el-date-picker
-                        v-model="addWhiteData.effectiveTime"
-                        type="datetime"
-                        value-format="yyyy-MM-dd HH:mm:ss"
-                        placeholder="请选择生效时间"
+                      v-model="addWhiteData.effectiveTime"
+                      type="datetime"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                      placeholder="请选择生效时间"
                     >
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-               <el-col :span="12">
-                 <el-form-item label="失效时间：" prop="expirationTime">
-                   <el-date-picker
-                       v-model="addWhiteData.expirationTime"
-                       type="datetime"
-                       value-format="yyyy-MM-dd HH:mm:ss"
-                       placeholder="请选择失效时间"
-                   >
-                   </el-date-picker>
-                 </el-form-item>
-               </el-col>
-
+                <el-col :span="12">
+                  <el-form-item label="失效时间：" prop="expirationTime">
+                    <el-date-picker
+                      v-model="addWhiteData.expirationTime"
+                      type="datetime"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                      placeholder="请选择失效时间"
+                    >
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
               </el-row>
             </el-row>
             <!--                        白名单最后一行备注-->
@@ -593,7 +595,7 @@ export default {
             trigger: "blur"
           }
         ],
-        expirationTime:[
+        expirationTime: [
           {
             required: true,
             message: "请选择失效时间",

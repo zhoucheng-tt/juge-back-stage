@@ -265,9 +265,7 @@ export default {
         etcName: [
           { required: true, message: "ETC名称不能为空", trigger: "blur" }
         ],
-        type:[
-          {required: true, message: "类型不能为空", trigger: "blur"}
-        ]
+        type: [{ required: true, message: "类型不能为空", trigger: "blur" }]
       }
     };
   },

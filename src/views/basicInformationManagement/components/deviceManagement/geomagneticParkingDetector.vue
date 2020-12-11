@@ -207,7 +207,11 @@
             <!--                <el-input v-model="newGeo.magneticDetecterId" />-->
             <!--              </el-form-item>-->
 
-            <el-form-item label="地磁车位检测器名称:" label-width="150px" prop="magneticDetecterName">
+            <el-form-item
+              label="地磁车位检测器名称:"
+              label-width="150px"
+              prop="magneticDetecterName"
+            >
               <el-input v-model="newGeo.magneticDetecterName" />
             </el-form-item>
 
@@ -215,7 +219,11 @@
               <el-input v-model="newGeo.sensorId"></el-input>
             </el-form-item>
 
-            <el-form-item label="制造商:" label-width="150px" prop="manufacturer">
+            <el-form-item
+              label="制造商:"
+              label-width="150px"
+              prop="manufacturer"
+            >
               <el-input v-model="newGeo.manufacturer"></el-input>
             </el-form-item>
           </el-row>
@@ -296,7 +304,7 @@
 export default {
   data() {
     return {
-      addListRules:{
+      addListRules: {
         parkId: [
           {
             required: true,
@@ -304,27 +312,27 @@ export default {
             trigger: "change"
           }
         ],
-        magneticDetecterName:[
+        magneticDetecterName: [
           {
-            required:true,
-            message:"地磁车位检测器名称不能为空",
-            trigger:'blur'
+            required: true,
+            message: "地磁车位检测器名称不能为空",
+            trigger: "blur"
           }
         ],
-        sensorId:[
+        sensorId: [
           {
-            required:true,
-            message:"传感器ID不能为空",
-            trigger:'blur'
+            required: true,
+            message: "传感器ID不能为空",
+            trigger: "blur"
           }
         ],
-        manufacturer:[
+        manufacturer: [
           {
-            required:true,
-            message:"制造商不能为空",
-            trigger:'blur'
+            required: true,
+            message: "制造商不能为空",
+            trigger: "blur"
           }
-        ],
+        ]
       },
       //查询按钮重置按钮数据存放
       upQueryList: [],

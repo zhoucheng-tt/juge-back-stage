@@ -113,7 +113,11 @@
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
               <el-col :span="12">
-                <el-form-item label="用户账号:" label-width="150px" prop="userAccount">
+                <el-form-item
+                  label="用户账号:"
+                  label-width="150px"
+                  prop="userAccount"
+                >
                   <el-input v-model="addUserForm.userAccount" />
                 </el-form-item>
               </el-col>
@@ -125,7 +129,11 @@
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="手机号:" label-width="150px" prop="phoneNumber">
+                <el-form-item
+                  label="手机号:"
+                  label-width="150px"
+                  prop="phoneNumber"
+                >
                   <el-input v-model="addUserForm.phoneNumber"></el-input>
                 </el-form-item>
               </el-col>
