@@ -8,36 +8,35 @@
 * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\homePage\homePage.vue
 -->
 <template>
-  <div class="all">
-    <!-- 左边部分 -->
-    <div class="left">
-      <div class="leftContent">
-        <!-- 支付方式  paymentMethod -->
-        <div class="leftCharts">
-          <div class="leftChartUp">
-            <!--                支付方式两个脚-->
-            <div class="img-top-left"></div>
-            <div class="img-top-mid"></div>
-            <div class="img-top-right"></div>
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">支付方式</span>
-          </div>
-          <!-- 支付方式图表   -->
-          <div class="leftChartCenter" id="paymentIncomeAnalysis">
-            <!-- 支付收入分析 -->
-            <Xchart
-              id="paymentIncomeAnalysis"
-              :option="paymentIncomeAnalysisPie"
-            ></Xchart>
-          </div>
-          <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
-          </div>
+  <div class="body">
+    <!--    顶部导航栏-->
+    <div class="top">
+      <!--  首页-->
+      <div class="top-homepage">
+        <div class="top-homepage-text">
+          首页
         </div>
+      </div>
+
+      <div
+        class="top-others"
+        @click="handleTopClick(item.code)"
+        v-for="(item, index) in topList"
+        :label="item.name"
+        :value="item.code"
+        :key="index"
+      >
+        <div class="top-others-text">
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <!-- 左边部分 -->
+      <div class="leftContent">
+        <div class="img-top-left"></div>
+        <div class="img-top-mid"></div>
+        <div class="img-top-right"></div>
         <!-- 总停车数量 totalNumberParking-->
         <div class="leftCharts">
           <div class="leftChartUp">
@@ -61,7 +60,57 @@
             ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
         <!-- 平均停车时长 averageParkingTime-->
@@ -85,241 +134,57 @@
             ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
-          </div>
-        </div>
-        <!-- 充电桩收入按月分析 chargingPileRevenue-->
-        <div class="leftCharts">
-          <div class="leftChartUp">
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">充电桩收入按月分析</span>
-          </div>
-          <!-- 充电桩收入按月分析   -->
-          <div class="leftChartCenter" id="chargeEarn">
-            <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
-          </div>
-          <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
-          </div>
-          <div class="img-bottom-left"></div>
-          <div class="img-bottom-right"></div>
-        </div>
-      </div>
-    </div>
-    <!-- 中间样式 -->
-    <div class="center">
-      <div class="centerUp">
-        <div class="leftUpContentSwitch">
-          <div
-            class="leftUpContentSwitch1"
-            :class="
-              classStrust1 == 0
-                ? 'leftUpContentSwitch2'
-                : 'leftUpContentSwitch1'
-            "
-            @click="today()"
-          >
-            <span class="leftUpContentSwitchSpan">今日</span>
-          </div>
-          <div
-            class="leftUpContentSwitch1"
-            :class="
-              classStrust2 == 0
-                ? 'leftUpContentSwitch2'
-                : 'leftUpContentSwitch1'
-            "
-            @click="yesterday()"
-          >
-            <span class="leftUpContentSwitchSpan">昨日</span>
-          </div>
-          <div
-            class="leftUpContentSwitch1"
-            :class="
-              classStrust3 == 0
-                ? 'leftUpContentSwitch2'
-                : 'leftUpContentSwitch1'
-            "
-            @click="currentWeek()"
-          >
-            <span class="leftUpContentSwitchSpan">本周</span>
-          </div>
-          <div
-            class="leftUpContentSwitch1"
-            :class="
-              classStrust4 == 0
-                ? 'leftUpContentSwitch2'
-                : 'leftUpContentSwitch1'
-            "
-            @click="currentMonth()"
-          >
-            <span class="leftUpContentSwitchSpan">本月</span>
-          </div>
-        </div>
-        <div class="leftUpContentNum">
-          <div
-            class="leftUpContentNumContent"
-            v-for="(item, index) in contentNumList"
-            key="index"
-          >
-            <!-- 车位统计部分内部文字部分 -->
-            <!--                        第一行-->
-            <el-row style="display: flex;width: 600px">
-              <el-row style="width: 200px">
-                <!--                                总收入-->
-                <el-row>
-                  <span class="spanTop">
-                    总收入（元）
-                  </span>
-                </el-row>
-                <el-row>
-                  <span class="spanTopNum" style="color:#08F6E4;">
-                    {{ parseInt(item.totalIncome / 100) }}
-                  </span>
-                </el-row>
-              </el-row>
-              <el-row style="width: 200px">
-                <!--                                应收金额-->
-                <el-row>
-                  <span class="spanTop">
-                    应收金额（元）
-                  </span>
-                </el-row>
-                <el-row>
-                  <span class="spanTopNum" style="color:#895EFC ">
-                    {{ parseInt(item.receivableMoneyAmount / 100) }}
-                  </span>
-                </el-row>
-              </el-row>
-              <el-row style="width: 200px">
-                <!--                                欠收金额-->
-                <el-row>
-                  <span class="spanTop">
-                    欠收金额（元）
-                  </span>
-                </el-row>
-                <el-row>
-                  <span class="spanTopNum" style="color:#E9C503">
-                    {{ parseInt(item.arrearageMoneyAmount / 100) }}
-                  </span>
-                </el-row>
-              </el-row>
-            </el-row>
-            <!--                        第二行-->
-            <el-row style="margin-top: 4%;display: flex">
-              <el-row style="display:flex;width: 600px">
-                <el-row style="width: 150px">
-                  <!--                                空闲充电桩总数-->
-                  <el-row>
-                    <span class="spanMid">
-                      空闲充电桩总数
-                    </span>
-                  </el-row>
-                  <el-row style="display: flex">
-                    <span class="spanMidNum">
-                      <!--                                        {{item.totalRechargeLeft}}-->
-                      111
-                    </span>
-                    <div
-                      style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"
-                    ></div>
-                  </el-row>
-                </el-row>
-                <el-row style="width: 150px">
-                  <!--                                充电桩总收入-->
-                  <el-row>
-                    <span class="spanMid">
-                      充电桩总收入
-                    </span>
-                  </el-row>
-                  <el-row style="display: flex">
-                    <span class="spanMidNum">
-                      {{ rechargeLeftIncome }}
-                    </span>
-                    <div
-                      style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"
-                    ></div>
-                  </el-row>
-                </el-row>
-                <el-row style="width: 150px">
-                  <!--                     空闲洗车位总数-->
-                  <el-row>
-                    <span class="spanMid">
-                      空闲洗车位总数
-                    </span>
-                  </el-row>
-                  <el-row style="display: flex">
-                    <span class="spanMidNum">
-                      <!--                                        {{item.totalWashCarPort}}-->
-                      333
-                    </span>
-                    <div
-                      style="border-right: 2px solid rgba(32,52,156,1);height: 48px;margin-left: 80px"
-                    ></div>
-                  </el-row>
-                </el-row>
-                <el-row style="width: 150px">
-                  <!--洗车位收入-->
-                  <el-row>
-                    <span class="spanMid">
-                      洗车位收入
-                    </span>
-                  </el-row>
-                  <el-row>
-                    <span class="spanMidNum">
-                      {{ washCarPortIncome }}
-                    </span>
-                  </el-row>
-                </el-row>
-              </el-row>
-              <!--                    剩余车位数-->
-              <el-row style="width: 150px;margin-left: 100px">
-                <el-row>
-                  <span class="leftCarPlot">剩余车位数</span>
-                </el-row>
-                <el-row class="leftCarPlotBorder">
-                  <el-row class="leftCarPlotNum">
-                    {{ leftPort }}
-                  </el-row>
-                </el-row>
-              </el-row>
-            </el-row>
-          </div>
-        </div>
-      </div>
-      <!--            中间下半边的地图-->
-      <div class="centerDown" id="map"></div>
-    </div>
-    <!-- 右边数据 -->
-    <div class="right">
-      <div class="leftContent">
-        <!-- 停车场收入排行  parkingRevenueRanking-->
-        <div class="leftCharts">
-          <div class="leftChartUp">
-            <div class="img-top-left"></div>
-            <div class="img-top-mid"></div>
-            <div class="img-top-right"></div>
-            <div>
-              <img
-                src="../../assets/homePage/fangkuai.svg"
-                class="leftChartUpImage"
-                alt=""
-              />
-              <span class="spanStyle">停车场收入排行</span>
-            </div>
-          </div>
-          <!-- 停车场收入排行   -->
-          <div class="leftChartCenter" id="parkingRevenueRanking">
-            <Xchart
-              id="parkingRevenueRanking"
-              :option="parkingRevenueRankingChart"
-            ></Xchart>
-          </div>
-          <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
         <!-- 车位利用率 parkingSpaceUtilization-->
@@ -343,7 +208,57 @@
             ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
         <!-- 车位周转率 parkingSpaceTurnoverRate-->
@@ -367,35 +282,412 @@
             ></Xchart>
           </div>
           <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
-        <!-- 自助洗车收入按月分析 selfServiceCarWashing-->
-        <div class="leftCharts">
-          <div class="leftChartUp">
+        <div class="img-bottom-left"></div>
+        <div class="img-bottom-right"></div>
+      </div>
+      <!-- 中间部分 -->
+      <div class="center">
+        <!--        剩余车位数-->
+        <div class="center-leftport">剩余车位数</div>
+        <!--        数字-->
+        <div class="center-line2">
+          <div class="center-line2-number">
+            <div class="center-line2-number-text">0</div>
+          </div>
+          <div class="center-line2-number">
+            <div class="center-line2-number-text">0</div>
+          </div>
+          <div class="center-line2-number">
+            <div class="center-line2-number-text">0</div>
+          </div>
+          <div class="center-line2-number">
+            <div class="center-line2-number-text">0</div>
+          </div>
+          <div class="center-line2-number">
+            <div class="center-line2-number-text">0</div>
+          </div>
+          <div class="center-line2-number">
+            <div class="center-line2-number-text">0</div>
+          </div>
+          <div class="center-line2-charge">
+            <div class="center-line2-charge-text">空闲充电桩总数</div>
+            <div class="center-line2-charge-number">20</div>
+          </div>
+          <div class="center-line2-wash">
+            <div class="center-line2-wash-text">空闲洗车位总数</div>
+            <div class="center-line2-wash-number">30</div>
+          </div>
+        </div>
+        <!--        总收入一行-->
+        <div class="center-line3">
+          <div class="center-line3-div-first">
+            <div class="center-line3-div-text">总收入(万元)</div>
+            <div class="center-line3-div-number">52</div>
+          </div>
+          <div class="center-line3-div">
+            <div class="center-line3-div-text">应收金额(万元)</div>
+            <div class="center-line3-div-number">40</div>
+          </div>
+          <div class="center-line3-div">
+            <div class="center-line3-div-text">欠收金额(万元)</div>
+            <div class="center-line3-div-number">40</div>
+          </div>
+          <div class="center-line3-div">
+            <div class="center-line3-div-text">充电桩总收入(万元)</div>
+            <div class="center-line3-div-number">1.2</div>
+          </div>
+          <div class="center-line3-div">
+            <div class="center-line3-div-text">洗车位收入(万元)</div>
+            <div class="center-line3-div-number">5.5</div>
+          </div>
+        </div>
+        <!--车位-->
+        <div class="center-down"></div>
+      </div>
+      <!-- 右边内容  -->
+      <div class="rightContent" style="">
+        <!--                支付方式两个脚-->
+        <div class="img-top-left"></div>
+        <div class="img-top-mid"></div>
+        <div class="img-top-right"></div>
+        <!-- 支付方式  paymentMethod -->
+        <div class="rightCharts">
+          <div class="rightChartUp">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="rightChartUpImage"
+              alt=""
+            />
+            <span class="spanStyle">支付方式</span>
+          </div>
+          <!-- 支付方式图表   -->
+          <div class="rightChartCenter" id="paymentIncomeAnalysis">
+            <!-- 支付收入分析 -->
+            <Xchart
+              id="paymentIncomeAnalysis"
+              :option="paymentIncomeAnalysisPie"
+            ></Xchart>
+          </div>
+          <div class="rightChartDown">
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <!-- 停车场收入排行  parkingRevenueRanking-->
+        <div class="rightCharts">
+          <div class="rightChartUp">
+            <div>
+              <img
+                src="../../assets/homePage/fangkuai.svg"
+                class="rightChartUpImage"
+                alt=""
+              />
+              <span class="spanStyle">停车场收入排行</span>
+            </div>
+          </div>
+          <!-- 停车场收入排行   -->
+          <div class="leftChartCenter" id="parkingRevenueRanking">
+            <Xchart
+              id="parkingRevenueRanking"
+              :option="parkingRevenueRankingChart"
+            ></Xchart>
+          </div>
+          <div class="leftChartDown">
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <!-- 充电桩收入按月分析 chargingPileRevenue-->
+        <div class="rightCharts">
+          <div class="rightChartUp">
             <img
               src="../../assets/homePage/fangkuai.svg"
               class="leftChartUpImage"
               alt=""
             />
+            <span class="spanStyle">充电桩收入按月分析</span>
+          </div>
+          <!-- 充电桩收入按月分析   -->
+          <div class="rightChartCenter" id="chargeEarn">
+            <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
+          </div>
+          <div class="rightChartDown">
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <!-- 自助洗车收入按月分析 selfServiceCarWashing-->
+        <div class="rightCharts">
+          <div class="rightChartUp">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="rightChartUpImage"
+              alt=""
+            />
             <span class="spanStyle">自助洗车收入按月分析</span>
           </div>
-          <!-- 自助洗车收入按月分析   -->
-          <!--                    <div class="leftChartCenter" id="selfServiceCarWashing">-->
-          <!--                        <Xchart id="selfServiceCarWashing" :option="selfServiceCarWashingLine"></Xchart>-->
-          <!--                    </div>-->
-          <div class="leftChartCenter" id="chargeAmountTimes">
+          <div class="rightChartCenter" id="chargeAmountTimes">
             <Xchart
               id="chargeAmountTimes"
               :option="chargeAmountTimesOptions"
             ></Xchart>
           </div>
-          <div class="leftChartDown">
-            <img src="../../assets/homePage/juxing.svg" alt="" />
+          <div class="rightChartDown">
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
           </div>
-          <div class="img-bottom-left"></div>
-          <div class="img-bottom-right"></div>
         </div>
+        <div class="img-bottom-left"></div>
+        <div class="img-bottom-right"></div>
       </div>
     </div>
   </div>
@@ -415,6 +707,33 @@ export default {
   },
   data() {
     return {
+      //top存放
+      topList: [
+        {
+          name: "报表分析",
+          code: "1"
+        },
+        {
+          name: "实时监测",
+          code: "2"
+        },
+        {
+          name: "订单管理",
+          code: "3"
+        },
+        {
+          name: "基础信息管理",
+          code: "4"
+        },
+        {
+          name: "授权管理",
+          code: "5"
+        },
+        {
+          name: "系统管理",
+          code: "6"
+        }
+      ],
       //车位利用率图表数字
       parkingSpaceUsedRateTotal: 0,
       //车位周转率图表上的数字
@@ -429,11 +748,7 @@ export default {
       rechargeLeftIncome: 0,
       //剩余车位数
       leftPort: 0,
-      // 控制默认展示样式
-      classStrust1: 1,
-      classStrust2: 0,
-      classStrust3: 0,
-      classStrust4: 0,
+
       // 充电桩统计数据 （暂时的数据）
       contentNumList: [],
       //总停车数量传入参数存放
@@ -539,6 +854,22 @@ export default {
     this.queryParkMonitorParkSpace();
   },
   methods: {
+    //tabs点击事件
+    handleTopClick(code) {
+      if (code == 1) {
+        this.$router.push("/analysisOnOperationIndexOfParking");
+      } else if (code == 2) {
+        this.$router.push("/realTimeMonitoringCarWaring");
+      } else if (code == 3) {
+        this.$router.push("/parkingOrderInquiry");
+      } else if (code == 4) {
+        this.$router.push("/billingRuleManagement");
+      } else if (code == 5) {
+        this.$router.push("/whitelistManagement");
+      } else if (code == 6) {
+        this.$router.push("/keyVehicleSupervision");
+      }
+    },
     // 今日点击数据处理方法
     today() {
       //控制显示今天
@@ -575,112 +906,7 @@ export default {
       // 数据变动
       this.contentNumList = [];
     },
-    // 昨日点击数据处理方法
-    yesterday() {
-      this.classStrust1 = 0;
-      this.classStrust2 = 1;
-      this.classStrust3 = 0;
-      this.classStrust4 = 0;
-      this.oldTypeParam.statisType = "yesterday";
-      this.newTypeParam.queryType = "yesterday";
 
-      // 支付方式图表
-      this.queryPaymentBehaviorAnalysis();
-      // 总停车数量图表
-      this.queryParkOptByParkCount();
-      // 平均停车时长图表
-      this.queryParkOptByAvgParkDuration();
-      // 车位利用率图表
-      this.queryParkOptByParkSpaceUsedRate();
-      // 车位周转率图表
-      this.queryParkOptByParkSpaceTurnoverRate();
-      // 停车场收入排行图表
-      this.queryParkIncomeRanking();
-      //自助洗车按月收入分析图表
-      this.querychargeAmountTimes();
-      //充电桩按月分析图表
-      this.drawChargeEarnChart();
-      //中间总收入、应收金额、欠收金额
-      this.queryTotalIncome();
-      //中间洗车机总收入
-      this.countWashFee();
-      //中间充电桩总收入
-      this.countChargeFee();
-      //总停车数量图表上的数字
-      // this.queryParkCount();
-      // 数据变动
-      this.contentNumList = [];
-    },
-    // 本周点击数据处理方法
-    currentWeek() {
-      this.classStrust1 = 0;
-      this.classStrust2 = 0;
-      this.classStrust3 = 1;
-      this.classStrust4 = 0;
-      this.oldTypeParam.statisType = "currentWeek";
-      this.newTypeParam.queryType = "currentWeek";
-      // 支付方式图表
-      this.queryPaymentBehaviorAnalysis();
-      // 总停车数量图表
-      this.queryParkOptByParkCount();
-      // 平均停车时长图表
-      this.queryParkOptByAvgParkDuration();
-      // 车位利用率图表
-      this.queryParkOptByParkSpaceUsedRate();
-      // 车位周转率图表
-      this.queryParkOptByParkSpaceTurnoverRate();
-      // 停车场收入排行图表
-      this.queryParkIncomeRanking();
-      //自助洗车按月收入分析图表
-      this.querychargeAmountTimes();
-      //充电桩按月分析图表
-      this.drawChargeEarnChart();
-      //中间总收入、应收金额、欠收金额
-      this.queryTotalIncome();
-      //中间洗车机总收入
-      this.countWashFee();
-      //中间充电桩总收入
-      this.countChargeFee();
-      //总停车数量图表上的数字
-      // this.queryParkCount();
-      // 数据变动
-      this.contentNumList = [];
-    },
-    // 本月点击数据处理方法
-    currentMonth() {
-      this.classStrust1 = 0;
-      this.classStrust2 = 0;
-      this.classStrust3 = 0;
-      this.classStrust4 = 1;
-      this.oldTypeParam.statisType = "currentMonth";
-      this.newTypeParam.queryType = "currentMonth";
-      // 支付方式图表
-      this.queryPaymentBehaviorAnalysis();
-      // 总停车数量图表
-      this.queryParkOptByParkCount();
-      // 平均停车时长图表
-      this.queryParkOptByAvgParkDuration();
-      // 车位利用率图表
-      this.queryParkOptByParkSpaceUsedRate();
-      // 车位周转率图表
-      this.queryParkOptByParkSpaceTurnoverRate();
-      // 停车场收入排行图表
-      this.queryParkIncomeRanking();
-      //自助洗车按月收入分析图表
-      this.querychargeAmountTimes();
-      //充电桩按月分析图表
-      this.drawChargeEarnChart();
-      //中间总收入、应收金额、欠收金额
-      this.queryTotalIncome();
-      //中间洗车机总收入
-      this.countWashFee();
-      //中间充电桩总收入
-      this.countChargeFee();
-      //总停车数量图表上的数字
-      // this.queryParkCount();
-      // 数据变动
-      this.contentNumList = [];
-    },
     //获取中间部分总收入、应收金额、欠收金额
     queryTotalIncome() {
       var that = this;
@@ -1674,82 +1900,141 @@ export default {
 </script>
 <style scoped>
 /* 首页去全部内容 */
-.all {
+.body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-image: linear-gradient(180deg, #13258a 0%, #010b2a 100%);
+  background-image: linear-gradient(180deg, #001d43 0%, #000c1c 100%);
 }
-
-/*左边内容部分 */
-.leftContent {
-  width: 99%;
-  height: 100%;
+/*顶部盒子*/
+.top {
+  width: 100%;
+  height: 6.7%;
+  background: url("../../assets/homePage/top.jpg");
+  background-repeat: no-repeat;
+  display: flex;
+}
+/*顶部首页按钮框*/
+.top-homepage {
+  width: 7%;
+  height: 58%;
   position: relative;
-  background-color: #1a2d94;
-  border: 1px solid rgba(0, 221, 255, 0.6);
-  padding: 0px;
+  color: #46c5dd;
+  background-color: #043d87;
+  margin-left: 32.5%;
+  margin-top: 1.2%;
+  transform: skew(-20.5deg);
+  border: 2px solid #45c3db;
+}
+.top-homepage:hover {
+  cursor: pointer;
+  user-select: none;
+}
+.top-homepage-text {
+  width: 100%;
+  height: 65%;
+  transform: skew(20.5deg);
+  font-size: 18px;
+  letter-spacing: 0.53px;
+  margin-left: 34%;
+  margin-top: 4%;
+}
+/*顶部其他文本*/
+.top-others {
+  width: 7%;
+  height: 58%;
+  color: white;
+  background-color: #043d87;
+  margin-left: 1%;
+  margin-top: 1.3%;
+  transform: skew(-20.5deg);
+  position: relative;
+}
+.top-others:hover {
+  cursor: pointer;
+  user-select: none;
+}
+.top-others-text {
+  width: 100%;
+  height: 65%;
+  transform: skew(20.5deg);
+  font-size: 18px;
+  letter-spacing: 0.53px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
 
 /*上左脚*/
 .img-top-left {
   width: 10px;
-  height: 10px;
-  position: relative;
-  top: -7px;
+  height: 1%;
   border-top: 3px solid rgba(8, 246, 228, 1);
   border-left: 3px solid rgba(8, 246, 228, 1);
+  margin-left: -0.5%;
+  margin-top: -0.6%;
 }
 
 /*上中横线*/
 .img-top-mid {
   width: 141px;
-  height: 10px;
-  top: -20px;
+  height: 1%;
+  margin-top: -3%;
   position: relative;
   border-top: 4px solid rgba(8, 246, 228, 1);
-  margin-left: 10%;
+  margin-left: 9.8%;
 }
 
 /*上右脚*/
 .img-top-right {
   width: 10px;
-  height: 10px;
-  margin-top: -34px;
+  height: 1%;
+  margin-top: -3%;
   position: relative;
   border-top: 3px solid rgba(8, 246, 228, 1);
   border-right: 3px solid rgba(8, 246, 228, 1);
-  margin-left: 96.3%;
+  margin-left: 97%;
 }
 
 /*下左脚*/
 .img-bottom-left {
   width: 10px;
   height: 10px;
-  position: relative;
-  margin-top: 201px;
   border-bottom: 3px solid rgba(8, 246, 228, 1);
   border-left: 3px solid rgba(8, 246, 228, 1);
+  margin-left: -0.5%;
+  margin-top: -1%;
 }
 
 /*下右脚*/
 .img-bottom-right {
   width: 10px;
   height: 10px;
-  position: relative;
-  margin-top: -13px;
+  margin-top: -3%;
   border-bottom: 3px solid rgba(8, 246, 228, 1);
   border-right: 3px solid rgba(8, 246, 228, 1);
-  margin-left: 96.3%;
+  margin-left: 97.2%;
 }
-
-/* 每个表格上面的标题名左边小图片样式 */
-.leftChartUpImage {
-  color: #1398ff;
-  margin-left: 4%;
-  margin-top: 2.5%;
+/*内容部分*/
+.content {
+  display: flex;
+  width: 100%;
+  height: 93.2%;
+  /*background-color: red;*/
 }
-
+/*左边内容部分 */
+.leftContent {
+  width: 20.6%;
+  height: 96%;
+  background-color: #041f44;
+  margin-top: 1.3%;
+  margin-left: 1.3%;
+  border: 1px solid #3d71c1;
+}
 /* 每个表格上面的标题名支付方式样式 */
 .spanStyle {
   font-family: PingFangSC-Medium;
@@ -1759,199 +2044,183 @@ export default {
   line-height: 22px;
   margin-left: 2%;
 }
-
-/* 左边部分内容 */
-.left {
-  width: 22%;
-  height: 100%;
-  overflow: hidden;
-  float: left;
+/* 每个表格上面的标题名左边小图片样式 */
+.leftChartUpImage {
+  color: #1398ff;
+  margin-left: 4%;
+  margin-top: 2.5%;
 }
 
-/* 支付方式 */
+/*图表*/
 .leftCharts {
-  position: relative;
-  width: 100%;
-  height: 24%;
-  margin-top: 2%;
-  /* background-color: darkorange; */
-  float: left;
+  width: 90%;
+  margin-left: 5%;
+  height: 24.5%;
 }
-
 /* 图表部分标题 */
 .leftChartUp {
   width: 100%;
   height: 10%;
-  float: left;
 }
-
 /* 图表部分 */
 .leftChartCenter {
+  margin-top: 2%;
   width: 100%;
-  height: 80%;
-  /*background-color: aqua;*/
-  margin-top: 10px;
-  float: left;
+  height: 78%;
 }
-
 /* 图表底部装饰条样式 */
 .leftChartDown {
   width: 100%;
   height: 10%;
-  float: left;
 }
 
-/* 今日、昨日、本周、本月 样式 */
-/* 选中状态样式 */
-.leftUpContentSwitch1 {
-  width: 50px;
+/*右边内容*/
+.rightContent {
+  width: 20.6%;
   height: 96%;
-  background-color: rgba(0, 221, 255, 1);
-  float: left;
-  text-align: center;
-  border: 1px solid black;
+  background-color: #041f44;
+  margin-top: 1.3%;
+  margin-left: 1.8%;
+  border: 1px solid #3d71c1;
+}
+/* 每个表格上面的标题名左边小图片样式 */
+.rightChartUpImage {
+  color: #1398ff;
+  margin-left: 4%;
+  margin-top: 2.5%;
 }
 
-/*未选中的样式*/
-.leftUpContentSwitch2 {
-  background-color: rgba(32, 52, 156, 1);
+/*图表*/
+.rightCharts {
+  width: 90%;
+  margin-left: 5%;
+  height: 24.5%;
 }
-
-.leftUpContentSwitch1,
-.leftUpContentSwitch1:hover {
-  cursor: pointer;
-}
-
-/*文字状态*/
-.leftUpContentSwitch1 .leftUpContentSwitchSpan:hover {
-  color: white;
-  cursor: pointer;
-}
-
-/* 今日、昨日、本周、本月 文字样式 */
-.leftUpContentSwitchSpan {
-  color: rgba(71, 100, 252, 1);
-  font-size: 12px;
-  position: relative;
-  line-height: 18px;
-  letter-spacing: -0.29px;
-}
-
-/*文字框*/
-.leftUpContentSwitch {
-  margin-left: 350px;
-}
-
-/* 中间部分样式 */
-.center {
-  width: 56%;
-  height: 96%;
-  overflow: hidden;
-  float: left;
-  margin-top: 1%;
-}
-
-/* 中间内容上部分 */
-.centerUp {
+/* 图表部分标题 */
+.rightChartUp {
   width: 100%;
-  height: 35%;
-  float: left;
+  height: 10%;
 }
-
-/* 中间内容下部分 */
-.centerDown {
-  width: 96%;
-  height: 75%;
-  margin-left: 2%;
-  /*float: left;*/
-}
-
-/* 右边部分样式 */
-.right {
-  width: 22%;
-  height: 100%;
-  overflow: hidden;
-  float: left;
-}
-
-/* 顶部统计部分样式 */
-.leftUpContentNum {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
-/* 统计部分外部整体样式 */
-.leftUpContentNumContent {
-  width: 96%;
-  height: 90%;
-  float: left;
+/* 图表部分 */
+.rightChartCenter {
   margin-top: 2%;
-  margin-left: 2%;
-  /*background-color: cadetblue;*/
+  width: 100%;
+  height: 78%;
+}
+/* 图表底部装饰条样式 */
+.rightChartDown {
+  width: 100%;
+  height: 10%;
 }
 
-/* 统计部分图片样式 */
-.leftUpContentNumImg {
-  width: 30%;
-  height: 100%;
-  float: left;
+/*中间上部分样式*/
+.center {
+  width: 52.6%;
+  height: 94%;
+  margin-top: 2.3%;
+  margin-left: 1.8%;
+  /*border: 1px solid red;*/
 }
-
-/* 统计部分文字部分样式 */
-/*总收入一行*/
-.spanTop {
-  color: white;
-  line-height: 22px;
+/*  中间剩余车位*/
+.center-leftport {
+  font-family: PingFangSC-Regular;
   font-size: 16px;
+  color: #4fcfd7;
   letter-spacing: 0.57px;
 }
-
-/*总收入一行数字*/
-.spanTopNum {
-  font-size: 56px;
-  line-height: 68px;
-  letter-spacing: 2px;
+/* 数字一栏*/
+.center-line2 {
+  width: 100%;
+  height: 6.5%;
+  margin-top: 0.8%;
+  display: flex;
 }
-
-/*空闲充电桩总数*/
-.spanMid {
-  color: white;
+/* 数字框*/
+.center-line2-number {
+  width: 50px;
+  height: 72px;
+  margin-left: 1%;
+  background: #023376;
+  border: 1px solid #66e3fb;
+}
+/*数字框中的字*/
+.center-line2-number-text {
+  font-family: Helvetica-Bold;
+  font-size: 40px;
+  color: #08f6e4;
+  text-align: center;
+  margin-top: 20%;
+}
+/*空闲充电桩*/
+.center-line2-charge {
+  height: 72px;
+  width: 120px;
+  margin-left: 38%;
+}
+.center-line2-charge-text {
+  font-family: PingFangSC-Regular;
   font-size: 14px;
-  line-height: 20px;
+  color: #ffffff;
   letter-spacing: 0.5px;
 }
-
-/*充电桩总数的数字*/
-.spanMidNum {
-  color: #08b4f6;
-  font-size: 28px;
-  line-height: 40px;
-  letter-spacing: 1px;
+.center-line2-charge-number {
+  font-family: HelveticaNeue-Bold;
+  font-size: 40px;
+  color: #895efc;
+  letter-spacing: 1.43px;
 }
 
-/*剩余车位数*/
-.leftCarPlot {
-  color: #286599;
+/*  空闲洗车位总数*/
+.center-line2-wash {
+  height: 72px;
+  width: 120px;
+  margin-left: 1%;
+}
+.center-line2-wash-text {
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+.center-line2-wash-number {
+  font-family: HelveticaNeue-Bold;
+  font-size: 40px;
+  color: #e9c503;
+  letter-spacing: 1.43px;
+}
+/*总收入一行*/
+.center-line3 {
+  width: 100%;
+  height: 6%;
+  margin-top: 3%;
+  display: flex;
+}
+/*上下的盒子*/
+.center-line3-div-first {
+}
+.center-line3-div {
+  margin-left: 2.1%;
+}
+/*总收入文字*/
+.center-line3-div-text {
+  font-family: PingFangSC-Regular;
   font-size: 16px;
+  color: #ffffff;
   letter-spacing: 0.57px;
-  line-height: 22px;
 }
-
-/*剩余车位数数字*/
-.leftCarPlotBorder {
-  width: 185px;
-  height: 51px;
-  margin-top: 15px;
-  background: url("../../assets/images/Bg.png");
-  background-size: 100%;
+/*总收入数字*/
+.center-line3-div-number {
+  font-family: HelveticaNeue-Medium;
+  font-size: 34px;
+  color: #18b2ff;
+  letter-spacing: 1.21px;
 }
-
-/*剩余车位数字*/
-.leftCarPlotNum {
-  margin-top: 7px;
-  color: white;
-  font-size: 28px;
-  text-align: center;
+/*  车位图*/
+.center-down {
+  width: 100%;
+  height: 74.5%;
+  margin-top: 4.2%;
+  border: 1px solid #3d71c1;
+  background-image: linear-gradient(180deg, #001d43 0%, #000c1c 100%);
 }
 </style>
