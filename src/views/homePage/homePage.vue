@@ -395,7 +395,31 @@
           </div>
         </div>
         <!--车位-->
-        <div class="center-down"></div>
+        <div class="center-down">
+          <div class="center-down-select">
+            <div class="center-down-select-item">
+              <div class="center-down-select-item-img-1"></div>
+              <div class="center-down-select-item-text">已占用</div>
+            </div>
+            <div class="center-down-select-item">
+              <div class="center-down-select-item-img-2"></div>
+              <div class="center-down-select-item-text">停车场</div>
+            </div>
+            <div class="center-down-select-item">
+              <div class="center-down-select-item-img-3"></div>
+              <div class="center-down-select-item-text">绿化带</div>
+            </div>
+            <div class="center-down-select-item">
+              <div class="center-down-select-item-img-4"></div>
+              <div class="center-down-select-item-text">篮球场</div>
+            </div>
+            <div class="center-down-select-item">
+              <div class="center-down-select-item-img-5"></div>
+              <div class="center-down-select-item-text">足球场</div>
+            </div>
+          </div>
+          <div class="center-down-svg"></div>
+        </div>
       </div>
       <!-- 右边内容  -->
       <div class="rightContent" style="">
@@ -1936,8 +1960,13 @@ export default {
   transform: skew(20.5deg);
   font-size: 18px;
   letter-spacing: 0.53px;
-  margin-left: 34%;
-  margin-top: 4%;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
 /*顶部其他文本*/
 .top-others {
@@ -1953,6 +1982,8 @@ export default {
 .top-others:hover {
   cursor: pointer;
   user-select: none;
+  border: 2px solid #45c3db;
+  color: #46c5dd;
 }
 .top-others-text {
   width: 100%;
@@ -2219,8 +2250,81 @@ export default {
 .center-down {
   width: 100%;
   height: 74.5%;
+  display: flex;
   margin-top: 4.2%;
   border: 1px solid #3d71c1;
   background-image: linear-gradient(180deg, #001d43 0%, #000c1c 100%);
+}
+/*车位图左侧选项*/
+.center-down-select {
+  width: 100px;
+  height: 150px;
+  margin-left: 5%;
+  margin-top: 42%;
+  /*border: 1px solid red;*/
+}
+/*车位图左侧选项每个div*/
+.center-down-select-item {
+  width: 100px;
+  height: 20px;
+  display: flex;
+  margin-top: 10px;
+}
+.center-down-select-item-img-1 {
+  width: 40px;
+  height: 20px;
+  background-color: red;
+  border: 2px solid #79f4fc;
+}
+.center-down-select-item-img-2 {
+  width: 40px;
+  height: 20px;
+  background-color: #009245;
+  border: 2px solid #79f4fc;
+}
+.center-down-select-item-img-3 {
+  width: 40px;
+  height: 20px;
+  background: url("../../assets/images/Greenbelt.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: 2px solid #79f4fc;
+}
+.center-down-select-item-img-4 {
+  width: 40px;
+  height: 20px;
+  background: url("../../assets/images/Basketball.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: 2px solid #79f4fc;
+}
+.center-down-select-item-img-5 {
+  width: 40px;
+  height: 20px;
+  background-color: red;
+  background: url("../../assets/images/Football.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: 2px solid #79f4fc;
+}
+
+.center-down-select-item-text {
+  width: 50px;
+  height: 20px;
+  /*margin-top: 10px;*/
+  margin-left: 8px;
+  color: #4cc8d1;
+  font-size: 16px;
+}
+/* 车位图svg*/
+.center-down-svg {
+  width: 75%;
+  height: 87.5%;
+  margin-left: 6%;
+  margin-top: 4%;
+  /*border: 1px solid red;*/
+  background: url("../../assets/images/guize.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 </style>
