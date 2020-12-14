@@ -1304,12 +1304,12 @@ export default {
     };
   },
   mounted() {
+    //列表查询
+    this.queryBillingRuleList();
     // 停车场下拉查询
     this.queryPark();
     //  计费规则下拉查询
     this.queryChargeType();
-    //列表查询
-    this.queryBillingRuleList();
     //最短计费时长
     this.queryMinTime();
   },
@@ -1591,10 +1591,7 @@ export default {
           this.queryBillingRuleList();
         });
     },
-    //导出
-    handleExport() {},
-    //批量删除
-    onBatch() {},
+
     //删除一行
     handleDelete(row) {
       //点击删除按钮出现的提示框
@@ -1608,9 +1605,9 @@ export default {
           this.delChargeList = [];
           //设定传入行数据
           const param = {
-            billingRuleDefId: [this.billingRuleDefId]
+            billingRuleDefId: [row.billingRuleDefId]
           };
-          console.log(param, "1111111111111");
+          console.log(param, "listlistlistlistlistlist");
           this.delChargeList = param;
           this.$basicInformationManagement.deleteBillingRule(
             this.delChargeList
@@ -1623,6 +1620,10 @@ export default {
           this.$message({ type: "info", message: "已取消删除" });
         });
     },
+    //导出
+    handleExport() {},
+    //批量删除
+    onBatch() {},
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
