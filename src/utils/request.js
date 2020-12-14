@@ -4,10 +4,10 @@
  * @Date: 2020-04-01 15:09:48
  * @LastEditors: Please set LastEditors
  */
-import axios from 'axios'
-import qs from 'qs'
-import { Message } from 'element-ui'
-import router from '@/router/index'
+import axios from "axios";
+import qs from "qs";
+import { Message } from "element-ui";
+import router from "@/router/index";
 import da from "element-ui/src/locale/lang/da";
 
 // create an axios instance
@@ -16,29 +16,32 @@ const service = axios.create({
   // baseURL: process.env.VUE_APP_HOST_URL, // url = base url + request url
   // 后台位置
   // baseURL:'http://120.26.146.64:8052/e-parking-web',
+  //新后台位置
+  // baseURL:'http://192.168.1.171:18080/eparking-web',
   // 服务器版本
   // baseURL:'/e-parking-api',
-  baseURL: '/e-parking-web',
+  baseURL: "/eparking-web",
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   // 这边也走两套
   transformRequest: [
-    function (data) {
+    function(data) {
       let reqInfo;
       if (data.template !== undefined) {
         reqInfo = {
           template: data.template
-        }
+        };
       } else {
         if (data.upload !== undefined) {
           reqInfo = data;
         } else {
           reqInfo = {
-            param: JSON.stringify(data),//对象转json
-          }
+            param: JSON.stringify(data) //对象转json
+          };
         }
-      return qs.stringify(reqInfo)//json转表单
-    }}
+        return qs.stringify(reqInfo); //json转表单
+      }
+    }
   ]
 });
 
@@ -49,17 +52,17 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    console.log("dddd")
-    config.headers['userToken'] = localStorage.getItem('userToken')
+    console.log("dddd");
+    config.headers["userToken"] = localStorage.getItem("userToken");
     // config.cancelToken = source.token; // 全局添加cancelToken
-    return config
+    return config;
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
-    return Promise.reject(error)
+    console.log(error); // for debug
+    return Promise.reject(error);
   }
-)
+);
 
 // 这边是拦截代码
 // response interceptor
@@ -76,7 +79,7 @@ service.interceptors.response.use(
    */
   // 拦截方法
   response => {
-    const res = response.data
+    const res = response.data;
     // if (res.struts === '1') {
     //   // source.cancel('not login')
     //   // Message({
@@ -88,30 +91,29 @@ service.interceptors.response.use(
     // router.push({ name: 'login' })
     //   return Promise.reject(res.resultMsg || 'error')
     // } else
-    if (response.config.flag === 'out') {
-      return res
-    }  else {
-      if (res.status !== '0') {
-        if (response.config.flag === 'innerExt') {
-          return res
+    if (response.config.flag === "out") {
+      return res;
+    } else {
+      if (res.status !== "0") {
+        if (response.config.flag === "innerExt") {
+          return res;
         } else {
           Message({
-            message: res.resultMsg || '系统错误，请联系管理员',
-            type: 'error',
+            message: res.resultMsg || "系统错误，请联系管理员",
+            type: "error",
             duration: 5 * 1000,
             showClose: true
-          })
+          });
           // router.push({ name: '/login' })
-          return Promise.reject(res.resultMsg || 'error')
+          return Promise.reject(res.resultMsg || "error");
         }
-
       } else {
-        return res
+        return res;
       }
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log("err" + error); // for debug
     // source.cancel()
     // if (error.message !== 'not login' && error.message !== 'web err') {
     //   Message({
@@ -127,8 +129,8 @@ service.interceptors.response.use(
     // } else {
     //   return Promise.reject(error)
     // }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default service
+export default service;

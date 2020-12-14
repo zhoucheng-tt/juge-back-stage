@@ -18,11 +18,11 @@ module.exports = {
     proxy: {
       // 配置跨域
       // 当遇见所有的跨域问题中需要进行这边调整
-      "/e-parking-web": {
-        target: "http://120.26.146.64:8052",
+      "/eparking-web": {
+        target: "http://192.168.1.171:18080",
         ws: false,
         pathRewrite: {
-          "^/e-parking-web/": "/e-parking-web/"
+          "^/eparking-web/": "/eparking-web/"
           //pathRewrite: {'^/api': '/'} 重写之后url为 http://192.168.1.16:8085/xxxx
           //pathRewrite: {'^/api': '/api'} 重写之后url为 http://192.168.1.16:8085/api/xxxx
         }
@@ -42,10 +42,10 @@ module.exports = {
   // 开始
   chainWebpack: config => {
     // 配置的时候这边需要自己定义一个方法b, 不然程序会报错
-    const path = require('path')
+    const path = require("path");
 
     function resolve(dir) {
-      return path.join(__dirname, dir)
+      return path.join(__dirname, dir);
     }
 
     // // svg rule loader
@@ -67,5 +67,5 @@ module.exports = {
     //   .rule('images')
     //   .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
   }
-//   // 结束
-}
+  //   // 结束
+};
