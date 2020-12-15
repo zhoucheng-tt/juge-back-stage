@@ -13,40 +13,45 @@
       <!--上半部分查询-->
       <el-row>
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-<!--      停车场-->
+          <!--      停车场-->
           <el-form-item label="停车场:">
             <el-select v-model="queryParkId" placeholder="请选择停车场">
               <el-option
-                  v-for="(item, index) in parkingLotList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
+                v-for="(item, index) in parkingLotList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
-<!--    时间-->
+          <!--    时间-->
           <el-form-item label="选择时间:">
-              <el-date-picker
-                v-model="upQueryList.minDateTime"
-                type="datetime"
-                value-format="yyyy-MM-dd hh:mm:ss"
-                placeholder="请选择起始时间">
-              </el-date-picker>
+            <el-date-picker
+              v-model="upQueryList.minDateTime"
+              type="datetime"
+              value-format="yyyy-MM-dd hh:mm:ss"
+              placeholder="请选择起始时间"
+            >
+            </el-date-picker>
             <span>
-                        ~
-                    </span>
+              ~
+            </span>
             <el-date-picker
               v-model="upQueryList.maxDateTime"
               type="datetime"
               placeholder="请选择截止日期"
-              value-format="yyyy-MM-dd hh:mm:ss">
+              value-format="yyyy-MM-dd hh:mm:ss"
+            >
             </el-date-picker>
           </el-form-item>
-<!--    车牌号-->
+          <!--    车牌号-->
           <el-form-item label="车牌号:">
-              <el-input v-model="upQueryList.plateNum" placeholder="请输入车牌号"></el-input>
+            <el-input
+              v-model="upQueryList.plateNum"
+              placeholder="请输入车牌号"
+            ></el-input>
           </el-form-item>
-<!--      查询按钮-->
+          <!--      查询按钮-->
           <el-form-item>
             <el-button type="primary">查询</el-button>
             <el-button type="primary" @click="resetQuery">重置</el-button>
@@ -63,14 +68,18 @@
       </el-row>
       <el-row>
         <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="entranceImgUrl"  class="show">
+          <img :src="entranceImgUrl" class="show" />
         </el-col>
         <el-col :span="12">
           <div class="marquee">
             <!-- <el-scrollbar style="height: 100%"> -->
             <div class="marquee_box">
-              <ul class="marquee_list" :class="{marquee_top:animate}" onmouseover="this.stop()">
-                <li v-for="item in blackTextList" class="alarm-card" >
+              <ul
+                class="marquee_list"
+                :class="{ marquee_top: animate }"
+                onmouseover="this.stop()"
+              >
+                <li v-for="item in blackTextList" class="alarm-card">
                   <span>{{ item.text }}</span>
                   <span>车牌:</span>
                   <span>{{ item.plateNum }}</span>
@@ -89,13 +98,13 @@
       </el-row>
       <el-row>
         <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="exitImgUrl" class="show">
+          <img :src="exitImgUrl" class="show" />
         </el-col>
         <el-col :span="12">
           <div class="marquee">
             <!-- <el-scrollbar style="height: 100%"> -->
             <div class="marquee_box">
-              <ul class="marquee_list" :class="{marquee_top:animate}">
+              <ul class="marquee_list" :class="{ marquee_top: animate }">
                 <li v-for="item in blackTextList" class="alarm-card">
                   <span>{{ item.text }}</span>
                   <span>车牌:</span>
@@ -121,9 +130,9 @@ export default {
       // 停车场下拉列表
       parkingLotList: [],
       //查询绑定
-        upQueryList:[],
+      upQueryList: [],
       //时间选择器绑定
-      value1:'',
+      value1: "",
       //图片路径
       entranceImgUrl: require("../../assets/images/cc1.png"),
       exitImgUrl: require("../../assets/images/rc1.png"),
@@ -150,26 +159,28 @@ export default {
           text: "2020-08-07 17:50:40",
           plateNum: "苏F-D01043",
           carType: "小轿车"
-        }, {
-          text: "2020-08-07 17:50:40",
-          plateNum: "苏F-D01043",
-          carType: "小轿车"
-        }, {
+        },
+        {
           text: "2020-08-07 17:50:40",
           plateNum: "苏F-D01043",
           carType: "小轿车"
         },
+        {
+          text: "2020-08-07 17:50:40",
+          plateNum: "苏F-D01043",
+          carType: "小轿车"
+        }
       ]
-    }
+    };
   },
-  created: function () {
+  created: function() {
     setInterval(this.showMarquee, 2000);
   },
   methods: {
-      //查询重置按钮
-      resetQuery(){
-          this.upQueryList={};
-      },
+    //查询重置按钮
+    resetQuery() {
+      this.upQueryList = {};
+    },
     // 查询停车场下拉表单
     queryParking() {
       var that = this;
@@ -186,7 +197,7 @@ export default {
       });
     },
 
-    showMarquee: function () {
+    showMarquee: function() {
       this.animate = true;
 
       setTimeout(() => {
@@ -194,13 +205,12 @@ export default {
         this.blackTextList.shift();
         this.animate = false;
       }, 1000);
-
     }
   },
   mounted() {
-    this.queryParking()
+    this.queryParking();
   }
-}
+};
 </script>
 
 <style scoped>
@@ -209,7 +219,6 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-
 
 .marquee_top {
   transition: all 3s;
@@ -236,7 +245,7 @@ export default {
   height: 100%;
   width: 70%;
   padding-left: 18px;
-  position:relative;
+  position: relative;
 }
 
 /* 下班部分列表部分 */
@@ -295,7 +304,7 @@ export default {
   background-color: #99a9bf;
 }
 
-.el-carousel__item:nth-child(2n+1) {
+.el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
 
@@ -303,13 +312,13 @@ export default {
   width: 100%;
   height: 150px;
   align-items: center;
-  color: #3A3A3A;
+  color: #3a3a3a;
   background-color: #b3effe;
   display: flex;
   box-sizing: border-box;
 }
-.marquee:hover{
-  animation-play-state: paused
+.marquee:hover {
+  animation-play-state: paused;
 }
 
 .marquee_box {
@@ -341,7 +350,6 @@ export default {
 .marquee_list li span {
   padding: 0 2px;
 }
-
 
 /*/deep/.el-scrollbar__wrap {*/
 /*  overflow-x: scroll;*/

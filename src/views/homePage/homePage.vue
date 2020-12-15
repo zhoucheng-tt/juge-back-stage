@@ -2976,14 +2976,6 @@ export default {
 
       // 充电桩统计数据 （暂时的数据）
       contentNumList: [],
-      //总停车数量传入参数存放
-      newTypeParam: {
-        queryType: "today"
-      },
-      //总收入参数暂存存放
-      oldTypeParam: {
-        statisType: "today"
-      },
       // 地图中点击添加弹框
       mapList: {
         lng: 119.016937,
@@ -3067,16 +3059,29 @@ export default {
     };
   },
   mounted() {
+    // 总停车数量图表
+    this.queryParkOptByParkCount();
+    // 平均停车时长图表
+    this.queryParkOptByAvgParkDuration();
+    // 车位利用率图表
+    this.queryParkOptByParkSpaceUsedRate();
+    // 车位周转率图表
+    this.queryParkOptByParkSpaceTurnoverRate();
+    // 支付方式图表
+    this.queryPaymentBehaviorAnalysis();
+    // 停车场收入排行图表
+    this.queryParkIncomeRanking();
+    //充电桩按月分析图表
+    this.drawChargeEarnChart();
+    //自助洗车按月收入分析图表
+    this.querychargeAmountTimes();
+    // //剩余车位数
+    // this.queryParkMonitorParkSpace();
     // 添加地图图标方式
     this.initMap();
     // 添加图标的方法
     this.addMoudel();
-
     this.queryTest();
-    //查询今天
-    this.today();
-    //剩余车位数
-    this.queryParkMonitorParkSpace();
   },
   methods: {
     //tabs点击事件
@@ -3097,29 +3102,6 @@ export default {
     },
     // 今日点击数据处理方法
     today() {
-      //控制显示今天
-      this.classStrust1 = 1;
-      this.classStrust2 = 0;
-      this.classStrust3 = 0;
-      this.classStrust4 = 0;
-      this.oldTypeParam.statisType = "today";
-      this.newTypeParam.queryType = "today";
-      // 支付方式图表
-      this.queryPaymentBehaviorAnalysis();
-      // 总停车数量图表
-      this.queryParkOptByParkCount();
-      // 平均停车时长图表
-      this.queryParkOptByAvgParkDuration();
-      // 车位利用率图表
-      this.queryParkOptByParkSpaceUsedRate();
-      // 车位周转率图表
-      this.queryParkOptByParkSpaceTurnoverRate();
-      // 停车场收入排行图表
-      this.queryParkIncomeRanking();
-      //自助洗车按月收入分析图表
-      this.querychargeAmountTimes();
-      //充电桩按月分析图表
-      this.drawChargeEarnChart();
       //中间总收入、应收金额、欠收金额
       this.queryTotalIncome();
       //中间洗车机总收入
@@ -3198,7 +3180,7 @@ export default {
     // 支付方式
     queryPaymentBehaviorAnalysis() {
       const param = {
-        statisType: this.oldTypeParam.statisType
+        statisType: "today"
       };
       this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
         var alipayDataList = [
@@ -3274,25 +3256,8 @@ export default {
 
     // 总停车数量折线图的绑定id和option方法
     queryParkOptByParkCount() {
-      // //这边就是把参数等于对应的值就行了
-      // // 绑定自定义的id的字段名
-      // this.lineId = 'numberOfParking';
-      // // 自定义绑定的options的字段名
-      // this.lineOptions = 'lineOptions';
-      // // 自定义停车时长
-      // this.lineTitle = '停车数量';
-      // // 定义图表类型
-      // this.lineChartsType = 'area';
-      // // 将数据绑定到暂存数组中
-      // this.lineChartsList = this.numberOfParkingData;
-      // // 自定义x轴坐标数据
-      // this.lineChartsX = this.numberOfParkingXz;
-      // // 绑定定义的名字
-      // this.lineChartsName = this.numberOfParkingName;
-      // // 调用折线图的方法
-      // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisType: this.oldTypeParam.statisType
+        statisType: "today"
       };
       this.$homePage.queryParkOptByParkCount(param).then(res => {
         this.numberOfParkingXz = [];
@@ -3394,16 +3359,8 @@ export default {
 
     // 平均停车时长
     queryParkOptByAvgParkDuration() {
-      // this.lineId = 'averageParkingTime';
-      // this.lineOptions = 'averageParkingTimeOptions';
-      // this.lineTitle = '平均停车时长';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.averageParkingTimeData;
-      // this.lineChartsX = this.averageParkingTimeXz;
-      // this.lineChartsName = this.averageParkingTimeName;
-      // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisType: this.oldTypeParam.statisType
+        statisType: "today"
       };
       this.$homePage.queryParkOptByAvgParkDuration(param).then(res => {
         this.averageParkingTimeXz = [];
@@ -3508,16 +3465,8 @@ export default {
 
     // 车位利用率
     queryParkOptByParkSpaceUsedRate() {
-      // this.lineId = 'parkingSpaceUtilization';
-      // this.lineOptions = 'parkingSpaceUtilizationOptions';
-      // this.lineTitle = '车位利用率';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.parkingSpaceUtilizationData;
-      // this.lineChartsX = this.parkingSpaceUtilizationXz;
-      // this.lineChartsName = this.parkingSpaceUtilizationName;
-      // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisType: this.oldTypeParam.statisType
+        statisType: "today"
       };
       this.$homePage.queryParkOptByParkSpaceUsedRate(param).then(res => {
         this.parkingSpaceUtilizationXz = [];
@@ -3619,16 +3568,8 @@ export default {
 
     // 车位周转率
     queryParkOptByParkSpaceTurnoverRate() {
-      // this.lineId = 'parkingSpaceTurnoverRate';
-      // this.lineOptions = 'parkingSpaceTurnoverRateOptions';
-      // this.lineTitle = '车位周转率';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.parkingSpaceTurnoverRateData;
-      // this.lineChartsX = this.parkingSpaceTurnoverRateXz;
-      // this.lineChartsName = this.parkingSpaceTurnoverRateName;
-      // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisType: this.oldTypeParam.statisType
+        statisType: "today"
       };
       this.$homePage.queryParkOptByParkSpaceTurnoverRate(param).then(res => {
         this.parkingSpaceTurnoverRateXz = [];
@@ -3732,7 +3673,7 @@ export default {
     queryParkIncomeRanking() {
       this.parkingRevenueRankingChartX = [];
       const param = {
-        statisType: this.oldTypeParam.statisType
+        statisType: "today"
       };
       var dataListA = [];
       this.$homePage.queryParkIncomeRanking(param).then(res => {
@@ -3920,7 +3861,6 @@ export default {
         new HighCharts.Chart(this.chargeAmountTimesOptions);
       });
     },
-
     //绘表自助充电设备收入按时段分析
     drawChargeEarnChart() {
       this.chargeEarnChartX = [];
