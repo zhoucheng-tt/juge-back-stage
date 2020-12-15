@@ -47,7 +47,7 @@
         </el-form>
       </el-row>
       <!-- 新增ETC弹框 -->
-      <el-dialog title="新增ETC信息" :visible.sync="dialogAdd">
+      <el-dialog title="新增ETC信息" :visible.sync="dialogAdd" destroy-on-close>
         <el-form
           :inline="true"
           :rules="rules"

@@ -97,8 +97,7 @@
     <el-dialog
       title="新增计费信息"
       :visible.sync="addChargeListDialog"
-      top="10vh"
-    >
+      top="10vh">
       <el-form
         :model="addChargeList"
         label-width="150px"
@@ -1211,6 +1210,7 @@
   </div>
 </template>
 <script>
+this.$refs[formName].resetFields()
 export default {
   data() {
     return {
