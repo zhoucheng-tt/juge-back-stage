@@ -51,14 +51,14 @@
         </el-row>
       </el-form>
 <!--      导入弹框-->
-      <el-dialog title="导入数据" :visible.sync="importContainerDia" width="40%">
+      <el-dialog title="导入数据" :visible.sync="importContainerDia"  width="40%" >
         <!-- style="text-align: center;" -->
         <el-upload style="text-align: center;" ref="upload" :http-request="myUpload" action="" class="upload-demo"
                    :on-preview="handlePreview" :on-remove="handleRemove" :on-exceed="handleExceed" accept=".xls, .xlsx"
                    :limit="1"
                    :file-list="fileList" :show-file-list="true" :on-change="addFile" :auto-upload="false">
           <el-button slot="trigger" size="small" type="primary" icon="el-icon-circle-plus-outline">选择文件</el-button>
-          <el-button size="small" type="primary" @click="downloadModel">模板下载</el-button>
+          <el-button size="small" type="primary" @click="downloadModel" style="margin-left: 15px">模板下载</el-button>
           <div slot="tip" class="el-upload__tip" style="font-size:10px;color:red;margin-top:30px;">请下载模板文件后上传。</div>
         </el-upload>
 
@@ -211,6 +211,7 @@
           label-width="100px"
           :model="newVideo"
           :rules="addListRules"
+          ref="newVideo"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
@@ -723,14 +724,23 @@ export default {
         });
     },
     //新增表单提交
-    onSubmitAdd() {
-      console.log("新增数据", this.newVideo);
-      this.$deviceManagement.addVideoDetecter(this.newVideo).then(res => {
-        console.log("打印新增响应数据", res);
+    onSubmitAdd(newVideo) {
+      this.$refs['newVideo'].validate((valid) =>{
+        if(valid){
+          // this.parkId = this.newVideo.parkId;
+          // this.videoDetecterName = this.newVideo.videoDetecterName;
+          console.log("新增数据", this.newVideo);
+          this.$deviceManagement.addVideoDetecter(this.newVideo).then(res => {
+            console.log("打印新增响应数据", res);
+          });
+          this.$message({ type: "success", message: "添加成功!" });
+          this.queryVideoDetecter();
+          this.addListDialog = false;
+        } else{
+          return false;
+        }
       });
-      this.$message({ type: "success", message: "添加成功!" });
-      this.queryVideoDetecter();
-      this.addListDialog = false;
+
     },
     //修改表单提交
     onSubmitEdit() {
@@ -818,7 +828,7 @@ export default {
     myUpload(content) {
       // 1.导入
       var FileController = '';
-      FileController = process.env.BASE_API + "/shippingFeeConfig/upload";
+      FileController = process.env.BASE_API + "/DeviceFunc/batchInsertVideoDetecter";
       console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();

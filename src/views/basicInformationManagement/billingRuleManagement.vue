@@ -103,6 +103,7 @@
         :model="addChargeList"
         label-width="150px"
         :rules="addChargeListRules"
+        ref="addChargeList"
       >
         <!--        <span>停车场信息</span>-->
         <!--        <el-form-item label="归属停车场:">-->
@@ -1382,60 +1383,68 @@ export default {
       this.billingRuleDetailList = [];
     },
     //新增计费规则提交
-    onCommitAdd() {
-      this.addChargeListDialog = false;
-      const param = {
-        billingRuleDefName: this.addChargeList.billingRuleDefName,
-        billingRuleTypeCode: this.addChargeList.billingRuleTypeCode,
-        remark: this.addChargeList.remark,
-        minBillingDurationCode: this.addChargeList.minBillingDurationCode,
-        billingRuleDetailList: [
-          {
-            //小型车辆
-            vehicleTypeCode: "1",
-            freeDuration: this.billingRuleDetailList.smallfreeDuration,
-            rebillingDuration: this.billingRuleDetailList
-              .smallrebillingDuration,
-            dayBeginTime: this.billingRuleDetailList.dayBeginTime,
-            dayEndTime: this.billingRuleDetailList.dayEndTime,
-            nightBeginTime: this.billingRuleDetailList.nightBeginTime,
-            nightEndTime: this.billingRuleDetailList.nightEndTime,
-            dayBillingPrice: this.billingRuleDetailList.smalldayBillingPrice,
-            nightBillingPrice: this.billingRuleDetailList
-              .smallnightBillingPrice,
-            ceilingFlag: this.billingRuleDetailList.ceilingFlag,
-            ceilingMoneyAmount: this.billingRuleDetailList
-              .smallceilingMoneyAmount,
-            minBillingDurationCode: this.billingRuleDetailList
-              .minBillingDurationCode
-          },
-          {
-            // 大型车辆
-            vehicleTypeCode: "2",
-            freeDuration: this.billingRuleDetailList.maxfreeDuration,
-            rebillingDuration: this.billingRuleDetailList.maxrebillingDuration,
-            dayBeginTime: this.billingRuleDetailList.dayBeginTime,
-            dayEndTime: this.billingRuleDetailList.dayEndTime,
-            nightBeginTime: this.billingRuleDetailList.nightBeginTime,
-            nightEndTime: this.billingRuleDetailList.nightEndTime,
-            dayBillingPrice: this.billingRuleDetailList.maxdayBillingPrice,
-            nightBillingPrice: this.billingRuleDetailList.maxnightBillingPrice,
-            ceilingFlag: this.billingRuleDetailList.ceilingFlag,
-            ceilingMoneyAmount: this.billingRuleDetailList
-              .maxceilingMoneyAmount,
-            minBillingDurationCode: this.billingRuleDetailList
-              .minBillingDurationCode
-          }
-        ]
-      };
-      this.$basicInformationManagement
-        .insertBillingRule(param)
-        .then(response => {
-          //添加成功弹出
-          this.$message({ type: "success", message: "添加成功!" });
-          //添加成功 刷新页面 调用查询方法
-          this.queryBillingRuleList();
-        });
+    onCommitAdd(addChargeList) {
+      this.$refs['addChargeList'].validate((valid)=>{
+      if(valid) {
+        this.addChargeListDialog = false;
+        const param = {
+          billingRuleDefName: this.addChargeList.billingRuleDefName,
+          billingRuleTypeCode: this.addChargeList.billingRuleTypeCode,
+          remark: this.addChargeList.remark,
+          minBillingDurationCode: this.addChargeList.minBillingDurationCode,
+          billingRuleDetailList: [
+            {
+              //小型车辆
+              vehicleTypeCode: "1",
+              freeDuration: this.billingRuleDetailList.smallfreeDuration,
+              rebillingDuration: this.billingRuleDetailList
+                  .smallrebillingDuration,
+              dayBeginTime: this.billingRuleDetailList.dayBeginTime,
+              dayEndTime: this.billingRuleDetailList.dayEndTime,
+              nightBeginTime: this.billingRuleDetailList.nightBeginTime,
+              nightEndTime: this.billingRuleDetailList.nightEndTime,
+              dayBillingPrice: this.billingRuleDetailList.smalldayBillingPrice,
+              nightBillingPrice: this.billingRuleDetailList
+                  .smallnightBillingPrice,
+              ceilingFlag: this.billingRuleDetailList.ceilingFlag,
+              ceilingMoneyAmount: this.billingRuleDetailList
+                  .smallceilingMoneyAmount,
+              minBillingDurationCode: this.billingRuleDetailList
+                  .minBillingDurationCode
+            },
+            {
+              // 大型车辆
+              vehicleTypeCode: "2",
+              freeDuration: this.billingRuleDetailList.maxfreeDuration,
+              rebillingDuration: this.billingRuleDetailList.maxrebillingDuration,
+              dayBeginTime: this.billingRuleDetailList.dayBeginTime,
+              dayEndTime: this.billingRuleDetailList.dayEndTime,
+              nightBeginTime: this.billingRuleDetailList.nightBeginTime,
+              nightEndTime: this.billingRuleDetailList.nightEndTime,
+              dayBillingPrice: this.billingRuleDetailList.maxdayBillingPrice,
+              nightBillingPrice: this.billingRuleDetailList.maxnightBillingPrice,
+              ceilingFlag: this.billingRuleDetailList.ceilingFlag,
+              ceilingMoneyAmount: this.billingRuleDetailList
+                  .maxceilingMoneyAmount,
+              minBillingDurationCode: this.billingRuleDetailList
+                  .minBillingDurationCode
+            }
+          ]
+        };
+        this.$basicInformationManagement
+            .insertBillingRule(param)
+            .then(response => {
+              //添加成功弹出
+              this.$message({ type: "success", message: "添加成功!" });
+              //添加成功 刷新页面 调用查询方法
+              this.queryBillingRuleList();
+            });
+        //   }
+        // })
+      }else {
+        return false;
+      }
+      })
     },
     //表中的查看
     handleCheck(row) {
