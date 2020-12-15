@@ -69,8 +69,8 @@
           <div class="marquee">
             <!-- <el-scrollbar style="height: 100%"> -->
             <div class="marquee_box">
-              <ul class="marquee_list" :class="{marquee_top:animate}">
-                <li v-for="item in blackTextList" class="alarm-card">
+              <ul class="marquee_list" :class="{marquee_top:animate}" onmouseover="this.stop()">
+                <li v-for="item in blackTextList" class="alarm-card" >
                   <span>{{ item.text }}</span>
                   <span>车牌:</span>
                   <span>{{ item.plateNum }}</span>
@@ -128,7 +128,7 @@ export default {
       entranceImgUrl: require("../../assets/images/cc1.png"),
       exitImgUrl: require("../../assets/images/rc1.png"),
       //滚动效果
-      animate: false,
+      animate: true,
       //滚动数据暂存
       blackTextList: [
         {
@@ -212,8 +212,9 @@ export default {
 
 
 .marquee_top {
-  transition: all 1s;
-  margin-top: -50px
+  transition: all 3s;
+  margin-top: -50px;
+  /*animation: marquee 100s linear 0s infinite;*/
 }
 
 /* 上半部分查询部分 */
@@ -286,7 +287,7 @@ export default {
   color: #475669;
   font-size: 14px;
   opacity: 0.75;
-  line-height: 200px;
+  line-height: 180px;
   margin: 0;
 }
 
@@ -306,6 +307,9 @@ export default {
   background-color: #b3effe;
   display: flex;
   box-sizing: border-box;
+}
+.marquee:hover{
+  animation-play-state: paused
 }
 
 .marquee_box {
