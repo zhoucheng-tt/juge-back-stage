@@ -45,65 +45,103 @@
               >新增视频车位检测器</el-button
             >
             <el-button type="primary" @click="exportExcel()">导出</el-button>
-            <el-button type="primary" @click="importContainerDia = true">批量导入</el-button>
+            <el-button type="primary" @click="importContainerDia = true"
+              >批量导入</el-button
+            >
             <el-button type="danger" @click="batchDelete()">批量删除</el-button>
           </el-form-item>
         </el-row>
       </el-form>
-<!--      导入弹框-->
-      <el-dialog title="导入数据" :visible.sync="importContainerDia"  width="40%" >
+      <!--      导入弹框-->
+      <el-dialog
+        title="导入数据"
+        :visible.sync="importContainerDia"
+        width="40%"
+      >
         <!-- style="text-align: center;" -->
-        <el-upload style="text-align: center;" ref="upload" :http-request="myUpload" action="" class="upload-demo"
-                   :on-preview="handlePreview" :on-remove="handleRemove" :on-exceed="handleExceed" accept=".xls, .xlsx"
-                   :limit="1"
-                   :file-list="fileList" :show-file-list="true" :on-change="addFile" :auto-upload="false">
-          <el-button slot="trigger" size="small" type="primary" icon="el-icon-circle-plus-outline">选择文件</el-button>
-          <el-button size="small" type="primary" @click="downloadModel" style="margin-left: 15px">模板下载</el-button>
-          <div slot="tip" class="el-upload__tip" style="font-size:10px;color:red;margin-top:30px;">请下载模板文件后上传。</div>
+        <el-upload
+          style="text-align: center;"
+          ref="upload"
+          :http-request="myUpload"
+          action=""
+          class="upload-demo"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-exceed="handleExceed"
+          accept=".xls, .xlsx"
+          :limit="1"
+          :file-list="fileList"
+          :show-file-list="true"
+          :on-change="addFile"
+          :auto-upload="false"
+        >
+          <el-button
+            slot="trigger"
+            size="small"
+            type="primary"
+            icon="el-icon-circle-plus-outline"
+            >选择文件</el-button
+          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="downloadModel"
+            style="margin-left: 15px"
+            >模板下载</el-button
+          >
+          <div
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:red;margin-top:30px;"
+          >
+            请下载模板文件后上传。
+          </div>
         </el-upload>
 
         <span slot="footer" class="dialog-footer">
-        <el-button @click="importContainerDia = false">取 消</el-button>
-        <el-button type="primary" @click="confimImportContainers">导 入</el-button>
-      </span>
+          <el-button @click="importContainerDia = false">取 消</el-button>
+          <el-button type="primary" @click="confimImportContainers"
+            >导 入</el-button
+          >
+        </span>
       </el-dialog>
 
-<!--      <el-dialog id="import" title="批量导入" :visible.sync="importContainerDia">-->
-<!--        <el-form>-->
-<!--          <el-container>-->
-<!--            <el-header style="text-align: center">-->
-<!--              <el-upload-->
-<!--                class="upload-demo"-->
-<!--                ref="upload"-->
-<!--                enctype="multipart/form-data"-->
-<!--                action=""-->
-<!--                :on-preview="handlePreview"-->
-<!--                :on-remove="handleRemove"-->
-<!--                :before-remove="beforeRemove"-->
-<!--                :http-request="uploadFile"-->
-<!--                multiple-->
-<!--                :limit="1"-->
-<!--                :on-exceed="handleExceed"-->
-<!--                :file-list="fileList"-->
-<!--              >-->
-<!--                <el-button type="primary" size="medium" @click="handlePreview()"-->
-<!--                  >导 入<i class="el-icon-upload el-icon&#45;&#45;right"></i>-->
-<!--                </el-button>-->
-<!--                <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>-->
-<!--              </el-upload>-->
-<!--            </el-header>-->
-<!--            <el-main style="text-align: center">-->
-<!--              <el-button type="primary" size="medium" @click="downModel()"-->
-<!--                >下载模版<i class="el-icon-download el-icon&#45;&#45;right"></i-->
-<!--              ></el-button>-->
-<!--            </el-main>-->
-<!--          </el-container>-->
-<!--        </el-form>-->
-<!--        <div slot="footer" class="dialog-footer">-->
-<!--          <el-button @click="importDialog = false">取 消</el-button>-->
-<!--          <el-button type="primary" @click="commitImport()">确 定</el-button>-->
-<!--        </div>-->
-<!--      </el-dialog>-->
+      <!--      <el-dialog id="import" title="批量导入" :visible.sync="importContainerDia">-->
+      <!--        <el-form>-->
+      <!--          <el-container>-->
+      <!--            <el-header style="text-align: center">-->
+      <!--              <el-upload-->
+      <!--                class="upload-demo"-->
+      <!--                ref="upload"-->
+      <!--                enctype="multipart/form-data"-->
+      <!--                action=""-->
+      <!--                :on-preview="handlePreview"-->
+      <!--                :on-remove="handleRemove"-->
+      <!--                :before-remove="beforeRemove"-->
+      <!--                :http-request="uploadFile"-->
+      <!--                multiple-->
+      <!--                :limit="1"-->
+      <!--                :on-exceed="handleExceed"-->
+      <!--                :file-list="fileList"-->
+      <!--              >-->
+      <!--                <el-button type="primary" size="medium" @click="handlePreview()"-->
+      <!--                  >导 入<i class="el-icon-upload el-icon&#45;&#45;right"></i>-->
+      <!--                </el-button>-->
+      <!--                <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>-->
+      <!--              </el-upload>-->
+      <!--            </el-header>-->
+      <!--            <el-main style="text-align: center">-->
+      <!--              <el-button type="primary" size="medium" @click="downModel()"-->
+      <!--                >下载模版<i class="el-icon-download el-icon&#45;&#45;right"></i-->
+      <!--              ></el-button>-->
+      <!--            </el-main>-->
+      <!--          </el-container>-->
+      <!--        </el-form>-->
+      <!--        <div slot="footer" class="dialog-footer">-->
+      <!--          <el-button @click="importDialog = false">取 消</el-button>-->
+      <!--          <el-button type="primary" @click="commitImport()">确 定</el-button>-->
+      <!--        </div>-->
+      <!--      </el-dialog>-->
     </div>
     <!--下半部分列表-->
     <div class="down">
@@ -413,7 +451,7 @@
   </div>
 </template>
 <script>
-var _self = '';
+var _self = "";
 export default {
   data() {
     return {
@@ -525,7 +563,7 @@ export default {
       oldvideoDetecterId: [],
       //导入弹框
       importDialog: false,
-      fileList:[],
+      fileList: []
     };
   },
   created() {
@@ -725,8 +763,8 @@ export default {
     },
     //新增表单提交
     onSubmitAdd(newVideo) {
-      this.$refs['newVideo'].validate((valid) =>{
-        if(valid){
+      this.$refs["newVideo"].validate(valid => {
+        if (valid) {
           // this.parkId = this.newVideo.parkId;
           // this.videoDetecterName = this.newVideo.videoDetecterName;
           console.log("新增数据", this.newVideo);
@@ -736,11 +774,10 @@ export default {
           this.$message({ type: "success", message: "添加成功!" });
           this.queryVideoDetecter();
           this.addListDialog = false;
-        } else{
+        } else {
           return false;
         }
       });
-
     },
     //修改表单提交
     onSubmitEdit() {
@@ -785,18 +822,18 @@ export default {
       //创建url
       var url = process.env.BASE_API + "/CommonController/downloadResource";
       //创建要提交的参数
-      var fileName = '视频车位检测器.xls';
-      console.log("下载的文件名",fileName);
+      var fileName = "视频车位检测器.xls";
+      console.log("下载的文件名", fileName);
       //创建form
       var form = $("<form>");
-      $('body').append(form);
+      $("body").append(form);
       //设置属性
-      form.attr('action', url);
-      form.attr('method', "post");
+      form.attr("action", url);
+      form.attr("method", "post");
       //创建input，即参数
-      var inputFileName = $('<input>');
-      inputFileName.attr('target', '');
-      inputFileName.attr('name', 'fileName');
+      var inputFileName = $("<input>");
+      inputFileName.attr("target", "");
+      inputFileName.attr("name", "fileName");
       inputFileName.attr("value", fileName);
       form.append(inputFileName);
       form.hide();
@@ -805,8 +842,8 @@ export default {
     },
     addFile(file, fileList) {
       console.log(file, fileList);
-      var index = file.name.split('.').slice(-1);
-      if (!(index == 'xls' || index == 'XLS')) {
+      var index = file.name.split(".").slice(-1);
+      if (!(index == "xls" || index == "XLS")) {
         this.fileList = [];
         this.$message.warning(`文件格式有误,请选择xls文件`);
       }
@@ -827,13 +864,14 @@ export default {
     },
     myUpload(content) {
       // 1.导入
-      var FileController = '';
-      FileController = process.env.BASE_API + "/DeviceFunc/batchInsertVideoDetecter";
+      var FileController = "";
+      FileController =
+        process.env.BASE_API + "/DeviceFunc/batchInsertVideoDetecter";
       console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
       form.append("filename", content.file);
-      form.append("userId", getCookie('userId'));
+      form.append("userId", getCookie("userId"));
 
       var xhr = new XMLHttpRequest();
       //状态改变回调方法
@@ -855,13 +893,13 @@ export default {
           if (resText.indexOf("0000") != -1) {
             _self.fileList = [];
             _self.$message({
-              message: '导入成功',
-              type: 'success'
+              message: "导入成功",
+              type: "success"
             });
             _self.importContainerDia = false;
           } else {
             _self.$message.error({
-              message: JSON.parse(resText).resultMsg,
+              message: JSON.parse(resText).resultMsg
             });
           }
           // loading.close();
