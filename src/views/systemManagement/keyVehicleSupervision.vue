@@ -10,56 +10,49 @@
 <template>
   <div class="about">
     <!--上边部分-->
-    <div class="top">
-      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-        <el-form-item label="用户账号">
+    <div class="top" >
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline" size="small">
+        <el-form-item label="用户账号：">
           <el-input
             v-model="upQueryList.userAccount"
             placeholder="请输入账号"
           ></el-input>
         </el-form-item>
-        <el-form-item label="用户姓名">
+        <el-form-item label="用户姓名：">
           <el-input
             v-model="upQueryList.name"
             placeholder="请输入姓名"
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="top-select" @click="select"
+          <el-button type="primary" class="top-select" @click="select" size="small"
             >查询
           </el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button  @click="resetQuery" size="small">重置</el-button>
         </el-form-item>
         <el-row>
-          <el-form-item>
+        <el-form-item style="float: right;">
             <!--新增用户-->
-            <el-button type="primary" class="middle-add" @click="addUser"
+            <el-button type="primary" class="middle-add" @click="addUser" size="small"
               >新增用户
             </el-button>
 
-            <el-button type="primary" class="top-exPort" @click="exPort"
+            <el-button type="primary" class="top-exPort" @click="exPort" size="small"
               >导出
             </el-button>
-          </el-form-item>
+       </el-form-item>
         </el-row>
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table" style="margin-top: 20px">
+    <div class="table" style="margin: 0 24px; ">
       <el-table
-        :row-class-name="tableRowClassName"
-        :data="tableData"
-        :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
+       width="100%"
+        stripe
+       :data="tableData"
+       :cell-style="{ 'padding': '10px' }"
+       :header-cell-style="{'padding':'10px'}"
+
       >
         <el-table-column fixed prop="userAccount" label="用户账号">
         </el-table-column>
@@ -68,30 +61,32 @@
         <el-table-column prop="email" label="邮箱"> </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="check(scope.row)" type="text" size="small"
+            <el-button @click="check(scope.row)" type="text"
               >查看</el-button
             >
-            <el-button @click="alter(scope.row)" type="text" size="small"
+            <el-button @click="alter(scope.row)" type="text"
               >修改</el-button
             >
-            <el-button @click="del(scope.row)" type="text" size="small"
+            <el-button @click="del(scope.row)" type="text"
               >删除</el-button
             >
-            <el-button @click="retPassword(scope.row)" type="text" size="small"
+            <el-button @click="retPassword(scope.row)" type="text"
               >密码重置</el-button
             >
           </template>
         </el-table-column>
+        <!--分页条-->
+        <el-pagination
+            @current-change="handleCurrentModify"
+            layout=" prev, pager, next,total, jumper"
+            :current-page="pageNum"
+            :page-size="pageSize"
+            :total="pageTotal"
+            style="position: relative;left: 83%;top:1%"
+        >
+        </el-pagination>
       </el-table>
-      <!--分页条-->
-      <el-pagination
-        @current-change="handleCurrentModify"
-        layout=" prev, pager, next,total, jumper"
-        :current-page="pageNum"
-        :page-size="pageSize"
-        :total="pageTotal"
-      >
-      </el-pagination>
+
       <!--新增用户弹窗-->
       <el-dialog
         title="新增用户"
@@ -707,17 +702,18 @@ export default {
 
 /* 上半部分输入框查询导出 */
 .top {
-  width: 100%;
-  height: 15%;
+  width: 97%;
+  height: 16%;
   float: left;
-  /*background-color: rebeccapurple;*/
+  background-color: white ;
+  margin:16px 24px ;
 }
 
 /*上半部输入框样式*/
 .demo-form-inline {
-  width: 100%;
+  width: 97%;
   height: 80%;
-  margin-top: 0.5%;
+  margin-top: 1.5%;
   padding-left: 2%;
 }
 
@@ -831,9 +827,9 @@ export default {
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: white !important;
 }
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: #EAF0F6 !important;
 }
 </style>

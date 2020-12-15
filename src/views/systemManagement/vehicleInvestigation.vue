@@ -11,7 +11,7 @@
   <div class="about">
     <!--       日志时间-->
     <div class="top">
-      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline" size="small" >
         <el-form-item>
           <el-date-picker
             v-model="upQueryList.minLogTime"
@@ -38,9 +38,9 @@
           </el-button>
           <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
-        <el-row style="height: 45px">
-          <el-form-item>
-            <el-button type="primary" @click="exportLogList">
+        <el-row >
+          <el-form-item style="float: right">
+            <el-button type="primary" @click="exportLogList" >
               导出
             </el-button>
           </el-form-item>
@@ -48,32 +48,24 @@
       </el-form>
     </div>
     <!--        日志管理表格-->
-    <div class="table">
+    <div class="table" style="margin:0 24px;background: white">
       <!--数据表格-->
       <el-table
-        :row-class-name="tableRowClassName"
         :data="logManagementData"
-        :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
+        stripe
+        :cell-style="{ 'padding': '10px' }"
+        :header-cell-style="{'padding':'10px'}"
       >
         <el-table-column fixed prop="logTime" label="日志时间">
         </el-table-column>
         <el-table-column prop="operator" label="操作人"> </el-table-column>
         <el-table-column prop="sysOperationTypeName" label="操作类型">
         </el-table-column>
-        <el-table-column prop="operateObject" label="操作对象">
+        <el-table-column prop="operateObject" label="操作对象" width="280px">
         </el-table-column>
         <el-table-column fixed prop="operateResult" label="操作结果">
         </el-table-column>
-        <el-table-column fixed prop="logDetail" label="日志详情">
+        <el-table-column fixed prop="logDetail" label="日志详情" width="340px">
         </el-table-column>
       </el-table>
       <!--分页条-->
@@ -162,16 +154,17 @@ export default {
   overflow-x: hidden;
 }
 .demo-form-inline {
-  width: 100%;
+  width: 96%;
   height: 80%;
-  margin-top: 0.5%;
-  padding-left: 2%;
+  padding:1%;
+  background: white;
+  margin:16px 24px
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: white !important;
 }
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: #EAF0F6 !important;
 }
 </style>

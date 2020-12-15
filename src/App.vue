@@ -33,6 +33,7 @@ body {
 	width: 100%;
 	height: 100%;
 	margin: 0px;
+  background: #EAF0F6 100%;
 	/* background: url("./assets/images/frontpage/bg.png") no-repeat 100% 100%;
 	background-size: cover; */
 	/*overflow: hidden;*/
