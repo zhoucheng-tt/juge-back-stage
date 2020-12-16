@@ -9,55 +9,66 @@
 -->
 <template>
   <div class="all">
-    <div clfass="up">
+    <div class="up">
       <!--上半部分查询-->
-      <el-row>
-        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-          <!--      停车场-->
-          <el-form-item label="停车场:">
-            <el-select v-model="queryParkId" placeholder="请选择停车场">
-              <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <!--    时间-->
-          <el-form-item label="选择时间:">
-            <el-date-picker
-              v-model="upQueryList.minDateTime"
-              type="datetime"
-              value-format="yyyy-MM-dd hh:mm:ss"
-              placeholder="请选择起始时间"
-            >
-            </el-date-picker>
-            <span>
-              ~
-            </span>
-            <el-date-picker
-              v-model="upQueryList.maxDateTime"
-              type="datetime"
-              placeholder="请选择截止日期"
-              value-format="yyyy-MM-dd hh:mm:ss"
-            >
-            </el-date-picker>
-          </el-form-item>
-          <!--    车牌号-->
-          <el-form-item label="车牌号:">
-            <el-input
-              v-model="upQueryList.plateNum"
-              placeholder="请输入车牌号"
-            ></el-input>
-          </el-form-item>
-          <!--      查询按钮-->
-          <el-form-item>
-            <el-button type="primary">查询</el-button>
-            <el-button type="primary" @click="resetQuery">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </el-row>
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <!--      停车场-->
+        <el-form-item label="停车场:">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="queryParkId"
+            placeholder="请选择停车场"
+          >
+            <el-option
+              v-for="(item, index) in parkingLotList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <!--    时间-->
+        <el-form-item label="选择时间:">
+          <el-date-picker
+            v-model="upQueryList.minDateTime"
+            type="datetime"
+            size="small"
+            style="width: 160px"
+            value-format="yyyy-MM-dd hh:mm:ss"
+            placeholder="请选择起始时间"
+          >
+          </el-date-picker>
+          <span>
+            ~
+          </span>
+          <el-date-picker
+            v-model="upQueryList.maxDateTime"
+            type="datetime"
+            size="small"
+            style="width: 160px"
+            placeholder="请选择截止日期"
+            value-format="yyyy-MM-dd hh:mm:ss"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <!--    车牌号-->
+        <el-form-item label="车牌号:">
+          <el-input
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.plateNum"
+            placeholder="请输入车牌号"
+          ></el-input>
+        </el-form-item>
+        <!--      查询按钮-->
+        <el-form-item>
+          <el-button type="primary" size="small" @click="query">查询</el-button>
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
+      </el-form>
     </div>
     <!--下半部分图片-->
     <div class="down">
@@ -181,6 +192,7 @@ export default {
     resetQuery() {
       this.upQueryList = {};
     },
+    query() {},
     // 查询停车场下拉表单
     queryParking() {
       var that = this;
@@ -226,21 +238,21 @@ export default {
   /*animation: marquee 100s linear 0s infinite;*/
 }
 
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 15%;
-  float: left;
+  width: 98%;
+  height: 6%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
-
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 0.5%;
-  padding-left: 2%;
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
 .show {
   height: 100%;
   width: 70%;
@@ -250,9 +262,11 @@ export default {
 
 /* 下班部分列表部分 */
 .down {
-  width: 100%;
-  height: 85%;
-  float: left;
+  width: 98%;
+  height: 90%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
 }
 
 .rightDown {

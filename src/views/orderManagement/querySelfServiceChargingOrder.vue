@@ -13,7 +13,12 @@
     <div class="up">
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="充电桩号：">
-          <el-select v-model="upQueryList.parkId" placeholder="请选择停车场">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.parkId"
+            placeholder="请选择停车场"
+          >
             <el-option
               v-for="(item, index) in parkingLotList"
               :label="item.name"
@@ -24,6 +29,8 @@
         </el-form-item>
         <el-form-item label="车牌号:" v-if="false">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="upQueryList.carNum"
             placeholder="请输入车牌号"
           ></el-input>
@@ -34,6 +41,8 @@
           <el-date-picker
             v-model="upQueryList.minEntranceTime"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="请选择起始日期"
             value-format="yyyy-MM-dd hh:mm:ss"
           >
@@ -44,6 +53,8 @@
           <el-date-picker
             v-model="upQueryList.maxEntranceTime"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="请选择截止日期"
             value-format="yyyy-MM-dd hh:mm:ss"
           >
@@ -53,6 +64,8 @@
           <el-date-picker
             v-model="upQueryList.minLeaveTime"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="请选择起始日期"
             value-format="yyyy-MM-dd hh:mm:ss"
           >
@@ -63,14 +76,20 @@
           <el-date-picker
             v-model="upQueryList.maxLeaveTime"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="请选择截止日期"
             value-format="yyyy-MM-dd hh:mm:ss"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryStopOrder">查询</el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" size="small" @click="queryStopOrder"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>

@@ -104,27 +104,27 @@
           border: 'none',
           padding: 'none',
           fontSize: '14px',
-          letterSpacing: '0.56px'
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
         :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
-          color: '#333333'
+          color: '#333333',
+          'text-align': 'center'
         }"
         style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-          fixed
           prop="orderSequence"
           label="订单编号"
-          width="310"
+          :show-overflow-tooltip="true"
         ></el-table-column>
         <el-table-column
           prop="parkName"
           :show-overflow-tooltip="true"
           label="停车场名称"
-          width=""
         ></el-table-column>
         <el-table-column
           prop="plateNumber"
@@ -149,7 +149,7 @@
         <el-table-column
           prop="parkDuration"
           :show-overflow-tooltip="true"
-          label="停车时长"
+          label="停车时长(分钟)"
         ></el-table-column>
         <el-table-column
           prop="paymentStatus"
@@ -159,12 +159,12 @@
         <el-table-column
           prop="receivableMoneyAmount"
           :show-overflow-tooltip="true"
-          label="应收金额"
+          label="应收金额(元)"
         ></el-table-column>
         <el-table-column
           prop="receivedMoneyAmount"
           :show-overflow-tooltip="true"
-          label="实收金额"
+          label="实收金额(元)"
         ></el-table-column>
         <el-table-column
           prop="paymentMethod"
@@ -385,19 +385,26 @@ export default {
 }
 /*查询*/
 .up {
-  width: 96%;
-  height: 7%;
+  width: 98%;
+  height: 6%;
   background-color: white;
-  margin-left: 2%;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
-
 /* 下班部分列表部分 */
 .down {
-  width: 96%;
-  height: 85%;
+  width: 98%;
+  height: 90%;
   background-color: white;
-  margin-left: 2%;
+  margin-left: 1%;
   margin-top: 1%;
+}
+/* 查询条件部分样式 */
+.demo-form-inline {
+  width: 100%;
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
@@ -407,14 +414,6 @@ export default {
 /deep/ .el-table .successSecond {
   background: white !important;
 }
-/* 查询条件部分样式 */
-.demo-form-inline {
-  width: 100%;
-  height: 85%;
-  margin-top: 1%;
-  padding-left: 2%;
-}
-
 /* 表格表头样式 */
 .el-table__header-wrapper {
   width: 100%;
