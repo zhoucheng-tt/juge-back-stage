@@ -3149,7 +3149,7 @@ export default {
     //获取中间部分总收入、应收金额、欠收金额
     queryTotalIncome() {
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       // console.log('总收入方法传入的参数',param)
       this.$homePage.queryTotalIncome(param).then(res => {
@@ -3163,7 +3163,7 @@ export default {
       const param = {
         cityCode: "321300",
         districtCode: "321302",
-        statisType: "today",
+        statisType: "currentMonth",
         pageSize: 3,
         pageNum: 1
       };
@@ -3179,7 +3179,7 @@ export default {
     countChargeFee() {
       var that = this;
       const param = {
-        queryType: "today"
+        queryType: "currentMonth"
       };
       // console.log('充电桩总收入惨参',param)
       this.$homePage.countChargeFee(param).then(res => {
@@ -3196,7 +3196,7 @@ export default {
     countWashFee() {
       var that = this;
       const param = {
-        queryType: "today"
+        queryType: "currentMonth"
       };
       // console.log('洗车机总收入参数',param)
       this.$homePage.countWashFee(param).then(res => {
@@ -3211,7 +3211,7 @@ export default {
     // 支付方式
     queryPaymentBehaviorAnalysis() {
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
         var alipayDataList = [
@@ -3289,7 +3289,7 @@ export default {
     // 总停车数量折线图的绑定id和option方法
     queryParkOptByParkCount() {
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       this.$homePage.queryParkOptByParkCount(param).then(res => {
         this.numberOfParkingXz = [];
@@ -3330,7 +3330,11 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(辆)",
+              style: {
+                color: "#08F6E4", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               style: {
@@ -3362,7 +3366,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
+            pointFormat: "停车 <b>{point.y:,.0f}</b>辆"
           },
           plotOptions: {
             area: {
@@ -3392,7 +3396,7 @@ export default {
     // 平均停车时长
     queryParkOptByAvgParkDuration() {
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       this.$homePage.queryParkOptByAvgParkDuration(param).then(res => {
         this.averageParkingTimeXz = [];
@@ -3433,7 +3437,11 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(分钟)",
+              style: {
+                color: "#E9C503", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               formatter: function() {
@@ -3468,7 +3476,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>分钟"
+            pointFormat: " 停车 <b>{point.y:,.0f}</b>分钟"
           },
           plotOptions: {
             area: {
@@ -3498,7 +3506,7 @@ export default {
     // 车位利用率
     queryParkOptByParkSpaceUsedRate() {
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       this.$homePage.queryParkOptByParkSpaceUsedRate(param).then(res => {
         this.parkingSpaceUtilizationXz = [];
@@ -3517,7 +3525,7 @@ export default {
             spacingBottom: 0
           },
           title: {
-            text: ""
+            text: "单位(%)"
           },
           credits: {
             enabled: false
@@ -3540,7 +3548,11 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(%)",
+              style: {
+                color: "#08F6E4", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               style: {
@@ -3572,7 +3584,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>%"
+            pointFormat: " 停车利用率 <b>{point.y:,.0f}</b>%"
           },
           plotOptions: {
             area: {
@@ -3601,7 +3613,7 @@ export default {
     // 车位周转率
     queryParkOptByParkSpaceTurnoverRate() {
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       this.$homePage.queryParkOptByParkSpaceTurnoverRate(param).then(res => {
         this.parkingSpaceTurnoverRateXz = [];
@@ -3643,7 +3655,11 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(%)",
+              style: {
+                color: "#E9C503", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               style: {
@@ -3675,7 +3691,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>%"
+            pointFormat: " 停车周转率 <b>{point.y:,.0f}</b>%"
           },
           plotOptions: {
             area: {
@@ -3705,7 +3721,7 @@ export default {
     queryParkIncomeRanking() {
       this.parkingRevenueRankingChartX = [];
       const param = {
-        statisType: "today"
+        statisType: "currentMonth"
       };
       var dataListA = [];
       this.$homePage.queryParkIncomeRanking(param).then(res => {
@@ -3795,7 +3811,7 @@ export default {
       });
     },
 
-    //收费按月分析金额分析
+    //洗车收费按月分析金额分析
     querychargeAmountTimes() {
       const param = {
         queryType: "currentMonth"
@@ -3833,7 +3849,11 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(%)",
+              style: {
+                color: "#08F6E4", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               format: "{value}",
@@ -3940,7 +3960,11 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(元)",
+              style: {
+                color: "#08F6E4", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               format: "{value}",
@@ -3986,7 +4010,11 @@ export default {
         },
         yAxis: {
           title: {
-            text: ""
+            text: "单位(元 )",
+            style: {
+              color: "#08F6E4", //字体颜色
+              fontSize: "16px" //字体大小
+            }
           },
           labels: {
             formatter: function() {
@@ -4015,7 +4043,7 @@ export default {
           }
         },
         tooltip: {
-          pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
+          pointFormat: " 停车 <b>{point.y:,.0f}</b>辆"
         },
         plotOptions: {
           area: {
