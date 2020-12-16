@@ -11,7 +11,12 @@
   <div class="about">
     <!--       日志时间-->
     <div class="top">
-      <el-form :inline="true" :model="upQueryList" class="demo-form-inline" size="small" >
+      <el-form
+        :inline="true"
+        :model="upQueryList"
+        class="demo-form-inline"
+        size="small"
+      >
         <el-form-item>
           <el-date-picker
             v-model="upQueryList.minLogTime"
@@ -38,9 +43,9 @@
           </el-button>
           <el-button type="primary" @click="resetQuery">重置</el-button>
         </el-form-item>
-        <el-row >
+        <el-row>
           <el-form-item style="float: right">
-            <el-button type="primary" @click="exportLogList" >
+            <el-button type="primary" @click="exportLogList">
               导出
             </el-button>
           </el-form-item>
@@ -53,8 +58,8 @@
       <el-table
         :data="logManagementData"
         stripe
-        :cell-style="{ 'padding': '10px' }"
-        :header-cell-style="{'padding':'10px'}"
+        :cell-style="{ padding: '10px' }"
+        :header-cell-style="{ padding: '10px' }"
       >
         <el-table-column fixed prop="logTime" label="日志时间">
         </el-table-column>
@@ -156,15 +161,15 @@ export default {
 .demo-form-inline {
   width: 96%;
   height: 80%;
-  padding:1%;
+  padding: 1%;
   background: white;
-  margin:16px 24px
+  margin: 16px 24px;
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
   background: white !important;
 }
 /deep/ .el-table .successSecond {
-  background: #EAF0F6 !important;
+  background: #eaf0f6 !important;
 }
 </style>

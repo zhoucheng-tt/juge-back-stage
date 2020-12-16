@@ -10,8 +10,13 @@
 <template>
   <div class="about">
     <!--上边部分-->
-    <div class="top" >
-      <el-form :inline="true" :model="upQueryList" class="demo-form-inline" size="small">
+    <div class="top">
+      <el-form
+        :inline="true"
+        :model="upQueryList"
+        class="demo-form-inline"
+        size="small"
+      >
         <el-form-item label="用户账号：">
           <el-input
             v-model="upQueryList.userAccount"
@@ -25,34 +30,45 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="top-select" @click="select" size="small"
+          <el-button
+            type="primary"
+            class="top-select"
+            @click="select"
+            size="small"
             >查询
           </el-button>
-          <el-button  @click="resetQuery" size="small">重置</el-button>
+          <el-button @click="resetQuery" size="small">重置</el-button>
         </el-form-item>
         <el-row>
-        <el-form-item style="float: right;">
+          <el-form-item style="float: right;">
             <!--新增用户-->
-            <el-button type="primary" class="middle-add" @click="addUser" size="small"
+            <el-button
+              type="primary"
+              class="middle-add"
+              @click="addUser"
+              size="small"
               >新增用户
             </el-button>
 
-            <el-button type="primary" class="top-exPort" @click="exPort" size="small"
+            <el-button
+              type="primary"
+              class="top-exPort"
+              @click="exPort"
+              size="small"
               >导出
             </el-button>
-       </el-form-item>
+          </el-form-item>
         </el-row>
       </el-form>
     </div>
     <!--表格部分-->
     <div class="table" style="margin: 0 24px; ">
       <el-table
-       width="100%"
+        width="100%"
         stripe
-       :data="tableData"
-       :cell-style="{ 'padding': '10px' }"
-       :header-cell-style="{'padding':'10px'}"
-
+        :data="tableData"
+        :cell-style="{ padding: '10px' }"
+        :header-cell-style="{ padding: '10px' }"
       >
         <el-table-column fixed prop="userAccount" label="用户账号">
         </el-table-column>
@@ -61,15 +77,9 @@
         <el-table-column prop="email" label="邮箱"> </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="check(scope.row)" type="text"
-              >查看</el-button
-            >
-            <el-button @click="alter(scope.row)" type="text"
-              >修改</el-button
-            >
-            <el-button @click="del(scope.row)" type="text"
-              >删除</el-button
-            >
+            <el-button @click="check(scope.row)" type="text">查看</el-button>
+            <el-button @click="alter(scope.row)" type="text">修改</el-button>
+            <el-button @click="del(scope.row)" type="text">删除</el-button>
             <el-button @click="retPassword(scope.row)" type="text"
               >密码重置</el-button
             >
@@ -77,12 +87,12 @@
         </el-table-column>
         <!--分页条-->
         <el-pagination
-            @current-change="handleCurrentModify"
-            layout=" prev, pager, next,total, jumper"
-            :current-page="pageNum"
-            :page-size="pageSize"
-            :total="pageTotal"
-            style="position: relative;left: 83%;top:1%"
+          @current-change="handleCurrentModify"
+          layout=" prev, pager, next,total, jumper"
+          :current-page="pageNum"
+          :page-size="pageSize"
+          :total="pageTotal"
+          style="position: relative;left: 83%;top:1%"
         >
         </el-pagination>
       </el-table>
@@ -705,8 +715,8 @@ export default {
   width: 97%;
   height: 16%;
   float: left;
-  background-color: white ;
-  margin:16px 24px ;
+  background-color: white;
+  margin: 16px 24px;
 }
 
 /*上半部输入框样式*/
@@ -830,6 +840,6 @@ export default {
   background: white !important;
 }
 /deep/ .el-table .successSecond {
-  background: #EAF0F6 !important;
+  background: #eaf0f6 !important;
 }
 </style>
