@@ -3216,23 +3216,36 @@ export default {
       this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
         var alipayDataList = [
           "支付宝支付",
-          Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
-            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+          Math.round(
+            (Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
+              Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+              100
+          ) / 100
         ];
-        var cashDataList = [
-          "现金支付",
-          Number(res.data.dataList[0].cashPaymentMoneyAmount) /
-            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
-        ];
+        console.log(this.alipayDataList);
         var wechatDataList = [
           "微信支付",
-          Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
-            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+          Math.round(
+            (Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
+              Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+              100
+          ) / 100
         ];
         var qrCodeDataList = [
           "扫码支付",
-          Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
-            Number(res.data.dataList[0].paymentMoneyAmountTotalAll)
+          Math.round(
+            (Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
+              Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+              100
+          ) / 100
+        ];
+        var cashDataList = [
+          "现金支付",
+          Math.round(
+            (Number(res.data.dataList[0].cashPaymentMoneyAmount) /
+              Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+              100
+          ) / 100
         ];
 
         this.paymentIncomeAnalysis = [

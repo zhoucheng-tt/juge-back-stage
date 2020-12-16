@@ -59,13 +59,14 @@
         </el-row>
       </el-form>
     </div>
-    <div class="table" style="margin:16px 24px;background: white">
+    <div class="table" style="margin:0 24px">
       <el-table
         :data="parkingLotInformation"
-          stripe
+        stripe
         :header-cell-style="{
-          fontSize: '14px',
+          fontSize: '14px'
         }"
+        :cell-style="{ 'text-align': 'center' }"
         style="width: 100%;"
         ref="selectionRow"
         @selection-change="handleSelectionChange"
@@ -148,19 +149,17 @@
             </el-button>
           </template>
         </el-table-column>
-
-      </el-table>
-      <!--分页条-->
-      <el-pagination
-          style="float: right"
+        <!--分页条-->
+        <el-pagination
+          style="position: relative;left: 84%"
           @current-change="handleCurrentModify"
           layout="total, prev, pager, next, jumper"
           :current-page="pageNum"
           :page-size="pageSize"
           :total="pageTotal"
-      >
-      </el-pagination>
-
+        >
+        </el-pagination>
+      </el-table>
     </div>
     <!--        新增白名单弹窗-->
     <el-dialog
@@ -168,8 +167,6 @@
       :visible.sync="addWhiteListDialog"
       width="70%"
       overflow="hidden"
-      destroy-on-close
-
     >
       <el-row>
         <!--          归属停车场信息-->
@@ -180,7 +177,6 @@
           label-width="100px"
           :model="addWhiteData"
           :rules="addListRules"
-          ref="addWhiteData"
         >
           <!--                    归属停车场信息-->
           <el-row>
@@ -721,8 +717,6 @@ export default {
     },
     //新增白名单确认提交
     onSubmitAdd() {
-     this.$refs["addWhiteData"].validate((valid)=>{
-       if(valid){
       //点击提交隐藏弹窗
       this.addWhiteListDialog = false;
       const param = {
@@ -748,11 +742,7 @@ export default {
         //添加成功 刷新页面 调用查询方法
         this.queryWhiteList();
       });
-    }else{
-         return false
-       }
-    })
-},
+    },
     //删除一行
     reMove(row) {
       //点击删除按钮出现的提示框
@@ -928,7 +918,7 @@ export default {
 
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background:  #333333 !important;
+  background: #333333 !important;
 }
 
 /deep/ .el-table .successSecond {

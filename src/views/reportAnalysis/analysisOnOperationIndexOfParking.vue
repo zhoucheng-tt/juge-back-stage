@@ -17,13 +17,20 @@
           <el-date-picker
             v-model="upQueryList.dataTimeIn"
             type="date"
+            size="small"
+            style="width: 160px"
             placeholder="选择日期"
             value-format="yyyy-MM-dd"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场：">
-          <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.TingNum"
+            placeholder="请选择停车场"
+          >
             <el-option value="" label="全部"></el-option>
             <el-option
               v-for="(item, index) in parkingLotList"
@@ -34,8 +41,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="SelectQueryList">查询</el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" size="small" @click="SelectQueryList"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -87,21 +98,28 @@
         :data="reportList"
         :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
+          fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
           border: 'none',
           padding: 'none',
           fontSize: '14px',
-          letterSpacing: '0.56px'
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 98%;margin-left:1%;height: 100%"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column prop="statisDate" label="日期" />
         <el-table-column prop="parkName" label="停车场" />
-        <el-table-column prop="parkSpaceCount" label="车位数(辆)" />
-        <el-table-column prop="parkCount" label="停车数量(辆)" />
+        <el-table-column prop="parkSpaceCount" label="车位数(个)" />
+        <el-table-column prop="parkCount" label="停车数量(个)" />
         <el-table-column prop="parkDuration" label="平均停车时长(分钟)" />
         <el-table-column prop="parkSpaceUsedRate" label="车位利用率(%)" />
         <el-table-column prop="parkSpaceTurnoverRate" label="车位周转率(%)" />
@@ -940,24 +958,25 @@ export default {
 
 /* 顶部查询部分 */
 .up {
-  width: 100%;
-  height: 5%;
-  float: left;
+  width: 98%;
+  height: 6%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 0.5%;
-  padding-left: 2%;
+  height: 85%;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
 
 /* 中间部分图表内容 */
 .center {
   width: 100%;
   height: 65%;
-  float: left;
 }
 
 /* 中间每个图表部分样式 */
@@ -973,10 +992,10 @@ export default {
 /* 底部表格部分 */
 .down {
   width: 98%;
+  height: 27%;
+  background-color: white;
   margin-left: 1%;
-  height: 30%;
-  background-color: #ffffff;
-  float: left;
+  margin-top: 1%;
 }
 
 /* 斑马纹样式 */

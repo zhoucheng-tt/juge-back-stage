@@ -12,29 +12,29 @@
   <div>
     <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="白名单管理" name="first">
-        <white-List-Management-Compent/>
+        <white-List-Management-Compent />
       </el-tab-pane>
-      <el-tab-pane label="黑名单管理" name="second" >
-        <black-List-Management-Compent/>
+      <el-tab-pane label="黑名单管理" name="second">
+        <black-List-Management-Compent />
       </el-tab-pane>
     </el-tabs>
   </div>
-  </template>
-  <script>
-    // 白名单管理
-    import whiteListManagementCompent from './listManagement/whiteListManagementCompent'
-    // 黑名单管理
-    import blackListManagementCompent from './listManagement/blackListManagementCompent'
+</template>
+<script>
+// 白名单管理
+import whiteListManagementCompent from "./listManagement/whiteListManagementCompent";
+// 黑名单管理
+import blackListManagementCompent from "./listManagement/blackListManagementCompent";
 
-    export default {
-      components: {
-        whiteListManagementCompent,
-        blackListManagementCompent
-      },
-      data() {
-        return {
-          activeName: 'first'
-        }
-      }
-    }
-  </script>
+export default {
+  components: {
+    whiteListManagementCompent,
+    blackListManagementCompent
+  },
+  data() {
+    return {
+      activeName: "first"
+    };
+  }
+};
+</script>

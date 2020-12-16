@@ -53,7 +53,10 @@
       </el-form>
     </div>
     <!--        日志管理表格-->
-    <div class="table" style="width: 97%;margin:0  22px;background-color: white">
+    <div
+      class="table"
+      style="width: 97%;margin:0  22px;background-color: white"
+    >
       <!--数据表格-->
       <el-table
         :data="logManagementData"
@@ -64,14 +67,14 @@
           border: 'none',
           padding: 'none',
           fontSize: '14px',
-          letterSpacing: '0.56px',
-          }"
+          letterSpacing: '0.56px'
+        }"
         :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
-          color: '#333333',
-          }"
+          color: '#333333'
+        }"
         :row-class-name="tableRowClassName"
         style="margin:0 15px"
       >

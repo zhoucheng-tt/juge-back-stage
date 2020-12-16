@@ -12,58 +12,76 @@
     <!-- 上部分查询内容 -->
     <div class="up">
       <el-form :inline="true" :model="query" class="demo-form-inline">
-            <el-form-item label="统计日期:">
-              <el-date-picker
-                v-model="query.startStatisDate"
-                style="width: 170px;"
-                value-format="yyyy-MM-dd"
-                placeholder="请选择起始日期"
-              >
-              </el-date-picker>
-            </el-form-item>
-            <el-form-item label="~">
-              <el-date-picker
-                v-model="query.endStatisDate"
-                style="width: 170px;"
-                value-format="yyyy-MM-dd"
-                placeholder="请选择截止日期"
-              >
-              </el-date-picker>
-            </el-form-item>
-            <el-form-item label="停车场:">
-              <el-select v-model="query.parkId" placeholder="请选择停车场">
-                <el-option label="全部" value=""></el-option>
-                <el-option
-                  v-for="(item, index) in parkList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="洗车机名称:">
-              <el-input
-                v-model="query.carNum"
-                placeholder="请选择洗车机名称"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="支付方式:">
-              <el-select v-model="query.payMethod" placeholder="请选择支付方式">
-                <el-option label="全部" value=""></el-option>
-                <el-option
-                  v-for="(item, index) in payMethodList"
-                  :label="item.name"
-                  :value="item.name"
-                  :key="index"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="queryButton">查询</el-button>
-              <el-button type="primary" @click="resetQuery">重置</el-button>
-            </el-form-item>
+        <el-form-item label="统计日期:">
+          <el-date-picker
+            v-model="query.startStatisDate"
+            size="small"
+            style="width: 160px"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择起始日期"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="~">
+          <el-date-picker
+            v-model="query.endStatisDate"
+            size="small"
+            style="width: 160px"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择截止日期"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="停车场:">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="query.parkId"
+            placeholder="请选择停车场"
+          >
+            <el-option label="全部" value=""></el-option>
+            <el-option
+              v-for="(item, index) in parkList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="洗车机名称:">
+          <el-input
+            size="small"
+            style="width: 160px"
+            v-model="query.carNum"
+            placeholder="请选择洗车机名称"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="支付方式:">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="query.payMethod"
+            placeholder="请选择支付方式"
+          >
+            <el-option label="全部" value=""></el-option>
+            <el-option
+              v-for="(item, index) in payMethodList"
+              :label="item.name"
+              :value="item.name"
+              :key="index"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="queryButton"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
       </el-form>
     </div>
     <!-- 中间图标部分内容 -->
@@ -71,9 +89,24 @@
       <el-table
         :data="payList"
         :row-class-name="tableRowClassName"
-        :header-cell-style="{ 'text-align': 'center', background: '#24314A', color: '#FFF', border: 'none', padding: 'none', fontSize: '12px', fontWeight: '100' }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;height:90%"
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
+        }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column
           prop="statisticDate"
@@ -83,22 +116,18 @@
         <el-table-column
           prop="parkName"
           :show-overflow-tooltip="true"
-          label="洗车机编号"
+          label="停车场名称"
         />
         <el-table-column
           prop="passagewayName"
           :show-overflow-tooltip="true"
           label="洗车机名称"
         />
-        <el-table-column
-          prop="passagewayGateName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-        />
+
         <el-table-column
           prop="income"
           :show-overflow-tooltip="true"
-          label="报警信息"
+          label="报警信息(次)"
         />
       </el-table>
       <!--分页条-->
@@ -195,10 +224,10 @@ export default {
     this.drawPayMethodChart();
   },
   methods: {
-      //查询重置按钮
-      resetQuery(){
-          this.query={};
-      },
+    //查询重置按钮
+    resetQuery() {
+      this.query = {};
+    },
     //查询
     queryButton() {
       this.queryPayList();
@@ -499,28 +528,36 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-
-/* 顶部查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 5%;
-  float: left;
+  width: 98%;
+  height: 6%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
-
+/* 下班部分列表部分 */
+.center {
+  width: 98%;
+  height: 45%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 1%;
-  padding-left: 2%;
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
+}
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+  background: #f8f9fa !important;
 }
 
-/* 中间部分图表内容 */
-.center {
-  margin-top: 2%;
-  width: 100%;
-  height: 46%;
-  float: left;
+/deep/ .el-table .successSecond {
+  background: white !important;
 }
 
 /* 中间每个图表部分样式 */
@@ -531,15 +568,6 @@ export default {
   float: left;
   margin-top: 1%;
   margin-left: 1%;
-}
-
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
 }
 
 /* 底部表格部分 */

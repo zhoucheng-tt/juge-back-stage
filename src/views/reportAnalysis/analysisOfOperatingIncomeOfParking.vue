@@ -14,27 +14,38 @@
       <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-form-item label="统计日期:">
           <el-date-picker
-              v-model="query.date"
-              type="date"
-              placeholder="选择日期"
-              value-format="yyyy-MM-dd"
+            v-model="query.date"
+            type="date"
+            size="small"
+            style="width: 160px"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场：">
-          <el-select v-model="query.parkId" placeholder="请选择停车场">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="query.parkId"
+            placeholder="请选择停车场"
+          >
             <el-option label="全部" value=""></el-option>
             <el-option
-                v-for="(item, index) in parkList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in parkList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryButton">查询</el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" size="small" @click="queryButton"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -43,43 +54,43 @@
     <div class="center">
       <!-- 收入对比分析 numberOfParking-->
       <div
-          style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-          id="earnCompare"
+        style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
+        id="earnCompare"
       >
         <Xchart id="earnCompare" :option="earnCompareChart"></Xchart>
       </div>
       <!-- 收入与欠费金额趋势分析 -->
       <div
-          style="width: 57%;height: 35%; float: left; margin-top: 1%;margin-left: 1%;"
-          id="earnAndOwe"
+        style="width: 57%;height: 35%; float: left; margin-top: 1%;margin-left: 1%;"
+        id="earnAndOwe"
       >
         <Xchart id="earnAndOwe" :option="earnAndOweChart"></Xchart>
       </div>
       <!--收入构成分析-->
       <div
-          style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-          id="earnComponent"
+        style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
+        id="earnComponent"
       >
         <Xchart id="earnComponent" :option="earnComponentChart"></Xchart>
       </div>
       <!--停车场收入及欠费分析-->
       <div
-          style="width: 57%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-          id="parkEarnAndOwe"
+        style="width: 57%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
+        id="parkEarnAndOwe"
       >
         <Xchart id="parkEarnAndOwe" :option="parkEarnAndOweChart"></Xchart>
       </div>
       <!-- 平均充电时间 averageChargingTime-->
       <div
-          style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"
-          id="chargeEarn"
+        style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"
+        id="chargeEarn"
       >
         <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
       </div>
       <!-- 平均洗车时长 averageWashingTime-->
       <div
-          style="width: 48.5%;height: 27%;float: left; margin-top: 1%;margin-left: 1%;"
-          id="washEarn"
+        style="width: 48.5%;height: 27%;float: left; margin-top: 1%;margin-left: 1%;"
+        id="washEarn"
       >
         <Xchart id="washEarn" :option="washEarnChart"></Xchart>
       </div>
@@ -101,10 +112,16 @@ export default {
   },
   data() {
     return {
+      //支付方式
+      alipayDataList: [],
+      wechatDataList: [],
+      qrCodeDataList: [],
+      cashDataList: [],
+      memberDataList: [],
       // 顶部查询数据暂存处
       query: {
-        date: '2020-08-01',
-        parkId: ''
+        date: "2020-08-01",
+        parkId: ""
       },
       // 停车场下拉框数据暂存处
       parkList: [],
@@ -145,10 +162,10 @@ export default {
     this.drawWashEarnChart();
   },
   methods: {
-      //查询重置按钮
-      resetQuery(){
-          this.query={};
-      },
+    //查询重置按钮
+    resetQuery() {
+      this.query = {};
+    },
     // 查询
     queryButton() {
       // console.log("打印出来点击查询后所产生的值", this.query);
@@ -170,9 +187,9 @@ export default {
         parkId: this.query.parkId
       };
       this.$reportAnalysis.queryParkOpeIncomeCompAnal(param).then(res => {
-        res.data.dataList.forEach((item) => {
+        res.data.dataList.forEach(item => {
           this.earnComChartX.push(item.name);
-          dataListA.push(Number(item.incomeMoneyAmount));
+          dataListA.push(Number(item.incomeMoneyAmount / 100));
           dataListB.push(Number(item.yearOnYearRate) * 100);
           // console.log('A',dataListA);
           // console.log('b',dataListB);
@@ -223,13 +240,28 @@ export default {
             {
               // Primary yAxis
               labels: {
-                format: "{value}元"
+                formatter: function() {
+                  return this.value / 1 + "元";
+                }
               },
               title: {
-                text: ""
+                text: "单位(元)"
               }
             }
           ],
+          plotOptions: {
+            column: {
+              borderWidth: 0,
+              pointWidth: 25, //柱子宽度
+              dataLabels: {
+                style: {
+                  fontSize: 11
+                },
+
+                enabled: false
+              }
+            }
+          },
           tooltip: {
             shared: true
           },
@@ -254,10 +286,10 @@ export default {
       var dataListA = [];
       var dataListB = [];
       this.$reportAnalysis.queryParkOpeIncomeArrearsAnal(param).then(res => {
-        res.data.dataList.forEach((item) => {
+        res.data.dataList.forEach(item => {
           this.earnAndOweChartX.push(item.statisDate);
-          dataListA.push(Number(item.incomeMoneyAmount));
-          dataListB.push(Number(item.arrearageMoneyAmount));
+          dataListA.push(Number(item.incomeMoneyAmount / 100));
+          dataListB.push(Number(item.arrearageMoneyAmount / 100));
         });
         this.earnAndOweDataList = [
           {
@@ -285,10 +317,13 @@ export default {
           },
           yAxis: {
             title: {
-              text: ""
+              text: "单位(元)"
             },
             labels: {
-              format: "{value}元"
+              // format: "{value}元"
+              formatter: function() {
+                return this.value / 1 + "元";
+              }
             }
           },
           tooltip: {
@@ -326,16 +361,58 @@ export default {
         parkId: this.query.parkId
       };
       this.$reportAnalysis.queryParkOpeIncomeTypeAnal(param).then(res => {
-        var alipayDataList = ['支付宝支付', Number(res.data.dataList[0].alipayPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-        var wechatDataList = ['微信支付', Number(res.data.dataList[0].wechatPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-        var qrCodeDataList = ['扫码支付', Number(res.data.dataList[0].qrCodePaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-        var cashDataList = ['现金支付', Number(res.data.dataList[0].cashPaymentMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
-        var memberDataList = ['月卡充值收入', Number(res.data.dataList[0].memberRechargeMoneyAmount) / Number(res.data.dataList[0].incomeMoneyAmount)];
+        this.alipayDataList = [
+          "支付宝支付",
+          Math.round(
+            (Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
+              Number(res.data.dataList[0].incomeMoneyAmount)) *
+              100
+          ) / 100
+        ];
+        console.log(this.alipayDataList);
+        this.wechatDataList = [
+          "微信支付",
+          Math.round(
+            (Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
+              Number(res.data.dataList[0].incomeMoneyAmount)) *
+              100
+          ) / 100
+        ];
+        this.qrCodeDataList = [
+          "扫码支付",
+          Math.round(
+            (Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
+              Number(res.data.dataList[0].incomeMoneyAmount)) *
+              100
+          ) / 100
+        ];
+        this.cashDataList = [
+          "现金支付",
+          Math.round(
+            (Number(res.data.dataList[0].cashPaymentMoneyAmount) /
+              Number(res.data.dataList[0].incomeMoneyAmount)) *
+              100
+          ) / 100
+        ];
+        this.memberDataList = [
+          "月卡充值收入",
+          Math.round(
+            (Number(res.data.dataList[0].memberRechargeMoneyAmount) /
+              Number(res.data.dataList[0].incomeMoneyAmount)) *
+              100
+          ) / 100
+        ];
         this.earnComponentDataList = [
           {
             type: "pie",
             name: "支付占比",
-            data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList, memberDataList]
+            data: [
+              this.alipayDataList,
+              this.wechatDataList,
+              this.qrCodeDataList,
+              this.cashDataList,
+              this.memberDataList
+            ]
           }
         ];
         this.earnComponentChart = {
@@ -384,18 +461,18 @@ export default {
       var dataListA = [];
       var dataListB = [];
       this.$reportAnalysis.queryParkOpeIncomeArrearsChart(param).then(res => {
-        res.data.dataList.forEach((item) => {
+        res.data.dataList.forEach(item => {
           this.parkEarnAndOweChartX.push(item.parkName);
-          dataListA.push(Number(item.incomeMoneyAmount));
-          dataListB.push(Number(item.arrearageMoneyAmount));
+          dataListA.push(Number(item.incomeMoneyAmount / 100));
+          dataListB.push(Number(item.arrearageMoneyAmount / 100));
         });
         this.parkEarnAndOweDataList = [
           {
-            name: '收入金额',
+            name: "收入金额",
             data: dataListA
           },
           {
-            name: '欠费金额',
+            name: "欠费金额",
             data: dataListB
           }
         ];
@@ -415,11 +492,11 @@ export default {
           },
           yAxis: {
             title: {
-              text: ""
+              text: "单位(元)"
             },
             labels: {
               format: "{value}元"
-            },
+            }
           },
           tooltip: {
             shared: true
@@ -457,26 +534,28 @@ export default {
       };
       var dataList = [];
       this.$reportAnalysis.queryChargeEarn(param).then(res => {
-        res.resultEntity.forEach((item) => {
+        res.resultEntity.forEach(item => {
           this.chargeEarnChartX.push(item.X);
           dataList.push(Number(item.dataY));
         });
-        this.chargeEarnDataList = [{
-          name: "收入金额",
-          showInLegend: false,
-          data: dataList
-        }];
+        this.chargeEarnDataList = [
+          {
+            name: "收入金额",
+            showInLegend: false,
+            data: dataList
+          }
+        ];
         this.chargeEarnChart = {
           chart: {
             type: "column",
-            renderTo: "chargeEarn",
-            options3d: {
-              enabled: true,
-              alpha: 15,
-              beta: 15,
-              depth: 50,
-              viewDistance: 25
-            }
+            renderTo: "chargeEarn"
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 15,
+            //   beta: 15,
+            //   depth: 50,
+            //   viewDistance: 25
+            // }
           },
           title: {
             text: "自助充电设备收入按时段分析"
@@ -489,20 +568,19 @@ export default {
           },
           yAxis: {
             title: {
-              text: ''
+              text: "单位(元)"
             }
           },
           plotOptions: {
             series: {
-              depth: 25,
+              // depth: 25,
               colorByPoint: true
             }
           },
           series: this.chargeEarnDataList
         };
         new HighCharts.chart(this.chargeEarnChart);
-      })
-
+      });
     },
     //绘表自助洗车设备收入按时段分析
     drawWashEarnChart() {
@@ -510,28 +588,30 @@ export default {
       const param = {
         queryDate: this.query.date
       };
-      var dataList=[];
-      this.$reportAnalysis.queryWashEarn(param).then(res=>{
-        res.resultEntity.forEach(item=>{
+      var dataList = [];
+      this.$reportAnalysis.queryWashEarn(param).then(res => {
+        res.resultEntity.forEach(item => {
           this.washEarnChartX.push(item.X);
           dataList.push(Number(item.dataY));
         });
-        this.washEarnDataList = [{
-          name: "收入金额",
-          showInLegend: false,
-          data: dataList
-        }];
+        this.washEarnDataList = [
+          {
+            name: "收入金额",
+            showInLegend: false,
+            data: dataList
+          }
+        ];
         this.washEarnChart = {
           chart: {
             type: "column",
-            renderTo: "washEarn",
-            options3d: {
-              enabled: true,
-              alpha: 15,
-              beta: 15,
-              depth: 50,
-              viewDistance: 25
-            }
+            renderTo: "washEarn"
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 15,
+            //   beta: 15,
+            //   depth: 50,
+            //   viewDistance: 25
+            // }
           },
           title: {
             text: "自助洗车设备收入按时段分析"
@@ -544,7 +624,7 @@ export default {
           },
           yAxis: {
             title: {
-              text: ''
+              text: "单位(元)"
             }
           },
           plotOptions: {
@@ -582,17 +662,19 @@ export default {
 
 /* 顶部查询部分 */
 .up {
-  width: 100%;
-  height: 5%;
-  float: left;
+  width: 98%;
+  height: 6%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 0.5%;
-  padding-left: 2%;
+  height: 85%;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
 
 /* 中间部分图表内容 */

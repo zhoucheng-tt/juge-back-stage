@@ -10,11 +10,11 @@
 <template>
   <div class="about">
     <!--上边部分-->
-    <div class="top"  style=" width:96%;height:10%;margin-left:2%;background: white">
+    <div class="top" style="margin: 16px 24px;background: white">
       <el-form
         :inline="true"
         :model="upQueryList"
-        style="padding: 16px 24px"
+        style="padding-top:16px;padding-left: 24px"
         size="small"
       >
         <el-form-item label="用户账号：">
@@ -62,56 +62,41 @@
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table"  style="width: 96%;margin-left: 2%;margin-top: 7%;background-color: white">
-      <el-table
-        :data="tableData"
-        style="width: 98%;margin-left: 1%"
-        :header-cell-style="{
-          fontfamily: 'PingFangSC-Medium',
-          background: '#FFFFFF',
-          color: '#333333',
-          border: 'none',
-          padding: 'none',
-          fontSize: '14px',
-          letterSpacing: '0.56px',
-          }"
-        :cell-style="{
-          fontfamily: 'PingFangSC-Regular',
-          letterSpacing: '0.56px',
-          fontSize: '14px',
-          color: '#333333',
-          }"
-
-        :row-class-name="tableRowClassName"
-      >
-        <el-table-column fixed prop="userAccount" label="用户账号">
-        </el-table-column>
-        <el-table-column prop="name" label="用户姓名"> </el-table-column>
-        <el-table-column prop="phoneNumber" label="手机号"> </el-table-column>
-        <el-table-column prop="email" label="邮箱"> </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button @click="check(scope.row)" type="text">查看</el-button>
-            <el-button @click="alter(scope.row)" type="text">修改</el-button>
-            <el-button @click="del(scope.row)" type="text">删除</el-button>
-            <el-button @click="retPassword(scope.row)" type="text"
-              >密码重置</el-button
-            >
-          </template>
-        </el-table-column>
-        <el-table-column>
-
-        </el-table-column>
-      </el-table>
-      <!--分页条-->
-      <el-pagination
+    <div class="table" style="padding: 16px 24px">
+      <div style="background: white;margin: 145px 0">
+        <el-table
+          width="100%"
+          stripe
+          :data="tableData"
+          :cell-style="{ padding: '10px' }"
+          :header-cell-style="{ padding: '10px' }"
+        >
+          <el-table-column fixed prop="userAccount" label="用户账号">
+          </el-table-column>
+          <el-table-column prop="name" label="用户姓名"> </el-table-column>
+          <el-table-column prop="phoneNumber" label="手机号"> </el-table-column>
+          <el-table-column prop="email" label="邮箱"> </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button @click="check(scope.row)" type="text">查看</el-button>
+              <el-button @click="alter(scope.row)" type="text">修改</el-button>
+              <el-button @click="del(scope.row)" type="text">删除</el-button>
+              <el-button @click="retPassword(scope.row)" type="text"
+                >密码重置</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--分页条-->
+        <el-pagination
           @current-change="handleCurrentModify"
           layout=" total,prev, pager, next, jumper"
           :current-page="pageNum"
           :page-size="pageSize"
           :total="pageTotal"
-      >
-      </el-pagination>
+          style="position: relative;left: 83%;top:1%"
+        >
+        </el-pagination>
       </div>
 
       <!--新增用户弹窗-->
@@ -404,6 +389,7 @@
           <el-button @click="retListDialog = false">取 消</el-button>
         </span>
       </el-dialog>
+    </div>
   </div>
 </template>
 <script>

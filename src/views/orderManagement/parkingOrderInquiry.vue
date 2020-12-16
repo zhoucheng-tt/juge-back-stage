@@ -13,7 +13,12 @@
     <div class="up">
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="停车场：">
-          <el-select v-model="upQueryList.parkId" placeholder="请选择停车场">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.parkId"
+            placeholder="请选择停车场"
+          >
             <el-option
               v-for="(item, index) in parkingLotList"
               :label="item.name"
@@ -24,6 +29,8 @@
         </el-form-item>
         <el-form-item label="车牌号:">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="upQueryList.plateNumber"
             placeholder="请输入车牌号"
           ></el-input>
@@ -33,6 +40,8 @@
           <el-date-picker
             v-model="upQueryList.minEntranceTime"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="请选择起始日期"
             value-format="yyyy-MM-dd hh:mm:ss"
           >
@@ -43,36 +52,44 @@
           <el-date-picker
             v-model="upQueryList.maxEntranceTime"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="请选择截止日期"
             value-format="yyyy-MM-dd hh:mm:ss"
           >
           </el-date-picker>
         </el-form-item>
-        <el-row>
-          <el-form-item label="出场时间:">
-            <el-date-picker
-              v-model="upQueryList.minLeaveTime"
-              type="datetime"
-              placeholder="请选择起始日期"
-              value-format="yyyy-MM-dd hh:mm:ss"
-            >
-            </el-date-picker>
-            <span>
-              ~
-            </span>
-            <el-date-picker
-              v-model="upQueryList.maxLeaveTime"
-              type="datetime"
-              placeholder="请选择截止日期"
-              value-format="yyyy-MM-dd hh:mm:ss"
-            >
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="queryStopOrder">查询</el-button>
-            <el-button type="primary" @click="resetQuery">重置</el-button>
-          </el-form-item>
-        </el-row>
+        <el-form-item label="出场时间:">
+          <el-date-picker
+            v-model="upQueryList.minLeaveTime"
+            type="datetime"
+            size="small"
+            style="width: 160px"
+            placeholder="请选择起始日期"
+            value-format="yyyy-MM-dd hh:mm:ss"
+          >
+          </el-date-picker>
+          <span>
+            ~
+          </span>
+          <el-date-picker
+            v-model="upQueryList.maxLeaveTime"
+            type="datetime"
+            size="small"
+            style="width: 160px"
+            placeholder="请选择截止日期"
+            value-format="yyyy-MM-dd hh:mm:ss"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="queryStopOrder"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
       </el-form>
     </div>
     <!-- 下半部分列表 -->
@@ -81,16 +98,21 @@
         :data="orderParkingList"
         :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column
           fixed
@@ -361,36 +383,36 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 15.5%;
-  float: left;
+  width: 96%;
+  height: 7%;
+  background-color: white;
+  margin-left: 2%;
 }
 
+/* 下班部分列表部分 */
+.down {
+  width: 96%;
+  height: 85%;
+  background-color: white;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+  background: #f8f9fa !important;
+}
+
+/deep/ .el-table .successSecond {
+  background: white !important;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
   height: 85%;
   margin-top: 1%;
   padding-left: 2%;
-}
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
 }
 
 /* 表格表头样式 */

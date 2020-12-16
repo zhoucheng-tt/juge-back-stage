@@ -189,7 +189,7 @@ export default {
         },
         {
           code: "4",
-          logo: "el-icon-document",
+          logo: "el-icon-s-grid",
           name: "实时监测",
           // routeName: 'realTimeMonitoringCarWaring'
           children: [
