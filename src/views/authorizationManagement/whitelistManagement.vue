@@ -14,7 +14,7 @@
       <el-tab-pane label="白名单管理" name="first">
         <white-List-Management-Compent/>
       </el-tab-pane>
-      <el-tab-pane label="黑名单管理" name="second">
+      <el-tab-pane label="黑名单管理" name="second" >
         <black-List-Management-Compent/>
       </el-tab-pane>
     </el-tabs>

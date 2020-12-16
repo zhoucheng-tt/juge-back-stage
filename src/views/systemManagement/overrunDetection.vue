@@ -10,8 +10,8 @@
 <template class="template">
   <div class="about">
     <!--上边部分-->
-    <div class="top">
-      <el-form :inline="true" class="demo-form-inline">
+    <div class="top"  style="margin:16px 24px;background: white">
+      <el-form :inline="true" class="demo-form-inline" size="small" style="padding-top:16px;padding-left: 24px">
         <el-form-item label="角色名">
           <el-input v-model="roleName"></el-input>
         </el-form-item>
@@ -19,28 +19,22 @@
           <el-button type="primary" class="top-select" @click="queryRoleList"
             >查询
           </el-button>
+          <el-button type="primary" @click="addRole">新增角色 </el-button>
         </el-form-item>
-        <el-button type="primary" @click="addRole">新增角色 </el-button>
+
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table">
+    <div class="table" style="margin:110px 24px;background: white">
       <!--数据表格-->
       <el-table
-        :row-class-name="tableRowClassName"
+        stripe
         :data="roleManagementData"
-        :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
+        style="margin: 16px 0"
+        :cell-style="{ padding: '10px' }"
+        :header-cell-style="{  fontSize: '14px',padding: '10px' }"
       >
-        <el-table-column fixed prop="roleName" label="角色名称">
+        <el-table-column  prop="roleName" label="角色名称">
         </el-table-column>
         <el-table-column prop="roleDesc" label="角色描述"> </el-table-column>
         <el-table-column prop="creater" label="创建人"> </el-table-column>
@@ -66,6 +60,7 @@
         :current-page="pageNum"
         :page-size="pageSize"
         :total="pageTotal"
+        style="position: relative;left: 82%"
       >
       </el-pagination>
       <!--按钮新增角色弹窗-->
@@ -1021,15 +1016,13 @@ export default {
 </script>
 <style scoped>
 .about {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* 上半部分输入框查询导出 */
 .top {
-  width: 100%;
-  height: 7.5%;
+  width: 97%;
+  height: 6%;
   float: left;
   /*background-color: rebeccapurple;*/
 }
@@ -1132,9 +1125,9 @@ export default {
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: white !important;
 }
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background:  !important;
 }
 </style>

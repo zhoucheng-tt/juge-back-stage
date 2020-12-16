@@ -10,11 +10,11 @@
 <template>
   <div class="about">
     <!--上边部分-->
-    <div class="top">
+    <div class="top"  style="margin: 16px 24px;background: white">
       <el-form
         :inline="true"
         :model="upQueryList"
-        class="demo-form-inline"
+        style="padding-top:16px;padding-left: 24px"
         size="small"
       >
         <el-form-item label="用户账号：">
@@ -62,7 +62,8 @@
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table" style="margin: 0 24px; ">
+    <div class="table" style="padding: 16px 24px">
+      <div style="background: white;margin: 145px 0">
       <el-table
         width="100%"
         stripe
@@ -85,17 +86,18 @@
             >
           </template>
         </el-table-column>
-        <!--分页条-->
-        <el-pagination
+      </el-table>
+      <!--分页条-->
+      <el-pagination
           @current-change="handleCurrentModify"
-          layout=" prev, pager, next,total, jumper"
+          layout=" total,prev, pager, next, jumper"
           :current-page="pageNum"
           :page-size="pageSize"
           :total="pageTotal"
           style="position: relative;left: 83%;top:1%"
-        >
-        </el-pagination>
-      </el-table>
+      >
+      </el-pagination>
+      </div>
 
       <!--新增用户弹窗-->
       <el-dialog
@@ -712,8 +714,8 @@ export default {
 
 /* 上半部分输入框查询导出 */
 .top {
-  width: 97%;
-  height: 16%;
+  width: 97.5%;
+  height: 13%;
   float: left;
   background-color: white;
   margin: 16px 24px;

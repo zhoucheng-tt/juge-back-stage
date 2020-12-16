@@ -59,18 +59,12 @@
         </el-row>
       </el-form>
     </div>
-    <div class="table">
+    <div class="table" style="margin:0 24px">
       <el-table
         :data="parkingLotInformation"
-        :row-class-name="tableRowClassName"
+          stripe
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
         }"
         :cell-style="{ 'text-align': 'center' }"
         style="width: 100%;"
@@ -155,17 +149,18 @@
             </el-button>
           </template>
         </el-table-column>
+        <!--分页条-->
+        <el-pagination
+            style="position: relative;left: 84%"
+            @current-change="handleCurrentModify"
+            layout="total, prev, pager, next, jumper"
+            :current-page="pageNum"
+            :page-size="pageSize"
+            :total="pageTotal"
+        >
+        </el-pagination>
       </el-table>
-      <!--分页条-->
-      <el-pagination
-        style="position: relative;left: 78%"
-        @current-change="handleCurrentModify"
-        layout="total, prev, pager, next, jumper"
-        :current-page="pageNum"
-        :page-size="pageSize"
-        :total="pageTotal"
-      >
-      </el-pagination>
+
     </div>
     <!--        新增白名单弹窗-->
     <el-dialog
@@ -924,10 +919,10 @@ export default {
 
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background:  #333333 !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 </style>

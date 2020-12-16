@@ -9,41 +9,36 @@
 -->
 <template>
   <div class="about">
-    <el-row class="up">
+    <div class="top" >
       <!--顶部查询-->
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <!--        <el-form-item label="计费规则名称">-->
-        <!--          <el-input v-model="formInline.billingRuleDefName" placeholder="计费规则名称"></el-input>-->
-        <!--        </el-form-item>-->
-        <!--        <el-form-item label="停车场：">-->
-        <!--          <el-select v-model="formInline.parkId" placeholder="请选择停车场">-->
-        <!--            <el-option v-for="(item, index) in parkLotNameList" :label="item.name"-->
-        <!--                       :value="item.code" :key="index"></el-option>-->
-        <!--          </el-select>-->
-        <!--        </el-form-item>-->
-        <!--          <el-button type="primary" @click="queryBillingRuleList">查询</el-button>-->
-        <el-form-item>
-          <el-button type="primary" @click="addRule">新增规则</el-button>
-          <el-button type="primary" @click="handleExport">导出</el-button>
-          <el-button type="danger" @click="onBatch">批量删除</el-button>
-        </el-form-item>
+      <el-form :inline="true" :model="formInline" style="padding: 16px 24px" size="small">
+            <el-form-item label="计费规则名称：">
+              <el-input v-model="formInline.billingRuleDefName" placeholder="计费规则名称"></el-input>
+            </el-form-item>
+            <el-form-item label="停车场：">
+              <el-select v-model="formInline.parkId" placeholder="请选择停车场">
+                <el-option v-for="(item, index) in parkLotNameList" :label="item.name"
+                           :value="item.code" :key="index"></el-option>
+              </el-select>
+              <el-button type="primary" @click="queryBillingRuleList" style="margin-left: 10px">查询</el-button>
+            </el-form-item>
+        <el-row style="text-align: right">
+            <el-form-item>
+              <el-button type="primary" @click="addRule">新增规则</el-button>
+              <el-button type="primary" @click="handleExport">导出</el-button>
+              <el-button type="danger" @click="onBatch">批量删除</el-button>
+            </el-form-item>
+        </el-row>
       </el-form>
-    </el-row>
+    </div>
     <!-- 初始化页面表格表格 -->
-    <div class="table">
+    <div class="table" style="margin:0 24px;background: white">
       <el-table
         :data="accountRules"
-        :row-class-name="tableRowClassName"
+       stripe
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
         }"
-        :cell-style="{ 'text-align': 'center' }"
         style="width: 100%;"
         ref="selectionRow"
       >
@@ -98,12 +93,14 @@
       title="新增计费信息"
       :visible.sync="addChargeListDialog"
       top="10vh"
+      destroy-on-close
     >
       <el-form
         :model="addChargeList"
         label-width="150px"
         :rules="addChargeListRules"
         ref="addChargeList"
+
       >
         <!--        <span>停车场信息</span>-->
         <!--        <el-form-item label="归属停车场:">-->
@@ -1211,7 +1208,6 @@
   </div>
 </template>
 <script>
-this.$refs[formName].resetFields();
 export default {
   data() {
     return {
@@ -1384,7 +1380,7 @@ export default {
       this.billingRuleDetailList = [];
     },
     //新增计费规则提交
-    onCommitAdd(addChargeList) {
+    onCommitAdd() {
       this.$refs["addChargeList"].validate(valid => {
         if (valid) {
           this.addChargeListDialog = false;
@@ -1443,12 +1439,11 @@ export default {
               //添加成功 刷新页面 调用查询方法
               this.queryBillingRuleList();
             });
-          //   }
-          // })
-        } else {
+            }else {
           return false;
         }
-      });
+          })
+        }
     },
     //表中的查看
     handleCheck(row) {
@@ -1647,7 +1642,7 @@ export default {
       return "";
     }
   }
-};
+
 </script>
 <style scoped>
 /**/
@@ -1655,10 +1650,11 @@ export default {
   overflow-x: hidden;
 }
 /*顶部查询*/
-.up {
-  width: 100%;
-  height: 75px;
-  float: left;
+.top {
+  width: 97.2%;
+  height: 24%;
+  background: white;
+  margin: 16px 24px;
 }
 /* 查询条件部分样式 */
 .demo-form-inline {
