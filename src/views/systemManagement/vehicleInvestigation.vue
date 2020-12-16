@@ -10,12 +10,12 @@
 <template>
   <div class="about">
     <!--       日志时间-->
-    <div class="top">
+    <div class="top" style="margin:16px 24px;background: white">
       <el-form
         :inline="true"
         :model="upQueryList"
-        class="demo-form-inline"
         size="small"
+        style="padding-top:16px;padding-left: 24px"
       >
         <el-form-item>
           <el-date-picker
@@ -75,9 +75,9 @@
       </el-table>
       <!--分页条-->
       <el-pagination
-        style="position: relative;left: 63%"
+        style="position: relative;left: 67%"
         @current-change="handleCurrentModify"
-        layout=" prev, pager, next,total, jumper"
+        layout=" total,prev, pager, next, jumper"
         :current-page="pageNum"
         :page-size="pageSize"
         :total="pageTotal"
@@ -159,7 +159,7 @@ export default {
   overflow-x: hidden;
 }
 .demo-form-inline {
-  width: 96%;
+  width: 100%;
   height: 80%;
   padding: 1%;
   background: white;
