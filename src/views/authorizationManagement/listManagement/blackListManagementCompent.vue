@@ -63,20 +63,13 @@
       </el-form>
     </div>
     <!--        表格内容-->
-    <div class="table">
+    <div class="table" style="padding:0 24px">
       <el-table
           :data="parkingLotInformation"
-          :row-class-name="tableRowClassName"
+          stripe
           :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
         }"
-          :cell-style="{ 'text-align': 'center' }"
           style="width: 100%;"
           ref="selectionRow"
           @selection-change="handleSelectionChange"
@@ -148,17 +141,18 @@
             >
           </template>
         </el-table-column>
+        <!--分页条-->
+        <el-pagination
+            style="position: relative;left: 78%"
+            @current-change="handleCurrentModify"
+            layout="total, prev, pager, next, jumper"
+            :current-page="pageNum"
+            :page-size="pageSize"
+            :total="pageTotal"
+        >
+        </el-pagination>
       </el-table>
-      <!--分页条-->
-      <el-pagination
-          style="position: relative;left: 78%"
-          @current-change="handleCurrentModify"
-          layout="total, prev, pager, next, jumper"
-          :current-page="pageNum"
-          :page-size="pageSize"
-          :total="pageTotal"
-      >
-      </el-pagination>
+
     </div>
     <!--        新增黑名单弹窗-->
     <el-dialog
@@ -166,6 +160,7 @@
         :visible.sync="addBlackListDialog"
         width="70%"
         overflow="hidden"
+        destroy-on-close
     >
 
       <!--          归属停车场信息-->
@@ -283,7 +278,6 @@
           </el-row>
         </el-row>
       </el-form>
-      </el-row>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
         <el-button @click="addBlackListDialog = false">取 消</el-button>
@@ -634,6 +628,8 @@ export default {
     },
     //新增黑名单确认提交
     onSubmitAdd() {
+      this.$refs["addBlackData"].validate(valid=>{
+      if(valid){
       console.log(new Date().Format("yyyy-MM-dd hh:mm:ss"), new Date());
       //点击提交隐藏弹窗
       this.addBlackListDialog = false;
@@ -658,6 +654,8 @@ export default {
         //添加成功 刷新页面 调用查询方法
         this.queryBlackList();
       });
+        }
+      })
     },
     //操作中的删除按钮
     reMove(row) {

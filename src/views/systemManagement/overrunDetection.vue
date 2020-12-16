@@ -10,9 +10,9 @@
 <template class="template">
   <div class="about">
     <!--上边部分-->
-    <div class="top"  style="margin:16px 24px;background: white">
+    <div class="up">
       <el-form :inline="true" class="demo-form-inline" size="small" style="padding-top:16px;padding-left: 24px">
-        <el-form-item label="角色名">
+        <el-form-item label="角色名：">
           <el-input v-model="roleName"></el-input>
         </el-form-item>
         <el-form-item>
@@ -25,14 +25,29 @@
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table" style="margin:110px 24px;background: white">
+    <div class="down">
       <!--数据表格-->
       <el-table
-        stripe
-        :data="roleManagementData"
-        style="margin: 16px 0"
-        :cell-style="{ padding: '10px' }"
-        :header-cell-style="{  fontSize: '14px',padding: '10px' }"
+          :data="roleManagementData"
+          :row-class-name="tableRowClassName"
+          :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px'
+        }"
+          :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333'
+        }"
+          style="width: 98%;margin-left: 1%"
+
+
       >
         <el-table-column  prop="roleName" label="角色名称">
         </el-table-column>
@@ -56,11 +71,11 @@
       <!--分页条-->
       <el-pagination
         @current-change="handleCurrentModify"
-        layout=" prev, pager, next,total, jumper"
+        layout=" total,prev, pager, next, jumper"
         :current-page="pageNum"
         :page-size="pageSize"
         :total="pageTotal"
-        style="position: relative;left: 82%"
+        style="float: left"
       >
       </el-pagination>
       <!--按钮新增角色弹窗-->
@@ -1019,12 +1034,21 @@ export default {
   overflow-x: hidden;
 }
 
-/* 上半部分输入框查询导出 */
-.top {
-  width: 97%;
-  height: 6%;
-  float: left;
-  /*background-color: rebeccapurple;*/
+/*查询*/
+.up {
+  width: 96%;
+  height: 7%;
+  background-color: white;
+  margin-left: 2%;
+}
+
+/* 下班部分列表部分 */
+.down {
+  width: 96%;
+  height: 85%;
+  background-color: white;
+  margin-left: 2%;
+  margin-top: 1%;
 }
 
 /*上半部输入框样式*/
@@ -1125,9 +1149,10 @@ export default {
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: white !important;
+  background: #f8f9fa !important;
 }
+
 /deep/ .el-table .successSecond {
-  background:  !important;
+  background: white !important;
 }
 </style>

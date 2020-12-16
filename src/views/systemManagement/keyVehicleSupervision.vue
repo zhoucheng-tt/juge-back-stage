@@ -10,11 +10,11 @@
 <template>
   <div class="about">
     <!--上边部分-->
-    <div class="top"  style="margin: 16px 24px;background: white">
+    <div class="top"  style=" width:96%;height:10%;margin-left:2%;background: white">
       <el-form
         :inline="true"
         :model="upQueryList"
-        style="padding-top:16px;padding-left: 24px"
+        style="padding: 16px 24px"
         size="small"
       >
         <el-form-item label="用户账号：">
@@ -62,14 +62,27 @@
       </el-form>
     </div>
     <!--表格部分-->
-    <div class="table" style="padding: 16px 24px">
-      <div style="background: white;margin: 145px 0">
+    <div class="table"  style="width: 96%;margin-left: 2%;margin-top: 7%;background-color: white">
       <el-table
-        width="100%"
-        stripe
         :data="tableData"
-        :cell-style="{ padding: '10px' }"
-        :header-cell-style="{ padding: '10px' }"
+        style="width: 98%;margin-left: 1%"
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          }"
+
+        :row-class-name="tableRowClassName"
       >
         <el-table-column fixed prop="userAccount" label="用户账号">
         </el-table-column>
@@ -86,6 +99,9 @@
             >
           </template>
         </el-table-column>
+        <el-table-column>
+
+        </el-table-column>
       </el-table>
       <!--分页条-->
       <el-pagination
@@ -94,7 +110,6 @@
           :current-page="pageNum"
           :page-size="pageSize"
           :total="pageTotal"
-          style="position: relative;left: 83%;top:1%"
       >
       </el-pagination>
       </div>
@@ -389,7 +404,6 @@
           <el-button @click="retListDialog = false">取 消</el-button>
         </span>
       </el-dialog>
-    </div>
   </div>
 </template>
 <script>

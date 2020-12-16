@@ -53,13 +53,27 @@
       </el-form>
     </div>
     <!--        日志管理表格-->
-    <div class="table" style="margin:0 24px;background: white">
+    <div class="table" style="width: 97%;margin:0  22px;background-color: white">
       <!--数据表格-->
       <el-table
         :data="logManagementData"
-        stripe
-        :cell-style="{ padding: '10px' }"
-        :header-cell-style="{ padding: '10px' }"
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          }"
+        :row-class-name="tableRowClassName"
+        style="margin:0 15px"
       >
         <el-table-column fixed prop="logTime" label="日志时间">
         </el-table-column>
