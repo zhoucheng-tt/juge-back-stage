@@ -172,6 +172,7 @@
           label-width="100px"
           :model="newCamera"
           :rules="addListRules"
+          ref="newCameraR"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
