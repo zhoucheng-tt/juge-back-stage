@@ -142,8 +142,9 @@
       title="新增停车场信息"
       :visible.sync="addListDialogueandoff"
       width="50%"
+      destroy-on-close
     >
-      <el-form :inline="true" :model="newParkingLot" :rules="addListDiaRules">
+      <el-form :inline="true" :model="newParkingLot" :rules="addListDiaRules" ref="newParkingLotR">
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
@@ -734,30 +735,34 @@ export default {
     },
     //提交表单
     onSubmitAdd() {
-      // console.log(this.newParkingLot);
-      //将新增数据展示到页面（仅做展示用）
-      // this.parkList.push(this.newParkingLot);
-      const param = {
-        parkId: this.newParkingLot.parkId,
-        parkName: this.newParkingLot.parkName,
-        parkTypeCode: this.newParkingLot.parkTypeCode,
-        companyId: this.newParkingLot.companyId,
-        cityCode: this.newParkingLot.cityCode,
-        districtCode: this.newParkingLot.districtCode,
-        address: this.newParkingLot.address,
-        longitude: this.newParkingLot.longitude,
-        latitude: this.newParkingLot.latitude,
-        parkSpaceNum: this.newParkingLot.parkSpaceNum,
-        billingRuleDesc: this.newParkingLot.billingRuleDesc,
-        billingRuleDefId: this.newParkingLot.billingRuleDefId,
-        contact: this.newParkingLot.contact,
-        contactPhoneNumber: this.newParkingLot.contactPhoneNumber,
-        externalSystemImportFlag: 1,
-        parkOptIntegratorCode: 1
-      };
-      this.$ysParking.insertPark(param);
-      this.queryParkList();
-      this.addListDialogueandoff = false;
+      this.$refs["newParkingLotR"].validate(valid => {
+        if (valid) {
+          // console.log(this.newParkingLot);
+          //将新增数据展示到页面（仅做展示用）
+          // this.parkList.push(this.newParkingLot);
+          const param = {
+            parkId: this.newParkingLot.parkId,
+            parkName: this.newParkingLot.parkName,
+            parkTypeCode: this.newParkingLot.parkTypeCode,
+            companyId: this.newParkingLot.companyId,
+            cityCode: this.newParkingLot.cityCode,
+            districtCode: this.newParkingLot.districtCode,
+            address: this.newParkingLot.address,
+            longitude: this.newParkingLot.longitude,
+            latitude: this.newParkingLot.latitude,
+            parkSpaceNum: this.newParkingLot.parkSpaceNum,
+            billingRuleDesc: this.newParkingLot.billingRuleDesc,
+            billingRuleDefId: this.newParkingLot.billingRuleDefId,
+            contact: this.newParkingLot.contact,
+            contactPhoneNumber: this.newParkingLot.contactPhoneNumber,
+            externalSystemImportFlag: 1,
+            parkOptIntegratorCode: 1
+          };
+          this.$ysParking.insertPark(param);
+          this.queryParkList();
+          this.addListDialogueandoff = false;
+        }
+      })
     },
     //修改弹框弹出
     handleEditListDialogue(row) {
