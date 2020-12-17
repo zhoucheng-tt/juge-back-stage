@@ -166,16 +166,20 @@
           </template>
         </el-table-column></el-table
       >
-      <div style="float: right;">
-        <!--分页条-->
-        <el-pagination
-          @current-change="handleCurrentModify"
-          layout="total, prev, pager, next, jumper"
-          :current-page="pageNum"
-          :page-size="pageSize"
-          :total="pageTotal"
-        >
-        </el-pagination>
+      <div
+        style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
+      >
+        <div style="float: right;">
+          <!--分页条-->
+          <el-pagination
+            @current-change="handleCurrentModify"
+            layout="total, prev, pager, next, jumper"
+            :current-page="pageNum"
+            :page-size="pageSize"
+            :total="pageTotal"
+          >
+          </el-pagination>
+        </div>
       </div>
       <!--        新增白名单弹窗-->
       <el-dialog
