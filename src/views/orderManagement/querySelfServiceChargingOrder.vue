@@ -183,59 +183,55 @@
     </div>
     <!-- 订单详情点击弹出框 -->
     <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
-      <el-form
-        :inline="true"
-        :model="showListDloageandoffList"
-        class="demo-form-inline"
-      >
-        <el-form-item label="订单编号:" class="el-form-item-dialog">
+      <el-form :inline="true" :model="showListDloageandoffList" width="50%">
+        <el-form-item label="订单编号:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.parkingLotNumber"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="充电桩号:" class="el-form-item-dialog">
+        <el-form-item label="充电桩号:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.nameOfParkingLot"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="车牌号:" class="el-form-item-dialog">
+        <el-form-item label="车牌号:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.carNum"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="开始时间:" class="el-form-item-dialog">
+        <el-form-item label="开始时间:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.parkingNumber"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="充电时长:" class="el-form-item-dialog">
+        <el-form-item label="充电时长:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.entryTime"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="订单金额:" class="el-form-item-dialog">
+        <el-form-item label="订单金额:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.deliveryTime"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="支付方式:" class="el-form-item-dialog">
+        <el-form-item label="支付方式:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.parkingTime"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button @click="handleBack">
-            返回
-          </el-button>
-        </el-form-item>
       </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="handleBack">
+          返回
+        </el-button>
+      </div>
     </el-dialog>
   </div>
 </template>

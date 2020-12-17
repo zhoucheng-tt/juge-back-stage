@@ -535,8 +535,9 @@
         <!--          </el-select>-->
         <!--        </el-form-item>-->
         <span>计费规则信息</span>
-        <el-form-item label="计费规则类型:">
+        <el-form-item label="计费规则类型:" label-width="150px">
           <el-select
+            style="width:200px"
             v-model="checkChargeList.billingRuleTypeCode"
             placeholder="请选择计费规则"
           >
@@ -548,18 +549,18 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="计费规则名称:">
+        <el-form-item label="计费规则名称:" label-width="150px">
           <el-input
             v-model="checkChargeList.billingRuleDefName"
             placeholder="请输入"
-            style="width:225px"
+            style="width:200px"
           ></el-input>
         </el-form-item>
-        <el-form-item label="计费规则描述:">
+        <el-form-item label="计费规则描述:" label-width="150px">
           <el-input
             v-model="checkChargeList.remark"
             placeholder="请输入"
-            style="width:225px"
+            style="width:200px"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -719,8 +720,8 @@
       <el-row v-if="checkChargeList.billingRuleTypeCode == 1">
         <span>按照时长计费</span>
         <el-form>
-          <el-form-item label="最短计费时长:">
-            <el-select v-model="billingRuleDetailList.minBillingDurationCode">
+          <el-form-item label="最短计费时长:" label-width="150px">
+            <el-select style="200px" v-model="billingRuleDetailList.minBillingDurationCode">
               <el-option
                 v-for="(item, index) in minTimeList"
                 :label="item.name"
@@ -894,7 +895,7 @@
     <el-dialog
       title="修改计费信息"
       :visible.sync="alterChargeListDialog"
-      top="10vh"
+      width="50%"
     >
       <el-form :model="checkChargeList" label-width="150px">
         <!--        <span>停车场信息</span>-->
@@ -905,8 +906,9 @@
         <!--          </el-select>-->
         <!--        </el-form-item>-->
         <span>计费规则信息</span>
-        <el-form-item label="计费规则类型:">
+        <el-form-item label="计费规则类型:"label-width="150px">
           <el-select
+            style="width: 200px"
             v-model="checkChargeList.billingRuleTypeCode"
             placeholder="请选择计费规则"
           >
@@ -918,18 +920,20 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="计费规则名称:">
+        <el-form-item label="计费规则名称:"label-width="150px">
           <el-input
             v-model="checkChargeList.billingRuleDefName"
             placeholder="请输入"
-            style="width:225px"
+            style="width: 200px"
+
           ></el-input>
         </el-form-item>
-        <el-form-item label="计费规则描述:">
+        <el-form-item label="计费规则描述:"label-width="150px">
           <el-input
             v-model="checkChargeList.remark"
             placeholder="请输入"
-            style="width:225px"
+            style="width: 200px"
+
           ></el-input>
         </el-form-item>
       </el-form>
@@ -1089,8 +1093,9 @@
       <el-row v-if="checkChargeList.billingRuleTypeCode == 1">
         <span>按照时长计费</span>
         <el-form>
-          <el-form-item label="最短计费时长:">
-            <el-select v-model="billingRuleDetailList.minBillingDurationCode">
+          <el-form-item label="最短计费时长:"label-width="150px">
+            <el-select             style="width: 200px"
+                                   v-model="billingRuleDetailList.minBillingDurationCode">
               <el-option
                 v-for="(item, index) in minTimeList"
                 :label="item.name"
@@ -1502,196 +1507,204 @@ export default {
           return false;
         }
       });
-    }
-  },
-  //表中的查看
-  handleCheck(row) {
-    this.checkChargeListDialog = true;
-    this.checkChargeList = row;
-    this.billingRuleDetailList.smallfreeDuration =
-      row.billingRuleDetailList[0].freeDuration;
-    this.billingRuleDetailList.smallrebillingDuration =
-      row.billingRuleDetailList[0].rebillingDuration;
-    this.billingRuleDetailList.dayBeginTime =
-      row.billingRuleDetailList[0].dayBeginTime;
-    this.billingRuleDetailList.dayEndTime =
-      row.billingRuleDetailList[0].dayEndTime;
-    this.billingRuleDetailList.nightBeginTime =
-      row.billingRuleDetailList[0].nightBeginTime;
-    this.billingRuleDetailList.nightEndTime =
-      row.billingRuleDetailList[0].nightEndTime;
-    this.billingRuleDetailList.smalldayBillingPrice =
-      row.billingRuleDetailList[0].dayBillingPrice;
-    this.billingRuleDetailList.smallnightBillingPrice =
-      row.billingRuleDetailList[0].nightBillingPrice;
-    (this.billingRuleDetailList.ceilingFlag =
-      row.billingRuleDetailList[0].ceilingFlag),
-      (this.billingRuleDetailList.smallceilingMoneyAmount =
-        row.billingRuleDetailList[0].ceilingMoneyAmount);
-    this.billingRuleDetailList.minBillingDurationCode =
-      row.billingRuleDetailList[0].minBillingDurationCode;
-    this.billingRuleDetailList.maxfreeDuration =
-      row.billingRuleDetailList[1].freeDuration;
-    this.billingRuleDetailList.maxrebillingDuration =
-      row.billingRuleDetailList[1].rebillingDuration;
-    this.billingRuleDetailList.dayBeginTime =
-      row.billingRuleDetailList[1].dayBeginTime;
-    this.billingRuleDetailList.dayEndTime =
-      row.billingRuleDetailList[1].dayEndTime;
-    this.billingRuleDetailList.nightBeginTime =
-      row.billingRuleDetailList[1].nightBeginTime;
-    this.billingRuleDetailList.nightEndTime =
-      row.billingRuleDetailList[1].nightEndTime;
-    this.billingRuleDetailList.maxdayBillingPrice =
-      row.billingRuleDetailList[1].dayBillingPrice;
-    this.billingRuleDetailList.maxnightBillingPrice =
-      row.billingRuleDetailList[1].nightBillingPrice;
-    (this.billingRuleDetailList.ceilingFlag =
-      row.billingRuleDetailList[1].ceilingFlag),
-      (this.billingRuleDetailList.maxceilingMoneyAmount =
-        row.billingRuleDetailList[1].ceilingMoneyAmount);
-    this.billingRuleDetailList.minBillingDurationCode =
-      row.billingRuleDetailList[1].minBillingDurationCode;
-  },
-  //点击修改按钮
-  handleAlter(row) {
-    this.alterChargeListDialog = true;
-    this.checkChargeList = row;
-    this.billingRuleDetailList.smallfreeDuration =
-      row.billingRuleDetailList[0].freeDuration;
-    this.billingRuleDetailList.smallrebillingDuration =
-      row.billingRuleDetailList[0].rebillingDuration;
-    this.billingRuleDetailList.dayBeginTime =
-      row.billingRuleDetailList[0].dayBeginTime;
-    this.billingRuleDetailList.dayEndTime =
-      row.billingRuleDetailList[0].dayEndTime;
-    this.billingRuleDetailList.nightBeginTime =
-      row.billingRuleDetailList[0].nightBeginTime;
-    this.billingRuleDetailList.nightEndTime =
-      row.billingRuleDetailList[0].nightEndTime;
-    this.billingRuleDetailList.smalldayBillingPrice =
-      row.billingRuleDetailList[0].dayBillingPrice;
-    this.billingRuleDetailList.smallnightBillingPrice =
-      row.billingRuleDetailList[0].nightBillingPrice;
-    (this.billingRuleDetailList.ceilingFlag =
-      row.billingRuleDetailList[0].ceilingFlag),
-      (this.billingRuleDetailList.smallceilingMoneyAmount =
-        row.billingRuleDetailList[0].ceilingMoneyAmount);
-    this.billingRuleDetailList.minBillingDurationCode =
-      row.billingRuleDetailList[0].minBillingDurationCode;
-    this.billingRuleDetailList.maxfreeDuration =
-      row.billingRuleDetailList[1].freeDuration;
-    this.billingRuleDetailList.maxrebillingDuration =
-      row.billingRuleDetailList[1].rebillingDuration;
-    this.billingRuleDetailList.dayBeginTime =
-      row.billingRuleDetailList[1].dayBeginTime;
-    this.billingRuleDetailList.dayEndTime =
-      row.billingRuleDetailList[1].dayEndTime;
-    this.billingRuleDetailList.nightBeginTime =
-      row.billingRuleDetailList[1].nightBeginTime;
-    this.billingRuleDetailList.nightEndTime =
-      row.billingRuleDetailList[1].nightEndTime;
-    this.billingRuleDetailList.maxdayBillingPrice =
-      row.billingRuleDetailList[1].dayBillingPrice;
-    this.billingRuleDetailList.maxnightBillingPrice =
-      row.billingRuleDetailList[1].nightBillingPrice;
-    (this.billingRuleDetailList.ceilingFlag =
-      row.billingRuleDetailList[1].ceilingFlag),
-      (this.billingRuleDetailList.maxceilingMoneyAmount =
-        row.billingRuleDetailList[1].ceilingMoneyAmount);
-    this.billingRuleDetailList.minBillingDurationCode =
-      row.billingRuleDetailList[1].minBillingDurationCode;
-  },
-  //修改确认提交按钮
-  onCommitAlter() {
-    this.alterChargeListDialog = false;
-    const param = {
-      billingRuleDefId: this.billingRuleDefId.billingRuleDefId,
-      billingRuleDefName: this.checkChargeList.billingRuleDefName,
-      billingRuleTypeCode: this.checkChargeList.billingRuleTypeCode,
-      remark: this.checkChargeList.remark,
-      minBillingDurationCode: this.checkChargeList.minBillingDurationCode,
-      billingRuleDetailList: [
-        {
-          //小型车辆
-          vehicleTypeCode: "1",
-          freeDuration: this.billingRuleDetailList.smallfreeDuration,
-          rebillingDuration: this.billingRuleDetailList.smallrebillingDuration,
-          dayBeginTime: this.billingRuleDetailList.dayBeginTime,
-          dayEndTime: this.billingRuleDetailList.dayEndTime,
-          nightBeginTime: this.billingRuleDetailList.nightBeginTime,
-          nightEndTime: this.billingRuleDetailList.nightEndTime,
-          dayBillingPrice: this.billingRuleDetailList.smalldayBillingPrice,
-          nightBillingPrice: this.billingRuleDetailList.smallnightBillingPrice,
-          ceilingFlag: this.billingRuleDetailList.ceilingFlag,
-          ceilingMoneyAmount: this.billingRuleDetailList
-            .smallceilingMoneyAmount,
-          minBillingDurationCode: this.billingRuleDetailList
-            .minBillingDurationCode
-        },
-        {
-          // 大型车辆
-          vehicleTypeCode: "2",
-          freeDuration: this.billingRuleDetailList.maxfreeDuration,
-          rebillingDuration: this.billingRuleDetailList.maxrebillingDuration,
-          dayBeginTime: this.billingRuleDetailList.dayBeginTime,
-          dayEndTime: this.billingRuleDetailList.dayEndTime,
-          nightBeginTime: this.billingRuleDetailList.nightBeginTime,
-          nightEndTime: this.billingRuleDetailList.nightEndTime,
-          dayBillingPrice: this.billingRuleDetailList.maxdayBillingPrice,
-          nightBillingPrice: this.billingRuleDetailList.maxnightBillingPrice,
-          ceilingFlag: this.billingRuleDetailList.ceilingFlag,
-          ceilingMoneyAmount: this.billingRuleDetailList.maxceilingMoneyAmount,
-          minBillingDurationCode: this.billingRuleDetailList
-            .minBillingDurationCode
-        }
-      ]
-    };
-    this.$basicInformationManagement.updateBillingRule(param).then(response => {
-      console.log("打印修改传入数据", response);
-      this.$message({ type: "success", message: "修改成功!" });
-      this.queryBillingRuleList();
-    });
-  },
+    },
 
-  //删除一行
-  handleDelete(row) {
-    //点击删除按钮出现的提示框
-    this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-      type: "warning"
-    })
-      .then(() => {
-        //清空删除
-        this.delChargeList = [];
-        //设定传入行数据
-        const param = {
-          billingRuleDefId: [row.billingRuleDefId]
-        };
-        console.log(param, "listlistlistlistlistlist");
-        this.delChargeList = param;
-        this.$basicInformationManagement.deleteBillingRule(this.delChargeList);
-        this.$message({ type: "success", message: "删除成功!" });
-        this.queryBillingRuleList();
+    //表中的查看
+    handleCheck(row) {
+      this.checkChargeListDialog = true;
+      this.checkChargeList = row;
+      this.billingRuleDetailList.smallfreeDuration =
+        row.billingRuleDetailList[0].freeDuration;
+      this.billingRuleDetailList.smallrebillingDuration =
+        row.billingRuleDetailList[0].rebillingDuration;
+      this.billingRuleDetailList.dayBeginTime =
+        row.billingRuleDetailList[0].dayBeginTime;
+      this.billingRuleDetailList.dayEndTime =
+        row.billingRuleDetailList[0].dayEndTime;
+      this.billingRuleDetailList.nightBeginTime =
+        row.billingRuleDetailList[0].nightBeginTime;
+      this.billingRuleDetailList.nightEndTime =
+        row.billingRuleDetailList[0].nightEndTime;
+      this.billingRuleDetailList.smalldayBillingPrice =
+        row.billingRuleDetailList[0].dayBillingPrice;
+      this.billingRuleDetailList.smallnightBillingPrice =
+        row.billingRuleDetailList[0].nightBillingPrice;
+      (this.billingRuleDetailList.ceilingFlag =
+        row.billingRuleDetailList[0].ceilingFlag),
+        (this.billingRuleDetailList.smallceilingMoneyAmount =
+          row.billingRuleDetailList[0].ceilingMoneyAmount);
+      this.billingRuleDetailList.minBillingDurationCode =
+        row.billingRuleDetailList[0].minBillingDurationCode;
+      this.billingRuleDetailList.maxfreeDuration =
+        row.billingRuleDetailList[1].freeDuration;
+      this.billingRuleDetailList.maxrebillingDuration =
+        row.billingRuleDetailList[1].rebillingDuration;
+      this.billingRuleDetailList.dayBeginTime =
+        row.billingRuleDetailList[1].dayBeginTime;
+      this.billingRuleDetailList.dayEndTime =
+        row.billingRuleDetailList[1].dayEndTime;
+      this.billingRuleDetailList.nightBeginTime =
+        row.billingRuleDetailList[1].nightBeginTime;
+      this.billingRuleDetailList.nightEndTime =
+        row.billingRuleDetailList[1].nightEndTime;
+      this.billingRuleDetailList.maxdayBillingPrice =
+        row.billingRuleDetailList[1].dayBillingPrice;
+      this.billingRuleDetailList.maxnightBillingPrice =
+        row.billingRuleDetailList[1].nightBillingPrice;
+      (this.billingRuleDetailList.ceilingFlag =
+        row.billingRuleDetailList[1].ceilingFlag),
+        (this.billingRuleDetailList.maxceilingMoneyAmount =
+          row.billingRuleDetailList[1].ceilingMoneyAmount);
+      this.billingRuleDetailList.minBillingDurationCode =
+        row.billingRuleDetailList[1].minBillingDurationCode;
+    },
+    //点击修改按钮
+    handleAlter(row) {
+      this.alterChargeListDialog = true;
+      this.checkChargeList = row;
+      this.billingRuleDetailList.smallfreeDuration =
+        row.billingRuleDetailList[0].freeDuration;
+      this.billingRuleDetailList.smallrebillingDuration =
+        row.billingRuleDetailList[0].rebillingDuration;
+      this.billingRuleDetailList.dayBeginTime =
+        row.billingRuleDetailList[0].dayBeginTime;
+      this.billingRuleDetailList.dayEndTime =
+        row.billingRuleDetailList[0].dayEndTime;
+      this.billingRuleDetailList.nightBeginTime =
+        row.billingRuleDetailList[0].nightBeginTime;
+      this.billingRuleDetailList.nightEndTime =
+        row.billingRuleDetailList[0].nightEndTime;
+      this.billingRuleDetailList.smalldayBillingPrice =
+        row.billingRuleDetailList[0].dayBillingPrice;
+      this.billingRuleDetailList.smallnightBillingPrice =
+        row.billingRuleDetailList[0].nightBillingPrice;
+      (this.billingRuleDetailList.ceilingFlag =
+        row.billingRuleDetailList[0].ceilingFlag),
+        (this.billingRuleDetailList.smallceilingMoneyAmount =
+          row.billingRuleDetailList[0].ceilingMoneyAmount);
+      this.billingRuleDetailList.minBillingDurationCode =
+        row.billingRuleDetailList[0].minBillingDurationCode;
+      this.billingRuleDetailList.maxfreeDuration =
+        row.billingRuleDetailList[1].freeDuration;
+      this.billingRuleDetailList.maxrebillingDuration =
+        row.billingRuleDetailList[1].rebillingDuration;
+      this.billingRuleDetailList.dayBeginTime =
+        row.billingRuleDetailList[1].dayBeginTime;
+      this.billingRuleDetailList.dayEndTime =
+        row.billingRuleDetailList[1].dayEndTime;
+      this.billingRuleDetailList.nightBeginTime =
+        row.billingRuleDetailList[1].nightBeginTime;
+      this.billingRuleDetailList.nightEndTime =
+        row.billingRuleDetailList[1].nightEndTime;
+      this.billingRuleDetailList.maxdayBillingPrice =
+        row.billingRuleDetailList[1].dayBillingPrice;
+      this.billingRuleDetailList.maxnightBillingPrice =
+        row.billingRuleDetailList[1].nightBillingPrice;
+      (this.billingRuleDetailList.ceilingFlag =
+        row.billingRuleDetailList[1].ceilingFlag),
+        (this.billingRuleDetailList.maxceilingMoneyAmount =
+          row.billingRuleDetailList[1].ceilingMoneyAmount);
+      this.billingRuleDetailList.minBillingDurationCode =
+        row.billingRuleDetailList[1].minBillingDurationCode;
+    },
+    //修改确认提交按钮
+    onCommitAlter() {
+      this.alterChargeListDialog = false;
+      const param = {
+        billingRuleDefId: this.billingRuleDefId.billingRuleDefId,
+        billingRuleDefName: this.checkChargeList.billingRuleDefName,
+        billingRuleTypeCode: this.checkChargeList.billingRuleTypeCode,
+        remark: this.checkChargeList.remark,
+        minBillingDurationCode: this.checkChargeList.minBillingDurationCode,
+        billingRuleDetailList: [
+          {
+            //小型车辆
+            vehicleTypeCode: "1",
+            freeDuration: this.billingRuleDetailList.smallfreeDuration,
+            rebillingDuration: this.billingRuleDetailList
+              .smallrebillingDuration,
+            dayBeginTime: this.billingRuleDetailList.dayBeginTime,
+            dayEndTime: this.billingRuleDetailList.dayEndTime,
+            nightBeginTime: this.billingRuleDetailList.nightBeginTime,
+            nightEndTime: this.billingRuleDetailList.nightEndTime,
+            dayBillingPrice: this.billingRuleDetailList.smalldayBillingPrice,
+            nightBillingPrice: this.billingRuleDetailList
+              .smallnightBillingPrice,
+            ceilingFlag: this.billingRuleDetailList.ceilingFlag,
+            ceilingMoneyAmount: this.billingRuleDetailList
+              .smallceilingMoneyAmount,
+            minBillingDurationCode: this.billingRuleDetailList
+              .minBillingDurationCode
+          },
+          {
+            // 大型车辆
+            vehicleTypeCode: "2",
+            freeDuration: this.billingRuleDetailList.maxfreeDuration,
+            rebillingDuration: this.billingRuleDetailList.maxrebillingDuration,
+            dayBeginTime: this.billingRuleDetailList.dayBeginTime,
+            dayEndTime: this.billingRuleDetailList.dayEndTime,
+            nightBeginTime: this.billingRuleDetailList.nightBeginTime,
+            nightEndTime: this.billingRuleDetailList.nightEndTime,
+            dayBillingPrice: this.billingRuleDetailList.maxdayBillingPrice,
+            nightBillingPrice: this.billingRuleDetailList.maxnightBillingPrice,
+            ceilingFlag: this.billingRuleDetailList.ceilingFlag,
+            ceilingMoneyAmount: this.billingRuleDetailList
+              .maxceilingMoneyAmount,
+            minBillingDurationCode: this.billingRuleDetailList
+              .minBillingDurationCode
+          }
+        ]
+      };
+      this.$basicInformationManagement
+        .updateBillingRule(param)
+        .then(response => {
+          console.log("打印修改传入数据", response);
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryBillingRuleList();
+        });
+    },
+
+    //删除一行
+    handleDelete(row) {
+      //点击删除按钮出现的提示框
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
       })
-      .catch(() => {
-        //取消删除按钮
-        this.$message({ type: "info", message: "已取消删除" });
-      });
-  },
-  //导出
-  handleExport() {},
-  //批量删除
-  onBatch() {},
-  // 斑马纹样式
-  tableRowClassName({ row, rowIndex }) {
-    if (rowIndex % 2 == 1) {
-      return "successRow11";
-    } else if (rowIndex % 2 == 0) {
-      return "successSecond";
+        .then(() => {
+          //清空删除
+          this.delChargeList = [];
+          //设定传入行数据
+          const param = {
+            billingRuleDefId: [row.billingRuleDefId]
+          };
+          console.log(param, "listlistlistlistlistlist");
+          this.delChargeList = param;
+          this.$basicInformationManagement.deleteBillingRule(
+            this.delChargeList
+          );
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryBillingRuleList();
+        })
+        .catch(() => {
+          //取消删除按钮
+          this.$message({ type: "info", message: "已取消删除" });
+        });
+    },
+    //导出
+    handleExport() {},
+    //批量删除
+    onBatch() {},
+    // 斑马纹样式
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 == 1) {
+        return "successRow11";
+      } else if (rowIndex % 2 == 0) {
+        return "successSecond";
+      }
+      return "";
     }
-    return "";
   }
 };
 </script>

@@ -194,87 +194,108 @@
       </div>
     </div>
     <!-- 订单详情点击弹出框 -->
-    <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
-      <el-form
-        :inline="true"
-        :model="showListDloageandoffList"
-        class="demo-form-inline"
-      >
+    <el-dialog
+      title="订单详情"
+      :visible.sync="showListDloageandoff"
+      width="50%"
+    >
+      <el-form :inline="true" :model="showListDloageandoffList">
         <el-row>
-          <el-form-item label="订单编号:" class="el-form-item-dialog">
-            <el-input
-              v-model="showListDloageandoffList.orderSequence"
-              readonly
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="停车场名称:" class="el-form-item-dialog">
-            <el-input
-              v-model="showListDloageandoffList.parkName"
-              readonly
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="车牌号:" class="el-form-item-dialog">
-            <el-input
-              v-model="showListDloageandoffList.plateNumber"
-              readonly
-            ></el-input>
-          </el-form-item>
+          <el-col :span="12">
+            <el-form-item label="订单编号:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.orderSequence"
+                readonlys
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="停车场名称:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.parkName"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="车牌号:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.plateNumber"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="车位号:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.parkSpaceNumber"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="进场时间:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.entranceTime"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="出场时间:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.leaveTime"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="停车时长:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.parkDuration"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="收费状态:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.paymentStatus"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="应收金额:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.receivableMoneyAmount"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="实收金额:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.receivedMoneyAmount"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="支付方式:" label-width="150px">
+              <el-input
+                v-model="showListDloageandoffList.paymentMethod"
+                readonly
+              ></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
-
-        <el-form-item label="车位号:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.parkSpaceNumber"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="进场时间:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.entranceTime"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="出场时间:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.leaveTime"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="停车时长:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.parkDuration"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="收费状态:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.paymentStatus"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="应收金额:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.receivableMoneyAmount"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="实收金额:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.receivedMoneyAmount"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="支付方式:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListDloageandoffList.paymentMethod"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="handleBack">
-            返回
-          </el-button>
-        </el-form-item>
       </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showListDloageandoff = false">
+          返回
+        </el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -361,10 +382,7 @@ export default {
       this.showListDloageandoff = true;
       this.showListDloageandoffList = row;
     },
-    //弹窗中的返回点击
-    handleBack() {
-      this.showListDloageandoff = false;
-    },
+
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
