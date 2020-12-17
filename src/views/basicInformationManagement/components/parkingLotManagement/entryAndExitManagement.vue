@@ -57,7 +57,7 @@
         :data="manageEntryAndExit"
         ref="selectManageEntryAndExit"
         @selection-change="handleSelectManageEntryAndExit"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',

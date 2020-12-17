@@ -80,12 +80,12 @@
       </el-row>
     </div>
     <!--下半部分列表-->
-    <div class="down" style="padding-top: 20px;">
+    <div class="down">
       <el-table
         :data="floorLockList"
         ref="selectLockList"
         @selection-change="handleSelectionChange"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',

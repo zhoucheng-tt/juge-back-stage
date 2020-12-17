@@ -68,9 +68,9 @@
     <div class="down">
       <el-table
         :data="videoList"
+        stripe
         ref="selectVideoList"
         @selection-change="handleSelectionChange"
-        :row-class-name="tableRowClassName"
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -993,7 +993,7 @@ export default {
         .catch(err => {});
     },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {

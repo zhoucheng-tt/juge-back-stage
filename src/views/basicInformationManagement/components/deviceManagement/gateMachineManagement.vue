@@ -12,7 +12,7 @@
     <!--上半部分表单-->
     <div class="up">
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-        <el-form-item label="停车场">
+        <el-form-item label="停车场:">
           <el-select
             size="small"
             style="width: 160px"
@@ -69,7 +69,7 @@
         :data="gateList"
         ref="selectGateList"
         @selection-change="handleSelectionChange"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -799,15 +799,6 @@ export default {
   height: 40px;
   margin-left: 1%;
   margin-top: 0.5%;
-}
-
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
 }
 
 /* 表格表头样式 */

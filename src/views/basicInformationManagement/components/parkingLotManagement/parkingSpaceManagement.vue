@@ -50,7 +50,8 @@
           :data="parkLayerList"
           ref="selectParkLayerList"
           @selection-change="handleSelectParkLayerList"
-          :row-class-name="tableRowClassName"
+          stripe
+
           :header-cell-style="{
             fontfamily: 'PingFangSC-Medium',
             background: '#FFFFFF',
@@ -152,7 +153,8 @@
           :data="parkSpaceList"
           ref="selectParkSpaceList"
           @selection-change="handleSelectParkSpaceList"
-          :row-class-name="tableRowClassName"
+          stripe
+
           :header-cell-style="{
             fontfamily: 'PingFangSC-Medium',
             background: '#FFFFFF',

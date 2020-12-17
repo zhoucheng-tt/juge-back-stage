@@ -72,7 +72,7 @@
         :data="washerList"
         ref="selectList"
         @selection-change="handleSelectionChange"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',

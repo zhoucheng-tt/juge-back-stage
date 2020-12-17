@@ -63,7 +63,7 @@
         :data="ETCInformationManagement"
         ref="selectETC"
         @selection-change="handleSelectETC"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',

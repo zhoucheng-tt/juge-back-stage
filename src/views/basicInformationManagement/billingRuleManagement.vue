@@ -65,7 +65,7 @@
     <div class="down">
       <el-table
         :data="accountRules"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',

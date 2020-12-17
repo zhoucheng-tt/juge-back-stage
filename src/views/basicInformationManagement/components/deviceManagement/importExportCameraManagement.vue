@@ -65,20 +65,27 @@
     <div class="down" style="padding-top: 20px;">
       <el-table
         :data="cameraList"
-        :row-class-name="tableRowClassName"
         ref="selectCameraList"
+        @selection-change="handleSelectionChange"
+        stripe
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-        @selection-change="handleSelectionChange"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
         <!--        <el-table-column fixed prop="parkId" label="停车场编号" />-->

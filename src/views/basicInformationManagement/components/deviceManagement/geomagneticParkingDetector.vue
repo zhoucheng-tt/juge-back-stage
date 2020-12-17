@@ -83,6 +83,25 @@
         :data="geoList"
         ref="selectGeoList"
         @selection-change="handleSelectionChange"
+        stripe
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
+        }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
         <!--        <el-table-column prop="parkId" label="停车场编号" />-->
