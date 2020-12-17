@@ -136,7 +136,7 @@
     <el-dialog
       title="新增计费信息"
       :visible.sync="addChargeListDialog"
-      top="10vh"
+      width="50%"
       destroy-on-close
     >
       <el-form
@@ -153,8 +153,13 @@
         <!--          </el-select>-->
         <!--        </el-form-item>-->
         <span>计费规则信息</span>
-        <el-form-item label="计费规则类型:" prop="billingRuleTypeCode">
+        <el-form-item
+          label="计费规则类型:"
+          label-width="150px"
+          prop="billingRuleTypeCode"
+        >
           <el-select
+            style="width: 200px"
             v-model="addChargeList.billingRuleTypeCode"
             placeholder="请选择计费规则"
           >
@@ -166,18 +171,22 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="计费规则名称:" prop="billingRuleDefName">
+        <el-form-item
+          label="计费规则名称:"
+          label-width="150px"
+          prop="billingRuleDefName"
+        >
           <el-input
             v-model="addChargeList.billingRuleDefName"
             placeholder="请输入"
-            style="width:225px"
+            style="width: 200px;"
           ></el-input>
         </el-form-item>
-        <el-form-item label="计费规则描述:">
+        <el-form-item label="计费规则描述:" label-width="150px">
           <el-input
             v-model="addChargeList.remark"
             placeholder="请输入"
-            style="width:225px"
+            style="width: 200px;"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -337,8 +346,11 @@
       <el-row v-if="addChargeList.billingRuleTypeCode == 1">
         <span>按照时长计费</span>
         <el-form>
-          <el-form-item label="最短计费时长:">
-            <el-select v-model="billingRuleDetailList.minBillingDurationCode">
+          <el-form-item label="最短计费时长:" label-width="150px">
+            <el-select
+              style="width: 200px;"
+              v-model="billingRuleDetailList.minBillingDurationCode"
+            >
               <el-option
                 v-for="(item, index) in minTimeList"
                 :label="item.name"
@@ -504,7 +516,7 @@
         </el-row>
       </el-row>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addChargeListDialog = false">取 消</el-button>
+        <!--        <el-button @click="addChargeListDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="onCommitAdd">确 定</el-button>
       </div>
     </el-dialog>
@@ -512,7 +524,7 @@
     <el-dialog
       title="查看计费信息"
       :visible.sync="checkChargeListDialog"
-      top="10vh"
+      width="50%"
     >
       <el-form :model="checkChargeList" label-width="150px">
         <!--        <span>停车场信息</span>-->

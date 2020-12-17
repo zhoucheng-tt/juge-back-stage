@@ -139,18 +139,23 @@
       title="新增洗车机计费规则"
       :visible.sync="addListDialogueandoff"
       destroy-on-close
+      width="50%"
     >
       <el-form
         :inline="true"
         :model="upQueryList"
-        class="demo-form-inline"
         :rules="addListDiaRules"
         ref="upQueryListR"
       >
         <div style="font-size: 20px">停车场信息</div>
+        <el-row style="padding-top: 20px"> </el-row>
         <el-col offset="1">
-          <el-form-item label="归属停车场" prop="TingNum">
-            <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
+          <el-form-item label="归属停车场" label-width="150px" prop="TingNum">
+            <el-select
+              style="width: 200px"
+              v-model="upQueryList.TingNum"
+              placeholder="请选择停车场"
+            >
               <el-option
                 v-for="(item, index) in parkingLotList"
                 :label="item.parkingName"
@@ -161,9 +166,15 @@
           </el-form-item>
         </el-col>
         <div style="font-size: 20px">计费规则信息</div>
+        <el-row style="padding-top: 20px"></el-row>
         <el-col offset="1">
-          <el-form-item label="计费规则类型" prop="chargeMode">
+          <el-form-item
+            label="计费规则类型"
+            label-width="150px"
+            prop="chargeMode"
+          >
             <el-select
+              style="width: 200px;"
               v-model="upQueryList.chargeMode"
               placeholder="请选择计费类型"
             >
@@ -177,47 +188,63 @@
           </el-form-item>
         </el-col>
         <el-col offset="1">
-          <el-form-item label="计费规则名称" prop="chargeModeName">
+          <el-form-item
+            label="计费规则名称"
+            label-width="150px"
+            prop="chargeModeName"
+          >
             <el-input
               v-model="upQueryList.chargeModeName"
               placeholder="请输入计费规则名称"
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col offset="1">
-          <el-form-item label="收费标准"></el-form-item>
-        </el-col>
+        <!--        <el-col offset="1">-->
+        <!--          <el-form-item label="收费标准"></el-form-item>-->
+        <!--        </el-col>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addListDialogueandoff = false">取 消</el-button>
+        <!--        <el-button @click="addListDialogueandoff = false">取 消</el-button>-->
         <el-button type="primary" @click="addInfoInsert">保 存</el-button>
       </div>
     </el-dialog>
     <!-- 信息详情点击弹出框 -->
-    <el-dialog title="计费规则详情" :visible.sync="showListdialogueandoff">
-      <el-form
-        :inline="true"
-        :model="showListdialogueandoffList"
-        class="demo-form-inline"
-      >
-        <el-form-item label="计费规则编号:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListdialogueandoffList.chargeModeNumber"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="计费规则名称:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListdialogueandoffList.chargeModeName"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="计费规则类型:" class="el-form-item-dialog">
-          <el-input
-            v-model="showListdialogueandoffList.chargeModeType"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="描述:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.description"></el-input>
-        </el-form-item>
+    <el-dialog
+      title="计费规则详情"
+      width="50%"
+      :visible.sync="showListdialogueandoff"
+    >
+      <el-form :inline="true" :model="showListdialogueandoffList">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="计费规则编号:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.chargeModeNumber"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="计费规则名称:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.chargeModeName"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="计费规则类型:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.chargeModeType"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="描述:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.description"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="showListdialogueandoff = false">确 定</el-button>
@@ -225,32 +252,39 @@
     </el-dialog>
     <!-- 信息修改点击弹出框 -->
     <el-dialog title="修改计费规则" :visible.sync="editListDialogueandoff">
-      <el-form
-        :inline="true"
-        :model="editListDialogueandoffList"
-        class="demo-form-inline"
-      >
-        <el-form-item label="计费规则编号:" class="el-form-item-dialog">
-          <el-input
-            v-model="editListDialogueandoffList.chargeModeNumber"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="计费规则名称:" class="el-form-item-dialog">
-          <el-input
-            v-model="editListDialogueandoffList.chargeModeName"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="计费规则类型:" class="el-form-item-dialog">
-          <el-input
-            v-model="editListDialogueandoffList.chargeModeType"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="描述:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.description"></el-input>
-        </el-form-item>
+      <el-form :inline="true" :model="editListDialogueandoffList">
+        <el-row style="padding-top: 20px">
+          <el-col :span="12"
+            ><el-form-item label="计费规则编号:" label-width="150px">
+              <el-input
+                v-model="editListDialogueandoffList.chargeModeNumber"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="12">
+            <el-form-item label="计费规则名称:" label-width="150px">
+              <el-input
+                v-model="editListDialogueandoffList.chargeModeName"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="计费规则类型:" label-width="150px">
+              <el-input
+                v-model="editListDialogueandoffList.chargeModeType"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="描述:" label-width="150px">
+              <el-input
+                v-model="editListDialogueandoffList.description"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editListDialogueandoff = false">取 消</el-button>
+        <!--        <el-button @click="editListDialogueandoff = false">取 消</el-button>-->
         <el-button type="primary" @click="InfoInsert">确 定</el-button>
       </div>
     </el-dialog>
