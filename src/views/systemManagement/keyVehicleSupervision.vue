@@ -122,7 +122,7 @@
       <el-dialog
         title="新增用户"
         :visible.sync="addListDialog"
-        width="70%"
+        width="50%"
         overflow="hidden"
       >
         <!--基本信息-->
@@ -189,7 +189,7 @@
         </span>
       </el-dialog>
       <!--查看用户弹窗-->
-      <el-dialog title="查看" :visible.sync="selectListDialog" width="70%">
+      <el-dialog title="查看" :visible.sync="selectListDialog" width="50%">
         <!-- 基础信息表单-->
         <div class="table-basic">
           <el-form
@@ -260,7 +260,7 @@
       <el-dialog
         title="修改"
         :visible.sync="modFormDialog"
-        width="70%"
+        width="50%"
         overflow="hidden"
       >
         <!--基本信息-->

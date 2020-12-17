@@ -157,13 +157,17 @@
     </div>
 
     <!--新增表单弹框-->
-    <el-dialog id="add" title="新增洗车机" :visible.sync="addListDialog">
+    <el-dialog
+      id="add"
+      title="新增洗车机"
+      width="50%"
+      :visible.sync="addListDialog"
+    >
       <el-form
         :inline="true"
         :rules="rules"
         ref="addWasher"
         :model="newWasher"
-        class="demo-form-inline"
         label-position="right"
         label-width="100px"
       >
@@ -192,18 +196,18 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addListDialog = false">取 消</el-button>
+        <!--        <el-button @click="addListDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" title="修改洗车机" :visible.sync="editListDialog">
-      <el-form
-        :inline="true"
-        class="demo-form-inline"
-        label-position="right"
-        label-width="100px"
-      >
+    <el-dialog
+      id="edit"
+      width="50%"
+      title="修改洗车机"
+      :visible.sync="editListDialog"
+    >
+      <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">

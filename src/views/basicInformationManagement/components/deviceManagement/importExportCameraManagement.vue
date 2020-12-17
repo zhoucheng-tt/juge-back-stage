@@ -50,19 +50,20 @@
         <el-button type="primary" size="small" @click="addNewCamera()"
           >新增摄像头</el-button
         >
-        <el-button type="primary" size="small" @click="bulkImport()"
-          >批量导入</el-button
-        >
         <el-button type="primary" size="small" @click="exportExcel()"
           >导出</el-button
         >
+        <el-button type="primary" size="small" @click="bulkImport()"
+          >批量导入</el-button
+        >
+
         <el-button type="danger" size="small" @click="batchDelete()"
           >批量删除
         </el-button>
       </el-row>
     </div>
     <!--下半部分列表-->
-    <div class="down" style="padding-top: 20px;">
+    <div class="down">
       <el-table
         :data="cameraList"
         ref="selectCameraList"
@@ -99,11 +100,11 @@
           :show-overflow-tooltip="true"
           label="归属出入口"
         />
-        <el-table-column
-          prop="passagewayCameraId"
-          :show-overflow-tooltip="true"
-          label="进出口摄像头编号"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="passagewayCameraId"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="进出口摄像头编号"-->
+        <!--        />-->
         <el-table-column
           prop="passagewayCameraName"
           :show-overflow-tooltip="true"
@@ -161,12 +162,12 @@
       <!--新增表单弹框-->
       <el-dialog
         id="add"
+        width="50%"
         title="新增出入口摄像头"
         :visible.sync="addListDialog"
       >
         <el-form
           :inline="true"
-          class="demo-form-inline"
           label-position="right"
           label-width="100px"
           :model="newCamera"
@@ -180,7 +181,11 @@
                 label-width="150px"
                 prop="parkId"
               >
-                <el-select v-model="newCamera.parkId" placeholder="请选择">
+                <el-select
+                  style="width:200px"
+                  v-model="newCamera.parkId"
+                  placeholder="请选择"
+                >
                   <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -197,6 +202,7 @@
                 prop="importExport"
               >
                 <el-select
+                  style="width:200px"
                   v-model="newCamera.importExport"
                   placeholder="请选择"
                 >
@@ -276,7 +282,7 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialog = false">取 消</el-button>
+          <!--          <el-button @click="addListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
         </div>
       </el-dialog>
@@ -284,19 +290,19 @@
       <el-dialog
         id="edit"
         title="修改出入口摄像头"
+        width="50%"
         :visible.sync="editListDialog"
       >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+        <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="editCamera.parkId" placeholder="请选择">
+                <el-select
+                  style="width:200px"
+                  v-model="editCamera.parkId"
+                  placeholder="请选择"
+                >
                   <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -309,6 +315,7 @@
             <el-col :span="12">
               <el-form-item label="归属出入口:" label-width="150px">
                 <el-select
+                  style="width:200px"
                   v-model="editCamera.importExport"
                   placeholder="请选择"
                 >
@@ -368,7 +375,7 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialog = false">取 消</el-button>
+          <!--          <el-button @click="addListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitEdit()">确定</el-button>
         </div>
       </el-dialog>
@@ -388,7 +395,7 @@
           </el-container>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="importDialog = false">取 消</el-button>
+          <!--          <el-button @click="importDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="commitImport()">确 定</el-button>
         </div>
       </el-dialog>

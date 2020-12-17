@@ -166,13 +166,12 @@
       </div>
       <!--新增表单弹框-->
       <el-dialog
-        id="add"
         title="新增视频车位检测器"
+        width="50%"
         :visible.sync="addListDialog"
       >
         <el-form
           :inline="true"
-          class="demo-form-inline"
           label-position="right"
           label-width="100px"
           :model="newVideo"
@@ -187,7 +186,7 @@
                 label-width="150px"
                 prop="parkId"
               >
-                <el-select v-model="newVideo.parkId" placeholder="请选择">
+                <el-select  style="200px" v-model="newVideo.parkId" placeholder="请选择">
                   <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -208,21 +207,20 @@
             <el-col :span="12">
               <el-form-item
                 label="视频车位检测器名称:"
-                label-width="150px"
+                label-width="160px"
                 prop="videoDetecterName"
               >
                 <el-input v-model="newVideo.videoDetecterName" />
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
               <el-form-item
                 label="监控类型:"
-                label-width="150px"
+                label-width="160px"
                 prop="videoDetecterMntrTypeCode"
               >
                 <el-select
+                  style="width: 200px;"
                   v-model="newVideo.videoDetecterMntrTypeCode"
                   placeholder="请选择"
                 >
@@ -240,26 +238,26 @@
             <el-col :span="12">
               <el-form-item
                 label="IP地址:"
-                label-width="150px"
+                label-width="160px"
                 prop="ipAddress"
               >
                 <el-input v-model="newVideo.ipAddress"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="端口:" label-width="150px" prop="portNumber">
+              <el-form-item label="端口:" label-width="160px" prop="portNumber">
                 <el-input v-model="newVideo.portNumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="用户名:" label-width="150px" prop="userName">
+              <el-form-item label="用户名:" label-width="160px" prop="userName">
                 <el-input v-model="newVideo.userName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="地址:" label-width="150px" prop="address">
+              <el-form-item label="地址:" label-width="160px" prop="address">
                 <el-input v-model="newVideo.address"></el-input>
               </el-form-item>
             </el-col>
@@ -268,7 +266,7 @@
             <el-col :span="12">
               <el-form-item
                 label="制造商:"
-                label-width="150px"
+                label-width="160px"
                 prop="manufacturer"
               >
                 <el-input v-model="newVideo.manufacturer"></el-input>
@@ -277,7 +275,7 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialog = false">取 消</el-button>
+          <!--          <el-button @click="addListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
         </div>
       </el-dialog>
@@ -285,19 +283,15 @@
       <el-dialog
         id="edit"
         title="修改视频车位检测器"
+        width="50%"
         :visible.sync="editListDialog"
       >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+        <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select v-model="editVideo.parkId" placeholder="请选择">
+                <el-select style="width: 200px;" v-model="editVideo.parkId" placeholder="请选择">
                   <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -310,21 +304,19 @@
           </el-row>
           <div style="font-size: 20px">检测器信息</div>
           <el-row style="padding-top: 20px">
-            <el-col :span="12">
-              <el-form-item label="视频车位检测器编号:" label-width="150px">
-                <el-input v-model="editVideo.videoDetecterId" />
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="12">-->
+            <!--              <el-form-item label="视频车位检测器编号:" label-width="150px">-->
+            <!--                <el-input v-model="editVideo.videoDetecterId" />-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
             <el-col :span="12">
               <el-form-item label="视频车位检测器名称:" label-width="150px">
                 <el-input v-model="editVideo.videoDetecterName" />
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
               <el-form-item label="监控类型:" label-width="150px">
-                <el-select
+                <el-select style="width: 200px;"
                   v-model="editVideo.videoDetecterMntrTypeCode"
                   placeholder="请选择"
                 >
@@ -344,8 +336,6 @@
                 <el-input v-model="editVideo.ipAddress"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
               <el-form-item label="端口:" label-width="150px">
                 <el-input v-model="editVideo.portNumber"></el-input>
@@ -356,8 +346,6 @@
                 <el-input v-model="editVideo.userName"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
               <el-form-item label="地址:" label-width="150px">
                 <el-input v-model="editVideo.address"></el-input>
@@ -371,7 +359,7 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="editListDialog = false">取 消</el-button>
+          <!--          <el-button @click="editListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
         </div>
       </el-dialog>

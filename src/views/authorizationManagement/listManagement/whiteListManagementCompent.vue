@@ -181,7 +181,7 @@
       <el-dialog
         title="新增白名单"
         :visible.sync="addWhiteListDialog"
-        width="70%"
+        width="50%"
         overflow="hidden"
       >
         <!--          归属停车场信息-->
@@ -262,7 +262,7 @@
             </el-row>
             <!--                        白名单第五行生效失效时间-->
             <el-row style="display: flex">
-              <el-row style="margin-left: 4%">
+              <el-row style="margin-left: 6%">
                 <el-form-item label="生效时间:" prop="effectiveTime">
                   <el-date-picker
                     v-model="addWhiteData.effectiveTime"
@@ -274,7 +274,7 @@
                   </el-date-picker>
                 </el-form-item>
               </el-row>
-              <el-row style="margin-left: 26%">
+              <el-row style="margin-left: 16%">
                 <el-form-item label="失效时间:" prop="expirationTime">
                   <el-date-picker
                     v-model="addWhiteData.expirationTime"
@@ -351,7 +351,7 @@
       <el-dialog
         title="修改白名单"
         :visible.sync="ModifyWhiteListDialog"
-        width="70%"
+        width="50%"
         overflow="hidden"
       >
         <el-row>
@@ -419,7 +419,7 @@
               </el-row>
               <!--                        白名单第五行生效失效时间-->
               <el-row style="display: flex">
-                <el-row style="margin-left: 4%">
+                <el-row style="margin-left: 6%">
                   <el-form-item label="生效时间:" prop="effectiveTime">
                     <el-date-picker
                       v-model="modifyWhiteList.effectiveTime"
@@ -431,7 +431,7 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-row>
-                <el-row style="margin-left: 26%">
+                <el-row style="margin-left: 16%">
                   <el-form-item label="失效时间:" prop="expirationTime">
                     <el-date-picker
                       v-model="modifyWhiteList.expirationTime"

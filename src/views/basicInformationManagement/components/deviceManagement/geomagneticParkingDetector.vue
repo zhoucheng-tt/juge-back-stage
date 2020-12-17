@@ -54,21 +54,26 @@
         <!--                           :key="index"/>-->
         <!--              </el-select>-->
         <!--            </el-form-item>-->
-
-        <el-button type="primary" size="small" @click="queryMagneticDetecter()"
-          >查 询</el-button
-        >
-        <el-button type="primary" size="small" @click="resetQuery"
-          >重置</el-button
-        >
+        <el-form-item>
+          <el-button
+            type="primary"
+            size="small"
+            @click="queryMagneticDetecter()"
+            >查 询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
       </el-form>
       <el-row class="line-2">
-        <el-button type="primary" size="small" @click="exportList()"
-          >导 出</el-button
-        >
         <el-button type="primary" size="small" @click="addNewGeo()"
           >新增地磁车检测器
         </el-button>
+        <el-button type="primary" size="small" @click="exportList()"
+          >导 出</el-button
+        >
+
         <el-button type="primary" size="small" @click="bulkImport()"
           >批量导入</el-button
         >
@@ -157,12 +162,12 @@
       <!--新增表单弹框-->
       <el-dialog
         id="add"
+        width="50%"
         title="新增地磁车位检测器"
         :visible.sync="addListDialog"
       >
         <el-form
           :inline="true"
-          class="demo-form-inline"
           label-position="right"
           label-width="100px"
           :model="newGeo"
@@ -185,9 +190,13 @@
                         </el-select>
                       </el-form-item>
                     </el-row>-->
-          <el-row>
+          <el-row style="padding-top: 20px">
             <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
-              <el-select v-model="newGeo.parkId" placeholder="请选择">
+              <el-select
+                width="200px"
+                v-model="newGeo.parkId"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="(item, index) in parkingLotNameList"
                   :label="item.name"
@@ -202,22 +211,29 @@
             <!--              <el-form-item label="地磁车位检测器编号:" label-width="150px">-->
             <!--                <el-input v-model="newGeo.magneticDetecterId" />-->
             <!--              </el-form-item>-->
-
-            <el-form-item
-              label="地磁车位检测器名称:"
-              label-width="150px"
-              prop="magneticDetecterName"
-            >
-              <el-input v-model="newGeo.magneticDetecterName" />
-            </el-form-item>
-
-            <el-form-item label="传感器ID:" label-width="150px" prop="sensorId">
-              <el-input v-model="newGeo.sensorId"></el-input>
-            </el-form-item>
+            <el-col :span="12">
+              <el-form-item
+                label="地磁车位检测器名称:"
+                label-width="160px"
+                prop="magneticDetecterName"
+              >
+                <el-input v-model="newGeo.magneticDetecterName" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item
+                label="传感器ID:"
+                label-width="160px  "
+                prop="sensorId"
+              >
+                <el-input v-model="newGeo.sensorId"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12"></el-col>
 
             <el-form-item
               label="制造商:"
-              label-width="150px"
+              label-width="160px"
               prop="manufacturer"
             >
               <el-input v-model="newGeo.manufacturer"></el-input>
@@ -225,22 +241,18 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialog = false">取 消</el-button>
+          <!--          <el-button @click="addListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
         </div>
       </el-dialog>
       <!--修改表单弹框-->
       <el-dialog
         id="edit"
+        width="50%"
         title="修改地磁车位检测器"
         :visible.sync="editListDialog"
       >
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+        <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <!--          <el-row style="padding-top: 20px">
                       <el-col :span="12">
@@ -256,7 +268,7 @@
                         </el-select>
                       </el-form-item>
                     </el-row>-->
-          <el-row>
+          <el-row style="padding-top: 20px">
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="editGeo.parkId" placeholder="请选择">
                 <el-option
@@ -275,21 +287,27 @@
             <!--                <el-input v-model="editGeo.magneticDetecterId" />-->
             <!--              </el-form-item>-->
             <!--            </el-col>-->
-            <el-form-item label="地磁车位检测器名称:" label-width="150px">
-              <el-input v-model="editGeo.magneticDetecterName" />
-            </el-form-item>
-
-            <el-form-item label="传感器ID:" label-width="150px">
-              <el-input v-model="editGeo.sensorId"></el-input>
-            </el-form-item>
-
-            <el-form-item label="制造商:" label-width="150px">
-              <el-input v-model="editGeo.manufacturer"></el-input>
-            </el-form-item>
+            <el-col :span="12">
+              <el-form-item label="地磁车位检测器名称:" label-width="160px">
+                <el-input
+                  v-model="editGeo.magneticDetecterName"
+                /> </el-form-item
+            ></el-col>
+            <el-col :span="12">
+              <el-form-item label="传感器ID:" label-width="160px">
+                <el-input v-model="editGeo.sensorId"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="制造商:" label-width="160px">
+                <el-input
+                  v-model="editGeo.manufacturer"
+                ></el-input> </el-form-item
+            ></el-col>
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="editListDialog = false">取 消</el-button>
+          <!--          <el-button @click="editListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
         </div>
       </el-dialog>

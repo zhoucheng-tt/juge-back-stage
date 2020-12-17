@@ -101,11 +101,11 @@
           :show-overflow-tooltip="true"
           label="归属出入口"
         />
-        <el-table-column
-          prop="passagewayGateId"
-          :show-overflow-tooltip="true"
-          label="道闸机编号"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="passagewayGateId"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="道闸机编号"-->
+        <!--        />-->
         <el-table-column
           prop="passagewayGateName"
           :show-overflow-tooltip="true"
@@ -155,7 +155,6 @@
       <el-dialog id="add" title="新增道闸机" :visible.sync="addListDialog">
         <el-form
           :inline="true"
-          class="demo-form-inline"
           label-position="right"
           label-width="100px"
           :model="newGate"
@@ -170,6 +169,7 @@
                 prop="parkId"
               >
                 <el-select
+                  style="width: 200px;"
                   v-model="newGate.parkId"
                   placeholder="请选择"
                   @change="queryExit(newGate.parkId)"
@@ -190,7 +190,11 @@
                 label-width="150px"
                 prop="passagewayId"
               >
-                <el-select v-model="newGate.passagewayId" placeholder="请选择">
+                <el-select
+                  style="width: 200px;"
+                  v-model="newGate.passagewayId"
+                  placeholder="请选择"
+                >
                   <el-option
                     v-for="(item, index) in passagesList"
                     :label="item.name"
@@ -256,23 +260,24 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialog = false">取 消</el-button>
+          <!--          <el-button @click="addListDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
         </div>
       </el-dialog>
       <!--修改表单弹框-->
-      <el-dialog id="edit" title="修改道闸机" :visible.sync="editListDialog">
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-        >
+      <el-dialog
+        id="edit"
+        width="50%"
+        title="修改道闸机"
+        :visible.sync="editListDialog"
+      >
+        <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select
+                  style="width: 200px;"
                   v-model="editGate.parkId"
                   placeholder="请选择"
                   @change="queryExit(editGate.parkId)"
@@ -289,6 +294,7 @@
             <el-col :span="12">
               <el-form-item label="归属出入口:" label-width="150px">
                 <el-select
+                  style="width: 200px;"
                   v-model="editGate.passagewayName"
                   placeholder="请选择"
                 >

@@ -170,7 +170,7 @@
     <el-dialog
       title="新增黑名单"
       :visible.sync="addBlackListDialog"
-      width="70%"
+      width="50%"
       overflow="hidden"
     >
       <!--          归属停车场信息-->
@@ -258,10 +258,12 @@
             </el-col>
             <el-col :span="12">
               <el-form-item
-                label="加入黑名单原因："
+                label="加入原因："
+                label-width="150px"
                 prop="joinBlackListReasonCode"
               >
                 <el-select
+                  style="width: 200px;"
                   v-model="addBlackData.joinBlackListReasonCode"
                   placeholder="请选择"
                 >
@@ -285,7 +287,7 @@
               prop="carOwnerContactAddress"
             >
               <el-input
-                style="width: 600px"
+                style="width: 500px"
                 v-model="addBlackData.carOwnerContactAddress"
               ></el-input>
             </el-form-item>
@@ -294,7 +296,7 @@
           <el-row>
             <el-form-item label="备注:" prop="remark">
               <el-input
-                style="width: 600px"
+                style="width: 500px"
                 v-model="addBlackData.remark"
               ></el-input>
             </el-form-item>
@@ -310,7 +312,7 @@
     <el-dialog
       title="修改黑名单"
       :visible.sync="ModifyBlackListDialog"
-      width="70%"
+      width="50%"
       overflow="hidden"
     >
       <el-row>
@@ -324,12 +326,10 @@
           <!--                    归属停车场信息-->
           <p>归属停车场信息</p>
           <el-row>
-            <el-col :span="12" style="display: flex;margin-left: 6%">
-              <div>
-                <p>归属停车场:</p>
-              </div>
-              <el-form-item style="margin-left: 1%">
+            <el-col :span="12">
+              <el-form-item label="归属停车场：" label-width="180px">
                 <el-select
+                  style="width: 200px;"
                   v-model="modifyBlackList.parkId"
                   :disabled="true"
                   placeholder="请选择停车场"
@@ -380,9 +380,10 @@
               ></el-col>
             </el-row>
             <el-row>
-              <el-col :span="16">
+              <el-col :span="12">
                 <el-form-item label-width="180px" label="加入黑名单原因:">
                   <el-select
+                    style="width: 200px"
                     v-model="modifyBlackList.joinBlackListReasonCode"
                     placeholder="请选择"
                   >

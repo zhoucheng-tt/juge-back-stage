@@ -56,24 +56,26 @@
         <!--              />-->
         <!--            </el-select>-->
         <!--          </el-form-item>-->
-
-        <el-button type="primary" size="small" @click="queryGroundLock()"
-          >查 询</el-button
-        >
-        <el-button type="primary" size="small" @click="resetQuery"
-          >重置</el-button
-        >
+        <el-form-item>
+          <el-button type="primary" size="small" @click="queryGroundLock()"
+            >查 询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addNewLock()"
           >新增地锁</el-button
         >
-        <el-button type="primary" size="small" @click="bulkImport()"
-          >批量导入</el-button
-        >
         <el-button type="primary" size="small" @click="exportList()"
           >导 出</el-button
         >
+        <el-button type="primary" size="small" @click="bulkImport()"
+          >批量导入</el-button
+        >
+
         <el-button type="danger" size="small" @click="batchDelete()"
           >批量删除</el-button
         >
@@ -106,17 +108,17 @@
         style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
-        <el-table-column prop="parkId" label="停车场编号" />
+        <!--        <el-table-column prop="parkId" label="停车场编号" />-->
         <el-table-column
           prop="parkName"
           :show-overflow-tooltip="true"
           label="停车场名称"
         />
-        <el-table-column
-          prop="groundLockId"
-          :show-overflow-tooltip="true"
-          label="地锁编号"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="groundLockId"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="地锁编号"-->
+        <!--        />-->
         <el-table-column
           prop="groundLockName"
           :show-overflow-tooltip="true"
@@ -125,7 +127,7 @@
         <el-table-column
           prop="macAddress"
           :show-overflow-tooltip="true"
-          label="mac地址"
+          label="MAC地址"
         />
         <el-table-column
           prop="gatewayId"
@@ -158,10 +160,14 @@
       </div>
     </div>
     <!--新增表单弹框-->
-    <el-dialog id="add" title="新增地锁" :visible.sync="addListDialog">
+    <el-dialog
+      id="add"
+      title="新增地锁"
+      width="50%"
+      :visible.sync="addListDialog"
+    >
       <el-form
         :inline="true"
-        class="demo-form-inline"
         label-position="right"
         label-width="100px"
         :model="newLock"
@@ -182,10 +188,14 @@
                     </el-select>
                   </el-form-item>
                 </el-row>-->
-        <el-row>
+        <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
-              <el-select v-model="newLock.parkId" placeholder="请选择">
+              <el-select
+                style="width: 200px"
+                v-model="newLock.parkId"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="(item, index) in parkingLotNameList"
                   :label="item.name"
@@ -220,7 +230,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item
-              label="mac地址:"
+              label="MAC地址:"
               label-width="150px"
               prop="macAddress"
             >
@@ -235,18 +245,18 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addListDialog = false">取 消</el-button>
+        <!--        <el-button @click="addListDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="onSubmitAdd()">确定</el-button>
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" title="修改地锁" :visible.sync="editListDialog">
-      <el-form
-        :inline="true"
-        class="demo-form-inline"
-        label-position="right"
-        label-width="100px"
-      >
+    <el-dialog
+      id="edit"
+      width="50%"
+      title="修改地锁"
+      :visible.sync="editListDialog"
+    >
+      <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">归属停车场信息</div>
         <!--        <el-row style="padding-top: 20px">
                   <el-col :span="12">
@@ -262,10 +272,14 @@
                     </el-select>
                   </el-form-item>
                 </el-row>-->
-        <el-row>
+        <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item label="归属停车场:" label-width="150px">
-              <el-select v-model="editLock.parkId" placeholder="请选择">
+              <el-select
+                style="width: 200px;"
+                v-model="editLock.parkId"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="(item, index) in parkingLotNameList"
                   :label="item.name"
@@ -303,7 +317,7 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editListDialog = false">取 消</el-button>
+        <!--        <el-button @click="editListDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
       </div>
     </el-dialog>

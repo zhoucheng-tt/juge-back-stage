@@ -140,17 +140,25 @@
       </div>
     </div>
     <!-- 新增ETC弹框 -->
-    <el-dialog title="新增ETC信息" :visible.sync="dialogAdd" destroy-on-close>
+    <el-dialog
+      title="新增ETC信息"
+      width="50%"
+      :visible.sync="dialogAdd"
+      destroy-on-close
+    >
       <el-form
         :inline="true"
         :rules="rules"
         ref="addETC"
         :model="addETCForm"
-        class="demo-form-inline"
-        label-width="150px"
+        label-width="100px"
       >
-        <el-form-item label="归属停车场:" prop="parkName">
-          <el-select v-model="addETCForm.parkName" placeholder="请选择停车场">
+        <el-form-item label="归属停车场:" prop="parkName" label-width="150px">
+          <el-select
+            style="width:200px"
+            v-model="addETCForm.parkName"
+            placeholder="请选择停车场"
+          >
             <el-option
               v-for="(item, index) in parkingLotList"
               :label="item.name"
@@ -159,73 +167,108 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="ETC编号:" prop="etcNumber">
+        <el-form-item label="ETC编号:" prop="etcNumber" label-width="150px">
           <el-input
             v-model="addETCForm.etcNumber"
             placeholder="请输入ETC编号"
           />
         </el-form-item>
-        <el-form-item label="ETC名称:" prop="etcName">
+        <el-form-item label="ETC名称:" prop="etcName" label-width="150px">
           <el-input v-model="addETCForm.etcName" placeholder="请输入ETC名称" />
         </el-form-item>
-        <el-form-item label="类型:" prop="type">
+        <el-form-item label="类型:" prop="type" label-width="150px">
           <el-input v-model="addETCForm.type" placeholder="请输入类型" />
         </el-form-item>
-        <el-form-item label="描述:" prop="description">
+        <el-form-item label="描述:" prop="description" label-width="150px">
           <el-input v-model="addETCForm.description" placeholder="请输入描述" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogAdd = false">取 消</el-button>
+        <!--        <el-button @click="dialogAdd = false">取 消</el-button>-->
         <el-button type="primary" @click="addInfoInsert">确 定</el-button>
       </div>
     </el-dialog>
     <!-- 信息详情点击弹出框 -->
-    <el-dialog title="ETC详情" :visible.sync="showListdialogueandoff">
+    <el-dialog
+      title="ETC详情"
+      width="50%"
+      :visible.sync="showListdialogueandoff"
+    >
       <el-form
         :inline="true"
         :model="showListdialogueandoffList"
-        class="demo-form-inline"
+        label-width="100px"
       >
-        <el-form-item label="ETC编号:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.etcNumber"></el-input>
-        </el-form-item>
-        <el-form-item label="ETC名称:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.etcName"></el-input>
-        </el-form-item>
-        <el-form-item label="所属停车场:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.parkName"></el-input>
-        </el-form-item>
-        <el-form-item label="类型:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.type"></el-input>
-        </el-form-item>
-        <el-form-item label="描述:" class="el-form-item-dialog">
-          <el-input v-model="showListdialogueandoffList.description"></el-input>
-        </el-form-item>
+        <el-row>
+          <el-col :span="12"
+            ><el-form-item label="ETC编号:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.etcNumber"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="12">
+            <el-form-item label="ETC名称:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.etcName"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="12">
+            <el-form-item label="所属停车场:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.parkName"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="12">
+            <el-form-item label="类型:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.type"
+              ></el-input> </el-form-item
+          ></el-col>
+          <el-col :span="12">
+            <el-form-item label="描述:" label-width="150px">
+              <el-input
+                v-model="showListdialogueandoffList.description"
+              ></el-input> </el-form-item
+          ></el-col>
+        </el-row>
       </el-form>
     </el-dialog>
     <!-- 信息修改点击弹出框 -->
-    <el-dialog title="修改ETC" :visible.sync="editListDialogueandoff">
+    <el-dialog
+      title="修改ETC"
+      width="50%"
+      :visible.sync="editListDialogueandoff"
+    >
       <el-form
         :inline="true"
         :model="editListDialogueandoffList"
-        class="demo-form-inline"
+        label-width="100px"
       >
-        <el-form-item label="ETC编号:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.etcNumber"></el-input>
-        </el-form-item>
-        <el-form-item label="所属停车场:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.parkName"></el-input>
-        </el-form-item>
-        <el-form-item label="类型:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.type"></el-input>
-        </el-form-item>
-        <el-form-item label="描述:" class="el-form-item-dialog">
-          <el-input v-model="editListDialogueandoffList.description"></el-input>
-        </el-form-item>
+        <el-col :span="12">
+          <el-form-item label="ETC编号:" label-width="150px">
+            <el-input v-model="editListDialogueandoffList.etcNumber"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="所属停车场:" label-width="150px">
+            <el-input v-model="editListDialogueandoffList.parkName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="类型:" label-width="150px">
+            <el-input v-model="editListDialogueandoffList.type"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="描述:" label-width="150px">
+            <el-input
+              v-model="editListDialogueandoffList.description"
+            ></el-input>
+          </el-form-item>
+        </el-col>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editListDialogueandoff = false">取 消</el-button>
+        <!--        <el-button @click="editListDialogueandoff = false">取 消</el-button>-->
         <el-button type="primary" @click="ETCInfoInsert">确 定</el-button>
       </div>
     </el-dialog>
@@ -451,7 +494,6 @@ export default {
       this.$deviceManagement.exportETC(param).then(res => {});
     }
   },
-
   mounted() {
     this.queryETCList();
     this.queryParking();
@@ -502,20 +544,5 @@ export default {
   height: 40px;
   margin-left: 1%;
   margin-top: 0.5%;
-}
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
-
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
-
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
 }
 </style>
