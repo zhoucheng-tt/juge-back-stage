@@ -292,13 +292,11 @@
           </el-row>
           <!--                        黑名单最后一行备注-->
           <el-row>
-            <el-form-item
-              label="备注:"
-              style="width: 600px"
-              label-width="150px"
-              prop="remark"
-            >
-              <el-input v-model="addBlackData.remark"></el-input>
+            <el-form-item label="备注:" prop="remark">
+              <el-input
+                style="width: 600px"
+                v-model="addBlackData.remark"
+              ></el-input>
             </el-form-item>
           </el-row>
         </el-row>

@@ -135,7 +135,11 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="新增洗车机计费规则" :visible.sync="addListDialogueandoff" destroy-on-close>
+    <el-dialog
+      title="新增洗车机计费规则"
+      :visible.sync="addListDialogueandoff"
+      destroy-on-close
+    >
       <el-form
         :inline="true"
         :model="upQueryList"
@@ -400,7 +404,7 @@ export default {
           console.log("确定后打印出来的数据", this.addListDialogueandoffList);
           this.addListDialogueandoff = false;
         }
-      })
+      });
     },
     // 点击查询调用的方法
     selectQueryList() {
