@@ -135,12 +135,13 @@
         </el-pagination>
       </div>
     </div>
-    <el-dialog title="新增洗车机计费规则" :visible.sync="addListDialogueandoff">
+    <el-dialog title="新增洗车机计费规则" :visible.sync="addListDialogueandoff" destroy-on-close>
       <el-form
         :inline="true"
         :model="upQueryList"
         class="demo-form-inline"
         :rules="addListDiaRules"
+        ref="upQueryListR"
       >
         <div style="font-size: 20px">停车场信息</div>
         <el-col offset="1">
@@ -394,8 +395,12 @@ export default {
     },
     //确定方法
     addInfoInsert() {
-      console.log("确定后打印出来的数据", this.addListDialogueandoffList);
-      this.addListDialogueandoff = false;
+      this.$refs["upQueryListR"].validate(valid => {
+        if (valid) {
+          console.log("确定后打印出来的数据", this.addListDialogueandoffList);
+          this.addListDialogueandoff = false;
+        }
+      })
     },
     // 点击查询调用的方法
     selectQueryList() {

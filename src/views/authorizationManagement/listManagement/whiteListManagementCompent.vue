@@ -186,6 +186,7 @@
       :visible.sync="addWhiteListDialog"
       width="70%"
       overflow="hidden"
+      destroy-on-close
     >
       <el-row>
         <!--          归属停车场信息-->
@@ -196,6 +197,7 @@
           label-width="100px"
           :model="addWhiteData"
           :rules="addListRules"
+          ref="addWhiteDataR"
         >
           <!--                    归属停车场信息-->
           <el-row>
@@ -736,31 +738,35 @@ export default {
     },
     //新增白名单确认提交
     onSubmitAdd() {
-      //点击提交隐藏弹窗
-      this.addWhiteListDialog = false;
-      const param = {
-        plateNumber: this.addWhiteData.plateNumber,
-        carOwnerName: this.addWhiteData.carOwnerName,
-        phoneNumber: this.addWhiteData.phoneNumber,
-        idCardNumber: this.addWhiteData.idCardNumber,
-        carOwnerContactAddress: this.addWhiteData.carOwnerContactAddress,
-        effectiveTime: this.addWhiteData.effectiveTime,
-        expirationTime: this.addWhiteData.expirationTime,
-        parkSpaceId: this.addWhiteData.parkSpaceId,
-        remark: this.addWhiteData.remark,
-        //停车场编号 停车场名称
-        parkId: this.addWhiteData.parkId,
-        //车牌颜色
-        numberPlateColorCode: this.addWhiteData.numberPlateColorCode
-      };
-      console.log("新增白名单传入的参数", param);
-      this.$listManagement.insertWhiteList(param).then(response => {
-        console.log("打印新增白名单数据", response);
-        //添加成功弹出
-        this.$message({ type: "success", message: "添加成功!" });
-        //添加成功 刷新页面 调用查询方法
-        this.queryWhiteList();
-      });
+      this.$refs["addWhiteDataR"].validate(valid => {
+        if (valid) {
+          //点击提交隐藏弹窗
+          this.addWhiteListDialog = false;
+          const param = {
+            plateNumber: this.addWhiteData.plateNumber,
+            carOwnerName: this.addWhiteData.carOwnerName,
+            phoneNumber: this.addWhiteData.phoneNumber,
+            idCardNumber: this.addWhiteData.idCardNumber,
+            carOwnerContactAddress: this.addWhiteData.carOwnerContactAddress,
+            effectiveTime: this.addWhiteData.effectiveTime,
+            expirationTime: this.addWhiteData.expirationTime,
+            parkSpaceId: this.addWhiteData.parkSpaceId,
+            remark: this.addWhiteData.remark,
+            //停车场编号 停车场名称
+            parkId: this.addWhiteData.parkId,
+            //车牌颜色
+            numberPlateColorCode: this.addWhiteData.numberPlateColorCode
+          };
+          console.log("新增白名单传入的参数", param);
+          this.$listManagement.insertWhiteList(param).then(response => {
+            console.log("打印新增白名单数据", response);
+            //添加成功弹出
+            this.$message({ type: "success", message: "添加成功!" });
+            //添加成功 刷新页面 调用查询方法
+            this.queryWhiteList();
+          });
+        }
+      })
     },
     //删除一行
     reMove(row) {

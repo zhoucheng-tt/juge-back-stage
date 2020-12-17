@@ -104,6 +104,7 @@
         :visible.sync="addListDialog"
         width="70%"
         overflow="hidden"
+        destroy-on-close
       >
         <!--                基本信息-->
         <div class="table-add">

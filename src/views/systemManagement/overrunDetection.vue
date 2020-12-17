@@ -69,6 +69,7 @@
         :visible.sync="addRoleListDialog"
         width="80%"
         top="2vh"
+        destroy-on-close
       >
         <!--基本信息-->
         <div class="table-add">

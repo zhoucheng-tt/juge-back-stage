@@ -182,6 +182,8 @@
         label-width="150px"
         :model="addBlackData"
         :rules="addListRules"
+        ref="addBlackDataR"
+        style="width: 80%;height: 80%"
       >
         <!--                    归属停车场信息-->
         <el-row>
@@ -663,7 +665,7 @@ export default {
     },
     //新增黑名单确认提交
     onSubmitAdd() {
-      this.$refs["addBlackData"].validate(valid => {
+      this.$refs["addBlackDataR"].validate(valid => {
         if (valid) {
           console.log(new Date().Format("yyyy-MM-dd hh:mm:ss"), new Date());
           //点击提交隐藏弹窗
