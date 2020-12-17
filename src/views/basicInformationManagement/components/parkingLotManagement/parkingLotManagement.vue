@@ -125,15 +125,19 @@
           </template>
         </el-table-column>
       </el-table>
-      <div style="float: right">
-        <!--分页条-->
-        <el-pagination
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-        ></el-pagination>
+      <div
+        style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
+      >
+        <div style="float: right">
+          <!--分页条-->
+          <el-pagination
+            layout="total, prev, pager, next, jumper"
+            :page-size="pageSize"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
+          ></el-pagination>
+        </div>
       </div>
     </div>
     <!--新增表单弹框-->

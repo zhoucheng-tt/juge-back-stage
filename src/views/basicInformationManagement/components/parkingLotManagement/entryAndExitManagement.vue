@@ -167,15 +167,19 @@
           </template>
         </el-table-column>
       </el-table>
-      <div style="float: right">
-        <el-pagination
-          layout="total, prev, pager, next, jumper"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-          :page-size="pageSize"
-        >
-        </el-pagination>
+      <div
+        style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
+      >
+        <div style="float: right">
+          <el-pagination
+            layout="total, prev, pager, next, jumper"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
+            :page-size="pageSize"
+          >
+          </el-pagination>
+        </div>
       </div>
       <!--新增-->
       <el-dialog
