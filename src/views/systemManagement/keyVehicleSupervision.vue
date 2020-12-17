@@ -109,7 +109,7 @@
         <div class="table-add">
           <el-form
             :inline="true"
-            ref="addUser"
+            ref="addUserFormR"
             :model="addUserForm"
             class="demo-form-inline"
             label-position="right"
@@ -582,20 +582,27 @@ export default {
     },
     //新增用户确认提交
     onSubmitAdd() {
-      const param = {
-        phoneNumber: this.addUserForm.phoneNumber,
-        email: this.addUserForm.email,
-        name: this.addUserForm.name,
-        password: "",
-        userAccount: this.addUserForm.userAccount,
-        roleId: this.checkRoles
-      };
-      this.$systemUser.addUser(param).then(res => {
-        console.log("打印新增的数据", res);
-        this.select();
-      });
-      this.addListDialog = false;
-    },
+      this.$refs["addUserFormR"].validate(valid => {
+        if (valid) {
+          this.addListDialog = false;
+          const param = {
+            phoneNumber: this.addUserForm.phoneNumber,
+            email: this.addUserForm.email,
+            name: this.addUserForm.name,
+            password: "",
+            userAccount: this.addUserForm.userAccount,
+            roleId: this.checkRoles
+          };
+          this.$systemUser.addUser(param).then(res => {
+            console.log("打印新增的数据", res);
+            this.select();
+          });
+        } else {
+      return false
+    }
+    ;
+    })
+  },
     //表格操作中的查看方法
     //查看用户弹窗
     check(row) {

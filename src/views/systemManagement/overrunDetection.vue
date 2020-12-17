@@ -77,18 +77,21 @@
             class="demo-form-inline"
             label-position="right"
             label-width="100px"
+            ref="addRoleListR"
+            :model="addRoleList"
+            :rules="addRoleRules"
           >
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
               <el-col :span="12">
-                <el-form-item label="角色名称:" label-width="150px">
+                <el-form-item label="角色名称:" label-width="150px" prop="roleName">
                   <el-input v-model="addRoleList.roleName" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="角色描述:" label-width="150px">
+                <el-form-item label="角色描述:" label-width="150px" prop="roleDesc">
                   <el-input v-model="addRoleList.roleDesc"></el-input>
                 </el-form-item>
               </el-col>
@@ -108,101 +111,114 @@
             <div class="table-function">
               <p>功能权限</p>
               <!--                        tabs标签页-->
-              <el-tabs v-model="activeName" @tab-click="handleTabClick">
-                <el-tab-pane label="城市智能停车管理与服务平台" name="10">
-                  <!--                        功能权限 城市智能停车管理与服务平台-->
-                  <div v-for="(item, index) in cityOptions1" :key="index">
-                    <el-checkbox
-                      :indeterminate="item.isIndeterminate"
-                      v-model="item.fuxuanzhongList"
-                      @change="val => handleCheckAllChange1(val, item)"
-                      >{{ item.name }}</el-checkbox
-                    >
-                    <el-checkbox-group
-                      v-model="item.idList1"
-                      @change="handleCheckedCitiesChange1"
-                    >
-                      <el-checkbox
-                        @change="val => handleCheckChange(val, item, innerItem)"
-                        v-for="(innerItem, innerIndex) in item.children"
-                        :label="innerItem.id"
-                        :key="innerIndex"
-                        >{{ innerItem.name }}</el-checkbox
-                      >
-                    </el-checkbox-group>
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="采集与发布平台" name="20">
-                  <div v-for="(item, index) in cityOptions2" :key="index">
-                    <el-checkbox
-                      :indeterminate="item.isIndeterminate"
-                      v-model="item.fuxuanzhongList"
-                      @change="val => handleCheckAllChange1(val, item)"
-                      >{{ item.name }}</el-checkbox
-                    >
-                    <el-checkbox-group
-                      v-model="item.idList1"
-                      @change="handleCheckedCitiesChange1"
-                    >
-                      <el-checkbox
-                        @change="val => handleCheckChange(val, item, innerItem)"
-                        v-for="(innerItem, innerIndex) in item.children"
-                        :label="innerItem.id"
-                        :key="innerIndex"
-                        >{{ innerItem.name }}</el-checkbox
-                      >
-                    </el-checkbox-group>
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="手持终端(PDA)平台" name="30">
-                  <div v-for="(item, index) in cityOptions3" :key="index">
-                    <el-checkbox
-                      :indeterminate="item.isIndeterminate"
-                      v-model="item.fuxuanzhongList"
-                      @change="val => handleCheckAllChange1(val, item)"
-                      >{{ item.name }}</el-checkbox
-                    >
-                    <el-checkbox-group
-                      v-model="item.idList1"
-                      @change="handleCheckedCitiesChange1"
-                    >
-                      <el-checkbox
-                        @change="val => handleCheckChange(val, item, innerItem)"
-                        v-for="(innerItem, innerIndex) in item.children"
-                        :label="innerItem.id"
-                        :key="innerIndex"
-                        >{{ innerItem.name }}</el-checkbox
-                      >
-                    </el-checkbox-group>
-                  </div>
-                </el-tab-pane>
-              </el-tabs>
+<!--              <el-tabs v-model="activeName" @tab-click="handleTabClick">-->
+<!--                <el-tab-pane label="城市智能停车管理与服务平台" name="10">-->
+<!--                  &lt;!&ndash;                        功能权限 城市智能停车管理与服务平台&ndash;&gt;-->
+<!--                  <div v-for="(item, index) in cityOptions1" :key="index">-->
+<!--                    <el-checkbox-->
+<!--                      :indeterminate="item.isIndeterminate"-->
+<!--                      v-model="item.fuxuanzhongList"-->
+<!--                      @change="val => handleCheckAllChange1(val, item)"-->
+<!--                      >{{ item.name }}</el-checkbox-->
+<!--                    >-->
+<!--                    <el-checkbox-group-->
+<!--                      v-model="item.idList1"-->
+<!--                      @change="handleCheckedCitiesChange1"-->
+<!--                    >-->
+<!--                      <el-checkbox-->
+<!--                        @change="val => handleCheckChange(val, item, innerItem)"-->
+<!--                        v-for="(innerItem, innerIndex) in item.children"-->
+<!--                        :label="innerItem.id"-->
+<!--                        :key="innerIndex"-->
+<!--                        >{{ innerItem.name }}</el-checkbox-->
+<!--                      >-->
+<!--                    </el-checkbox-group>-->
+<!--                  </div>-->
+<!--                </el-tab-pane>-->
+<!--                <el-tab-pane label="采集与发布平台" name="20">-->
+<!--                  <div v-for="(item, index) in cityOptions2" :key="index">-->
+<!--                    <el-checkbox-->
+<!--                      :indeterminate="item.isIndeterminate"-->
+<!--                      v-model="item.fuxuanzhongList"-->
+<!--                      @change="val => handleCheckAllChange1(val, item)"-->
+<!--                      >{{ item.name }}</el-checkbox-->
+<!--                    >-->
+<!--                    <el-checkbox-group-->
+<!--                      v-model="item.idList1"-->
+<!--                      @change="handleCheckedCitiesChange1"-->
+<!--                    >-->
+<!--                      <el-checkbox-->
+<!--                        @change="val => handleCheckChange(val, item, innerItem)"-->
+<!--                        v-for="(innerItem, innerIndex) in item.children"-->
+<!--                        :label="innerItem.id"-->
+<!--                        :key="innerIndex"-->
+<!--                        >{{ innerItem.name }}</el-checkbox-->
+<!--                      >-->
+<!--                    </el-checkbox-group>-->
+<!--                  </div>-->
+<!--                </el-tab-pane>-->
+<!--                <el-tab-pane label="手持终端(PDA)平台" name="30">-->
+<!--                  <div v-for="(item, index) in cityOptions3" :key="index">-->
+<!--                    <el-checkbox-->
+<!--                      :indeterminate="item.isIndeterminate"-->
+<!--                      v-model="item.fuxuanzhongList"-->
+<!--                      @change="val => handleCheckAllChange1(val, item)"-->
+<!--                      >{{ item.name }}</el-checkbox-->
+<!--                    >-->
+<!--                    <el-checkbox-group-->
+<!--                      v-model="item.idList1"-->
+<!--                      @change="handleCheckedCitiesChange1"-->
+<!--                    >-->
+<!--                      <el-checkbox-->
+<!--                        @change="val => handleCheckChange(val, item, innerItem)"-->
+<!--                        v-for="(innerItem, innerIndex) in item.children"-->
+<!--                        :label="innerItem.id"-->
+<!--                        :key="innerIndex"-->
+<!--                        >{{ innerItem.name }}</el-checkbox-->
+<!--                      >-->
+<!--                    </el-checkbox-group>-->
+<!--                  </div>-->
+<!--                </el-tab-pane>-->
+<!--              </el-tabs>-->
+              <el-tree
+              node-key="id"
+              :default-expanded-keys="[0]"
+              :auto-expand-parent="true"
+              :props="defaultProps"
+              :render-content="renderContent"
+              :highlight-current="true"
+              :expand-on-click-node="false"
+              lazy
+              :load="loadChildData"
+              @node-click="queryFuncListByRole">
+              </el-tree>
+              <div>{{list}}</div>
             </div>
           </el-form>
         </div>
         <!--选择用户-->
-        <div class="table-sel">
-          <el-form
-            :inline="true"
-            class="demo-form-inline"
-            label-position="right"
-            label-width="100px"
-          >
-            <p style="font-size: 20px">选择用户</p>
-            <el-checkbox-group
-              v-model="xuanzhongList"
-              @change="handleCheckedUserChoose"
-            >
-              <el-checkbox
-                v-for="item in addChooseList"
-                :label="item.userId"
-                :key="item.userId"
-              >
-                {{ item.name }}
-              </el-checkbox>
-            </el-checkbox-group>
-          </el-form>
-        </div>
+<!--        <div class="table-sel">-->
+<!--          <el-form-->
+<!--            :inline="true"-->
+<!--            class="demo-form-inline"-->
+<!--            label-position="right"-->
+<!--            label-width="100px"-->
+<!--          >-->
+<!--            <p style="font-size: 20px">选择用户</p>-->
+<!--            <el-checkbox-group-->
+<!--              v-model="xuanzhongList"-->
+<!--              @change="handleCheckedUserChoose"-->
+<!--            >-->
+<!--              <el-checkbox-->
+<!--                v-for="item in addChooseList"-->
+<!--                :label="item.userId"-->
+<!--                :key="item.userId"-->
+<!--              >-->
+<!--                {{ item.name }}-->
+<!--              </el-checkbox>-->
+<!--            </el-checkbox-group>-->
+<!--          </el-form>-->
+<!--        </div>-->
         <span slot="footer" class="dialog-footer">
           <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
           <el-button @click="addRoleListDialog = false">取 消</el-button>
@@ -505,6 +521,26 @@
 export default {
   data() {
     return {
+      addRoleRules:{
+        roleName: [
+          {
+            required: true,
+            message: "请输入角色名称",
+            trigger: "blur"
+          }
+        ],
+        roleDesc: [
+          {
+            required: true,
+            message: "请输入角色描述",
+            trigger: "blur"
+          }
+        ],
+      },
+      defaultProps: {
+        children: 'children',
+        label: 'title',
+      },
       //按钮新增角色弹窗
       addRoleListDialog: false,
       //新增角色暂存
@@ -637,28 +673,33 @@ export default {
     },
     //新增角色按钮确认提交
     onSubmitAdd() {
-      this.addRoleListDialog = false;
-      console.log("打印新增角色列表", this.addRoleList);
-      //角色管理新增要传入参数
-      const param = {
-        roleName: this.addRoleList.roleName,
-        roleDesc: this.addRoleList.roleDesc,
-        creater: this.creater,
-        funcId: this.funcIdSplit,
-        userId: this.xuanzhongList
-      };
-      console.log("新增全部参数", param);
-      this.$systemUser.addRole(param).then(response => {
-        console.log("打印新增响应数据", response);
-        //添加成功弹出
-        this.$message({ type: "success", message: "添加成功!" });
-        //添加成功 弹出框隐藏
+    this.$refs["addRoleListR"].validate(valid => {
+      if (valid) {
         this.addRoleListDialog = false;
-        //添加成功 刷新页面 调用查询方法
-        this.queryRoleList();
-      });
+        console.log("打印新增角色列表", this.addRoleList);
+        //角色管理新增要传入参数
+        const param = {
+          roleName: this.addRoleList.roleName,
+          roleDesc: this.addRoleList.roleDesc,
+          creater: this.creater,
+          funcId: this.funcIdSplit,
+          userId: this.xuanzhongList
+        };
+        console.log("新增全部参数", param);
+        this.$systemUser.addRole(param).then(response => {
+          console.log("打印新增响应数据", response);
+          //添加成功弹出
+          this.$message({ type: "success", message: "添加成功!" });
+          //添加成功 弹出框隐藏
+          this.addRoleListDialog = false;
+          //添加成功 刷新页面 调用查询方法
+          this.queryRoleList();
+        });
+      }
+    })
     },
     //新增页面中功能权限，城市智能停车管理与服务平台
+    //todo
     queryFuncListByRole() {
       //tabs第一个页面
       const param1 = {
@@ -666,74 +707,79 @@ export default {
       };
       this.$systemUser.queryFuncListByRole(param1).then(res => {
         let list = res.data.dataList;
-        //遍历tabs第一个页面中的dataList,默认未选中
-        for (var i = 0; i < list.length; i++) {
-          let item = list[i];
-          item.fuxuanzhongList = false;
-          //如果没有子集默认未选中
-          if (item.children != undefined) {
-            for (var j = 0; j < item.children.length; j++) {
-              let data = item.children[j];
-              data.check = false;
-            }
-          }
-        }
-        console.log("处理完成后的新增权限", list);
-        //遍历子集的list置空
-        for (let i = 0; i < list.length; i++) {
-          list[i].idList1 = [];
-        }
-        this.cityOptions1 = list;
-      });
-      //tabs标签页第二页
-      const param2 = {
-        funcId: "20"
-      };
-      this.$systemUser.queryFuncListByRole(param2).then(res => {
-        // console.log("打印新增功能权限获取到的参数2", res)
-        let list = res.data.dataList;
-        for (var i = 0; i < list.length; i++) {
-          let item = list[i];
-          item.fuxuanzhongList = false;
-          if (item.children != undefined) {
-            for (var j = 0; j < item.children.length; j++) {
-              let data = item.children[j];
-              data.check = false;
-            }
-          }
-        }
-        console.log(list, "处理完成后的");
-        for (let i = 0; i < list.length; i++) {
-          list[i].idList1 = [];
-        }
-        this.cityOptions2 = res.data.dataList;
-      });
-      //tabs标签页第三页
-      const param3 = {
-        funcId: "30"
-      };
-      this.$systemUser.queryFuncListByRole(param3).then(res => {
-        // console.log("打印新增功能权限获取到的参数3", res)
-        let list = res.data.dataList;
-        for (var i = 0; i < list.length; i++) {
-          let item = list[i];
-          item.fuxuanzhongList = false;
-          if (item.children != undefined) {
-            for (var j = 0; j < item.children.length; j++) {
-              let data = item.children[j];
-              data.check = false;
-            }
-          }
-        }
-        console.log(list, "处理完成后的");
-        for (let i = 0; i < list.length; i++) {
-          list[i].idList1 = [];
-        }
-        this.cityOptions3 = res.data.dataList;
-      });
+        console.log("hhhhhhhhhhhhhhhhhhh", list);
+      })
     },
+
+
+        //遍历tabs第一个页面中的dataList,默认未选中
+        // for (var i = 0; i < list.length; i++) {
+        //   let item = list[i];
+        //   item.fuxuanzhongList = false;
+        //   //如果没有子集默认未选中
+        //   if (item.children != undefined) {
+        //     for (var j = 0; j < item.children.length; j++) {
+        //       let data = item.children[j];
+        //       data.check = false;
+        //     }
+        //   }
+        // }
+        // console.log("处理完成后的新增权限", list);
+        //遍历子集的list置空
+      //   for (let i = 0; i < list.length; i++) {
+      //     list[i].idList1 = [];
+      //   }
+      //   this.cityOptions1 = list;
+      // });
+      //tabs标签页第二页
+      // const param2 = {
+      //   funcId: "20"
+      // };
+      // this.$systemUser.queryFuncListByRole(param2).then(res => {
+      //   // console.log("打印新增功能权限获取到的参数2", res)
+      //   let list = res.data.dataList;
+      //   for (var i = 0; i < list.length; i++) {
+      //     let item = list[i];
+      //     item.fuxuanzhongList = false;
+      //     if (item.children != undefined) {
+      //       for (var j = 0; j < item.children.length; j++) {
+      //         let data = item.children[j];
+      //         data.check = false;
+      //       }
+      //     }
+      //   }
+      //   console.log(list, "处理完成后的");
+      //   for (let i = 0; i < list.length; i++) {
+      //     list[i].idList1 = [];
+      //   }
+      //   this.cityOptions2 = res.data.dataList;
+      // });
+      //tabs标签页第三页
+    //   const param3 = {
+    //     funcId: "30"
+    //   };
+    //   this.$systemUser.queryFuncListByRole(param3).then(res => {
+    //     // console.log("打印新增功能权限获取到的参数3", res)
+    //     let list = res.data.dataList;
+    //     for (var i = 0; i < list.length; i++) {
+    //       let item = list[i];
+    //       item.fuxuanzhongList = false;
+    //       if (item.children != undefined) {
+    //         for (var j = 0; j < item.children.length; j++) {
+    //           let data = item.children[j];
+    //           data.check = false;
+    //         }
+    //       }
+    //     }
+    //     console.log(list, "处理完成后的");
+    //     for (let i = 0; i < list.length; i++) {
+    //       list[i].idList1 = [];
+    //     }
+    //     this.cityOptions3 = res.data.dataList;
+    //   });
+    // },
     //调用接口方法获取新增选择用户数据
-    queryUserListByRole() {
+    queryUserListByRole(){
       const param = {};
       this.$systemUser.queryUserListByRole(param).then(res => {
         //将选择的用户存到addChooseList中
