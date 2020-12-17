@@ -418,13 +418,15 @@ export default {
     onSubmitAdd() {
       this.$refs["newChargingPointR"].validate(valid => {
         if (valid) {
-          this.$deviceManagement.addChargePile(this.newChargingPoint).then(res => {
-            this.$message({ type: "success", message: "添加成功!" });
-            this.queryChargingPoint();
-          });
+          this.$deviceManagement
+            .addChargePile(this.newChargingPoint)
+            .then(res => {
+              this.$message({ type: "success", message: "添加成功!" });
+              this.queryChargingPoint();
+            });
           this.newChargingPointR = false;
         }
-      })
+      });
     },
     //修改表单提交
     onSubmitEdit() {

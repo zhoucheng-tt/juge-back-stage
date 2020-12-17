@@ -152,7 +152,12 @@
         </el-pagination>
       </div>
       <!--新增表单弹框-->
-      <el-dialog id="add" title="新增道闸机" :visible.sync="addListDialog" destroy-on-close>
+      <el-dialog
+        id="add"
+        title="新增道闸机"
+        :visible.sync="addListDialog"
+        destroy-on-close
+      >
         <el-form
           :inline="true"
           label-position="right"
@@ -626,7 +631,7 @@ export default {
             this.queryPassagewayGate();
           });
         }
-      })
+      });
     },
     //删除一行
     deleteGate(row) {

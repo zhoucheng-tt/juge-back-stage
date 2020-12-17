@@ -569,7 +569,7 @@ export default {
           this.queryGroundLock();
           this.addListDialog = false;
         }
-      })
+      });
     },
     //修改表单提交
     onSubmitEdit() {

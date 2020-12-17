@@ -563,7 +563,7 @@ export default {
           this.queryMagneticDetecter();
           this.addListDialog = false;
         }
-      })
+      });
     },
     //修改表单提交
     onSubmitEdit() {
