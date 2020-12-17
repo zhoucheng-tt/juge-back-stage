@@ -152,13 +152,14 @@
         </el-pagination>
       </div>
       <!--新增表单弹框-->
-      <el-dialog id="add" title="新增道闸机" :visible.sync="addListDialog">
+      <el-dialog id="add" title="新增道闸机" :visible.sync="addListDialog" destroy-on-close>
         <el-form
           :inline="true"
           label-position="right"
           label-width="100px"
           :model="newGate"
           :rules="addListRules"
+          ref="newGateR"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
@@ -602,26 +603,30 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      console.log("新增数据", this.newGate);
-      const param = {
-        //道闸机需要传入的参数
-        parkId: this.newGate.parkId,
-        passagewayId: this.newGate.passagewayId,
-        passagewayGateId: this.newGate.passagewayGateId,
-        passagewayGateName: this.newGate.passagewayGateName,
-        ipAddress: this.newGate.ipAddress,
-        serialNumber: this.newGate.serialNumber,
-        manufacturer: this.newGate.manufacturer
-      };
-      this.$deviceManagement.addPassagewayGate(param).then(response => {
-        console.log("打印新增响应数据", response);
-        //添加成功弹出
-        this.$message({ type: "success", message: "添加成功!" });
-        //添加成功 弹出框隐藏
-        this.addListDialog = false;
-        //添加成功 刷新页面 调用查询方法
-        this.queryPassagewayGate();
-      });
+      this.$refs["newGateR"].validate(valid => {
+        if (valid) {
+          console.log("新增数据", this.newGate);
+          const param = {
+            //道闸机需要传入的参数
+            parkId: this.newGate.parkId,
+            passagewayId: this.newGate.passagewayId,
+            passagewayGateId: this.newGate.passagewayGateId,
+            passagewayGateName: this.newGate.passagewayGateName,
+            ipAddress: this.newGate.ipAddress,
+            serialNumber: this.newGate.serialNumber,
+            manufacturer: this.newGate.manufacturer
+          };
+          this.$deviceManagement.addPassagewayGate(param).then(response => {
+            console.log("打印新增响应数据", response);
+            //添加成功弹出
+            this.$message({ type: "success", message: "添加成功!" });
+            //添加成功 弹出框隐藏
+            this.addListDialog = false;
+            //添加成功 刷新页面 调用查询方法
+            this.queryPassagewayGate();
+          });
+        }
+      })
     },
     //删除一行
     deleteGate(row) {
