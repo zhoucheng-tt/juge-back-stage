@@ -720,7 +720,7 @@ export default {
             this.queryWhiteList();
           });
         }
-      })
+      });
     },
     //删除一行
     reMove(row) {

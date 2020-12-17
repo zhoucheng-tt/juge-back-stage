@@ -37,18 +37,16 @@
           >
         </el-form-item></el-form
       >
-      <el-row>
-        <el-form-item style="float: left;">
-          <el-button type="primary" size="small" @click="addInletAndOutlet"
-            >新增出入口</el-button
-          >
-          <el-button type="primary" size="small" @click="exportExcel()"
-            >导出</el-button
-          >
-          <el-button type="danger" size="small" @click="deleteSelect()"
-            >批量删除</el-button
-          >
-        </el-form-item>
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addInletAndOutlet"
+          >新增出入口</el-button
+        >
+        <el-button type="primary" size="small" @click="exportExcel()"
+          >导出</el-button
+        >
+        <el-button type="danger" size="small" @click="deleteSelect()"
+          >批量删除</el-button
+        >
       </el-row>
     </div>
     <!--下半部分列表-->
@@ -182,6 +180,7 @@
       <!--新增-->
       <el-dialog
         id="add"
+        width="50%"
         title="新增出入口信息"
         :visible.sync="addListDialogueandoff"
       >
@@ -190,145 +189,178 @@
           :rules="rules"
           ref="addPassageWay"
           :model="addListDialogueandoffList"
-          class="demo-form-inline"
         >
           <div><h3>归属停车场信息</h3></div>
-          <el-col :offset="1">
-            <el-form-item label="归属停车场:" prop="parkId">
-              <el-select
-                v-model="addListDialogueandoffList.parkId"
-                placeholder="请选择停车场"
+          <el-row style="padding-top: 20px">
+            <el-col :span="12">
+              <el-form-item
+                label="归属停车场:"
+                prop="parkId"
+                label-width="150px"
               >
-                <el-option
-                  v-for="(item, index) in parkingLotList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+                <el-select
+                  style="width: 200px"
+                  v-model="addListDialogueandoffList.parkId"
+                  placeholder="请选择停车场"
+                >
+                  <el-option
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
           <div><h3>出入口信息</h3></div>
-          <el-col :offset="1">
-            <el-form-item label="出入口编号:" prop="passagewayId">
-              <el-input
-                v-model="addListDialogueandoffList.passagewayId"
-                placeholder="请输入出入口编号"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="出入口名称:" prop="passagewayName">
-              <el-input
-                v-model="addListDialogueandoffList.passagewayName"
-                placeholder="请输入出入口名称"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :offset="1">
-            <el-form-item label="出入口类型:" prop="passagewayTypeCode">
-              <el-select
-                v-model="addListDialogueandoffList.passagewayTypeCode"
-                placeholder="请选择出入口类型"
+          <el-row style="padding-top: 20px">
+            <el-col :span="12">
+              <el-form-item
+                label="出入口编号:"
+                label-width="150px"
+                prop="passagewayId"
               >
-                <el-option
-                  v-for="(item, index) in entryAndExitList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :offset="1">
-            <el-form-item label="出入口描述:">
-              <el-input
-                type="textarea"
-                :rows="2"
-                placeholder="请输入内容"
-                v-model="addListDialogueandoffList.passagewayDesc"
+                <el-input
+                  v-model="addListDialogueandoffList.passagewayId"
+                  placeholder="请输入出入口编号"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item
+                label="出入口名称:"
+                label-width="150px"
+                prop="passagewayName"
               >
-              </el-input>
-            </el-form-item>
-          </el-col>
+                <el-input
+                  v-model="addListDialogueandoffList.passagewayName"
+                  placeholder="请输入出入口名称"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item
+                label="出入口类型:"
+                label-width="150px"
+                prop="passagewayTypeCode"
+              >
+                <el-select
+                  style="width: 200px;"
+                  v-model="addListDialogueandoffList.passagewayTypeCode"
+                  placeholder="请选择出入口类型"
+                >
+                  <el-option
+                    v-for="(item, index) in entryAndExitList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="出入口描述:" label-width="150px">
+                <el-input
+                  placeholder="请输入内容"
+                  v-model="addListDialogueandoffList.passagewayDesc"
+                >
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialogueandoff = false">取 消</el-button>
+          <!--          <el-button @click="addListDialogueandoff = false">取 消</el-button>-->
           <el-button type="primary" @click="addInfoInsert">保 存</el-button>
         </div>
       </el-dialog>
       <!-- 信息修改点击弹出框 -->
-      <el-dialog title="修改出入口管理" :visible.sync="editListDialogueandoff">
+      <el-dialog
+        title="修改出入口管理"
+        width="50%"
+        :visible.sync="editListDialogueandoff"
+      >
         <el-form
           :inline="true"
           ref="editPassageway"
           rules="rules"
           :model="editListDialogueandoffList"
-          class="demo-form-inline"
+          width="50%"
           label-width="100px"
         >
           <div><h3>归属停车场信息</h3></div>
-          <el-col :offset="1">
-            <el-form-item label="归属停车场:">
-              <el-select
-                disabled
-                v-model="editListDialogueandoffList.parkId"
-                placeholder="请选择停车场"
-                style="width: 300px"
-              >
-                <el-option
-                  v-for="(item, index) in parkingLotList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <el-row style="padding-top: 20px">
+            <el-col :span="12">
+              <el-form-item label="归属停车场:" label-width="150px">
+                <el-select
+                  style="width: 200px"
+                  disabled
+                  v-model="editListDialogueandoffList.parkId"
+                  placeholder="请选择停车场"
+                >
+                  <el-option
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <div><h3>出入口信息</h3></div>
-          <el-col :offset="1">
-            <!--            <el-form-item label="出入口编号:">-->
-            <!--              <el-input-->
-            <!--                  disabled-->
-            <!--                  v-model="editListDialogueandoffList.passagewayId"-->
-            <!--                  placeholder="请输入出入口编号"-->
-            <!--                  style="width: 300px"-->
-            <!--              ></el-input>-->
-            <!--            </el-form-item>-->
-            <el-form-item label="出入口名称:" prop="passagewayName">
-              <el-input
-                v-model="editListDialogueandoffList.passagewayName"
-                placeholder="请输入出入口名称"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :offset="1">
-            <el-form-item label="出入口类型:">
-              <el-select
-                v-model="editListDialogueandoffList.passagewayTypeCode"
-                placeholder="请选择出入口类型"
+          <el-row style="padding-top: 20px">
+            <el-col :span="12">
+              <!--            <el-form-item label="出入口编号:">-->
+              <!--              <el-input-->
+              <!--                  disabled-->
+              <!--                  v-model="editListDialogueandoffList.passagewayId"-->
+              <!--                  placeholder="请输入出入口编号"-->
+              <!--                  style="width: 300px"-->
+              <!--              ></el-input>-->
+              <!--            </el-form-item>-->
+              <el-form-item
+                label="出入口名称:"
+                prop="passagewayName"
+                label-width="150px"
               >
-                <el-option
-                  v-for="(item, index) in entryAndExitList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :offset="1">
-            <el-form-item label="出入口描述:">
-              <el-input
-                type="textarea"
-                :rows="2"
-                placeholder="请输入内容"
-                v-model="editListDialogueandoffList.passagewayDesc"
-              >
-              </el-input>
-            </el-form-item>
-          </el-col>
+                <el-input
+                  v-model="editListDialogueandoffList.passagewayName"
+                  placeholder="请输入出入口名称"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="出入口类型:" label-width="150px">
+                <el-select
+                  style="width: 200px"
+                  v-model="editListDialogueandoffList.passagewayTypeCode"
+                  placeholder="请选择出入口类型"
+                >
+                  <el-option
+                    v-for="(item, index) in entryAndExitList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="出入口描述:" label-width="150px">
+                <el-input
+                  placeholder="请输入内容"
+                  v-model="editListDialogueandoffList.passagewayDesc"
+                >
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="editListDialogueandoff = false">取 消</el-button>
+          <!--          <el-button @click="editListDialogueandoff = false">取 消</el-button>-->
           <el-button type="primary" @click="InfoInsert">确 定</el-button>
         </div>
       </el-dialog>
@@ -626,10 +658,11 @@ export default {
   height: 100%;
   overflow: hidden;
 }
+
 /*查询*/
 .up {
   width: 98%;
-  height: 7%;
+  height: 12%;
   background-color: white;
   margin-left: 1%;
   /*margin-top: 0.5%;*/
@@ -637,7 +670,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 88%;
+  height: 84%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
@@ -645,7 +678,7 @@ export default {
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 45px;
+  height: 40px;
   padding-left: 1%;
   padding-top: 0.5%;
 }
@@ -657,19 +690,11 @@ export default {
 /deep/ .el-table .successSecond {
   background: white !important;
 }
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
 
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
-
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 </style>
