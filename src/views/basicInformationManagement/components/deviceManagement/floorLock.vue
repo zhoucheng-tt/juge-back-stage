@@ -165,6 +165,7 @@
       title="新增地锁"
       width="50%"
       :visible.sync="addListDialog"
+      destroy-on-close
     >
       <el-form
         :inline="true"
@@ -172,6 +173,7 @@
         label-width="100px"
         :model="newLock"
         :rules="addListRules"
+        ref="newLockR"
       >
         <div style="font-size: 20px">归属停车场信息</div>
         <!--        <el-row style="padding-top: 20px">
@@ -551,19 +553,23 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      console.log("新增数据", this.newLock);
-      const param = {
-        parkId: this.newLock.parkId,
-        groundLockId: this.newLock.groundLockId,
-        groundLockName: this.newLock.groundLockName,
-        macAddress: this.newLock.macAddress,
-        gatewayId: this.newLock.gatewayId
-      };
-      this.$deviceManagement.addGroundLock(param).then(res => {
-        console.log(res);
-      });
-      this.queryGroundLock();
-      this.addListDialog = false;
+      this.$refs["newLockR"].validate(valid => {
+        if (valid) {
+          console.log("新增数据", this.newLock);
+          const param = {
+            parkId: this.newLock.parkId,
+            groundLockId: this.newLock.groundLockId,
+            groundLockName: this.newLock.groundLockName,
+            macAddress: this.newLock.macAddress,
+            gatewayId: this.newLock.gatewayId
+          };
+          this.$deviceManagement.addGroundLock(param).then(res => {
+            console.log(res);
+          });
+          this.queryGroundLock();
+          this.addListDialog = false;
+        }
+      })
     },
     //修改表单提交
     onSubmitEdit() {

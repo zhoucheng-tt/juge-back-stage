@@ -169,6 +169,7 @@
         title="新增视频车位检测器"
         width="50%"
         :visible.sync="addListDialog"
+        destroy-on-close
       >
         <el-form
           :inline="true"

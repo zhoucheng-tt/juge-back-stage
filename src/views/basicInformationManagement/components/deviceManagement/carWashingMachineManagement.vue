@@ -162,6 +162,7 @@
       title="新增洗车机"
       width="50%"
       :visible.sync="addListDialog"
+      destroy-on-close
     >
       <el-form
         :inline="true"

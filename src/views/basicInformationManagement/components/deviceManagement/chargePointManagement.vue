@@ -148,6 +148,7 @@
       title="新增充电桩"
       width="50%"
       :visible.sync="addListDialog"
+      destroy-on-close
     >
       <el-form
         :inline="true"
@@ -155,6 +156,7 @@
         label-width="100px"
         :model="newChargingPoint"
         :rules="addListRules"
+        ref="newChargingPointR"
       >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
@@ -414,11 +416,15 @@ export default {
     },
     //新增表单提交
     onSubmitAdd() {
-      this.$deviceManagement.addChargePile(this.newChargingPoint).then(res => {
-        this.$message({ type: "success", message: "添加成功!" });
-        this.queryChargingPoint();
-      });
-      this.addListDialog = false;
+      this.$refs["newChargingPointR"].validate(valid => {
+        if (valid) {
+          this.$deviceManagement.addChargePile(this.newChargingPoint).then(res => {
+            this.$message({ type: "success", message: "添加成功!" });
+            this.queryChargingPoint();
+          });
+          this.newChargingPointR = false;
+        }
+      })
     },
     //修改表单提交
     onSubmitEdit() {
