@@ -25,9 +25,7 @@
             placeholder="请输入车牌号"
           ></el-input>
         </el-form-item>
-
         <!--         停车场下拉框       -->
-
         <el-form-item label="停车场">
           <el-select
             size="small"
@@ -166,42 +164,37 @@
               >删除
             </el-button>
           </template>
-        </el-table-column>
-        <div style="float: right;">
-          <!--分页条-->
-          <el-pagination
-            @current-change="handleCurrentModify"
-            layout="total, prev, pager, next, jumper"
-            :current-page="pageNum"
-            :page-size="pageSize"
-            :total="pageTotal"
-          >
-          </el-pagination>
-        </div>
-      </el-table>
-    </div>
-    <!--        新增白名单弹窗-->
-    <el-dialog
-      title="新增白名单"
-      :visible.sync="addWhiteListDialog"
-      width="70%"
-      overflow="hidden"
-      destroy-on-close
-    >
-      <el-row>
+        </el-table-column></el-table
+      >
+      <div style="float: right;">
+        <!--分页条-->
+        <el-pagination
+          @current-change="handleCurrentModify"
+          layout="total, prev, pager, next, jumper"
+          :current-page="pageNum"
+          :page-size="pageSize"
+          :total="pageTotal"
+        >
+        </el-pagination>
+      </div>
+      <!--        新增白名单弹窗-->
+      <el-dialog
+        title="新增白名单"
+        :visible.sync="addWhiteListDialog"
+        width="70%"
+        overflow="hidden"
+      >
         <!--          归属停车场信息-->
         <el-form
           :inline="true"
-          class="demo-form-inline"
           label-position="right"
           label-width="100px"
           :model="addWhiteData"
           :rules="addListRules"
-          ref="addWhiteDataR"
         >
           <!--                    归属停车场信息-->
+          <p>归属停车场信息</p>
           <el-row>
-            <p>归属停车场信息</p>
             <el-col :span="12" style="display: flex;margin-left: 6%">
               <el-form-item
                 style="margin-left: 1%"
@@ -223,8 +216,8 @@
             </el-col>
           </el-row>
           <!--                白名单信息-->
+          <p>白名单信息</p>
           <el-row>
-            <p>白名单信息</p>
             <!--                白名单信息第一行车牌号 车主姓名-->
             <el-row>
               <el-col :span="12">
@@ -267,20 +260,32 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <!--                        白名单第三行车主联系地址-->
-            <el-row>
-              <el-col :span="12">
-                <el-form-item
-                  label="车主联系地址:"
-                  label-width="150px"
-                  prop="carOwnerContactAddress"
-                >
-                  <el-input
-                    style="width: 400px"
-                    v-model="addWhiteData.carOwnerContactAddress"
-                  ></el-input>
+            <!--                        白名单第五行生效失效时间-->
+            <el-row style="display: flex">
+              <el-row style="margin-left: 4%">
+                <el-form-item label="生效时间:" prop="effectiveTime">
+                  <el-date-picker
+                    v-model="addWhiteData.effectiveTime"
+                    type="datetime"
+                    style="width: 200px;"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    placeholder="请选择生效时间"
+                  >
+                  </el-date-picker>
                 </el-form-item>
-              </el-col>
+              </el-row>
+              <el-row style="margin-left: 26%">
+                <el-form-item label="失效时间:" prop="expirationTime">
+                  <el-date-picker
+                    v-model="addWhiteData.expirationTime"
+                    type="datetime"
+                    style="width: 200px;"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    placeholder="请选择失效时间"
+                  >
+                  </el-date-picker>
+                </el-form-item>
+              </el-row>
             </el-row>
             <!--                        白名单第四行车牌颜色-->
             <el-row>
@@ -302,40 +307,6 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-            </el-row>
-            <!--                        白名单第五行生效失效时间-->
-            <el-row class="addWhiteListDate">
-              <!--                        生效时间-->
-              <el-row
-                class="effectTime"
-                style="display:flex;margin-left: 6%;margin-bottom: 20px"
-              >
-                <el-col :span="12">
-                  <el-form-item label="生效时间:" prop="effectiveTime">
-                    <el-date-picker
-                      v-model="addWhiteData.effectiveTime"
-                      type="datetime"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      placeholder="请选择生效时间"
-                    >
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="失效时间：" prop="expirationTime">
-                    <el-date-picker
-                      v-model="addWhiteData.expirationTime"
-                      type="datetime"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      placeholder="请选择失效时间"
-                    >
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-row>
-            <!--                        白名单最后一行备注-->
-            <el-row>
               <!--                        车位编号-->
               <el-col :span="12">
                 <el-form-item
@@ -346,199 +317,184 @@
                   <el-input v-model="addWhiteData.parkSpaceId"></el-input>
                 </el-form-item>
               </el-col>
-              <!--                        备注-->
-              <el-col :span="12">
-                <el-form-item label="备注:" label-width="150px">
-                  <el-input v-model="addWhiteData.remark"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-row>
-        </el-form>
-      </el-row>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
-        <el-button @click="addWhiteListDialog = false">取 消</el-button>
-      </span>
-    </el-dialog>
-    <!--        修改白名单弹窗-->
-    <el-dialog
-      title="修改白名单"
-      :visible.sync="ModifyWhiteListDialog"
-      width="70%"
-      overflow="hidden"
-    >
-      <el-row>
-        <!--          归属停车场信息-->
-        <el-form
-          :inline="true"
-          class="demo-form-inline"
-          label-position="right"
-          label-width="100px"
-          v-model="modifyWhiteList"
-        >
-          <!--                    归属停车场信息-->
-          <el-row>
-            <p>归属停车场信息</p>
-            <el-col :span="12" style="display: flex;margin-left: 6%">
-              <div>
-                <p>归属停车场:</p>
-              </div>
-              <el-form-item style="margin-left: 1%">
-                <el-select
-                  v-model="modifyWhiteList.parkId"
-                  :disabled="true"
-                  placeholder="请选择停车场"
-                >
-                  <el-option
-                    v-for="(item, index) in parkLotNameList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--                白名单信息-->
-          <el-row>
-            <p>白名单信息</p>
-            <!--                白名单信息第一行车牌号 车主姓名-->
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="车牌号码:" label-width="150px">
-                  <el-input
-                    v-model="modifyWhiteList.plateNumber"
-                    :disabled="true"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="车主姓名:" label-width="150px">
-                  <el-input v-model="modifyWhiteList.carOwnerName"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <!--                        白名单第二行手机号身份证信息-->
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="手机号:" label-width="150px">
-                  <el-input v-model="modifyWhiteList.phoneNumber"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="身份证信息:" label-width="150px">
-                  <el-input v-model="modifyWhiteList.idCardNumber"></el-input>
-                </el-form-item>
-              </el-col>
             </el-row>
             <!--                        白名单第三行车主联系地址-->
             <el-row>
-              <el-col :span="12">
-                <el-form-item label="车主联系地址:" label-width="150px">
-                  <el-input
-                    style="width: 400px"
-                    v-model="modifyWhiteList.carOwnerContactAddress"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <!--                        白名单第四行车牌颜色-->
-            <el-row>
-              <el-form-item label="车牌颜色:" label-width="150px">
-                <el-select
-                  v-model="modifyWhiteList.numberPlateColorCode"
-                  placeholder="请选择"
-                >
-                  <el-option
-                    v-for="(item, index) in plateColorList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-row>
-            <!--                        白名单第五行生效失效时间-->
-            <el-row class="addWhiteListDate">
-              <!--                        生效时间-->
-              <el-row
-                class="effectTime"
-                style="display:flex;margin-left: 6%;margin-bottom: 20px"
+              <el-form-item
+                label="车主联系地址:"
+                label-width="150px"
+                prop="carOwnerContactAddress"
               >
-                <el-row>
-                  <p>生效时间:</p>
-                </el-row>
-                <el-date-picker
-                  v-model="modifyWhiteList.effectiveTime"
-                  type="datetime"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  placeholder="请选择生效时间"
-                >
-                </el-date-picker>
-              </el-row>
-              <!--                         失效时间-->
-              <div class="finishTime" style="margin-left: 29%">
-                <span>失效时间:</span>
-                <el-date-picker
-                  v-model="modifyWhiteList.expirationTime"
-                  type="datetime"
-                  value-format="yyyy-MM-dd HH:mm:ss"
-                  placeholder="请选择失效时间"
-                >
-                </el-date-picker>
-              </div>
+                <el-input
+                  style="width: 600px"
+                  v-model="addWhiteData.carOwnerContactAddress"
+                ></el-input>
+              </el-form-item>
             </el-row>
             <!--                        白名单最后一行备注-->
             <el-row>
-              <!--                        车位编号-->
-              <el-col :span="12">
-                <el-form-item label="车位编号:" label-width="150px">
-                  <el-input v-model="modifyWhiteList.parkSpaceId"></el-input>
-                </el-form-item>
-              </el-col>
-              <!--                        备注-->
-              <el-col :span="12">
-                <el-form-item label="备注:" label-width="150px">
-                  <el-input v-model="modifyWhiteList.remark"></el-input>
-                </el-form-item>
-              </el-col>
+              <el-form-item label="备注:" label-width="150px">
+                <el-input
+                  style="width: 600px"
+                  v-model="addWhiteData.remark"
+                ></el-input>
+              </el-form-item>
             </el-row>
           </el-row>
         </el-form>
-      </el-row>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="onSubmitModify()">确 定</el-button>
-        <el-button @click="ModifyWhiteListDialog = false">取 消</el-button>
-      </span>
-    </el-dialog>
-    <!--        操作中停用弹窗-->
-    <el-dialog
-      title="提示信息"
-      :visible.sync="startUpDialog"
-      top="30vh"
-      width="20%"
-    >
-      <span style="margin-left:25%;font-size: 20px ">你确定要启用吗？</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="startUp()">确 定</el-button>
-        <el-button @click="startUpDialog = false">取 消</el-button>
-      </span>
-    </el-dialog>
-    <!--        操作中启用弹窗-->
-    <el-dialog
-      title="提示信息"
-      :visible.sync="blockUpDialog"
-      top="30vh"
-      width="20%"
-    >
-      <span style="margin-left:25%;font-size: 20px ">你确定要停用吗？</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="blockUp()">确 定</el-button>
-        <el-button @click="blockUpDialog = false">取 消</el-button>
-      </span>
-    </el-dialog>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="onSubmitAdd()">确 定</el-button>
+          <!--          <el-button @click="addWhiteListDialog = false">取 消</el-button>-->
+        </span>
+      </el-dialog>
+      <!--        修改白名单弹窗-->
+      <el-dialog
+        title="修改白名单"
+        :visible.sync="ModifyWhiteListDialog"
+        width="70%"
+        overflow="hidden"
+      >
+        <el-row>
+          <!--          归属停车场信息-->
+          <el-form
+            :inline="true"
+            label-position="right"
+            label-width="100px"
+            v-model="modifyWhiteList"
+          >
+            <!--                    归属停车场信息-->
+            <el-row>
+              <p>归属停车场信息</p>
+              <el-col :span="12" style="display: flex;margin-left: 6%">
+                <div>
+                  <p>归属停车场:</p>
+                </div>
+                <el-form-item style="margin-left: 1%">
+                  <el-select
+                    v-model="modifyWhiteList.parkId"
+                    :disabled="true"
+                    placeholder="请选择停车场"
+                  >
+                    <el-option
+                      v-for="(item, index) in parkLotNameList"
+                      :label="item.name"
+                      :value="item.code"
+                      :key="index"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <!--                白名单信息-->
+            <el-row>
+              <p>白名单信息</p>
+              <!--                白名单信息第一行车牌号 车主姓名-->
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="车牌号码:" label-width="150px">
+                    <el-input
+                      v-model="modifyWhiteList.plateNumber"
+                      :disabled="true"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="车主姓名:" label-width="150px">
+                    <el-input v-model="modifyWhiteList.carOwnerName"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--                        白名单第二行手机号身份证信息-->
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="手机号:" label-width="150px">
+                    <el-input v-model="modifyWhiteList.phoneNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="身份证信息:" label-width="150px">
+                    <el-input v-model="modifyWhiteList.idCardNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--                        白名单第五行生效失效时间-->
+              <el-row style="display: flex">
+                <el-row style="margin-left: 4%">
+                  <el-form-item label="生效时间:" prop="effectiveTime">
+                    <el-date-picker
+                      v-model="modifyWhiteList.effectiveTime"
+                      type="datetime"
+                      style="width: 200px;"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                      placeholder="请选择生效时间"
+                    >
+                    </el-date-picker>
+                  </el-form-item>
+                </el-row>
+                <el-row style="margin-left: 26%">
+                  <el-form-item label="失效时间:" prop="expirationTime">
+                    <el-date-picker
+                      v-model="modifyWhiteList.expirationTime"
+                      type="datetime"
+                      style="width: 200px;"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+                      placeholder="请选择失效时间"
+                    >
+                    </el-date-picker>
+                  </el-form-item>
+                </el-row>
+              </el-row>
+              <!--                        白名单第四行车牌颜色-->
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="车牌颜色:" label-width="150px">
+                    <el-select
+                      v-model="modifyWhiteList.numberPlateColorCode"
+                      placeholder="请选择"
+                    >
+                      <el-option
+                        v-for="(item, index) in plateColorList"
+                        :label="item.name"
+                        :value="item.code"
+                        :key="index"
+                      >
+                      </el-option>
+                    </el-select> </el-form-item
+                ></el-col>
+                <!--                        车位编号-->
+                <el-col :span="12">
+                  <el-form-item label="车位编号:" label-width="150px">
+                    <el-input v-model="modifyWhiteList.parkSpaceId"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--                        白名单第三行车主联系地址-->
+              <el-row>
+                <el-form-item label="车主联系地址:" label-width="150px">
+                  <el-input
+                    style="width: 600px"
+                    v-model="modifyWhiteList.carOwnerContactAddress"
+                  ></el-input>
+                </el-form-item>
+              </el-row>
+              <!--                        白名单最后一行备注-->
+              <el-row>
+                <el-form-item label="备注:" label-width="150px">
+                  <el-input
+                    style="width: 600px"
+                    v-model="modifyWhiteList.remark"
+                  ></el-input>
+                </el-form-item>
+              </el-row>
+            </el-row>
+          </el-form>
+        </el-row>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="onSubmitModify()">确 定</el-button>
+          <!--          <el-button @click="ModifyWhiteListDialog = false">取 消</el-button>-->
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 <script>
@@ -650,12 +606,8 @@ export default {
       ModifyWhiteListDialog: false,
       //修改数据暂存
       modifyWhiteList: [],
-      //操作中停用弹窗
-      blockUpDialog: false,
       //修改中停用用数据暂存
       blockUpList: [],
-      //操作中启用弹窗
-      startUpDialog: false,
       //修改中启用数据暂存
       startUpList: []
     };
@@ -738,35 +690,31 @@ export default {
     },
     //新增白名单确认提交
     onSubmitAdd() {
-      this.$refs["addWhiteDataR"].validate(valid => {
-        if (valid) {
-          //点击提交隐藏弹窗
-          this.addWhiteListDialog = false;
-          const param = {
-            plateNumber: this.addWhiteData.plateNumber,
-            carOwnerName: this.addWhiteData.carOwnerName,
-            phoneNumber: this.addWhiteData.phoneNumber,
-            idCardNumber: this.addWhiteData.idCardNumber,
-            carOwnerContactAddress: this.addWhiteData.carOwnerContactAddress,
-            effectiveTime: this.addWhiteData.effectiveTime,
-            expirationTime: this.addWhiteData.expirationTime,
-            parkSpaceId: this.addWhiteData.parkSpaceId,
-            remark: this.addWhiteData.remark,
-            //停车场编号 停车场名称
-            parkId: this.addWhiteData.parkId,
-            //车牌颜色
-            numberPlateColorCode: this.addWhiteData.numberPlateColorCode
-          };
-          console.log("新增白名单传入的参数", param);
-          this.$listManagement.insertWhiteList(param).then(response => {
-            console.log("打印新增白名单数据", response);
-            //添加成功弹出
-            this.$message({ type: "success", message: "添加成功!" });
-            //添加成功 刷新页面 调用查询方法
-            this.queryWhiteList();
-          });
-        }
-      })
+      //点击提交隐藏弹窗
+      this.addWhiteListDialog = false;
+      const param = {
+        plateNumber: this.addWhiteData.plateNumber,
+        carOwnerName: this.addWhiteData.carOwnerName,
+        phoneNumber: this.addWhiteData.phoneNumber,
+        idCardNumber: this.addWhiteData.idCardNumber,
+        carOwnerContactAddress: this.addWhiteData.carOwnerContactAddress,
+        effectiveTime: this.addWhiteData.effectiveTime,
+        expirationTime: this.addWhiteData.expirationTime,
+        parkSpaceId: this.addWhiteData.parkSpaceId,
+        remark: this.addWhiteData.remark,
+        //停车场编号 停车场名称
+        parkId: this.addWhiteData.parkId,
+        //车牌颜色
+        numberPlateColorCode: this.addWhiteData.numberPlateColorCode
+      };
+      console.log("新增白名单传入的参数", param);
+      this.$listManagement.insertWhiteList(param).then(response => {
+        console.log("打印新增白名单数据", response);
+        //添加成功弹出
+        this.$message({ type: "success", message: "添加成功!" });
+        //添加成功 刷新页面 调用查询方法
+        this.queryWhiteList();
+      });
     },
     //删除一行
     reMove(row) {
@@ -783,7 +731,7 @@ export default {
           const param = {
             whiteListId: [row.whiteListId]
           };
-          console.log("白名单删除传入的参数", param);
+          // console.log("白名单删除传入的参数", param);
           //将参数传到delWhiteList中
           this.delWhiteList = param;
           //调用接口中的删除方法 delWhiteList
@@ -876,45 +824,54 @@ export default {
     },
     //操作中的启用按钮
     enAble(row) {
-      // console.log('一行。。。。。。。。。。。。。',row)
-      this.startUpList = row;
-      // console.log('22222222222222',this.startUpList)
-      this.startUpDialog = true;
+      this.$confirm("您确定要启用吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.startUpList = row;
+          const param = {
+            whiteListId: this.startUpList.whiteListId,
+            blackWhiteListStatusCode: "0"
+          };
+          console.log("传入的参数", param);
+          this.$listManagement.updateWhiteListStatus(param).then(response => {
+            // console.log("打印修改传入数据", response);
+            this.$message({ type: "success", message: "启用成功!" });
+            this.queryWhiteList();
+            // console.log("修改后的数据", this.startUpList);
+          });
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消启用" });
+        });
     },
-    //启用按钮弹窗
-    startUp() {
-      this.startUpDialog = false;
-      const param = {
-        whiteListId: this.startUpList.whiteListId,
-        blackWhiteListStatusCode: "0"
-      };
-      console.log("传入的参数", param);
-      this.$listManagement.updateWhiteListStatus(param).then(response => {
-        console.log("打印修改传入数据", response);
-        this.$message({ type: "success", message: "修改成功!" });
-        this.queryWhiteList();
-        console.log("修改后的数据", this.startUpList);
-      });
-    },
+
     //停用按钮
     endUse(row) {
-      this.blockUpList = row;
-      this.blockUpDialog = true;
-    },
-    //停用按钮弹窗
-    blockUp() {
-      this.blockUpDialog = false;
-      const param = {
-        whiteListId: this.blockUpList.whiteListId,
-        blackWhiteListStatusCode: "1"
-      };
-      console.log("传入的参数", param);
-      this.$listManagement.updateWhiteListStatus(param).then(response => {
-        console.log("打印修改传入数据", response);
-        this.$message({ type: "success", message: "修改成功!" });
-        this.queryWhiteList();
-        console.log("修改后的数据", this.blockUpList);
-      });
+      this.$confirm("您确定要停用吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.blockUpList = row;
+          const param = {
+            whiteListId: this.blockUpList.whiteListId,
+            blackWhiteListStatusCode: "1"
+          };
+          // console.log("传入的参数", param);
+          this.$listManagement.updateWhiteListStatus(param).then(response => {
+            // console.log("打印修改传入数据", response);
+            this.$message({ type: "success", message: "停用成功!" });
+            this.queryWhiteList();
+            // console.log("修改后的数据", this.blockUpList);
+          });
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消停用" });
+        });
     },
 
     // 斑马纹样式

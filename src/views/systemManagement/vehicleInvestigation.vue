@@ -76,16 +76,44 @@
         }"
         style="width: 98%;margin-left: 1%"
       >
-        <el-table-column fixed prop="logTime" label="日志时间">
+        <el-table-column
+          fixed
+          prop="logTime"
+          label="日志时间"
+          :show-overflow-tooltip="true"
+        >
         </el-table-column>
-        <el-table-column prop="operator" label="操作人"> </el-table-column>
-        <el-table-column prop="sysOperationTypeName" label="操作类型">
+        <el-table-column
+          prop="operator"
+          label="操作人"
+          :show-overflow-tooltip="true"
+        >
         </el-table-column>
-        <el-table-column prop="operateObject" label="操作对象" width="280px">
+        <el-table-column
+          prop="sysOperationTypeName"
+          label="操作类型"
+          :show-overflow-tooltip="true"
+        >
         </el-table-column>
-        <el-table-column fixed prop="operateResult" label="操作结果">
+        <el-table-column
+          prop="operateObject"
+          label="操作对象"
+          :show-overflow-tooltip="true"
+        >
         </el-table-column>
-        <el-table-column fixed prop="logDetail" label="日志详情" width="340px">
+        <el-table-column
+          fixed
+          prop="operateResult"
+          label="操作结果"
+          :show-overflow-tooltip="true"
+        >
+        </el-table-column>
+        <el-table-column
+          fixed
+          prop="logDetail"
+          label="日志详情"
+          :show-overflow-tooltip="true"
+        >
         </el-table-column>
       </el-table>
       <div style="float: right">
@@ -114,7 +142,7 @@ export default {
       maxLogTime: "",
       //初始化分页
       pageNum: 1,
-      pageSize: 9,
+      pageSize: 13,
       pageTotal: 1,
       //日志管理表格数据存放
       logManagementData: []
