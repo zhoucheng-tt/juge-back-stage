@@ -498,6 +498,20 @@ export default {
               format: "{value}元"
             }
           },
+          plotOptions: {
+            column: {
+              borderWidth: 0,
+              pointWidth: 25, //柱子宽度
+              dataLabels: {
+                style: {
+                  fontSize: 11
+                },
+
+                enabled: false
+              }
+            }
+          },
+
           tooltip: {
             shared: true
           },

@@ -247,7 +247,7 @@ export default {
       upQueryList: {},
       // 分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 12,
       pageTotal: 4,
       // 设置只读属性
       readonly: true,

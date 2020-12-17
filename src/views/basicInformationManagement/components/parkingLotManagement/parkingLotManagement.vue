@@ -144,7 +144,12 @@
       width="50%"
       destroy-on-close
     >
-      <el-form :inline="true" :model="newParkingLot" :rules="addListDiaRules" ref="newParkingLotR">
+      <el-form
+        :inline="true"
+        :model="newParkingLot"
+        :rules="addListDiaRules"
+        ref="newParkingLotR"
+      >
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
@@ -762,7 +767,7 @@ export default {
           this.queryParkList();
           this.addListDialogueandoff = false;
         }
-      })
+      });
     },
     //修改弹框弹出
     handleEditListDialogue(row) {

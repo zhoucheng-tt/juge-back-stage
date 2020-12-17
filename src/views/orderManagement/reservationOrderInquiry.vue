@@ -306,7 +306,7 @@ export default {
       strutsList: [],
       // 分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 12,
       pageTotal: 4,
 
       // 控制订单详情弹出框展示和隐藏属性

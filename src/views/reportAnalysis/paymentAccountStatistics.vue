@@ -214,7 +214,7 @@ export default {
       payList: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 5,
+      pageSize: 6,
       pageTotal: 12,
       // 柱状图serise中的数据
       payAnaX: [],
