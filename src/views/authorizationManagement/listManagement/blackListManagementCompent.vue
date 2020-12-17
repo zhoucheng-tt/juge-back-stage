@@ -172,6 +172,7 @@
       :visible.sync="addBlackListDialog"
       width="50%"
       overflow="hidden"
+      destroy-on-close
     >
       <!--          归属停车场信息-->
       <el-form
