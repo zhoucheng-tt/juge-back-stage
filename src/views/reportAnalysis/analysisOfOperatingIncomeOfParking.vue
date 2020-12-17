@@ -663,7 +663,7 @@ export default {
 /* 顶部查询部分 */
 .up {
   width: 98%;
-  height: 6%;
+  height: 7%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;

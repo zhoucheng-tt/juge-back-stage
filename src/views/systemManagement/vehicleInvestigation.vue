@@ -10,19 +10,16 @@
 <template>
   <div class="about">
     <!--       日志时间-->
-    <div class="top" style="margin:16px 24px;background: white">
-      <el-form
-        :inline="true"
-        :model="upQueryList"
-        size="small"
-        style="padding-top:16px;padding-left: 24px"
-      >
+    <div class="up">
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item>
           <el-date-picker
             v-model="upQueryList.minLogTime"
             format="yyyy-MM-dd HH:mm:ss"
             value-format="yyyy-MM-dd HH:mm:ss"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="选择日期时间"
           >
           </el-date-picker>
@@ -32,34 +29,34 @@
             format="yyyy-MM-dd HH:mm:ss"
             value-format="yyyy-MM-dd HH:mm:ss"
             type="datetime"
+            size="small"
+            style="width: 160px"
             placeholder="选择日期时间"
           >
           </el-date-picker>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="queryLogList">
+          <el-button type="primary" size="small" @click="queryLogList">
             查询
           </el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
         </el-form-item>
-        <el-row>
-          <el-form-item style="float: right">
-            <el-button type="primary" @click="exportLogList">
-              导出
-            </el-button>
-          </el-form-item>
-        </el-row>
       </el-form>
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="exportLogList">
+          导出
+        </el-button>
+      </el-row>
     </div>
     <!--        日志管理表格-->
-    <div
-      class="table"
-      style="width: 97%;margin:0  22px;background-color: white"
-    >
+    <div class="down">
       <!--数据表格-->
       <el-table
         :data="logManagementData"
+        :row-class-name="tableRowClassName"
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -67,16 +64,17 @@
           border: 'none',
           padding: 'none',
           fontSize: '14px',
-          letterSpacing: '0.56px'
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
         :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
-          color: '#333333'
+          color: '#333333',
+          'text-align': 'center'
         }"
-        :row-class-name="tableRowClassName"
-        style="margin:0 15px"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column fixed prop="logTime" label="日志时间">
         </el-table-column>
@@ -90,16 +88,17 @@
         <el-table-column fixed prop="logDetail" label="日志详情" width="340px">
         </el-table-column>
       </el-table>
-      <!--分页条-->
-      <el-pagination
-        style="position: relative;left: 67%"
-        @current-change="handleCurrentModify"
-        layout=" total,prev, pager, next, jumper"
-        :current-page="pageNum"
-        :page-size="pageSize"
-        :total="pageTotal"
-      >
-      </el-pagination>
+      <div style="float: right">
+        <!--分页条-->
+        <el-pagination
+          @current-change="handleCurrentModify"
+          layout=" total,prev, pager, next, jumper"
+          :current-page="pageNum"
+          :page-size="pageSize"
+          :total="pageTotal"
+        >
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -173,20 +172,45 @@ export default {
 </script>
 <style scoped>
 .about {
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
 }
+/*查询*/
+.up {
+  width: 98%;
+  height: 11%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
+}
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
+/* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  padding: 1%;
-  background: white;
-  margin: 16px 24px;
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
+  background: #f8f9fa !important;
+}
+
+/deep/ .el-table .successSecond {
   background: white !important;
 }
-/deep/ .el-table .successSecond {
-  background: #eaf0f6 !important;
+
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
 }
 </style>

@@ -9,39 +9,204 @@
 -->
 <template>
   <div class="all">
-    <h2 class="h2">停车场平面(层)配置</h2>
+    <b style="font-size: 18px">停车场平面(层)配置</b>
     <!--上半部分查询-->
     <div class="up">
-      <el-row>
-        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-          <el-form-item>
-            <el-select
-              v-model="upQueryList.queryParkId"
-              placeholder="请选择停车场"
-            >
-              <el-option label="全部" value="0"></el-option>
-              <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item>
-            <el-button type="primary" @click="selectQueryList">查询</el-button>
-            <el-button type="primary" @click="resetQuery">重置</el-button>
-          </el-form-item>
-          <el-row>
-            <el-form-item>
-              <el-button type="primary" @click="addInletAndOutlet"
-                >新增停车场平面(层)</el-button
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form-item label="停车场：">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.queryParkId"
+            placeholder="请选择停车场"
+          >
+            <el-option label="全部" value="0"></el-option>
+            <el-option
+              v-for="(item, index) in parkingLotList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="selectQueryList"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item></el-form
+      >
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addInletAndOutlet"
+          >新增停车场平面(层)</el-button
+        >
+      </el-row>
+    </div>
+    <!--下半部分列表-->
+    <div class="down">
+        <el-table
+          :data="parkLayerList"
+          ref="selectParkLayerList"
+          @selection-change="handleSelectParkLayerList"
+          :row-class-name="tableRowClassName"
+          :header-cell-style="{
+            fontfamily: 'PingFangSC-Medium',
+            background: '#FFFFFF',
+            color: '#333333',
+            border: 'none',
+            padding: 'none',
+            fontSize: '14px',
+            letterSpacing: '0.56px',
+            'text-align': 'center'
+          }"
+          :cell-style="{
+            fontfamily: 'PingFangSC-Regular',
+            letterSpacing: '0.56px',
+            fontSize: '14px',
+            color: '#333333',
+            'text-align': 'center'
+          }"
+          style="width: 98%;margin-left: 1%"
+        >
+          <el-table-column type="index" label="选择" align="center" width="80">
+            <template slot-scope="scope">
+              <el-radio
+                v-model="currentRowId"
+                :label="scope.row.parkLayerId"
+                @change="changeRedio($event, scope.row)"
               >
-            </el-form-item>
-          </el-row>
-        </el-form>
-        <!--        -->
+                <span></span>
+              </el-radio>
+            </template>
+          </el-table-column>
+          <!--          <el-table-column-->
+          <!--                  prop="parkId"-->
+          <!--                  label="停车场编号"-->
+          <!--                  width="100"-->
+          <!--          ></el-table-column>-->
+          <el-table-column
+            prop="parkName"
+            :show-overflow-tooltip="true"
+            label="停车场名称"
+          ></el-table-column>
+          <!--          <el-table-column-->
+          <!--                  prop="parkLayerId"-->
+          <!--                  :show-overflow-tooltip="true"-->
+          <!--                  label="停车场平面(层)编号"-->
+          <!--          ></el-table-column>-->
+          <el-table-column
+            prop="parkLayerName"
+            :show-overflow-tooltip="true"
+            label="停车场平面(层)名称"
+          ></el-table-column>
+          <el-table-column
+            prop="remark"
+            :show-overflow-tooltip="true"
+            label="描述"
+          ></el-table-column>
+          <el-table-column
+            prop="parkSpaceNum"
+            :show-overflow-tooltip="true"
+            label="车位数(个)"
+          ></el-table-column>
+          <el-table-column
+            prop="layerMapFile"
+            :show-overflow-tooltip="true"
+            label="平面(层)图文件"
+          ></el-table-column>
+          <el-table-column
+            prop="parkSpaceLocationFile"
+            :show-overflow-tooltip="true"
+            label="车位位置配置文件"
+          ></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" label="操作">
+            <template slot-scope="scope">
+              <el-button
+                @click="editListDialogue(scope.row)"
+                type="text"
+                size="small"
+                >修改</el-button
+              >
+              <el-button
+                @click="deleteListDialogue(scope.row)"
+                type="text"
+                size="small"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+    </div>
+    <div style=";margin-top: 1%">
+      <b style="font-size: 18px">停车场平面(层)车位配置</b>
+    </div>
+    <div class="up-1">
+      <el-button type="primary" size="small"  style="margin-left: 1%;margin-top: 0.5%" @click="importData"
+      >批量导入车位配置数据</el-button
+      >
+    </div>
+      <div class="down-2">
+        <el-table
+          :data="parkSpaceList"
+          ref="selectParkSpaceList"
+          @selection-change="handleSelectParkSpaceList"
+          :row-class-name="tableRowClassName"
+          :header-cell-style="{
+            fontfamily: 'PingFangSC-Medium',
+            background: '#FFFFFF',
+            color: '#333333',
+            border: 'none',
+            padding: 'none',
+            fontSize: '14px',
+            letterSpacing: '0.56px',
+            'text-align': 'center'
+          }"
+          :cell-style="{
+            fontfamily: 'PingFangSC-Regular',
+            letterSpacing: '0.56px',
+            fontSize: '14px',
+            color: '#333333',
+            'text-align': 'center'
+          }"
+          style="width: 98%;margin-left: 1%"
+        >
+          <el-table-column width="55"></el-table-column>
+          <el-table-column prop="parkSpaceId" label="车位号"></el-table-column>
+          <el-table-column
+            prop="belongRegion"
+            :show-overflow-tooltip="true"
+            label="归属区域"
+          ></el-table-column>
+          <el-table-column
+            prop="parkSpaceDetecterTypeName"
+            :show-overflow-tooltip="true"
+            label="车位检测器类型"
+          >
+          </el-table-column>
+          <!--          <el-table-column-->
+          <!--                  prop="parkSpaceDetecterId"-->
+          <!--                  :show-overflow-tooltip="true"-->
+          <!--                  label="车位检测器编号"-->
+          <!--          ></el-table-column>-->
+          <!--          <el-table-column-->
+          <!--                  prop="groundLock"-->
+          <!--                  :show-overflow-tooltip="true"-->
+          <!--                  label="地锁编号"-->
+          <!--          ></el-table-column>-->
+          <el-table-column :show-overflow-tooltip="true" label="操作">
+            <template slot-scope="scope">
+              <el-button
+                @click="configurationDialogue(scope.row)"
+                type="text"
+                size="small"
+                >配置</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--     新增停车场平面弹窗   -->
         <el-dialog
           id="add"
           title="新增停车场平面(层)"
@@ -197,96 +362,6 @@
             <el-button type="primary" @click="addInfoInsert">保 存</el-button>
           </div>
         </el-dialog>
-      </el-row>
-    </div>
-    <!--下半部分列表-->
-    <div class="down">
-      <div>
-        <el-table
-          :data="parkLayerList"
-          :row-class-name="tableRowClassName"
-          ref="selectParkLayerList"
-          @selection-change="handleSelectParkLayerList"
-          :header-cell-style="{
-            'text-align': 'center',
-            background: '#24314A',
-            color: '#FFF',
-            border: 'none',
-            padding: 'none',
-            fontSize: '12px',
-            fontWeight: '100'
-          }"
-          :cell-style="{ 'text-align': 'center' }"
-          style="width: 100%;"
-        >
-          <el-table-column type="index" label="选择" align="center" width="80">
-            <template slot-scope="scope">
-              <el-radio
-                v-model="currentRowId"
-                :label="scope.row.parkLayerId"
-                @change="changeRedio($event, scope.row)"
-              >
-                <span></span>
-              </el-radio>
-            </template>
-          </el-table-column>
-          <!--          <el-table-column-->
-          <!--                  prop="parkId"-->
-          <!--                  label="停车场编号"-->
-          <!--                  width="100"-->
-          <!--          ></el-table-column>-->
-          <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
-          ></el-table-column>
-          <!--          <el-table-column-->
-          <!--                  prop="parkLayerId"-->
-          <!--                  :show-overflow-tooltip="true"-->
-          <!--                  label="停车场平面(层)编号"-->
-          <!--          ></el-table-column>-->
-          <el-table-column
-            prop="parkLayerName"
-            :show-overflow-tooltip="true"
-            label="停车场平面(层)名称"
-          ></el-table-column>
-          <el-table-column
-            prop="remark"
-            :show-overflow-tooltip="true"
-            label="描述"
-          ></el-table-column>
-          <el-table-column
-            prop="parkSpaceNum"
-            :show-overflow-tooltip="true"
-            label="车位数"
-          ></el-table-column>
-          <el-table-column
-            prop="layerMapFile"
-            :show-overflow-tooltip="true"
-            label="平面(层)图文件"
-          ></el-table-column>
-          <el-table-column
-            prop="parkSpaceLocationFile"
-            :show-overflow-tooltip="true"
-            label="车位位置配置文件"
-          ></el-table-column>
-          <el-table-column :show-overflow-tooltip="true" label="操作">
-            <template slot-scope="scope">
-              <el-button
-                @click="editListDialogue(scope.row)"
-                type="text"
-                size="small"
-                >修改</el-button
-              >
-              <el-button
-                @click="deleteListDialogue(scope.row)"
-                type="text"
-                size="small"
-                >删除</el-button
-              >
-            </template>
-          </el-table-column>
-        </el-table>
         <!-- 信息修改点击弹出框 -->
         <el-dialog
           title="修改停车场平面(层)配置管理"
@@ -380,67 +455,6 @@
             <el-button type="primary" @click="InfoInsert">确 定</el-button>
           </div>
         </el-dialog>
-      </div>
-      <div>
-        <h2>停车场平面（层）车位配置</h2>
-        <el-button type="primary" @click="importData"
-          >批量导入车位配置数据</el-button
-        >
-        <el-table
-          :data="parkSpaceList"
-          :row-class-name="tableRowClassName"
-          ref="selectParkSpaceList"
-          @selection-change="handleSelectParkSpaceList"
-          :header-cell-style="{
-            'text-align': 'center',
-            background: '#24314A',
-            color: '#FFF',
-            border: 'none',
-            padding: 'none',
-            fontSize: '12px',
-            fontWeight: '100'
-          }"
-          :cell-style="{ 'text-align': 'center' }"
-          style="width: 100%;"
-        >
-          <el-table-column width="55"></el-table-column>
-          <el-table-column
-            prop="parkSpaceId"
-            label="车位号"
-            width="100"
-          ></el-table-column>
-          <el-table-column
-            prop="belongRegion"
-            :show-overflow-tooltip="true"
-            label="归属区域"
-          ></el-table-column>
-          <el-table-column
-            prop="parkSpaceDetecterTypeName"
-            :show-overflow-tooltip="true"
-            label="车位检测器类型"
-          >
-          </el-table-column>
-          <!--          <el-table-column-->
-          <!--                  prop="parkSpaceDetecterId"-->
-          <!--                  :show-overflow-tooltip="true"-->
-          <!--                  label="车位检测器编号"-->
-          <!--          ></el-table-column>-->
-          <!--          <el-table-column-->
-          <!--                  prop="groundLock"-->
-          <!--                  :show-overflow-tooltip="true"-->
-          <!--                  label="地锁编号"-->
-          <!--          ></el-table-column>-->
-          <el-table-column :show-overflow-tooltip="true" label="操作">
-            <template slot-scope="scope">
-              <el-button
-                @click="configurationDialogue(scope.row)"
-                type="text"
-                size="small"
-                >配置</el-button
-              >
-            </template>
-          </el-table-column>
-        </el-table>
         <!-- 信息配置点击弹出框 -->
         <el-dialog title="配置车位" :visible.sync="configurationDialogueandoff">
           <el-form
@@ -832,71 +846,87 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* 上半部分查询部分 */
-  .up {
-    width: 100%;
-    height: 15%;
-    float: left;
-  }
 }
-
+/*查询*/
+.up {
+  width: 98%;
+  height: 13%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
+}
+.up-1{
+  width: 98%;
+  height: 50px;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
+}
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 40%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
+.down-2{
+  width: 98%;
+  height: 40%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
+}
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
   margin-top: 0.5%;
-  padding-left: 2%;
 }
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0;
-}
+/*!* 表格表头样式 *!*/
+/*.el-table__header-wrapper {*/
+/*  width: 100%;*/
+/*  height: 0;*/
+/*}*/
 
 /* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
+/*/deep/ .el-dialog {*/
+/*  width: 50%;*/
+/*}*/
 
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 100%;
-}
+/*<!--!* 弹出框内表单样式控制 *!-->*/
+/*<!--.el-form-item-dialog {-->*/
+/*<!--  width: 100%;-->*/
+/*<!--}-->*/
 
-.el-form-item-dialog1 {
-  width: 100%;
-  margin-left: -10%;
-}
+/*<!--.el-form-item-dialog1 {-->*/
+/*<!--  width: 100%;-->*/
+/*<!--  margin-left: -10%;-->*/
+/*<!--}-->*/
 
-/*设置修改表单内文字*/
-/deep/ .el-form-item__label {
-  width: 30%;
-}
+/*<!--!*设置修改表单内文字*!-->*/
+/*<!--/deep/ .el-form-item__label {-->*/
+/*<!--  width: 30%;-->*/
+/*<!--}-->*/
 
 #add {
   height: auto;
-}
-
-.h2 {
-  padding: 0;
-  margin: 0;
 }
 
 .form-all {

@@ -124,10 +124,8 @@
         <el-table-column prop="parkSpaceUsedRate" label="车位利用率(%)" />
         <el-table-column prop="parkSpaceTurnoverRate" label="车位周转率(%)" />
       </el-table>
-      <div style="width:100%;height:10%;">
+      <div style="float: right">
         <el-pagination
-          style="position: absolute;right: 1px;"
-          background
           layout="total, prev, pager, next, jumper"
           :page-size="pageSize"
           @current-change="handleCurrentModify"
@@ -959,7 +957,7 @@ export default {
 /* 顶部查询部分 */
 .up {
   width: 98%;
-  height: 6%;
+  height: 7%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;

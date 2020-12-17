@@ -7,142 +7,93 @@
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\carWashingMachineManagement.vue
 -->
-<template xmlns:el-col="http://www.w3.org/1999/html">
+<template>
   <div class="all">
     <!--上半部分查询-->
     <div class="up">
-      <el-row>
-        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-          <el-form-item label="计费规则名称:">
-            <el-input
-              v-model="upQueryList.chargeModeName"
-              placeholder="请输入计费规则名称"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="停车场：">
-            <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
-              <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.parkingName"
-                :value="item.parkingName"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="selectQueryList">查询</el-button>
-            <el-button type="primary" @click="resetQuery">重置</el-button>
-          </el-form-item>
-          <el-row class="demo-form-inline-two">
-            <el-form-item>
-              <el-button type="primary" @click="addChargeMode"
-                >新增规则</el-button
-              >
-              <el-button type="danger" @click="batchDelete()"
-                >批量删除</el-button
-              >
-            </el-form-item>
-          </el-row>
-        </el-form>
-      </el-row>
-      <el-dialog
-        id="add"
-        title="新增洗车机计费规则"
-        :visible.sync="addListDialogueandoff"
-      >
-        <el-form
-          :inline="true"
-          :model="upQueryList"
-          class="demo-form-inline"
-          :rules="addListDiaRules"
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form-item label="计费规则名称:">
+          <el-input
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.chargeModeName"
+            placeholder="计费规则名称"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="停车场:">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.TingNum"
+            placeholder="请选择停车场"
+          >
+            <el-option
+              v-for="(item, index) in parkingLotList"
+              :label="item.parkingName"
+              :value="item.parkingName"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="selectQueryList"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
+      </el-form>
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addChargeMode"
+          >新增规则</el-button
         >
-          <div style="font-size: 20px">停车场信息</div>
-          <el-col offset="1">
-            <el-form-item label="归属停车场" prop="TingNum">
-              <el-select
-                v-model="upQueryList.TingNum"
-                placeholder="请选择停车场"
-              >
-                <el-option
-                  v-for="(item, index) in parkingLotList"
-                  :label="item.parkingName"
-                  :value="item.parkingName"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <div style="font-size: 20px">计费规则信息</div>
-          <el-col offset="1">
-            <el-form-item label="计费规则类型" prop="chargeMode">
-              <el-select
-                v-model="upQueryList.chargeMode"
-                placeholder="请选择计费类型"
-              >
-                <el-option
-                  v-for="(item, index) in chargeModeList"
-                  :label="item.chargeMode"
-                  :value="item.chargeMode"
-                  :key="index"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col offset="1">
-            <el-form-item label="计费规则名称" prop="chargeModeName">
-              <el-input
-                v-model="upQueryList.chargeModeName"
-                placeholder="请输入计费规则名称"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col offset="1">
-            <el-form-item label="收费标准"></el-form-item>
-          </el-col>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="addListDialogueandoff = false">取 消</el-button>
-          <el-button type="primary" @click="addInfoInsert">保 存</el-button>
-        </div>
-      </el-dialog>
+        <el-button type="danger" size="small" @click="batchDelete()"
+          >批量删除</el-button
+        >
+      </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
         :data="chargeModeManagement"
-        :row-class-name="tableRowClassName"
         ref="selectChargeModeManagement"
         @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column
           prop="chargeModeNumber"
           label="计费规则编号"
-          width="100"
         ></el-table-column>
         <el-table-column
           prop="chargeModeName"
           :show-overflow-tooltip="true"
           label="计费规则名称"
-          width=""
         >
         </el-table-column>
         <el-table-column
           prop="chargeModeType"
           :show-overflow-tooltip="true"
           label="计费规则类型"
-          width=""
         >
         </el-table-column>
         <el-table-column
@@ -173,17 +124,70 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: absolute;right:4%;margin-top:20px"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
-      >
-      </el-pagination>
+      <div style="float: right">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+        >
+        </el-pagination>
+      </div>
     </div>
+    <el-dialog title="新增洗车机计费规则" :visible.sync="addListDialogueandoff">
+      <el-form
+        :inline="true"
+        :model="upQueryList"
+        class="demo-form-inline"
+        :rules="addListDiaRules"
+      >
+        <div style="font-size: 20px">停车场信息</div>
+        <el-col offset="1">
+          <el-form-item label="归属停车场" prop="TingNum">
+            <el-select v-model="upQueryList.TingNum" placeholder="请选择停车场">
+              <el-option
+                v-for="(item, index) in parkingLotList"
+                :label="item.parkingName"
+                :value="item.parkingName"
+                :key="index"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <div style="font-size: 20px">计费规则信息</div>
+        <el-col offset="1">
+          <el-form-item label="计费规则类型" prop="chargeMode">
+            <el-select
+              v-model="upQueryList.chargeMode"
+              placeholder="请选择计费类型"
+            >
+              <el-option
+                v-for="(item, index) in chargeModeList"
+                :label="item.chargeMode"
+                :value="item.chargeMode"
+                :key="index"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col offset="1">
+          <el-form-item label="计费规则名称" prop="chargeModeName">
+            <el-input
+              v-model="upQueryList.chargeModeName"
+              placeholder="请输入计费规则名称"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col offset="1">
+          <el-form-item label="收费标准"></el-form-item>
+        </el-col>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addListDialogueandoff = false">取 消</el-button>
+        <el-button type="primary" @click="addInfoInsert">保 存</el-button>
+      </div>
+    </el-dialog>
     <!-- 信息详情点击弹出框 -->
     <el-dialog title="计费规则详情" :visible.sync="showListdialogueandoff">
       <el-form
@@ -481,59 +485,42 @@ export default {
   overflow: hidden;
 }
 
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 15%;
-  float: left;
+  width: 98%;
+  height: 11%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
-
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 85%;
-  margin-top: 1%;
-  padding-left: 2%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-.demo-form-inline-two {
-  height: 70px;
-  margin-left: 85%;
-  /*background-color: red;*/
-}
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
-}
-
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
-
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
-
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
-
-#add {
-  height: auto;
+  background: white !important;
 }
 </style>

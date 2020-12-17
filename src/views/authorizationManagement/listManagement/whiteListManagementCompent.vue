@@ -8,18 +8,19 @@
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\authorizationManagement\listManagement\whiteListManagementCompent.vue
 -->
 <template>
-  <div>
+  <div class="all">
     <!--        顶部车牌号一栏-->
-    <div class="plate">
+    <div class="up">
       <el-form
         :inline="true"
         :model="whiteManagementList"
         class="demo-form-inline"
       >
         <!--        车牌号输入框-->
-
         <el-form-item label="车牌号">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="whiteManagementList.plateNumber"
             placeholder="请输入车牌号"
           ></el-input>
@@ -29,6 +30,8 @@
 
         <el-form-item label="停车场">
           <el-select
+            size="small"
+            style="width: 160px"
             v-model="whiteManagementList.parkId"
             placeholder="请选择停车场"
           >
@@ -42,34 +45,49 @@
         </el-form-item>
         <!--                查询按钮-->
         <el-form-item>
-          <el-button type="primary" @click="queryWhiteList">查询</el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" size="small" @click="queryWhiteList"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
         </el-form-item>
-        <el-row style="height: 45px">
-          <el-form-item>
-            <!--            新增白名单-->
-            <el-button type="primary" @click="addWhiteList"
-              >新增白名单
-            </el-button>
-            <!--            批量删除-->
-            <el-button type="danger" @click="deleteInBatches"
-              >批量删除
-            </el-button>
-          </el-form-item>
-        </el-row>
       </el-form>
+      <el-row class="line-2">
+        <!--            新增白名单-->
+        <el-button type="primary" size="small" @click="addWhiteList"
+          >新增白名单
+        </el-button>
+        <!--            批量删除-->
+        <el-button type="danger" size="small" @click="deleteInBatches"
+          >批量删除
+        </el-button>
+      </el-row>
     </div>
-    <div class="table" style="margin:0 24px">
+    <div class="down">
       <el-table
         :data="parkingLotInformation"
-        stripe
-        :header-cell-style="{
-          fontSize: '14px'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
         ref="selectionRow"
         @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
+        }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
         <!--        <el-table-column fixed prop="parkId" label="停车场编号" />-->
@@ -149,16 +167,17 @@
             </el-button>
           </template>
         </el-table-column>
-        <!--分页条-->
-        <el-pagination
-          style="position: relative;left: 84%"
-          @current-change="handleCurrentModify"
-          layout="total, prev, pager, next, jumper"
-          :current-page="pageNum"
-          :page-size="pageSize"
-          :total="pageTotal"
-        >
-        </el-pagination>
+        <div style="float: right;">
+          <!--分页条-->
+          <el-pagination
+            @current-change="handleCurrentModify"
+            layout="total, prev, pager, next, jumper"
+            :current-page="pageNum"
+            :page-size="pageSize"
+            :total="pageTotal"
+          >
+          </el-pagination>
+        </div>
       </el-table>
     </div>
     <!--        新增白名单弹窗-->
@@ -905,23 +924,47 @@ export default {
 };
 </script>
 <style scoped>
-/*新增白名单弹窗中的失效时间生效时间样式*/
-.addWhiteListDate {
-  display: flex;
+.all {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
-
+/*查询*/
+.up {
+  width: 98%;
+  height: 12%;
+  background-color: white;
+  margin-left: 1%;
+  /*margin-top: 0.5%;*/
+}
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
+/* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  padding-left: 2%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #333333 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
   background: white !important;
+}
+
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 </style>

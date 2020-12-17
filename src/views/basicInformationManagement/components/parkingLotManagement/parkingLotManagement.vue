@@ -1,5 +1,5 @@
 <!--
-    停车场运营收入分析
+    停车场管理
  * @Author: 邵青阳
  * @Date: 2020-10-20 09:41:41
  * @LastEditTime: 2020-10-20 10:24:11
@@ -12,17 +12,17 @@
     <!--上半部分查询-->
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
-        <el-row>
-          <el-form-item>
-            <el-button type="primary" @click="addInletAndOutlet()"
-              >新增停车场</el-button
-            >
-            <el-button type="primary" @click="exportExcel()">导出</el-button>
-            <el-button type="danger" @click="deleteSelect()"
-              >批量删除</el-button
-            >
-          </el-form-item>
-        </el-row>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="addInletAndOutlet()"
+            >新增停车场</el-button
+          >
+          <el-button type="primary" size="small" @click="exportExcel()"
+            >导出</el-button
+          >
+          <el-button type="danger" size="small" @click="deleteSelect()"
+            >批量删除</el-button
+          >
+        </el-form-item>
       </el-form>
     </div>
     <!--下半部分列表-->
@@ -30,19 +30,26 @@
       <el-table
         :data="parkList"
         ref="selectParkingLotList"
+        @selection-change="handleSelectionChange"
         :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-        @selection-change="handleSelectionChange"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" width="55" />
         <el-table-column
@@ -118,16 +125,16 @@
           </template>
         </el-table-column>
       </el-table>
-      <!--分页条-->
-      <el-pagination
-        style="position: relative;left: 78%"
-        background
-        layout="total, prev, pager, next, jumper"
-        :page-size="pageSize"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-      />
+      <div style="float: right">
+        <!--分页条-->
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+        ></el-pagination>
+      </div>
     </div>
     <!--新增表单弹框-->
     <el-dialog
@@ -973,35 +980,36 @@ export default {
   overflow: hidden;
 }
 
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 55px;
-  float: left;
+  width: 98%;
+  height: 7%;
+  background-color: white;
+  margin-left: 1%;
+  /*margin-top: 0.5%;*/
 }
-
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 88%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  /*margin-top: 1%;*/
-  /*margin-left: 80%;*/
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 
 /* 表格表头样式 */

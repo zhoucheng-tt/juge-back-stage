@@ -11,107 +11,77 @@
   <div class="all">
     <!--上半部分查询-->
     <div class="up">
-      <el-row>
-        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
-          <el-form-item label="ETC名称:">
-            <el-input
-              v-model="upQueryList.etcName"
-              placeholder="请输入ETC名称"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="停车场：">
-            <el-select
-              v-model="upQueryList.queryParkId"
-              placeholder="请选择停车场"
-            >
-              <el-option label="全部" value=""></el-option>
-              <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.name"
-                :value="item.name"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="queryETCList">查询</el-button>
-            <el-button type="primary" @click="resetQuery">重置</el-button>
-          </el-form-item>
-          <el-row>
-            <el-form-item>
-              <el-button type="primary" @click="addETC">新增ETC</el-button>
-              <el-button type="primary" @click="exportExcel()">导出</el-button>
-              <el-button type="danger" @click="deleteETC">批量删除</el-button>
-            </el-form-item>
-          </el-row>
-        </el-form>
-      </el-row>
-      <!-- 新增ETC弹框 -->
-      <el-dialog title="新增ETC信息" :visible.sync="dialogAdd" destroy-on-close>
-        <el-form
-          :inline="true"
-          :rules="rules"
-          ref="addETC"
-          :model="addETCForm"
-          class="demo-form-inline"
-          label-width="150px"
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form-item label="ETC名称:">
+          <el-input
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.etcName"
+            placeholder="请输入ETC名称"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="停车场：">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.queryParkId"
+            placeholder="请选择停车场"
+          >
+            <el-option label="全部" value=""></el-option>
+            <el-option
+              v-for="(item, index) in parkingLotList"
+              :label="item.name"
+              :value="item.name"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="queryETCList"
+            >查询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
+      </el-form>
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addETC"
+          >新增ETC</el-button
         >
-          <el-form-item label="归属停车场:" prop="parkName">
-            <el-select v-model="addETCForm.parkName" placeholder="请选择停车场">
-              <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.name"
-                :value="item.name"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="ETC编号:" prop="etcNumber">
-            <el-input
-              v-model="addETCForm.etcNumber"
-              placeholder="请输入ETC编号"
-            />
-          </el-form-item>
-          <el-form-item label="ETC名称:" prop="etcName">
-            <el-input
-              v-model="addETCForm.etcName"
-              placeholder="请输入ETC名称"
-            />
-          </el-form-item>
-          <el-form-item label="类型:" prop="type">
-            <el-input v-model="addETCForm.type" placeholder="请输入类型" />
-          </el-form-item>
-          <el-form-item label="描述:" prop="description">
-            <el-input
-              v-model="addETCForm.description"
-              placeholder="请输入描述"
-            />
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogAdd = false">取 消</el-button>
-          <el-button type="primary" @click="addInfoInsert">确 定</el-button>
-        </div>
-      </el-dialog>
+        <el-button type="primary" size="small" @click="exportExcel()"
+          >导出</el-button
+        >
+        <el-button type="danger" size="small" @click="deleteETC"
+          >批量删除</el-button
+        >
+      </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
         :data="ETCInformationManagement"
-        :row-class-name="tableRowClassName"
         ref="selectETC"
         @selection-change="handleSelectETC"
+        :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
         <!--        <el-table-column prop="etcNumber" label="ETC编号"></el-table-column>-->
@@ -158,17 +128,58 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: absolute;right:4%;margin-top:20px"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
-      >
-      </el-pagination>
+      <div style="float: right;">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+        >
+        </el-pagination>
+      </div>
     </div>
+    <!-- 新增ETC弹框 -->
+    <el-dialog title="新增ETC信息" :visible.sync="dialogAdd" destroy-on-close>
+      <el-form
+        :inline="true"
+        :rules="rules"
+        ref="addETC"
+        :model="addETCForm"
+        class="demo-form-inline"
+        label-width="150px"
+      >
+        <el-form-item label="归属停车场:" prop="parkName">
+          <el-select v-model="addETCForm.parkName" placeholder="请选择停车场">
+            <el-option
+              v-for="(item, index) in parkingLotList"
+              :label="item.name"
+              :value="item.name"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="ETC编号:" prop="etcNumber">
+          <el-input
+            v-model="addETCForm.etcNumber"
+            placeholder="请输入ETC编号"
+          />
+        </el-form-item>
+        <el-form-item label="ETC名称:" prop="etcName">
+          <el-input v-model="addETCForm.etcName" placeholder="请输入ETC名称" />
+        </el-form-item>
+        <el-form-item label="类型:" prop="type">
+          <el-input v-model="addETCForm.type" placeholder="请输入类型" />
+        </el-form-item>
+        <el-form-item label="描述:" prop="description">
+          <el-input v-model="addETCForm.description" placeholder="请输入描述" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogAdd = false">取 消</el-button>
+        <el-button type="primary" @click="addInfoInsert">确 定</el-button>
+      </div>
+    </el-dialog>
     <!-- 信息详情点击弹出框 -->
     <el-dialog title="ETC详情" :visible.sync="showListdialogueandoff">
       <el-form
@@ -454,36 +465,44 @@ export default {
   overflow: hidden;
 }
 
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 7%;
-  float: left;
+  width: 98%;
+  height: 12%;
+  background-color: white;
+  margin-left: 1%;
+  /*margin-top: 0.5%;*/
 }
-
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 85%;
-  padding-left: 2%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
+}
 /* 表格表头样式 */
 .el-table__header-wrapper {
   width: 100%;

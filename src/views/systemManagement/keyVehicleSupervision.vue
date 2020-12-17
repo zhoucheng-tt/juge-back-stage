@@ -10,21 +10,20 @@
 <template>
   <div class="about">
     <!--上边部分-->
-    <div class="top" style="margin: 16px 24px;background: white">
-      <el-form
-        :inline="true"
-        :model="upQueryList"
-        style="padding-top:16px;padding-left: 24px"
-        size="small"
-      >
+    <div class="up">
+      <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="用户账号：">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="upQueryList.userAccount"
             placeholder="请输入账号"
           ></el-input>
         </el-form-item>
         <el-form-item label="用户姓名：">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="upQueryList.name"
             placeholder="请输入姓名"
           ></el-input>
@@ -39,54 +38,56 @@
           </el-button>
           <el-button @click="resetQuery" size="small">重置</el-button>
         </el-form-item>
-        <el-row>
-          <el-form-item style="float: right;">
-            <!--新增用户-->
-            <el-button
-              type="primary"
-              class="middle-add"
-              @click="addUser"
-              size="small"
-              >新增用户
-            </el-button>
-
-            <el-button
-              type="primary"
-              class="top-exPort"
-              @click="exPort"
-              size="small"
-              >导出
-            </el-button>
-          </el-form-item>
-        </el-row>
       </el-form>
+      <el-row class="line-2">
+        <!--新增用户-->
+        <el-button type="primary" @click="addUser" size="small"
+          >新增用户
+        </el-button>
+        <el-button type="primary" @click="exPort" size="small">导出 </el-button>
+      </el-row>
     </div>
     <!--表格部分-->
-    <div class="table" style="padding: 16px 24px">
-      <div style="background: white;margin: 145px 0">
-        <el-table
-          width="100%"
-          stripe
-          :data="tableData"
-          :cell-style="{ padding: '10px' }"
-          :header-cell-style="{ padding: '10px' }"
-        >
-          <el-table-column fixed prop="userAccount" label="用户账号">
-          </el-table-column>
-          <el-table-column prop="name" label="用户姓名"> </el-table-column>
-          <el-table-column prop="phoneNumber" label="手机号"> </el-table-column>
-          <el-table-column prop="email" label="邮箱"> </el-table-column>
-          <el-table-column label="操作">
-            <template slot-scope="scope">
-              <el-button @click="check(scope.row)" type="text">查看</el-button>
-              <el-button @click="alter(scope.row)" type="text">修改</el-button>
-              <el-button @click="del(scope.row)" type="text">删除</el-button>
-              <el-button @click="retPassword(scope.row)" type="text"
-                >密码重置</el-button
-              >
-            </template>
-          </el-table-column>
-        </el-table>
+    <div class="down">
+      <el-table
+        :data="tableData"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
+        }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
+      >
+        <el-table-column fixed prop="userAccount" label="用户账号">
+        </el-table-column>
+        <el-table-column prop="name" label="用户姓名"> </el-table-column>
+        <el-table-column prop="phoneNumber" label="手机号"> </el-table-column>
+        <el-table-column prop="email" label="邮箱"> </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button @click="check(scope.row)" type="text">查看</el-button>
+            <el-button @click="alter(scope.row)" type="text">修改</el-button>
+            <el-button @click="del(scope.row)" type="text">删除</el-button>
+            <el-button @click="retPassword(scope.row)" type="text"
+              >密码重置</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+      <div style="float: right">
         <!--分页条-->
         <el-pagination
           @current-change="handleCurrentModify"
@@ -94,11 +95,9 @@
           :current-page="pageNum"
           :page-size="pageSize"
           :total="pageTotal"
-          style="position: relative;left: 83%;top:1%"
         >
         </el-pagination>
       </div>
-
       <!--新增用户弹窗-->
       <el-dialog
         title="新增用户"
@@ -711,58 +710,46 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-
-/* 上半部分输入框查询导出 */
-.top {
-  width: 97.5%;
-  height: 13%;
-  float: left;
+/*查询*/
+.up {
+  width: 98%;
+  height: 12%;
   background-color: white;
-  margin: 16px 24px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
-
-/*上半部输入框样式*/
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
+/* 查询条件部分样式 */
 .demo-form-inline {
-  width: 97%;
-  height: 80%;
-  margin-top: 1.5%;
-  padding-left: 2%;
+  width: 100%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
+}
+/* 斑马纹样式 */
+/deep/ .el-table .successRow11 {
+  background: #f8f9fa !important;
 }
 
-/*上半部查询按钮*/
-.top-select {
+/deep/ .el-table .successSecond {
+  background: white !important;
 }
 
-/*上半部导出按钮*/
-.top-exPort {
-}
-
-/*middle中新增用户按钮样式*/
-/*.middle-add {*/
-/*  margin-top: 0.75%;*/
-/*  margin-left: 4%;*/
-/*}*/
-
-/* 中间部分新增用户 */
-/*.middle {*/
-/*  width: 100%;*/
-/*  height: 7.5%;*/
-/*  float: left;*/
-/*  !*background-color: red*!*/
-/*}*/
-
-/*数据表格样式*/
-/*分页*/
-.el-pagination {
-  position: relative;
-  left: 78%;
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 
 /*新增弹窗样式*/
-/*基本信息*/
-.table .table-add {
-}
-
 /*选择角色*/
 .table .table-sel {
   margin-top: 10px;

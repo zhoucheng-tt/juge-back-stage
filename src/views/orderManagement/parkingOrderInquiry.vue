@@ -182,16 +182,16 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: absolute;right:4%;margin-top:20px"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
-      >
-      </el-pagination>
+      <div style="float: right">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+        >
+        </el-pagination>
+      </div>
     </div>
     <!-- 订单详情点击弹出框 -->
     <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
@@ -386,7 +386,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 6%;
+  height: 7%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -394,7 +394,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 90%;
+  height: 88%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;

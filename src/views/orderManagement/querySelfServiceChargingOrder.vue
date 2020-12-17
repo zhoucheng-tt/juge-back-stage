@@ -99,22 +99,28 @@
         :data="orderParkingList"
         :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-          fixed
           prop="orderSequence"
           label="订单编号"
-          width="310"
+          :show-overflow-tooltip="true"
         ></el-table-column>
         <el-table-column
           prop="parkId"
@@ -164,16 +170,16 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: absolute;right:4%;margin-top:20px"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
-      >
-      </el-pagination>
+      <div style="float: right">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+        >
+        </el-pagination>
+      </div>
     </div>
     <!-- 订单详情点击弹出框 -->
     <el-dialog title="订单详情" :visible.sync="showListDloageandoff">
@@ -341,35 +347,36 @@ export default {
   overflow: hidden;
 }
 
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 8.5%;
-  float: left;
+  width: 98%;
+  height: 7%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
-
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 88%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 85%;
-  margin-top: 1%;
-  padding-left: 2%;
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 
 /* 表格表头样式 */

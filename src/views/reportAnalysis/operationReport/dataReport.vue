@@ -46,12 +46,12 @@
             >重置</el-button
           >
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" size="small" @click="exportReport"
-            >导出</el-button
-          >
-        </el-form-item>
       </el-form>
+      <div class="line-2">
+        <el-button type="primary" size="small" @click="exportReport"
+          >导出</el-button
+        >
+      </div>
     </div>
     <!--下半部分列表-->
     <div class="down">
@@ -154,15 +154,15 @@
           label="欠费(元)"
         />
       </el-table>
-      <el-pagination
-        style="position: relative;left: 80%"
-        background
-        layout="total, prev, pager, next, jumper"
-        :page-size="pageSize"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-      />
+      <div style="float: right">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -253,7 +253,7 @@ export default {
 /* 上半部分查询部分 */
 .up {
   width: 98%;
-  height: 5%;
+  height: 12%;
   background-color: white;
   margin-left: 1%;
 }
@@ -261,15 +261,19 @@ export default {
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 45px;
+  height: 40px;
   padding-left: 1%;
   padding-top: 0.5%;
 }
-
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+}
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 85%;
+  height: 84%;
   background-color: white;
   margin-top: 1%;
   margin-left: 1%;

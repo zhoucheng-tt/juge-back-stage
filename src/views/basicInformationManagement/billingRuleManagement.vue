@@ -9,22 +9,29 @@
 -->
 <template>
   <div class="about">
-    <div class="top">
+    <div class="up">
       <!--顶部查询-->
       <el-form
         :inline="true"
         :model="formInline"
-        style="padding: 16px 24px"
         size="small"
+        class="demo-form-inline"
       >
         <el-form-item label="计费规则名称：">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="formInline.billingRuleDefName"
             placeholder="计费规则名称"
           ></el-input>
         </el-form-item>
         <el-form-item label="停车场：">
-          <el-select v-model="formInline.parkId" placeholder="请选择停车场">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="formInline.parkId"
+            placeholder="请选择停车场"
+          >
             <el-option
               v-for="(item, index) in parkLotNameList"
               :label="item.name"
@@ -32,32 +39,51 @@
               :key="index"
             ></el-option>
           </el-select>
-          <el-button
-            type="primary"
-            @click="queryBillingRuleList"
-            style="margin-left: 10px"
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="queryBillingRuleList"
             >查询</el-button
           >
+          <el-button @click="resetQuery" type="primary" size="small"
+            >重置</el-button
+          >
         </el-form-item>
-        <el-row style="text-align: right">
-          <el-form-item>
-            <el-button type="primary" @click="addRule">新增规则</el-button>
-            <el-button type="primary" @click="handleExport">导出</el-button>
-            <el-button type="danger" @click="onBatch">批量删除</el-button>
-          </el-form-item>
-        </el-row>
       </el-form>
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addRule"
+          >新增规则</el-button
+        >
+        <el-button type="primary" size="small" @click="handleExport"
+          >导出</el-button
+        >
+        <el-button type="danger" size="small" @click="onBatch"
+          >批量删除</el-button
+        >
+      </el-row>
     </div>
     <!-- 初始化页面表格表格 -->
-    <div class="table" style="margin:0 24px;background: white">
+    <div class="down">
       <el-table
         :data="accountRules"
-        stripe
+        :row-class-name="tableRowClassName"
         :header-cell-style="{
-          fontSize: '14px'
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        style="width: 100%;"
-        ref="selectionRow"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
         <el-table-column
@@ -94,16 +120,17 @@
           </template>
         </el-table-column>
       </el-table>
-      <!--分页条-->
-      <el-pagination
-        style="position: relative;left: 60%"
-        @current-change="handleCurrentModify"
-        layout="total, prev, pager, next, jumper"
-        :current-page="pageNum"
-        :page-size="pageSize"
-        :total="pageTotal"
-      >
-      </el-pagination>
+      <div style="float: right">
+        <!--分页条-->
+        <el-pagination
+          @current-change="handleCurrentModify"
+          layout="total, prev, pager, next, jumper"
+          :current-page="pageNum"
+          :page-size="pageSize"
+          :total="pageTotal"
+        >
+        </el-pagination>
+      </div>
     </div>
     <!-- 新增计费弹框 -->
     <el-dialog
@@ -1328,6 +1355,10 @@ export default {
     this.queryMinTime();
   },
   methods: {
+    //查询重置按钮
+    resetQuery() {
+      this.formInline = {};
+    },
     //查询停车场下拉
     queryPark() {
       this.parkLotNameList = [];
@@ -1655,28 +1686,44 @@ export default {
 <style scoped>
 /**/
 .about {
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
 }
-/*顶部查询*/
-.top {
-  width: 97.2%;
-  height: 24%;
-  background: white;
-  margin: 16px 24px;
+/*查询*/
+.up {
+  width: 98%;
+  height: 10%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
+}
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84.5%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
 }
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 85%;
-  margin-top: 1%;
-  margin-left: 82%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+}
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
+
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 </style>

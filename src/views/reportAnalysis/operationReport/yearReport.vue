@@ -45,11 +45,13 @@
             <el-button type="primary" size="small" @click="resetQuery"
               >重置</el-button
             >
-            <el-button type="primary" size="small" @click="exportReport"
-              >导出</el-button
-            >
           </el-form-item>
         </el-form>
+        <el-row class="line-2">
+          <el-button type="primary" size="small" @click="exportReport"
+            >导出</el-button
+          >
+        </el-row>
       </el-row>
     </div>
     <!--下半部分列表-->
@@ -155,15 +157,15 @@
           label="欠费(元)"
         />
       </el-table>
-      <el-pagination
-        style="position: relative;left: 80%"
-        background
-        layout="total, prev, pager, next, jumper"
-        :page-size="pageSize"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-      />
+      <div style="float: right">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -254,7 +256,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 5%;
+  height: 12%;
   background-color: white;
   margin-left: 1%;
 }
@@ -262,7 +264,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 85%;
+  height: 84%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
@@ -279,24 +281,13 @@ export default {
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 45px;
+  height: 40px;
   padding-left: 1%;
   padding-top: 0.5%;
 }
-
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
-
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
-
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
 }
 </style>

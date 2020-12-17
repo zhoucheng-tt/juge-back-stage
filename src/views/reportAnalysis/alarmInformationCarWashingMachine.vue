@@ -131,10 +131,8 @@
         />
       </el-table>
       <!--分页条-->
-      <div style="width:100%;height:9%;margin-top: 1%">
+      <div style="float: right">
         <el-pagination
-          style="position: absolute;right: 1px;"
-          background
           layout="total, prev, pager, next, jumper"
           :page-size="pageSize"
           @current-change="handleCurrentModify"
@@ -531,7 +529,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 6%;
+  height: 7%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -539,7 +537,7 @@ export default {
 /* 下班部分列表部分 */
 .center {
   width: 98%;
-  height: 45%;
+  height: 44%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;

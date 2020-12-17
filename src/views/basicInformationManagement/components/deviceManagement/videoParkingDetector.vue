@@ -14,6 +14,8 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="停车场：">
           <el-select
+            size="small"
+            style="width: 160px"
             v-model="upQueryList.queryParkId"
             placeholder="请选择停车场"
           >
@@ -36,131 +38,57 @@
         <!--              </el-select>-->
         <!--            </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click="queryPkLot()">查 询</el-button>
-          <el-button type="primary" @click="resetQuery">重置</el-button>
+          <el-button type="primary" size="small" @click="queryPkLot()"
+            >查 询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
         </el-form-item>
-        <el-row style="height: 45px">
-          <el-form-item>
-            <el-button type="primary" @click="addNewVideoParking()"
-              >新增视频车位检测器</el-button
-            >
-            <el-button type="primary" @click="exportExcel()">导出</el-button>
-            <el-button type="primary" @click="importContainerDia = true"
-              >批量导入</el-button
-            >
-            <el-button type="danger" @click="batchDelete()">批量删除</el-button>
-          </el-form-item>
-        </el-row>
       </el-form>
-      <!--      导入弹框-->
-      <el-dialog
-        title="导入数据"
-        :visible.sync="importContainerDia"
-        width="40%"
-      >
-        <!-- style="text-align: center;" -->
-        <el-upload
-          style="text-align: center;"
-          ref="upload"
-          :http-request="myUpload"
-          action=""
-          class="upload-demo"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-exceed="handleExceed"
-          accept=".xls, .xlsx"
-          :limit="1"
-          :file-list="fileList"
-          :show-file-list="true"
-          :on-change="addFile"
-          :auto-upload="false"
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addNewVideoParking()"
+          >新增视频车位检测器</el-button
         >
-          <el-button
-            slot="trigger"
-            size="small"
-            type="primary"
-            icon="el-icon-circle-plus-outline"
-            >选择文件</el-button
-          >
-          <el-button
-            size="small"
-            type="primary"
-            @click="downloadModel"
-            style="margin-left: 15px"
-            >模板下载</el-button
-          >
-          <div
-            slot="tip"
-            class="el-upload__tip"
-            style="font-size:10px;color:red;margin-top:30px;"
-          >
-            请下载模板文件后上传。
-          </div>
-        </el-upload>
-
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="importContainerDia = false">取 消</el-button>
-          <el-button type="primary" @click="confimImportContainers"
-            >导 入</el-button
-          >
-        </span>
-      </el-dialog>
-
-      <!--      <el-dialog id="import" title="批量导入" :visible.sync="importContainerDia">-->
-      <!--        <el-form>-->
-      <!--          <el-container>-->
-      <!--            <el-header style="text-align: center">-->
-      <!--              <el-upload-->
-      <!--                class="upload-demo"-->
-      <!--                ref="upload"-->
-      <!--                enctype="multipart/form-data"-->
-      <!--                action=""-->
-      <!--                :on-preview="handlePreview"-->
-      <!--                :on-remove="handleRemove"-->
-      <!--                :before-remove="beforeRemove"-->
-      <!--                :http-request="uploadFile"-->
-      <!--                multiple-->
-      <!--                :limit="1"-->
-      <!--                :on-exceed="handleExceed"-->
-      <!--                :file-list="fileList"-->
-      <!--              >-->
-      <!--                <el-button type="primary" size="medium" @click="handlePreview()"-->
-      <!--                  >导 入<i class="el-icon-upload el-icon&#45;&#45;right"></i>-->
-      <!--                </el-button>-->
-      <!--                <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>-->
-      <!--              </el-upload>-->
-      <!--            </el-header>-->
-      <!--            <el-main style="text-align: center">-->
-      <!--              <el-button type="primary" size="medium" @click="downModel()"-->
-      <!--                >下载模版<i class="el-icon-download el-icon&#45;&#45;right"></i-->
-      <!--              ></el-button>-->
-      <!--            </el-main>-->
-      <!--          </el-container>-->
-      <!--        </el-form>-->
-      <!--        <div slot="footer" class="dialog-footer">-->
-      <!--          <el-button @click="importDialog = false">取 消</el-button>-->
-      <!--          <el-button type="primary" @click="commitImport()">确 定</el-button>-->
-      <!--        </div>-->
-      <!--      </el-dialog>-->
+        <el-button type="primary" size="small" @click="exportExcel()"
+          >导出</el-button
+        >
+        <el-button
+          type="primary"
+          size="small"
+          @click="importContainerDia = true"
+          >批量导入</el-button
+        >
+        <el-button type="danger" size="small" @click="batchDelete()"
+          >批量删除</el-button
+        >
+      </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :row-class-name="tableRowClassName"
         :data="videoList"
         ref="selectVideoList"
+        @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName"
         :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
           border: 'none',
           padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
         }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
-        @selection-change="handleSelectionChange"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
         <!--        <el-table-column fixed prop="parkId" label="停车场编号"/>-->
@@ -226,16 +154,16 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: relative;right:-60%;margin-top:20px;"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
-      >
-      </el-pagination>
+      <div style="float: right;">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+        >
+        </el-pagination>
+      </div>
       <!--新增表单弹框-->
       <el-dialog
         id="add"
@@ -447,6 +375,94 @@
           <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
         </div>
       </el-dialog>
+      <!--      导入弹框-->
+      <el-dialog
+        title="导入数据"
+        :visible.sync="importContainerDia"
+        width="40%"
+      >
+        <!-- style="text-align: center;" -->
+        <el-upload
+          style="text-align: center;"
+          ref="upload"
+          :http-request="myUpload"
+          action=""
+          class="upload-demo"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :on-exceed="handleExceed"
+          accept=".xls, .xlsx"
+          :limit="1"
+          :file-list="fileList"
+          :show-file-list="true"
+          :on-change="addFile"
+          :auto-upload="false"
+        >
+          <el-button
+            slot="trigger"
+            size="small"
+            type="primary"
+            icon="el-icon-circle-plus-outline"
+            >选择文件</el-button
+          >
+          <el-button
+            size="small"
+            type="primary"
+            @click="downloadModel"
+            style="margin-left: 15px"
+            >模板下载</el-button
+          >
+          <div
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:red;margin-top:30px;"
+          >
+            请下载模板文件后上传。
+          </div>
+        </el-upload>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="importContainerDia = false">取 消</el-button>
+          <el-button type="primary" @click="confimImportContainers"
+            >导 入</el-button
+          >
+        </span>
+      </el-dialog>
+      <!--      <el-dialog id="import" title="批量导入" :visible.sync="importContainerDia">-->
+      <!--        <el-form>-->
+      <!--          <el-container>-->
+      <!--            <el-header style="text-align: center">-->
+      <!--              <el-upload-->
+      <!--                class="upload-demo"-->
+      <!--                ref="upload"-->
+      <!--                enctype="multipart/form-data"-->
+      <!--                action=""-->
+      <!--                :on-preview="handlePreview"-->
+      <!--                :on-remove="handleRemove"-->
+      <!--                :before-remove="beforeRemove"-->
+      <!--                :http-request="uploadFile"-->
+      <!--                multiple-->
+      <!--                :limit="1"-->
+      <!--                :on-exceed="handleExceed"-->
+      <!--                :file-list="fileList"-->
+      <!--              >-->
+      <!--                <el-button type="primary" size="medium" @click="handlePreview()"-->
+      <!--                  >导 入<i class="el-icon-upload el-icon&#45;&#45;right"></i>-->
+      <!--                </el-button>-->
+      <!--                <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>-->
+      <!--              </el-upload>-->
+      <!--            </el-header>-->
+      <!--            <el-main style="text-align: center">-->
+      <!--              <el-button type="primary" size="medium" @click="downModel()"-->
+      <!--                >下载模版<i class="el-icon-download el-icon&#45;&#45;right"></i-->
+      <!--              ></el-button>-->
+      <!--            </el-main>-->
+      <!--          </el-container>-->
+      <!--        </el-form>-->
+      <!--        <div slot="footer" class="dialog-footer">-->
+      <!--          <el-button @click="importDialog = false">取 消</el-button>-->
+      <!--          <el-button type="primary" @click="commitImport()">确 定</el-button>-->
+      <!--        </div>-->
+      <!--      </el-dialog>-->
     </div>
   </div>
 </template>
@@ -999,66 +1015,61 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 15%;
-  float: left;
+  width: 98%;
+  height: 12%;
+  background-color: white;
+  margin-left: 1%;
+  /*margin-top: 0.5%;*/
 }
-
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  padding-left: 2%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-.demo-form-inline-two {
-  height: 45px;
-}
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0;
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
+/*!* 表格表头样式 *!*/
+/*.el-table__header-wrapper {*/
+/*  width: 100%;*/
+/*  height: 0;*/
+/*}*/
 
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
+/*!* 设置弹出框样式 *!*/
+/*/deep/ .el-dialog {*/
+/*  width: 50%;*/
+/*}*/
 
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
+/*!* 弹出框内表单样式控制 *!*/
+/*.el-form-item-dialog {*/
+/*  width: 32%;*/
+/*}*/
 
 #add {
   height: auto;
-}
-
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
 }
 </style>

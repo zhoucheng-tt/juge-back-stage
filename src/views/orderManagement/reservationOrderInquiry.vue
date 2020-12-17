@@ -27,18 +27,14 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item size="small" style="width: 160px" label="车牌号:">
+        <el-form-item label="车牌号:">
           <el-input
+            size="small"
+            style="width: 160px"
             v-model="upQueryList.plateNumber"
             placeholder="请输入车牌号"
           ></el-input>
         </el-form-item>
-        <!-- 时间日期选择器 -->
-        <!--                <el-form-item label="预约时间:">-->
-        <!--                    <el-date-picker v-model="upQueryList.minAppointmentTime" type="datetimerange" range-separator="至"-->
-        <!--                        start-placeholder="开始日期" end-placeholder="结束日期" value-format="yyMMddhhmm">-->
-        <!--                    </el-date-picker>-->
-        <!--                </el-form-item>-->
         <el-form-item label="预约订单:">
           <!-- 时间日期选择器 -->
           <el-date-picker
@@ -76,7 +72,6 @@
               :value="item.code"
               :key="index"
             ></el-option>
-            <!-- <el-option label="二楼" value="TingNum2"></el-option> -->
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -94,7 +89,28 @@
     </div>
     <!-- 下半部分列表 -->
     <div class="down">
-      <el-table :data="orderParkingList">
+      <el-table
+        :data="orderParkingList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'
+        }"
+        :cell-style="{
+          fontfamily: 'PingFangSC-Regular',
+          letterSpacing: '0.56px',
+          fontSize: '14px',
+          color: '#333333',
+          'text-align': 'center'
+        }"
+        style="width: 98%;margin-left: 1%"
+      >
         <el-table-column
           prop="orderSequence"
           :show-overflow-tooltip="true"
@@ -142,16 +158,16 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: absolute;right:4%;margin-top:20px"
-        background
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-        :page-size="pageSize"
-      >
-      </el-pagination>
+      <div style="float: right">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
+        >
+        </el-pagination>
+      </div>
     </div>
     <!-- 订单详情点击弹出框 -->
     <el-dialog title="预约订单信息：" :visible.sync="showListDloageandoff">
@@ -410,35 +426,36 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 8.5%;
-  float: left;
+  width: 98%;
+  height: 7%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 0.5%;
+}
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 88%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
 }
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  margin-top: 1%;
-  padding-left: 2%;
+  height: 45px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
 }
 
 /* 表格表头样式 */

@@ -12,90 +12,58 @@
     <!--上半部分表单-->
     <div class="up">
       <el-form :inline="true" :model="chargPileIdList" class="demo-form-inline">
-        <el-row>
-          <el-form-item label="充电桩编号">
-            <el-select
-              v-model="chargPileIdList.chargPileId"
-              placeholder="请选择"
-            >
-              <el-option
-                v-for="(item, index) in chargPileIdList"
-                :label="item.chargPileId"
-                :value="item.chargPileId"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
+        <el-form-item label="充电桩编号">
+          <el-select
+            size="small"
+            style="width: 160px"
+            v-model="chargPileIdList.chargPileId"
+            placeholder="请选择"
+          >
+            <el-option
+              v-for="(item, index) in chargPileIdList"
+              :label="item.chargPileId"
+              :value="item.chargPileId"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
 
-          <!--          <el-form-item label="设备状态">-->
-          <!--            <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
-          <!--              <el-option-->
-          <!--                v-for="(item, index) in eqStatusList"-->
-          <!--                :label="item.eqStatus"-->
-          <!--                :value="item.eqStatus"-->
-          <!--                :key="index"-->
-          <!--              ></el-option>-->
-          <!--            </el-select>-->
-          <!--          </el-form-item>-->
-          <el-form-item
-            ><el-button type="primary" @click="queryChargingPoint()"
-              >查 询</el-button
-            >
-            <el-button type="primary" @click="resetQuery">重置</el-button>
-          </el-form-item>
-          <el-row style="height: 45px">
-            <el-form-item>
-              <el-button type="primary" @click="addChargingPoint()"
-                >新增充电桩</el-button
-              >
-              <el-button type="primary" @click="bulkImport()"
-                >批量导入</el-button
-              >
-              <el-button type="danger" @click="batchDelete()"
-                >批量删除</el-button
-              >
-            </el-form-item>
-          </el-row>
-        </el-row>
+        <!--          <el-form-item label="设备状态">-->
+        <!--            <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
+        <!--              <el-option-->
+        <!--                v-for="(item, index) in eqStatusList"-->
+        <!--                :label="item.eqStatus"-->
+        <!--                :value="item.eqStatus"-->
+        <!--                :key="index"-->
+        <!--              ></el-option>-->
+        <!--            </el-select>-->
+        <!--          </el-form-item>-->
+        <el-form-item
+          ><el-button type="primary" size="small" @click="queryChargingPoint()"
+            >查 询</el-button
+          >
+          <el-button type="primary" size="small" @click="resetQuery"
+            >重置</el-button
+          >
+        </el-form-item>
       </el-form>
-      <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
-        <el-form>
-          <el-container>
-            <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click="imgbtn()"
-                >导 入<i class="el-icon-upload el-icon--right"></i>
-              </el-button>
-            </el-header>
-            <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click="downModel()"
-                >下载模版<i class="el-icon-download el-icon--right"></i
-              ></el-button>
-            </el-main>
-          </el-container>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="importDialog = false">取 消</el-button>
-          <el-button type="primary" @click="commitImport()">确 定</el-button>
-        </div>
-      </el-dialog>
+      <el-row class="line-2">
+        <el-button type="primary" size="small" @click="addChargingPoint()"
+          >新增充电桩</el-button
+        >
+        <el-button type="primary" size="small" @click="bulkImport()"
+          >批量导入</el-button
+        >
+        <el-button type="danger" size="small" @click="batchDelete()"
+          >批量删除</el-button
+        >
+      </el-row>
     </div>
     <!--下半部分列表-->
-    <div class="down" style="padding-top: 20px;">
+    <div class="down">
       <el-table
         :data="chargingPointList"
         ref="selectList"
-        :row-class-name="tableRowClassName"
-        :header-cell-style="{
-          'text-align': 'center',
-          background: '#24314A',
-          color: '#FFF',
-          border: 'none',
-          padding: 'none',
-          fontSize: '12px',
-          fontWeight: '100'
-        }"
-        :cell-style="{ 'text-align': 'center' }"
-        style="width: 100%;"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" />
@@ -144,15 +112,16 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        style="position: relative;left: 78%"
-        layout="total, prev, pager, next, jumper"
-        :page-size="pageSize"
-        @current-change="handleCurrentModify"
-        :current-page="pageNum"
-        :total="pageTotal"
-      >
-      </el-pagination>
+      <div style="float: right;">
+        <el-pagination
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+        >
+        </el-pagination>
+      </div>
     </div>
 
     <!--新增表单弹框-->
@@ -235,6 +204,26 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="editListDialog = false">取 消</el-button>
         <el-button type="primary" @click="onSubmitEdit()">确定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
+      <el-form>
+        <el-container>
+          <el-header style="text-align: center">
+            <el-button type="primary" size="medium" @click="imgbtn()"
+              >导 入<i class="el-icon-upload el-icon--right"></i>
+            </el-button>
+          </el-header>
+          <el-main style="text-align: center">
+            <el-button type="primary" size="medium" @click="downModel()"
+              >下载模版<i class="el-icon-download el-icon--right"></i
+            ></el-button>
+          </el-main>
+        </el-container>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="importDialog = false">取 消</el-button>
+        <el-button type="primary" @click="commitImport()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -457,34 +446,43 @@ export default {
   overflow: hidden;
 }
 
-/* 上半部分查询部分 */
+/*查询*/
 .up {
-  width: 100%;
-  height: 15%;
-  float: left;
+  width: 98%;
+  height: 12%;
+  background-color: white;
+  margin-left: 1%;
+  /*margin-top: 0.5%;*/
 }
-
+/* 下班部分列表部分 */
+.down {
+  width: 98%;
+  height: 84%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 80%;
-  padding-left: 2%;
+  height: 40px;
+  padding-left: 1%;
+  padding-top: 0.5%;
 }
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
+  background: #f8f9fa !important;
 }
 
 /deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
+  background: white !important;
+}
+
+.line-2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: 0.5%;
 }
 
 /* 表格表头样式 */
