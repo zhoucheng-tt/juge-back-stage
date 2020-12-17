@@ -14,57 +14,65 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="ETC名称:">
           <el-input
-            size="small"
-            style="width: 160px"
-            v-model="upQueryList.etcName"
-            placeholder="请输入ETC名称"
+              size="small"
+              style="width: 160px"
+              v-model="upQueryList.etcName"
+              placeholder="请输入ETC名称"
           ></el-input>
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select
-            size="small"
-            style="width: 160px"
-            v-model="upQueryList.queryParkId"
-            placeholder="请选择停车场"
+              size="small"
+              style="width: 160px"
+              v-model="upQueryList.queryParkId"
+              placeholder="请选择停车场"
           >
             <el-option label="全部" value=""></el-option>
             <el-option
-              v-for="(item, index) in parkingLotList"
-              :label="item.name"
-              :value="item.name"
-              :key="index"
+                v-for="(item, index) in parkingLotList"
+                :label="item.name"
+                :value="item.name"
+                :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="queryETCList"
-            >查询</el-button
+          >查询
+          </el-button
           >
           <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
+          >重置
+          </el-button
           >
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addETC"
-          >新增ETC</el-button
+        >新增ETC
+        </el-button
         >
         <el-button type="primary" size="small" @click="exportExcel()"
-          >导出</el-button
+        >导出
+        </el-button
         >
+        <el-button type="primary" size="small">
+          <a style="color: #ffffff;text-decoration:none" class="download" :href="file" download="">模板下载</a>
+        </el-button>
         <el-button type="danger" size="small" @click="deleteETC"
-          >批量删除</el-button
+        >批量删除
+        </el-button
         >
       </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="ETCInformationManagement"
-        ref="selectETC"
-        @selection-change="handleSelectETC"
-        stripe
-        :header-cell-style="{
+          :data="ETCInformationManagement"
+          ref="selectETC"
+          @selection-change="handleSelectETC"
+          stripe
+          :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -74,103 +82,106 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-        :cell-style="{
+          :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-        style="width: 98%;margin-left: 1%"
+          style="width: 98%;margin-left: 1%"
       >
-        <el-table-column type="selection" width="55"> </el-table-column>
+        <el-table-column type="selection" width="55"></el-table-column>
         <!--        <el-table-column prop="etcNumber" label="ETC编号"></el-table-column>-->
         <el-table-column prop="etcName" label="ETC名称"></el-table-column>
         <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="所属停车场"
-          width=""
+            prop="parkName"
+            :show-overflow-tooltip="true"
+            label="所属停车场"
+            width=""
         >
         </el-table-column>
         <el-table-column
-          prop="type"
-          :show-overflow-tooltip="true"
-          label="类型"
-          width=""
+            prop="type"
+            :show-overflow-tooltip="true"
+            label="类型"
+            width=""
         >
         </el-table-column>
         <el-table-column
-          prop="description"
-          :show-overflow-tooltip="true"
-          label="描述"
+            prop="description"
+            :show-overflow-tooltip="true"
+            label="描述"
         ></el-table-column>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-              @click="showListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >查看</el-button
+                @click="showListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >查看
+            </el-button
             >
             <el-button
-              @click="editListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >修改</el-button
+                @click="editListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >修改
+            </el-button
             >
             <el-button
-              @click="deleteListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >删除</el-button
+                @click="deleteListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >删除
+            </el-button
             >
           </template>
         </el-table-column>
       </el-table>
       <div style="float: right;">
         <el-pagination
-          layout="total, prev, pager, next, jumper"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-          :page-size="pageSize"
+            layout="total, prev, pager, next, jumper"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
+            :page-size="pageSize"
         >
         </el-pagination>
       </div>
     </div>
     <!-- 新增ETC弹框 -->
     <el-dialog
-      title="新增ETC信息"
-      width="50%"
-      :visible.sync="dialogAdd"
-      destroy-on-close
+        title="新增ETC信息"
+        width="50%"
+        :visible.sync="dialogAdd"
+        destroy-on-close
     >
       <el-form
-        :inline="true"
-        :rules="rules"
-        ref="addETC"
-        :model="addETCForm"
-        label-width="100px"
+          :inline="true"
+          :rules="rules"
+          ref="addETC"
+          :model="addETCForm"
+          label-width="100px"
       >
         <el-form-item label="归属停车场:" prop="parkName" label-width="150px">
           <el-select
-            style="width:200px"
-            v-model="addETCForm.parkName"
-            placeholder="请选择停车场"
+              style="width:200px"
+              v-model="addETCForm.parkName"
+              placeholder="请选择停车场"
           >
             <el-option
-              v-for="(item, index) in parkingLotList"
-              :label="item.name"
-              :value="item.name"
-              :key="index"
+                v-for="(item, index) in parkingLotList"
+                :label="item.name"
+                :value="item.name"
+                :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="ETC编号:" prop="etcNumber" label-width="150px">
           <el-input
-            v-model="addETCForm.etcNumber"
-            placeholder="请输入ETC编号"
+              v-model="addETCForm.etcNumber"
+              placeholder="请输入ETC编号"
           />
         </el-form-item>
         <el-form-item label="ETC名称:" prop="etcName" label-width="150px">
@@ -190,59 +201,70 @@
     </el-dialog>
     <!-- 信息详情点击弹出框 -->
     <el-dialog
-      title="ETC详情"
-      width="50%"
-      :visible.sync="showListdialogueandoff"
+        title="ETC详情"
+        width="50%"
+        :visible.sync="showListdialogueandoff"
     >
       <el-form
-        :inline="true"
-        :model="showListdialogueandoffList"
-        label-width="100px"
+          :inline="true"
+          :model="showListdialogueandoffList"
+          label-width="100px"
       >
         <el-row>
           <el-col :span="12"
-            ><el-form-item label="ETC编号:" label-width="150px">
+          >
+            <el-form-item label="ETC编号:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.etcNumber"
-              ></el-input> </el-form-item
-          ></el-col>
+                  v-model="showListdialogueandoffList.etcNumber"
+              ></el-input>
+            </el-form-item
+            >
+          </el-col>
           <el-col :span="12">
             <el-form-item label="ETC名称:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.etcName"
-              ></el-input> </el-form-item
-          ></el-col>
+                  v-model="showListdialogueandoffList.etcName"
+              ></el-input>
+            </el-form-item
+            >
+          </el-col>
           <el-col :span="12">
             <el-form-item label="所属停车场:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.parkName"
-              ></el-input> </el-form-item
-          ></el-col>
+                  v-model="showListdialogueandoffList.parkName"
+              ></el-input>
+            </el-form-item
+            >
+          </el-col>
           <el-col :span="12">
             <el-form-item label="类型:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.type"
-              ></el-input> </el-form-item
-          ></el-col>
+                  v-model="showListdialogueandoffList.type"
+              ></el-input>
+            </el-form-item
+            >
+          </el-col>
           <el-col :span="12">
             <el-form-item label="描述:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.description"
-              ></el-input> </el-form-item
-          ></el-col>
+                  v-model="showListdialogueandoffList.description"
+              ></el-input>
+            </el-form-item
+            >
+          </el-col>
         </el-row>
       </el-form>
     </el-dialog>
     <!-- 信息修改点击弹出框 -->
     <el-dialog
-      title="修改ETC"
-      width="50%"
-      :visible.sync="editListDialogueandoff"
+        title="修改ETC"
+        width="50%"
+        :visible.sync="editListDialogueandoff"
     >
       <el-form
-        :inline="true"
-        :model="editListDialogueandoffList"
-        label-width="100px"
+          :inline="true"
+          :model="editListDialogueandoffList"
+          label-width="100px"
       >
         <el-col :span="12">
           <el-form-item label="ETC编号:" label-width="150px">
@@ -262,7 +284,7 @@
         <el-col :span="12">
           <el-form-item label="描述:" label-width="150px">
             <el-input
-              v-model="editListDialogueandoffList.description"
+                v-model="editListDialogueandoffList.description"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -279,6 +301,7 @@
 export default {
   data() {
     return {
+      file:'http://192.168.1.206:8000/FileController/dlTemplate/基础信息管理ETC',
       // 顶部查询数据暂存处
       upQueryList: {
         etcName: "",
@@ -404,17 +427,17 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-          .then(() => {
-            console.log("你要批量删除的id是" + this.idList);
-            this.$deviceManagement.delETC(this.idList).then(res => {
-              console.log("批量删除成功", res);
-              this.$message({ type: "success", message: "删除成功!" });
-              this.queryETCList();
+            .then(() => {
+              console.log("你要批量删除的id是" + this.idList);
+              this.$deviceManagement.delETC(this.idList).then(res => {
+                console.log("批量删除成功", res);
+                this.$message({ type: "success", message: "删除成功!" });
+                this.queryETCList();
+              });
+            })
+            .catch(() => {
+              this.$message({ type: "info", message: "已取消删除" });
             });
-          })
-          .catch(() => {
-            this.$message({ type: "info", message: "已取消删除" });
-          });
       }
     },
     // 单个删除
@@ -424,25 +447,25 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          console.log("你要删除的id是" + row.etcNumber);
-          const param = [
-            {
-              etcNumber: row.etcNumber
-            }
-          ];
-          this.$deviceManagement.delETC(param).then(res => {
-            console.log("删除成功", res);
+          .then(() => {
+            console.log("你要删除的id是" + row.etcNumber);
+            const param = [
+              {
+                etcNumber: row.etcNumber
+              }
+            ];
+            this.$deviceManagement.delETC(param).then(res => {
+              console.log("删除成功", res);
+            });
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+            this.queryETCList();
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
           });
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-          this.queryETCList();
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
     },
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
@@ -475,12 +498,12 @@ export default {
     ETCInfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.$deviceManagement
-        .updateETC(this.editListDialogueandoffList)
-        .then(res => {
-          console.log("打印更新数据", res);
-          this.$message({ type: "success", message: "修改成功!" });
-          this.queryETCList();
-        });
+          .updateETC(this.editListDialogueandoffList)
+          .then(res => {
+            console.log("打印更新数据", res);
+            this.$message({ type: "success", message: "修改成功!" });
+            this.queryETCList();
+          });
       this.editListDialogueandoff = false;
     },
     // 导出Excel
@@ -491,7 +514,8 @@ export default {
         pageSize: this.pageSize,
         pageNum: this.pageNum
       };
-      this.$deviceManagement.exportETC(param).then(res => {});
+      this.$deviceManagement.exportETC(param).then(res => {
+      });
     }
   },
   mounted() {
@@ -515,6 +539,7 @@ export default {
   margin-left: 1%;
   /*margin-top: 0.5%;*/
 }
+
 /* 下班部分列表部分 */
 .down {
   width: 98%;
@@ -523,6 +548,7 @@ export default {
   margin-left: 1%;
   margin-top: 1%;
 }
+
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
@@ -530,6 +556,7 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
+
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
   background: #f8f9fa !important;

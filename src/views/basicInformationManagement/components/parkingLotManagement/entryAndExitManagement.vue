@@ -183,6 +183,7 @@
         width="50%"
         title="新增出入口信息"
         :visible.sync="addListDialogueandoff"
+        destroy-on-close
       >
         <el-form
           :inline="true"
