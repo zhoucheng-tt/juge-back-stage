@@ -61,7 +61,7 @@
         <el-button
             size="small"
             type="primary"
-            @click="importContainerDia = true"
+            @click="importBatchDia = true"
         >批量导入
         </el-button
         >
@@ -250,7 +250,7 @@
       </div>
     </el-dialog>
     <!--      导入弹框-->
-    <el-dialog :visible.sync="importContainerDia" title="导入数据" width="40%">
+    <el-dialog :visible.sync="importBatchDia" title="导入数据" width="40%">
       <!-- style="text-align: center;" -->
       <el-upload
           ref="upload"
@@ -290,8 +290,8 @@
         </div>
       </el-upload>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="importContainerDia = false">取 消</el-button>
-        <el-button type="primary" @click="confimImportContainers"
+        <el-button @click="importBatchDia = false">取 消</el-button>
+        <el-button type="primary" @click="confimImportBatch"
         >导 入</el-button
         >
       </span>
@@ -302,8 +302,9 @@
 export default {
   data() {
     return {
+      //批量导入弹框
+      importBatchDia: false,
       //模板下载
-      importContainerDia: false,
       templateDl: "http://192.168.1.191:8000/FileController/dlTemplate/洗车机管理",
       //导出
       exportFile:'http://192.168.1.191:8000/carWashingMachineFunc/download',
@@ -377,6 +378,9 @@ export default {
       importDialog: false
     };
   },
+  created() {
+    this.queryWasher()
+  },
   methods: {
     //查询重置按钮
     resetQuery() {
@@ -402,11 +406,6 @@ export default {
       console.log("新增弹框弹出");
       this.newWasher = {};
       this.addListDialog = true;
-    },
-    //批量导入
-    bulkImport() {
-      this.importDialog = true;
-      console.log("批量导入");
     },
     //批量删除
     batchDelete() {
@@ -538,14 +537,14 @@ export default {
     handleExceed(files, fileList) {
       this.$message.warning(`对不起,一次仅限上传一个文件！`);
     },
-    confimImportContainers() {
+    confimImportBatch() {
       this.$refs.upload.submit();
     },
     myUpload(content) {
       let _self = this;
       // 1.导入
       var FileController = '';
-      FileController = "http://192.168.1.191:8000/carWashingMachineFunc/upload";
+      FileController = "http://192.168.1.191:8000/carWashingMachineFunc/upload"; //请求接口
       console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
@@ -573,7 +572,7 @@ export default {
               message: '导入成功',
               type: 'success',
             });
-            _self.importContainerDia = false;
+            _self.importBatchDia = false;
             _self.queryWasher();
           } else {
             _self.$message.error({
