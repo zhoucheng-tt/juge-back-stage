@@ -14,181 +14,178 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="ETC名称:">
           <el-input
-            size="small"
-            style="width: 160px"
-            v-model="upQueryList.etcName"
-            placeholder="请输入ETC名称"
+              v-model="upQueryList.etcName"
+              placeholder="请输入ETC名称"
+              size="small"
+              style="width: 160px"
           ></el-input>
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select
-            size="small"
-            style="width: 160px"
-            v-model="upQueryList.queryParkId"
-            placeholder="请选择停车场"
+              v-model="upQueryList.queryParkId"
+              placeholder="请选择停车场"
+              size="small"
+              style="width: 160px"
           >
             <el-option label="全部" value=""></el-option>
             <el-option
-              v-for="(item, index) in parkingLotList"
-              :label="item.name"
-              :value="item.name"
-              :key="index"
+                v-for="(item, index) in parkingLotList"
+                :key="index"
+                :label="item.name"
+                :value="item.name"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryETCList"
-            >查询
+          <el-button size="small" type="primary" @click="queryETCList"
+          >查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置
+          <el-button size="small" type="primary" @click="resetQuery"
+          >重置
           </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
-        <el-button type="primary" size="small" @click="addETC"
-          >新增ETC
+        <el-button size="small" type="primary" @click="addETC"
+        >新增ETC
         </el-button>
-        <el-button type="primary" size="small" @click="exportExcel()"
-          >导出
-        </el-button>
-        <!--        <el-button type="primary" size="small">-->
-        <!--          <a-->
-        <!--            style="color: #ffffff;text-decoration:none"-->
-        <!--            class="download"-->
-        <!--            :href="file"-->
-        <!--            download=""-->
-        <!--            >模板下载</a-->
-        <!--          >-->
-        <!--        </el-button>-->
         <el-button
-          type="primary"
-          size="small"
-          @click="importContainerDia = true"
-          >批量导入</el-button
+            size="small"
+            type="primary"
+            @click="importContainerDia = true"
+        >批量导入
+        </el-button
         >
-        <el-button type="danger" size="small" @click="deleteETC"
-          >批量删除
+        <el-button size="small" style="margin-left: 15px" type="primary">
+          <a
+              :href="exportFile"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+          >导出</a>
         </el-button>
+
+        <el-button size="small" type="danger" @click="deleteETC">批量删除</el-button>
       </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="ETCInformationManagement"
-        ref="selectETC"
-        @selection-change="handleSelectETC"
-        stripe
-        :header-cell-style="{
-          fontfamily: 'PingFangSC-Medium',
-          background: '#FFFFFF',
-          color: '#333333',
-          border: 'none',
-          padding: 'none',
-          fontSize: '14px',
-          letterSpacing: '0.56px',
-          'text-align': 'center'
+          ref="selectETC"
+          :cell-style="{
+fontfamily: 'PingFangSC-Regular',
+letterSpacing: '0.56px',
+fontSize: '14px',
+color: '#333333',
+'text-align': 'center'
         }"
-        :cell-style="{
-          fontfamily: 'PingFangSC-Regular',
-          letterSpacing: '0.56px',
-          fontSize: '14px',
-          color: '#333333',
-          'text-align': 'center'
+          :data="ETCInformationManagement"
+          :header-cell-style="{
+fontfamily: 'PingFangSC-Medium',
+background: '#FFFFFF',
+color: '#333333',
+border: 'none',
+padding: 'none',
+fontSize: '14px',
+letterSpacing: '0.56px',
+'text-align': 'center'
         }"
-        style="width: 98%;margin-left: 1%"
+          stripe
+          style="width: 98%;margin-left: 1%"
+          @selection-change="handleSelectETC"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <!--        <el-table-column prop="etcNumber" label="ETC编号"></el-table-column>-->
-        <el-table-column prop="etcName" label="ETC名称"></el-table-column>
+        <el-table-column label="ETC名称" prop="etcName"></el-table-column>
         <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="所属停车场"
-          width=""
+            :show-overflow-tooltip="true"
+            label="所属停车场"
+            prop="parkName"
+            width=""
         >
         </el-table-column>
         <el-table-column
-          prop="type"
-          :show-overflow-tooltip="true"
-          label="类型"
-          width=""
+            :show-overflow-tooltip="true"
+            label="类型"
+            prop="type"
+            width=""
         >
         </el-table-column>
         <el-table-column
-          prop="description"
-          :show-overflow-tooltip="true"
-          label="描述"
+            :show-overflow-tooltip="true"
+            label="描述"
+            prop="description"
         ></el-table-column>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-              @click="showListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >查看
+                size="small"
+                type="text"
+                @click="showListDialogue(scope.row)"
+            >查看
             </el-button>
             <el-button
-              @click="editListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >修改
+                size="small"
+                type="text"
+                @click="editListDialogue(scope.row)"
+            >修改
             </el-button>
             <el-button
-              @click="deleteListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >删除
+                size="small"
+                type="text"
+                @click="deleteListDialogue(scope.row)"
+            >删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
       <div style="float: right;">
         <el-pagination
-          layout="total, prev, pager, next, jumper"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-          :page-size="pageSize"
+            :current-page="pageNum"
+            :page-size="pageSize"
+            :total="pageTotal"
+            layout="total, prev, pager, next, jumper"
+            @current-change="handleCurrentModify"
         >
         </el-pagination>
       </div>
     </div>
     <!--      导入弹框-->
-    <el-dialog title="导入数据" :visible.sync="importContainerDia" width="40%">
+    <el-dialog :visible.sync="importContainerDia" title="导入数据" width="40%">
       <!-- style="text-align: center;" -->
       <el-upload
-        style="text-align: center;"
-        ref="upload"
-        :http-request="myUpload"
-        action=""
-        class="upload-demo"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :on-exceed="handleExceed"
-        accept=".xls, .xlsx"
-        :limit="1"
-        :file-list="fileList"
-        :show-file-list="true"
-        :on-change="addFile"
-        :auto-upload="false"
+          ref="upload"
+          :auto-upload="false"
+          :file-list="fileList"
+          :http-request="myUpload"
+          :limit="1"
+          :on-change="addFile"
+          :on-exceed="handleExceed"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :show-file-list="true"
+          accept=".xls, .xlsx"
+          action=""
+          class="upload-demo"
+          style="text-align: center;"
       >
         <el-button slot="trigger" size="small" type="primary"
-          >选择文件</el-button
+        >选择文件
+        </el-button
         >
-        <el-button size="small" type="primary" style="margin-left: 15px">
+        <el-button size="small" style="margin-left: 15px" type="primary">
           <a
-            style="color: #ffffff;text-decoration:none"
-            class="download"
-            :href="file"
-            download=""
-            >模板下载</a
+              :href="templateDl"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+          >模板下载</a
           >
         </el-button>
         <div
-          slot="tip"
-          class="el-upload__tip"
-          style="font-size:10px;color:red;margin-top:30px;"
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:red;margin-top:30px;"
         >
           请下载模板文件后上传。
         </div>
@@ -196,51 +193,51 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="importContainerDia = false">取 消</el-button>
         <el-button type="primary" @click="confimImportContainers"
-          >导 入</el-button
+        >导 入</el-button
         >
       </span>
     </el-dialog>
     <!-- 新增ETC弹框 -->
     <el-dialog
-      title="新增ETC信息"
-      width="50%"
-      :visible.sync="dialogAdd"
-      destroy-on-close
+        :visible.sync="dialogAdd"
+        destroy-on-close
+        title="新增ETC信息"
+        width="50%"
     >
       <el-form
-        :inline="true"
-        :rules="rules"
-        ref="addETC"
-        :model="addETCForm"
-        label-width="100px"
+          ref="addETC"
+          :inline="true"
+          :model="addETCForm"
+          :rules="rules"
+          label-width="100px"
       >
-        <el-form-item label="归属停车场:" prop="parkName" label-width="150px">
+        <el-form-item label="归属停车场:" label-width="150px" prop="parkName">
           <el-select
-            style="width:200px"
-            v-model="addETCForm.parkName"
-            placeholder="请选择停车场"
+              v-model="addETCForm.parkName"
+              placeholder="请选择停车场"
+              style="width:200px"
           >
             <el-option
-              v-for="(item, index) in parkingLotList"
-              :label="item.name"
-              :value="item.name"
-              :key="index"
+                v-for="(item, index) in parkingLotList"
+                :key="index"
+                :label="item.name"
+                :value="item.name"
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="ETC编号:" prop="etcNumber" label-width="150px">
+        <el-form-item label="ETC编号:" label-width="150px" prop="etcNumber">
           <el-input
-            v-model="addETCForm.etcNumber"
-            placeholder="请输入ETC编号"
+              v-model="addETCForm.etcNumber"
+              placeholder="请输入ETC编号"
           />
         </el-form-item>
-        <el-form-item label="ETC名称:" prop="etcName" label-width="150px">
+        <el-form-item label="ETC名称:" label-width="150px" prop="etcName">
           <el-input v-model="addETCForm.etcName" placeholder="请输入ETC名称" />
         </el-form-item>
-        <el-form-item label="类型:" prop="type" label-width="150px">
+        <el-form-item label="类型:" label-width="150px" prop="type">
           <el-input v-model="addETCForm.type" placeholder="请输入类型" />
         </el-form-item>
-        <el-form-item label="描述:" prop="description" label-width="150px">
+        <el-form-item label="描述:" label-width="150px" prop="description">
           <el-input v-model="addETCForm.description" placeholder="请输入描述" />
         </el-form-item>
       </el-form>
@@ -251,20 +248,20 @@
     </el-dialog>
     <!-- 信息详情点击弹出框 -->
     <el-dialog
-      title="ETC详情"
-      width="50%"
-      :visible.sync="showListdialogueandoff"
+        :visible.sync="showListdialogueandoff"
+        title="ETC详情"
+        width="50%"
     >
       <el-form
-        :inline="true"
-        :model="showListdialogueandoffList"
-        label-width="100px"
+          :inline="true"
+          :model="showListdialogueandoffList"
+          label-width="100px"
       >
         <el-row>
           <el-col :span="12">
             <el-form-item label="ETC编号:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.etcNumber"
+                  v-model="showListdialogueandoffList.etcNumber"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -276,7 +273,7 @@
           <el-col :span="12">
             <el-form-item label="所属停车场:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.parkName"
+                  v-model="showListdialogueandoffList.parkName"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -288,7 +285,7 @@
           <el-col :span="12">
             <el-form-item label="描述:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.description"
+                  v-model="showListdialogueandoffList.description"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -297,14 +294,14 @@
     </el-dialog>
     <!-- 信息修改点击弹出框 -->
     <el-dialog
-      title="修改ETC"
-      width="50%"
-      :visible.sync="editListDialogueandoff"
+        :visible.sync="editListDialogueandoff"
+        title="修改ETC"
+        width="50%"
     >
       <el-form
-        :inline="true"
-        :model="editListDialogueandoffList"
-        label-width="100px"
+          :inline="true"
+          :model="editListDialogueandoffList"
+          label-width="100px"
       >
         <el-col :span="12">
           <el-form-item label="ETC编号:" label-width="150px">
@@ -324,7 +321,7 @@
         <el-col :span="12">
           <el-form-item label="描述:" label-width="150px">
             <el-input
-              v-model="editListDialogueandoffList.description"
+                v-model="editListDialogueandoffList.description"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -341,9 +338,11 @@
 export default {
   data() {
     return {
+      //模板下载
       importContainerDia: false,
-      file:
-        "http://192.168.1.206:8000/FileController/dlTemplate/基础信息管理ETC",
+      templateDl: "http://192.168.1.191:8000/FileController/dlTemplate/基础信息管理ETC",
+      //导出
+      exportFile:'http://192.168.1.191:8000/ETCFunc/download',
       // 顶部查询数据暂存处
       upQueryList: {
         etcName: "",
@@ -469,17 +468,17 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-          .then(() => {
-            console.log("你要批量删除的id是" + this.idList);
-            this.$deviceManagement.delETC(this.idList).then(res => {
-              console.log("批量删除成功", res);
-              this.$message({ type: "success", message: "删除成功!" });
-              this.queryETCList();
+            .then(() => {
+              console.log("你要批量删除的id是" + this.idList);
+              this.$deviceManagement.delETC(this.idList).then(res => {
+                console.log("批量删除成功", res);
+                this.$message({ type: "success", message: "删除成功!" });
+                this.queryETCList();
+              });
+            })
+            .catch(() => {
+              this.$message({ type: "info", message: "已取消删除" });
             });
-          })
-          .catch(() => {
-            this.$message({ type: "info", message: "已取消删除" });
-          });
       }
     },
     // 单个删除
@@ -489,25 +488,25 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          console.log("你要删除的id是" + row.etcNumber);
-          const param = [
-            {
-              etcNumber: row.etcNumber
-            }
-          ];
-          this.$deviceManagement.delETC(param).then(res => {
-            console.log("删除成功", res);
+          .then(() => {
+            console.log("你要删除的id是" + row.etcNumber);
+            const param = [
+              {
+                etcNumber: row.etcNumber
+              }
+            ];
+            this.$deviceManagement.delETC(param).then(res => {
+              console.log("删除成功", res);
+            });
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+            this.queryETCList();
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
           });
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-          this.queryETCList();
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
     },
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
@@ -540,24 +539,24 @@ export default {
     ETCInfoInsert() {
       console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.$deviceManagement
-        .updateETC(this.editListDialogueandoffList)
-        .then(res => {
-          console.log("打印更新数据", res);
-          this.$message({ type: "success", message: "修改成功!" });
-          this.queryETCList();
-        });
+          .updateETC(this.editListDialogueandoffList)
+          .then(res => {
+            console.log("打印更新数据", res);
+            this.$message({ type: "success", message: "修改成功!" });
+            this.queryETCList();
+          });
       this.editListDialogueandoff = false;
-    },
-    // 导出Excel
-    exportExcel() {
-      const param = {
-        etcName: this.upQueryList.etcName,
-        parkName: this.upQueryList.queryParkId,
-        pageSize: this.pageSize,
-        pageNum: this.pageNum
-      };
-      this.$deviceManagement.exportETC(param).then(res => {});
     }
+    // 导出Excel
+    // exportExcel() {
+    //   const param = {
+    //     etcName: this.upQueryList.etcName,
+    //     parkName: this.upQueryList.queryParkId,
+    //     pageSize: this.pageSize,
+    //     pageNum: this.pageNum
+    //   };
+    //   this.$deviceManagement.exportETC(param).then(res => {});
+    // }
   },
   mounted() {
     this.queryETCList();

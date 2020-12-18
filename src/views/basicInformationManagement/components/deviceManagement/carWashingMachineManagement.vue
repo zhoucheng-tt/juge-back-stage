@@ -58,9 +58,21 @@
         <el-button type="primary" size="small" @click="addWasher()"
           >新增洗车机</el-button
         >
-        <el-button type="primary" size="small" @click="bulkImport()"
-          >批量导入</el-button
+        <el-button
+            size="small"
+            type="primary"
+            @click="importContainerDia = true"
+        >批量导入
+        </el-button
         >
+        <el-button size="small" style="margin-left: 15px" type="primary">
+          <a
+              :href="exportFile"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+          >导出</a>
+        </el-button>
         <el-button type="danger" size="small" @click="batchDelete()"
           >批量删除</el-button
         >
@@ -237,25 +249,52 @@
         <el-button type="primary" @click="onSubmitEdit()">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
-      <el-form>
-        <el-container>
-          <el-header style="text-align: center">
-            <el-button type="primary" size="medium" @click="imgbtn()"
-              >导 入<i class="el-icon-upload el-icon--right"></i>
-            </el-button>
-          </el-header>
-          <el-main style="text-align: center">
-            <el-button type="primary" size="medium" @click="downModel()"
-              >下载模版<i class="el-icon-download el-icon--right"></i
-            ></el-button>
-          </el-main>
-        </el-container>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="importDialog = false">取 消</el-button>
-        <el-button type="primary" @click="commitImport()">确 定</el-button>
-      </div>
+    <!--      导入弹框-->
+    <el-dialog :visible.sync="importContainerDia" title="导入数据" width="40%">
+      <!-- style="text-align: center;" -->
+      <el-upload
+          ref="upload"
+          :auto-upload="false"
+          :file-list="fileList"
+          :http-request="myUpload"
+          :limit="1"
+          :on-change="addFile"
+          :on-exceed="handleExceed"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :show-file-list="true"
+          accept=".xls, .xlsx"
+          action=""
+          class="upload-demo"
+          style="text-align: center;"
+      >
+        <el-button slot="trigger" size="small" type="primary"
+        >选择文件
+        </el-button
+        >
+        <el-button size="small" style="margin-left: 15px" type="primary">
+          <a
+              :href="templateDl"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+          >模板下载</a
+          >
+        </el-button>
+        <div
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:red;margin-top:30px;"
+        >
+          请下载模板文件后上传。
+        </div>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="importContainerDia = false">取 消</el-button>
+        <el-button type="primary" @click="confimImportContainers"
+        >导 入</el-button
+        >
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -263,6 +302,12 @@
 export default {
   data() {
     return {
+      //模板下载
+      importContainerDia: false,
+      templateDl: "http://192.168.1.191:8000/FileController/dlTemplate/洗车机管理",
+      //导出
+      exportFile:'http://192.168.1.191:8000/carWashingMachineFunc/download',
+      fileList:[],
       //充电桩编号列表
       carWashingMachineNameList: [
         {
@@ -473,7 +518,73 @@ export default {
         return "successSecond";
       }
       return "";
-    }
+    },
+    //处理导入
+    addFile(file, fileList) {
+      console.log(file, fileList);
+      var index = file.name.split('.').slice(-1);
+      if (!(index == 'xlsx' || index == 'XLSX')) {
+        this.fileList = [];
+        this.$message.warning(`文件格式有误,请选择xls文件`);
+      }
+      console.log(index);
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`对不起,一次仅限上传一个文件！`);
+    },
+    confimImportContainers() {
+      this.$refs.upload.submit();
+    },
+    myUpload(content) {
+      let _self = this;
+      // 1.导入
+      var FileController = '';
+      FileController = "http://192.168.1.191:8000/carWashingMachineFunc/upload";
+      console.log(FileController);
+      //创建空对象，通过append方法添加数据
+      var form = new FormData();
+      form.append("file", content.file);
+      var xhr = new XMLHttpRequest();
+      //状态改变回调方法
+      xhr.onreadystatechange = onloadFun;
+      //使用open()方法启动一个请求以备发送,请求类型，请求的URL,第三个参数是否为异步请求
+      xhr.open("POST", FileController, true);
+      xhr.send(form);
+
+      function onloadFun() {
+        // 0 － （未初始化）还没有调用send()方法
+        // 1 － （载入）已调用send()方法，正在发送请求
+        // 2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+        // 3 － （交互）正在解析响应内容
+        // 4 － （完成）响应内容解析完成，可以在客户端调用了
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
+          var resText = JSON.parse(xhr.responseText);
+          console.log(resText);
+          if (resText.resultCode === '2000') {
+            _self.fileList = [];
+            _self.$message({
+              message: '导入成功',
+              type: 'success',
+            });
+            _self.importContainerDia = false;
+            _self.queryWasher();
+          } else {
+            _self.$message.error({
+              message: '对不起！文件上传失败',
+              type: 'error'
+            });
+          }
+          // loading.close();
+        }
+      }
+    },
   },
   mounted() {
     this.queryWasher();
