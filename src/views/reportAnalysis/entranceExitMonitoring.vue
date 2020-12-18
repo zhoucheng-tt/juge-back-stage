@@ -71,64 +71,45 @@
       </el-form>
     </div>
     <!--下半部分图片-->
-    <div class="down">
-      <el-row>
-        <el-col :span="12" :offset="1">
-          <h3>入口</h3>
-        </el-col>
-      </el-row>
+    <el-row class="down-up">
+      <div class="span-text">入口数据</div>
       <el-row>
         <el-col style="height: 70%" :offset="1" :span="9">
           <img :src="entranceImgUrl" class="show" />
         </el-col>
         <el-col :span="12">
-          <div class="marquee">
-            <!-- <el-scrollbar style="height: 100%"> -->
-            <div class="marquee_box">
-              <ul
-                class="marquee_list"
-                :class="{ marquee_top: animate }"
-                onmouseover="this.stop()"
-              >
-                <li v-for="item in blackTextList" class="alarm-card">
-                  <span>{{ item.text }}</span>
-                  <span>车牌:</span>
-                  <span>{{ item.plateNum }}</span>
-                  <span>车型：</span>
-                  <span>{{ item.carType }}</span>
+          <div class="index">
+            <div class="scroll">
+              <ul :style="{ top }" :class="{ transition: index != 0 }">
+                <li v-for="(item, index) in blackTextList">
+                  {{ item.text }} {{ item.carType }} {{ item.plateNum }}
                 </li>
               </ul>
             </div>
           </div>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span="12" :offset="1">
-          <h3>出口</h3>
-        </el-col>
-      </el-row>
+    </el-row>
+
+    <el-row class="down-down">
+      <el-row class="span-text">出口数据</el-row>
       <el-row>
         <el-col style="height: 70%" :offset="1" :span="9">
           <img :src="exitImgUrl" class="show" />
         </el-col>
         <el-col :span="12">
-          <div class="marquee">
-            <!-- <el-scrollbar style="height: 100%"> -->
-            <div class="marquee_box">
-              <ul class="marquee_list" :class="{ marquee_top: animate }">
-                <li v-for="item in blackTextList" class="alarm-card">
-                  <span>{{ item.text }}</span>
-                  <span>车牌:</span>
-                  <span>{{ item.plateNum }}</span>
-                  <span>车型：</span>
-                  <span>{{ item.carType }}</span>
+          <div class="index">
+            <div class="scroll">
+              <ul :style="{ top }" :class="{ transition: index != 0 }">
+                <li v-for="(item, index) in blackTextList">
+                  {{ item.text }} {{ item.carType }} {{ item.plateNum }}
                 </li>
               </ul>
             </div>
           </div>
         </el-col>
-      </el-row>
-    </div>
+      </el-row></el-row
+    >
   </div>
 </template>
 
@@ -136,6 +117,9 @@
 export default {
   data() {
     return {
+      top: "",
+      index: 0,
+      p: "",
       // 查询数据暂存处
       queryParkId: "",
       // 停车场下拉列表
@@ -184,10 +168,35 @@ export default {
       ]
     };
   },
-  created: function() {
-    setInterval(this.showMarquee, 2000);
+  mounted() {
+    this.queryParking();
+    this.goScroll();
   },
   methods: {
+    goScroll() {
+      var _this = this;
+      this.p = setInterval(() => {
+        console.log(22);
+        _this.top = -60 * _this.index + "px";
+        if (_this.index >= this.blackTextList.length + 1) {
+          _this.index = 0;
+          _this.top = -0 + "px";
+          clearInterval(_this.p);
+          _this.continueScroll();
+        } else {
+          _this.index++;
+        }
+      }, 1000);
+    },
+    continueScroll() {
+      var _this = this;
+      setTimeout(() => {
+        _this.index = 1;
+        _this.top = -60 * this.index + "px";
+        _this.index++;
+        this.goScroll();
+      }, 100);
+    },
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
@@ -207,20 +216,10 @@ export default {
         that.parkingLotList = res.data.dataList;
         console.log("下拉菜单", this.parkingLotList);
       });
-    },
-
-    showMarquee: function() {
-      this.animate = true;
-
-      setTimeout(() => {
-        this.blackTextList.push(this.blackTextList[0]);
-        this.blackTextList.shift();
-        this.animate = false;
-      }, 1000);
     }
   },
-  mounted() {
-    this.queryParking();
+  destroyed() {
+    clearInterval(this.p);
   }
 };
 </script>
@@ -230,12 +229,6 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
-
-.marquee_top {
-  transition: all 3s;
-  margin-top: -50px;
-  /*animation: marquee 100s linear 0s infinite;*/
 }
 
 /*查询*/
@@ -254,27 +247,34 @@ export default {
   padding-top: 0.5%;
 }
 .show {
-  height: 100%;
-  width: 70%;
+  height: 280px;
+  width: 80%;
   padding-left: 18px;
   position: relative;
 }
 
 /* 下班部分列表部分 */
-.down {
+.down-up {
   width: 98%;
-  height: 88%;
+  height: 42%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
 }
-
-.rightDown {
+.down-down {
+  width: 98%;
+  height: 42%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 2%;
+}
+.span-text {
+  font-size: 20px;
   width: 100%;
-  height: 45%;
-  overflow: hidden;
-  /* overflow-y: scroll;   */
-  /* background-color: lightgoldenrodyellow; */
+  height: 10%;
+  margin-top: 1%;
+  margin-left: 3%;
+  /*background-color: red;*/
 }
 
 /* 斑马纹样式 */
@@ -285,87 +285,34 @@ export default {
 /deep/ .el-table .successSecond {
   background: #8ed3e7 !important;
 }
-
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
+img {
+  width: 30px;
+  height: 30px;
+  /*border-radius: 50%;*/
+  vertical-align: middle;
+  margin-right: 20px;
 }
-
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
-
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
-
-#add {
-  height: auto;
-}
-
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 180px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-
-.marquee {
-  width: 100%;
-  height: 150px;
-  align-items: center;
-  color: #3a3a3a;
-  background-color: #b3effe;
-  display: flex;
-  box-sizing: border-box;
-}
-.marquee:hover {
-  animation-play-state: paused;
-}
-
-.marquee_box {
-  display: block;
+ul {
   position: relative;
-  width: 60%;
-  height: 150px;
+}
+li {
   overflow: hidden;
-}
-
-.marquee_list li {
-  height: 150px;
-  /* line-height: 30px; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 80%;
+  height: 60px;
+  line-height: 60px;
+  text-align: left;
+  margin: 0;
   font-size: 14px;
-  padding-left: 20px;
 }
-
-.marquee_list li span {
-  padding: 0 2px;
+.scroll {
+  height: 60px;
+  overflow: hidden;
+  font-size: 0px;
+  position: relative;
 }
-
-.marquee_list li {
-  height: 150px;
-  /* line-height: 30px; */
-  font-size: 14px;
-  padding-left: 20px;
+.transition {
+  transition: top 1s;
 }
-
-.marquee_list li span {
-  padding: 0 2px;
-}
-
-/*/deep/.el-scrollbar__wrap {*/
-/*  overflow-x: scroll;*/
-/*}*/
 </style>

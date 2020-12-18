@@ -14,6 +14,7 @@
       <div class="upSelect">
         <!-- xuanzhong(item):传入点击后所选中的数据 -->
         <div
+          style="float: left"
           class="upSelectContent"
           v-for="(item, index) in upSelectList"
           :key="item.index"
@@ -201,7 +202,7 @@ export default {
             },
             labels: {
               formatter: function() {
-                return this.value / 1000 + "k";
+                return this.value / 1;
               }
             }
           },
@@ -361,7 +362,7 @@ export default {
             },
             labels: {
               formatter: function() {
-                return this.value / 1000 + "k";
+                return this.value / 1;
               }
             }
           },
@@ -495,8 +496,11 @@ export default {
 
 /* 上半部分 */
 .up {
-  width: 100%;
+  width: 98%;
   height: 20%;
+  background-color: white;
+  margin-left: 1%;
+  margin-top: 1%;
 }
 
 /* 按时间切换框样式 */
@@ -509,7 +513,8 @@ export default {
 .upSelectContent {
   width: 10%;
   height: 70%;
-  margin-top: 1%;
+  margin-top: 2%;
+  margin-left: 5%;
   text-align: center;
   border: 1px solid black;
 }
@@ -521,7 +526,8 @@ export default {
 
 /* 设置选中状态的样式为蓝色 */
 .upSelectContentHover {
-  background-color: rgb(130, 204, 238);
+  background-color: blue;
+  color: white;
 }
 
 /* 选中框中样式 */
@@ -534,6 +540,7 @@ export default {
   width: 100%;
   height: 70%;
   float: left;
+  margin-left: 1.5%;
 }
 
 /* 统计部分外部整体样式 */
@@ -555,25 +562,25 @@ export default {
 
 /* 统计部分文字部分样式 */
 .leftUpContentNumSpan1 {
-  font-size: 14px;
-  color: white;
-  position: relative;
-  top: 10%;
+  font-size: 18px;
 }
 
 /* 下半部分 */
 .down {
-  width: 100%;
-  height: 80%;
-  float: left;
+  width: 98%;
+  height: 74%;
+  margin-left: 1%;
+  margin-top: 1%;
+  background-color: white;
 }
 
 /* 下部分图表样式 */
 .downCharts {
   width: 48.5%;
-  height: 46%;
+  height: 80%;
   float: left;
-  margin-top: 1%;
+  margin-top: 4%;
   margin-left: 1%;
+  /*background-color: red;*/
 }
 </style>

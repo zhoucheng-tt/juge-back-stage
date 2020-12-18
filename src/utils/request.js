@@ -18,6 +18,7 @@ const service = axios.create({
   // baseURL:'http://120.26.146.64:8052/e-parking-web',
   //新后台位置
   // baseURL:'http://192.168.1.171:18080/eparking-web',
+  // baseURL:'http://123.207.189.27:7146/eparking-web',
   // 服务器版本
   // baseURL:'/e-parking-api',
   baseURL: "/eparking-web",

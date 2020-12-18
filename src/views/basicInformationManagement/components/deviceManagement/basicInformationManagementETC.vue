@@ -52,20 +52,20 @@
         <el-button type="primary" size="small" @click="exportExcel()"
           >导出
         </el-button>
-<!--        <el-button type="primary" size="small">-->
-<!--          <a-->
-<!--            style="color: #ffffff;text-decoration:none"-->
-<!--            class="download"-->
-<!--            :href="file"-->
-<!--            download=""-->
-<!--            >模板下载</a-->
-<!--          >-->
-<!--        </el-button>-->
+        <!--        <el-button type="primary" size="small">-->
+        <!--          <a-->
+        <!--            style="color: #ffffff;text-decoration:none"-->
+        <!--            class="download"-->
+        <!--            :href="file"-->
+        <!--            download=""-->
+        <!--            >模板下载</a-->
+        <!--          >-->
+        <!--        </el-button>-->
         <el-button
-            type="primary"
-            size="small"
-            @click="importContainerDia = true"
-        >批量导入</el-button
+          type="primary"
+          size="small"
+          @click="importContainerDia = true"
+          >批量导入</el-button
         >
         <el-button type="danger" size="small" @click="deleteETC"
           >批量删除
@@ -155,61 +155,50 @@
       </div>
     </div>
     <!--      导入弹框-->
-    <el-dialog
-        title="导入数据"
-        :visible.sync="importContainerDia"
-        width="40%"
-    >
+    <el-dialog title="导入数据" :visible.sync="importContainerDia" width="40%">
       <!-- style="text-align: center;" -->
       <el-upload
-          style="text-align: center;"
-          ref="upload"
-          :http-request="myUpload"
-          action=""
-          class="upload-demo"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :on-exceed="handleExceed"
-          accept=".xls, .xlsx"
-          :limit="1"
-          :file-list="fileList"
-          :show-file-list="true"
-          :on-change="addFile"
-          :auto-upload="false"
+        style="text-align: center;"
+        ref="upload"
+        :http-request="myUpload"
+        action=""
+        class="upload-demo"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :on-exceed="handleExceed"
+        accept=".xls, .xlsx"
+        :limit="1"
+        :file-list="fileList"
+        :show-file-list="true"
+        :on-change="addFile"
+        :auto-upload="false"
       >
-        <el-button
-            slot="trigger"
-            size="small"
-            type="primary"
-
-        >选择文件</el-button
+        <el-button slot="trigger" size="small" type="primary"
+          >选择文件</el-button
         >
-        <el-button
-            size="small"
-            type="primary"
-            style="margin-left: 15px"
-        >
+        <el-button size="small" type="primary" style="margin-left: 15px">
           <a
-          style="color: #ffffff;text-decoration:none"
-          class="download"
-          :href="file"
-          download="">模板下载</a>
-        </el-button
-        >
+            style="color: #ffffff;text-decoration:none"
+            class="download"
+            :href="file"
+            download=""
+            >模板下载</a
+          >
+        </el-button>
         <div
-            slot="tip"
-            class="el-upload__tip"
-            style="font-size:10px;color:red;margin-top:30px;"
+          slot="tip"
+          class="el-upload__tip"
+          style="font-size:10px;color:red;margin-top:30px;"
         >
           请下载模板文件后上传。
         </div>
       </el-upload>
       <span slot="footer" class="dialog-footer">
-          <el-button @click="importContainerDia = false">取 消</el-button>
-          <el-button type="primary" @click="confimImportContainers"
+        <el-button @click="importContainerDia = false">取 消</el-button>
+        <el-button type="primary" @click="confimImportContainers"
           >导 入</el-button
-          >
-        </span>
+        >
+      </span>
     </el-dialog>
     <!-- 新增ETC弹框 -->
     <el-dialog
@@ -352,7 +341,7 @@
 export default {
   data() {
     return {
-      importContainerDia:false,
+      importContainerDia: false,
       file:
         "http://192.168.1.206:8000/FileController/dlTemplate/基础信息管理ETC",
       // 顶部查询数据暂存处
