@@ -300,9 +300,9 @@ export default {
       importBatchDia: false,
       //模板下载
       templateDl:
-        "http://192.168.1.191:8000/FileController/dlTemplate/洗车机管理",
+        "http://192.168.1.206:8000/FileController/dlTemplate/洗车机管理",
       //导出
-      exportFile: "http://192.168.1.191:8000/carWashingMachineFunc/download",
+      exportFile: "http://192.168.1.206:8000/carWashingMachineFunc/download",
       fileList: [],
       //充电桩编号列表
       carWashingMachineNameList: [
@@ -539,7 +539,7 @@ export default {
       let _self = this;
       // 1.导入
       var FileController = "";
-      FileController = "http://192.168.1.191:8000/carWashingMachineFunc/upload"; //请求接口
+      FileController = "http://192.168.1.206:8000/carWashingMachineFunc/upload"; //请求接口
       console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
