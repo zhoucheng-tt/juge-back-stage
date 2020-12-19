@@ -325,38 +325,41 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-<!--            <el-form-item-->
-<!--              label="停车场图片:"-->
-<!--              label-width="150px"-->
-<!--              prop="parkPictureFile"-->
-<!--            >-->
-<!--              <el-input v-model="newParkingLot.parkPictureFile" />-->
-<!--            </el-form-item>-->
+            <!--            <el-form-item-->
+            <!--              label="停车场图片:"-->
+            <!--              label-width="150px"-->
+            <!--              prop="parkPictureFile"-->
+            <!--            >-->
+            <!--              <el-input v-model="newParkingLot.parkPictureFile" />-->
+            <!--            </el-form-item>-->
             <p style="font-size: 20px">停车场图片</p>
             <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :file-list="fileList"
-                list-type="picture">
-              <el-button size="small" type="primary">点击上传停车场图片</el-button>
-<!--              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+              class="upload-demo"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :file-list="fileList"
+              list-type="picture"
+            >
+              <el-button size="small" type="primary"
+                >点击上传停车场图片</el-button
+              >
+              <!--              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
             </el-upload>
           </el-col>
-<!--          <el-col :span="2">-->
-<!--            <el-button type="info" @click="choosePicture()" size="small"-->
-<!--              >选择</el-button-->
-<!--            >-->
-<!--          </el-col>-->
-<!--          <el-col :span="2">-->
-<!--            <el-button type="info" @click="uploadPicture()" size="small"-->
-<!--              >上传</el-button-->
-<!--            >-->
-<!--          </el-col>-->
-<!--          <el-col :span="2">-->
-<!--            <el-button type="info" @click="viewPicture()" size="small"-->
-<!--              >预览</el-button-->
-<!--            >-->
-<!--          </el-col>-->
+          <!--          <el-col :span="2">-->
+          <!--            <el-button type="info" @click="choosePicture()" size="small"-->
+          <!--              >选择</el-button-->
+          <!--            >-->
+          <!--          </el-col>-->
+          <!--          <el-col :span="2">-->
+          <!--            <el-button type="info" @click="uploadPicture()" size="small"-->
+          <!--              >上传</el-button-->
+          <!--            >-->
+          <!--          </el-col>-->
+          <!--          <el-col :span="2">-->
+          <!--            <el-button type="info" @click="viewPicture()" size="small"-->
+          <!--              >预览</el-button-->
+          <!--            >-->
+          <!--          </el-col>-->
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -562,7 +565,7 @@ export default {
   data() {
     return {
       //上传图片列表
-      fileList:[],
+      fileList: [],
       addListDiaRules: {
         parkName: [
           {

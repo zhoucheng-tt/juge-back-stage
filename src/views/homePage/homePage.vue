@@ -1031,7 +1031,6 @@ letter-spacing: 0.36px;float:right;"
               />
               <path
                 class="st1"
-                id="aa1"
                 d="M445.2,55.2c0,2.6,0,5.2,0,7.8c0,0.8,0.2,1.7-1.1,1.7c-2.3,0-4.6,0.1-6.9,0c-1.2,0-1-1.1-1-1.8
 	c0-5.3,0-10.6,0-15.8c0-1.4,0.4-1.9,1.9-2c7.1-0.4,7.1-0.5,7.1,6.5C445.3,52.8,445.3,54,445.2,55.2z"
               />
@@ -3539,7 +3538,7 @@ export default {
             spacingBottom: 0
           },
           title: {
-            text: "单位(%)"
+            text: ""
           },
           credits: {
             enabled: false
@@ -4472,6 +4471,7 @@ export default {
 .center-line3 {
   width: 100%;
   height: 6%;
+  position: relative;
   margin-top: 3%;
   display: flex;
 }

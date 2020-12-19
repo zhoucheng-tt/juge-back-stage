@@ -346,7 +346,7 @@ export default {
 
   .tac {
     width: 100%;
-    background: #313e5d;
+    background: #001b3d;
   }
 }
 
