@@ -346,7 +346,7 @@ export default {
 
   .tac {
     width: 100%;
-    background: #001b3d;
+    background: #0f2c54;
   }
 }
 
@@ -360,5 +360,9 @@ export default {
 }
 /deep/.el-scrollbar__wrap {
   overflow-x: hidden;
+}
+/deep/ .tac el-scrollbar {
+  height: 100%;
+  background-color: white !important;
 }
 </style>

@@ -129,10 +129,9 @@ export default {
   width: 100%;
   height: 100%;
   line-height: 64px;
-  /* background: #000F47; */
   text-align: center;
   color: white;
-  background: #2066c0;
+  background: #043d87;
 
   .G524-project-title {
     float: left;

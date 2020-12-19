@@ -11,13 +11,13 @@
   <div class="body">
     <!--    顶部导航栏-->
     <div class="top">
+      <span class="top-text">溧水经济开发区管委会智慧停车管理平台</span>
       <!--  首页-->
       <div class="top-homepage">
         <div class="top-homepage-text">
           首页
         </div>
       </div>
-
       <div
         class="top-others"
         @click="handleTopClick(item.code)"
@@ -125,7 +125,7 @@
             <span class="spanStyle">平均停车时长</span>
             <span
               style="margin-top:4px;font-family: PingFangSC-Medium;
-font-size: 16px;
+font-size: 1rem;
 color: #E9C503;
 letter-spacing: 0.36px;float: right"
             >
@@ -204,7 +204,7 @@ letter-spacing: 0.36px;float: right"
             <span class="spanStyle">车位利用率</span>
             <span
               style="font-family: PingFangSC-Medium;
-font-size: 16px;
+font-size: 1rem;
 color: #08F6E4;
 letter-spacing: 0.36px;float: right"
             >
@@ -283,7 +283,7 @@ letter-spacing: 0.36px;float: right"
             <span class="spanStyle">车位周转率</span>
             <span
               style="font-family: PingFangSC-Medium;
-font-size: 16px;
+font-size: 1rem;
 color: #E9C503;
 letter-spacing: 0.36px;float:right;"
             >
@@ -2571,11 +2571,13 @@ letter-spacing: 0.36px;float:right;"
 	"
               />
               <path
+                id="st1-1"
                 class="st1"
                 d="M455.9,190.5c0,2.5-0.1,5,0,7.5c0.1,1.6-0.6,2-2.1,2.1c-6.9,0.3-6.9,0.4-6.9-6.5c0-3.6,0.1-7.2,0-10.8
 	c-0.1-1.9,0.6-2.3,2.4-2.3c6.6-0.1,6.6-0.1,6.6,6.5C455.9,188.1,455.9,189.3,455.9,190.5z"
               />
               <path
+                id="st1-2"
                 class="st1"
                 d="M477,190.3c0,2.6-0.1,5.2,0,7.7c0.1,1.6-0.5,2-2.1,2c-6.8,0.3-6.8,0.3-6.8-6.3c0-3.6,0.1-7.2,0-10.7
 	c0-1.8,0.3-2.6,2.4-2.6c6.4,0,6.4-0.1,6.4,6.3C477,187.9,477,189.1,477,190.3z"
@@ -3211,7 +3213,7 @@ export default {
     // 支付方式
     queryPaymentBehaviorAnalysis() {
       const param = {
-        statisType: "currentMonth"
+        statisType: "today"
       };
       this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
         var alipayDataList = [
@@ -3734,7 +3736,7 @@ export default {
     queryParkIncomeRanking() {
       this.parkingRevenueRankingChartX = [];
       const param = {
-        statisType: "currentMonth"
+        statisType: "today"
       };
       var dataListA = [];
       this.$homePage.queryParkIncomeRanking(param).then(res => {
@@ -3774,11 +3776,15 @@ export default {
             //设置网格线颜色
             gridLineColor: "#2B3DA1",
             title: {
-              text: ""
+              text: "单位(元)",
+              style: {
+                color: "#7CB5EC", //字体颜色
+                fontSize: "16px" //字体大小
+              }
             },
             labels: {
               formatter: function() {
-                return this.value / 1;
+                return this.value / 100;
               },
               style: {
                 color: "rgba(90,142,227,1)",
@@ -4146,13 +4152,14 @@ export default {
 }
 
 .st1 {
-  fill: #c1c4c2;
+  fill: green;
 }
-
-#aa1 {
+#st1-1 {
   fill: red;
 }
-
+#st1-2 {
+  fill: red;
+}
 .st2 {
   fill: #f4f4f4;
 }
@@ -4160,16 +4167,29 @@ export default {
 .body {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /*min-width: 1900px;*/
+  /*min-height: 1080px;*/
+  overflow-x: auto;
+  overflow-y: auto;
   background-image: linear-gradient(180deg, #001d43 0%, #000c1c 100%);
 }
 /*顶部盒子*/
 .top {
   width: 100%;
   height: 6.7%;
-  background: url("../../assets/homePage/top.jpg");
+  background: url("../../assets/homePage/top.png");
   background-repeat: no-repeat;
+  position: relative;
   display: flex;
+}
+.top-text {
+  width: 31.4%;
+  height: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  padding-top: 0.6%;
+  color: white;
+  position: relative;
 }
 /*顶部首页按钮框*/
 .top-homepage {
@@ -4178,14 +4198,13 @@ export default {
   position: relative;
   color: #46c5dd;
   background-color: #043d87;
-  margin-left: 32.5%;
+  margin-left: 1.5%;
   margin-top: 1.2%;
   transform: skew(-20.5deg);
   border: 2px solid #45c3db;
 }
 .top-homepage:hover {
   cursor: pointer;
-  user-select: none;
 }
 .top-homepage-text {
   width: 100%;
@@ -4214,9 +4233,6 @@ export default {
 }
 .top-others:hover {
   cursor: pointer;
-  user-select: none;
-  border: 2px solid #45c3db;
-  color: #46c5dd;
 }
 .top-others-text {
   width: 100%;
