@@ -3151,7 +3151,7 @@ export default {
     //获取中间部分总收入、应收金额、欠收金额
     queryTotalIncome() {
       const param = {
-        statisType: "currentMonth"
+        statisType: "today"
       };
       // console.log('总收入方法传入的参数',param)
       this.$homePage.queryTotalIncome(param).then(res => {
@@ -3281,13 +3281,16 @@ export default {
           tooltip: {
             shared: true
           },
+
+          colors: ["#007AFF", "#03D7E9", "#E9C503", "#7654E3"],
+
           plotOptions: {
             pie: {
               allowPointSelect: true,
               //放到上面是小手
               cursor: "pointer",
               //控制距离中心的值
-              innerSize: 40,
+              innerSize: 60,
               depth: 45,
               dataLabels: {
                 enabled: true

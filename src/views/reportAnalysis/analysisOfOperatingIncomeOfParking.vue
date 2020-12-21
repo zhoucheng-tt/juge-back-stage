@@ -249,10 +249,16 @@ export default {
               }
             }
           ],
+          colors: [
+            "#FFBC00" //蓝
+            // "#00FF00" //绿
+            // "#FF00FF" //紫
+          ],
           plotOptions: {
             column: {
               borderWidth: 0,
               pointWidth: 25, //柱子宽度
+              color: "#00AEFF",
               dataLabels: {
                 style: {
                   fontSize: 11
@@ -418,12 +424,12 @@ export default {
         this.earnComponentChart = {
           chart: {
             type: "pie",
-            renderTo: "earnComponent",
-            options3d: {
-              enabled: true,
-              alpha: 45,
-              beta: 0
-            }
+            renderTo: "earnComponent"
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 45,
+            //   beta: 0
+            // }
           },
           title: {
             text: "收入构成分析"
@@ -434,11 +440,12 @@ export default {
           tooltip: {
             shared: true
           },
+          colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC", "#00FF00"],
           plotOptions: {
             pie: {
               allowPointSelect: true,
               cursor: "pointer",
-              innerSize: 100,
+              innerSize: 90,
               depth: 45,
               dataLabels: {
                 enabled: true,
@@ -498,6 +505,11 @@ export default {
               format: "{value}元"
             }
           },
+          colors: [
+            "#00AEFF", //蓝
+            "#1EC193" //绿
+          ],
+
           plotOptions: {
             column: {
               borderWidth: 0,
@@ -585,6 +597,7 @@ export default {
               text: "单位(元)"
             }
           },
+          colors: ["#00CDE6"],
           plotOptions: {
             series: {
               // depth: 25,
@@ -641,6 +654,7 @@ export default {
               text: "单位(元)"
             }
           },
+          colors: ["#7654E3"],
           plotOptions: {
             series: {
               depth: 25,
