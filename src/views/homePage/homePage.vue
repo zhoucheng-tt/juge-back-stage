@@ -3800,6 +3800,8 @@ export default {
           tooltip: {
             shared: true
           },
+          colors: ["#E9C503", "#03D7E9", "#3AC9FD", "#EE43FD", "#7B56F1"],
+
           plotOptions: {
             series: {
               depth: 25,
