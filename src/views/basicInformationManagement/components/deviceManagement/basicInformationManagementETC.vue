@@ -336,15 +336,15 @@
 </template>
 
 <script>
+import {BASE_API} from '@/utils/config'
 export default {
   data() {
     return {
       //模板下载
       importContainerDia: false,
-      templateDl:
-        "http://192.168.1.206:8000/FileController/dlTemplate/基础信息管理ETC",
+      templateDl: BASE_API + "FileController/dlTemplate/基础信息管理ETC",
       //导出
-      exportFile: "http://192.168.1.206:8000/ETCFunc/download",
+      exportFile: BASE_API + "ETCFunc/download",
       // 顶部查询数据暂存处
       upQueryList: {
         etcName: "",
@@ -578,7 +578,7 @@ export default {
       let _self = this;
       // 1.导入
       var FileController = "";
-      FileController = "http://192.168.1.206:8000/ETCFunc/upload";
+      FileController = BASE_API + "ETCFunc/upload";
       console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
