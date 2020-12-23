@@ -579,6 +579,7 @@ export default {
         }
       }
     }
+
   },
   mounted() {
     this.queryWasher();
