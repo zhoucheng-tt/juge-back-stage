@@ -193,7 +193,7 @@
       </el-upload>
       <span slot="footer" class="dialog-footer">
         <el-button @click="importContainerDia = false">取 消</el-button>
-        <el-button type="primary" @click="confimImportContainers"
+        <el-button type="primary" @click="confimImportBatch"
           >导 入</el-button
         >
       </span>
@@ -345,6 +345,7 @@ export default {
       templateDl: BASE_API + "FileController/dlTemplate/基础信息管理ETC",
       //导出
       exportFile: BASE_API + "ETCFunc/download",
+      fileList:[],
       // 顶部查询数据暂存处
       upQueryList: {
         etcName: "",
@@ -598,9 +599,9 @@ export default {
         // 4 － （完成）响应内容解析完成，可以在客户端调用了
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
-          var resText = xhr.responseText;
+          var resText =JSON.parse(xhr.responseText);
           console.log(resText);
-          if (resText.resultCode == "2000") {
+          if (resText.resultCode === "2000") {
             _self.fileList = [];
             _self.$message({
               message: "导入成功",
