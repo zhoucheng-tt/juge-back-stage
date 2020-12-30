@@ -4174,8 +4174,8 @@ export default {
   height: 100%;
   /*min-width: 1900px;*/
   /*min-height: 1080px;*/
-  overflow-x: auto;
-  overflow-y: auto;
+  /*overflow-x: auto;*/
+  /*overflow-y: auto;*/
   background-image: linear-gradient(180deg, #001d43 0%, #000c1c 100%);
 }
 /*顶部盒子*/
