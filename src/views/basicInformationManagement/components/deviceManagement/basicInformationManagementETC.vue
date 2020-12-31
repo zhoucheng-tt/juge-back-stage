@@ -193,9 +193,7 @@
       </el-upload>
       <span slot="footer" class="dialog-footer">
         <el-button @click="importContainerDia = false">取 消</el-button>
-        <el-button type="primary" @click="confimImportBatch"
-          >导 入</el-button
-        >
+        <el-button type="primary" @click="confimImportBatch">导 入</el-button>
       </span>
     </el-dialog>
     <!-- 新增ETC弹框 -->
@@ -336,7 +334,7 @@
 </template>
 
 <script>
-import {BASE_API} from '@/utils/config'
+import { BASE_API } from "@/utils/config";
 export default {
   data() {
     return {
@@ -345,7 +343,7 @@ export default {
       templateDl: BASE_API + "FileController/dlTemplate/基础信息管理ETC",
       //导出
       exportFile: BASE_API + "ETCFunc/download",
-      fileList:[],
+      fileList: [],
       // 顶部查询数据暂存处
       upQueryList: {
         etcName: "",
@@ -599,7 +597,7 @@ export default {
         // 4 － （完成）响应内容解析完成，可以在客户端调用了
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
-          var resText =JSON.parse(xhr.responseText);
+          var resText = JSON.parse(xhr.responseText);
           console.log(resText);
           if (resText.resultCode === "2000") {
             _self.fileList = [];

@@ -293,7 +293,7 @@
   </div>
 </template>
 <script>
-import { BASE_API } from "@/utils/config"
+import { BASE_API } from "@/utils/config";
 export default {
   data() {
     return {
@@ -579,7 +579,6 @@ export default {
         }
       }
     }
-
   },
   mounted() {
     this.queryWasher();

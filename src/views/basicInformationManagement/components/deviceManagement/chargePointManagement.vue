@@ -55,10 +55,14 @@
           >批量导入</el-button
         >
         <el-button type="primary" size="small" style="margin-left: 15px">
-          <a   :href="exportFile"
-               class="download"
-               download=""
-               style="color: #ffffff;text-decoration:none">导出</a></el-button>
+          <a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+            >导出</a
+          ></el-button
+        >
         <el-button type="danger" size="small" @click="batchDelete()"
           >批量删除</el-button
         >
@@ -235,39 +239,44 @@
         <el-button type="primary" @click="onSubmitEdit()">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog id="import" title="批量导入" :visible.sync="importBatchDia" width="40%">
+    <el-dialog
+      id="import"
+      title="批量导入"
+      :visible.sync="importBatchDia"
+      width="40%"
+    >
       <el-upload
-          ref="upload"
-          :auto-upload="false"
-          :file-list="fileList"
-          :http-request="myUpload"
-          :limit="1"
-          :on-change="addFile"
-          :on-exceed="handleExceed"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :show-file-list="true"
-          accept=".xls, .xlsx"
-          action=""
-          class="upload-demo"
-          style="text-align: center;"
+        ref="upload"
+        :auto-upload="false"
+        :file-list="fileList"
+        :http-request="myUpload"
+        :limit="1"
+        :on-change="addFile"
+        :on-exceed="handleExceed"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :show-file-list="true"
+        accept=".xls, .xlsx"
+        action=""
+        class="upload-demo"
+        style="text-align: center;"
       >
         <el-button slot="trigger" size="small" type="primary"
-        >选择文件
+          >选择文件
         </el-button>
         <el-button size="small" style="margin-left: 15px" type="primary">
           <a
-              :href="templateDl"
-              class="download"
-              download=""
-              style="color: #ffffff;text-decoration:none"
-          >模板下载</a
+            :href="templateDl"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+            >模板下载</a
           >
         </el-button>
         <div
-            slot="tip"
-            class="el-upload__tip"
-            style="font-size:10px;color:red;margin-top:30px;"
+          slot="tip"
+          class="el-upload__tip"
+          style="font-size:10px;color:red;margin-top:30px;"
         >
           请下载模板文件后上传。
         </div>
@@ -280,7 +289,7 @@
   </div>
 </template>
 <script>
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 export default {
   data() {
     return {

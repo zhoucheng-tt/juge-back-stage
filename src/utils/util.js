@@ -12,7 +12,6 @@ export function formatDate(dateString) {
  */
 export function formatDate1(dateString) {
   var pattern = /-| |:/g;
-  ;
   var formatedDate = dateString.replace(pattern, "");
   return formatedDate;
 }
