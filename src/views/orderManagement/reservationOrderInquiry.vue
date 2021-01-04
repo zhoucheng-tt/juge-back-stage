@@ -111,11 +111,11 @@
         }"
         style="width: 98%;margin-left: 1%"
       >
-        <el-table-column
-          prop="orderSequence"
-          :show-overflow-tooltip="true"
-          label="预约单编号"
-        ></el-table-column>
+        <!--        <el-table-column-->
+        <!--          prop="orderSequence"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="预约单编号"-->
+        <!--        ></el-table-column>-->
         <el-table-column
           prop="parkName"
           :show-overflow-tooltip="true"

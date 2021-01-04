@@ -39,7 +39,7 @@ export function queryImgUrl(params) {
 
 export function trendAnalysis(params) {
   return request({
-    url: "/realtimeMonitorFunc/queryAlarmMonitorTodayList",
+    url: "realtimeMonitorFunc/queryAlarmMonitorTodayList",
     method: "post",
     data: params
   });
@@ -48,7 +48,7 @@ export function trendAnalysis(params) {
 //下拉表单查询 queryDictData
 export function queryDictData(param) {
   return request({
-    url: "/DictDimFunc/queryDictData",
+    url: "DictDimFunc/queryDictData",
     method: "post",
     data: param
   });
@@ -57,7 +57,7 @@ export function queryDictData(param) {
 //停车场管理-停车场管理-列表查询
 export function queryParkList(param) {
   return request({
-    url: "/parkFunc/queryParkList",
+    url: "parkFunc/queryParkList",
     method: "post",
     data: param
   });
@@ -66,7 +66,7 @@ export function queryParkList(param) {
 //停车场管理-停车场管理-新增停车场
 export function insertPark(param) {
   return request({
-    url: "/parkFunc/insertPark",
+    url: "parkFunc/insertPark",
     method: "post",
     data: param
   });
@@ -75,7 +75,7 @@ export function insertPark(param) {
 //停车场管理-停车场管理-删除停车场
 export function deletePark(param) {
   return request({
-    url: "/parkFunc/deletePark",
+    url: "parkFunc/deletePark",
     method: "post",
     data: param
   });
@@ -84,7 +84,7 @@ export function deletePark(param) {
 //停车场管理-停车场管理-修改停车场
 export function updatePark(param) {
   return request({
-    url: "/parkFunc/updatePark",
+    url: "parkFunc/updatePark",
     method: "post",
     data: param
   });
@@ -93,7 +93,7 @@ export function updatePark(param) {
 //停车场管理-停车场管理-导出停车场
 export function exportParkList(param) {
   return request({
-    url: "/parkFunc/exportParkList",
+    url: "parkFunc/exportParkList",
     method: "post",
     data: param,
     flag: "innerExt",
@@ -104,7 +104,7 @@ export function exportParkList(param) {
 //停车场管理-出入口管理-列表查询
 export function queryPassagewayList(param) {
   return request({
-    url: "/parkFunc/queryPassagewayList",
+    url: "parkFunc/queryPassagewayList",
     method: "post",
     data: param
   });
@@ -113,7 +113,7 @@ export function queryPassagewayList(param) {
 //停车场管理-出入口管理-新增出入口 insertPassagewayList
 export function insertPassagewayList(param) {
   return request({
-    url: "/parkFunc/insertPassagewayList",
+    url: "parkFunc/insertPassagewayList",
     method: "post",
     data: param
   });
@@ -122,7 +122,7 @@ export function insertPassagewayList(param) {
 //停车场管理-出入口管理-删除出入口 deletePassagewayList
 export function deletePassagewayList(param) {
   return request({
-    url: "/parkFunc/deletePassagewayList",
+    url: "parkFunc/deletePassagewayList",
     method: "post",
     data: param
   });
@@ -131,7 +131,7 @@ export function deletePassagewayList(param) {
 //停车场管理-出入口管理-修改出入口 updatePassagewayList
 export function updatePassagewayList(param) {
   return request({
-    url: "/parkFunc/updatePassagewayList",
+    url: "parkFunc/updatePassagewayList",
     method: "post",
     data: param
   });
@@ -139,7 +139,7 @@ export function updatePassagewayList(param) {
 //停车场管理-出入口管理-导出
 export function exportPassagewayList(param) {
   return request({
-    url: "/parkFunc/exportPassagewayList",
+    url: "parkFunc/exportPassagewayList",
     method: "post",
     data: param,
     flag: "innerExt",
@@ -150,7 +150,7 @@ export function exportPassagewayList(param) {
 //停车场管理-车位管理-上半部分列表查询 queryParkLayerList
 export function queryParkLayerList(param) {
   return request({
-    url: "/parkFunc/queryParkLayerList",
+    url: "parkFunc/queryParkLayerList",
     method: "post",
     data: param
   });
@@ -159,7 +159,7 @@ export function queryParkLayerList(param) {
 //停车场管理-车位管理-下半部分列表查询 queryParkSpaceList
 export function queryParkSpaceList(param) {
   return request({
-    url: "/parkFunc/queryParkSpaceList",
+    url: "parkFunc/queryParkSpaceList",
     method: "post",
     data: param
   });
@@ -168,7 +168,7 @@ export function queryParkSpaceList(param) {
 //停车场管理-车位管理-删除 deleteParkLayer
 export function deleteParkLayer(param) {
   return request({
-    url: "/parkFunc/deleteParkLayer",
+    url: "parkFunc/deleteParkLayer",
     method: "post",
     data: param
   });
@@ -177,16 +177,16 @@ export function deleteParkLayer(param) {
 //停车场管理车位管理的上传图片接口 CommonController/uploadFile
 export function uploadFile(param) {
   return request({
-    url: "/CommonController/uploadFile",
+    url: "CommonController/uploadFile",
     method: "post",
-    data: param,
+    data: param
     // headers: { "Content-Type": "application/json" },
   });
 }
 //停车场管理车位管理的上传接口 parkFunc/insertParkLayer
 export function insertParkLayer(param) {
   return request({
-    url: "/parkFunc/insertParkLayer",
+    url: "parkFunc/insertParkLayer",
     method: "post",
     data: param
   });

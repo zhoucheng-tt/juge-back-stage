@@ -41,19 +41,19 @@
     <!-- 图表部分 -->
     <div class="down">
       <!-- 洗车次数按时间段分析 -->
-      <div class="downCharts" id="analysisCarWashingTimes">
-        <Xchart
-          id="analysisCarWashingTimes"
-          :option="analysisCarWashingTimesOptions"
-        ></Xchart>
-      </div>
-      <!-- 洗车次数俺月分析 analysisCarWashingMonth -->
-      <div class="downCharts" id="analysisCarWashingMonth" v-if="false">
-        <Xchart
-          id="analysisCarWashingMonth"
-          :option="analysisCarWashingMonthOptions"
-        ></Xchart>
-      </div>
+      <!--      <div class="downCharts" id="analysisCarWashingTimes">-->
+      <!--        <Xchart-->
+      <!--          id="analysisCarWashingTimes"-->
+      <!--          :option="analysisCarWashingTimesOptions"-->
+      <!--        ></Xchart>-->
+      <!--      </div>-->
+      <!-- 洗车次数月分析 analysisCarWashingMonth -->
+      <!--      <div class="downCharts" id="analysisCarWashingMonth" v-if="false">-->
+      <!--        <Xchart-->
+      <!--          id="analysisCarWashingMonth"-->
+      <!--          :option="analysisCarWashingMonthOptions"-->
+      <!--        ></Xchart>-->
+      <!--      </div>-->
       <!-- 收费金额按时间段分析  chargeAmountTimes-->
       <div class="downCharts" id="chargeAmountTimes">
         <Xchart
@@ -89,11 +89,11 @@ export default {
       // 图片导入
       imgUrl: require("../../assets/homePage/tupiao.png"),
       contentNumList: [
-        {
-          // 洗车机数量
-          num: 100,
-          name: "洗车机数量"
-        },
+        // {
+        //   // 洗车机数量
+        //   num: 100,
+        //   name: "洗车机数量"
+        // },
         {
           // 洗车次数
           num: 100,

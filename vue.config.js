@@ -19,7 +19,7 @@ module.exports = {
       // 配置跨域
       // 当遇见所有的跨域问题中需要进行这边调整
       "/eparking-web": {
-        target: "http://123.207.189.27:7146",
+        target: "http://123.207.189.27:7108",
         ws: false,
         pathRewrite: {
           "^/eparking-web/": "/eparking-web/"

@@ -1,5 +1,5 @@
 <!--
-  停车场运营指标分析
+  运营指标分析
  * @Author: 邵青阳
  * @Date: 2020-10-20 10:05:17
  * @LastEditTime: 2020-11-07 16:45:03
@@ -78,12 +78,12 @@
         ></Xchart>
       </div>
       <!-- 平均充电时间 averageChargingTime-->
-      <div class="echartStyle" id="averageChargingTime">
-        <Xchart
-          id="averageChargingTime"
-          :option="averageChargingTimeOptions"
-        ></Xchart>
-      </div>
+      <!--      <div class="echartStyle" id="averageChargingTime">-->
+      <!--        <Xchart-->
+      <!--          id="averageChargingTime"-->
+      <!--          :option="averageChargingTimeOptions"-->
+      <!--        ></Xchart>-->
+      <!--      </div>-->
       <!-- 平均洗车时长 averageWashingTime-->
       <div class="echartStyle" id="averageWashingTime">
         <Xchart

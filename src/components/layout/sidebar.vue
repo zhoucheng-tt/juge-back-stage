@@ -225,14 +225,14 @@ export default {
               logo: "el-icon-menu",
               name: "预约订单查询",
               routeName: "reservationOrderInquiry"
-            },
-            // 充电订单查询
-            {
-              code: "5-3",
-              logo: "el-icon-menu",
-              name: "自助充电订单查询",
-              routeName: "querySelfServiceChargingOrder"
             }
+            // 充电订单查询
+            // {
+            //   code: "5-3",
+            //   logo: "el-icon-menu",
+            //   name: "自助充电订单查询",
+            //   routeName: "querySelfServiceChargingOrder"
+            // }
           ]
         },
         // 基础信息管理
@@ -254,27 +254,28 @@ export default {
               name: "计费规则管理",
               routeName: "billingRuleManagement"
             },
-            // 洗车机计费规则管理
-            {
-              code: "6-3",
-              logo: "el-icon-menu",
-              name: "洗车机计费规则管理",
-              routeName: "carWashingMachineManagement"
-            },
+
             // 停车场管理   parkingLotManagement
             {
-              code: "6-4",
+              code: "6-3",
               logo: "el-icon-menu",
               name: "停车场管理",
               routeName: "parkingLotManagement"
             },
             // 设备管理   deviceManagement
             {
-              code: "6-5",
+              code: "6-4",
               logo: "el-icon-menu",
               name: "设备管理",
               routeName: "deviceManagement"
             }
+            // 洗车机计费规则管理
+            // {
+            //   code: "6-5",
+            //   logo: "el-icon-menu",
+            //   name: "洗车机计费规则管理",
+            //   routeName: "carWashingMachineManagement"
+            // },
           ]
         },
         {
@@ -285,7 +286,7 @@ export default {
             {
               code: "7-1",
               logo: "el-icon-menu",
-              name: "白名单管理",
+              name: "黑白名单管理",
               routeName: "whitelistManagement"
             }
           ]

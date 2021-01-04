@@ -15,13 +15,13 @@ const service = axios.create({
   // 这边目的是为了生产环境上的后台地址是不会被拼接出错
   // baseURL: process.env.VUE_APP_HOST_URL, // url = base url + request url
   // 后台位置
-  // baseURL:'http://120.26.146.64:8052/e-parking-web',
+  // baseURL: "http://120.26.146.64:8052/e-parking-web",
   //新后台位置
-  baseURL: "http://192.168.1.171:18080/eparking-web",
-  // baseURL:'http://123.207.189.27:7146/eparking-web',
+  // baseURL: "http://192.168.1.171:18080/eparking-web",
+  baseURL: "http://123.207.189.27:7146/eparking-web/",
   // 服务器版本
   // baseURL:'/e-parking-api',
-  // baseURL: "/eparking-web",
+  // baseURL: "http://123.207.189.27:7108/eparking-web/",
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   // 这边也走两套

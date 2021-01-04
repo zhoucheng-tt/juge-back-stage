@@ -116,11 +116,11 @@
         }"
         style="width: 98%;margin-left: 1%"
       >
-        <el-table-column
-          prop="orderSequence"
-          label="订单编号"
-          :show-overflow-tooltip="true"
-        ></el-table-column>
+        <!--        <el-table-column-->
+        <!--          prop="orderSequence"-->
+        <!--          label="订单编号"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--        ></el-table-column>-->
         <el-table-column
           prop="parkName"
           :show-overflow-tooltip="true"

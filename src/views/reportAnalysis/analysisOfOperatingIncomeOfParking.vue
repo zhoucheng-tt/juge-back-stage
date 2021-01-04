@@ -81,12 +81,12 @@
         <Xchart id="parkEarnAndOwe" :option="parkEarnAndOweChart"></Xchart>
       </div>
       <!-- 平均充电时间 averageChargingTime-->
-      <div
-        style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="chargeEarn"
-      >
-        <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
-      </div>
+      <!--      <div-->
+      <!--        style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"-->
+      <!--        id="chargeEarn"-->
+      <!--      >-->
+      <!--        <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>-->
+      <!--      </div>-->
       <!-- 平均洗车时长 averageWashingTime-->
       <div
         style="width: 48.5%;height: 27%;float: left; margin-top: 1%;margin-left: 1%;"

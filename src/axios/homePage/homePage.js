@@ -11,7 +11,7 @@ import request from "@/utils/request";
 // 登录接口
 export function login(params) {
   return request({
-    url: "/systemManageFunc/loginUser.xhtml",
+    url: "systemManageFunc/loginUser.xhtml",
     method: "post",
     data: params
   });
@@ -87,7 +87,7 @@ export function queryPaymentBehaviorAnalysis(params) {
 //模版下载
 export function downloadResource(params) {
   return request({
-    url: "/CommonController/downloadResource",
+    url: "CommonController/downloadResource",
     method: "post",
     data: params,
     flag: "innerExt",
@@ -106,12 +106,12 @@ export function countWashFee(params) {
 
 //首页充电桩收入 http://123.207.189.27:7138/homePageFunc/countChargeFee
 export function countChargeFee(params) {
-    return request({
-        url: 'http://123.207.189.27:7138/homePageFunc/countChargeFee',
-        method: 'post',
-        data: params,
-        flag: 'out' ,
-    })
+  return request({
+    url: "http://123.207.189.27:7138/homePageFunc/countChargeFee",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
 }
 //首页 按月分析充电桩图表
 export function queryChargeEarn(params) {
@@ -133,10 +133,10 @@ export function queryParkCount(params) {
   });
 }
 //首页剩余车位接口 realtimeMonitorFunc/queryParkMonitorParkSpace
-  export function queryParkMonitorParkSpace(params) {
-    return request({
-      url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
-      method: "post",
-      data: params,
-    });
+export function queryParkMonitorParkSpace(params) {
+  return request({
+    url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
+    method: "post",
+    data: params
+  });
 }
