@@ -103,11 +103,11 @@
           :show-overflow-tooltip="true"
           label="联系人电话"
         />
-        <el-table-column
-          prop="parkPictureFile"
-          :show-overflow-tooltip="true"
-          label="停车场图片"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="parkPictureFile"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="停车场图片"-->
+        <!--        />-->
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button

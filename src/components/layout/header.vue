@@ -137,7 +137,7 @@ export default {
     float: left;
     margin-left: 20px;
     ont-family: PingFangSC-Medium;
-    font-size: 22px;
+    font-size: 24px;
     color: #ffffff;
     letter-spacing: 0.23px;
   }
