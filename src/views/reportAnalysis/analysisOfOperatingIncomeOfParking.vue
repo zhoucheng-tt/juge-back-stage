@@ -52,47 +52,35 @@
     <!-- 图表部分 -->
     <!-- 中间图标部分内容 -->
     <div class="center">
-      <!-- 收入对比分析 numberOfParking-->
-      <div
-        style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="earnCompare"
-      >
-        <Xchart id="earnCompare" :option="earnCompareChart"></Xchart>
+      <div class="center-content">
+        <!-- 收入对比分析 numberOfParking-->
+        <div id="earnCompare" class="center-content-left">
+          <Xchart id="earnCompare" :option="earnCompareChart"></Xchart>
+        </div>
+        <!-- 收入与欠费金额趋势分析 -->
+        <div id="earnAndOwe" class="center-content-right">
+          <Xchart id="earnAndOwe" :option="earnAndOweChart"></Xchart>
+        </div>
       </div>
-      <!-- 收入与欠费金额趋势分析 -->
-      <div
-        style="width: 57%;height: 35%; float: left; margin-top: 1%;margin-left: 1%;"
-        id="earnAndOwe"
-      >
-        <Xchart id="earnAndOwe" :option="earnAndOweChart"></Xchart>
+      <div class="center-content">
+        <!--收入构成分析-->
+        <div id="earnComponent" class="center-content-left">
+          <Xchart id="earnComponent" :option="earnComponentChart"></Xchart>
+        </div>
+        <!--停车场收入及欠费分析-->
+        <div id="parkEarnAndOwe" class="center-content-right">
+          <Xchart id="parkEarnAndOwe" :option="parkEarnAndOweChart"></Xchart>
+        </div>
       </div>
-      <!--收入构成分析-->
-      <div
-        style="width: 40%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="earnComponent"
-      >
-        <Xchart id="earnComponent" :option="earnComponentChart"></Xchart>
-      </div>
-      <!--停车场收入及欠费分析-->
-      <div
-        style="width: 57%;height: 35%;float: left;margin-top: 1%;margin-left: 1%;"
-        id="parkEarnAndOwe"
-      >
-        <Xchart id="parkEarnAndOwe" :option="parkEarnAndOweChart"></Xchart>
-      </div>
-      <!-- 平均充电时间 averageChargingTime-->
-      <!--      <div-->
-      <!--        style="width: 48.5%;height: 27%;float: left;margin-top: 1%;margin-left: 1%;"-->
-      <!--        id="chargeEarn"-->
-      <!--      >-->
-      <!--        <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>-->
-      <!--      </div>-->
-      <!-- 平均洗车时长 averageWashingTime-->
-      <div
-        style="width: 48.5%;height: 27%;float: left; margin-top: 1%;margin-left: 1%;"
-        id="washEarn"
-      >
-        <Xchart id="washEarn" :option="washEarnChart"></Xchart>
+      <div class="center-content">
+        <!-- 平均充电时间 averageChargingTime-->
+        <div id="chargeEarn" class="center-content-left">
+          <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
+        </div>
+        <!--      平均洗车时长 averageWashingTime-->
+        <div id="washEarn" class="center-content-right">
+          <Xchart id="washEarn" :option="washEarnChart"></Xchart>
+        </div>
       </div>
     </div>
   </div>
@@ -445,7 +433,7 @@ export default {
             pie: {
               allowPointSelect: true,
               cursor: "pointer",
-              innerSize: 90,
+              innerSize: 70,
               depth: 45,
               dataLabels: {
                 enabled: true,
@@ -711,8 +699,20 @@ export default {
   height: 90%;
   float: left;
 }
-
-/* 中间每个图表部分样式 */
-
-/* 底部表格部分 */
+.center-content {
+  width: 100%;
+  height: 31%;
+  display: flex;
+  margin-top: 1%;
+}
+.center-content-left {
+  width: 48.5%;
+  height: 100%;
+  margin-left: 1%;
+}
+.center-content-right {
+  width: 48.5%;
+  height: 100%;
+  margin-left: 1%;
+}
 </style>

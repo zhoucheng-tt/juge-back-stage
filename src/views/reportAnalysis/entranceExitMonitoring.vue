@@ -266,7 +266,7 @@ export default {
   height: 42%;
   background-color: white;
   margin-left: 1%;
-  margin-top: 2%;
+  margin-top: 1%;
 }
 .span-text {
   font-size: 20px;
@@ -299,9 +299,9 @@ li {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 80%;
-  height: 60px;
-  line-height: 60px;
+  width: 100%;
+  height: 34px;
+  /*line-height: 60px;*/
   text-align: left;
   margin: 0;
   font-size: 14px;
