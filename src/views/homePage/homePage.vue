@@ -11,32 +11,33 @@
   <div class="body">
     <!--    顶部导航栏-->
     <div class="top">
-      <span class="top-text">溧水经济开发区管委会智慧停车管理平台</span>
-      <!--  首页-->
-      <div class="top-homepage">
-        <div class="top-homepage-text">
-          首页
-        </div>
+      <div class="top-left">
+        <span class="top-text">溧水经济开发区管委会智慧停车管理平台</span>
       </div>
-      <div
-        class="top-others"
-        @click="handleTopClick(item.code)"
-        v-for="(item, index) in topList"
-        :label="item.name"
-        :value="item.code"
-        :key="index"
-      >
-        <div class="top-others-text">
-          {{ item.name }}
+      <div class="top-right">
+        <!--  首页-->
+        <div class="top-homepage">
+          <div class="top-homepage-text">
+            首页
+          </div>
+        </div>
+        <div
+          class="top-others"
+          @click="handleTopClick(item.code)"
+          v-for="(item, index) in topList"
+          :label="item.name"
+          :value="item.code"
+          :key="index"
+        >
+          <div class="top-others-text">
+            {{ item.name }}
+          </div>
         </div>
       </div>
     </div>
     <div class="content">
       <!-- 左边部分 -->
       <div class="leftContent">
-        <div class="img-top-left"></div>
-        <div class="img-top-mid"></div>
-        <div class="img-top-right"></div>
         <!-- 总停车数量 totalNumberParking-->
         <div class="leftCharts">
           <div class="leftChartUp">
@@ -351,30 +352,20 @@ letter-spacing: 0.36px;float:right;"
             </svg>
           </div>
         </div>
-        <div class="img-bottom-left"></div>
-        <div class="img-bottom-right"></div>
       </div>
       <!-- 中间部分 -->
       <div class="center">
         <!--        剩余车位数-->
         <div class="center-leftport">剩余车位数</div>
         <!--        数字-->
+
         <div class="center-line2">
-          <div class="center-line2-number">
-            <div class="center-line2-number-text">
-              {{ parseInt((leftPort % 1000000) / 100000) }}
-            </div>
-          </div>
-          <div class="center-line2-number">
-            <div class="center-line2-number-text">
-              {{ parseInt((leftPort % 100000) / 10000) }}
-            </div>
-          </div>
           <div class="center-line2-number">
             <div class="center-line2-number-text">
               {{ parseInt((leftPort % 10000) / 1000) }}
             </div>
           </div>
+
           <div class="center-line2-number">
             <div class="center-line2-number-text">
               {{ parseInt((leftPort % 1000) / 100) }}
@@ -390,14 +381,14 @@ letter-spacing: 0.36px;float:right;"
               {{ leftPort % 10 }}
             </div>
           </div>
-          <!--          <div class="center-line2-charge">-->
-          <!--            <div class="center-line2-charge-text">空闲充电桩总数</div>-->
-          <!--            <div class="center-line2-charge-number">20</div>-->
-          <!--          </div>-->
-          <!--          <div class="center-line2-wash">-->
-          <!--            <div class="center-line2-wash-text">空闲洗车位总数</div>-->
-          <!--            <div class="center-line2-wash-number">30</div>-->
-          <!--          </div>-->
+          <div class="center-line2-charge">
+            <div class="center-line2-charge-text">空闲充电桩总数</div>
+            <div class="center-line2-charge-number">20</div>
+          </div>
+          <div class="center-line2-wash">
+            <div class="center-line2-wash-text">空闲洗车位总数</div>
+            <div class="center-line2-wash-number">30</div>
+          </div>
         </div>
         <!--        总收入一行-->
         <div class="center-line3">
@@ -2664,9 +2655,6 @@ letter-spacing: 0.36px;float:right;"
       </div>
       <!-- 右边内容  -->
       <div class="rightContent">
-        <div class="img-top-left"></div>
-        <div class="img-top-mid"></div>
-        <div class="img-top-right"></div>
         <!-- 支付方式  paymentMethod -->
         <div class="rightCharts">
           <div class="rightChartUp">
@@ -2951,8 +2939,6 @@ letter-spacing: 0.36px;float:right;"
             </svg>
           </div>
         </div>
-        <div class="img-bottom-left"></div>
-        <div class="img-bottom-right"></div>
       </div>
     </div>
   </div>
@@ -4384,32 +4370,49 @@ export default {
 /*顶部盒子*/
 .top {
   width: 100%;
-  height: 6.7%;
-  background: url("../../assets/homePage/top.png");
-  background-repeat: no-repeat;
+  height: 64px;
   position: relative;
+  display: flex;
+}
+.top-left {
+  width: 727px;
+  height: 64px;
+  background-image: url("../../assets/homePage/top-left-background.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.top-right {
+  width: 1253px;
+  /*width: 63.3%;*/
+  height: 64px;
+  background-image: url("../../assets/homePage/top-right-background.png");
+  background-size: 100% 26%;
+  background-repeat: no-repeat;
+  margin-left: -1px;
   display: flex;
 }
 .top-text {
   width: 31.4%;
-  height: 100%;
+  height: 64px;
+  line-height: 64px;
   text-align: center;
-  font-size: 24px;
-  padding-top: 0.6%;
+  font-size: 26px;
   color: white;
   position: relative;
+  margin-left: 40px;
 }
 /*顶部首页按钮框*/
 .top-homepage {
-  width: 7%;
-  height: 58%;
+  width: 10%;
+  height: 38px;
   position: relative;
   color: #46c5dd;
   background-color: #043d87;
-  margin-left: 1.5%;
-  margin-top: 1.2%;
+  margin-left: -8.5%;
+  margin-top: 1.9%;
   transform: skew(-20.5deg);
   border: 2px solid #45c3db;
+  /* box-shadow: 0 0 0 2px #45c3db; */
 }
 .top-homepage:hover {
   cursor: pointer;
@@ -4430,12 +4433,13 @@ export default {
 }
 /*顶部其他文本*/
 .top-others {
-  width: 7%;
-  height: 58%;
+  width: 10%;
+  height: 42px;
+  line-height: 29px;
   color: white;
   background-color: #043d87;
   margin-left: 1%;
-  margin-top: 1.3%;
+  margin-top: 2%;
   transform: skew(-20.5deg);
   position: relative;
 }
@@ -4456,62 +4460,6 @@ export default {
   right: 0;
   margin: auto;
 }
-
-/*上左脚*/
-.img-top-left {
-  width: 10px;
-  height: 1%;
-  position: relative;
-  border-top: 3px solid rgba(8, 246, 228, 1);
-  border-left: 3px solid rgba(8, 246, 228, 1);
-  margin-left: -0.5%;
-  margin-top: -0.6%;
-}
-
-/*上中横线*/
-.img-top-mid {
-  width: 141px;
-  height: 1%;
-  margin-top: -3%;
-  position: relative;
-  border-top: 4px solid rgba(8, 246, 228, 1);
-  margin-left: 9.8%;
-}
-
-/*上右脚*/
-.img-top-right {
-  width: 10px;
-  height: 1%;
-  margin-top: -3%;
-  position: relative;
-  border-top: 3px solid rgba(8, 246, 228, 1);
-  border-right: 3px solid rgba(8, 246, 228, 1);
-  margin-left: 97%;
-}
-
-/*下左脚*/
-.img-bottom-left {
-  width: 10px;
-  height: 10px;
-  position: relative;
-
-  border-bottom: 3px solid rgba(8, 246, 228, 1);
-  border-left: 3px solid rgba(8, 246, 228, 1);
-  /*margin-left: -0.5%;*/
-  margin-top: -0.5%;
-}
-
-/*下右脚*/
-.img-bottom-right {
-  width: 10px;
-  height: 10px;
-  position: relative;
-
-  border-bottom: 3px solid rgba(8, 246, 228, 1);
-  border-right: 3px solid rgba(8, 246, 228, 1);
-  margin-left: 97.2%;
-  margin-top: -3.5%;
-}
 /*内容部分*/
 .content {
   display: flex;
@@ -4523,10 +4471,11 @@ export default {
 .leftContent {
   width: 20.6%;
   height: 96%;
-  background-color: #041f44;
   margin-top: 1.3%;
   margin-left: 1.3%;
-  border: 1px solid #3d71c1;
+  background-image: url("../../assets/homePage/bothBack.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 /* 每个表格上面的标题名支付方式样式 */
 .spanStyle {
@@ -4580,10 +4529,11 @@ export default {
 .rightContent {
   width: 20.6%;
   height: 96%;
-  background-color: #041f44;
   margin-top: 1.3%;
   margin-left: 1.8%;
-  border: 1px solid #3d71c1;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("../../assets/homePage/bothBack.png");
 }
 /* 每个表格上面的标题名左边小图片样式 */
 .rightChartUpImage {
@@ -4625,7 +4575,7 @@ export default {
 .center {
   width: 52.6%;
   height: 94%;
-  margin-top: 2.3%;
+  margin-top: 1.3%;
   margin-left: 1.8%;
   /*border: 1px solid red;*/
 }
@@ -4701,7 +4651,7 @@ export default {
   width: 100%;
   height: 6%;
   position: relative;
-  margin-top: 3%;
+  margin-top: 5%;
   display: flex;
 }
 /*上下的盒子*/
