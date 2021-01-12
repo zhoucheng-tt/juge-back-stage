@@ -346,17 +346,17 @@ export default {
           dataListC.push(Number(item.paymentMoneyAmount));
         });
         const paramA = {
-          name: "欠费金额",
+          name: "近七天",
           data: dataListA
         };
         this.dataListC.push(paramA);
         const paramB = {
-          name: "月卡充值金额",
+          name: "近一个月",
           data: dataListB
         };
         this.dataListC.push(paramB);
         const paramC = {
-          name: "普通用户缴费金额",
+          name: "近一年",
           data: dataListC
         };
         this.dataListC.push(paramC);
@@ -366,7 +366,7 @@ export default {
             renderTo: "payAna"
           },
           title: {
-            text: "收入趋势按月分析"
+            text: "收入趋势分析"
           },
           credits: {
             enabled: false
@@ -383,6 +383,7 @@ export default {
             enabled: true,
             align: "center",
             verticalAlign: "left",
+            itemDistance: 5,
             x: 300,
             y: 10,
             itemStyle: {

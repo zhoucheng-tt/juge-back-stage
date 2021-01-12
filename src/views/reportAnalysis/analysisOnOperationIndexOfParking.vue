@@ -85,12 +85,12 @@
       <!--        ></Xchart>-->
       <!--      </div>-->
       <!-- 平均洗车时长 averageWashingTime-->
-      <div class="echartStyle" id="averageWashingTime">
-        <Xchart
-          id="averageWashingTime"
-          :option="averageWashingTimeOptions"
-        ></Xchart>
-      </div>
+      <!--      <div class="echartStyle" id="averageWashingTime">-->
+      <!--        <Xchart-->
+      <!--          id="averageWashingTime"-->
+      <!--          :option="averageWashingTimeOptions"-->
+      <!--        ></Xchart>-->
+      <!--      </div>-->
     </div>
     <!-- 底部表格部分 -->
     <div class="down">
@@ -118,11 +118,11 @@
       >
         <el-table-column prop="statisDate" label="日期" />
         <el-table-column prop="parkName" label="停车场" />
-        <el-table-column prop="parkSpaceCount" label="车位数(个)" />
-        <el-table-column prop="parkCount" label="停车数量(个)" />
-        <el-table-column prop="parkDuration" label="平均停车时长(分钟)" />
-        <el-table-column prop="parkSpaceUsedRate" label="车位利用率(%)" />
-        <el-table-column prop="parkSpaceTurnoverRate" label="车位周转率(%)" />
+        <el-table-column prop="totalParkCount" label="车位数(个)" />
+        <el-table-column prop="totalParkTimes" label="停车数量(个)" />
+        <el-table-column prop="avgParkDuration" label="平均停车时长(分钟)" />
+        <el-table-column prop="usageRate" label="车位利用率(%)" />
+        <el-table-column prop="turnoverRate" label="车位周转率(%)" />
       </el-table>
       <div style="float: right">
         <el-pagination
@@ -228,29 +228,47 @@ export default {
     };
   },
   mounted() {
-    //初始化下拉菜单
+    //停车场下拉菜单
     this.queryParkList();
     //初始化列表
-    this.queryReportList();
-    this.queryNumberOfParking();
-    this.queryaverageParkingTime();
-    this.queryparkingSpaceUtilization();
-    this.queryparkingSpaceTurnoverRate();
-    this.queryaverageChargingTime();
-    this.queryaverageWashingTime();
+    this.queryData();
+    //停车总数
+    this.queryParkTimes();
+    //平均停车时长
+    this.avgParkDuration();
+    //车位利用率
+    this.usageRate();
+    //  车位周转率
+    this.turnoverRate();
   },
   methods: {
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
     },
-    //斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2) {
-        return "successRow11";
-      } else {
-        return "successSecond";
-      }
+    //查询停车场列表数据
+    queryParkList() {
+      const params = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park",
+        whereStr: "district_code = 321302"
+      };
+      this.$deviceManagement.queryDictData(params).then(res => {
+        this.parkingLotList = res.data.dataList;
+      });
+    },
+    //列表查询
+    queryData() {
+      const param = {
+        statisDate: "2021-01-01",
+        // parkId: "BM01",
+        pageNum: 1,
+        pageSize: 5
+      };
+      this.$reportAnalysis.queryData(param).then(res => {
+        this.reportList = res.resultEntity.list;
+        this.pageTotal = res.total;
+      });
     },
     // 分页查询方法
     handleCurrentModify(val) {
@@ -260,16 +278,21 @@ export default {
     },
     // 查询方法
     SelectQueryList() {
-      this.queryReportList();
-      this.queryNumberOfParking();
-      this.queryaverageParkingTime();
-      this.queryparkingSpaceUtilization();
-      this.queryparkingSpaceTurnoverRate();
-      this.queryaverageChargingTime();
-      this.queryaverageWashingTime();
+      //停车场下拉菜单
+      this.queryParkList();
+      //初始化列表
+      this.queryData();
+      //停车总数
+      this.queryParkTimes();
+      //平均停车时长
+      this.avgParkDuration();
+      //车位利用率
+      this.usageRate();
+      //  车位周转率
+      this.turnoverRate();
     },
-    // 停车数量折线图的绑定id和option方法
-    queryNumberOfParking() {
+    //停车数量图表
+    queryParkTimes() {
       // //这边就是把参数等于对应的值就行了
       // // 绑定自定义的id的字段名
       // this.lineId = 'numberOfParking';
@@ -302,17 +325,15 @@ export default {
       //   that.queryLine();
       // })
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        cityCode: "321300",
-        districtCode: "321302",
-        parkId: this.upQueryList.TingNum
+        statisDate: "2021-01-01",
+        parkId: "BM01"
       };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+      this.$reportAnalysis.queryParkTimes(param).then(res => {
         this.numberOfParkingXz = [];
         this.numberOfParkingData = [];
-        res.data.dataList.forEach(item => {
-          this.numberOfParkingXz.push(item.periodName);
-          this.numberOfParkingData.push(Number(item.parkCount));
+        res.resultEntity.forEach(item => {
+          this.numberOfParkingXz.push(item.X);
+          this.numberOfParkingData.push(Number(item.dataY));
         });
         this.numberOfParkingOptions = {
           chart: {
@@ -387,7 +408,7 @@ export default {
       });
     },
     // 平均停车时长
-    queryaverageParkingTime() {
+    avgParkDuration() {
       // this.lineId = 'averageParkingTime';
       // this.lineOptions = 'averageParkingTimeOptions';
       // this.lineTitle = '平均停车时长';
@@ -397,17 +418,14 @@ export default {
       // this.lineChartsName = this.averageParkingTimeName;
       // this.queryLine(this.lineId, this.lineOptions);\
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        cityCode: "321300",
-        districtCode: "321302",
-        parkId: this.upQueryList.TingNum
+        statisDate: "2021-01-01"
       };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+      this.$reportAnalysis.avgParkDuration(param).then(res => {
         this.averageParkingTimeXz = [];
         this.averageParkingTimeData = [];
-        res.data.dataList.forEach(item => {
-          this.averageParkingTimeXz.push(item.periodName);
-          this.averageParkingTimeData.push(Number(item.avgParkDuration));
+        res.resultEntity.forEach(item => {
+          this.averageParkingTimeXz.push(item.X);
+          this.averageParkingTimeData.push(Number(item.dataY));
         });
         this.averageParkingTimeOptions = {
           chart: {
@@ -482,7 +500,7 @@ export default {
       });
     },
     // 车位利用率
-    queryparkingSpaceUtilization() {
+    usageRate() {
       // this.lineId = 'parkingSpaceUtilization';
       // this.lineOptions = 'parkingSpaceUtilizationOptions';
       // this.lineTitle = '车位利用率';
@@ -492,17 +510,14 @@ export default {
       // this.lineChartsName = this.parkingSpaceUtilizationName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        cityCode: "321300",
-        districtCode: "321302",
-        parkId: this.upQueryList.TingNum
+        statisDate: "2021-01-01"
       };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+      this.$reportAnalysis.usageRate(param).then(res => {
         this.parkingSpaceUtilizationXz = [];
         this.parkingSpaceUtilizationData = [];
-        res.data.dataList.forEach(item => {
-          this.parkingSpaceUtilizationXz.push(item.periodName);
-          this.parkingSpaceUtilizationData.push(Number(item.parkSpaceUsedRate));
+        res.resultEntity.forEach(item => {
+          this.parkingSpaceUtilizationXz.push(item.X);
+          this.parkingSpaceUtilizationData.push(Number(item.dataY));
         });
         this.parkingSpaceUtilizationOptions = {
           chart: {
@@ -572,7 +587,7 @@ export default {
       });
     },
     // 车位周转率
-    queryparkingSpaceTurnoverRate() {
+    turnoverRate() {
       // this.lineId = 'parkingSpaceTurnoverRate';
       // this.lineOptions = 'parkingSpaceTurnoverRateOptions';
       // this.lineTitle = '车位周转率';
@@ -582,19 +597,14 @@ export default {
       // this.lineChartsName = this.parkingSpaceTurnoverRateName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        cityCode: "321300",
-        districtCode: "321302",
-        parkId: this.upQueryList.TingNum
+        statisDate: "2021-01-01"
       };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+      this.$reportAnalysis.turnoverRate(param).then(res => {
         this.parkingSpaceTurnoverRateXz = [];
         this.parkingSpaceTurnoverRateData = [];
-        res.data.dataList.forEach(item => {
-          this.parkingSpaceTurnoverRateXz.push(item.periodName);
-          this.parkingSpaceTurnoverRateData.push(
-            Number(item.parkSpaceTurnoverRate)
-          );
+        res.resultEntity.forEach(item => {
+          this.parkingSpaceTurnoverRateXz.push(item.X);
+          this.parkingSpaceTurnoverRateData.push(Number(item.dataY));
         });
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
@@ -662,285 +672,6 @@ export default {
         };
         new HighCharts.chart(this.parkingSpaceTurnoverRateOptions);
       });
-    },
-    // 平均充电时长
-    queryaverageChargingTime() {
-      // this.lineId = 'averageChargingTime';
-      // this.lineOptions = 'averageChargingTimeOptions';
-      // this.lineTitle = '平均充电时间';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.averageChargingTimeData;
-      // this.lineChartsX = this.averageChargingTimeXz;
-      // this.lineChartsName = this.averageChargingTimeName;
-      // this.queryLine(this.lineId, this.lineOptions);
-      const param = {
-        queryDate: this.upQueryList.dataTimeIn
-      };
-      this.$reportAnalysis.queryAvgChargeTime(param).then(res => {
-        // console.log(res,"aa");
-        this.averageChargingTimeXz = [];
-        this.averageChargingTimeData = [];
-        res.resultEntity.forEach(item => {
-          this.averageChargingTimeXz.push(item.X);
-          this.averageChargingTimeData.push(Number(item.dataY));
-        });
-        this.averageChargingTimeOptions = {
-          chart: {
-            type: "area",
-            backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "averageChargingTime"
-          },
-          title: {
-            text: "平均充电时间"
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: this.averageChargingTimeXz
-          },
-          yAxis: {
-            title: {
-              text: "单位（分钟）"
-            }
-          },
-          legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 10,
-            itemStyle: {
-              color: "#cccccc",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: "bold",
-              fill: "#cccccc"
-            },
-            itemHoverStyle: {
-              color: "#666666"
-            },
-            itemHiddenStyle: {
-              color: "#333333"
-            }
-          },
-          tooltip: {
-            pointFormat: "{series.name} 充电 <b>{point.y:,.0f}</b>分钟"
-          },
-          plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
-            }
-          },
-          series: [
-            {
-              name: this.averageChargingTimeName,
-              data: this.averageChargingTimeData
-            }
-          ]
-        };
-        new HighCharts.chart(this.averageChargingTimeOptions);
-      });
-    },
-    // 平均洗车时长
-    queryaverageWashingTime() {
-      // this.lineId = 'averageWashingTime';
-      // this.lineOptions = 'averageWashingTimeOptions';
-      // this.lineTitle = '平均洗车时长';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.averageWashingTimeData;
-      // this.lineChartsX = this.averageWashingTimeXz;
-      // this.lineChartsName = this.averageWashingTimeName;
-      // this.queryLine(this.lineId, this.lineOptions);
-      const param = {
-        queryDate: this.upQueryList.dataTimeIn
-      };
-      this.$reportAnalysis.queryAvgWashTime(param).then(res => {
-        // console.log(res,"aa");
-        this.averageWashingTimeXz = [];
-        this.averageWashingTimeData = [];
-        res.resultEntity.forEach(item => {
-          this.averageWashingTimeXz.push(item.X);
-          this.averageWashingTimeData.push(Number(item.dataY));
-        });
-        this.averageWashingTimeOptions = {
-          chart: {
-            type: "area",
-            backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "averageWashingTime"
-          },
-          title: {
-            text: "平均洗车时长"
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: this.averageWashingTimeXz
-          },
-          yAxis: {
-            title: {
-              text: "单位（分钟）"
-            }
-          },
-          legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 10,
-            itemStyle: {
-              color: "#cccccc",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: "bold",
-              fill: "#cccccc"
-            },
-            itemHoverStyle: {
-              color: "#666666"
-            },
-            itemHiddenStyle: {
-              color: "#333333"
-            }
-          },
-          tooltip: {
-            pointFormat: "{series.name} 洗车 <b>{point.y:,.0f}</b>分钟"
-          },
-          plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
-            }
-          },
-          series: [
-            {
-              name: this.averageWashingTimeName,
-              data: this.averageWashingTimeData
-            }
-          ]
-        };
-        new HighCharts.chart(this.averageWashingTimeOptions);
-      });
-    },
-    // 折线图的方法
-    queryLine() {
-      var that = this;
-
-      that.lineOptions = {
-        chart: {
-          type: that.lineChartsType,
-          backgroundColor: "rgba(0,0,0,0)",
-          renderTo: that.lineId
-        },
-        title: {
-          text: that.lineTitle
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: that.lineChartsX
-        },
-        yAxis: {
-          title: {
-            text: "单位（辆）"
-          },
-          labels: {
-            formatter: function() {
-              return this.value / 1000 + "k";
-            }
-          }
-        },
-        legend: {
-          enabled: true,
-          align: "center",
-          verticalAlign: "left",
-          x: 300,
-          y: 10,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
-          },
-          itemHoverStyle: {
-            color: "#666666"
-          },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        tooltip: {
-          pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
-        },
-        plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: "circle",
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
-                }
-              }
-            }
-          }
-        },
-        series: [
-          {
-            name: this.lineChartsName,
-            data: that.lineChartsList
-          }
-        ]
-      };
-      // 绘制
-
-      new HighCharts.Chart(that.lineOptions);
-    },
-    //查询停车场列表数据
-    queryParkList() {
-      const params = {
-        columnName: ["park_id", "park_name"],
-        tableName: "t_bim_park",
-        whereStr: "district_code = 321302"
-      };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.parkingLotList = res.data.dataList;
-      });
-    },
-    //列表查询
-    queryReportList() {
-      const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        cityCode: "321300",
-        districtCode: "321302",
-        parkId: this.upQueryList.TingNum,
-        pageNum: this.pageNum,
-        pageSize: this.pageSize
-      };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailAnal(param).then(res => {
-        this.reportList = res.data.dataList;
-        this.pageTotal = res.data.totalRecord;
-      });
     }
   }
 };
@@ -974,13 +705,13 @@ export default {
 /* 中间部分图表内容 */
 .center {
   width: 100%;
-  height: 65%;
+  height: 50%;
 }
 
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 48.5%;
-  height: 30%;
+  height: 45%;
   background-color: #ffffff;
   float: left;
   margin-top: 1%;
@@ -990,7 +721,7 @@ export default {
 /* 底部表格部分 */
 .down {
   width: 98%;
-  height: 27%;
+  height: 38%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;

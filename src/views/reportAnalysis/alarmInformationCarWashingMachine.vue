@@ -32,48 +32,6 @@
           >
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="停车场:">
-          <el-select
-            size="small"
-            style="width: 160px"
-            v-model="query.parkId"
-            placeholder="请选择停车场"
-          >
-            <el-option label="全部" value=""></el-option>
-            <el-option
-              v-for="(item, index) in parkList"
-              :label="item.name"
-              :value="item.code"
-              :key="index"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="洗车机名称:">
-          <el-input
-            size="small"
-            style="width: 160px"
-            v-model="query.carNum"
-            placeholder="请选择洗车机名称"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="支付方式:">
-          <el-select
-            size="small"
-            style="width: 160px"
-            v-model="query.payMethod"
-            placeholder="请选择支付方式"
-          >
-            <el-option label="全部" value=""></el-option>
-            <el-option
-              v-for="(item, index) in payMethodList"
-              :label="item.name"
-              :value="item.name"
-              :key="index"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="queryButton"
             >查询</el-button
@@ -84,76 +42,80 @@
         </el-form-item>
       </el-form>
     </div>
-    <!-- 中间图标部分内容 -->
-    <div class="center">
-      <el-table
-        :data="payList"
-        :row-class-name="tableRowClassName"
-        :header-cell-style="{
-          fontfamily: 'PingFangSC-Medium',
-          background: '#FFFFFF',
-          color: '#333333',
-          border: 'none',
-          padding: 'none',
-          fontSize: '14px',
-          letterSpacing: '0.56px',
-          'text-align': 'center'
-        }"
-        :cell-style="{
-          fontfamily: 'PingFangSC-Regular',
-          letterSpacing: '0.56px',
-          fontSize: '14px',
-          color: '#333333',
-          'text-align': 'center'
-        }"
-        style="width: 98%;margin-left: 1%"
-      >
-        <el-table-column
-          prop="statisticDate"
-          :show-overflow-tooltip="true"
-          label="报警时间"
-        />
-        <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
-        />
-        <el-table-column
-          prop="passagewayName"
-          :show-overflow-tooltip="true"
-          label="洗车机名称"
-        />
+    <div class="content">
+      <!-- 中间图标部分内容 -->
+      <div class="center">
+        <!--    表格-->
+        <el-table
+          :data="payList"
+          :header-cell-style="{
+            fontfamily: 'PingFangSC-Medium',
+            background: '#FFFFFF',
+            color: '#333333',
+            border: 'none',
+            padding: 'none',
+            fontSize: '14px',
+            letterSpacing: '0.56px',
+            'text-align': 'center'
+          }"
+          :cell-style="{
+            fontfamily: 'PingFangSC-Regular',
+            letterSpacing: '0.56px',
+            fontSize: '14px',
+            color: '#333333',
+            'text-align': 'center'
+          }"
+          style="width: 98%;margin-left: 1%"
+        >
+          <el-table-column
+            prop="statisticDate"
+            :show-overflow-tooltip="true"
+            label="洗车机名称"
+          />
+          <el-table-column
+            prop="parkName"
+            :show-overflow-tooltip="true"
+            label="报警时间"
+          />
+          <el-table-column
+            prop="passagewayName"
+            :show-overflow-tooltip="true"
+            label="报警类型"
+          />
 
-        <el-table-column
-          prop="income"
-          :show-overflow-tooltip="true"
-          label="报警信息(次)"
-        />
-      </el-table>
-      <!--分页条-->
-      <div style="float: right">
-        <el-pagination
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-        />
+          <el-table-column
+            prop="income"
+            :show-overflow-tooltip="true"
+            label="报警时长"
+          />
+        </el-table>
+        <!--分页条-->
+        <div style="float: right">
+          <el-pagination
+            layout="total, prev, pager, next, jumper"
+            :page-size="pageSize"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
+          />
+        </div>
       </div>
-    </div>
-    <!-- 底部图表部分 -->
-    <div class="down">
-      <!-- 洗车机报警信息按月分布 -->
-      <div class="echartStyle" id="payAna">
-        <Xchart id="payAna" :option="payAnaChart" />
-      </div>
-      <!--  洗车机报警类型统计-->
-      <div class="echartStyle" id="payMethod">
-        <Xchart id="payMethod" :option="payMethodChart"></Xchart>
-      </div>
-      <!-- 洗车机报警信息按时间段统计 -->
-      <div class="echartStyle" id="cartime">
-        <Xchart id="cartime" :option="cartimeChart" />
+      <!-- 图表部分 -->
+      <div class="down">
+        <!--  报警次数统计-->
+        <div class="echartStyle" id="alarmFrequencyStatistics">
+          <Xchart
+            id="alarmFrequencyStatistics"
+            :option="alarmFrequencyStatisticsPie"
+          ></Xchart>
+        </div>
+        <!-- 洗车机近七日报警趋势分析 -->
+        <div class="echartStyle" id="alarmTrendAnalysis">
+          <Xchart
+            id="alarmTrendAnalysis"
+            :option="alarmTrendAnalysisOptions"
+          ></Xchart>
+        </div>
       </div>
     </div>
   </div>
@@ -162,7 +124,6 @@
 import Xchart from "../../components/charts/charts.vue";
 import HighCharts from "highcharts";
 import Xchart3d from "@/components/charts/charts3d";
-
 export default {
   // 组件导入
   components: {
@@ -171,81 +132,49 @@ export default {
   data() {
     return {
       //查询内容暂存
-      query: {
-        parkId: "",
-        payMethod: ""
-      },
+      query: {},
+      //列表数据存放
+      payList: [],
       // 停车场下拉框数据暂存处
       parkList: [],
-      //支付方式下拉框数据暂存处
-      payMethodList: [
-        {
-          name: "支付宝",
-          code: 1
-        },
-        {
-          name: "微信",
-          code: 2
-        },
-        {
-          name: "ETC",
-          code: 3
-        },
-        {
-          name: "现金",
-          code: 4
-        }
-      ],
-      //支付明细列表
-      payList: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 6,
+      pageSize: 14,
       pageTotal: 12,
-      // 柱状图serise中的数据
-      payAnaX: [],
-      dataListC: [],
-      payAnaChart: {},
-      //饼图数据
-      dataListP: [],
-      payMethodChart: {},
-      cartime: "",
-      cartimeChart: {}
+
+      //  报警次数统计
+      alarmFrequencyStatistics: [],
+      alarmFrequencyStatisticsPie: {},
+
+      //洗车机近七日报警报警趋势分析
+      alarmTrendAnalysisOptions: {},
+      // 图表数据
+      alarmTrendAnalysisData: [],
+      alarmTrendAnalysisXz: [],
+      alarmTrendAnalysisName: "洗车机近七日报警报警趋势分析"
     };
   },
   mounted() {
-    //初始化列表
+    //列表查询
     this.queryPayList();
-    this.queryParkList();
-    this.drawPayAnaChart();
-    this.timeChart();
-    this.drawPayMethodChart();
+    //报警次数统计
+    this.queryNumberOfParking();
+    //洗车机近七日报警报警趋势分析
+    this.queryPaymentBehaviorAnalysis();
   },
   methods: {
     //查询重置按钮
     resetQuery() {
       this.query = {};
     },
-    //查询
+    //查询按钮
     queryButton() {
+      //列表查询
       this.queryPayList();
-      this.drawPayAnaChart();
-      this.timeChart();
-      this.drawPayMethodChart();
-    },
-    //斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2) {
-        return "successRow11";
-      } else {
-        return "successSecond";
-      }
-    },
-    // 分页查询方法
-    handleCurrentModify(val) {
-      this.pageNum = val;
-      // 查询列表方法
-      this.queryPayList();
+      //报警次数统计
+      this.queryNumberOfParking();
+      //洗车机近七日报警报警趋势分析
+      this.queryPaymentBehaviorAnalysis();
     },
     //列表查询
     queryPayList() {
@@ -263,247 +192,11 @@ export default {
         this.pageTotal = res.resultEntity.total;
       });
     },
-    drawPayMethodChart() {
-      const param = {
-        startStatisDate: this.query.startStatisDate,
-        endStatisDate: this.query.endStatisDate
-      };
-      this.$reportAnalysis.paymentAnalysis(param).then(res => {
-        const param = {
-          type: "pie",
-          name: "收入分析",
-          data: [
-            ["支付宝", Number(res.data.dataList[0].alipayPaymentMoneyAmount)],
-            ["微信", Number(res.data.dataList[0].wechatPaymentMoneyAmount)],
-            ["现金", Number(res.data.dataList[0].cashPaymentMoneyAmount)],
-            ["扫码", Number(res.data.dataList[0].qrCodePaymentMoneyAmount)]
-          ]
-        };
-        console.log("dayinshuju", this.dataListP);
-        this.dataListP.push(param);
-        this.payMethodChart = {
-          chart: {
-            type: "pie",
-            renderTo: "payMethod",
-            options3d: {
-              enabled: true,
-              alpha: 45,
-              beta: 0
-            }
-          },
-          title: {
-            text: "洗车机报警类型分析"
-          },
-          credits: {
-            enabled: false
-          },
-          tooltip: {
-            pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-          },
-          plotOptions: {
-            pie: {
-              allowPointSelect: true,
-              cursor: "pointer",
-              innerSize: 100,
-              depth: 45,
-              dataLabels: {
-                enabled: true,
-                format: "{point.name}"
-              }
-            }
-          },
-          series: this.dataListP
-        };
-        new HighCharts.chart(this.payMethodChart);
-      });
-    },
-    drawPayAnaChart() {
-      const param = {
-        startStatisDate: this.query.startStatisDate,
-        endStatisDate: this.query.endStatisDate
-      };
-
-      this.$reportAnalysis.trendAnalysis(param).then(res => {
-        this.payAnaX = [];
-        this.dataListC = [];
-        var dataListA = [];
-        var dataListB = [];
-        var dataListC = [];
-        res.data.dataList.forEach(item => {
-          this.payAnaX.push(item.date);
-          dataListA.push(Number(item.arrearageMoneyAmount));
-          dataListB.push(Number(item.memberRechargeMoneyAmount));
-          dataListC.push(Number(item.paymentMoneyAmount));
-        });
-        const paramA = {
-          name: "欠费金额",
-          data: dataListA
-        };
-        this.dataListC.push(paramA);
-        const paramB = {
-          name: "月卡充值金额",
-          data: dataListB
-        };
-        this.dataListC.push(paramB);
-        const paramC = {
-          name: "普通用户缴费金额",
-          data: dataListC
-        };
-        this.dataListC.push(paramC);
-        this.payAnaChart = {
-          chart: {
-            type: "column",
-            renderTo: "payAna"
-          },
-          title: {
-            text: "洗车机信息按月分析"
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: this.payAnaX
-          },
-          yAxis: {
-            title: {
-              text: ""
-            }
-          },
-          legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 10,
-            itemStyle: {
-              color: "#cccccc",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: "bold",
-              fill: "#cccccc"
-            },
-            itemHoverStyle: {
-              color: "#666666"
-            },
-            itemHiddenStyle: {
-              color: "#333333"
-            }
-          },
-          tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>元"
-          },
-          plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
-            }
-          },
-          series: this.dataListC
-        };
-        new HighCharts.chart(this.payAnaChart);
-      });
-    },
-    timeChart() {
-      const param = {
-        startStatisDate: this.query.startStatisDate,
-        endStatisDate: this.query.endStatisDate
-      };
-
-      this.$reportAnalysis.trendAnalysis(param).then(res => {
-        this.payAnaX = [];
-        this.dataListC = [];
-        var dataListA = [];
-        var dataListB = [];
-        var dataListC = [];
-        res.data.dataList.forEach(item => {
-          this.payAnaX.push(item.date);
-          dataListA.push(Number(item.arrearageMoneyAmount));
-          dataListB.push(Number(item.memberRechargeMoneyAmount));
-          dataListC.push(Number(item.paymentMoneyAmount));
-        });
-        const paramA = {
-          name: "欠费金额",
-          data: dataListA
-        };
-        this.dataListC.push(paramA);
-        const paramB = {
-          name: "月卡充值金额",
-          data: dataListB
-        };
-        this.dataListC.push(paramB);
-        const paramC = {
-          name: "普通用户缴费金额",
-          data: dataListC
-        };
-        this.dataListC.push(paramC);
-        this.cartimeChart = {
-          chart: {
-            type: "column",
-            renderTo: "cartime"
-          },
-          title: {
-            text: "洗车机报警信息按月统计"
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: this.payAnaX
-          },
-          yAxis: {
-            title: {
-              text: ""
-            }
-          },
-          legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 10,
-            itemStyle: {
-              color: "#cccccc",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: "bold",
-              fill: "#cccccc"
-            },
-            itemHoverStyle: {
-              color: "#666666"
-            },
-            itemHiddenStyle: {
-              color: "#333333"
-            }
-          },
-          tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>元"
-          },
-          plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
-            }
-          },
-          series: this.dataListC
-        };
-        new HighCharts.chart(this.cartimeChart);
-      });
+    // 分页查询方法
+    handleCurrentModify(val) {
+      this.pageNum = val;
+      // 查询列表方法
+      this.queryPayList();
     },
     //查询停车场列表数据
     queryParkList() {
@@ -514,6 +207,238 @@ export default {
       };
       this.$deviceManagement.queryDictData(params).then(res => {
         this.parkList = res.data.dataList;
+      });
+    },
+    //报警次数统计
+    queryPaymentBehaviorAnalysis() {
+      const param = {
+        statisType: "today"
+      };
+      this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
+        var alipayDataList = ["报警信息1", 10];
+        var wechatDataList = ["报警信息2", 20];
+        var qrCodeDataList = ["报警信息3", 30];
+        var cashDataList = ["报警信息4", 40];
+        // var alipayDataList = [
+        //   "支付宝支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+        // console.log(this.alipayDataList);
+        // var wechatDataList = [
+        //   "微信支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+        // var qrCodeDataList = [
+        //   "扫码支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+        // var cashDataList = [
+        //   "现金支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].cashPaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+
+        this.alarmFrequencyStatistics = [
+          {
+            type: "pie",
+            name: "支付占比",
+            data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList]
+          }
+        ];
+        this.alarmFrequencyStatisticsPie = {
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: "pie",
+            spacingBottom: 10,
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "alarmFrequencyStatistics"
+            // options3d: {
+            //     enabled: true,
+            //     alpha: 45,
+            //     beta: 0
+            // }
+          },
+          title: {
+            text: "报警次数统计"
+          },
+          credits: {
+            enabled: false
+          },
+          tooltip: {
+            shared: true
+          },
+
+          colors: ["#007AFF", "#03D7E9", "#E9C503", "#7654E3"],
+
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              //放到上面是小手
+              cursor: "pointer",
+              //控制距离中心的值
+              innerSize: 60,
+              depth: 45,
+              dataLabels: {
+                enabled: false
+                // format: "{point.name}"
+              },
+              //是否显示图例
+              showInLegend: true
+            }
+          },
+          legend: {
+            layout: "vertival",
+            align: "left",
+            verticalAlign: "top",
+            borderWidth: 0,
+            itemStyle: {
+              color: "black"
+            },
+            itemHoverStyle: {
+              color: "#007AFF"
+            }
+          },
+
+          series: this.alarmFrequencyStatistics
+        };
+        new HighCharts.chart(this.alarmFrequencyStatisticsPie);
+      });
+    },
+    //洗车机近七日报警报警趋势分析
+    queryNumberOfParking() {
+      // //这边就是把参数等于对应的值就行了
+      // // 绑定自定义的id的字段名
+      // this.lineId = 'numberOfParking';
+      // // 自定义绑定的options的字段名
+      //   this.lineOptions = 'lineOptions';
+      // // 自定义停车时长
+      // this.lineTitle = '停车数量';
+      // // 定义图表类型
+      // this.lineChartsType = 'area';
+      //
+      // // 绑定定义的名字
+      // this.lineChartsName = this.numberOfParkingName;
+      // var that = this;
+      // const param = {
+      //   "statisDate": this.upQueryList.dataTimeIn,
+      //   "cityCode": "321300",
+      //   "districtCode": "321302",
+      //   "parkId": this.upQueryList.TingNum
+      // }
+      // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+      //   this.numberOfParkingXz = [];
+      //   this.numberOfParkingData = [];
+      //   res.data.dataList.forEach((item) => {
+      //     this.numberOfParkingXz.push(item.periodName);
+      //     this.numberOfParkingData.push(item.parkCount);
+      //   })
+      //   // 将数据绑定到暂存数组中
+      //   that.lineChartsList = that.numberOfParkingData;
+      //   that.lineChartsX = that.numberOfParkingXz;
+      //   that.queryLine();
+      // })
+      const param = {
+        statisDate: this.payList.dataTimeIn,
+        cityCode: "321300",
+        districtCode: "321302",
+        parkId: this.payList.TingNum
+      };
+      this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+        this.alarmTrendAnalysisXz = [];
+        this.alarmTrendAnalysisData = [];
+        res.data.dataList.forEach(item => {
+          this.alarmTrendAnalysisXz.push(item.periodName);
+          this.alarmTrendAnalysisData.push(Number(item.parkCount));
+        });
+        this.alarmTrendAnalysisOptions = {
+          chart: {
+            defaultSeriesType: "line",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "alarmTrendAnalysis"
+          },
+          title: {
+            text: this.alarmTrendAnalysisName
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.alarmTrendAnalysisXz
+          },
+          yAxis: {
+            title: {
+              text: ""
+            },
+            labels: {
+              formatter: function() {
+                return this.value / 1;
+              }
+            }
+          },
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
+            },
+            itemHoverStyle: {
+              color: "#666666"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
+          },
+          tooltip: {
+            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                //线上数据点
+                radius: 0,
+                lineWidth: 0,
+                lineColor: "#fba845",
+                fillColor: "#fba845",
+                states: {
+                  hover: {
+                    enabled: false
+                  }
+                }
+              }
+            }
+          },
+          series: [
+            {
+              name: this.alarmTrendAnalysisName,
+              data: this.alarmTrendAnalysisData
+            }
+          ]
+        };
+        new HighCharts.chart(this.alarmTrendAnalysisOptions);
       });
     }
   }
@@ -534,13 +459,28 @@ export default {
   margin-left: 1%;
   margin-top: 0.5%;
 }
+.content {
+  display: flex;
+  width: 99%;
+  height: 90%;
+  /*margin-left: 1%;*/
+  /*background-color: red;*/
+}
 /* 下班部分列表部分 */
 .center {
-  width: 98%;
-  height: 44%;
-  background-color: white;
+  width: 75%;
+  height: 97%;
   margin-left: 1%;
   margin-top: 1%;
+  background-color: white;
+}
+/* 底部表格部分 */
+.down {
+  width: 25%;
+  height: 48%;
+  margin-left: 1%;
+  margin-top: 0.8%;
+  /*background-color: red;*/
 }
 /* 查询条件部分样式 */
 .demo-form-inline {
@@ -560,19 +500,11 @@ export default {
 
 /* 中间每个图表部分样式 */
 .echartStyle {
-  width: 32%;
+  width: 98%;
   height: 100%;
-  background-color: bisque;
-  float: left;
+  background-color: white;
+  /*float: left;*/
   margin-top: 1%;
   margin-left: 1%;
-}
-
-/* 底部表格部分 */
-.down {
-  width: 100%;
-  height: 41%;
-  margin-top: 1%;
-  float: left;
 }
 </style>

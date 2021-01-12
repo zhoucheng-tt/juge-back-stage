@@ -94,15 +94,6 @@ export function queryOpeReportStatisYearAnal(param) {
   });
 }
 
-//停车场运营收入分析
-export function queryParkOpeIdxParkDetailQtyAnal(param) {
-  return request({
-    url: "decisionAnalysisFunc/queryParkOpeIdxParkDetailQtyAnal",
-    method: "post",
-    data: param
-  });
-}
-
 //充电桩收入分析
 export function queryChargeEarn(param) {
   return request({
@@ -160,6 +151,52 @@ export function queryAvgWashTime(param) {
     header: {
       "content-type": "application/json;charset=utf-8"
     },
+    data: param,
+    flag: "out"
+  });
+}
+
+//停车场运营收入分析表格  http://192.168.1.163:8000/operateController/queryData
+export function queryData(param) {
+  return request({
+    url: "http://192.168.1.163:8000/operateController/queryData",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营指标分析 停车次数 http://192.168.1.163:8000/operateController/queryParkTimes
+export function queryParkTimes(param) {
+  return request({
+    url: "http://192.168.1.163:8000/operateController/queryParkTimes",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营指标分析 平均停车时长 http://192.168.1.163:8000/operateController/avgParkDuration
+export function avgParkDuration(param) {
+  return request({
+    url: "http://192.168.1.163:8000/operateController/avgParkDuration",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营指标分析 车位利用率 http://192.168.1.163:8000/operateController/usageRate
+export function usageRate(param) {
+  return request({
+    url: "http://192.168.1.163:8000/operateController/usageRate",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营指标分析 车位周转率 http://192.168.1.163:8000/operateController/turnoverRate
+export function turnoverRate(param) {
+  return request({
+    url: "http://192.168.1.163:8000/operateController/turnoverRate",
+    method: "post",
     data: param,
     flag: "out"
   });
