@@ -49,6 +49,13 @@
           >
         </el-form-item>
       </el-form>
+      <el-row class="demo-form-inline2">
+        <e-form-item>
+          <el-button type="primary" size="small" @click="handleExport">
+            导出
+          </el-button>
+        </e-form-item>
+      </el-row>
     </div>
     <!-- 中间图标部分内容 -->
     <div class="center">
@@ -154,13 +161,13 @@ export default {
       reportList: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 3,
+      pageSize: 5,
       pageTotal: 5,
       // 顶部查询数据暂存处
       upQueryList: {
         TingNum: "",
         // 进场时间
-        dataTimeIn: "2020-08-01"
+        dataTimeIn: new Date().Format("yyyy-MM-dd")
       },
       // 停车场下拉框数据暂存处
       parkingLotList: [],
@@ -242,6 +249,8 @@ export default {
     this.turnoverRate();
   },
   methods: {
+    //导出功能
+    handleExport() {},
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
@@ -260,10 +269,10 @@ export default {
     //列表查询
     queryData() {
       const param = {
-        statisDate: "2021-01-01",
-        // parkId: "BM01",
-        pageNum: 1,
-        pageSize: 5
+        statisDate: this.upQueryList.dataTimeIn,
+        parkId: this.upQueryList.TingNum,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
       };
       this.$reportAnalysis.queryData(param).then(res => {
         this.reportList = res.resultEntity.list;
@@ -325,8 +334,8 @@ export default {
       //   that.queryLine();
       // })
       const param = {
-        statisDate: "2021-01-01",
-        parkId: "BM01"
+        statisDate: this.upQueryList.dataTimeIn,
+        parkId: this.upQueryList.TingNum
       };
       this.$reportAnalysis.queryParkTimes(param).then(res => {
         this.numberOfParkingXz = [];
@@ -352,12 +361,11 @@ export default {
           },
           yAxis: {
             title: {
-              text: "单位（辆）"
+              text: ""
             },
             labels: {
-              formatter: function() {
-                return this.value / 1;
-              }
+              //修改Y轴添加单位
+              format: "{value}辆"
             }
           },
           legend: {
@@ -381,7 +389,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
+            pointFormat: "{series.name}: <b>{point.y}</b>辆"
           },
           plotOptions: {
             area: {
@@ -418,14 +426,15 @@ export default {
       // this.lineChartsName = this.averageParkingTimeName;
       // this.queryLine(this.lineId, this.lineOptions);\
       const param = {
-        statisDate: "2021-01-01"
+        statisDate: this.upQueryList.dataTimeIn,
+        parkId: this.upQueryList.TingNum
       };
       this.$reportAnalysis.avgParkDuration(param).then(res => {
         this.averageParkingTimeXz = [];
         this.averageParkingTimeData = [];
         res.resultEntity.forEach(item => {
           this.averageParkingTimeXz.push(item.X);
-          this.averageParkingTimeData.push(Number(item.dataY));
+          this.averageParkingTimeData.push(Number(Math.round(item.dataY)));
         });
         this.averageParkingTimeOptions = {
           chart: {
@@ -444,12 +453,11 @@ export default {
           },
           yAxis: {
             title: {
-              text: "单位（分钟）"
+              text: ""
             },
             labels: {
-              formatter: function() {
-                return this.value / 1;
-              }
+              //修改Y轴添加单位
+              format: "{value}min"
             }
           },
           legend: {
@@ -473,7 +481,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>分钟"
+            pointFormat: "{series.name}: <b>{point.y}</b>分钟"
           },
           plotOptions: {
             area: {
@@ -510,15 +518,21 @@ export default {
       // this.lineChartsName = this.parkingSpaceUtilizationName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: "2021-01-01"
+        statisDate: this.upQueryList.dataTimeIn,
+        parkId: this.upQueryList.TingNum
       };
       this.$reportAnalysis.usageRate(param).then(res => {
         this.parkingSpaceUtilizationXz = [];
         this.parkingSpaceUtilizationData = [];
         res.resultEntity.forEach(item => {
           this.parkingSpaceUtilizationXz.push(item.X);
-          this.parkingSpaceUtilizationData.push(Number(item.dataY));
+          //%后小数点后两位
+          console.log((Number(item.dataY) * 100).toFixed(2));
+          this.parkingSpaceUtilizationData.push(
+            Number((Number(item.dataY) * 100).toFixed(2))
+          );
         });
+        console.log(this.parkingSpaceUtilizationData);
         this.parkingSpaceUtilizationOptions = {
           chart: {
             type: "area",
@@ -536,7 +550,10 @@ export default {
           },
           yAxis: {
             title: {
-              text: "单位（%）"
+              text: ""
+            },
+            labels: {
+              format: "{value}%"
             }
           },
           legend: {
@@ -560,7 +577,8 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>%"
+            //设置每个点位的弹出窗
+            pointFormat: "{series.name}: <b>{point.y}</b>%"
           },
           plotOptions: {
             area: {
@@ -597,14 +615,17 @@ export default {
       // this.lineChartsName = this.parkingSpaceTurnoverRateName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: "2021-01-01"
+        statisDate: this.upQueryList.dataTimeIn,
+        parkId: this.upQueryList.TingNum
       };
       this.$reportAnalysis.turnoverRate(param).then(res => {
         this.parkingSpaceTurnoverRateXz = [];
         this.parkingSpaceTurnoverRateData = [];
         res.resultEntity.forEach(item => {
           this.parkingSpaceTurnoverRateXz.push(item.X);
-          this.parkingSpaceTurnoverRateData.push(Number(item.dataY));
+          this.parkingSpaceTurnoverRateData.push(
+            Number((Number(item.dataY) * 100).toFixed(2))
+          );
         });
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
@@ -623,7 +644,10 @@ export default {
           },
           yAxis: {
             title: {
-              text: "单位（%）"
+              text: ""
+            },
+            labels: {
+              format: "{value}%"
             }
           },
           legend: {
@@ -647,7 +671,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>%"
+            pointFormat: "{series.name}: <b>{point.y}</b>%"
           },
           plotOptions: {
             area: {
@@ -688,7 +712,7 @@ export default {
 /* 顶部查询部分 */
 .up {
   width: 98%;
-  height: 7%;
+  height: 10%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -697,11 +721,15 @@ export default {
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
-  height: 85%;
+  height: 40px;
   padding-left: 1%;
   padding-top: 0.5%;
 }
-
+.demo-form-inline2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+}
 /* 中间部分图表内容 */
 .center {
   width: 100%;
@@ -721,10 +749,10 @@ export default {
 /* 底部表格部分 */
 .down {
   width: 98%;
-  height: 38%;
+  height: 37%;
   background-color: white;
   margin-left: 1%;
-  margin-top: 1%;
+  margin-top: 0.5%;
 }
 
 /* 斑马纹样式 */

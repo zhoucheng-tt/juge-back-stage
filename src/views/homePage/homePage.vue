@@ -115,85 +115,7 @@
             </svg>
           </div>
         </div>
-        <!-- 平均停车时长 averageParkingTime-->
-        <div class="leftCharts-others">
-          <div class="leftChartUp">
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">当日平均停车时长(分钟)</span>
-            <span
-              style="margin-top:4px;font-family: PingFangSC-Medium;
-font-size: 1rem;
-color: #E9C503;
-letter-spacing: 0.36px;float: right"
-            >
-              {{ averageParkingTimeTotal }} 分钟
-            </span>
-          </div>
-          <!-- 平均停车时长   -->
-          <div class="leftChartCenter" id="averageParkingTime">
-            <Xchart
-              id="averageParkingTime"
-              :option="averageParkingTimeOptions"
-            ></Xchart>
-          </div>
-          <div class="leftChartDown">
-            <svg
-              width="358px"
-              height="24px"
-              viewBox="0 0 358 24"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <title>矩形</title>
-              <defs>
-                <linearGradient
-                  x1="50%"
-                  y1="0%"
-                  x2="50%"
-                  y2="100%"
-                  id="linearGradient-1"
-                >
-                  <stop
-                    stop-color="#061F42"
-                    stop-opacity="0"
-                    offset="0%"
-                  ></stop>
-                  <stop stop-color="#123D75" offset="100%"></stop>
-                </linearGradient>
-              </defs>
-              <g
-                id="页面-1"
-                stroke="none"
-                stroke-width="1"
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  id="智慧停车管理平台备份-2"
-                  transform="translate(-1519.000000, -552.000000)"
-                  fill="url(#linearGradient-1)"
-                >
-                  <g id="right" transform="translate(1499.000000, 94.000000)">
-                    <g
-                      id="停车场收入排行"
-                      transform="translate(20.000000, 262.000000)"
-                    >
-                      <polygon
-                        id="矩形"
-                        points="52.5 196 288.438611 196 358 220 0 220"
-                      ></polygon>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
+
         <!-- 车位利用率 parkingSpaceUtilization-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
@@ -296,6 +218,86 @@ letter-spacing: 0.36px;float:right;"
             <Xchart
               id="parkingSpaceTurnoverRate"
               :option="parkingSpaceTurnoverRateOptions"
+            ></Xchart>
+          </div>
+          <div class="leftChartDown">
+            <svg
+              width="358px"
+              height="24px"
+              viewBox="0 0 358 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <title>矩形</title>
+              <defs>
+                <linearGradient
+                  x1="50%"
+                  y1="0%"
+                  x2="50%"
+                  y2="100%"
+                  id="linearGradient-1"
+                >
+                  <stop
+                    stop-color="#061F42"
+                    stop-opacity="0"
+                    offset="0%"
+                  ></stop>
+                  <stop stop-color="#123D75" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <g
+                id="页面-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g
+                  id="智慧停车管理平台备份-2"
+                  transform="translate(-1519.000000, -552.000000)"
+                  fill="url(#linearGradient-1)"
+                >
+                  <g id="right" transform="translate(1499.000000, 94.000000)">
+                    <g
+                      id="停车场收入排行"
+                      transform="translate(20.000000, 262.000000)"
+                    >
+                      <polygon
+                        id="矩形"
+                        points="52.5 196 288.438611 196 358 220 0 220"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <!-- 平均停车时长 averageParkingTime-->
+        <div class="leftCharts-others">
+          <div class="leftChartUp">
+            <img
+              src="../../assets/homePage/fangkuai.svg"
+              class="leftChartUpImage"
+              alt=""
+            />
+            <span class="spanStyle">当日平均停车时长(分钟)</span>
+            <span
+              style="margin-top:4px;font-family: PingFangSC-Medium;
+              font-size: 1rem;
+              color: #E9C503;
+              letter-spacing: 0.36px;
+              float: right"
+            >
+              {{ averageParkingTimeTotal }} 分钟
+            </span>
+          </div>
+          <!-- 平均停车时长   -->
+          <div class="leftChartCenter" id="averageParkingTime">
+            <Xchart
+              id="averageParkingTime"
+              :option="averageParkingTimeOptions"
             ></Xchart>
           </div>
           <div class="leftChartDown">
@@ -2801,7 +2803,9 @@ letter-spacing: 0.36px;float:right;"
               <span class="spanStyle">洗车机近七日报警趋势分析</span>
             </div>
           </div>
-          <div class="leftChartCenter" id="chargeEarn"></div>
+          <div class="leftChartCenter" id="washEarn">
+            <Xchart id="washEarn" :option="washEarnChart"></Xchart>
+          </div>
           <div class="leftChartDown">
             <svg
               width="358px"
@@ -2866,7 +2870,9 @@ letter-spacing: 0.36px;float:right;"
             />
             <span class="spanStyle">近七日洗车收费次数(次)</span>
           </div>
-          <div class="rightChartCenter" id="washEarn"></div>
+          <div class="rightChartCenter" id="chargeEarn">
+            <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>
+          </div>
           <div class="leftChartDown">
             <svg
               width="358px"
@@ -2939,6 +2945,15 @@ export default {
   },
   data() {
     return {
+      query: [],
+      //自助充电设备收入按时段分析
+      chargeEarnChartX: [],
+      chargeEarnDataList: [],
+      chargeEarnChart: {},
+      //自助洗车设备收入按时段分析
+      washEarnChartX: [],
+      washEarnDataList: [],
+      washEarnChart: {},
       //top存放
       topList: [
         {
@@ -3281,8 +3296,155 @@ export default {
     // this.addMoudel();
     // //测试方法
     // this.queryTest();
+    this.drawChargeEarnChart();
+    this.drawWashEarnChart();
   },
   methods: {
+    //绘表自助洗车设备收入按时段分析
+    drawWashEarnChart() {
+      this.washEarnChartX = [];
+      const param = {
+        queryDate: this.query.date
+      };
+      var dataList = [];
+      this.$reportAnalysis.queryWashEarn(param).then(res => {
+        res.resultEntity.forEach(item => {
+          this.washEarnChartX.push(item.X);
+          dataList.push(Number(item.dataY));
+        });
+        this.washEarnDataList = [
+          {
+            name: "收入金额",
+            showInLegend: false,
+            data: dataList
+          }
+        ];
+        this.washEarnChart = {
+          chart: {
+            type: "column",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "washEarn"
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 15,
+            //   beta: 15,
+            //   depth: 50,
+            //   viewDistance: 25
+            // }
+          },
+          title: {
+            text: ""
+          },
+          credits: {
+            enabled: false
+          },
+
+          xAxis: {
+            categories: this.washEarnChartX
+          },
+          yAxis: {
+            title: {
+              text: ""
+            },
+            //设置网格线颜色
+            gridLineColor: "#2B3DA1"
+          },
+          colors: ["#7654E3"],
+          plotOptions: {
+            series: {
+              depth: 25,
+              colorByPoint: true
+            }
+          },
+          series: this.washEarnDataList
+        };
+        new HighCharts.chart(this.washEarnChart);
+      });
+    },
+    //绘表自助充电设备收入按时段分析
+    drawChargeEarnChart() {
+      this.chargeEarnChartX = [];
+      const param = {
+        queryDate: this.query.date
+      };
+      var dataList = [];
+      this.$reportAnalysis.queryChargeEarn(param).then(res => {
+        res.resultEntity.forEach(item => {
+          this.chargeEarnChartX.push(item.X);
+          dataList.push(Number(item.dataY));
+        });
+        this.chargeEarnDataList = [
+          {
+            name: "收入金额",
+            showInLegend: false,
+            data: dataList
+          }
+        ];
+        this.chargeEarnChart = {
+          chart: {
+            type: "column",
+            renderTo: "chargeEarn",
+            backgroundColor: "rgba(0,0,0,0)"
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 15,
+            //   beta: 15,
+            //   depth: 50,
+            //   viewDistance: 25
+            // }
+          },
+          title: {
+            text: ""
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.chargeEarnChartX,
+            labels: {
+              //设置刻度
+              // tickPositions: [],
+              style: {
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "10px"
+              }
+            }
+          },
+          yAxis: {
+            title: {
+              text: ""
+            }, //设置网格线颜色
+            gridLineColor: "#2B3DA1",
+            title: {
+              text: "",
+              style: {
+                color: "#08F6E4", //字体颜色
+                fontSize: "16px" //字体大小
+              }
+            },
+            labels: {
+              style: {
+                color: "rgba(90,142,227,1)",
+                letterSpacing: "0.27px",
+                lineHeight: "17px",
+                fontSize: "12px"
+              }
+            }
+          },
+          colors: ["#00CDE6"],
+          plotOptions: {
+            series: {
+              // depth: 25,
+              colorByPoint: true
+            }
+          },
+          series: this.chargeEarnDataList
+        };
+        new HighCharts.chart(this.chargeEarnChart);
+      });
+    },
     //tabs点击事件
     handleTopClick(code) {
       if (code == 1) {
