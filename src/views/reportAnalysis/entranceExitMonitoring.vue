@@ -64,7 +64,7 @@
       </el-row>
       <el-row class="data-content">
         <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="this.selectedInRecord.inImage" class="show"/>
+          <img :src="selectedInRecord.inImage" class="show"/>
         </el-col>
         <el-col :span="14">
           <el-table :cell-style="{fontfamily: 'PingFangSC-Regular',letterSpacing: '0.56px',
@@ -79,7 +79,7 @@
           'text-align': 'center'}"
                     stripe
                     style="width: 100%;margin-left: 1%"
-                    @row-click = "handleSelection"
+                    @row-click="handleSelection"
                     v-show="inRecordShowDetial">
             <el-table-column label="入场时间" prop="inTime" label-width="210px"></el-table-column>
             <el-table-column
@@ -121,19 +121,20 @@
           </div>
           <el-row v-show="!inRecordShowDetial">
             <el-row style="margin-top: 1%">
-              <el-col :span="7" offset="1"><span>停车场:{{ this.selectedInRecord.parkName }}</span></el-col>
-              <el-col :span="7" offset="1"><span>通过设备:{{ this.selectedInRecord.inDeviceName }}</span></el-col>
-              <el-col :span="8"><span>入场时间:{{ this.selectedInRecord.inTime }}</span></el-col>
+              <el-col :span="7" offset="1"><span>停车场:{{ selectedInRecord.parkName }}</span></el-col>
+              <el-col :span="7" offset="1"><span>通过设备:{{ selectedInRecord.inDeviceName }}</span></el-col>
+              <el-col :span="8"><span>入场时间:{{ selectedInRecord.inTime }}</span></el-col>
             </el-row>
             <el-row style="margin-top: 8%">
-              <el-col :span="7" offset="1"><span>车牌号:{{ this.selectedInRecord.plateNumber }}</span></el-col>
-              <el-col :span="7" offset="1"><span>车牌颜色:{{ this.selectedInRecord.plateColor }}</span></el-col>
-              <el-col :span="8"><span>操作员:{{ this.selectedInRecord.stationOperator }}</span></el-col>
+              <el-col :span="7" offset="1"><span>车牌号:{{ selectedInRecord.plateNumber }}</span></el-col>
+              <el-col :span="7" offset="1"><span>车牌颜色:{{ selectedInRecord.plateColor }}</span></el-col>
+              <el-col :span="8"><span>操作员:{{ selectedInRecord.stationOperator }}</span></el-col>
             </el-row>
             <el-row style="margin-top: 8%">
-              <el-col :span="15" offset="1"><span>备注:{{ this.selectedInRecord.remark }}</span></el-col>
+              <el-col :span="15" offset="1"><span>备注:{{ selectedInRecord.remark }}</span></el-col>
               <el-col :span="8">
                 <el-button type="primary" @click="inRecordShowDetial = true">返回</el-button>
+                <el-button type="primary" @click="getOutRecord(selectedInRecord.inRecordId)">追踪出场记录</el-button>
               </el-col>
             </el-row>
           </el-row>
@@ -146,13 +147,15 @@
     <div class="down-half">
       <el-row class="query">
         <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+          <el-form-item label="出口监测"></el-form-item>
           <el-form-item label="停车场:">
             <el-select size="small"
                        style="width: 160px"
-                       v-model="queryParkId">
+                       v-model="downQueryList">
               <el-option label="全部" value=""/>
+              <el-option label="全部" value=""></el-option>
               <el-option
-                  v-for="(item, index) in parkingLotList"
+                  v-for="(item, index) in parkingLotList2"
                   :label="item.name"
                   :value="item.code"
                   :key="index"
@@ -162,7 +165,7 @@
           <!--    时间-->
           <el-form-item label="选择时间:">
             <el-date-picker
-                v-model="upQueryList.minDateTime"
+                v-model="downQueryList.minDateTime"
                 type="datetime"
                 size="small"
                 style="width: 160px"
@@ -188,14 +191,14 @@
             <el-input
                 size="small"
                 style="width: 160px"
-                v-model="upQueryList.plateNum"
+                v-model="downQueryList.plateNum"
                 placeholder="请输入车牌号"
             ></el-input>
           </el-form-item>
           <!--      查询按钮-->
           <el-form-item>
-            <el-button type="primary" size="small" @click="query">查询</el-button>
-            <el-button type="primary" size="small" @click="resetQuery"
+            <el-button type="primary" size="small" @click="downQuery">查询</el-button>
+            <el-button type="primary" size="small" @click="downResetQuery"
             >重置
             </el-button
             >
@@ -203,22 +206,82 @@
         </el-form>
       </el-row>
       <el-row class="data-content">
-        <el-row>
-          <el-col style="height: 70%" :offset="1" :span="9">
-            <img :src="entranceImgUrl" class="show"/>
-          </el-col>
-          <el-col :span="12">
-            <div class="index">
-              <div class="scroll">
-                <ul :style="{ top }" :class="{ transition: index != 0 }">
-                  <li v-for="(item, index) in blackTextList">
-                    {{ item.text }} {{ item.carType }} {{ item.plateNum }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
+        <el-col style="height: 70%" :offset="1" :span="9">
+          <img :src="selectedOutRecord.outImage" class="show"/>
+        </el-col>
+        <el-col :span="14">
+          <el-table :cell-style="{fontfamily: 'PingFangSC-Regular',letterSpacing: '0.56px',
+          fontSize: '14px',color: '#333333','text-align': 'center'}" :data="carOutRecordList" :header-cell-style="{
+          fontfamily: 'PingFangSC-Medium',
+          background: '#FFFFFF',
+          color: '#333333',
+          border: 'none',
+          padding: 'none',
+          fontSize: '14px',
+          letterSpacing: '0.56px',
+          'text-align': 'center'}"
+                    stripe
+                    style="width: 100%;margin-left: 1%"
+                    @row-click="handleOutSelection"
+                    v-show="outRecordShowDetial">
+            <el-table-column label="出场时间" prop="outTime" label-width="210px"></el-table-column>
+            <el-table-column
+                :show-overflow-tooltip="true"
+                label="车牌号"
+                prop="plateNumber"
+            />
+            <el-table-column
+                :show-overflow-tooltip="true"
+                label="停车场名称"
+                prop="parkName"
+            />
+            <el-table-column
+                :show-overflow-tooltip="true"
+                label="通过设备"
+                prop="outDeviceName"
+            />
+            <el-table-column :show-overflow-tooltip="true" label="操作">
+              <template slot-scope="scope">
+                <el-button
+                    size="small"
+                    type="text"
+                    @click="showDownDetail(scope.row)"
+                >查看详情
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div style="float: right;" v-show="outRecordShowDetial">
+            <el-pagination
+                layout="total, prev, pager, next, jumper"
+                :page-size="downPageSize"
+                @current-change="handleDownQuery"
+                :current-page="downPageNum"
+                :total="downTotal"
+                style="height: 10%"
+            >
+            </el-pagination>
+          </div>
+          <el-row v-show="!outRecordShowDetial">
+            <el-row style="margin-top: 1%">
+              <el-col :span="7" offset="1"><span>停车场:{{ selectedOutRecord.parkName }}</span></el-col>
+              <el-col :span="7" offset="1"><span>通过设备:{{ selectedOutRecord.outDeviceName }}</span></el-col>
+              <el-col :span="8"><span>出场时间:{{ selectedOutRecord.outTime }}</span></el-col>
+            </el-row>
+            <el-row style="margin-top: 8%">
+              <el-col :span="7" offset="1"><span>车牌号:{{ selectedOutRecord.plateNumber }}</span></el-col>
+              <el-col :span="7" offset="1"><span>车牌颜色:{{ selectedOutRecord.plateColor }}</span></el-col>
+              <el-col :span="8"><span>操作员:{{ selectedOutRecord.stationOperator }}</span></el-col>
+            </el-row>
+            <el-row style="margin-top: 8%">
+              <el-col :span="15" offset="1"><span>备注:{{selectedOutRecord.remark }}</span></el-col>
+              <el-col :span="8">
+                <el-button type="primary" @click="outRecordShowDetial = true">返回</el-button>
+                <el-button type="primary" @click="getInRecord(selectedOutRecord.inRecordId)">追踪入场记录</el-button>
+              </el-col>
+            </el-row>
+          </el-row>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -228,49 +291,91 @@
 export default {
   data() {
     return {
-      top: "",
-      index: 0,
-      p: "",
-      // 查询数据暂存处
-      queryParkId: "",
       // 停车场下拉列表
       parkingLotList: [],
+      parkingLotList2: [],
       //查询绑定
       upQueryList: [],
-      //时间选择器绑定
-      value1: "",
-      //滚动效果
-      animate: true,
-      //入场记录
-      carInRecordList: [
-
-      ],
+      downQueryList: [],
+      //入场记录列表
+      carInRecordList: [],
+      //出场记录列表
+      carOutRecordList: [],
       //查看具体数据
       inRecordShowDetial: true,
+      outRecordShowDetial: true,
       //选中的记录
       selectedInRecord: {},
+      selectedOutRecord: {},
+      //入场记录分页数据
       upPageNum: 1,
       upPageSize: 4,
-      upTotal: ''
+      upTotal: 5,
+      //出场记录分页数据
+      downPageNum: 1,
+      downPageSize: 4,
+      downTotal: 5
     };
   },
   mounted() {
     this.queryParking();
     this.query();
-
+    this.downQuery();
   },
   methods: {
-    handleSelection(row){
+    //入场记录追踪出场记录
+    getOutRecord(inRecordId) {
+      this.$realTimeMonitor.getOutRecord(inRecordId).then(res => {
+        this.carOutRecordList = res.resultEntity.list;
+        if(this.carOutRecordList.length===0){
+          this.$message({ type: "fail", message: "没有该车出场记录！请确认该车是否离场!" });
+          this.downQuery();
+          return;
+        }
+        this.downPageNum = 1;
+        this.downTotal = res.resultEntity.total;
+        this.selectedOutRecord = this.carOutRecordList[0];
+        this.outRecordShowDetial = true;
+      });
+    },
+    //出场记录追踪入场记录
+    getInRecord(inRecordId){
+      this.$realTimeMonitor.getInRecord(inRecordId).then(res => {
+        this.carInRecordList = res.resultEntity.list;
+        this.upPageNum = 1;
+        this.upTotal = res.resultEntity.total;
+        this.selectedInRecord = this.carInRecordList[0];
+        this.inRecordShowDetial = true;
+      });
+    },
+    //入场记录选中某行
+    handleSelection(row) {
+      //此处把这一行高亮
       this.selectedInRecord = row;
     },
+    //出场记录选中某行
+    handleOutSelection(row){
+      //此处把这一行高亮
+      this.selectedOutRecord =row;
+    },
+    //入场记录跳页
     handleUpQuery(val) {
       this.upPageNum = val;
       this.query();
+    },
+    //出场记录跳页
+    handleDownQuery(val){
+      this.downPageNum = val;
+      this.downQuery();
     },
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
     },
+    downResetQuery(){
+      this.downQueryList = {}
+    },
+    //入场记录查询
     query() {
       const param = {
         pageNum: this.upPageNum,
@@ -282,8 +387,24 @@ export default {
       };
       this.$realTimeMonitor.queryInRecord(param).then(res => {
         this.carInRecordList = res.resultEntity.list;
-        this.upTotal =  res.resultEntity.total;
+        this.upTotal = res.resultEntity.total;
         this.selectedInRecord = this.carInRecordList[0];
+      });
+    },
+    //出场记录查询
+    downQuery(){
+      const param = {
+        pageNum: this.downPageNum,
+        pageSize: this.downPageSize,
+        parkId: this.downQueryList.parkId,
+        plateNumber: this.downQueryList.plateNumber,
+        startTime: this.downQueryList.minDateTime,
+        endTime: this.downQueryList.maxDateTime
+      };
+      this.$realTimeMonitor.queryOutRecord(param).then(res => {
+        this.carOutRecordList = res.resultEntity.list;
+        this.downTotal = res.resultEntity.total;
+        this.selectedOutRecord = this.carOutRecordList[0];
       });
     },
     // 查询停车场下拉表单
@@ -301,14 +422,18 @@ export default {
         console.log("下拉菜单", this.parkingLotList);
       });
     },
+    //查看入场记录详情
     showDetail(item) {
       this.selectedInRecord = item;
       this.inRecordShowDetial = false;
     },
-  },
-  destroyed() {
-    clearInterval(this.p);
+    //查看出场记录详情
+    showDownDetail(item){
+      this.selectedOutRecord = item;
+      this.outRecordShowDetial = false;
+    }
   }
+
 };
 </script>
 
