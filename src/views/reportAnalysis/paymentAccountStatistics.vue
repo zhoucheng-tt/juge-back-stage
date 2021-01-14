@@ -33,22 +33,11 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场:">
-          <el-select
-            size="small"
-            style="width: 160px"
-            v-model="query.parkId"
-            placeholder="请选择停车场"
-          >
-            <el-option label="全部" value=""></el-option>
-            <el-option
-              v-for="(item, index) in parkList"
-              :label="item.name"
-              :value="item.code"
-              :key="index"
-            >
-            </el-option>
-          </el-select>
+        <el-checkbox-group v-model="checkedPark" size="medium ">
+          <el-checkbox-button v-for="(item,index) in parkList" :label="item.code" :key="index" :border="true">{{item.name}}</el-checkbox-button>
+        </el-checkbox-group>
         </el-form-item>
+
         <el-form-item label="车牌号:">
           <el-input
             size="small"
@@ -58,21 +47,9 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="支付方式:">
-          <el-select
-            size="small"
-            style="width: 160px"
-            v-model="query.payMethod"
-            placeholder="请选择支付方式"
-          >
-            <el-option label="全部" value=""></el-option>
-            <el-option
-              v-for="(item, index) in payMethodList"
-              :label="item.name"
-              :value="item.name"
-              :key="index"
-            >
-            </el-option>
-          </el-select>
+          <el-checkbox-group v-model="checkedPayMethods" size="medium ">
+            <el-checkbox-button v-for="(item,index) in payMethodList" :label="item.code" :key="index" :border="true">{{item.name}}</el-checkbox-button>
+          </el-checkbox-group>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="queryButton"
@@ -109,7 +86,7 @@
         style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-          prop="statisticDate"
+          prop="payTime"
           :show-overflow-tooltip="true"
           label="支付时间"
         />
@@ -119,22 +96,17 @@
           label="停车场名称"
         />
         <el-table-column
-          prop="passagewayName"
+          prop="outDeviceName"
           :show-overflow-tooltip="true"
           label="通过出口名称"
         />
         <el-table-column
-          prop="passagewayGateName"
-          :show-overflow-tooltip="true"
-          label="通过道闸机名称"
-        />
-        <el-table-column
-          prop="income"
+          prop="paid"
           :show-overflow-tooltip="true"
           label="收费金额(元)"
         />
         <el-table-column
-          prop="carNum"
+          prop="plateNumber"
           :show-overflow-tooltip="true"
           label="车牌号"
         />
@@ -142,11 +114,6 @@
           prop="payMethod"
           :show-overflow-tooltip="true"
           label="支付方式"
-        />
-        <el-table-column
-          prop="oweMoney"
-          :show-overflow-tooltip="true"
-          label="欠费金额(元)"
         />
       </el-table>
       <!--分页条-->
@@ -184,6 +151,8 @@ export default {
   },
   data() {
     return {
+      checkedPayMethods:[],
+      checkedPark:[],
       //查询内容暂存
       query: {
         parkId: "",
@@ -195,19 +164,15 @@ export default {
       payMethodList: [
         {
           name: "支付宝",
-          code: 1
+          code: 'ZFB'
         },
         {
           name: "微信",
-          code: 2
+          code: 'WX'
         },
         {
-          name: "ETC",
-          code: 3
-        },
-        {
-          name: "现金",
-          code: 4
+          name: "其他",
+          code: 'OTHER'
         }
       ],
       //支付明细列表
@@ -260,11 +225,11 @@ export default {
     //列表查询
     queryPayList() {
       const param = {
-        endDate: this.query.endStatisDate,
-        startDate: this.query.startStatisDate,
-        parkId: this.query.parkId,
-        carNum: this.query.carNum,
-        payMethod: this.query.payMethod,
+        endTime: this.query.endStatisDate,
+        startTime: this.query.startStatisDate,
+        parkIds: this.checkedPark,
+        plateNumber: this.query.carNum,
+        payMethods: this.checkedPayMethods,
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
@@ -447,7 +412,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 7%;
+  height: 20%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -456,7 +421,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 44%;
+  height: 40%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
