@@ -3,7 +3,7 @@ import request from "@/utils/request";
 //支付台账分析列表查询
 export function queryAccountStatisList(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/queryPayStatistic",
+    url: "http://192.168.1.163:8000/PayStatisticController/queryPayStatistic",
     method: "post",
     data: param,
     flag: "out"
