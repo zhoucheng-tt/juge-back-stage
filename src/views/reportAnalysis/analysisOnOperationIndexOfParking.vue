@@ -275,8 +275,13 @@ export default {
         pageSize: this.pageSize
       };
       this.$reportAnalysis.queryData(param).then(res => {
+        res.resultEntity.list.forEach(item => {
+          item.usageRate = Number(item.usageRate).toFixed(2);
+          item.turnoverRate = Number(item.turnoverRate).toFixed(2);
+          item.avgParkDuration = Math.round(item.avgParkDuration);
+        });
         this.reportList = res.resultEntity.list;
-        this.pageTotal = res.total;
+        this.pageTotal = res.resultEntity.total;
       });
     },
     // 分页查询方法
