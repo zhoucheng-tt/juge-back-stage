@@ -41,34 +41,31 @@ export function queryInRecord(param) {
 }
 
 export function queryOutRecord(param) {
-    return request(
-        {
-            url: 'http://192.168.1.163:8000/RealTimeMonitorController/getRecentCarOutRecord',
-            method: 'post',
-            data: param,
-            flag: 'out'
-        }
-    )
+  return request({
+    url:
+      "http://192.168.1.163:8000/RealTimeMonitorController/getRecentCarOutRecord",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
 }
 
-export function getOutRecord(param){
-    return request(
-        {
-            url: 'http://192.168.1.163:8000/RealTimeMonitorController/getCarOutRecordByInRecordId',
-            method: 'post',
-            data: param,
-            flag: 'out'
-        }
-    )
+export function getOutRecord(param) {
+  return request({
+    url:
+      "http://192.168.1.163:8000/RealTimeMonitorController/getCarOutRecordByInRecordId",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
 }
 
-export function getInRecord(param){
-    return request(
-        {
-            url: 'http://192.168.1.163:8000/RealTimeMonitorController/getCarInRecordByInRecordId',
-            method: 'post',
-            data: param,
-            flag: 'out'
-        }
-    )
+export function getInRecord(param) {
+  return request({
+    url:
+      "http://192.168.1.163:8000/RealTimeMonitorController/getCarInRecordByInRecordId",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
 }

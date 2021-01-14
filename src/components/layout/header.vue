@@ -214,7 +214,7 @@ export default {
 }
 
 .head-weatherType {
-  width: 1.5%;
+  width: 3%;
   text-align: left;
   height: 64px;
   line-height: 64px;
