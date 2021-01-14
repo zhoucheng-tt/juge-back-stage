@@ -3,7 +3,7 @@
     <!--上半部分入口监测-->
     <div class="up-half">
       <el-row class="query">
-        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="入口监测"></el-form-item>
           <el-form-item label="停车场:">
             <el-select size="small"
@@ -146,7 +146,7 @@
     <!--    下半部分出口检测-->
     <div class="down-half">
       <el-row class="query">
-        <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
+        <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="出口监测"></el-form-item>
           <el-form-item label="停车场:">
             <el-select size="small"
@@ -274,7 +274,7 @@
               <el-col :span="8"><span>操作员:{{ selectedOutRecord.stationOperator }}</span></el-col>
             </el-row>
             <el-row style="margin-top: 8%">
-              <el-col :span="15" offset="1"><span>备注:{{selectedOutRecord.remark }}</span></el-col>
+              <el-col :span="15" offset="1"><span>备注:{{ selectedOutRecord.remark }}</span></el-col>
               <el-col :span="8">
                 <el-button type="primary" @click="outRecordShowDetial = true">返回</el-button>
                 <el-button type="primary" @click="getInRecord(selectedOutRecord.inRecordId)">追踪入场记录</el-button>
@@ -326,26 +326,20 @@ export default {
     //入场记录追踪出场记录
     getOutRecord(inRecordId) {
       this.$realTimeMonitor.getOutRecord(inRecordId).then(res => {
-        this.carOutRecordList = res.resultEntity.list;
-        if(this.carOutRecordList.length===0){
-          this.$message({ type: "fail", message: "没有该车出场记录！请确认该车是否离场!" });
+        if (res.resultEntity.list.length === 0) {
+          this.$message({type: "fail", message: "没有该车出场记录！请确认该车是否离场!"});
           this.downQuery();
           return;
         }
-        this.downPageNum = 1;
-        this.downTotal = res.resultEntity.total;
-        this.selectedOutRecord = this.carOutRecordList[0];
-        this.outRecordShowDetial = true;
+        this.selectedOutRecord = res.resultEntity.list[0];
+        this.outRecordShowDetial = false;
       });
     },
     //出场记录追踪入场记录
-    getInRecord(inRecordId){
+    getInRecord(inRecordId) {
       this.$realTimeMonitor.getInRecord(inRecordId).then(res => {
-        this.carInRecordList = res.resultEntity.list;
-        this.upPageNum = 1;
-        this.upTotal = res.resultEntity.total;
-        this.selectedInRecord = this.carInRecordList[0];
-        this.inRecordShowDetial = true;
+        this.selectedInRecord = res.resultEntity.list[0];
+        this.inRecordShowDetial = false;
       });
     },
     //入场记录选中某行
@@ -354,9 +348,9 @@ export default {
       this.selectedInRecord = row;
     },
     //出场记录选中某行
-    handleOutSelection(row){
+    handleOutSelection(row) {
       //此处把这一行高亮
-      this.selectedOutRecord =row;
+      this.selectedOutRecord = row;
     },
     //入场记录跳页
     handleUpQuery(val) {
@@ -364,7 +358,7 @@ export default {
       this.query();
     },
     //出场记录跳页
-    handleDownQuery(val){
+    handleDownQuery(val) {
       this.downPageNum = val;
       this.downQuery();
     },
@@ -372,7 +366,7 @@ export default {
     resetQuery() {
       this.upQueryList = {};
     },
-    downResetQuery(){
+    downResetQuery() {
       this.downQueryList = {}
     },
     //入场记录查询
@@ -392,7 +386,7 @@ export default {
       });
     },
     //出场记录查询
-    downQuery(){
+    downQuery() {
       const param = {
         pageNum: this.downPageNum,
         pageSize: this.downPageSize,
@@ -428,7 +422,7 @@ export default {
       this.inRecordShowDetial = false;
     },
     //查看出场记录详情
-    showDownDetail(item){
+    showDownDetail(item) {
       this.selectedOutRecord = item;
       this.outRecordShowDetial = false;
     }
