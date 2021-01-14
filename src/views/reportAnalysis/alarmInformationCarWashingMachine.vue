@@ -68,23 +68,23 @@
           style="width: 98%;margin-left: 1%"
         >
           <el-table-column
-            prop="statisticDate"
+            prop="parkName"
             :show-overflow-tooltip="true"
             label="洗车机名称"
           />
           <el-table-column
-            prop="parkName"
+            prop="inTime"
             :show-overflow-tooltip="true"
             label="报警时间"
           />
           <el-table-column
-            prop="passagewayName"
+            prop="plateNumber"
             :show-overflow-tooltip="true"
             label="报警类型"
           />
 
           <el-table-column
-            prop="income"
+            prop="inDeviceName"
             :show-overflow-tooltip="true"
             label="报警时长"
           />
@@ -103,17 +103,17 @@
       <!-- 图表部分 -->
       <div class="down">
         <!--  报警次数统计-->
-        <div class="echartStyle" id="alarmFrequencyStatistics">
+        <div class="echartStyle" id="paymentIncomeAnalysis">
           <Xchart
-            id="alarmFrequencyStatistics"
-            :option="alarmFrequencyStatisticsPie"
+            id="paymentIncomeAnalysis"
+            :option="paymentIncomeAnalysisPie"
           ></Xchart>
         </div>
         <!-- 洗车机近七日报警趋势分析 -->
-        <div class="echartStyle" id="alarmTrendAnalysis">
+        <div class="echartStyle" id="numberOfParking">
           <Xchart
-            id="alarmTrendAnalysis"
-            :option="alarmTrendAnalysisOptions"
+            id="numberOfParking"
+            :option="numberOfParkingOptions"
           ></Xchart>
         </div>
       </div>
@@ -143,24 +143,24 @@ export default {
       pageTotal: 12,
 
       //  报警次数统计
-      alarmFrequencyStatistics: [],
-      alarmFrequencyStatisticsPie: {},
+      paymentIncomeAnalysis: [],
+      paymentIncomeAnalysisPie: {},
 
       //洗车机近七日报警报警趋势分析
-      alarmTrendAnalysisOptions: {},
+      numberOfParkingOptions: {},
       // 图表数据
-      alarmTrendAnalysisData: [],
-      alarmTrendAnalysisXz: [],
-      alarmTrendAnalysisName: "洗车机近七日报警报警趋势分析"
+      numberOfParkingData: [],
+      numberOfParkingXz: [],
+      numberOfParkingName: "洗车机近七日报警报警趋势分析"
     };
   },
   mounted() {
     //列表查询
-    this.queryPayList();
+    this.queryList();
     //报警次数统计
-    this.queryNumberOfParking();
-    //洗车机近七日报警报警趋势分析
     this.queryPaymentBehaviorAnalysis();
+    //洗车机近七日报警报警趋势分析
+    this.queryParkTimes();
   },
   methods: {
     //查询重置按钮
@@ -172,22 +172,18 @@ export default {
       //列表查询
       this.queryPayList();
       //报警次数统计
-      this.queryNumberOfParking();
-      //洗车机近七日报警报警趋势分析
       this.queryPaymentBehaviorAnalysis();
+      //洗车机近七日报警报警趋势分析
+      this.queryParkTimes();
     },
     //列表查询
-    queryPayList() {
+    queryList() {
       const param = {
-        endDate: this.query.endStatisDate,
-        startDate: this.query.startStatisDate,
-        parkId: this.query.parkId,
-        carNum: this.query.carNum,
-        payMethod: this.query.payMethod,
         pageNum: this.pageNum,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        parkId: this.query.parkId
       };
-      this.$reportAnalysis.queryAccountStatisList(param).then(res => {
+      this.$realTimeMonitor.queryInRecord(param).then(res => {
         this.payList = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
       });
@@ -215,10 +211,10 @@ export default {
         statisType: "today"
       };
       this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
-        var alipayDataList = ["报警信息1", 10];
-        var wechatDataList = ["报警信息2", 20];
-        var qrCodeDataList = ["报警信息3", 30];
-        var cashDataList = ["报警信息4", 40];
+        var alipayDataList = ["报警类型1", 10];
+        var wechatDataList = ["报警类型2", 20];
+        var qrCodeDataList = ["报警类型3", 30];
+        var cashDataList = ["报警类型4", 40];
         // var alipayDataList = [
         //   "支付宝支付",
         //   Math.round(
@@ -253,14 +249,14 @@ export default {
         //   ) / 100
         // ];
 
-        this.alarmFrequencyStatistics = [
+        this.paymentIncomeAnalysis = [
           {
             type: "pie",
             name: "支付占比",
             data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList]
           }
         ];
-        this.alarmFrequencyStatisticsPie = {
+        this.paymentIncomeAnalysisPie = {
           chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -268,7 +264,8 @@ export default {
             type: "pie",
             spacingBottom: 10,
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "alarmFrequencyStatistics"
+            color: "red",
+            renderTo: "paymentIncomeAnalysis"
             // options3d: {
             //     enabled: true,
             //     alpha: 45,
@@ -276,7 +273,7 @@ export default {
             // }
           },
           title: {
-            text: "报警次数统计"
+            text: ""
           },
           credits: {
             enabled: false
@@ -296,6 +293,7 @@ export default {
               innerSize: 60,
               depth: 45,
               dataLabels: {
+                //显示映出来的数据
                 enabled: false
                 // format: "{point.name}"
               },
@@ -309,20 +307,19 @@ export default {
             verticalAlign: "top",
             borderWidth: 0,
             itemStyle: {
-              color: "black"
+              color: "blue"
             },
             itemHoverStyle: {
-              color: "#007AFF"
+              color: "purple"
             }
           },
-
-          series: this.alarmFrequencyStatistics
+          series: this.paymentIncomeAnalysis
         };
-        new HighCharts.chart(this.alarmFrequencyStatisticsPie);
+        new HighCharts.chart(this.paymentIncomeAnalysisPie);
       });
     },
     //洗车机近七日报警报警趋势分析
-    queryNumberOfParking() {
+    queryParkTimes() {
       // //这边就是把参数等于对应的值就行了
       // // 绑定自定义的id的字段名
       // this.lineId = 'numberOfParking';
@@ -337,10 +334,10 @@ export default {
       // this.lineChartsName = this.numberOfParkingName;
       // var that = this;
       // const param = {
-      //   "statisDate": this.upQueryList.dataTimeIn,
+      //   "statisDate": this.upQueryList.minTime,
       //   "cityCode": "321300",
       //   "districtCode": "321302",
-      //   "parkId": this.upQueryList.TingNum
+      //   "parkId": this.upQueryList.parkId
       // }
       // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
       //   this.numberOfParkingXz = [];
@@ -355,41 +352,37 @@ export default {
       //   that.queryLine();
       // })
       const param = {
-        statisDate: this.payList.dataTimeIn,
-        cityCode: "321300",
-        districtCode: "321302",
-        parkId: this.payList.TingNum
+        statisDate: "2021-01-12"
       };
-      this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
-        this.alarmTrendAnalysisXz = [];
-        this.alarmTrendAnalysisData = [];
-        res.data.dataList.forEach(item => {
-          this.alarmTrendAnalysisXz.push(item.periodName);
-          this.alarmTrendAnalysisData.push(Number(item.parkCount));
+      this.$reportAnalysis.queryParkTimes(param).then(res => {
+        this.numberOfParkingXz = [];
+        this.numberOfParkingData = [];
+        res.resultEntity.forEach(item => {
+          this.numberOfParkingXz.push(item.X);
+          this.numberOfParkingData.push(Number(item.dataY));
         });
-        this.alarmTrendAnalysisOptions = {
+        this.numberOfParkingOptions = {
           chart: {
-            defaultSeriesType: "line",
+            type: "line",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "alarmTrendAnalysis"
+            renderTo: "numberOfParking"
           },
           title: {
-            text: this.alarmTrendAnalysisName
+            text: this.numberOfParkingName
           },
           credits: {
             enabled: false
           },
           xAxis: {
-            categories: this.alarmTrendAnalysisXz
+            categories: this.numberOfParkingXz
           },
           yAxis: {
             title: {
               text: ""
             },
             labels: {
-              formatter: function() {
-                return this.value / 1;
-              }
+              //修改Y轴添加单位
+              format: "{value}辆"
             }
           },
           legend: {
@@ -413,19 +406,17 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>辆"
+            pointFormat: "{series.name}: <b>{point.y}</b>辆"
           },
           plotOptions: {
             area: {
               marker: {
-                //线上数据点
-                radius: 0,
-                lineWidth: 0,
-                lineColor: "#fba845",
-                fillColor: "#fba845",
+                enabled: false,
+                symbol: "circle",
+                radius: 2,
                 states: {
                   hover: {
-                    enabled: false
+                    enabled: true
                   }
                 }
               }
@@ -433,12 +424,12 @@ export default {
           },
           series: [
             {
-              name: this.alarmTrendAnalysisName,
-              data: this.alarmTrendAnalysisData
+              name: this.numberOfParkingName,
+              data: this.numberOfParkingData
             }
           ]
         };
-        new HighCharts.chart(this.alarmTrendAnalysisOptions);
+        new HighCharts.chart(this.numberOfParkingOptions);
       });
     }
   }

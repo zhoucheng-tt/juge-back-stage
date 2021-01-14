@@ -2,286 +2,392 @@
   <div class="all">
     <!--上半部分入口监测-->
     <div class="up-half">
-      <el-row class="query">
+      <!--上半部查询-->
+      <el-row class="upQuerySelect">
         <el-form :inline="true" class="demo-form-inline">
           <el-form-item label="入口监测"></el-form-item>
           <el-form-item label="停车场:">
-            <el-select size="small"
-                       style="width: 160px"
-                       v-model="upQueryList.parkId"
+            <el-select
+              size="small"
+              style="width: 160px"
+              v-model="upQueryList.parkId"
             >
-              <el-option label="全部" value=""/>
+              <el-option label="全部" value="" />
               <el-option
-                  v-for="(item, index) in parkingLotList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
+                v-for="(item, index) in parkingLotList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
           <!--    时间-->
           <el-form-item label="选择时间:">
             <el-date-picker
-                v-model="upQueryList.minDateTime"
-                type="datetime"
-                size="small"
-                style="width: 160px"
-                value-format="yyyy-MM-dd hh:mm:ss"
-                placeholder="请选择起始时间"
+              v-model="upQueryList.minDateTime"
+              type="datetime"
+              size="small"
+              style="width: 160px"
+              value-format="yyyy-MM-dd hh:mm:ss"
+              placeholder="请选择起始时间"
             >
             </el-date-picker>
             <span>
-            ~
-          </span>
+              ~
+            </span>
             <el-date-picker
-                v-model="upQueryList.maxDateTime"
-                type="datetime"
-                size="small"
-                style="width: 160px"
-                placeholder="请选择截止日期"
-                value-format="yyyy-MM-dd hh:mm:ss"
+              v-model="upQueryList.maxDateTime"
+              type="datetime"
+              size="small"
+              style="width: 160px"
+              placeholder="请选择截止日期"
+              value-format="yyyy-MM-dd hh:mm:ss"
             >
             </el-date-picker>
           </el-form-item>
           <!--    车牌号-->
           <el-form-item label="车牌号:">
             <el-input
-                size="small"
-                style="width: 160px"
-                v-model="upQueryList.plateNumber"
-                placeholder="请输入车牌号"
+              size="small"
+              style="width: 160px"
+              v-model="upQueryList.plateNumber"
+              placeholder="请输入车牌号"
             ></el-input>
           </el-form-item>
           <!--      查询按钮-->
           <el-form-item>
-            <el-button type="primary" size="small" @click="query">查询</el-button>
-            <el-button type="primary" size="small" @click="resetQuery"
-            >重置
-            </el-button
+            <el-button type="primary" size="small" @click="query"
+              >查询</el-button
             >
+            <el-button type="primary" size="small" @click="resetQuery"
+              >重置
+            </el-button>
           </el-form-item>
         </el-form>
       </el-row>
       <el-row class="data-content">
-        <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="selectedInRecord.inImage" class="show"/>
-        </el-col>
-        <el-col :span="14">
-          <el-table :cell-style="{fontfamily: 'PingFangSC-Regular',letterSpacing: '0.56px',
-          fontSize: '14px',color: '#333333','text-align': 'center'}" :data="carInRecordList" :header-cell-style="{
-          fontfamily: 'PingFangSC-Medium',
-          background: '#FFFFFF',
-          color: '#333333',
-          border: 'none',
-          padding: 'none',
-          fontSize: '14px',
-          letterSpacing: '0.56px',
-          'text-align': 'center'}"
-                    stripe
-                    style="width: 100%;margin-left: 1%"
-                    @row-click="handleSelection"
-                    v-show="inRecordShowDetial">
-            <el-table-column label="入场时间" prop="inTime" label-width="210px"></el-table-column>
+        <!--左侧图片-->
+        <el-row class="upImg">
+          <img :src="selectedInRecord.inImage" class="upImg-content" />
+        </el-row>
+        <el-row class="upTable">
+          <el-table
+            :cell-style="{
+              fontfamily: 'PingFangSC-Regular',
+              letterSpacing: '0.56px',
+              fontSize: '14px',
+              color: '#333333',
+              'text-align': 'center'
+            }"
+            :data="carInRecordList"
+            :header-cell-style="{
+              fontfamily: 'PingFangSC-Medium',
+              background: '#FFFFFF',
+              color: '#333333',
+              border: 'none',
+              padding: 'none',
+              fontSize: '14px',
+              letterSpacing: '0.56px',
+              'text-align': 'center'
+            }"
+            stripe
+            style="width: 100%;margin-left: 1%"
+            @row-click="handleSelection"
+          >
             <el-table-column
-                :show-overflow-tooltip="true"
-                label="车牌号"
-                prop="plateNumber"
+              label="入场时间"
+              prop="inTime"
+              label-width="210px"
+            ></el-table-column>
+            <el-table-column
+              :show-overflow-tooltip="true"
+              label="车牌号"
+              prop="plateNumber"
             />
             <el-table-column
-                :show-overflow-tooltip="true"
-                label="停车场名称"
-                prop="parkName"
+              :show-overflow-tooltip="true"
+              label="停车场名称"
+              prop="parkName"
             />
             <el-table-column
-                :show-overflow-tooltip="true"
-                label="通过设备"
-                prop="inDeviceName"
+              :show-overflow-tooltip="true"
+              label="通过设备"
+              prop="inDeviceName"
             />
             <el-table-column :show-overflow-tooltip="true" label="操作">
               <template slot-scope="scope">
                 <el-button
-                    size="small"
-                    type="text"
-                    @click="showDetail(scope.row)"
-                >查看详情
+                  size="small"
+                  type="text"
+                  @click="showDetail(scope.row)"
+                  >查看详情
                 </el-button>
               </template>
             </el-table-column>
           </el-table>
-          <div style="float: right;" v-show="inRecordShowDetial">
+          <div style="float: right;">
             <el-pagination
-                layout="total, prev, pager, next, jumper"
-                :page-size="upPageSize"
-                @current-change="handleUpQuery"
-                :current-page="upPageNum"
-                :total="upTotal"
-                style="height: 10%"
+              layout="total, prev, pager, next, jumper"
+              :page-size="upPageSize"
+              @current-change="handleUpQuery"
+              :current-page="upPageNum"
+              :total="upTotal"
+              style="height: 10%"
             >
             </el-pagination>
           </div>
-          <el-row v-show="!inRecordShowDetial">
-            <el-row style="margin-top: 1%">
-              <el-col :span="7" offset="1"><span>停车场:{{ selectedInRecord.parkName }}</span></el-col>
-              <el-col :span="7" offset="1"><span>通过设备:{{ selectedInRecord.inDeviceName }}</span></el-col>
-              <el-col :span="8"><span>入场时间:{{ selectedInRecord.inTime }}</span></el-col>
+          <el-dialog
+            title="详情"
+            :visible.sync="upDetailDialogVisible"
+            width="640px"
+            @close="downshow = 0"
+          >
+            <el-row style="display: flex">
+              <el-row style="width: 30%;">
+                <img :src="selectedInRecord.inImage" class="dialog-upimg" />
+              </el-row>
+              <el-row class="rightcontent">
+                <el-row> 停车场:{{ selectedInRecord.parkName }} </el-row>
+                <el-row>通过设备:{{ selectedInRecord.inDeviceName }} </el-row>
+                <el-row> 入场时间:{{ selectedInRecord.inTime }} </el-row>
+                <el-row> 车牌号:{{ selectedInRecord.plateNumber }} </el-row>
+                <el-row> 车牌颜色:{{ selectedInRecord.plateColor }} </el-row>
+                <el-row> 操作员:{{ selectedInRecord.stationOperator }} </el-row>
+                <el-row> 备注:{{ selectedInRecord.remark }} </el-row>
+                <el-button
+                  type="primary"
+                  @click="getOutRecord(selectedInRecord.inRecordId)"
+                  >追踪出场记录</el-button
+                >
+              </el-row>
             </el-row>
-            <el-row style="margin-top: 8%">
-              <el-col :span="7" offset="1"><span>车牌号:{{ selectedInRecord.plateNumber }}</span></el-col>
-              <el-col :span="7" offset="1"><span>车牌颜色:{{ selectedInRecord.plateColor }}</span></el-col>
-              <el-col :span="8"><span>操作员:{{ selectedInRecord.stationOperator }}</span></el-col>
+            <el-row
+              v-if="downshow === 1"
+              style="display: flex;margin-top: 20px"
+            >
+              <el-row style="width: 30%">
+                <img :src="selectedOutRecord2.outImage" class="dialog-upimg" />
+              </el-row>
+              <el-row class="rightcontent">
+                <el-row>停车场:{{ selectedOutRecord2.parkName }}</el-row>
+                <el-row>
+                  通过设备:{{ selectedOutRecord2.outDeviceName }}</el-row
+                >
+                <el-row>出场时间:{{ selectedOutRecord2.outTime }}</el-row>
+                <el-row>车牌号:{{ selectedOutRecord2.plateNumber }}</el-row>
+                <el-row>车牌颜色:{{ selectedOutRecord2.plateColor }}</el-row>
+                <el-row>
+                  操作员:{{ selectedOutRecord2.stationOperator }}</el-row
+                >
+                <el-row>备注:{{ selectedOutRecord2.remark }}</el-row>
+              </el-row>
             </el-row>
-            <el-row style="margin-top: 8%">
-              <el-col :span="15" offset="1"><span>备注:{{ selectedInRecord.remark }}</span></el-col>
-              <el-col :span="8">
-                <el-button type="primary" @click="inRecordShowDetial = true">返回</el-button>
-                <el-button type="primary" @click="getOutRecord(selectedInRecord.inRecordId)">追踪出场记录</el-button>
-              </el-col>
-            </el-row>
-          </el-row>
-        </el-col>
 
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="upDetailDialogVisible = false">关闭</el-button>
+            </span>
+          </el-dialog>
+        </el-row>
       </el-row>
-
     </div>
-    <!--    下半部分出口检测-->
+    <!--下半部分出口检测-->
     <div class="down-half">
-      <el-row class="query">
-        <el-form :inline="true" class="demo-form-inline">
+      <el-row class="upQuerySelect">
+        <el-form :inline="true" class="demo-form-inline" :model="downQueryList">
           <el-form-item label="出口监测"></el-form-item>
           <el-form-item label="停车场:">
-            <el-select size="small"
-                       style="width: 160px"
-                       v-model="downQueryList">
-              <el-option label="全部" value=""/>
-              <el-option label="全部" value=""></el-option>
+            <el-select
+              size="small"
+              style="width: 160px"
+              v-model="downQueryList.parkId"
+              d
+            >
+              <!--              <el-option label="全部" value="" />-->
+              <!--              <el-option label="全部" value=""></el-option>-->
               <el-option
-                  v-for="(item, index) in parkingLotList2"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
+                v-for="(item, index) in parkingLotList2"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
           <!--    时间-->
           <el-form-item label="选择时间:">
             <el-date-picker
-                v-model="downQueryList.minDateTime"
-                type="datetime"
-                size="small"
-                style="width: 160px"
-                value-format="yyyy-MM-dd hh:mm:ss"
-                placeholder="请选择起始时间"
+              v-model="downQueryList.minDateTime"
+              type="datetime"
+              size="small"
+              style="width: 160px"
+              value-format="yyyy-MM-dd hh:mm:ss"
+              placeholder="请选择起始时间"
             >
             </el-date-picker>
             <span>
-            ~
-          </span>
+              ~
+            </span>
             <el-date-picker
-                v-model="upQueryList.maxDateTime"
-                type="datetime"
-                size="small"
-                style="width: 160px"
-                placeholder="请选择截止日期"
-                value-format="yyyy-MM-dd hh:mm:ss"
+              v-model="downQueryList.maxDateTime"
+              type="datetime"
+              size="small"
+              style="width: 160px"
+              placeholder="请选择截止日期"
+              value-format="yyyy-MM-dd hh:mm:ss"
             >
             </el-date-picker>
           </el-form-item>
           <!--    车牌号-->
           <el-form-item label="车牌号:">
             <el-input
-                size="small"
-                style="width: 160px"
-                v-model="downQueryList.plateNum"
-                placeholder="请输入车牌号"
+              size="small"
+              style="width: 160px"
+              v-model="downQueryList.plateNumber"
+              placeholder="请输入车牌号"
             ></el-input>
           </el-form-item>
           <!--      查询按钮-->
           <el-form-item>
-            <el-button type="primary" size="small" @click="downQuery">查询</el-button>
-            <el-button type="primary" size="small" @click="downResetQuery"
-            >重置
-            </el-button
+            <el-button type="primary" size="small" @click="downQuery"
+              >查询</el-button
             >
+            <el-button type="primary" size="small" @click="downResetQuery"
+              >重置
+            </el-button>
           </el-form-item>
         </el-form>
       </el-row>
       <el-row class="data-content">
-        <el-col style="height: 70%" :offset="1" :span="9">
-          <img :src="selectedOutRecord.outImage" class="show"/>
-        </el-col>
-        <el-col :span="14">
-          <el-table :cell-style="{fontfamily: 'PingFangSC-Regular',letterSpacing: '0.56px',
-          fontSize: '14px',color: '#333333','text-align': 'center'}" :data="carOutRecordList" :header-cell-style="{
-          fontfamily: 'PingFangSC-Medium',
-          background: '#FFFFFF',
-          color: '#333333',
-          border: 'none',
-          padding: 'none',
-          fontSize: '14px',
-          letterSpacing: '0.56px',
-          'text-align': 'center'}"
-                    stripe
-                    style="width: 100%;margin-left: 1%"
-                    @row-click="handleOutSelection"
-                    v-show="outRecordShowDetial">
-            <el-table-column label="出场时间" prop="outTime" label-width="210px"></el-table-column>
+        <el-row class="upImg">
+          <img :src="selectedOutRecord.outImage" class="upImg-content" />
+        </el-row>
+        <el-row class="upTable">
+          <el-table
+            :cell-style="{
+              fontfamily: 'PingFangSC-Regular',
+              letterSpacing: '0.56px',
+              fontSize: '14px',
+              color: '#333333',
+              'text-align': 'center'
+            }"
+            :data="carOutRecordList"
+            :header-cell-style="{
+              fontfamily: 'PingFangSC-Medium',
+              background: '#FFFFFF',
+              color: '#333333',
+              border: 'none',
+              padding: 'none',
+              fontSize: '14px',
+              letterSpacing: '0.56px',
+              'text-align': 'center'
+            }"
+            stripe
+            style="width: 100%;margin-left: 1%"
+            @row-click="handleOutSelection"
+          >
             <el-table-column
-                :show-overflow-tooltip="true"
-                label="车牌号"
-                prop="plateNumber"
+              label="出场时间"
+              prop="outTime"
+              label-width="210px"
+            ></el-table-column>
+            <el-table-column
+              :show-overflow-tooltip="true"
+              label="车牌号"
+              prop="plateNumber"
             />
             <el-table-column
-                :show-overflow-tooltip="true"
-                label="停车场名称"
-                prop="parkName"
+              :show-overflow-tooltip="true"
+              label="停车场名称"
+              prop="parkName"
             />
             <el-table-column
-                :show-overflow-tooltip="true"
-                label="通过设备"
-                prop="outDeviceName"
+              :show-overflow-tooltip="true"
+              label="通过设备"
+              prop="outDeviceName"
             />
             <el-table-column :show-overflow-tooltip="true" label="操作">
               <template slot-scope="scope">
                 <el-button
-                    size="small"
-                    type="text"
-                    @click="showDownDetail(scope.row)"
-                >查看详情
+                  size="small"
+                  type="text"
+                  @click="showDownDetail(scope.row)"
+                  >查看详情
                 </el-button>
               </template>
             </el-table-column>
           </el-table>
-          <div style="float: right;" v-show="outRecordShowDetial">
+          <div style="float: right;">
             <el-pagination
-                layout="total, prev, pager, next, jumper"
-                :page-size="downPageSize"
-                @current-change="handleDownQuery"
-                :current-page="downPageNum"
-                :total="downTotal"
-                style="height: 10%"
+              layout="total, prev, pager, next, jumper"
+              :page-size="downPageSize"
+              @current-change="handleDownQuery"
+              :current-page="downPageNum"
+              :total="downTotal"
+              style="height: 10%"
             >
             </el-pagination>
           </div>
-          <el-row v-show="!outRecordShowDetial">
-            <el-row style="margin-top: 1%">
-              <el-col :span="7" offset="1"><span>停车场:{{ selectedOutRecord.parkName }}</span></el-col>
-              <el-col :span="7" offset="1"><span>通过设备:{{ selectedOutRecord.outDeviceName }}</span></el-col>
-              <el-col :span="8"><span>出场时间:{{ selectedOutRecord.outTime }}</span></el-col>
+          <el-dialog
+            title="详情"
+            :visible.sync="downDetailDialogVisible"
+            width="640px"
+            @close="upshow = 0"
+          >
+            <el-row style="display: flex">
+              <el-row style="width: 30%;">
+                <img :src="selectedOutRecord.outImage" class="dialog-upimg" />
+              </el-row>
+              <el-row class="rightcontent">
+                <el-row>停车场:{{ selectedOutRecord.parkName }}</el-row>
+                <el-row> 通过设备:{{ selectedOutRecord.outDeviceName }}</el-row>
+                <el-row>出场时间:{{ selectedOutRecord.outTime }}</el-row>
+                <el-row>车牌号:{{ selectedOutRecord.plateNumber }}</el-row>
+                <el-row>车牌颜色:{{ selectedOutRecord.plateColor }}</el-row>
+                <el-row> 操作员:{{ selectedOutRecord.stationOperator }}</el-row>
+                <el-row>备注:{{ selectedOutRecord.remark }}</el-row>
+                <el-button
+                  type="primary"
+                  @click="getInRecord(selectedOutRecord.inRecordId)"
+                  >追踪入场记录</el-button
+                >
+              </el-row>
             </el-row>
-            <el-row style="margin-top: 8%">
-              <el-col :span="7" offset="1"><span>车牌号:{{ selectedOutRecord.plateNumber }}</span></el-col>
-              <el-col :span="7" offset="1"><span>车牌颜色:{{ selectedOutRecord.plateColor }}</span></el-col>
-              <el-col :span="8"><span>操作员:{{ selectedOutRecord.stationOperator }}</span></el-col>
+            <el-row v-if="upshow === 1" style="display: flex;margin-top: 20px">
+              <el-row style="width: 30%">
+                <img :src="selectedInRecord2.inImage" class="dialog-upimg" />
+              </el-row>
+              <el-row class="rightcontent">
+                <el-row> 停车场:{{ selectedInRecord2.parkName }} </el-row>
+                <el-row>通过设备:{{ selectedInRecord2.inDeviceName }} </el-row>
+                <el-row> 入场时间:{{ selectedInRecord2.inTime }} </el-row>
+                <el-row> 车牌号:{{ selectedInRecord2.plateNumber }} </el-row>
+                <el-row> 车牌颜色:{{ selectedInRecord2.plateColor }} </el-row>
+                <el-row>
+                  操作员:{{ selectedInRecord2.stationOperator }}
+                </el-row>
+                <el-row> 备注:{{ selectedInRecord2.remark }} </el-row></el-row
+              >
             </el-row>
-            <el-row style="margin-top: 8%">
-              <el-col :span="15" offset="1"><span>备注:{{ selectedOutRecord.remark }}</span></el-col>
-              <el-col :span="8">
-                <el-button type="primary" @click="outRecordShowDetial = true">返回</el-button>
-                <el-button type="primary" @click="getInRecord(selectedOutRecord.inRecordId)">追踪入场记录</el-button>
-              </el-col>
-            </el-row>
-          </el-row>
-        </el-col>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="downDetailDialogVisible = false"
+                >关闭</el-button
+              >
+            </span>
+          </el-dialog>
+          <!--          <el-row>停车场:{{ selectedOutRecord.parkName }}</el-row>-->
+          <!--          <el-row> 通过设备:{{ selectedOutRecord.outDeviceName }}</el-row>-->
+          <!--          <el-row>出场时间:{{ selectedOutRecord.outTime }}</el-row>-->
+          <!--          <el-row>车牌号:{{ selectedOutRecord.plateNumber }}</el-row>-->
+          <!--          <el-row>车牌颜色:{{ selectedOutRecord.plateColor }}</el-row>-->
+          <!--          <el-row> 操作员:{{ selectedOutRecord.stationOperator }}</el-row>-->
+          <!--          <el-row>备注:{{ selectedOutRecord.remark }}</el-row>-->
+          <!--       -->
+          <!--          <el-button @click="outRecordShowDetial = true">返回</el-button>-->
+          <!--                <el-button-->
+          <!--                  type="primary"-->
+          <!--                  @click="getInRecord(selectedOutRecord.inRecordId)"-->
+          <!--                  >追踪入场记录</el-button-->
+          <!--                >-->
+        </el-row>
       </el-row>
     </div>
   </div>
@@ -291,6 +397,11 @@
 export default {
   data() {
     return {
+      //上半部分查看详情
+      upDetailDialogVisible: false,
+      downDetailDialogVisible: false,
+      downshow: 0,
+      upshow: 0,
       // 停车场下拉列表
       parkingLotList: [],
       parkingLotList2: [],
@@ -301,12 +412,13 @@ export default {
       carInRecordList: [],
       //出场记录列表
       carOutRecordList: [],
-      //查看具体数据
-      inRecordShowDetial: true,
-      outRecordShowDetial: true,
+
       //选中的记录
       selectedInRecord: {},
+      selectedInRecord2: {},
       selectedOutRecord: {},
+      selectedOutRecord2: {},
+
       //入场记录分页数据
       upPageNum: 1,
       upPageSize: 4,
@@ -325,21 +437,24 @@ export default {
   methods: {
     //入场记录追踪出场记录
     getOutRecord(inRecordId) {
+      this.downshow = 1;
       this.$realTimeMonitor.getOutRecord(inRecordId).then(res => {
         if (res.resultEntity.list.length === 0) {
-          this.$message({type: "fail", message: "没有该车出场记录！请确认该车是否离场!"});
-          this.downQuery();
+          this.$message({
+            type: "fail",
+            message: "没有该车出场记录！请确认该车是否离场!"
+          });
+          // this.downQuery();
           return;
         }
-        this.selectedOutRecord = res.resultEntity.list[0];
-        this.outRecordShowDetial = false;
+        this.selectedOutRecord2 = res.resultEntity.list[0];
       });
     },
     //出场记录追踪入场记录
     getInRecord(inRecordId) {
+      this.upshow = 1;
       this.$realTimeMonitor.getInRecord(inRecordId).then(res => {
-        this.selectedInRecord = res.resultEntity.list[0];
-        this.inRecordShowDetial = false;
+        this.selectedInRecord2 = res.resultEntity.list[0];
       });
     },
     //入场记录选中某行
@@ -367,7 +482,7 @@ export default {
       this.upQueryList = {};
     },
     downResetQuery() {
-      this.downQueryList = {}
+      this.downQueryList = {};
     },
     //入场记录查询
     query() {
@@ -413,21 +528,21 @@ export default {
       this.$ysParking.queryDictData(param).then(res => {
         console.log("下拉表单查询数据显示", res);
         that.parkingLotList = res.data.dataList;
+        that.parkingLotList2 = res.data.dataList;
         console.log("下拉菜单", this.parkingLotList);
       });
     },
     //查看入场记录详情
     showDetail(item) {
       this.selectedInRecord = item;
-      this.inRecordShowDetial = false;
+      this.upDetailDialogVisible = true;
     },
     //查看出场记录详情
     showDownDetail(item) {
       this.selectedOutRecord = item;
-      this.outRecordShowDetial = false;
+      this.downDetailDialogVisible = true;
     }
   }
-
 };
 </script>
 
@@ -454,31 +569,37 @@ export default {
   margin-top: 0.5%;
 }
 
-.query {
-  width: 98%;
-  height: 10%;
-  background-color: white;
-  margin-left: 1%;
-  margin-top: 0.5%;
+.upQuerySelect {
+  width: 100%;
+  height: 14%;
 }
 
 .data-content {
   width: 98%;
   height: 39%;
   background-color: white;
+  display: flex;
   margin-left: 1%;
   margin-top: 1%;
 }
-
-/*查询*/
-.up {
-  width: 98%;
-  height: 7%;
-  background-color: white;
-  margin-left: 1%;
-  margin-top: 0.5%;
+.upImg {
+  width: 30%;
+  height: 325px;
 }
-
+.upImg-content {
+  width: 100%;
+  height: 100%;
+}
+.upTable {
+  width: 70%;
+  height: 345px;
+}
+.showEntrance {
+  /*background-color: red;*/
+  width: 70%;
+  height: 285px;
+  margin: 20px auto;
+}
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
@@ -486,49 +607,14 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
-
-.show {
-  height: 300px;
-  width: 80%;
-  padding-left: 18px;
-  position: relative;
+.dialog-upimg {
+  width: 200px;
+  height: 200px;
 }
-
-/* 下班部分列表部分 */
-.down-up {
-  width: 98%;
-  height: 42%;
-  background-color: white;
-  margin-left: 1%;
-  margin-top: 1%;
+.rightcontent {
+  width: 70%;
+  margin-left: 70px;
 }
-
-.down-down {
-  width: 98%;
-  height: 42%;
-  background-color: white;
-  margin-left: 1%;
-  margin-top: 1%;
-}
-
-.span-text {
-  font-size: 20px;
-  width: 100%;
-  height: 10%;
-  margin-top: 1%;
-  margin-left: 3%;
-  /*background-color: red;*/
-}
-
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
-}
-
 img {
   width: 30px;
   height: 30px;
@@ -551,16 +637,5 @@ li {
   text-align: left;
   margin: 0;
   font-size: 14px;
-}
-
-.scroll {
-  height: 60px;
-  overflow: hidden;
-  font-size: 0px;
-  position: relative;
-}
-
-.transition {
-  transition: top 1s;
 }
 </style>
