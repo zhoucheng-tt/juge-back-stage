@@ -15,7 +15,17 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="统计日期:">
           <el-date-picker
-            v-model="upQueryList.dataTimeIn"
+            v-model="upQueryList.minTime"
+            type="date"
+            size="small"
+            style="width: 160px"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
+          >
+          </el-date-picker>
+          <span>~</span>
+          <el-date-picker
+            v-model="upQueryList.maxTime"
             type="date"
             size="small"
             style="width: 160px"
@@ -28,7 +38,7 @@
           <el-select
             size="small"
             style="width: 160px"
-            v-model="upQueryList.TingNum"
+            v-model="upQueryList.parkId"
             placeholder="请选择停车场"
           >
             <el-option value="" label="全部"></el-option>
@@ -165,9 +175,9 @@ export default {
       pageTotal: 5,
       // 顶部查询数据暂存处
       upQueryList: {
-        TingNum: "",
+        parkId: "",
         // 进场时间
-        dataTimeIn: new Date().Format("yyyy-MM-dd")
+        minTime: new Date().Format("yyyy-MM-dd")
       },
       // 停车场下拉框数据暂存处
       parkingLotList: [],
@@ -269,8 +279,8 @@ export default {
     //列表查询
     queryData() {
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        parkId: this.upQueryList.TingNum,
+        statisDate: this.upQueryList.minTime,
+        parkId: this.upQueryList.parkId,
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
@@ -321,10 +331,10 @@ export default {
       // this.lineChartsName = this.numberOfParkingName;
       // var that = this;
       // const param = {
-      //   "statisDate": this.upQueryList.dataTimeIn,
+      //   "statisDate": this.upQueryList.minTime,
       //   "cityCode": "321300",
       //   "districtCode": "321302",
-      //   "parkId": this.upQueryList.TingNum
+      //   "parkId": this.upQueryList.parkId
       // }
       // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
       //   this.numberOfParkingXz = [];
@@ -339,8 +349,8 @@ export default {
       //   that.queryLine();
       // })
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        parkId: this.upQueryList.TingNum
+        statisDate: this.upQueryList.minTime,
+        parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.queryParkTimes(param).then(res => {
         this.numberOfParkingXz = [];
@@ -431,8 +441,8 @@ export default {
       // this.lineChartsName = this.averageParkingTimeName;
       // this.queryLine(this.lineId, this.lineOptions);\
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        parkId: this.upQueryList.TingNum
+        statisDate: this.upQueryList.minTime,
+        parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.avgParkDuration(param).then(res => {
         this.averageParkingTimeXz = [];
@@ -523,8 +533,8 @@ export default {
       // this.lineChartsName = this.parkingSpaceUtilizationName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        parkId: this.upQueryList.TingNum
+        statisDate: this.upQueryList.minTime,
+        parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.usageRate(param).then(res => {
         this.parkingSpaceUtilizationXz = [];
@@ -620,8 +630,8 @@ export default {
       // this.lineChartsName = this.parkingSpaceTurnoverRateName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: this.upQueryList.dataTimeIn,
-        parkId: this.upQueryList.TingNum
+        statisDate: this.upQueryList.minTime,
+        parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.turnoverRate(param).then(res => {
         this.parkingSpaceTurnoverRateXz = [];

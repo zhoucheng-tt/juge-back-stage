@@ -2803,8 +2803,11 @@ letter-spacing: 0.36px;float:right;"
               <span class="spanStyle">洗车机近七日报警趋势分析</span>
             </div>
           </div>
-          <div class="leftChartCenter" id="washEarn">
-            <Xchart id="washEarn" :option="washEarnChart"></Xchart>
+          <div class="leftChartCenter" id="numberOfParking1">
+            <Xchart
+              id="numberOfParking1"
+              :option="numberOfParkingOptions1"
+            ></Xchart>
           </div>
           <div class="leftChartDown">
             <svg
@@ -3223,6 +3226,12 @@ export default {
       // 自助洗车收入
       selfServiceCarWashing: "",
       selfServiceCarWashingLine: {},
+      //右侧倒数第二个图
+      numberOfParkingOptions1: {},
+      // 图表数据
+      numberOfParkingData1: [],
+      numberOfParkingXz1: [],
+      numberOfParkingName1: "",
 
       //剩余车位数
       leftPort: 312,
@@ -3298,6 +3307,7 @@ export default {
     // this.queryTest();
     this.drawChargeEarnChart();
     this.drawWashEarnChart();
+    this.queryParkTimes1();
   },
   methods: {
     //绘表自助洗车设备收入按时段分析
@@ -4159,6 +4169,133 @@ export default {
         };
         // 绘制
         new HighCharts.Chart(this.chargeAmountTimesOptions);
+      });
+    },
+
+    //右侧第二个图
+    queryParkTimes1() {
+      // //这边就是把参数等于对应的值就行了
+      // // 绑定自定义的id的字段名
+      // this.lineId = 'numberOfParking';
+      // // 自定义绑定的options的字段名
+      //   this.lineOptions = 'lineOptions';
+      // // 自定义停车时长
+      // this.lineTitle = '停车数量';
+      // // 定义图表类型
+      // this.lineChartsType = 'area';
+      //
+      // // 绑定定义的名字
+      // this.lineChartsName = this.numberOfParkingName;
+      // var that = this;
+      // const param = {
+      //   "statisDate": this.upQueryList.minTime,
+      //   "cityCode": "321300",
+      //   "districtCode": "321302",
+      //   "parkId": this.upQueryList.parkId
+      // }
+      // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
+      //   this.numberOfParkingXz = [];
+      //   this.numberOfParkingData = [];
+      //   res.data.dataList.forEach((item) => {
+      //     this.numberOfParkingXz.push(item.periodName);
+      //     this.numberOfParkingData.push(item.parkCount);
+      //   })
+      //   // 将数据绑定到暂存数组中
+      //   that.lineChartsList = that.numberOfParkingData;
+      //   that.lineChartsX = that.numberOfParkingXz;
+      //   that.queryLine();
+      // })
+      const param = {
+        statisDate: "2021-01-12"
+      };
+      this.$reportAnalysis.queryParkTimes(param).then(res => {
+        this.numberOfParkingXz1 = [];
+        this.numberOfParkingData1 = [];
+        res.resultEntity.forEach(item => {
+          this.numberOfParkingXz1.push(item.X);
+          this.numberOfParkingData1.push(Number(item.dataY));
+        });
+        this.numberOfParkingOptions1 = {
+          chart: {
+            type: "line",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "numberOfParking1"
+          },
+          title: {
+            text: this.numberOfParkingName1
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.numberOfParkingXz1,
+            labels: {
+              format: "{value}",
+              style: {
+                color: "rgba(90,142,227,1)",
+                fontSize: "10px"
+              }
+            }
+          },
+          //设置网格线颜色
+          yAxis: {
+            gridLineColor: "#2B3DA1",
+            title: {
+              text: ""
+            },
+            labels: {
+              //修改Y轴添加单位
+              format: "{value}",
+              style: {
+                color: "rgba(90,142,227,1)"
+              }
+            }
+          },
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
+            },
+            itemHoverStyle: {
+              color: "#666666"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
+          },
+          tooltip: {
+            pointFormat: "{series.name}: <b>{point.y}</b>辆"
+          },
+          plotOptions: {
+            area: {
+              marker: {
+                enabled: false,
+                symbol: "circle",
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true
+                  }
+                }
+              }
+            }
+          },
+          series: [
+            {
+              name: this.numberOfParkingName1,
+              data: this.numberOfParkingData1
+            }
+          ]
+        };
+        new HighCharts.chart(this.numberOfParkingOptions1);
       });
     }
 

@@ -48,6 +48,13 @@
           >
         </el-form-item>
       </el-form>
+      <el-row class="line2">
+        <e-form-item>
+          <el-button type="primary" size="small" @click="handleExport">
+            导出
+          </el-button>
+        </e-form-item>
+      </el-row>
     </div>
     <!-- 图表部分 -->
     <!-- 中间图标部分内容 -->
@@ -150,6 +157,8 @@ export default {
     this.drawWashEarnChart();
   },
   methods: {
+    //导出接口
+    handleExport() {},
     //查询重置按钮
     resetQuery() {
       this.query = {};
@@ -679,7 +688,7 @@ export default {
 /* 顶部查询部分 */
 .up {
   width: 98%;
-  height: 7%;
+  height: 10%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -692,7 +701,12 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
-
+.line2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
+  margin-top: -2%;
+}
 /* 中间部分图表内容 */
 .center {
   width: 100%;
