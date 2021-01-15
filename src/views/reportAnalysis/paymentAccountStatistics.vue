@@ -676,7 +676,7 @@ export default {
   width: 100%;
   height: 41%;
   margin-top: 0.5%;
-  margin-left: ;
+  margin-left: 1%;
   float: left;
 }
 .line2 {
