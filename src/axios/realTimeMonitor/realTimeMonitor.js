@@ -62,7 +62,8 @@ export function getOutRecord(param) {
 
 export function getInRecord(param) {
   return request({
-    url: "http://123.207.189.27:7138/RealTimeMonitorController/getCarInRecordByInRecordId",
+    url:
+      "http://123.207.189.27:7138/RealTimeMonitorController/getCarInRecordByInRecordId",
     method: "post",
     data: param,
     flag: "out"

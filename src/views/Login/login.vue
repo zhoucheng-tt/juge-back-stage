@@ -12,29 +12,48 @@
   <div class="login-content">
     <div class="login-block">
       <h1><span>欢迎使用&nbsp;</span>溧水停车采集与发布平台</h1>
-      <form class="login-form-horizontal">
-        <div class="login-form-group">
-          <input
-            type="text"
-            class="login-form-control"
+      <el-form
+        class="login-form-horizontal"
+        :model="loginList"
+        ref="loginList"
+        :rules="rules"
+      >
+        <el-form-item prop="loginName">
+          <el-input
+            v-model="loginList.loginName"
+            style="height: 50px"
             placeholder="账号或手机号"
-            v-model="loginName"
           />
-        </div>
-        <div class="login-form-group">
-          <input
+        </el-form-item>
+        <el-form-item prop="loginPassword">
+          <el-input
             type="password"
-            class="login-form-control"
+            v-model="loginList.loginPassword"
             placeholder="密码"
-            v-model="loginPassword"
           />
-        </div>
+        </el-form-item>
+        <!--        <div class="login-form-group">-->
+        <!--          <input-->
+        <!--            type="text"-->
+        <!--            class="login-form-control"-->
+        <!--            placeholder="账号或手机号"-->
+        <!--            v-model="loginName"-->
+        <!--          />-->
+        <!--        </div>-->
+        <!--        <div class="login-form-group">-->
+        <!--          <input-->
+        <!--            type="password"-->
+        <!--            class="login-form-control"-->
+        <!--            placeholder="密码"-->
+        <!--            v-model="loginPassword"-->
+        <!--          />-->
+        <!--        </div>-->
         <div class="login-form-group">
-          <a class="login-btn" @click="loginBtn()">登录</a>
+          <el-button class="login-btn" @click="loginBtn()">登录</el-button>
         </div>
         <a href="forgot.html" class="login-forgot-pass">忘记密码?</a>
         <!--  <a href="javascript:void(0);" class="login-regist">现在注册</a> -->
-      </form>
+      </el-form>
     </div>
   </div>
 </template>
@@ -44,51 +63,59 @@ import { hex_sha1 } from "../../assets/JS/sha1.js";
 export default {
   data() {
     return {
-      loginName: "",
-      loginPassword: ""
+      loginList: {
+        loginName: "",
+        loginPassword: ""
+      },
+      rules: {
+        loginName: [
+          { required: true, message: "请输入账号/手机号", trigger: "blur" }
+        ],
+        loginPassword: [
+          { required: true, message: "请输入密码", trigger: "blur" }
+        ]
+      }
     };
   },
   mounted() {},
   methods: {
     //登录
     loginBtn() {
-      //	var baseCode = new Base64();
-      var param = {
-        userAccount: this.loginName,
-        password: hex_sha1(this.loginPassword)
-      };
-      console.log("打印登录入参", param);
-      this.$homePage
-        .login(param)
-        .then(response => {
-          console.log("返回结果", response);
-          if (
-            response != "" &&
-            response != undefined &&
-            response.status == "0"
-          ) {
-            this.$message({
-              type: "success",
-              message: "登陆成功"
+      this.$refs["loginList"].validate(valid => {
+        if (valid) {
+          var param = {
+            userAccount: this.loginList.loginName,
+            password: hex_sha1(this.loginList.loginPassword)
+          };
+          // console.log("打印登录入参", param);
+          this.$homePage
+            .login(param)
+            .then(response => {
+              // console.log("返回结果", response);
+              if (
+                response != "" &&
+                response != undefined &&
+                response.status == "0"
+              ) {
+                this.$message({
+                  type: "success",
+                  message: "登陆成功"
+                });
+                localStorage.setItem("userName", this.loginList.loginName);
+                // 登陆成功后跳转方法
+                this.$router.push({
+                  path: "/homePage"
+                });
+              }
+            })
+            .catch(err => {
+              // this.$message({
+              //   type: "warning",
+              //   message: "登陆失败,请联系管理员"
+              // });
             });
-            localStorage.setItem("userName", this.loginName);
-            // 登陆成功后跳转方法
-            this.$router.push({
-              path: "/homePage"
-            });
-          } else {
-            this.$message({
-              type: "warning",
-              message: "登陆失败" + response.resultMsg
-            });
-          }
-        })
-        .catch(err => {
-          this.$message({
-            type: "warning",
-            message: "登陆失败,请联系管理员"
-          });
-        });
+        }
+      });
     }
   }
 };
@@ -199,6 +226,7 @@ body {
 
 .login-form-group {
   margin-bottom: 26px;
+  margin-top: 10px;
 }
 
 .login-form-horizontal .login-form-group {
@@ -208,9 +236,9 @@ body {
 
 .login-btn {
   width: 438px;
-  height: 30px;
-  line-height: 30px;
-  padding: 6px 0;
+  height: 40px;
+  line-height: 40px;
+  /*padding: 6px 0;*/
   font-family: "微软雅黑";
   background-color: #41b5f5;
   border: 1px solid #41b5f5;

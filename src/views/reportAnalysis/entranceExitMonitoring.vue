@@ -373,7 +373,6 @@
               >
             </span>
           </el-dialog>
-
         </el-row>
       </el-row>
     </div>
@@ -424,7 +423,6 @@ export default {
   methods: {
     //入场记录追踪出场记录
     getOutRecord(inRecordId) {
-
       this.$realTimeMonitor.getOutRecord(inRecordId).then(res => {
         if (res.resultEntity.list.length === 0) {
           this.$message({
