@@ -39,7 +39,6 @@ export function PayAna365(param) {
   });
 }
 
-
 //缴费组成分析
 export function paymentAnalysis(param) {
   return request({
@@ -181,7 +180,7 @@ export function queryAvgWashTime(param) {
 //停车场运营收入分析表格  http://192.168.1.163:8000/operateController/queryData
 export function queryData(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/queryData",
+    url: "http://123.207.189.27:7138/operateController/queryData",
     method: "post",
     data: param,
     flag: "out"
@@ -190,7 +189,7 @@ export function queryData(param) {
 //运营指标分析 停车次数 http://192.168.1.163:8000/operateController/queryParkTimes
 export function queryParkTimes(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/queryParkTimes",
+    url: "http://123.207.189.27:7138/operateController/queryParkTimes",
     method: "post",
     data: param,
     flag: "out"
@@ -199,7 +198,7 @@ export function queryParkTimes(param) {
 //运营指标分析 平均停车时长 http://192.168.1.163:8000/operateController/avgParkDuration
 export function avgParkDuration(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/avgParkDuration",
+    url: "http://123.207.189.27:7138/operateController/avgParkDuration",
     method: "post",
     data: param,
     flag: "out"
@@ -208,7 +207,7 @@ export function avgParkDuration(param) {
 //运营指标分析 车位利用率 http://192.168.1.163:8000/operateController/usageRate
 export function usageRate(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/usageRate",
+    url: "http://123.207.189.27:7138/operateController/usageRate",
     method: "post",
     data: param,
     flag: "out"
@@ -217,9 +216,57 @@ export function usageRate(param) {
 //运营指标分析 车位周转率 http://192.168.1.163:8000/operateController/turnoverRate
 export function turnoverRate(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/turnoverRate",
+    url: "http://123.207.189.27:7138/operateController/turnoverRate",
     method: "post",
     data: param,
     flag: "out"
+  });
+}
+
+//支付台账分析列表查询
+export function queryAccountStatisList(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PayStatisticController/queryPayStatistic",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//缴费金额趋势分析近七天
+export function sevenPayAna(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PayStatisticController/sevenPayAna",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//缴费金额趋势分析近30天
+export function thirtyPayAna(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PayStatisticController/thirtyPayAna",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//缴费金额趋势分析近一年
+export function PayAna365(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PayStatisticController/PayAna365",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//缴费组成分析
+export function paymentAnalysis(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PayStatisticController/payMethodAna",
+    method: "post",
+    data: param
   });
 }

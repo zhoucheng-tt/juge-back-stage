@@ -12,65 +12,81 @@
     <!-- 上部分查询内容 -->
     <div class="up">
       <el-form :inline="true" :model="query" class="demo-form-inline">
-        <el-form-item label="统计日期:">
-          <el-date-picker
+        <el-row>
+          <el-form-item label="停车场:">
+            <el-select
+              v-model="checkedPark"
+              multiple
+              collapse-tags
+              style="margin-left: 20px;"
+              placeholder="请选择"
+              size="medium "
+            >
+              <el-option
+                v-for="(item, index) in parkList"
+                :key="index"
+                :label="item.name"
+                :value="item.code"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="支付方式:">
+            <el-select
+              v-model="checkedPayMethods"
+              multiple
+              collapse-tags
+              style="margin-left: 20px;"
+              placeholder="请选择"
+              size="medium "
+            >
+              <el-option
+                v-for="(item, index) in payMethodList"
+                :key="index"
+                :label="item.name"
+                :value="item.code"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="统计日期:">
+            <el-date-picker
               v-model="query.startStatisDate"
               size="small"
               style="width: 160px"
               value-format="yyyy-MM-dd"
               placeholder="请选择起始日期"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="~">
-          <el-date-picker
+            >
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="~">
+            <el-date-picker
               v-model="query.endStatisDate"
               size="small"
               style="width: 160px"
               value-format="yyyy-MM-dd"
               placeholder="请选择截止日期"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="停车场:">
-          <el-checkbox-group v-model="checkedPark" size="medium ">
-            <el-checkbox-button
-                v-for="(item, index) in parkList"
-                :label="item.code"
-                :key="index"
-                :border="true"
             >
-              {{ item.name }}
-            </el-checkbox-button>
-          </el-checkbox-group>
-        </el-form-item>
-
-        <el-form-item label="车牌号:">
-          <el-input
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="车牌号:">
+            <el-input
               size="small"
               style="width: 160px"
               v-model="query.carNum"
               placeholder="请输入车牌号"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="支付方式:">
-          <el-checkbox-group v-model="checkedPayMethods" size="medium ">
-            <el-checkbox-button
-                v-for="(item, index) in payMethodList"
-                :label="item.code"
-                :key="index"
-                :border="true"
-            >
-              {{ item.name }}
-            </el-checkbox-button>
-          </el-checkbox-group>
-        </el-form-item>
+            ></el-input>
+          </el-form-item>
+        </el-row>
+
         <el-form-item>
           <el-button type="primary" size="small" @click="queryButton"
-          >查询
+            >查询
           </el-button>
           <el-button type="primary" size="small" @click="resetQuery"
-          >重置
+            >重置
           </el-button>
         </el-form-item>
       </el-form>
@@ -78,9 +94,9 @@
     <!-- 中间图标部分内容 -->
     <div class="down">
       <el-table
-          :data="payList"
-          :row-class-name="tableRowClassName"
-          :header-cell-style="{
+        :data="payList"
+        :row-class-name="tableRowClassName"
+        :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -90,54 +106,54 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-          :cell-style="{
+        :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-          style="width: 98%;margin-left: 1%"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-            prop="payTime"
-            :show-overflow-tooltip="true"
-            label="支付时间"
+          prop="payTime"
+          :show-overflow-tooltip="true"
+          label="支付时间"
         />
         <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
         />
         <el-table-column
-            prop="outDeviceName"
-            :show-overflow-tooltip="true"
-            label="通过出口名称"
+          prop="outDeviceName"
+          :show-overflow-tooltip="true"
+          label="通过出口名称"
         />
         <el-table-column
-            prop="paid"
-            :show-overflow-tooltip="true"
-            label="收费金额(元)"
+          prop="paid"
+          :show-overflow-tooltip="true"
+          label="收费金额(元)"
         />
         <el-table-column
-            prop="plateNumber"
-            :show-overflow-tooltip="true"
-            label="车牌号"
+          prop="plateNumber"
+          :show-overflow-tooltip="true"
+          label="车牌号"
         />
         <el-table-column
-            prop="payMethodName"
-            :show-overflow-tooltip="true"
-            label="支付方式"
+          prop="payMethodName"
+          :show-overflow-tooltip="true"
+          label="支付方式"
         />
       </el-table>
       <!--分页条-->
       <div style="float: right">
         <el-pagination
-            layout="total, prev, pager, next, jumper"
-            :page-size="pageSize"
-            @current-change="handleCurrentModify"
-            :current-page="pageNum"
-            :total="pageTotal"
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
         />
       </div>
     </div>
@@ -148,17 +164,17 @@
           <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
             <el-tab-pane label="近七天" name="first">
               <div class="echartStyle" id="payAnaSeven">
-                <Xchart id="payAnaSeven" :option="payAnaChartSeven"/>
+                <Xchart id="payAnaSeven" :option="payAnaChartSeven" />
               </div>
             </el-tab-pane>
             <el-tab-pane label="近30天" name="second">
               <div class="echartStyle" id="payAnaThirty">
-                <Xchart id="payAnaThirty" :option="payAnaChartThirty"/>
+                <Xchart id="payAnaThirty" :option="payAnaChartThirty" />
               </div>
             </el-tab-pane>
             <el-tab-pane label="近一年" name="third">
               <div class="echartStyle" id="payAna365">
-                <Xchart id="payAna365" :option="payAnaChart365"/>
+                <Xchart id="payAna365" :option="payAnaChart365" />
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -170,8 +186,6 @@
           </div>
         </el-col>
       </el-row>
-
-
     </div>
   </div>
 </template>
@@ -250,9 +264,7 @@ export default {
     // this.drawPayMethodChart();
   },
   methods: {
-    handleClick() {
-
-    },
+    handleClick() {},
     //查询重置按钮
     resetQuery() {
       this.query = {};
@@ -265,7 +277,7 @@ export default {
       this.drawPayMethodAna();
     },
     //斑马纹样式
-    tableRowClassName({rowIndex}) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2) {
         return "successRow11";
       } else {
@@ -310,7 +322,7 @@ export default {
         payMethods: this.checkedPayMethods
       };
       this.$reportAnalysis.paymentAnalysis(param).then(res => {
-        console.log(res, "aaaa")
+        console.log(res, "aaaa");
         res.resultEntity.forEach(item => {
           this.payMethodList.forEach(item1 => {
             if (item1.code == item.name) {
@@ -353,7 +365,7 @@ export default {
           },
           series: [
             {
-              name: 'Brands',
+              name: "Brands",
               colorByPoint: true,
               data: res.resultEntity
             }
@@ -425,10 +437,12 @@ export default {
               }
             }
           },
-          series: [{
-            name: "近七天收入金额",
-            data: this.dataListSeven
-          }]
+          series: [
+            {
+              name: "近七天收入金额",
+              data: this.dataListSeven
+            }
+          ]
         };
         new HighCharts.chart(this.payAnaChartSeven);
       });
@@ -496,10 +510,12 @@ export default {
               }
             }
           },
-          series: [{
-            name: "近30天收入金额",
-            data: this.dataListThirty
-          }]
+          series: [
+            {
+              name: "近30天收入金额",
+              data: this.dataListThirty
+            }
+          ]
         };
         new HighCharts.chart(this.payAnaChartThirty);
       });
@@ -509,7 +525,6 @@ export default {
         res.resultEntity.forEach(item => {
           this.payAna365X.push(item.statisticDate);
           this.dataList365.push(Number(item.income));
-
         });
         this.payAnaChart365 = {
           chart: {
@@ -568,10 +583,12 @@ export default {
               }
             }
           },
-          series: [{
-            name: "近一年收入金额",
-            data: this.dataList365
-          }]
+          series: [
+            {
+              name: "近一年收入金额",
+              data: this.dataList365
+            }
+          ]
         };
         new HighCharts.chart(this.payAnaChart365);
       });
@@ -635,7 +652,7 @@ export default {
 
 /* 中间每个图表部分样式 */
 .echartStyle {
-  width: 100%%;
+  width: 100%;
   height: 100%;
   background-color: bisque;
   float: left;

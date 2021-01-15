@@ -86,11 +86,11 @@
         style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
-        <el-table-column
-          prop="billingRuleDefId"
-          :show-overflow-tooltip="true"
-          label="计费规则编号"
-        ></el-table-column>
+<!--        <el-table-column-->
+<!--          prop="billingRuleDefId"-->
+<!--          :show-overflow-tooltip="true"-->
+<!--          label="计费规则编号"-->
+<!--        ></el-table-column>-->
         <el-table-column
           prop="billingRuleDefName"
           :show-overflow-tooltip="true"

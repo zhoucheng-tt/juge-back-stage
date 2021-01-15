@@ -33,7 +33,7 @@ export function queryWashEarn(param) {
 export function queryInRecord(param) {
   return request({
     url:
-      "http://192.168.1.163:8000/RealTimeMonitorController/getRecentCarInRecord",
+      "http://123.207.189.27:7138/RealTimeMonitorController/getRecentCarInRecord",
     method: "post",
     data: param,
     flag: "out"
@@ -43,7 +43,7 @@ export function queryInRecord(param) {
 export function queryOutRecord(param) {
   return request({
     url:
-      "http://192.168.1.163:8000/RealTimeMonitorController/getRecentCarOutRecord",
+      "http://123.207.189.27:7138/RealTimeMonitorController/getRecentCarOutRecord",
     method: "post",
     data: param,
     flag: "out"
@@ -53,7 +53,7 @@ export function queryOutRecord(param) {
 export function getOutRecord(param) {
   return request({
     url:
-      "http://192.168.1.163:8000/RealTimeMonitorController/getCarOutRecordByInRecordId",
+      "http://123.207.189.27:7138/RealTimeMonitorController/getCarOutRecordByInRecordId",
     method: "post",
     data: param,
     flag: "out"
@@ -63,7 +63,7 @@ export function getOutRecord(param) {
 export function getInRecord(param) {
   return request({
     url:
-      "http://192.168.1.163:8000/RealTimeMonitorController/getCarInRecordByInRecordId",
+      "http://123.207.189.27:7138/RealTimeMonitorController/getCarInRecordByInRecordId",
     method: "post",
     data: param,
     flag: "out"

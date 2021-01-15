@@ -131,11 +131,11 @@
           :show-overflow-tooltip="true"
           label="车牌号"
         ></el-table-column>
-        <el-table-column
-          prop="parkSpaceNumber"
-          :show-overflow-tooltip="true"
-          label="车位号"
-        ></el-table-column>
+        <!--        <el-table-column-->
+        <!--          prop="parkSpaceNumber"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="车位号"-->
+        <!--        ></el-table-column>-->
         <el-table-column
           prop="entranceTime"
           :show-overflow-tooltip="true"
@@ -161,11 +161,11 @@
           :show-overflow-tooltip="true"
           label="应收金额(元)"
         ></el-table-column>
-        <el-table-column
-          prop="receivedMoneyAmount"
-          :show-overflow-tooltip="true"
-          label="实收金额(元)"
-        ></el-table-column>
+        <!--        <el-table-column-->
+        <!--          prop="receivedMoneyAmount"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="实收金额(元)"-->
+        <!--        ></el-table-column>-->
         <el-table-column
           prop="paymentMethod"
           :show-overflow-tooltip="true"
