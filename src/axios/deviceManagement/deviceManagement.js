@@ -362,7 +362,7 @@ export function batchInsertVideoDetecter(param) {
 //文件上传
 export function uploadFile(param) {
   return request({
-    url: "http://localhost:8000/FileController/upFile",
+    url: "http://123.207.189.27:7138/FileController/upFile",
     method: "post",
     data: param,
     flag: "out"
@@ -372,7 +372,7 @@ export function uploadFile(param) {
 //导出ETC数据
 export function exportETC(param) {
   return request({
-    url: "http://localhost:8000/ETCFunc/exportETC",
+    url: "http://123.207.189.27:7138/ETCFunc/exportETC",
     method: "post",
     data: param,
     flag: "out"

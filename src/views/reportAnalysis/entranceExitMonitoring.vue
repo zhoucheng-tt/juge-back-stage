@@ -373,20 +373,7 @@
               >
             </span>
           </el-dialog>
-          <!--          <el-row>停车场:{{ selectedOutRecord.parkName }}</el-row>-->
-          <!--          <el-row> 通过设备:{{ selectedOutRecord.outDeviceName }}</el-row>-->
-          <!--          <el-row>出场时间:{{ selectedOutRecord.outTime }}</el-row>-->
-          <!--          <el-row>车牌号:{{ selectedOutRecord.plateNumber }}</el-row>-->
-          <!--          <el-row>车牌颜色:{{ selectedOutRecord.plateColor }}</el-row>-->
-          <!--          <el-row> 操作员:{{ selectedOutRecord.stationOperator }}</el-row>-->
-          <!--          <el-row>备注:{{ selectedOutRecord.remark }}</el-row>-->
-          <!--       -->
-          <!--          <el-button @click="outRecordShowDetial = true">返回</el-button>-->
-          <!--                <el-button-->
-          <!--                  type="primary"-->
-          <!--                  @click="getInRecord(selectedOutRecord.inRecordId)"-->
-          <!--                  >追踪入场记录</el-button-->
-          <!--                >-->
+
         </el-row>
       </el-row>
     </div>
@@ -406,8 +393,8 @@ export default {
       parkingLotList: [],
       parkingLotList2: [],
       //查询绑定
-      upQueryList: [],
-      downQueryList: [],
+      upQueryList: {},
+      downQueryList: {},
       //入场记录列表
       carInRecordList: [],
       //出场记录列表
@@ -437,16 +424,16 @@ export default {
   methods: {
     //入场记录追踪出场记录
     getOutRecord(inRecordId) {
-      this.downshow = 1;
+
       this.$realTimeMonitor.getOutRecord(inRecordId).then(res => {
         if (res.resultEntity.list.length === 0) {
           this.$message({
             type: "fail",
             message: "没有该车出场记录！请确认该车是否离场!"
           });
-          // this.downQuery();
           return;
         }
+        this.downshow = 1;
         this.selectedOutRecord2 = res.resultEntity.list[0];
       });
     },

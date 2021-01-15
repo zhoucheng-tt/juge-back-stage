@@ -14,82 +14,88 @@
       <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-form-item label="统计日期:">
           <el-date-picker
-            v-model="query.startStatisDate"
-            size="small"
-            style="width: 160px"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择起始日期"
+              v-model="query.startStatisDate"
+              size="small"
+              style="width: 160px"
+              value-format="yyyy-MM-dd"
+              placeholder="请选择起始日期"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item label="~">
           <el-date-picker
-            v-model="query.endStatisDate"
-            size="small"
-            style="width: 160px"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择截止日期"
+              v-model="query.endStatisDate"
+              size="small"
+              style="width: 160px"
+              value-format="yyyy-MM-dd"
+              placeholder="请选择截止日期"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场:">
           <el-select
-            v-model="checkedPark"
-            multiple
-            collapse-tags
-            style="margin-left: 20px;"
-            placeholder="请选择"
-            size="medium "
+              v-model="query.checkedPark"
+              multiple
+              collapse-tags
+              style="margin-left: 20px;"
+              placeholder="请选择(不选默认查全部)"
+              size="medium "
           >
             <el-option
-              v-for="(item, index) in parkList"
-              :key="index"
-              :label="item.name"
-              :value="item.code"
+                v-for="(item, index) in parkList"
+                :key="index"
+                :label="item.name"
+                :value="item.code"
             >
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="支付方式:">
           <el-select
-            v-model="checkedPayMethods"
-            multiple
-            collapse-tags
-            style="margin-left: 20px;"
-            placeholder="请选择"
-            size="medium "
+              v-model="query.checkedPayMethods"
+              multiple
+              collapse-tags
+              style="margin-left: 20px;"
+              placeholder="请选择(不选默认查全部)"
+              size="medium "
           >
             <el-option
-              v-for="(item, index) in payMethodList"
-              :key="index"
-              :label="item.name"
-              :value="item.code"
+                v-for="(item, index) in payMethodList"
+                :key="index"
+                :label="item.name"
+                :value="item.code"
             >
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="车牌号:">
           <el-input
-            size="small"
-            style="width: 160px"
-            v-model="query.carNum"
-            placeholder="请输入车牌号"
+              size="small"
+              style="width: 160px"
+              v-model="query.carNum"
+              placeholder="请输入车牌号"
           ></el-input>
         </el-form-item>
 
         <el-form-item>
           <el-button type="primary" size="small" @click="queryButton"
-            >查询
+          >查询
           </el-button>
           <el-button type="primary" size="small" @click="resetQuery"
-            >重置
+          >重置
           </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line2">
         <e-form-item>
-          <el-button type="primary" size="small" @click="handleExport">
-            导出
+          <el-button type="primary" size="small">
+            <a
+                :href="exportFile"
+                class="download"
+                download=""
+                style="color: #ffffff;text-decoration:none"
+            >导出</a
+            >
           </el-button>
         </e-form-item>
       </el-row>
@@ -97,9 +103,9 @@
     <!-- 中间图标部分内容 -->
     <div class="down">
       <el-table
-        :data="payList"
-        stripe
-        :header-cell-style="{
+          :data="payList"
+          stripe
+          :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -109,54 +115,54 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-        :cell-style="{
+          :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-        style="width: 98%;margin-left: 1%"
+          style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-          prop="payTime"
-          :show-overflow-tooltip="true"
-          label="支付时间"
+            prop="payTime"
+            :show-overflow-tooltip="true"
+            label="支付时间"
         />
         <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
+            prop="parkName"
+            :show-overflow-tooltip="true"
+            label="停车场名称"
         />
         <el-table-column
-          prop="outDeviceName"
-          :show-overflow-tooltip="true"
-          label="通过出口名称"
+            prop="outDeviceName"
+            :show-overflow-tooltip="true"
+            label="通过出口名称"
         />
         <el-table-column
-          prop="paid"
-          :show-overflow-tooltip="true"
-          label="收费金额(元)"
+            prop="paid"
+            :show-overflow-tooltip="true"
+            label="收费金额(元)"
         />
         <el-table-column
-          prop="plateNumber"
-          :show-overflow-tooltip="true"
-          label="车牌号"
+            prop="plateNumber"
+            :show-overflow-tooltip="true"
+            label="车牌号"
         />
         <el-table-column
-          prop="payMethodName"
-          :show-overflow-tooltip="true"
-          label="支付方式"
+            prop="payMethodName"
+            :show-overflow-tooltip="true"
+            label="支付方式"
         />
       </el-table>
       <!--分页条-->
       <div style="float: right">
         <el-pagination
-          layout="total, prev, pager, next, jumper"
-          :page-size="pageSize"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
+            layout="total, prev, pager, next, jumper"
+            :page-size="pageSize"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
         />
       </div>
     </div>
@@ -165,24 +171,24 @@
       <el-row style="height: 100%;width: 100%;display: flex">
         <el-row style="width: 49.5%;">
           <el-tabs
-            style="background-color: white"
-            v-model="activeName"
-            type="card"
-            @tab-click="handleClickTabs"
+              style="background-color: white"
+              v-model="activeName"
+              type="card"
+              @tab-click="handleClickTabs"
           >
             <el-tab-pane label="近七天" name="first">
               <div class="echartStyle" id="payAnaSeven">
-                <Xchart id="payAnaSeven" :option="payAnaChartSeven" />
+                <Xchart id="payAnaSeven" :option="payAnaChartSeven"/>
               </div>
             </el-tab-pane>
             <el-tab-pane label="近30天" name="second">
               <div class="echartStyle" id="payAnaThirty">
-                <Xchart id="payAnaThirty" :option="payAnaChartThirty" />
+                <Xchart id="payAnaThirty" :option="payAnaChartThirty"/>
               </div>
             </el-tab-pane>
             <el-tab-pane label="近一年" name="third">
               <div class="echartStyle" id="payAna365">
-                <Xchart id="payAna365" :option="payAnaChart365" />
+                <Xchart id="payAna365" :option="payAnaChart365"/>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -201,6 +207,7 @@
 import Xchart from "../../components/charts/charts.vue";
 import HighCharts from "highcharts";
 import Xchart3d from "@/components/charts/charts3d";
+import {BASE_API} from "@/utils/config";
 
 export default {
   // 组件导入
@@ -210,13 +217,10 @@ export default {
   data() {
     return {
       activeName: "first",
-      checkedPayMethods: [],
-      checkedPark: [],
+      //导出
+      exportFile: BASE_API + "PayStatisticController/download/",
       //查询内容暂存
-      query: {
-        parkId: "",
-        payMethod: ""
-      },
+      query: {},
       // 停车场下拉框数据暂存处
       parkList: [],
       //支付方式下拉框数据暂存处
@@ -269,13 +273,20 @@ export default {
     this.drawPayAna365Chart();
     this.drawPayMethodAna();
 
-    // this.drawPayMethodChart();
+  },
+  watch: {
+    query: {
+      handler(newVal) {
+        this.exportFile = BASE_API + "PayStatisticController/download?jsonStr="+encodeURIComponent(JSON.stringify(newVal));
+      },
+      deep: true
+    }
   },
   methods: {
-    //导出接口
-    handleExport() {},
+
     //  tabs页点击事件
-    handleClickTabs() {},
+    handleClickTabs() {
+    },
     //查询重置按钮
     resetQuery() {
       this.query = {};
@@ -299,9 +310,9 @@ export default {
       const param = {
         endTime: this.query.endStatisDate,
         startTime: this.query.startStatisDate,
-        parkIds: this.checkedPark,
+        parkIds: this.query.checkedPark,
         plateNumber: this.query.carNum,
-        payMethods: this.checkedPayMethods,
+        payMethods: this.query.checkedPayMethods,
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
@@ -322,12 +333,11 @@ export default {
       const param = {
         endTime: this.query.endStatisDate,
         startTime: this.query.startStatisDate,
-        parkIds: this.checkedPark,
+        parkIds: this.query.checkedPark,
         plateNumber: this.query.carNum,
-        payMethods: this.checkedPayMethods
+        payMethods: this.query.checkedPayMethods
       };
       this.$reportAnalysis.paymentAnalysis(param).then(res => {
-        console.log(res, "aaaa");
         res.resultEntity.forEach(item => {
           this.payMethodList.forEach(item1 => {
             if (item1.code == item.name) {
@@ -336,7 +346,6 @@ export default {
           });
           item.y = Number(item.y);
         });
-        console.log(res.resultEntity);
         this.payMethodChart = {
           chart: {
             type: "pie",
@@ -660,6 +669,7 @@ export default {
   margin-left: 1%;
   float: left;
 }
+
 .line2 {
   width: 98%;
   height: 40px;
