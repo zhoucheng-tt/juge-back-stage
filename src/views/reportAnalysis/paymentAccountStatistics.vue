@@ -98,7 +98,7 @@
     <div class="down">
       <el-table
         :data="payList"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -162,9 +162,10 @@
     </div>
     <!-- 底部表格部分 -->
     <div class="center">
-      <el-row style="height: 100%;width: 100%">
-        <el-col :span="12">
+      <el-row style="height: 100%;width: 100%;display: flex">
+        <el-row>
           <el-tabs
+            style="background-color: white"
             v-model="activeName"
             type="card"
             @tab-click="handleClickTabs"
@@ -185,13 +186,17 @@
               </div>
             </el-tab-pane>
           </el-tabs>
-        </el-col>
-        <el-col :span="12">
+        </el-row>
+        <el-row>
           <!-- 平均洗车时长 averageWashingTime-->
-          <div class="echartStyle" id="payMethod">
+          <div
+            class="echartStyle"
+            id="payMethod"
+            style="height: 405px;margin-left: 4.5%"
+          >
             <Xchart id="payMethod" :option="payMethodChart"></Xchart>
           </div>
-        </el-col>
+        </el-row>
       </el-row>
     </div>
   </div>
@@ -286,14 +291,7 @@ export default {
       this.queryPayList();
       this.drawPayMethodAna();
     },
-    //斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2) {
-        return "successRow11";
-      } else {
-        return "successSecond";
-      }
-    },
+
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
@@ -644,15 +642,6 @@ export default {
   margin-top: 1%;
 }
 
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #f8f9fa !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: white !important;
-}
-
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
@@ -664,17 +653,13 @@ export default {
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 100%;
-  height: 100%;
-  background-color: bisque;
-  float: left;
-  margin-top: 1%;
-  margin-left: 1%;
+  height: 350px;
 }
 
 /* 底部表格部分 */
 .center {
   width: 100%;
-  height: 41%;
+  height: 47%;
   margin-top: 0.5%;
   margin-left: 1%;
   float: left;
