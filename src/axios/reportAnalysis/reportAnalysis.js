@@ -3,7 +3,7 @@ import request from "@/utils/request";
 //支付台账分析列表查询
 export function queryAccountStatisList(param) {
   return request({
-    url: "http://192.168.1.163:8000/PayStatisticController/queryPayStatistic",
+    url: "http://123.207.189.27:7138/PayStatisticController/queryPayStatistic",
     method: "post",
     data: param,
     flag: "out"
@@ -13,7 +13,7 @@ export function queryAccountStatisList(param) {
 //缴费金额趋势分析近七天
 export function sevenPayAna(param) {
   return request({
-    url: "http://192.168.1.163:8000/PayStatisticController/sevenPayAna",
+    url: "http://123.207.189.27:7138/PayStatisticController/sevenPayAna",
     method: "post",
     data: param,
     flag: "out"
@@ -23,7 +23,7 @@ export function sevenPayAna(param) {
 //缴费金额趋势分析近30天
 export function thirtyPayAna(param) {
   return request({
-    url: "http://192.168.1.163:8000/PayStatisticController/thirtyPayAna",
+    url: "http://123.207.189.27:7138/PayStatisticController/thirtyPayAna",
     method: "post",
     data: param,
     flag: "out"
@@ -32,7 +32,7 @@ export function thirtyPayAna(param) {
 //缴费金额趋势分析近一年
 export function PayAna365(param) {
   return request({
-    url: "http://192.168.1.163:8000/PayStatisticController/PayAna365",
+    url: "http://123.207.189.27:7138/PayStatisticController/PayAna365",
     method: "post",
     data: param,
     flag: "out"
@@ -43,9 +43,10 @@ export function PayAna365(param) {
 //缴费组成分析
 export function paymentAnalysis(param) {
   return request({
-    url: "http://192.168.1.163:8000/PayStatisticController/payMethodAna",
+    url: "http://123.207.189.27:7138/PayStatisticController/payMethodAna",
     method: "post",
-    data: param
+    data: param,
+    flag: "out"
   });
 }
 

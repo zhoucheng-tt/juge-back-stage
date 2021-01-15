@@ -245,6 +245,7 @@ export default {
     this.drawPayAnaSevenChart();
     this.drawPayAnaThirtyChart();
     this.drawPayAna365Chart();
+    this.drawPayMethodAna();
 
     // this.drawPayMethodChart();
   },
@@ -261,6 +262,7 @@ export default {
     //查询
     queryButton() {
       this.queryPayList();
+      this.drawPayMethodAna();
     },
     //斑马纹样式
     tableRowClassName({rowIndex}) {
@@ -298,16 +300,26 @@ export default {
         this.payList = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
       });
+    },
+    drawPayMethodAna() {
+      const param = {
+        endTime: this.query.endStatisDate,
+        startTime: this.query.startStatisDate,
+        parkIds: this.checkedPark,
+        plateNumber: this.query.carNum,
+        payMethods: this.checkedPayMethods
+      };
       this.$reportAnalysis.paymentAnalysis(param).then(res => {
+        console.log(res, "aaaa")
         res.resultEntity.forEach(item => {
           this.payMethodList.forEach(item1 => {
             if (item1.code == item.name) {
               item.name = item1.name;
             }
           });
-
           item.y = Number(item.y);
         });
+        console.log(res.resultEntity);
         this.payMethodChart = {
           chart: {
             type: "pie",
@@ -339,7 +351,13 @@ export default {
               }
             }
           },
-          series: res.resultEntity
+          series: [
+            {
+              name: 'Brands',
+              colorByPoint: true,
+              data: res.resultEntity
+            }
+          ]
         };
         new HighCharts.chart(this.payMethodChart);
       });
