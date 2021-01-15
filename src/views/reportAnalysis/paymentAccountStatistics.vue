@@ -12,74 +12,70 @@
     <!-- 上部分查询内容 -->
     <div class="up">
       <el-form :inline="true" :model="query" class="demo-form-inline">
-        <el-row>
-          <el-form-item label="停车场:">
-            <el-select
-              v-model="checkedPark"
-              multiple
-              collapse-tags
-              style="margin-left: 20px;"
-              placeholder="请选择"
-              size="medium "
+        <el-form-item label="统计日期:">
+          <el-date-picker
+            v-model="query.startStatisDate"
+            size="small"
+            style="width: 160px"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择起始日期"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="~">
+          <el-date-picker
+            v-model="query.endStatisDate"
+            size="small"
+            style="width: 160px"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择截止日期"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="停车场:">
+          <el-select
+            v-model="checkedPark"
+            multiple
+            collapse-tags
+            style="margin-left: 20px;"
+            placeholder="请选择"
+            size="medium "
+          >
+            <el-option
+              v-for="(item, index) in parkList"
+              :key="index"
+              :label="item.name"
+              :value="item.code"
             >
-              <el-option
-                v-for="(item, index) in parkList"
-                :key="index"
-                :label="item.name"
-                :value="item.code"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="支付方式:">
-            <el-select
-              v-model="checkedPayMethods"
-              multiple
-              collapse-tags
-              style="margin-left: 20px;"
-              placeholder="请选择"
-              size="medium "
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="支付方式:">
+          <el-select
+            v-model="checkedPayMethods"
+            multiple
+            collapse-tags
+            style="margin-left: 20px;"
+            placeholder="请选择"
+            size="medium "
+          >
+            <el-option
+              v-for="(item, index) in payMethodList"
+              :key="index"
+              :label="item.name"
+              :value="item.code"
             >
-              <el-option
-                v-for="(item, index) in payMethodList"
-                :key="index"
-                :label="item.name"
-                :value="item.code"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-row>
-        <el-row>
-          <el-form-item label="统计日期:">
-            <el-date-picker
-              v-model="query.startStatisDate"
-              size="small"
-              style="width: 160px"
-              value-format="yyyy-MM-dd"
-              placeholder="请选择起始日期"
-            >
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item label="~">
-            <el-date-picker
-              v-model="query.endStatisDate"
-              size="small"
-              style="width: 160px"
-              value-format="yyyy-MM-dd"
-              placeholder="请选择截止日期"
-            >
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item label="车牌号:">
-            <el-input
-              size="small"
-              style="width: 160px"
-              v-model="query.carNum"
-              placeholder="请输入车牌号"
-            ></el-input>
-          </el-form-item>
-        </el-row>
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="车牌号:">
+          <el-input
+            size="small"
+            style="width: 160px"
+            v-model="query.carNum"
+            placeholder="请输入车牌号"
+          ></el-input>
+        </el-form-item>
 
         <el-form-item>
           <el-button type="primary" size="small" @click="queryButton"
@@ -90,6 +86,13 @@
           </el-button>
         </el-form-item>
       </el-form>
+      <el-row class="line2">
+        <e-form-item>
+          <el-button type="primary" size="small" @click="handleExport">
+            导出
+          </el-button>
+        </e-form-item>
+      </el-row>
     </div>
     <!-- 中间图标部分内容 -->
     <div class="down">
@@ -161,7 +164,11 @@
     <div class="center">
       <el-row style="height: 100%;width: 100%">
         <el-col :span="12">
-          <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+          <el-tabs
+            v-model="activeName"
+            type="card"
+            @tab-click="handleClickTabs"
+          >
             <el-tab-pane label="近七天" name="first">
               <div class="echartStyle" id="payAnaSeven">
                 <Xchart id="payAnaSeven" :option="payAnaChartSeven" />
@@ -234,7 +241,7 @@ export default {
       payList: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 6,
+      pageSize: 5,
       pageTotal: 12,
       // 柱状图serise中的数据
       payAnaSevenX: [],
@@ -264,7 +271,10 @@ export default {
     // this.drawPayMethodChart();
   },
   methods: {
-    handleClick() {},
+    //导出接口
+    handleExport() {},
+    //  tabs页点击事件
+    handleClickTabs() {},
     //查询重置按钮
     resetQuery() {
       this.query = {};
@@ -313,6 +323,7 @@ export default {
         this.pageTotal = res.resultEntity.total;
       });
     },
+    //收入构成分析
     drawPayMethodAna() {
       const param = {
         endTime: this.query.endStatisDate,
@@ -365,7 +376,7 @@ export default {
           },
           series: [
             {
-              name: "Brands",
+              name: "收入占比：",
               colorByPoint: true,
               data: res.resultEntity
             }
@@ -618,7 +629,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 20%;
+  height: 11%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -627,7 +638,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 40%;
+  height: 37%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
@@ -664,7 +675,13 @@ export default {
 .center {
   width: 100%;
   height: 41%;
-  margin-top: 1%;
+  margin-top: 0.5%;
+  margin-left: ;
   float: left;
+}
+.line2 {
+  width: 98%;
+  height: 40px;
+  margin-left: 1%;
 }
 </style>
