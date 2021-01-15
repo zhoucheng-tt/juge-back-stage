@@ -2975,8 +2975,19 @@ export default {
       //近七日洗车次数
       washChargeInSevenDaysCharts: {},
       washChargeInSevenDaysTitle: "",
-      washChargeInSevenDaysData: [],
-      washChargeInSevenDaysX: [],
+      // washChargeInSevenDaysData: [],
+      washChargeInSevenDaysX: [
+        "01-01",
+        "01-02",
+        "01-03",
+        "01-04",
+        "01-05",
+        "01-06",
+        "01-07"
+      ],
+      poacherWashInSevenDaysData: [1, 2, 3, 4, 4, 4, 6],
+      garmentWashInSevenDaysData: [2, 3, 5, 6, 4, 1, 2],
+      fastWashInSevenDaysData: [2, 1, 4, 5, 6, 3, 4],
 
       //停车查询
       parkingLotList: [],
@@ -4180,107 +4191,115 @@ export default {
       });
     },
     handleWashChargeInSevenDaysCharts() {
+      this.washChargeInSevenDaysCharts = {
+        chart: {
+          type: "column",
+          backgroundColor: "rgba(0,0,0,0)",
+          renderTo: "washChargeInSevenDays",
+          spacingBottom: 0
+        },
+        title: {
+          text: ""
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          categories: this.washChargeInSevenDaysX,
+          labels: {
+            format: "{value}",
+            style: {
+              color: "rgba(90,142,227,1)",
+              fontSize: "10px"
+            }
+          }
+        },
+        yAxis: {
+          //设置网格线颜色
+          gridLineColor: "#2B3DA1",
+          title: {
+            text: "",
+            style: {
+              color: "#08F6E4", //字体颜色
+              fontSize: "16px" //字体大小
+            }
+          },
+          labels: {
+            format: "{value}",
+            style: {
+              color: "rgba(90,142,227,1)"
+            }
+          }
+        },
+        colors: ["#00AEFF", "#1EC193", "#E5CD2E"],
+        legend: {
+          enabled: false,
+          align: "center",
+          verticalAlign: "top",
+          x: 0,
+          y: -20,
+          itemStyle: {
+            color: "#cccccc",
+            cursor: "pointer",
+            fontSize: "12px",
+            fontWeight: "bold",
+            fill: "#cccccc"
+          },
+          itemHoverStyle: {
+            color: "#666666"
+          },
+          itemHiddenStyle: {
+            color: "#333333"
+          }
+        },
+        tooltip: {
+          pointFormat: "收入： <b>{point.y:,.0f}</b>元"
+        },
+        plotOptions: {
+          series: {
+            depth: 25,
+            color: "#00ABFF"
+          },
+          area: {
+            marker: {
+              enabled: false,
+              symbol: "circle",
+              radius: 2,
+              states: {
+                hover: {
+                  enabled: true
+                }
+              }
+            }
+          }
+        },
+        series: [
+          {
+            name: "精洗",
+            data: this.poacherWashInSevenDaysData
+          },
+          {
+            name: "普洗",
+            data: this.garmentWashInSevenDaysData
+          },
+          {
+            name: "精洗",
+            data: this.fastWashInSevenDaysData
+          }
+        ]
+      };
+      // 绘制
+      new HighCharts.Chart(this.washChargeInSevenDaysCharts);
       // const param = {
       //   queryType: "currentMonth"
       // };
       // this.$realTimeMonitor.queryWashEarn(param).then(res => {
-      //   this.washChargeInSevenDaysX = [];
-      //   this.washChargeInSevenDaysData = [];
-      //   res.resultEntity.forEach(item => {
-      //     this.washChargeInSevenDaysX.push(item.X);
-      //     this.washChargeInSevenDaysData.push(Number(item.dataY));
-      //   });
-      //   this.washChargeInSevenDaysCharts = {
-      //     chart: {
-      //       type: "column",
-      //       backgroundColor: "rgba(0,0,0,0)",
-      //       renderTo: "washChargeInSevenDays",
-      //       spacingBottom: 0
-      //     },
-      //     title: {
-      //       text: ""
-      //     },
-      //     credits: {
-      //       enabled: false
-      //     },
-      //     xAxis: {
-      //       categories: this.chargeAmountTimesX,
-      //       labels: {
-      //         format: "{value}",
-      //         style: {
-      //           color: "rgba(90,142,227,1)",
-      //           fontSize: "10px"
-      //         }
-      //       }
-      //     },
-      //     yAxis: {
-      //       //设置网格线颜色
-      //       gridLineColor: "#2B3DA1",
-      //       title: {
-      //         text: "",
-      //         style: {
-      //           color: "#08F6E4", //字体颜色
-      //           fontSize: "16px" //字体大小
-      //         }
-      //       },
-      //       labels: {
-      //         format: "{value}",
-      //         style: {
-      //           color: "rgba(90,142,227,1)"
-      //         }
-      //       }
-      //     },
-      //     legend: {
-      //       enabled: false,
-      //       align: "center",
-      //       verticalAlign: "top",
-      //       x: 0,
-      //       y: -20,
-      //       itemStyle: {
-      //         color: "#cccccc",
-      //         cursor: "pointer",
-      //         fontSize: "12px",
-      //         fontWeight: "bold",
-      //         fill: "#cccccc"
-      //       },
-      //       itemHoverStyle: {
-      //         color: "#666666"
-      //       },
-      //       itemHiddenStyle: {
-      //         color: "#333333"
-      //       }
-      //     },
-      //     tooltip: {
-      //       pointFormat: "收入： <b>{point.y:,.0f}</b>元"
-      //     },
-      //     plotOptions: {
-      //       series: {
-      //         depth: 25,
-      //         // colorByPoint: true,
-      //         color: "#00ABFF"
-      //       },
-      //       area: {
-      //         marker: {
-      //           enabled: false,
-      //           symbol: "circle",
-      //           radius: 2,
-      //           states: {
-      //             hover: {
-      //               enabled: true
-      //             }
-      //           }
-      //         }
-      //       }
-      //     },
-      //     series: [
-      //       {
-      //         name: "数量",
-      //         data: this.chargeAmountTimesData
-      //       }
-      //     ]
-      //   };
-      //   // 绘制
-      //   new HighCharts.Chart(this.chargeAmountTimesOptions);
+      // this.washChargeInSevenDaysX = [];
+      // this.washChargeInSevenDaysData = [];
+      // res.resultEntity.forEach(item => {
+      //   this.washChargeInSevenDaysX.push(item.X);
+      //   this.washChargeInSevenDaysData.push(Number(item.dataY));
+      // });
       // });
     }
     // queryLine() {
