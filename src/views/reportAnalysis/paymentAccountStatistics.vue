@@ -163,7 +163,7 @@
     <!-- 底部表格部分 -->
     <div class="center">
       <el-row style="height: 100%;width: 100%;display: flex">
-        <el-row>
+        <el-row style="width: 49.5%;">
           <el-tabs
             style="background-color: white"
             v-model="activeName"
@@ -187,13 +187,9 @@
             </el-tab-pane>
           </el-tabs>
         </el-row>
-        <el-row>
+        <el-row style="width: 49.5%;margin-left: 1%">
           <!-- 平均洗车时长 averageWashingTime-->
-          <div
-            class="echartStyle"
-            id="payMethod"
-            style="height: 405px;margin-left: 4.5%"
-          >
+          <div class="echartStyle" id="payMethod" style="height: 405px">
             <Xchart id="payMethod" :option="payMethodChart"></Xchart>
           </div>
         </el-row>
