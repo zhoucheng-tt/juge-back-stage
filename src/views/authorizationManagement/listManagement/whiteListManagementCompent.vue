@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--        顶部车牌号一栏-->
     <div class="up">
       <el-form
@@ -62,6 +63,7 @@
         </el-button>
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <div class="down">
       <el-table
         :data="parkingLotInformation"
@@ -925,19 +927,16 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #f8f9fa !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: white !important;
-}
 
 .line-2 {
   width: 98%;
   height: 40px;
   margin-left: 1%;
   margin-top: 0.5%;
+}
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 </style>

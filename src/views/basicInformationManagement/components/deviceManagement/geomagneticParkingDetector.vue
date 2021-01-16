@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分表单-->
     <div class="up">
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
@@ -82,6 +83,7 @@
         >
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -773,5 +775,10 @@ export default {
 
 #add {
   height: auto;
+}
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 </style>

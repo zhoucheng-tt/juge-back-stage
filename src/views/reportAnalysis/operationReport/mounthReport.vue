@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分查询-->
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
@@ -53,6 +54,7 @@
         >
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -293,6 +295,12 @@ export default {
   height: 40px;
   margin-left: 1%;
 }
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
+}
+
 /*!* 表格表头样式 *!*/
 /*.el-table__header-wrapper {*/
 /*  width: 100%;*/

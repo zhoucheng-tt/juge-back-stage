@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分表单-->
     <div class="up">
       <el-form :inline="true" :model="query" class="demo-form-inline">
@@ -81,6 +82,7 @@
         >
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -756,14 +758,6 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #f8f9fa !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: white !important;
-}
 
 .line-2 {
   width: 98%;
@@ -772,15 +766,12 @@ export default {
   margin-top: 0.5%;
 }
 
-/* 斑马纹样式 */
-
-/* 表格表头样式 */
-
-/* 设置弹出框样式 */
-
-/* 弹出框内表单样式控制 */
-
 #add {
   height: auto;
+}
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 </style>

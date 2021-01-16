@@ -9,7 +9,7 @@
 -->
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card">
+    <el-tabs v-model="activeName" class="tabsStyle" type="card">
       <el-tab-pane label="日报" name="first">
         <data-Report />
       </el-tab-pane>
@@ -21,28 +21,41 @@
       </el-tab-pane>
     </el-tabs>
   </div>
-  </template>
-  <script>
-    // 日报
-    import dataReport from './operationReport/dataReport'
-    // 月报
-    import mounthReport from './operationReport/mounthReport'
-    // 年报
-    import yearReport from './operationReport/yearReport'
+</template>
+<script>
+// 日报
+import dataReport from "./operationReport/dataReport";
+// 月报
+import mounthReport from "./operationReport/mounthReport";
+// 年报
+import yearReport from "./operationReport/yearReport";
 
-    export default {
-      components: {
-        dataReport,
-        mounthReport,
-        yearReport
-      },
-      data() {
-        return {
-          activeName: 'first'
-        }
-      }
-    }
-  </script>
+export default {
+  components: {
+    dataReport,
+    mounthReport,
+    yearReport
+  },
+  data() {
+    return {
+      activeName: "first"
+    };
+  }
+};
+</script>
 <style scoped>
+.tabsStyle {
+  background-color: white;
+  margin-top: 0.5%;
+  margin-left: 1%;
+  width: 98%;
+  height: 845px;
+  background-color: white;
+}
 
+/deep/ .el-tabs__header {
+  padding: 0;
+  position: relative;
+  margin: 0 !important;
+}
 </style>

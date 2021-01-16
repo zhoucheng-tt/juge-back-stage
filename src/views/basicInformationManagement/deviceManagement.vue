@@ -9,7 +9,7 @@
 -->
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card">
+    <el-tabs v-model="activeName" class="tabsStyle" type="card">
       <el-tab-pane label="视频车位检测器" name="first">
         <video-Parking-Detector v-if="activeName === 'first'" />
       </el-tab-pane>
@@ -74,60 +74,18 @@ export default {
 };
 </script>
 <style scoped>
-.all {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.tabsStyle {
+  background-color: white;
+  margin-top: 0.5%;
+  margin-left: 1%;
+  width: 98%;
+  height: 845px;
+  background-color: white;
 }
 
-/* 上半部分查询部分 */
-.up {
-  width: 100%;
-  height: 15%;
-  float: left;
-}
-
-/* 查询条件部分样式 */
-.demo-form-inline {
-  width: 100%;
-  height: 80%;
-  margin-top: 3%;
-  padding-left: 2%;
-}
-
-/* 下班部分列表部分 */
-.down {
-  width: 100%;
-  height: 85%;
-  float: left;
-}
-
-/* 斑马纹样式 */
-/deep/ .el-table .successRow11 {
-  background: #7de6f8 !important;
-}
-
-/deep/ .el-table .successSecond {
-  background: #8ed3e7 !important;
-}
-
-/* 表格表头样式 */
-.el-table__header-wrapper {
-  width: 100%;
-  height: 0px;
-}
-
-/* 设置弹出框样式 */
-/deep/ .el-dialog {
-  width: 50%;
-}
-
-/* 弹出框内表单样式控制 */
-.el-form-item-dialog {
-  width: 32%;
-}
-
-#add {
-  height: auto;
+/deep/ .el-tabs__header {
+  padding: 0;
+  position: relative;
+  margin: 0 !important;
 }
 </style>

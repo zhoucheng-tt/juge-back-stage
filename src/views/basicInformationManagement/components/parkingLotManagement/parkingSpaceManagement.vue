@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <b style="font-size: 18px">停车场平面(层)配置</b>
     <!--上半部分查询-->
     <div class="up">
@@ -44,6 +45,7 @@
         >
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -139,6 +141,7 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="backgroundLine"></div>
     <div style=";margin-top: 1%">
       <b style="font-size: 18px">停车场平面(层)车位配置</b>
     </div>
@@ -151,6 +154,7 @@
         >批量导入车位配置数据</el-button
       >
     </div>
+    <div class="backgroundLine"></div>
     <div class="down-2">
       <el-table
         :data="parkSpaceList"
@@ -858,10 +862,9 @@ export default {
   margin-top: 1%;
 }
 .down-2 {
-  width: 98%;
+  width: 100%;
   height: 40%;
   background-color: white;
-  margin-left: 1%;
   margin-top: 1%;
 }
 /* 查询条件部分样式 */
@@ -925,6 +928,12 @@ export default {
   /*background-color: red;*/
   margin-top: 10px;
 }
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
+}
+
 .avatar-uploader {
 }
 </style>

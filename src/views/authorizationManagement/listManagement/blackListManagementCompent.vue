@@ -8,6 +8,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--        顶部车牌号一栏-->
     <div class="up">
       <el-form
@@ -64,6 +65,7 @@
         </el-button>
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <!--        表格内容-->
     <div class="down">
       <el-table
@@ -877,5 +879,10 @@ export default {
   height: 40px;
   margin-left: 1%;
   margin-top: 0.5%;
+}
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 </style>

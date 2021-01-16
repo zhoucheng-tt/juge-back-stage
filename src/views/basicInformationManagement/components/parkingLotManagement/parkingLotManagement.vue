@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分查询-->
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
@@ -25,6 +26,7 @@
         </el-form-item>
       </el-form>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -1043,6 +1045,12 @@ export default {
 /* 弹出框内表单样式控制 */
 .el-form-item-dialog {
   width: 32%;
+}
+
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 
 #add {
