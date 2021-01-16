@@ -554,20 +554,19 @@ export default {
     },
     //删除按钮
     del(row) {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该用户, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          //   this.delListDialog = true;
           const param = {
             userId: [row.userId]
           };
           this.delList.push(param);
-          this.$systemUser.deleteUser(param);
-          //this.delListDialog = false;
-          this.select();
+          this.$systemUser.deleteUser(param).then(res => {
+            this.select();
+          });
         })
         .catch(() => {
           this.$message({ type: "info", message: "已取消删除" });
@@ -621,7 +620,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 84%;
+  height: 83%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;

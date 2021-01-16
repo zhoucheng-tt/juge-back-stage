@@ -731,7 +731,7 @@ export default {
     //删除一行
     reMove(row) {
       //点击删除按钮出现的提示框
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该白名单人员，是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -747,11 +747,12 @@ export default {
           //将参数传到delWhiteList中
           this.delWhiteList = param;
           //调用接口中的删除方法 delWhiteList
-          this.$listManagement.deleteWhiteList(this.delWhiteList);
-          //提示删除成功
-          this.$message({ type: "success", message: "删除成功!" });
-          //重新执行查询 （重新加载页面）
-          this.queryWhiteList();
+          this.$listManagement.deleteWhiteList(this.delWhiteList).then(res => {
+            //提示删除成功
+            this.$message({ type: "success", message: "删除成功!" });
+            //重新执行查询 （重新加载页面）
+            this.queryWhiteList();
+          });
         })
         .catch(() => {
           //取消删除按钮
@@ -784,11 +785,15 @@ export default {
         const param = {
           whiteListId: this.idList
         };
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+        this.$confirm(
+          "此操作将永久删除选中的全部白名单人员, 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        )
           .then(() => {
             this.$listManagement.deleteWhiteList(param).then(res => {
               console.log("批量删除成功", res);

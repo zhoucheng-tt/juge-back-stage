@@ -46,7 +46,7 @@
 
         <!--                查询按钮-->
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryBlackList"
+          <el-button type="primary" size="small" @click="queryBlackList()"
             >查询</el-button
           >
           <el-button type="primary" size="small" @click="resetQuery"
@@ -72,7 +72,6 @@
         :data="parkingLotInformation"
         ref="selectionRow"
         @selection-change="handleSelectionChange"
-        :row-class-name="tableRowClassName"
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -650,11 +649,13 @@ export default {
             arrearageMoneyAmount: this.addBlackData.arrearageMoneyAmount,
             //加入黑名单时间 加入黑名单原因
             joinBlackListTime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
-            joinBlackListReasonCode: this.addBlackData.joinBlackListReasonCode
+            joinBlackListReasonCode: this.addBlackData.joinBlackListReasonCode,
+            //黑名单状态
+            blackWhiteListStatusCode: "0"
           };
-          console.log("新增黑名单传入的参数", param);
+          // console.log("新增黑名单传入的参数", param);
           this.$listManagement.insertBlackList(param).then(response => {
-            console.log("打印新增黑名单数据", response);
+            // console.log("打印新增黑名单数据", response);
             //添加成功弹出
             this.$message({ type: "success", message: "添加成功!" });
             //添加成功 刷新页面 调用查询方法
@@ -666,7 +667,7 @@ export default {
     //操作中的删除按钮
     reMove(row) {
       //点击删除按钮出现的提示框
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该黑名单人员, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -682,11 +683,12 @@ export default {
           //将参数传到delWhiteList中
           this.idList = param;
           //调用接口中的删除方法
-          this.$listManagement.deleteBlackList(this.idList);
-          //提示删除成功
-          this.$message({ type: "success", message: "删除成功!" });
-          //重新执行查询 （重新加载页面）
-          this.queryBlackList();
+          this.$listManagement.deleteBlackList(this.idList).then(res => {
+            //提示删除成功
+            this.$message({ type: "success", message: "删除成功!" });
+            //重新执行查询 （重新加载页面）
+            this.queryBlackList();
+          });
         })
         .catch(() => {
           //取消删除按钮
@@ -719,11 +721,15 @@ export default {
         const param = {
           blackListId: this.idList
         };
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
+        this.$confirm(
+          "此操作将永久删除选中的所有黑名单人员, 是否继续?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        )
           .then(() => {
             this.$listManagement.deleteBlackList(param).then(res => {
               console.log("批量删除成功", res);
@@ -780,7 +786,7 @@ export default {
             blackListId: this.startUpList.blackListId,
             blackWhiteListStatusCode: "0"
           };
-          console.log("传入的参数", param);
+          // console.log("传入的参数", param);
           this.$listManagement.updateBlackListStatus(param).then(response => {
             // console.log("打印修改传入数据", response);
             this.$message({ type: "success", message: "启用成功!" });
@@ -804,12 +810,11 @@ export default {
       })
         .then(() => {
           const param = {
-            blackListId: this.blockUpList.blackListId,
-            blackBlackListStatusCode: "1"
+            blackListId: this.startUpList.blackListId,
+            blackWhiteListStatusCode: "1"
           };
-          // console.log("传入的参数", param);
+          console.log("停用传入的参数", param);
           this.$listManagement.updateBlackListStatus(param).then(response => {
-            // console.log("打印修改传入数据", response);
             this.$message({ type: "success", message: "停用成功!" });
             this.queryBlackList();
             // console.log("修改后的数据", this.blockUpList);
@@ -819,15 +824,6 @@ export default {
           //取消删除按钮
           this.$message({ type: "info", message: "已取消" });
         });
-    },
-    // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 == 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 == 0) {
-        return "successSecond";
-      }
-      return "";
     }
   }
 };
