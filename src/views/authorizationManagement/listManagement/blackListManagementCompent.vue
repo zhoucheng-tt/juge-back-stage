@@ -813,7 +813,7 @@ export default {
             blackListId: this.startUpList.blackListId,
             blackWhiteListStatusCode: "1"
           };
-          console.log("停用传入的参数", param);
+          // console.log("停用传入的参数", param);
           this.$listManagement.updateBlackListStatus(param).then(response => {
             this.$message({ type: "success", message: "停用成功!" });
             this.queryBlackList();
