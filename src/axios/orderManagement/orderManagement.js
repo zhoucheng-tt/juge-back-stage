@@ -10,12 +10,14 @@ export function queryDictData(param) {
         }
     )
 }
+
 //停车场订单管理的查询接口  orderManageFunc/queryStopOrder.xhtml
 export function queryStopOrder(params) {
     return request({
-        url: 'orderManageFunc/queryStopOrder.xhtml',
+        url: 'http://localhost:8000/orderController/queryNormalOrder',
         method: 'post',
         data: params,
+        flag: 'out'
     })
 }
 

@@ -19,6 +19,7 @@
             v-model="upQueryList.parkId"
             placeholder="请选择停车场"
           >
+            <el-option label="全部" value=""></el-option>
             <el-option
               v-for="(item, index) in parkingLotList"
               :label="item.name"
@@ -152,12 +153,7 @@
           label="停车时长(分钟)"
         ></el-table-column>
         <el-table-column
-          prop="paymentStatus"
-          :show-overflow-tooltip="true"
-          label="收费状态"
-        ></el-table-column>
-        <el-table-column
-          prop="receivableMoneyAmount"
+          prop="needPay"
           :show-overflow-tooltip="true"
           label="应收金额(元)"
         ></el-table-column>
@@ -167,7 +163,7 @@
         <!--          label="实收金额(元)"-->
         <!--        ></el-table-column>-->
         <el-table-column
-          prop="paymentMethod"
+          prop="payMethod"
           :show-overflow-tooltip="true"
           label="支付方式"
         ></el-table-column>
@@ -226,14 +222,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="车位号:" label-width="150px">
-              <el-input
-                v-model="showListDloageandoffList.parkSpaceNumber"
-                readonly
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="进场时间:" label-width="150px">
               <el-input
                 v-model="showListDloageandoffList.entranceTime"
@@ -258,17 +246,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="收费状态:" label-width="150px">
-              <el-input
-                v-model="showListDloageandoffList.paymentStatus"
-                readonly
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="应收金额:" label-width="150px">
               <el-input
-                v-model="showListDloageandoffList.receivableMoneyAmount"
+                v-model="showListDloageandoffList.needPay"
                 readonly
               ></el-input>
             </el-form-item>
@@ -276,7 +256,7 @@
           <el-col :span="12">
             <el-form-item label="实收金额:" label-width="150px">
               <el-input
-                v-model="showListDloageandoffList.receivedMoneyAmount"
+                v-model="showListDloageandoffList.paid"
                 readonly
               ></el-input>
             </el-form-item>
@@ -284,7 +264,7 @@
           <el-col :span="12">
             <el-form-item label="支付方式:" label-width="150px">
               <el-input
-                v-model="showListDloageandoffList.paymentMethod"
+                v-model="showListDloageandoffList.payMethod"
                 readonly
               ></el-input>
             </el-form-item>
@@ -308,7 +288,9 @@ export default {
       // 列表中数据暂存处， 订单数据
       orderParkingList: [],
       // 顶部查询数据暂存处
-      upQueryList: {},
+      upQueryList: {
+        parkId: ""
+      },
       // 分页
       pageNum: 1,
       pageSize: 12,
@@ -334,15 +316,11 @@ export default {
     queryStopOrder() {
       var that = this;
       const params = {
-        cityCode: "321300",
-        districtCode: "321302",
-        parkTypeCode: "0",
         parkId: this.upQueryList.parkId,
         minEntranceTime: this.upQueryList.minEntranceTime,
         maxEntranceTime: this.upQueryList.maxEntranceTime,
         minLeaveTime: this.upQueryList.minLeaveTime,
         maxLeaveTime: this.upQueryList.maxLeaveTime,
-        supervisorAccount: this.upQueryList.supervisorAccount,
         plateNumber: this.upQueryList.plateNumber,
         pageNum: this.pageNum,
         pageSize: this.pageSize
@@ -352,9 +330,9 @@ export default {
         // console.log("查询表格数据", response)
         // console.log("that.gateList", that.orderParkingList)
         //分页
-        that.pageTotal = response.data.totalRecord;
+        that.pageTotal = response.resultEntity.total;
         //查询
-        that.orderParkingList = response.data.dataList;
+        that.orderParkingList = response.resultEntity.list;
       });
     },
     //查询停车场下拉接口
