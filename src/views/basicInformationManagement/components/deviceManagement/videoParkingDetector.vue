@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分表单-->
     <div class="up">
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
@@ -64,6 +65,7 @@
         >
       </el-row>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -187,7 +189,7 @@
                 label-width="150px"
                 prop="parkId"
               >
-                <el-select  style="200px" v-model="newVideo.parkId" placeholder="请选择">
+                <el-select v-model="newVideo.parkId" placeholder="请选择">
                   <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -292,7 +294,11 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
-                <el-select style="width: 200px;" v-model="editVideo.parkId" placeholder="请选择">
+                <el-select
+                  style="width: 200px;"
+                  v-model="editVideo.parkId"
+                  placeholder="请选择"
+                >
                   <el-option
                     v-for="(item, index) in parkingLotList"
                     :label="item.name"
@@ -317,7 +323,8 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="监控类型:" label-width="150px">
-                <el-select style="width: 200px;"
+                <el-select
+                  style="width: 200px;"
                   v-model="editVideo.videoDetecterMntrTypeCode"
                   placeholder="请选择"
                 >
@@ -1057,6 +1064,11 @@ export default {
 /*.el-form-item-dialog {*/
 /*  width: 32%;*/
 /*}*/
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
+}
 
 #add {
   height: auto;

@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分查询-->
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
@@ -53,6 +54,7 @@
         >
       </div>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -148,11 +150,11 @@
           :show-overflow-tooltip="true"
           label="ETC缴费(元)"
         />
-        <el-table-column
-          prop="arrearageMoneyAmount"
-          :show-overflow-tooltip="true"
-          label="欠费(元)"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="arrearageMoneyAmount"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="欠费(元)"-->
+        <!--        />-->
       </el-table>
       <div
         style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
@@ -298,5 +300,10 @@ export default {
 /* 弹出框内表单样式控制 */
 /deep/ .el-table__body-wrapper is-scrolling-left {
   overflow-x: hidden !important;
+}
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 </style>

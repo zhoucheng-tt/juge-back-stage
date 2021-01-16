@@ -1,5 +1,5 @@
 <!--
-  白名单管理
+  黑白名单管理
  * @Author: 邵青阳
  * @Date: 2020-10-20 10:31:51
  * @LastEditTime: 2020-11-07 13:56:55
@@ -10,7 +10,7 @@
 
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card">
+    <el-tabs v-model="activeName" class="tabsStyle" type="card">
       <el-tab-pane label="白名单管理" name="first">
         <white-List-Management-Compent />
       </el-tab-pane>
@@ -38,3 +38,18 @@ export default {
   }
 };
 </script>
+<style scoped>
+.tabsStyle {
+  background-color: white;
+  margin-top: 0.5%;
+  margin-left: 1%;
+  width: 98%;
+  height: 845px;
+  background-color: white;
+}
+/deep/ .el-tabs__header {
+  padding: 0;
+  position: relative;
+  margin: 0 !important;
+}
+</style>

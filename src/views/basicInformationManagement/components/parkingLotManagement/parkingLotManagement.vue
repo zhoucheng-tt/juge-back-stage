@@ -9,6 +9,7 @@
 -->
 <template>
   <div class="all">
+    <div class="backgroundLine"></div>
     <!--上半部分查询-->
     <div class="up">
       <el-form :inline="true" class="demo-form-inline">
@@ -25,6 +26,7 @@
         </el-form-item>
       </el-form>
     </div>
+    <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
@@ -146,6 +148,7 @@
       title="新增停车场信息"
       :visible.sync="addListDialogueandoff"
       width="50%"
+      top="2vh"
       destroy-on-close
     >
       <el-form
@@ -283,19 +286,21 @@
             <el-form-item
               label="计费规则:"
               label-width="150px"
-              prop="billingRuleDefId"
+              prop="billingRuleDefName"
             >
               <el-select
                 style="width: 200px"
-                v-model="newParkingLot.billingRuleDefId"
+                v-model="newParkingLot.billingRuleDefName"
                 placeholder="请选择"
               >
                 <el-option
                   v-for="(item, index) in chargingRules"
-                  :label="item.name"
-                  :value="item.code"
                   :key="index"
-                />
+                  :label="item.billingRuleDefName"
+                  :value="item.billingRuleDefId"
+                >
+                  {{ item.billingRuleDefName }}
+                </el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -368,7 +373,7 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" :visible.sync="editListDialogueandoff">
+    <el-dialog id="edit" top="2vh" :visible.sync="editListDialogueandoff">
       <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">基础信息</div>
         <el-row>
@@ -498,15 +503,16 @@
             <el-form-item label="计费规则:" label-width="150px">
               <el-select
                 style="width: 200px"
-                v-model="editParkingLot.billingRuleDefId"
+                v-model="editParkingLot.billingRuleDefName"
                 placeholder="请选择"
               >
                 <el-option
                   v-for="(item, index) in chargingRules"
-                  :label="item.name"
-                  :value="item.code"
+                  :label="item.billingRuleDefName"
+                  :value="item.billingRuleDefId"
                   :key="index"
-                />
+                  >{{ item.billingRuleDefName }}</el-option
+                >
               </el-select>
             </el-form-item>
           </el-col>
@@ -609,7 +615,7 @@ export default {
             trigger: "blur"
           }
         ],
-        billingRuleDefId: [
+        billingRuleDefName: [
           {
             required: "true",
             message: "请选择计费规则",
@@ -775,7 +781,7 @@ export default {
             latitude: this.newParkingLot.latitude,
             parkSpaceNum: this.newParkingLot.parkSpaceNum,
             billingRuleDesc: this.newParkingLot.billingRuleDesc,
-            billingRuleDefId: this.newParkingLot.billingRuleDefId,
+            billingRuleDefName: this.newParkingLot.billingRuleDefName,
             contact: this.newParkingLot.contact,
             contactPhoneNumber: this.newParkingLot.contactPhoneNumber,
             externalSystemImportFlag: 1,
@@ -808,7 +814,7 @@ export default {
         latitude: this.editParkingLot.latitude,
         parkSpaceNum: this.editParkingLot.parkSpaceNum,
         billingRuleDesc: this.editParkingLot.billingRuleDesc,
-        billingRuleDefId: this.editParkingLot.billingRuleDefId,
+        billingRuleDefName: this.editParkingLot.billingRuleDefName,
         contact: this.editParkingLot.contact,
         contactPhoneNumber: this.editParkingLot.contactPhoneNumber
       };
@@ -884,14 +890,17 @@ export default {
       });
     },
     //计费规则下拉菜单数据查询
-    queryBillList() {
-      const billParam = {
-        columnName: ["billing_rule_def_id", "billing_rule_def_name"],
-        tableName: "t_bm_billing_rule_def",
-        whereStr: ""
+    queryBillingRuleList() {
+      const param = {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+        billingRuleDefName: this.editParkingLot.billingRuleDefName
       };
-      this.$ysParking.queryDictData(billParam).then(res => {
+      this.$basicInformationManagement.queryBillingRuleList(param).then(res => {
         this.chargingRules = res.data.dataList;
+        this.chargingRules.forEach(item => {
+          console.log(item.billingRuleDefName, "计费");
+        });
       });
     },
     //查询区县数据
@@ -951,7 +960,7 @@ export default {
     //初始化列表
     this.queryParkList();
     //初始化计费规则下拉菜单
-    this.queryBillList();
+    this.queryBillingRuleList();
     //初始化地市下拉菜单
     this.queryCityList();
     //初始化所属公司下拉菜单
@@ -963,7 +972,7 @@ export default {
     newParkingLot: {
       handler(newVal) {
         this.chargingRules.forEach(item => {
-          if (item.code === newVal.billingRuleDefId) {
+          if (item.code === newVal.billingRuleDefName) {
             newVal.billingRuleDesc = item.name;
           }
         });
@@ -973,7 +982,7 @@ export default {
     editParkingLot: {
       handler(newVal) {
         this.chargingRules.forEach(item => {
-          if (item.code === newVal.billingRuleDefId) {
+          if (item.code === newVal.billingRuleDefName) {
             item.name = newVal.billingRuleDesc;
           }
         });
@@ -1036,6 +1045,12 @@ export default {
 /* 弹出框内表单样式控制 */
 .el-form-item-dialog {
   width: 32%;
+}
+
+.backgroundLine {
+  background-color: #eaf0f6;
+  width: 100%;
+  height: 15px;
 }
 
 #add {
