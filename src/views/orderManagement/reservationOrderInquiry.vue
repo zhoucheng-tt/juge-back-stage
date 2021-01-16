@@ -19,6 +19,7 @@
             v-model="upQueryList.parkId"
             placeholder="请选择停车场"
           >
+            <el-option value="" label="全部"></el-option>
             <el-option
               v-for="(item, index) in parkingLotList"
               :label="item.name"
@@ -63,9 +64,10 @@
           <el-select
             size="small"
             style="width: 160px"
-            v-model="upQueryList.appointmentOrderStatusName"
+            v-model="upQueryList.appointmentOrderStatusCode"
             placeholder="请选择状态"
           >
+            <el-option label="全部" value=""></el-option>
             <el-option
               v-for="(item, index) in strutsList"
               :label="item.name"
@@ -223,19 +225,13 @@
         <h4>订单信息:</h4>
       </div>
       <el-form :inline="true" :model="showListDloageandoffList">
-        <el-form-item label="车位号:" label-width="150px">
-          <el-input
-            v-model="showListDloageandoffList.parkSpaceNumber"
-            readonly
-          ></el-input>
-        </el-form-item>
         <el-form-item label="进场时间:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.entranceTime"
             readonly
           ></el-input>
         </el-form-item>
-        <el-form-item label="出厂时间:" label-width="150px">
+        <el-form-item label="出场时间:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.leaveTime"
             readonly
@@ -244,12 +240,6 @@
         <el-form-item label="停车时长:" label-width="150px">
           <el-input
             v-model="showListDloageandoffList.parkDuration"
-            readonly
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="收费状态:" label-width="150px">
-          <el-input
-            v-model="showListDloageandoffList.paymentStatus"
             readonly
           ></el-input>
         </el-form-item>
@@ -291,12 +281,7 @@ export default {
       // 顶部查询数据暂存处
       upQueryList: {
         parkId: "",
-        carNum: "",
-        // 进场时间
-        dataTimeIn: "",
-        // 出场时间
-        dataTimeOut: "",
-        appointmentOrderStatusName: ""
+        appointmentOrderStatusCode: ""
       },
       //通过停车场名字获取id
       parkIdList: [],
@@ -326,7 +311,10 @@ export default {
   methods: {
     //查询重置按钮
     resetQuery() {
-      this.upQueryList = {};
+      this.upQueryList = {
+        parkId: "",
+        appointmentOrderStatusCode: ""
+      };
     },
     //查询停车场接口
     queryPark() {
@@ -364,25 +352,22 @@ export default {
     queryAppointmentStopOrder() {
       var that = this;
       const param = {
-        cityCode: "",
-        districtCode: "",
-        parkTypeCode: "",
         parkId: this.upQueryList.parkId,
-        appointmentTypeCode: "",
         minAppointmentTime: this.upQueryList.minAppointmentTime,
         maxAppointmentTime: this.upQueryList.maxAppointmentTime,
-        appointmentOrderStatusCode: "",
+        appointmentOrderStatusCode: this.upQueryList.appointmentOrderStatusCode,
         plateNumber: this.upQueryList.plateNumber,
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
+      console.log(param);
       this.$orderManagement.queryAppointmentStopOrder(param).then(response => {
         console.log("查询表格数据", response);
         // console.log("that.gateList", that.orderParkingList)
         //分页
-        that.pageTotal = response.data.totalRecord;
+        that.pageTotal = response.resultEntity.total;
         //查询
-        that.orderParkingList = response.data.dataList;
+        that.orderParkingList = response.resultEntity.list;
       });
     },
     // 斑马纹样式
