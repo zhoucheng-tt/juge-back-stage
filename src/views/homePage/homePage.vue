@@ -357,43 +357,74 @@ letter-spacing: 0.36px;float:right;"
       </div>
       <!-- 中间部分 -->
       <div class="center">
-        <!--        剩余车位数-->
-        <div class="center-leftport">剩余车位数</div>
-        <!--        数字-->
-
-        <div class="center-line2">
-          <div class="center-line2-number">
-            <div class="center-line2-number-text">
-              {{ parseInt((leftPort % 10000) / 1000) }}
+        <div style="display: flex">
+          <!--        剩余车位数-->
+          <div class="center-leftport">社会停车场剩余车位数</div>
+          <!--        剩余车位数-->
+          <div class="center-leftport" style="margin-left: 19%">
+            企业停车场剩余车位数
+          </div>
+        </div>
+        <div>
+          <!--剩余停车场数字-->
+          <div class="center-line2">
+            <div style="display:flex;">
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ parseInt((leftPort % 10000) / 1000) }}
+                </div>
+              </div>
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ parseInt((leftPort % 1000) / 100) }}
+                </div>
+              </div>
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ parseInt((leftPort % 100) / 10) }}
+                </div>
+              </div>
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ leftPort % 10 }}
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="center-line2-number">
-            <div class="center-line2-number-text">
-              {{ parseInt((leftPort % 1000) / 100) }}
+            <div style="display:flex;margin-left: 15%">
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ parseInt((leftPort % 10000) / 1000) }}
+                </div>
+              </div>
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ parseInt((leftPort % 1000) / 100) }}
+                </div>
+              </div>
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ parseInt((leftPort % 100) / 10) }}
+                </div>
+              </div>
+              <div class="center-line2-number">
+                <div class="center-line2-number-text">
+                  {{ leftPort % 10 }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="center-line2-number">
-            <div class="center-line2-number-text">
-              {{ parseInt((leftPort % 100) / 10) }}
+            <!--洗车机洗车次数数据-->
+            <div class="center-line2-poacher">
+              <div class="center-line2-poacher-text">精洗次数</div>
+              <div class="center-line2-poacher-number">{{ poacherWash }}</div>
             </div>
-          </div>
-          <div class="center-line2-number">
-            <div class="center-line2-number-text">
-              {{ leftPort % 10 }}
+            <div class="center-line2-normal">
+              <div class="center-line2-normal-text">普洗次数</div>
+              <div class="center-line2-normal-number">{{ garmentWash }}</div>
             </div>
-          </div>
-          <div class="center-line2-poacher">
-            <div class="center-line2-poacher-text">精洗次数</div>
-            <div class="center-line2-poacher-number">{{ poacherWash }}</div>
-          </div>
-          <div class="center-line2-normal">
-            <div class="center-line2-normal-text">普洗次数</div>
-            <div class="center-line2-normal-number">{{ garmentWash }}</div>
-          </div>
-          <div class="center-line2-fast">
-            <div class="center-line2-fast-text">快洗次数</div>
-            <div class="center-line2-fast-number">{{ fastWash }}</div>
+            <div class="center-line2-fast">
+              <div class="center-line2-fast-text">快洗次数</div>
+              <div class="center-line2-fast-number">{{ fastWash }}</div>
+            </div>
           </div>
         </div>
         <!--        总收入一行-->
@@ -4700,7 +4731,7 @@ export default {
 .center-line2-number {
   width: 50px;
   height: 72px;
-  margin-left: 1%;
+  margin-left: 5%;
   background: #023376;
   border: 1px solid #66e3fb;
 }
@@ -4716,7 +4747,7 @@ export default {
 .center-line2-poacher {
   height: 72px;
   width: 80px;
-  margin-left: 45%;
+  margin-left: 15%;
 }
 .center-line2-poacher-text {
   font-family: PingFangSC-Regular;
@@ -4771,7 +4802,7 @@ export default {
   width: 100%;
   height: 6%;
   position: relative;
-  margin-top: 5%;
+  margin-top: 2%;
   display: flex;
 }
 /*上下的盒子*/
@@ -4802,9 +4833,9 @@ export default {
 /*  车位图*/
 .center-down {
   width: 100%;
-  height: 74.5%;
+  height: 77%;
   display: flex;
-  margin-top: 4.2%;
+  margin-top: 3%;
   border: 1px solid #3d71c1;
   background-image: linear-gradient(180deg, #001d43 0%, #000c1c 100%);
 }
@@ -4882,5 +4913,6 @@ export default {
   width: 75%;
   height: 98.5%;
   margin-left: 6%;
+  margin-top: 1%;
 }
 </style>

@@ -19,35 +19,15 @@
         :rules="rules"
       >
         <el-form-item prop="loginName">
-          <el-input
-            v-model="loginList.loginName"
-            style="height: 50px"
-            placeholder="账号或手机号"
-          />
+          <el-input v-model="loginList.loginName" placeholder="账号或手机号" />
         </el-form-item>
-        <el-form-item prop="loginPassword">
+        <el-form-item prop="loginPassword" style="margin-top: 25px">
           <el-input
             type="password"
             v-model="loginList.loginPassword"
             placeholder="密码"
           />
         </el-form-item>
-        <!--        <div class="login-form-group">-->
-        <!--          <input-->
-        <!--            type="text"-->
-        <!--            class="login-form-control"-->
-        <!--            placeholder="账号或手机号"-->
-        <!--            v-model="loginName"-->
-        <!--          />-->
-        <!--        </div>-->
-        <!--        <div class="login-form-group">-->
-        <!--          <input-->
-        <!--            type="password"-->
-        <!--            class="login-form-control"-->
-        <!--            placeholder="密码"-->
-        <!--            v-model="loginPassword"-->
-        <!--          />-->
-        <!--        </div>-->
         <div class="login-form-group">
           <el-button class="login-btn" @click="loginBtn()">登录</el-button>
         </div>
@@ -69,7 +49,11 @@ export default {
       },
       rules: {
         loginName: [
-          { required: true, message: "请输入账号/手机号", trigger: "blur" }
+          {
+            required: true,
+            message: "请输入账号/手机号",
+            trigger: "blur"
+          }
         ],
         loginPassword: [
           { required: true, message: "请输入密码", trigger: "blur" }
@@ -225,8 +209,8 @@ body {
 }
 
 .login-form-group {
-  margin-bottom: 26px;
-  margin-top: 10px;
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 
 .login-form-horizontal .login-form-group {

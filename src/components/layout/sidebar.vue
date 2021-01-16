@@ -180,7 +180,7 @@ export default {
             },
             // 洗车机报警信息统计
             {
-              code: "3-6",
+              code: "3-5",
               logo: "el-icon-menu",
               name: "洗车机报警信息统计",
               routeName: "alarmInformationCarWashingMachine"
@@ -249,7 +249,7 @@ export default {
             // },
             // 计费规则管理
             {
-              code: "6-2",
+              code: "6-1",
               logo: "el-icon-menu",
               name: "计费规则管理",
               routeName: "billingRuleManagement"
@@ -257,14 +257,14 @@ export default {
 
             // 停车场管理   parkingLotManagement
             {
-              code: "6-3",
+              code: "6-2",
               logo: "el-icon-menu",
               name: "停车场管理",
               routeName: "parkingLotManagement"
             },
             // 设备管理   deviceManagement
             {
-              code: "6-4",
+              code: "6-3",
               logo: "el-icon-menu",
               name: "设备管理",
               routeName: "deviceManagement"
