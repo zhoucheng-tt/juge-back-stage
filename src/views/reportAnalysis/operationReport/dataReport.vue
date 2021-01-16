@@ -150,11 +150,11 @@
           :show-overflow-tooltip="true"
           label="ETC缴费(元)"
         />
-        <el-table-column
-          prop="arrearageMoneyAmount"
-          :show-overflow-tooltip="true"
-          label="欠费(元)"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="arrearageMoneyAmount"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="欠费(元)"-->
+        <!--        />-->
       </el-table>
       <div
         style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
