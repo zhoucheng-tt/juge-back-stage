@@ -38,7 +38,7 @@
             multiple
             collapse-tags
             style="margin-left: 20px;"
-            placeholder="请选择(不选默认查全部)"
+            placeholder="请选择"
             size="medium "
           >
             <el-option
@@ -56,7 +56,7 @@
             multiple
             collapse-tags
             style="margin-left: 20px;"
-            placeholder="请选择(不选默认查全部)"
+            placeholder="请选择"
             size="medium "
           >
             <el-option
@@ -87,15 +87,15 @@
         </el-form-item>
       </el-form>
       <el-row class="line2">
-          <el-button type="primary" size="small">
-            <a
-              :href="exportFile"
-              class="download"
-              download=""
-              style="color: #ffffff;text-decoration:none"
-              >导出</a
-            >
-          </el-button>
+        <el-button type="primary" size="small">
+          <a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+            >导出</a
+          >
+        </el-button>
       </el-row>
     </div>
     <!-- 中间图标部分内容 -->
@@ -210,6 +210,8 @@ export default {
   data() {
     return {
       activeName: "first",
+      //多选停车场数据
+      checkedPark: [],
       //导出
       exportFile: BASE_API + "PayStatisticController/download/",
       //查询内容暂存

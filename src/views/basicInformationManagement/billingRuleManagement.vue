@@ -86,11 +86,11 @@
         style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" />
-<!--        <el-table-column-->
-<!--          prop="billingRuleDefId"-->
-<!--          :show-overflow-tooltip="true"-->
-<!--          label="计费规则编号"-->
-<!--        ></el-table-column>-->
+        <!--        <el-table-column-->
+        <!--          prop="billingRuleDefId"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="计费规则编号"-->
+        <!--        ></el-table-column>-->
         <el-table-column
           prop="billingRuleDefName"
           :show-overflow-tooltip="true"
@@ -540,6 +540,410 @@
             style="width:200px"
             v-model="checkChargeList.billingRuleTypeCode"
             placeholder="请选择计费规则"
+            disabled
+          >
+            <el-option
+              v-for="(item, index) in chargeTypeList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="计费规则名称:" label-width="150px">
+          <el-input
+            v-model="checkChargeList.billingRuleDefName"
+            disabled
+            placeholder="请输入"
+            style="width:200px"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="计费规则描述:" label-width="150px">
+          <el-input
+            v-model="checkChargeList.remark"
+            disabled
+            placeholder=""
+            style="width:200px"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <!-- 按次计费弹出表格 -->
+      <el-row v-if="checkChargeList.billingRuleTypeCode != 1">
+        <span>按次计费</span>
+        <el-row style="display: flex">
+          <div style="width: 16%"><div>车辆类型</div></div>
+          <div style="width: 60%">
+            <div><span>收费标准</span></div>
+            <div style="display: flex">
+              <div>
+                <span>白天时段</span>
+                <br />
+                <el-time-select
+                  v-model="billingRuleDetailList.dayBeginTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '00:00',
+                    end: '12:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+                <span>~</span>
+                <el-time-select
+                  v-model="billingRuleDetailList.dayEndTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '00:00',
+                    end: '12:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+              </div>
+              <div style="margin-left: 7%">
+                <span>夜间时段</span>
+                <br />
+                <el-time-select
+                  v-model="billingRuleDetailList.nightBeginTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '12:00',
+                    end: '24:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+                <span>~</span>
+                <el-time-select
+                  v-model="billingRuleDetailList.nightEndTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '12:00',
+                    end: '24:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+              </div>
+            </div>
+          </div>
+          <div style="width: 12%"><div>免费时长</div></div>
+          <div style="width: 12%"><div>重新计费时长</div></div>
+        </el-row>
+        <!--    获取的小型车辆数据-->
+        <el-row style="width: 100%;height:50px;margin-top:1%;display:flex">
+          <div style="width: 16%;height:50px">
+            小型车辆
+          </div>
+          <div style="width: 60%;height:50px;display:flex">
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.smalldayBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/次
+            </div>
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.smallnightBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/次
+            </div>
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.smallfreeDuration"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >分钟
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.smallrebillingDuration"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >分钟
+          </div>
+        </el-row>
+        <!--    大型车辆计费规则-->
+        <el-row style="width: 100%;height:50px;display:flex">
+          <div style="width: 16%;height:50px">
+            大型车辆
+          </div>
+          <div style="width: 60%;height:50px;display:flex">
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.maxdayBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/次
+            </div>
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.maxnightBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/次
+            </div>
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.maxfreeDuration"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >分钟
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.maxrebillingDuration"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >分钟
+          </div>
+        </el-row>
+      </el-row>
+      <!-- 按时计费弹出表格 -->
+      <el-row v-if="checkChargeList.billingRuleTypeCode == 1">
+        <span>按照时长计费</span>
+        <el-form>
+          <el-form-item label="最短计费时长:" label-width="150px">
+            <el-select
+              v-model="billingRuleDetailList.minBillingDurationCode"
+              disabled
+            >
+              <el-option
+                v-for="(item, index) in minTimeList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <el-row style="display: flex">
+          <div style="width: 16%"><div>车辆类型</div></div>
+          <div style="width: 60%">
+            <div><span>收费标准</span></div>
+            <div style="display: flex">
+              <div>
+                <span>白天时段</span>
+                <br />
+                <el-time-select
+                  v-model="billingRuleDetailList.dayBeginTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '00:00',
+                    end: '12:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+                <span>~</span>
+                <el-time-select
+                  v-model="billingRuleDetailList.dayEndTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '00:00',
+                    end: '12:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+              </div>
+              <div style="margin-left: 7%">
+                <span>夜间时段</span>
+                <br />
+                <el-time-select
+                  v-model="billingRuleDetailList.nightBeginTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '12:00',
+                    end: '24:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+                <span>~</span>
+                <el-time-select
+                  v-model="billingRuleDetailList.nightEndTime"
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
+                    step: '00:15',
+                    start: '12:00',
+                    end: '24:00'
+                  }"
+                  placeholder="选择时间"
+                >
+                </el-time-select>
+              </div>
+            </div>
+          </div>
+          <div style="width: 12%">
+            <div>免费时长</div>
+          </div>
+          <div style="width: 12%">
+            <el-radio
+              v-model="billingRuleDetailList.ceilingFlag"
+              label="0"
+              disabled
+              >24小时是否封顶</el-radio
+            >
+          </div>
+        </el-row>
+        <!--    获取的小型车辆数据-->
+        <el-row style="width: 100%;height:50px;margin-top:1%;display:flex">
+          <div style="width: 16%;height:50px">
+            小型车辆
+          </div>
+          <div style="width: 60%;height:50px;display:flex">
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.smalldayBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/15分钟
+            </div>
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.smallnightBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/15分钟
+            </div>
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.smallfreeDuration"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >分钟
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.smallceilingMoneyAmount"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >元
+          </div>
+        </el-row>
+        <!--    大型车辆计费规则-->
+        <el-row style="width: 100%;height:50px;display:flex">
+          <div style="width: 16%;height:50px">
+            大型车辆
+          </div>
+          <div style="width: 60%;height:50px;display:flex">
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.maxdayBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/15分钟
+            </div>
+            <div style="width: 50%;height:50px">
+              <el-input
+                v-model="billingRuleDetailList.maxnightBillingPrice"
+                disabled
+                size="small"
+                style="width: 115px"
+              ></el-input
+              >元/15分钟
+            </div>
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.maxfreeDuration"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >分钟
+          </div>
+          <div style="width: 12%;height:50px">
+            <el-input
+              v-model="billingRuleDetailList.maxceilingMoneyAmount"
+              disabled
+              size="small"
+              style="width: 80px"
+            ></el-input
+            >元
+          </div>
+        </el-row>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="checkChargeListDialog = false">返回</el-button>
+        <!--        <el-button type="primary" @click="onCommitAdd">确 定</el-button>-->
+      </div>
+    </el-dialog>
+    <!--修改计费弹窗-->
+    <el-dialog
+      title="修改计费信息"
+      :visible.sync="alterChargeListDialog"
+      width="50%"
+    >
+      <el-form :model="checkChargeList" label-width="150px">
+        <!--        <span>停车场信息</span>-->
+        <!--        <el-form-item label="归属停车场:">-->
+        <!--          <el-select v-model="checkChargeList.parkId" placeholder="请选择停车场">-->
+        <!--            <el-option v-for="(item, index) in parkLotNameList" :label="item.name"-->
+        <!--                       :value="item.code" :key="index"></el-option>-->
+        <!--          </el-select>-->
+        <!--        </el-form-item>-->
+        <span>计费规则信息</span>
+        <el-form-item label="计费规则类型:" label-width="150px">
+          <el-select
+            style="width: 200px"
+            v-model="checkChargeList.billingRuleTypeCode"
+            placeholder="请选择计费规则"
           >
             <el-option
               v-for="(item, index) in chargeTypeList"
@@ -553,14 +957,14 @@
           <el-input
             v-model="checkChargeList.billingRuleDefName"
             placeholder="请输入"
-            style="width:200px"
+            style="width: 200px"
           ></el-input>
         </el-form-item>
         <el-form-item label="计费规则描述:" label-width="150px">
           <el-input
             v-model="checkChargeList.remark"
             placeholder="请输入"
-            style="width:200px"
+            style="width: 200px"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -721,381 +1125,10 @@
         <span>按照时长计费</span>
         <el-form>
           <el-form-item label="最短计费时长:" label-width="150px">
-            <el-select style="200px" v-model="billingRuleDetailList.minBillingDurationCode">
-              <el-option
-                v-for="(item, index) in minTimeList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <el-row style="display: flex">
-          <div style="width: 16%"><div>车辆类型</div></div>
-          <div style="width: 60%">
-            <div><span>收费标准</span></div>
-            <div style="display: flex">
-              <div>
-                <span>白天时段</span>
-                <br />
-                <el-time-select
-                  v-model="billingRuleDetailList.dayBeginTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '00:00',
-                    end: '12:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-                <span>~</span>
-                <el-time-select
-                  v-model="billingRuleDetailList.dayEndTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '00:00',
-                    end: '12:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-              </div>
-              <div style="margin-left: 7%">
-                <span>夜间时段</span>
-                <br />
-                <el-time-select
-                  v-model="billingRuleDetailList.nightBeginTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '12:00',
-                    end: '24:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-                <span>~</span>
-                <el-time-select
-                  v-model="billingRuleDetailList.nightEndTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '12:00',
-                    end: '24:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-              </div>
-            </div>
-          </div>
-          <div style="width: 12%">
-            <div>免费时长</div>
-          </div>
-          <div style="width: 12%">
-            <el-radio v-model="billingRuleDetailList.ceilingFlag" label="0"
-              >24小时是否封顶</el-radio
+            <el-select
+              style="width: 200px"
+              v-model="billingRuleDetailList.minBillingDurationCode"
             >
-          </div>
-        </el-row>
-        <!--    获取的小型车辆数据-->
-        <el-row style="width: 100%;height:50px;margin-top:1%;display:flex">
-          <div style="width: 16%;height:50px">
-            小型车辆
-          </div>
-          <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.smalldayBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/15分钟
-            </div>
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.smallnightBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/15分钟
-            </div>
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.smallfreeDuration"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >分钟
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.smallceilingMoneyAmount"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >元
-          </div>
-        </el-row>
-        <!--    大型车辆计费规则-->
-        <el-row style="width: 100%;height:50px;display:flex">
-          <div style="width: 16%;height:50px">
-            大型车辆
-          </div>
-          <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.maxdayBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/15分钟
-            </div>
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.maxnightBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/15分钟
-            </div>
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.maxfreeDuration"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >分钟
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.maxceilingMoneyAmount"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >元
-          </div>
-        </el-row>
-      </el-row>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="checkChargeListDialog = false">返回</el-button>
-        <!--        <el-button type="primary" @click="onCommitAdd">确 定</el-button>-->
-      </div>
-    </el-dialog>
-    <!--修改计费弹窗-->
-    <el-dialog
-      title="修改计费信息"
-      :visible.sync="alterChargeListDialog"
-      width="50%"
-    >
-      <el-form :model="checkChargeList" label-width="150px">
-        <!--        <span>停车场信息</span>-->
-        <!--        <el-form-item label="归属停车场:">-->
-        <!--          <el-select v-model="checkChargeList.parkId" placeholder="请选择停车场">-->
-        <!--            <el-option v-for="(item, index) in parkLotNameList" :label="item.name"-->
-        <!--                       :value="item.code" :key="index"></el-option>-->
-        <!--          </el-select>-->
-        <!--        </el-form-item>-->
-        <span>计费规则信息</span>
-        <el-form-item label="计费规则类型:"label-width="150px">
-          <el-select
-            style="width: 200px"
-            v-model="checkChargeList.billingRuleTypeCode"
-            placeholder="请选择计费规则"
-          >
-            <el-option
-              v-for="(item, index) in chargeTypeList"
-              :label="item.name"
-              :value="item.code"
-              :key="index"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="计费规则名称:"label-width="150px">
-          <el-input
-            v-model="checkChargeList.billingRuleDefName"
-            placeholder="请输入"
-            style="width: 200px"
-
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="计费规则描述:"label-width="150px">
-          <el-input
-            v-model="checkChargeList.remark"
-            placeholder="请输入"
-            style="width: 200px"
-
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <!-- 按次计费弹出表格 -->
-      <el-row v-if="checkChargeList.billingRuleTypeCode != 1">
-        <span>按次计费</span>
-        <el-row style="display: flex">
-          <div style="width: 16%"><div>车辆类型</div></div>
-          <div style="width: 60%">
-            <div><span>收费标准</span></div>
-            <div style="display: flex">
-              <div>
-                <span>白天时段</span>
-                <br />
-                <el-time-select
-                  v-model="billingRuleDetailList.dayBeginTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '00:00',
-                    end: '12:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-                <span>~</span>
-                <el-time-select
-                  v-model="billingRuleDetailList.dayEndTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '00:00',
-                    end: '12:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-              </div>
-              <div style="margin-left: 7%">
-                <span>夜间时段</span>
-                <br />
-                <el-time-select
-                  v-model="billingRuleDetailList.nightBeginTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '12:00',
-                    end: '24:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-                <span>~</span>
-                <el-time-select
-                  v-model="billingRuleDetailList.nightEndTime"
-                  size="small"
-                  style="width: 115px;"
-                  :picker-options="{
-                    step: '00:15',
-                    start: '12:00',
-                    end: '24:00'
-                  }"
-                  placeholder="选择时间"
-                >
-                </el-time-select>
-              </div>
-            </div>
-          </div>
-          <div style="width: 12%"><div>免费时长</div></div>
-          <div style="width: 12%"><div>重新计费时长</div></div>
-        </el-row>
-        <!--    获取的小型车辆数据-->
-        <el-row style="width: 100%;height:50px;margin-top:1%;display:flex">
-          <div style="width: 16%;height:50px">
-            小型车辆
-          </div>
-          <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.smalldayBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/次
-            </div>
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.smallnightBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/次
-            </div>
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.smallfreeDuration"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >分钟
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.smallrebillingDuration"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >分钟
-          </div>
-        </el-row>
-        <!--    大型车辆计费规则-->
-        <el-row style="width: 100%;height:50px;display:flex">
-          <div style="width: 16%;height:50px">
-            大型车辆
-          </div>
-          <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.maxdayBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/次
-            </div>
-            <div style="width: 50%;height:50px">
-              <el-input
-                v-model="billingRuleDetailList.maxnightBillingPrice"
-                size="small"
-                style="width: 115px"
-              ></el-input
-              >元/次
-            </div>
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.maxfreeDuration"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >分钟
-          </div>
-          <div style="width: 12%;height:50px">
-            <el-input
-              v-model="billingRuleDetailList.maxrebillingDuration"
-              size="small"
-              style="width: 80px"
-            ></el-input
-            >分钟
-          </div>
-        </el-row>
-      </el-row>
-      <!-- 按时计费弹出表格 -->
-      <el-row v-if="checkChargeList.billingRuleTypeCode == 1">
-        <span>按照时长计费</span>
-        <el-form>
-          <el-form-item label="最短计费时长:"label-width="150px">
-            <el-select             style="width: 200px"
-                                   v-model="billingRuleDetailList.minBillingDurationCode">
               <el-option
                 v-for="(item, index) in minTimeList"
                 :label="item.name"

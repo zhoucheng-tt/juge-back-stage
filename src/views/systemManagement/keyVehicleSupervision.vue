@@ -429,6 +429,10 @@ export default {
     this.queryRoleListByUser();
   },
   methods: {
+    //上边部分按钮导出功能
+    exPort() {
+      console.log("export");
+    },
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
@@ -468,10 +472,7 @@ export default {
       // console.log("角色暂存id", this.roleIdList);
       // console.log("checkbox数据", this.checkRoles);
     },
-    //上边部分按钮导出功能
-    exPort() {
-      console.log("export");
-    },
+
     //分页方法
     handleCurrentModify(val) {
       this.pageNum = val;

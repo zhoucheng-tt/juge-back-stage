@@ -23,16 +23,16 @@
             value-format="yyyy-MM-dd"
           >
           </el-date-picker>
-          <span>~</span>
-          <el-date-picker
-            v-model="upQueryList.maxTime"
-            type="date"
-            size="small"
-            style="width: 160px"
-            placeholder="选择日期"
-            value-format="yyyy-MM-dd"
-          >
-          </el-date-picker>
+          <!--          <span>~</span>-->
+          <!--          <el-date-picker-->
+          <!--            v-model="upQueryList.maxTime"-->
+          <!--            type="date"-->
+          <!--            size="small"-->
+          <!--            style="width: 160px"-->
+          <!--            placeholder="选择日期"-->
+          <!--            value-format="yyyy-MM-dd"-->
+          <!--          >-->
+          <!--          </el-date-picker>-->
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select
@@ -286,8 +286,8 @@ export default {
       };
       this.$reportAnalysis.queryData(param).then(res => {
         res.resultEntity.list.forEach(item => {
-          item.usageRate = Number(item.usageRate).toFixed(2);
-          item.turnoverRate = Number(item.turnoverRate).toFixed(2);
+          item.usageRate = Number(item.usageRate).toFixed(2) + "%";
+          item.turnoverRate = Number(item.turnoverRate).toFixed(2) + "%";
           item.avgParkDuration = Math.round(item.avgParkDuration);
         });
         this.reportList = res.resultEntity.list;
