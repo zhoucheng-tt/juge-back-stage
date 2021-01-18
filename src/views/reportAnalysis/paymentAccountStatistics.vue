@@ -87,7 +87,6 @@
         </el-form-item>
       </el-form>
       <el-row class="line2">
-        <e-form-item>
           <el-button type="primary" size="small">
             <a
               :href="exportFile"
@@ -97,7 +96,6 @@
               >导出</a
             >
           </el-button>
-        </e-form-item>
       </el-row>
     </div>
     <!-- 中间图标部分内容 -->
@@ -133,11 +131,6 @@
           prop="parkName"
           :show-overflow-tooltip="true"
           label="停车场名称"
-        />
-        <el-table-column
-          prop="outDeviceName"
-          :show-overflow-tooltip="true"
-          label="通过出口名称"
         />
         <el-table-column
           prop="paid"

@@ -325,10 +325,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
-      // console.log('mmmmmmmmmmmmmmmmmm',params)
       this.$orderManagement.queryStopOrder(params).then(response => {
-        // console.log("查询表格数据", response)
-        // console.log("that.gateList", that.orderParkingList)
         //分页
         that.pageTotal = response.resultEntity.total;
         //查询
@@ -345,9 +342,7 @@ export default {
         whereStr: "district_code = '321302'"
       };
       this.$orderManagement.queryDictData(param).then(response => {
-        console.log("下拉停车场名称", response);
         this.parkingLotList = response.data.dataList;
-        console.log("下拉菜单", that.parkingLotList);
       });
     },
     // 分页查询方法

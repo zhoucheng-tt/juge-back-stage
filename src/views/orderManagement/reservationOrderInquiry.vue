@@ -326,9 +326,7 @@ export default {
         whereStr: "district_code = '321302'"
       };
       this.$orderManagement.queryDictData(param).then(response => {
-        console.log("下拉停车场名称", response);
         this.parkingLotList = response.data.dataList;
-        console.log("下拉菜单", that.parkingLotList);
       });
     },
     //查询预约状态下拉
@@ -344,9 +342,7 @@ export default {
         whereStr: ""
       };
       this.$orderManagement.queryDictData(param).then(response => {
-        console.log("预约状态下拉", response);
         this.strutsList = response.data.dataList;
-        console.log("下拉菜单", that.strutsList);
       });
     },
     queryAppointmentStopOrder() {
@@ -360,10 +356,7 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize
       };
-      console.log(param);
       this.$orderManagement.queryAppointmentStopOrder(param).then(response => {
-        console.log("查询表格数据", response);
-        // console.log("that.gateList", that.orderParkingList)
         //分页
         that.pageTotal = response.resultEntity.total;
         //查询
@@ -388,7 +381,6 @@ export default {
     showListDloage(row) {
       this.showListDloageandoff = true;
       this.showListDloageandoffList = row;
-      console.log("adadaaaaaaaaaaa", row);
     },
     //弹窗查看点击返回事件
     handleBack() {
