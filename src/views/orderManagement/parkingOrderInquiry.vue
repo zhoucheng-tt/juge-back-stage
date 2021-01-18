@@ -201,7 +201,7 @@
             <el-form-item label="订单编号:" label-width="150px">
               <el-input
                 v-model="showListDloageandoffList.orderSequence"
-                readonlys
+                readonly
               ></el-input>
             </el-form-item>
           </el-col>
