@@ -117,3 +117,11 @@ export function queryLogList(param) {
     flag: "out"
   });
 }
+//用户管理导出接口  eparking-web/systemManageFunc/exportUserList.xhtml
+export function exportUserList(param) {
+  return request({
+    url: "eparking-web/systemManageFunc/exportUserList.xhtml",
+    method: "post",
+    data: param
+  });
+}

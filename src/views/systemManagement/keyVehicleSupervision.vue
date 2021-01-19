@@ -44,7 +44,9 @@
         <el-button type="primary" @click="addUser" size="small"
           >新增用户
         </el-button>
-        <el-button type="primary" @click="exPort" size="small">导出 </el-button>
+        <el-button type="primary" @click="exPort" size="small">
+          导出
+        </el-button>
       </el-row>
     </div>
     <!--表格部分-->

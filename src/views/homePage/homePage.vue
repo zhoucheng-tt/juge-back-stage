@@ -3016,7 +3016,7 @@ letter-spacing: 0.36px;float: right"
               class="leftChartUpImage"
               alt=""
             />
-            <span class="spanStyle">近七日洗车收费次数(次)</span>
+            <span class="spanStyle">近七日洗车收费金额(元)</span>
           </div>
           <div class="rightChartCenter" id="washChargeInSevenDays">
             <Xchart
@@ -3465,7 +3465,7 @@ export default {
     // //测试方法
     // this.queryTest();
     this.queryParkTimes1();
-    //近七日洗车收费次数
+    //近七日洗车收费金额
     this.handleWashChargeInSevenDaysCharts();
   },
   methods: {
@@ -4705,9 +4705,9 @@ export default {
 .top-loginName {
   display: flex;
   height: 64px;
-  margin-left: 13%;
+  margin-left: 23%;
   margin-top: 12px;
-  line-height: 64px;
+  line-height: 72px;
   color: white;
   font-size: 18px;
 }
