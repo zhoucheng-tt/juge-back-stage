@@ -116,8 +116,9 @@ export default {
 body {
   width: 100%;
   height: 100%;
-  background: url(../../assets/login/dl-di.jpg) center center no-repeat;
-  background-size: cover;
+  background-image: url("../../assets/login/dl-di.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .login-form-control {
@@ -142,8 +143,9 @@ body {
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
-  background: url(../../assets/login/dl-di.jpg) center center no-repeat;
-  background-size: cover;
+  background-image: url("../../assets/login/dl-di.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .login-block {

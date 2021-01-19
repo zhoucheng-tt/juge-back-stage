@@ -4370,7 +4370,7 @@ export default {
             }
           }
         },
-        colors: ["#00AEFF", "#1EC193", "#E5CD2E"],
+
         legend: {
           enabled: false,
           align: "center",
