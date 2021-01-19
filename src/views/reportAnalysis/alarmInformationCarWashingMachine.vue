@@ -68,7 +68,7 @@
           style="width: 98%;margin-left: 1%"
         >
           <el-table-column
-            prop="carWasherName"
+            prop="washerName"
             :show-overflow-tooltip="true"
             label="洗车机名称"
           />
