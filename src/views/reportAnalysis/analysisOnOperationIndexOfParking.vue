@@ -381,6 +381,7 @@ export default {
           xAxis: {
             categories: this.numberOfParkingXz
           },
+          colors: ["#03D7E9"],
           yAxis: {
             title: {
               text: ""
@@ -481,6 +482,7 @@ export default {
           xAxis: {
             categories: this.averageParkingTimeXz
           },
+          colors: ["#03D7E9"],
           yAxis: {
             title: {
               text: ""
@@ -586,6 +588,7 @@ export default {
           xAxis: {
             categories: this.parkingSpaceUtilizationXz
           },
+          colors: ["#03D7E9"],
           yAxis: {
             title: {
               text: ""
@@ -688,6 +691,7 @@ export default {
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz
           },
+          colors: ["#03D7E9"],
           yAxis: {
             title: {
               text: ""
