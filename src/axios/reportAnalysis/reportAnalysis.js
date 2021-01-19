@@ -42,7 +42,7 @@ export function PayAna365(param) {
 //缴费组成分析
 export function paymentAnalysis(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/payMethodAna",
+    url: "http://192.168.1.163:8000/PayStatisticController/payMethodAna",
     method: "post",
     data: param,
     flag: "out"
@@ -88,7 +88,7 @@ export function queryParkOpeIncomeArrearsChart(param) {
 //报表分析日报
 export function queryOpeReportStatisDayAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportDate",
+    url: "http://192.168.1.163:8000/EarnAnalysisController/reportDate",
     method: "post",
     data: param,
     flag: "out"
@@ -98,7 +98,7 @@ export function queryOpeReportStatisDayAnal(param) {
 //报表分析月报
 export function queryOpeReportStatisMonthAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportMonth",
+    url: "http://192.168.1.163:8000/EarnAnalysisController/reportMonth",
     method: "post",
     data: param,
     flag: "out"
@@ -108,7 +108,7 @@ export function queryOpeReportStatisMonthAnal(param) {
 //报表分析年报
 export function queryOpeReportStatisYearAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportYear",
+    url: "http://192.168.1.163:8000/EarnAnalysisController/reportYear",
     method: "post",
     data: param,
     flag: "out"

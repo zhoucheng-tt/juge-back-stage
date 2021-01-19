@@ -15,7 +15,7 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="统计月份:">
           <el-date-picker
-            v-model="query.date"
+            v-model="query.startTime"
             type="month"
             size="small"
             style="width: 160px"
@@ -23,15 +23,16 @@
             value-format="yyyy-MM"
           />
         </el-form-item>
-        <span>~</span>
-        <el-date-picker
-          v-model="query.date"
-          type="month"
-          size="small"
-          style="width: 160px"
-          placeholder="选择月份"
-          value-format="yyyy-MM"
-        />
+        <el-form-item label="~">
+          <el-date-picker
+              v-model="query.endTime"
+              type="month"
+              size="small"
+              style="width: 160px"
+              placeholder="选择月份"
+              value-format="yyyy-MM"
+          />
+        </el-form-item>
         <el-form-item label="停车场：">
           <el-select
             size="small"
@@ -58,8 +59,15 @@
         </el-form-item>
       </el-form>
       <el-row class="line-2">
-        <el-button type="primary" size="small" @click="exportReport"
-          >导出</el-button
+        <el-button type="primary" size="small"
+        ><a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+        >导出</a
+        >
+        </el-button
         >
       </el-row>
     </div>
@@ -89,7 +97,7 @@
         style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-          prop="queryDate"
+          prop="statisticDate"
           :show-overflow-tooltip="true"
           label="统计月份"
         />
@@ -99,12 +107,12 @@
           label="停车场名称"
         />
         <el-table-column
-          prop="parkSpace"
+          prop="parkCount"
           :show-overflow-tooltip="true"
           label="车位数(个)"
         />
         <el-table-column
-          prop="parkCount"
+          prop="parkTimes"
           :show-overflow-tooltip="true"
           label="停车数(个)"
         />
@@ -116,13 +124,13 @@
         />
         <el-table-column
           width="120"
-          prop="parkSpaceUsedRate"
+          prop="usageRate"
           :show-overflow-tooltip="true"
           label="车位利用率"
         />
         <el-table-column
           width="120"
-          prop="parkSpaceTurnoverRate"
+          prop="turnoverRate"
           :show-overflow-tooltip="true"
           label="车辆周转率"
         />
@@ -139,27 +147,9 @@
         <!--          label="预约完成率"-->
         <!--        />-->
         <el-table-column
-          prop="totalIncomeMoneyAmount"
+          prop="income"
           :show-overflow-tooltip="true"
           label="总收入(元)"
-        />
-        <el-table-column
-          width="120"
-          prop="wechatPaymentMoneyAmount"
-          :show-overflow-tooltip="true"
-          label="微信缴费(元)"
-        />
-        <el-table-column
-          width="120"
-          prop="alipayPaymentMoneyAmount"
-          :show-overflow-tooltip="true"
-          label="支付宝缴费(元)"
-        />
-        <el-table-column
-          width="120"
-          prop="ETCEarn"
-          :show-overflow-tooltip="true"
-          label="ETC缴费(元)"
         />
         <!--        <el-table-column-->
         <!--          prop="arrearageMoneyAmount"-->
@@ -185,14 +175,19 @@
 </template>
 
 <script>
+import {BASE_API} from "@/utils/config";
+
 export default {
   data() {
     return {
       // 顶部查询数据暂存处
       query: {
-        date: "2020-08",
+        startTime: new Date().Format('yyyy-MM'),
+        endTime: new Date().Format('yyyy-MM'),
         parkId: ""
       },
+      //导出
+      exportFile: BASE_API + "EarnAnalysisController/month/download/",
       // 停车场下拉框数据暂存处
       parkList: [],
       // 分页8
@@ -207,14 +202,21 @@ export default {
     this.queryParkList();
     this.queryReportList();
   },
+  watch: {
+    query: {
+      handler(newVal) {
+        this.exportFile =
+            BASE_API +
+            "EarnAnalysisController/month/download?jsonStr=" +
+            encodeURIComponent(JSON.stringify(newVal));
+      },
+      deep: true
+    }
+  },
   methods: {
     //查询重置按钮
     resetQuery() {
       this.query = {};
-    },
-    // 查询
-    queryMounthReport() {
-      console.log("打印出来点击查询后所产生的值", this.query);
     },
     //导出
     exportReport() {
@@ -237,9 +239,9 @@ export default {
     //列表查询
     queryReportList() {
       const param = {
-        queryDate: this.query.date,
-        parkId: this.query.parkId,
-        pageNum: this.pageNum,
+        startTime: this.query.startTime,
+        endTime: this.query.endTime,
+        pageNumber: this.pageNum,
         pageSize: this.pageSize
       };
       this.$reportAnalysis.queryOpeReportStatisMonthAnal(param).then(res => {
