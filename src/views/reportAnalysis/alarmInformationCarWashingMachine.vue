@@ -14,7 +14,7 @@
       <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-form-item label="统计日期:">
           <el-date-picker
-            v-model="query.startStatisDate"
+            v-model="query.startTime"
             size="small"
             style="width: 160px"
             value-format="yyyy-MM-dd"
@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item label="~">
           <el-date-picker
-            v-model="query.endStatisDate"
+            v-model="query.endTime"
             size="small"
             style="width: 160px"
             value-format="yyyy-MM-dd"
@@ -47,7 +47,7 @@
       <div class="center">
         <!--    表格-->
         <el-table
-          :data="payList"
+          :data="alarmInfoList"
           :header-cell-style="{
             fontfamily: 'PingFangSC-Medium',
             background: '#FFFFFF',
@@ -68,17 +68,17 @@
           style="width: 98%;margin-left: 1%"
         >
           <el-table-column
-            prop="parkName"
+            prop="carWasherName"
             :show-overflow-tooltip="true"
             label="洗车机名称"
           />
           <el-table-column
-            prop="inTime"
+            prop="alarmTime"
             :show-overflow-tooltip="true"
             label="报警时间"
           />
           <el-table-column
-            prop="plateNumber"
+            prop="alarmType"
             :show-overflow-tooltip="true"
             label="报警类型"
           />
@@ -134,7 +134,7 @@ export default {
       //查询内容暂存
       query: {},
       //列表数据存放
-      payList: [],
+      alarmInfoList: [],
       // 停车场下拉框数据暂存处
       parkList: [],
       //初始化分页
@@ -179,12 +179,13 @@ export default {
     //列表查询
     queryList() {
       const param = {
-        pageNum: this.pageNum,
+        pageNumber: this.pageNum,
         pageSize: this.pageSize,
-        parkId: this.query.parkId
+        startTime: this.query.startTime,
+        endTime: this.query.endTime
       };
-      this.$realTimeMonitor.queryInRecord(param).then(res => {
-        this.payList = res.resultEntity.list;
+      this.$reportAnalysis.carWasherAlarm(param).then(res => {
+        this.alarmInfoList = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
       });
     },
@@ -192,7 +193,7 @@ export default {
     handleCurrentModify(val) {
       this.pageNum = val;
       // 查询列表方法
-      this.queryPayList();
+      this.queryList();
     },
     //查询停车场列表数据
     queryParkList() {

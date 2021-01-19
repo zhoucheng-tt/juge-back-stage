@@ -222,3 +222,13 @@ export function turnoverRate(param) {
     flag: "out"
   });
 }
+
+
+export function carWasherAlarm(param){
+  return request({
+    url: "http://192.168.1.163:8000/CarWasherController/queryAlarmInfo",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
