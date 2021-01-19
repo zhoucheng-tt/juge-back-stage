@@ -352,7 +352,10 @@ export default {
             // }
           },
           title: {
-            text: "收入构成分析"
+            text: "收入构成分析",
+            align: "left",
+            x: 70,
+            y: 70
           },
           credits: {
             enabled: false
@@ -380,7 +383,7 @@ export default {
             layout: "vertival",
             align: "left",
             verticalAlign: "middle",
-
+            x: 100,
             borderWidth: 0,
             itemStyle: {
               color: "blue",
@@ -388,8 +391,15 @@ export default {
             },
             itemHoverStyle: {
               color: "#0F2C54"
+            },
+            //给图例添加占比保留小数点后两位
+            labelFormatter: function() {
+              return this.name + " " + this.percentage.toFixed(2) + "%";
             }
           },
+          //饼图颜色
+          colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC"],
+          //颜色
           series: [
             {
               name: "收入占比：",
@@ -413,8 +423,11 @@ export default {
             type: "column",
             renderTo: "payAnaSeven"
           },
+          //标题居左侧x轴偏移量
           title: {
-            text: "收入趋势分析"
+            text: "收入趋势分析",
+            align: "left",
+            x: 20
           },
           credits: {
             enabled: false
@@ -427,6 +440,7 @@ export default {
               text: ""
             }
           },
+          colors: ["#00AEFF"],
           legend: {
             enabled: true,
             align: "center",
@@ -500,7 +514,9 @@ export default {
             renderTo: "payAnaThirty"
           },
           title: {
-            text: "收入趋势分析"
+            text: "收入趋势分析",
+            align: "left",
+            x: 20
           },
           credits: {
             enabled: false
@@ -508,6 +524,7 @@ export default {
           xAxis: {
             categories: this.payAnaThirtyX
           },
+          colors: ["#00AEFF"],
           yAxis: {
             title: {
               text: ""
@@ -586,7 +603,9 @@ export default {
             renderTo: "payAna365"
           },
           title: {
-            text: "收入趋势分析"
+            text: "收入趋势分析",
+            align: "left",
+            x: 20
           },
           credits: {
             enabled: false
@@ -599,6 +618,7 @@ export default {
               text: ""
             }
           },
+          colors: ["#00AEFF"],
           legend: {
             enabled: true,
             align: "center",

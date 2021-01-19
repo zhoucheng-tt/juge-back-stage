@@ -384,7 +384,7 @@ export default {
       },
       //初始化分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 9,
       pageTotal: 2,
       //顶部查询条件
       upQueryList: {},
@@ -482,6 +482,7 @@ export default {
     addUser() {
       this.addListDialog = true;
       this.checkRoles = [];
+      this.addUserForm = {};
       // console.log("新增");
     },
     //新增用户确认提交

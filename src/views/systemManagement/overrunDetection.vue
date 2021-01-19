@@ -27,11 +27,16 @@
             @click="queryRoleList"
             >查询
           </el-button>
-          <el-button type="primary" size="small" @click="addRole"
-            >新增角色
-          </el-button>
-        </el-form-item>
+          <el-button size="small" @click="roleName = ''"
+            >重置</el-button
+          ></el-form-item
+        >
       </el-form>
+      <el-row style="margin-left: 1%">
+        <el-button type="primary" size="small" @click="addRole"
+          >新增角色
+        </el-button>
+      </el-row>
     </div>
     <!--表格部分-->
     <div class="down">
@@ -523,7 +528,7 @@ export default {
       //存放新增userId
       userId: [],
       //创建者
-      creater: "admin",
+      creater: "",
       //新增功能权限父级选择框暂存
       cityOptions1: [],
       cityOptions2: [],
@@ -540,7 +545,7 @@ export default {
       roleManagementData: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 11,
       pageTotal: 1,
       //查看角色弹窗
       viewListDialog: false,
@@ -637,7 +642,7 @@ export default {
           const param = {
             roleName: this.addRoleList.roleName,
             roleDesc: this.addRoleList.roleDesc,
-            creater: this.creater,
+            creater: localStorage.getItem("userName"),
             funcId: this.funcIdSplit,
             userId: this.xuanzhongList
           };
@@ -1020,7 +1025,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 7%;
+  height: 11%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -1028,7 +1033,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 88%;
+  height: 84%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;

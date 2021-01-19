@@ -310,6 +310,11 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
+          <el-form-item label="ETC名称:" label-width="150px">
+            <el-input v-model="editListDialogueandoffList.etcName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
           <el-form-item label="所属停车场:" label-width="150px">
             <el-input v-model="editListDialogueandoffList.parkName"></el-input>
           </el-form-item>

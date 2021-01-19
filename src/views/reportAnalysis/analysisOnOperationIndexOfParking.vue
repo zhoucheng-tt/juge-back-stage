@@ -113,7 +113,6 @@
     <div class="down">
       <el-table
         :data="reportList"
-        :row-class-name="tableRowClassName"
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -138,8 +137,8 @@
         <el-table-column prop="totalParkCount" label="车位数(个)" />
         <el-table-column prop="totalParkTimes" label="停车数量(个)" />
         <el-table-column prop="avgParkDuration" label="平均停车时长(分钟)" />
-        <el-table-column prop="usageRate" label="车位利用率(%)" />
-        <el-table-column prop="turnoverRate" label="车位周转率(%)" />
+        <el-table-column prop="usageRate" label="车位利用率" />
+        <el-table-column prop="turnoverRate" label="车位周转率" />
       </el-table>
       <div style="float: right">
         <el-pagination
@@ -366,7 +365,15 @@ export default {
             renderTo: "numberOfParking"
           },
           title: {
-            text: this.numberOfParkingName
+            text: this.numberOfParkingName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
@@ -458,7 +465,15 @@ export default {
             renderTo: "averageParkingTime"
           },
           title: {
-            text: this.averageParkingTimeName
+            text: this.averageParkingTimeName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
@@ -555,7 +570,15 @@ export default {
             renderTo: "parkingSpaceUtilization"
           },
           title: {
-            text: this.parkingSpaceUtilizationName
+            text: this.parkingSpaceUtilizationName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
@@ -649,7 +672,15 @@ export default {
             renderTo: "parkingSpaceTurnoverRate"
           },
           title: {
-            text: this.parkingSpaceTurnoverRateName
+            text: this.parkingSpaceTurnoverRateName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false

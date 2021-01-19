@@ -22,6 +22,15 @@
               placeholder="选择年份"
               value-format="yyyy"
             />
+            <span>~</span>
+            <el-date-picker
+              v-model="query.date"
+              type="year"
+              size="small"
+              style="width: 160px"
+              placeholder="选择年份"
+              value-format="yyyy"
+            />
           </el-form-item>
           <el-form-item label="停车场：">
             <el-select
@@ -110,26 +119,26 @@
           width="120"
           prop="parkSpaceUsedRate"
           :show-overflow-tooltip="true"
-          label="车位利用率(%)"
+          label="车位利用率"
         />
         <el-table-column
           width="120"
           prop="parkSpaceTurnoverRate"
           :show-overflow-tooltip="true"
-          label="车辆周转率(%)"
+          label="车辆周转率"
         />
-        <el-table-column
-          width="150"
-          prop="reserveParkCount"
-          :show-overflow-tooltip="true"
-          label="预约停车数量(个)"
-        />
-        <el-table-column
-          width="120"
-          prop="reserveCompletionRate"
-          :show-overflow-tooltip="true"
-          label="预约完成率(%)"
-        />
+        <!--        <el-table-column-->
+        <!--          width="150"-->
+        <!--          prop="reserveParkCount"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="预约停车数量(个)"-->
+        <!--        />-->
+        <!--        <el-table-column-->
+        <!--          width="120"-->
+        <!--          prop="reserveCompletionRate"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="预约完成率"-->
+        <!--        />-->
         <el-table-column
           prop="totalIncomeMoneyAmount"
           :show-overflow-tooltip="true"
