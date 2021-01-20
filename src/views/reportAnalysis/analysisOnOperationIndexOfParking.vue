@@ -23,16 +23,16 @@
             value-format="yyyy-MM-dd"
           >
           </el-date-picker>
-                    <span>~</span>
-                    <el-date-picker
-                      v-model="upQueryList.maxTime"
-                      type="date"
-                      size="small"
-                      style="width: 160px"
-                      placeholder="选择日期"
-                      value-format="yyyy-MM-dd"
-                    >
-                    </el-date-picker>
+          <span>~</span>
+          <el-date-picker
+            v-model="upQueryList.maxTime"
+            type="date"
+            size="small"
+            style="width: 160px"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
+          >
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select
@@ -63,11 +63,11 @@
         <e-form-item>
           <el-button type="primary" size="small">
             <a
-                :href="exportFile"
-                class="download"
-                download=""
-                style="color: #ffffff;text-decoration:none"
-            >导出</a
+              :href="exportFile"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+              >导出</a
             >
           </el-button>
         </e-form-item>
@@ -163,7 +163,7 @@ import Xchart from "../../components/charts/charts.vue";
 import Xchart3d from "../../components/charts/charts3d.vue";
 import HighCharts from "highcharts";
 import HighCharts3d from "highcharts-3d";
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   // 组件导入
@@ -256,16 +256,15 @@ export default {
   watch: {
     upQueryList: {
       handler(newVal) {
-
-        const param={
-          startTime:newVal.minTime,
-          endTime:newVal.maxTime,
-          parkId:newVal.parkId
-        }
+        const param = {
+          startTime: newVal.minTime,
+          endTime: newVal.maxTime,
+          parkId: newVal.parkId
+        };
         this.exportFile =
-            BASE_API +
-            "operateController/download?jsonStr=" +
-            encodeURIComponent(JSON.stringify(param));
+          BASE_API +
+          "operateController/download?jsonStr=" +
+          encodeURIComponent(JSON.stringify(param));
       },
       deep: true
     }

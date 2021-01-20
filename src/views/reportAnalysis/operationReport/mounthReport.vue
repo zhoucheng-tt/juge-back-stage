@@ -25,12 +25,12 @@
         </el-form-item>
         <el-form-item label="~">
           <el-date-picker
-              v-model="query.endTime"
-              type="month"
-              size="small"
-              style="width: 160px"
-              placeholder="选择月份"
-              value-format="yyyy-MM"
+            v-model="query.endTime"
+            type="month"
+            size="small"
+            style="width: 160px"
+            placeholder="选择月份"
+            value-format="yyyy-MM"
           />
         </el-form-item>
         <el-form-item label="停车场：">
@@ -60,15 +60,14 @@
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small"
-        ><a
+          ><a
             :href="exportFile"
             class="download"
             download=""
             style="color: #ffffff;text-decoration:none"
-        >导出</a
-        >
-        </el-button
-        >
+            >导出</a
+          >
+        </el-button>
       </el-row>
     </div>
     <div class="backgroundLine"></div>
@@ -175,15 +174,15 @@
 </template>
 
 <script>
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   data() {
     return {
       // 顶部查询数据暂存处
       query: {
-        startTime: new Date().Format('yyyy-MM'),
-        endTime: new Date().Format('yyyy-MM'),
+        startTime: new Date().Format("yyyy-MM"),
+        endTime: new Date().Format("yyyy-MM"),
         parkId: ""
       },
       //导出
@@ -206,9 +205,9 @@ export default {
     query: {
       handler(newVal) {
         this.exportFile =
-            BASE_API +
-            "EarnAnalysisController/month/download?jsonStr=" +
-            encodeURIComponent(JSON.stringify(newVal));
+          BASE_API +
+          "EarnAnalysisController/month/download?jsonStr=" +
+          encodeURIComponent(JSON.stringify(newVal));
       },
       deep: true
     }

@@ -133,8 +133,8 @@ export default {
     return {
       //查询内容暂存
       query: {
-        startTime:new Date().Format('yyyy-MM-dd'),
-        endTime:new Date().Format('yyyy-MM-dd')
+        startTime: new Date().Format("yyyy-MM-dd"),
+        endTime: new Date().Format("yyyy-MM-dd")
       },
       //列表数据存放
       alarmInfoList: [],
@@ -168,9 +168,7 @@ export default {
   methods: {
     //查询重置按钮
     resetQuery() {
-      this.query = {
-
-      };
+      this.query = {};
     },
     //查询按钮
     queryButton() {
@@ -216,7 +214,6 @@ export default {
         endTime: this.query.endTime
       };
       this.$reportAnalysis.alarmTypeAna(param).then(res => {
-
         this.paymentIncomeAnalysisPie = {
           chart: {
             plotBackgroundColor: null,
@@ -243,8 +240,18 @@ export default {
             shared: true
           },
 
-          colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
-            '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
+          colors: [
+            "#7cb5ec",
+            "#434348",
+            "#90ed7d",
+            "#f7a35c",
+            "#8085e9",
+            "#f15c80",
+            "#e4d354",
+            "#8085e8",
+            "#8d4653",
+            "#91e8e1"
+          ],
 
           plotOptions: {
             pie: {
@@ -275,11 +282,13 @@ export default {
               color: "purple"
             }
           },
-          series: [{
-            name:"报警次数统计",
-            colorByPoint: true,
-            data: res.resultEntity
-          }]
+          series: [
+            {
+              name: "报警次数统计",
+              colorByPoint: true,
+              data: res.resultEntity
+            }
+          ]
         };
         new HighCharts.chart(this.paymentIncomeAnalysisPie);
       });

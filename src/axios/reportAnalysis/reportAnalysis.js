@@ -223,8 +223,7 @@ export function turnoverRate(param) {
   });
 }
 
-
-export function carWasherAlarm(param){
+export function carWasherAlarm(param) {
   return request({
     url: "http://123.207.189.27:7138/CarWasherController/queryAlarmInfo",
     method: "post",
@@ -233,7 +232,7 @@ export function carWasherAlarm(param){
   });
 }
 
-export function alarmTypeAna(param){
+export function alarmTypeAna(param) {
   return request({
     url: "http://123.207.189.27:7138/CarWasherController/alarmTypeAna",
     method: "post",
@@ -242,7 +241,7 @@ export function alarmTypeAna(param){
   });
 }
 
-export function alarmRecent7day(param){
+export function alarmRecent7day(param) {
   return request({
     url: "http://123.207.189.27:7138/CarWasherController/alarmRecent7day",
     method: "post",
