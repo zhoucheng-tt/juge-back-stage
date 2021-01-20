@@ -15,16 +15,19 @@
         <div id="parkIncome" class="echartStyle">
           <Xchart id="parkIncome" :option="parkIncomeChart"></Xchart>
         </div>
+        <div class="backgroundShu"></div>
         <!-- 停车收入构成统计分析 -->
         <div id="earnComponent" class="echartStyle">
           <Xchart id="earnComponent" :option="earnComponentChart"></Xchart>
         </div>
       </div>
+      <div class="backgroundLine"></div>
       <div class="center-content">
         <!--缴费类型统计分析-->
         <div id="paymentStyle" class="echartStyle">
           <Xchart id="paymentStyle" :option="paymentStyleChart"></Xchart>
         </div>
+        <div class="backgroundShu"></div>
         <!--停车收入对比分析-->
         <div id="earnCompare" class="echartStyle">
           <Xchart id="earnCompare" :option="earnCompareChart"></Xchart>
@@ -885,13 +888,19 @@ export default {
   width: 100%;
   height: 15px;
 }
+.backgroundShu {
+  background-color: #eaf0f6;
+  width: 1%;
+  height: 363px;
+  margin-top: -17px;
+}
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 48.5%;
   height: 330px;
   background-color: #ffffff;
   float: left;
-  margin-top: 1%;
-  margin-left: 1%;
+  /*margin-top: 1%;*/
+  /*margin-left: 1%;*/
 }
 </style>

@@ -42,7 +42,7 @@ export function PayAna365(param) {
 //缴费组成分析
 export function paymentAnalysis(param) {
   return request({
-    url: "http://192.168.1.163:8000/PayStatisticController/payMethodAna",
+    url: "http://123.207.189.27:7138/PayStatisticController/payMethodAna",
     method: "post",
     data: param,
     flag: "out"
@@ -88,7 +88,7 @@ export function queryParkOpeIncomeArrearsChart(param) {
 //报表分析日报
 export function queryOpeReportStatisDayAnal(param) {
   return request({
-    url: "http://192.168.1.163:8000/EarnAnalysisController/reportDate",
+    url: "http://123.207.189.27:7138/EarnAnalysisController/reportDate",
     method: "post",
     data: param,
     flag: "out"
@@ -98,7 +98,7 @@ export function queryOpeReportStatisDayAnal(param) {
 //报表分析月报
 export function queryOpeReportStatisMonthAnal(param) {
   return request({
-    url: "http://192.168.1.163:8000/EarnAnalysisController/reportMonth",
+    url: "http://123.207.189.27:7138/EarnAnalysisController/reportMonth",
     method: "post",
     data: param,
     flag: "out"
@@ -108,7 +108,7 @@ export function queryOpeReportStatisMonthAnal(param) {
 //报表分析年报
 export function queryOpeReportStatisYearAnal(param) {
   return request({
-    url: "http://192.168.1.163:8000/EarnAnalysisController/reportYear",
+    url: "http://123.207.189.27:7138/EarnAnalysisController/reportYear",
     method: "post",
     data: param,
     flag: "out"
@@ -180,7 +180,7 @@ export function queryAvgWashTime(param) {
 //停车场运营收入分析表格  http://192.168.1.163:8000/operateController/queryData
 export function queryData(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/queryData",
+    url: "http://123.207.189.27:7138/operateController/queryData",
     method: "post",
     data: param,
     flag: "out"
@@ -189,7 +189,7 @@ export function queryData(param) {
 //运营指标分析 停车次数 http://192.168.1.163:8000/operateController/queryParkTimes
 export function queryParkTimes(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/queryParkTimes",
+    url: "http://123.207.189.27:7138/operateController/queryParkTimes",
     method: "post",
     data: param,
     flag: "out"
@@ -198,7 +198,7 @@ export function queryParkTimes(param) {
 //运营指标分析 平均停车时长 http://192.168.1.163:8000/operateController/avgParkDuration
 export function avgParkDuration(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/avgParkDuration",
+    url: "http://123.207.189.27:7138/operateController/avgParkDuration",
     method: "post",
     data: param,
     flag: "out"
@@ -207,7 +207,7 @@ export function avgParkDuration(param) {
 //运营指标分析 车位利用率 http://192.168.1.163:8000/operateController/usageRate
 export function usageRate(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/usageRate",
+    url: "http://123.207.189.27:7138/operateController/usageRate",
     method: "post",
     data: param,
     flag: "out"
@@ -216,7 +216,7 @@ export function usageRate(param) {
 //运营指标分析 车位周转率 http://192.168.1.163:8000/operateController/turnoverRate
 export function turnoverRate(param) {
   return request({
-    url: "http://192.168.1.163:8000/operateController/turnoverRate",
+    url: "http://123.207.189.27:7138/operateController/turnoverRate",
     method: "post",
     data: param,
     flag: "out"

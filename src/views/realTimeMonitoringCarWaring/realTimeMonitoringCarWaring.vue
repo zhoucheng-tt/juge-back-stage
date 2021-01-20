@@ -508,7 +508,7 @@ export default {
   margin-top: 0.5%;
   margin-left: 1%;
   width: 98%;
-  height: 845px;
+  height: 860px;
   background-color: white;
 }
 
@@ -516,101 +516,5 @@ export default {
   padding: 0;
   position: relative;
   margin: 0 !important;
-}
-
-.all {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* 上半部分 */
-.up {
-  width: 98%;
-  height: 20%;
-  background-color: white;
-  margin-left: 1%;
-  margin-top: 0.5%;
-}
-
-/* 按时间切换框样式 */
-.upSelect {
-  width: 50%;
-  height: 30%;
-}
-
-/* 选择框样式 未选中样式 */
-.upSelectContent {
-  width: 10%;
-  height: 70%;
-  margin-top: 2%;
-  margin-left: 5%;
-  text-align: center;
-  border: 1px solid black;
-}
-
-/* 设置鼠标移动到上去显示手指形状 */
-.upSelectContent:hover {
-  cursor: pointer;
-}
-
-/* 设置选中状态的样式为蓝色 */
-.upSelectContentHover {
-  background-color: blue;
-  color: white;
-}
-
-/* 选中框中样式 */
-.upSelectContentSpan {
-  line-height: 35px;
-}
-
-/* 上部分展示统计数据样式 */
-.upBorder {
-  width: 100%;
-  height: 70%;
-  float: left;
-  margin-left: 1.5%;
-}
-
-/* 统计部分外部整体样式 */
-.leftUpContentNumContent {
-  width: 15%;
-  height: 50%;
-  float: left;
-  margin-top: 2%;
-  margin-left: 1%;
-  background-color: turquoise;
-}
-
-/* 统计部分图片样式 */
-.leftUpContentNumImg {
-  width: 30%;
-  height: 100%;
-  float: left;
-}
-
-/* 统计部分文字部分样式 */
-.leftUpContentNumSpan1 {
-  font-size: 18px;
-}
-
-/* 下半部分 */
-.down {
-  width: 98%;
-  height: 74%;
-  margin-left: 1%;
-  margin-top: 1%;
-  background-color: white;
-}
-
-/* 下部分图表样式 */
-.downCharts {
-  width: 48.5%;
-  height: 80%;
-  float: left;
-  margin-top: 4%;
-  margin-left: 1%;
-  /*background-color: red;*/
 }
 </style>
