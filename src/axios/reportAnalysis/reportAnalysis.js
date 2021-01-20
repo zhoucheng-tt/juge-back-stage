@@ -180,7 +180,7 @@ export function queryAvgWashTime(param) {
 //停车场运营收入分析表格  http://192.168.1.163:8000/operateController/queryData
 export function queryData(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/queryData",
+    url: "http://192.168.1.163:8000/operateController/queryData",
     method: "post",
     data: param,
     flag: "out"
@@ -189,7 +189,7 @@ export function queryData(param) {
 //运营指标分析 停车次数 http://192.168.1.163:8000/operateController/queryParkTimes
 export function queryParkTimes(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/queryParkTimes",
+    url: "http://192.168.1.163:8000/operateController/queryParkTimes",
     method: "post",
     data: param,
     flag: "out"
@@ -198,7 +198,7 @@ export function queryParkTimes(param) {
 //运营指标分析 平均停车时长 http://192.168.1.163:8000/operateController/avgParkDuration
 export function avgParkDuration(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/avgParkDuration",
+    url: "http://192.168.1.163:8000/operateController/avgParkDuration",
     method: "post",
     data: param,
     flag: "out"
@@ -207,7 +207,7 @@ export function avgParkDuration(param) {
 //运营指标分析 车位利用率 http://192.168.1.163:8000/operateController/usageRate
 export function usageRate(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/usageRate",
+    url: "http://192.168.1.163:8000/operateController/usageRate",
     method: "post",
     data: param,
     flag: "out"
@@ -216,7 +216,7 @@ export function usageRate(param) {
 //运营指标分析 车位周转率 http://192.168.1.163:8000/operateController/turnoverRate
 export function turnoverRate(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/turnoverRate",
+    url: "http://192.168.1.163:8000/operateController/turnoverRate",
     method: "post",
     data: param,
     flag: "out"
@@ -226,7 +226,25 @@ export function turnoverRate(param) {
 
 export function carWasherAlarm(param){
   return request({
-    url: "http://192.168.1.163:8000/CarWasherController/queryAlarmInfo",
+    url: "http://123.207.189.27:7138/CarWasherController/queryAlarmInfo",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+export function alarmTypeAna(param){
+  return request({
+    url: "http://123.207.189.27:7138/CarWasherController/alarmTypeAna",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+export function alarmRecent7day(param){
+  return request({
+    url: "http://123.207.189.27:7138/CarWasherController/alarmRecent7day",
     method: "post",
     data: param,
     flag: "out"

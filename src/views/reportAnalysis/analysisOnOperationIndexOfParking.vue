@@ -23,16 +23,16 @@
             value-format="yyyy-MM-dd"
           >
           </el-date-picker>
-          <!--          <span>~</span>-->
-          <!--          <el-date-picker-->
-          <!--            v-model="upQueryList.maxTime"-->
-          <!--            type="date"-->
-          <!--            size="small"-->
-          <!--            style="width: 160px"-->
-          <!--            placeholder="选择日期"-->
-          <!--            value-format="yyyy-MM-dd"-->
-          <!--          >-->
-          <!--          </el-date-picker>-->
+                    <span>~</span>
+                    <el-date-picker
+                      v-model="upQueryList.maxTime"
+                      type="date"
+                      size="small"
+                      style="width: 160px"
+                      placeholder="选择日期"
+                      value-format="yyyy-MM-dd"
+                    >
+                    </el-date-picker>
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select
@@ -61,8 +61,14 @@
       </el-form>
       <el-row class="demo-form-inline2">
         <e-form-item>
-          <el-button type="primary" size="small" @click="handleExport">
-            导出
+          <el-button type="primary" size="small">
+            <a
+                :href="exportFile"
+                class="download"
+                download=""
+                style="color: #ffffff;text-decoration:none"
+            >导出</a
+            >
           </el-button>
         </e-form-item>
       </el-row>
@@ -157,6 +163,7 @@ import Xchart from "../../components/charts/charts.vue";
 import Xchart3d from "../../components/charts/charts3d.vue";
 import HighCharts from "highcharts";
 import HighCharts3d from "highcharts-3d";
+import {BASE_API} from "@/utils/config";
 
 export default {
   // 组件导入
@@ -168,6 +175,8 @@ export default {
     return {
       //表格数据
       reportList: [],
+      //导出
+      exportFile: BASE_API + "operateController/download",
       //初始化分页
       pageNum: 1,
       pageSize: 5,
@@ -176,7 +185,8 @@ export default {
       upQueryList: {
         parkId: "",
         // 进场时间
-        minTime: new Date().Format("yyyy-MM-dd")
+        minTime: new Date().Format("yyyy-MM-dd"),
+        maxTime: new Date().Format("yyyy-MM-dd")
       },
       // 停车场下拉框数据暂存处
       parkingLotList: [],
@@ -243,6 +253,23 @@ export default {
       averageWashingTimeName: "平均洗车时长"
     };
   },
+  watch: {
+    upQueryList: {
+      handler(newVal) {
+
+        const param={
+          startTime:newVal.minTime,
+          endTime:newVal.maxTime,
+          parkId:newVal.parkId
+        }
+        this.exportFile =
+            BASE_API +
+            "operateController/download?jsonStr=" +
+            encodeURIComponent(JSON.stringify(param));
+      },
+      deep: true
+    }
+  },
   mounted() {
     //停车场下拉菜单
     this.queryParkList();
@@ -278,7 +305,8 @@ export default {
     //列表查询
     queryData() {
       const param = {
-        statisDate: this.upQueryList.minTime,
+        startTime: this.upQueryList.minTime,
+        endTime: this.upQueryList.maxTime,
         parkId: this.upQueryList.parkId,
         pageNum: this.pageNum,
         pageSize: this.pageSize
@@ -297,7 +325,7 @@ export default {
     handleCurrentModify(val) {
       this.pageNum = val;
       // 查询列表方法
-      this.queryReportList();
+      this.queryData();
     },
     // 查询方法
     SelectQueryList() {
@@ -316,39 +344,9 @@ export default {
     },
     //停车数量图表
     queryParkTimes() {
-      // //这边就是把参数等于对应的值就行了
-      // // 绑定自定义的id的字段名
-      // this.lineId = 'numberOfParking';
-      // // 自定义绑定的options的字段名
-      //   this.lineOptions = 'lineOptions';
-      // // 自定义停车时长
-      // this.lineTitle = '停车数量';
-      // // 定义图表类型
-      // this.lineChartsType = 'area';
-      //
-      // // 绑定定义的名字
-      // this.lineChartsName = this.numberOfParkingName;
-      // var that = this;
-      // const param = {
-      //   "statisDate": this.upQueryList.minTime,
-      //   "cityCode": "321300",
-      //   "districtCode": "321302",
-      //   "parkId": this.upQueryList.parkId
-      // }
-      // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
-      //   this.numberOfParkingXz = [];
-      //   this.numberOfParkingData = [];
-      //   res.data.dataList.forEach((item) => {
-      //     this.numberOfParkingXz.push(item.periodName);
-      //     this.numberOfParkingData.push(item.parkCount);
-      //   })
-      //   // 将数据绑定到暂存数组中
-      //   that.lineChartsList = that.numberOfParkingData;
-      //   that.lineChartsX = that.numberOfParkingXz;
-      //   that.queryLine();
-      // })
       const param = {
-        statisDate: this.upQueryList.minTime,
+        startTime: this.upQueryList.minTime,
+        endTime: this.upQueryList.maxTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.queryParkTimes(param).then(res => {
@@ -449,7 +447,8 @@ export default {
       // this.lineChartsName = this.averageParkingTimeName;
       // this.queryLine(this.lineId, this.lineOptions);\
       const param = {
-        statisDate: this.upQueryList.minTime,
+        startTime: this.upQueryList.minTime,
+        endTime: this.upQueryList.maxTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.avgParkDuration(param).then(res => {
@@ -550,7 +549,8 @@ export default {
       // this.lineChartsName = this.parkingSpaceUtilizationName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: this.upQueryList.minTime,
+        startTime: this.upQueryList.minTime,
+        endTime: this.upQueryList.maxTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.usageRate(param).then(res => {
@@ -559,12 +559,10 @@ export default {
         res.resultEntity.forEach(item => {
           this.parkingSpaceUtilizationXz.push(item.X);
           //%后小数点后两位
-          console.log((Number(item.dataY) * 100).toFixed(2));
           this.parkingSpaceUtilizationData.push(
             Number((Number(item.dataY) * 100).toFixed(2))
           );
         });
-        console.log(this.parkingSpaceUtilizationData);
         this.parkingSpaceUtilizationOptions = {
           chart: {
             type: "area",
@@ -656,7 +654,8 @@ export default {
       // this.lineChartsName = this.parkingSpaceTurnoverRateName;
       // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        statisDate: this.upQueryList.minTime,
+        startTime: this.upQueryList.minTime,
+        endTime: this.upQueryList.maxTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.turnoverRate(param).then(res => {

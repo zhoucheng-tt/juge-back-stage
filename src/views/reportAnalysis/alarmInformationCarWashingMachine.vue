@@ -132,7 +132,10 @@ export default {
   data() {
     return {
       //查询内容暂存
-      query: {},
+      query: {
+        startTime:new Date().Format('yyyy-MM-dd'),
+        endTime:new Date().Format('yyyy-MM-dd')
+      },
       //列表数据存放
       alarmInfoList: [],
       // 停车场下拉框数据暂存处
@@ -165,16 +168,16 @@ export default {
   methods: {
     //查询重置按钮
     resetQuery() {
-      this.query = {};
+      this.query = {
+
+      };
     },
     //查询按钮
     queryButton() {
       //列表查询
-      this.queryPayList();
+      this.queryList();
       //报警次数统计
       this.queryPaymentBehaviorAnalysis();
-      //洗车机近七日报警报警趋势分析
-      this.queryParkTimes();
     },
     //列表查询
     queryList() {
@@ -209,54 +212,11 @@ export default {
     //报警次数统计
     queryPaymentBehaviorAnalysis() {
       const param = {
-        statisType: "today"
+        startTime: this.query.startTime,
+        endTime: this.query.endTime
       };
-      this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
-        var alipayDataList = ["报警类型1", 10];
-        var wechatDataList = ["报警类型2", 20];
-        var qrCodeDataList = ["报警类型3", 30];
-        var cashDataList = ["报警类型4", 40];
-        // var alipayDataList = [
-        //   "支付宝支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
-        // console.log(this.alipayDataList);
-        // var wechatDataList = [
-        //   "微信支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
-        // var qrCodeDataList = [
-        //   "扫码支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
-        // var cashDataList = [
-        //   "现金支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].cashPaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
+      this.$reportAnalysis.alarmTypeAna(param).then(res => {
 
-        this.paymentIncomeAnalysis = [
-          {
-            type: "pie",
-            name: "支付占比",
-            data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList]
-          }
-        ];
         this.paymentIncomeAnalysisPie = {
           chart: {
             plotBackgroundColor: null,
@@ -283,7 +243,8 @@ export default {
             shared: true
           },
 
-          colors: ["#007AFF", "#03D7E9", "#E9C503", "#7654E3"],
+          colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
+            '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
 
           plotOptions: {
             pie: {
@@ -314,48 +275,18 @@ export default {
               color: "purple"
             }
           },
-          series: this.paymentIncomeAnalysis
+          series: [{
+            name:"报警次数统计",
+            colorByPoint: true,
+            data: res.resultEntity
+          }]
         };
         new HighCharts.chart(this.paymentIncomeAnalysisPie);
       });
     },
     //洗车机近七日报警报警趋势分析
     queryParkTimes() {
-      // //这边就是把参数等于对应的值就行了
-      // // 绑定自定义的id的字段名
-      // this.lineId = 'numberOfParking';
-      // // 自定义绑定的options的字段名
-      //   this.lineOptions = 'lineOptions';
-      // // 自定义停车时长
-      // this.lineTitle = '停车数量';
-      // // 定义图表类型
-      // this.lineChartsType = 'area';
-      //
-      // // 绑定定义的名字
-      // this.lineChartsName = this.numberOfParkingName;
-      // var that = this;
-      // const param = {
-      //   "statisDate": this.upQueryList.minTime,
-      //   "cityCode": "321300",
-      //   "districtCode": "321302",
-      //   "parkId": this.upQueryList.parkId
-      // }
-      // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
-      //   this.numberOfParkingXz = [];
-      //   this.numberOfParkingData = [];
-      //   res.data.dataList.forEach((item) => {
-      //     this.numberOfParkingXz.push(item.periodName);
-      //     this.numberOfParkingData.push(item.parkCount);
-      //   })
-      //   // 将数据绑定到暂存数组中
-      //   that.lineChartsList = that.numberOfParkingData;
-      //   that.lineChartsX = that.numberOfParkingXz;
-      //   that.queryLine();
-      // })
-      const param = {
-        statisDate: "2021-01-12"
-      };
-      this.$reportAnalysis.queryParkTimes(param).then(res => {
+      this.$reportAnalysis.alarmRecent7day(1).then(res => {
         this.numberOfParkingXz = [];
         this.numberOfParkingData = [];
         res.resultEntity.forEach(item => {
@@ -383,7 +314,7 @@ export default {
             },
             labels: {
               //修改Y轴添加单位
-              format: "{value}辆"
+              format: "{value}次"
             }
           },
           legend: {
@@ -407,7 +338,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>辆"
+            pointFormat: "{point.x}报警 <b>{point.y}</b>次"
           },
           plotOptions: {
             area: {
