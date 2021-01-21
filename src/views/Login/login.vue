@@ -31,7 +31,7 @@
         <div class="login-form-group">
           <el-button class="login-btn" @click="loginBtn()">登录</el-button>
         </div>
-        <a href="forgot.html" class="login-forgot-pass">忘记密码?</a>
+        <!--        <a href="forgot.html" class="login-forgot-pass">忘记密码?</a>-->
         <!--  <a href="javascript:void(0);" class="login-regist">现在注册</a> -->
       </el-form>
     </div>

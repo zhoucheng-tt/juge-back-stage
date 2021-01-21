@@ -49,9 +49,7 @@
           <el-button type="primary" size="small" @click="queryBlackList()"
             >查询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -103,21 +101,21 @@
           :show-overflow-tooltip="true"
           label="车牌号码"
         />
-        <el-table-column
-          prop="arrearageMoneyAmount"
-          :show-overflow-tooltip="true"
-          label="欠费金额"
-        />
-        <el-table-column
-          prop="carOwnerName"
-          :show-overflow-tooltip="true"
-          label="车主姓名"
-        />
-        <el-table-column
-          prop="phoneNumber"
-          :show-overflow-tooltip="true"
-          label="手机号"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="arrearageMoneyAmount"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="欠费金额"-->
+        <!--        />-->
+        <!--        <el-table-column-->
+        <!--          prop="carOwnerName"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="车主姓名"-->
+        <!--        />-->
+        <!--        <el-table-column-->
+        <!--          prop="phoneNumber"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="手机号"-->
+        <!--        />-->
         <el-table-column
           prop="joinBlackListTime"
           :show-overflow-tooltip="true"
@@ -218,50 +216,50 @@
               </el-form-item>
             </el-col>
             <!--                黑名单信息第一行车主姓名-->
-            <el-col :span="12">
-              <el-form-item
-                label="车主姓名:"
-                label-width="150px"
-                prop="carOwnerName"
-              >
-                <el-input v-model="addBlackData.carOwnerName"></el-input>
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="12">-->
+            <!--              <el-form-item-->
+            <!--                label="车主姓名:"-->
+            <!--                label-width="150px"-->
+            <!--                prop="carOwnerName"-->
+            <!--              >-->
+            <!--                <el-input v-model="addBlackData.carOwnerName"></el-input>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
           </el-row>
           <!--                        黑名单信息第二行手机号身份证信息-->
+          <!--          <el-row>-->
+          <!--            <el-col :span="12">-->
+          <!--              <el-form-item-->
+          <!--                label="手机号:"-->
+          <!--                label-width="150px"-->
+          <!--                prop="phoneNumber"-->
+          <!--              >-->
+          <!--                <el-input v-model="addBlackData.phoneNumber"></el-input>-->
+          <!--              </el-form-item>-->
+          <!--            </el-col>-->
+          <!--            <el-col :span="12">-->
+          <!--              <el-form-item-->
+          <!--                label="身份证信息:"-->
+          <!--                label-width="150px"-->
+          <!--                prop="idCardNumber"-->
+          <!--              >-->
+          <!--                <el-input v-model="addBlackData.idCardNumber"></el-input>-->
+          <!--              </el-form-item>-->
+          <!--            </el-col>-->
+          <!--          </el-row>-->
           <el-row>
-            <el-col :span="12">
-              <el-form-item
-                label="手机号:"
-                label-width="150px"
-                prop="phoneNumber"
-              >
-                <el-input v-model="addBlackData.phoneNumber"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item
-                label="身份证信息:"
-                label-width="150px"
-                prop="idCardNumber"
-              >
-                <el-input v-model="addBlackData.idCardNumber"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item
-                label="欠费金额:"
-                label-width="150px"
-                prop="arrearageMoneyAmount"
-              >
-                <el-input
-                  style="width: 200px"
-                  v-model="addBlackData.arrearageMoneyAmount"
-                ></el-input>
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="12">-->
+            <!--              <el-form-item-->
+            <!--                label="欠费金额:"-->
+            <!--                label-width="150px"-->
+            <!--                prop="arrearageMoneyAmount"-->
+            <!--              >-->
+            <!--                <el-input-->
+            <!--                  style="width: 200px"-->
+            <!--                  v-model="addBlackData.arrearageMoneyAmount"-->
+            <!--                ></el-input>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
             <el-col :span="12">
               <el-form-item
                 label="加入原因："
@@ -286,18 +284,18 @@
           <!--                        黑名单第五行加入黑名单原因-->
           <el-row class="addBlackListDate"> </el-row>
           <!--                        黑名单第三行车主联系地址-->
-          <el-row>
-            <el-form-item
-              label="车主联系地址:"
-              label-width="150px"
-              prop="carOwnerContactAddress"
-            >
-              <el-input
-                style="width: 500px"
-                v-model="addBlackData.carOwnerContactAddress"
-              ></el-input>
-            </el-form-item>
-          </el-row>
+          <!--          <el-row>-->
+          <!--            <el-form-item-->
+          <!--              label="车主联系地址:"-->
+          <!--              label-width="150px"-->
+          <!--              prop="carOwnerContactAddress"-->
+          <!--            >-->
+          <!--              <el-input-->
+          <!--                style="width: 500px"-->
+          <!--                v-model="addBlackData.carOwnerContactAddress"-->
+          <!--              ></el-input>-->
+          <!--            </el-form-item>-->
+          <!--          </el-row>-->
           <!--                        黑名单最后一行备注-->
           <el-row>
             <el-form-item label="备注:" prop="remark">
@@ -364,27 +362,27 @@
                 </el-form-item>
               </el-col>
               <!--                黑名单信息第一行车主姓名-->
-              <el-col :span="12">
-                <el-form-item label="车主姓名:" label-width="180px">
-                  <el-input v-model="modifyBlackList.carOwnerName"></el-input>
-                </el-form-item>
-              </el-col>
+              <!--              <el-col :span="12">-->
+              <!--                <el-form-item label="车主姓名:" label-width="180px">-->
+              <!--                  <el-input v-model="modifyBlackList.carOwnerName"></el-input>-->
+              <!--                </el-form-item>-->
+              <!--              </el-col>-->
             </el-row>
             <!--                        黑名单信息第二行手机号身份证信息-->
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="手机号:" label-width="180px">
-                  <el-input v-model="modifyBlackList.phoneNumber"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12"
-                ><el-form-item label="欠费金额:" label-width="180px">
-                  <el-input
-                    style="width: 200px"
-                    v-model="modifyBlackList.arrearageMoneyAmount"
-                  ></el-input> </el-form-item
-              ></el-col>
-            </el-row>
+            <!--            <el-row>-->
+            <!--              <el-col :span="12">-->
+            <!--                <el-form-item label="手机号:" label-width="180px">-->
+            <!--                  <el-input v-model="modifyBlackList.phoneNumber"></el-input>-->
+            <!--                </el-form-item>-->
+            <!--              </el-col>-->
+            <!--              <el-col :span="12"-->
+            <!--                ><el-form-item label="欠费金额:" label-width="180px">-->
+            <!--                  <el-input-->
+            <!--                    style="width: 200px"-->
+            <!--                    v-model="modifyBlackList.arrearageMoneyAmount"-->
+            <!--                  ></el-input> </el-form-item-->
+            <!--              ></el-col>-->
+            <!--            </el-row>-->
             <el-row>
               <el-col :span="12">
                 <el-form-item label-width="180px" label="加入黑名单原因:">

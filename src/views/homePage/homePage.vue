@@ -459,10 +459,10 @@ letter-spacing: 0.36px;float: right"
       <div class="center">
         <div style="display: flex">
           <!--        剩余车位数-->
-          <div class="center-leftport">社会停车场剩余车位数</div>
+          <div class="center-leftport">公共停车场剩余车位数</div>
           <!--        剩余车位数-->
           <div class="center-leftport" style="margin-left: 19%">
-            企业停车场剩余车位数
+            员工停车场剩余车位数
           </div>
         </div>
         <div>

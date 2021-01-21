@@ -47,9 +47,7 @@
           <el-button type="primary" size="small" @click="queryWhiteList"
             >查询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -101,26 +99,26 @@
           :show-overflow-tooltip="true"
           label="车牌号"
         />
-        <el-table-column
-          prop="carOwnerName"
-          :show-overflow-tooltip="true"
-          label="车主姓名"
-        />
-        <el-table-column
-          prop="phoneNumber"
-          :show-overflow-tooltip="true"
-          label="手机号"
-        />
-        <el-table-column
-          prop="idCardNumber"
-          :show-overflow-tooltip="true"
-          label="身份证信息"
-        />
-        <el-table-column
-          prop="carOwnerContactAddress"
-          :show-overflow-tooltip="true"
-          label="车主联系地址"
-        />
+        <!--        <el-table-column-->
+        <!--          prop="carOwnerName"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="车主姓名"-->
+        <!--        />-->
+        <!--        <el-table-column-->
+        <!--          prop="phoneNumber"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="手机号"-->
+        <!--        />-->
+        <!--        <el-table-column-->
+        <!--          prop="idCardNumber"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="身份证信息"-->
+        <!--        />-->
+        <!--        <el-table-column-->
+        <!--          prop="carOwnerContactAddress"-->
+        <!--          :show-overflow-tooltip="true"-->
+        <!--          label="车主联系地址"-->
+        <!--        />-->
         <el-table-column
           prop="numberPlateColorName"
           :show-overflow-tooltip="true"
@@ -239,35 +237,55 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item
-                  label="车主姓名:"
+                  label="车牌颜色:"
                   label-width="150px"
-                  prop="carOwnerName"
+                  prop="numberPlateColorCode"
                 >
-                  <el-input v-model="addWhiteData.carOwnerName"></el-input>
+                  <el-select
+                    v-model="addWhiteData.numberPlateColorCode"
+                    placeholder="请选择"
+                  >
+                    <el-option
+                      v-for="(item, index) in plateColorList"
+                      :label="item.name"
+                      :value="item.code"
+                      :key="index"
+                    >
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>
+              <!--              <el-col :span="12">-->
+              <!--                <el-form-item-->
+              <!--                  label="车主姓名:"-->
+              <!--                  label-width="150px"-->
+              <!--                  prop="carOwnerName"-->
+              <!--                >-->
+              <!--                  <el-input v-model="addWhiteData.carOwnerName"></el-input>-->
+              <!--                </el-form-item>-->
+              <!--              </el-col>-->
             </el-row>
             <!--                        白名单第二行手机号身份证信息-->
-            <el-row>
-              <el-col :span="12">
-                <el-form-item
-                  label="手机号:"
-                  label-width="150px"
-                  prop="phoneNumber"
-                >
-                  <el-input v-model="addWhiteData.phoneNumber"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  label="身份证信息:"
-                  label-width="150px"
-                  prop="idCardNumber"
-                >
-                  <el-input v-model="addWhiteData.idCardNumber"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+            <!--            <el-row>-->
+            <!--              <el-col :span="12">-->
+            <!--                <el-form-item-->
+            <!--                  label="手机号:"-->
+            <!--                  label-width="150px"-->
+            <!--                  prop="phoneNumber"-->
+            <!--                >-->
+            <!--                  <el-input v-model="addWhiteData.phoneNumber"></el-input>-->
+            <!--                </el-form-item>-->
+            <!--              </el-col>-->
+            <!--              <el-col :span="12">-->
+            <!--                <el-form-item-->
+            <!--                  label="身份证信息:"-->
+            <!--                  label-width="150px"-->
+            <!--                  prop="idCardNumber"-->
+            <!--                >-->
+            <!--                  <el-input v-model="addWhiteData.idCardNumber"></el-input>-->
+            <!--                </el-form-item>-->
+            <!--              </el-col>-->
+            <!--            </el-row>-->
             <!--                        白名单第五行生效失效时间-->
             <el-row style="display: flex">
               <el-row style="margin-left: 6%">
@@ -296,49 +314,31 @@
               </el-row>
             </el-row>
             <!--                        白名单第四行车牌颜色-->
-            <el-row>
-              <el-form-item
-                label="车牌颜色:"
-                label-width="150px"
-                prop="numberPlateColorCode"
-              >
-                <el-select
-                  v-model="addWhiteData.numberPlateColorCode"
-                  placeholder="请选择"
-                >
-                  <el-option
-                    v-for="(item, index) in plateColorList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <!--                        车位编号-->
-              <el-col :span="12">
-                <el-form-item
-                  label="车位编号:"
-                  label-width="150px"
-                  prop="parkSpaceId"
-                >
-                  <el-input v-model="addWhiteData.parkSpaceId"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+            <!--            <el-row>-->
+            <!--                        车位编号-->
+            <!--              <el-col :span="12">-->
+            <!--                <el-form-item-->
+            <!--                  label="车位编号:"-->
+            <!--                  label-width="150px"-->
+            <!--                  prop="parkSpaceId"-->
+            <!--                >-->
+            <!--                  <el-input v-model="addWhiteData.parkSpaceId"></el-input>-->
+            <!--                </el-form-item>-->
+            <!--              </el-col>-->
+            <!--            </el-row>-->
             <!--                        白名单第三行车主联系地址-->
-            <el-row>
-              <el-form-item
-                label="车主联系地址:"
-                label-width="150px"
-                prop="carOwnerContactAddress"
-              >
-                <el-input
-                  style="width: 600px"
-                  v-model="addWhiteData.carOwnerContactAddress"
-                ></el-input>
-              </el-form-item>
-            </el-row>
+            <!--            <el-row>-->
+            <!--              <el-form-item-->
+            <!--                label="车主联系地址:"-->
+            <!--                label-width="150px"-->
+            <!--                prop="carOwnerContactAddress"-->
+            <!--              >-->
+            <!--                <el-input-->
+            <!--                  style="width: 600px"-->
+            <!--                  v-model="addWhiteData.carOwnerContactAddress"-->
+            <!--                ></el-input>-->
+            <!--              </el-form-item>-->
+            <!--            </el-row>-->
             <!--                        白名单最后一行备注-->
             <el-row>
               <el-form-item label="备注:" label-width="150px">
@@ -407,24 +407,40 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                  <el-form-item label="车主姓名:" label-width="150px">
-                    <el-input v-model="modifyWhiteList.carOwnerName"></el-input>
-                  </el-form-item>
-                </el-col>
+                  <el-form-item label="车牌颜色:" label-width="150px">
+                    <el-select
+                      v-model="modifyWhiteList.numberPlateColorCode"
+                      placeholder="请选择"
+                    >
+                      <el-option
+                        v-for="(item, index) in plateColorList"
+                        :label="item.name"
+                        :value="item.code"
+                        :key="index"
+                      >
+                      </el-option>
+                    </el-select> </el-form-item
+                ></el-col>
+
+                <!--                <el-col :span="12">-->
+                <!--                  <el-form-item label="车主姓名:" label-width="150px">-->
+                <!--                    <el-input v-model="modifyWhiteList.carOwnerName"></el-input>-->
+                <!--                  </el-form-item>-->
+                <!--                </el-col>-->
               </el-row>
               <!--                        白名单第二行手机号身份证信息-->
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="手机号:" label-width="150px">
-                    <el-input v-model="modifyWhiteList.phoneNumber"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="身份证信息:" label-width="150px">
-                    <el-input v-model="modifyWhiteList.idCardNumber"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+              <!--              <el-row>-->
+              <!--                <el-col :span="12">-->
+              <!--                  <el-form-item label="手机号:" label-width="150px">-->
+              <!--                    <el-input v-model="modifyWhiteList.phoneNumber"></el-input>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="12">-->
+              <!--                  <el-form-item label="身份证信息:" label-width="150px">-->
+              <!--                    <el-input v-model="modifyWhiteList.idCardNumber"></el-input>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
               <!--                        白名单第五行生效失效时间-->
               <el-row style="display: flex">
                 <el-row style="margin-left: 6%">
@@ -453,38 +469,23 @@
                 </el-row>
               </el-row>
               <!--                        白名单第四行车牌颜色-->
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="车牌颜色:" label-width="150px">
-                    <el-select
-                      v-model="modifyWhiteList.numberPlateColorCode"
-                      placeholder="请选择"
-                    >
-                      <el-option
-                        v-for="(item, index) in plateColorList"
-                        :label="item.name"
-                        :value="item.code"
-                        :key="index"
-                      >
-                      </el-option>
-                    </el-select> </el-form-item
-                ></el-col>
-                <!--                        车位编号-->
-                <el-col :span="12">
-                  <el-form-item label="车位编号:" label-width="150px">
-                    <el-input v-model="modifyWhiteList.parkSpaceId"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+              <!--              <el-row>-->
+              <!--                &lt;!&ndash;                        车位编号&ndash;&gt;-->
+              <!--                &lt;!&ndash;                <el-col :span="12">&ndash;&gt;-->
+              <!--                &lt;!&ndash;                  <el-form-item label="车位编号:" label-width="150px">&ndash;&gt;-->
+              <!--                &lt;!&ndash;                    <el-input v-model="modifyWhiteList.parkSpaceId"></el-input>&ndash;&gt;-->
+              <!--                &lt;!&ndash;                  </el-form-item>&ndash;&gt;-->
+              <!--                &lt;!&ndash;                </el-col>&ndash;&gt;-->
+              <!--              </el-row>-->
               <!--                        白名单第三行车主联系地址-->
-              <el-row>
-                <el-form-item label="车主联系地址:" label-width="150px">
-                  <el-input
-                    style="width: 600px"
-                    v-model="modifyWhiteList.carOwnerContactAddress"
-                  ></el-input>
-                </el-form-item>
-              </el-row>
+              <!--              <el-row>-->
+              <!--                <el-form-item label="车主联系地址:" label-width="150px">-->
+              <!--                  <el-input-->
+              <!--                    style="width: 600px"-->
+              <!--                    v-model="modifyWhiteList.carOwnerContactAddress"-->
+              <!--                  ></el-input>-->
+              <!--                </el-form-item>-->
+              <!--              </el-row>-->
               <!--                        白名单最后一行备注-->
               <el-row>
                 <el-form-item label="备注:" label-width="150px">

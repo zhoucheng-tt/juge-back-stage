@@ -40,9 +40,7 @@
           <el-button type="primary" size="small" @click="queryLogList">
             查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
