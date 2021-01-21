@@ -249,3 +249,31 @@ export function alarmRecent7day(param) {
     flag: "out"
   });
 }
+
+//运营收入分析 缴费类型统计分析图表
+export function queryChargeTypeByHours(param) {
+  return request({
+    url: "http://192.168.1.200:8000/IncomeAnalysis/queryChargeTypeByHours",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营收入分析 停车收入构成统计分析
+export function queryChargePercent(param) {
+  return request({
+    url: "http://192.168.1.200:8000/IncomeAnalysis/queryChargePercent",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营收入分析 停车收费统计分析
+export function queryAmountAnalysis(param) {
+  return request({
+    url: "http://192.168.1.200:8000/IncomeAnalysis/queryAmountAnalysis",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}

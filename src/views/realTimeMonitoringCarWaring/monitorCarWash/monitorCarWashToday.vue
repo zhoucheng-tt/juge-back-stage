@@ -51,8 +51,14 @@
 
 <script>
 import HighCharts from "highcharts";
+import Xchart from "../../../components/charts/charts";
+import Xchart3d from "../../../components/charts/charts3d";
 
 export default {
+  components: {
+    Xchart,
+    Xchart3d
+  },
   data() {
     return {
       //洗车收入统计分析

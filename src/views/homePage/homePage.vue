@@ -4704,8 +4704,9 @@ export default {
 }
 .top-loginName {
   display: flex;
+  width: 10%;
   height: 64px;
-  margin-left: 23%;
+  margin-left: 20%;
   margin-top: 12px;
   line-height: 72px;
   color: white;
