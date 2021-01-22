@@ -88,10 +88,14 @@ export default {
       earnComponentDataList: [],
       earnComponentChart: {},
       earnComponentTotal: 0,
-      earnComponentETC: ["ETC", 10],
-      earnComponentWX: ["WX", 20],
-      earnComponentZFB: ["ZFB", 30],
-      earnComponentOTHER: ["OTHER", 40],
+      earnComponentETC: ["ETC", 0],
+      // earnComponentWX: ["WX", 0],
+      earnComponentWX: {
+        payType: "WX",
+        percent: 0
+      },
+      earnComponentZFB: ["ZFB", 0],
+      earnComponentOTHER: ["OTHER", 0],
 
       //缴费类型统计分析
       paymentStyleChart: {},
@@ -152,7 +156,7 @@ export default {
           },
           title: {
             text: this.parkIncomeAnalysisName,
-            align: "center",
+            align: "left",
             x: 20,
             style: {
               fontFamily: "PingFangSC-Medium",
@@ -226,10 +230,11 @@ export default {
     parkComparativeAnalysis() {
       const param = { querydate: "today" };
       this.$reportAnalysis.queryChargePercent(param).then(res => {
-        // this.earnComponentETC = [];
+        console.log(res.resultEntity);
+        this.earnComponentETC = [];
         // this.earnComponentWX = [];
-        // this.earnComponentZFB = [];
-        // this.earnComponentOTHER = [];
+        this.earnComponentZFB = [];
+        this.earnComponentOTHER = [];
         this.earnComponentETC.push(res.resultEntity[0].payType);
         this.earnComponentETC.push(Number(res.resultEntity[0].percent) * 100);
         this.earnComponentOTHER.push(res.resultEntity[1].payType);
@@ -554,7 +559,7 @@ export default {
   height: 40px;
   background-color: white;
   margin-left: 1%;
-  margin-top: 0.5%;
+  /*margin-top: 0.5%;*/
 }
 
 /* 中间部分图表内容 */

@@ -357,7 +357,7 @@ export default {
         });
         this.numberOfParkingOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "numberOfParking"
           },
@@ -378,7 +378,7 @@ export default {
           xAxis: {
             categories: this.numberOfParkingXz
           },
-          colors: ["#03D7E9"],
+          colors: ["#7654E3"],
           yAxis: {
             title: {
               text: ""
@@ -389,7 +389,7 @@ export default {
             }
           },
           legend: {
-            enabled: true,
+            enabled: false,
             align: "center",
             verticalAlign: "left",
             x: 300,
@@ -412,16 +412,15 @@ export default {
             pointFormat: "{series.name}: <b>{point.y}</b>辆"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 4,
+              states: {
+                hover: {
+                  lineWidth: 5
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
@@ -459,7 +458,7 @@ export default {
         });
         this.averageParkingTimeOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "averageParkingTime"
           },
@@ -480,7 +479,7 @@ export default {
           xAxis: {
             categories: this.averageParkingTimeXz
           },
-          colors: ["#03D7E9"],
+          colors: ["#00DBEC"],
           yAxis: {
             title: {
               text: ""
@@ -514,16 +513,15 @@ export default {
             pointFormat: "{series.name}: <b>{point.y}</b>分钟"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 4,
+              states: {
+                hover: {
+                  lineWidth: 5
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
@@ -564,7 +562,7 @@ export default {
         });
         this.parkingSpaceUtilizationOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingSpaceUtilization"
           },
@@ -585,7 +583,7 @@ export default {
           xAxis: {
             categories: this.parkingSpaceUtilizationXz
           },
-          colors: ["#03D7E9"],
+          colors: ["#1EC193"],
           yAxis: {
             title: {
               text: ""
@@ -619,16 +617,15 @@ export default {
             pointFormat: "{series.name}: <b>{point.y}</b>%"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 4,
+              states: {
+                hover: {
+                  lineWidth: 5
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
@@ -668,7 +665,7 @@ export default {
         });
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingSpaceTurnoverRate"
           },
@@ -689,7 +686,7 @@ export default {
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz
           },
-          colors: ["#03D7E9"],
+          colors: ["#FFBC00"],
           yAxis: {
             title: {
               text: ""
@@ -722,16 +719,15 @@ export default {
             pointFormat: "{series.name}: <b>{point.y}</b>%"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 4,
+              states: {
+                hover: {
+                  lineWidth: 5
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },

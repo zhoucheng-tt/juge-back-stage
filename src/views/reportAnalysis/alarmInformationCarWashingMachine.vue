@@ -110,10 +110,10 @@
           ></Xchart>
         </div>
         <!-- 洗车机近七日报警趋势分析 -->
-        <div class="echartStyle" id="numberOfParking">
+        <div class="echartStyle" id="washCarSevenDaysAnalysis">
           <Xchart
-            id="numberOfParking"
-            :option="numberOfParkingOptions"
+            id="washCarSevenDaysAnalysis"
+            :option="washCarSevenDaysAnalysisOption"
           ></Xchart>
         </div>
       </div>
@@ -150,11 +150,11 @@ export default {
       paymentIncomeAnalysisPie: {},
 
       //洗车机近七日报警报警趋势分析
-      numberOfParkingOptions: {},
+      washCarSevenDaysAnalysisOption: {},
       // 图表数据
-      numberOfParkingData: [],
-      numberOfParkingXz: [],
-      numberOfParkingName: "洗车机近七日报警报警趋势分析"
+      washCarSevenDaysAnalysisData: [],
+      washCarSevenDaysAnalysisXz: [],
+      washCarSevenDaysAnalysisName: "洗车机近七日报警报警趋势分析"
     };
   },
   mounted() {
@@ -163,7 +163,7 @@ export default {
     //报警次数统计
     this.queryPaymentBehaviorAnalysis();
     //洗车机近七日报警报警趋势分析
-    this.queryParkTimes();
+    this.handleWashCarSevenDaysAnalysis();
   },
   methods: {
     //查询重置按钮
@@ -276,10 +276,10 @@ export default {
             verticalAlign: "top",
             borderWidth: 0,
             itemStyle: {
-              color: "blue"
+              // color: "blue"
             },
             itemHoverStyle: {
-              color: "purple"
+              color: "blue"
             }
           },
           series: [
@@ -294,28 +294,29 @@ export default {
       });
     },
     //洗车机近七日报警报警趋势分析
-    queryParkTimes() {
+    handleWashCarSevenDaysAnalysis() {
       this.$reportAnalysis.alarmRecent7day(1).then(res => {
-        this.numberOfParkingXz = [];
-        this.numberOfParkingData = [];
+        this.washCarSevenDaysAnalysisXz = [];
+        this.washCarSevenDaysAnalysisData = [];
         res.resultEntity.forEach(item => {
-          this.numberOfParkingXz.push(item.X);
-          this.numberOfParkingData.push(Number(item.dataY));
+          this.washCarSevenDaysAnalysisXz.push(item.X);
+          this.washCarSevenDaysAnalysisData.push(Number(item.dataY));
         });
-        this.numberOfParkingOptions = {
+        this.washCarSevenDaysAnalysisOption = {
           chart: {
-            type: "line",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "numberOfParking"
+            renderTo: "washCarSevenDaysAnalysis"
           },
           title: {
-            text: this.numberOfParkingName
+            text: this.washCarSevenDaysAnalysisName
           },
           credits: {
             enabled: false
           },
           xAxis: {
-            categories: this.numberOfParkingXz
+            categories: this.washCarSevenDaysAnalysisXz,
+            tickInterval: 2
           },
           yAxis: {
             title: {
@@ -350,27 +351,27 @@ export default {
             pointFormat: "{point.x}报警 <b>{point.y}</b>次"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 4,
+              states: {
+                hover: {
+                  lineWidth: 5
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
+          colors: ["#0D64F4"],
           series: [
             {
-              name: this.numberOfParkingName,
-              data: this.numberOfParkingData
+              name: this.washCarSevenDaysAnalysisName,
+              data: this.washCarSevenDaysAnalysisData
             }
           ]
         };
-        new HighCharts.chart(this.numberOfParkingOptions);
+        new HighCharts.chart(this.washCarSevenDaysAnalysisOption);
       });
     }
   }

@@ -253,7 +253,7 @@ export function alarmRecent7day(param) {
 //运营收入分析 缴费类型统计分析图表
 export function queryChargeTypeByHours(param) {
   return request({
-    url: "http://192.168.1.200:8000/IncomeAnalysis/queryChargeTypeByHours",
+    url: "http://123.207.189.27:7138/IncomeAnalysis/queryChargeTypeByHours",
     method: "post",
     data: param,
     flag: "out"
@@ -262,7 +262,7 @@ export function queryChargeTypeByHours(param) {
 //运营收入分析 停车收入构成统计分析
 export function queryChargePercent(param) {
   return request({
-    url: "http://192.168.1.200:8000/IncomeAnalysis/queryChargePercent",
+    url: "http://123.207.189.27:7138/IncomeAnalysis/queryChargePercent",
     method: "post",
     data: param,
     flag: "out"
@@ -271,7 +271,7 @@ export function queryChargePercent(param) {
 //运营收入分析 停车收费统计分析
 export function queryAmountAnalysis(param) {
   return request({
-    url: "http://192.168.1.200:8000/IncomeAnalysis/queryAmountAnalysis",
+    url: "http://123.207.189.27:7138/IncomeAnalysis/queryAmountAnalysis",
     method: "post",
     data: param,
     flag: "out"

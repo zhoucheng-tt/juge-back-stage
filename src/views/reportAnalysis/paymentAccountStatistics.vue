@@ -354,14 +354,14 @@ export default {
           title: {
             text: "收入构成分析",
             align: "left",
-            x: 70,
+            x: 20,
             y: 70
           },
           credits: {
             enabled: false
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+            pointFormat: "{series.name} <b>{point.percentage:.1f}%</b>"
           },
           plotOptions: {
             pie: {
@@ -383,14 +383,14 @@ export default {
             layout: "vertival",
             align: "left",
             verticalAlign: "middle",
-            x: 100,
+            x: 80,
             borderWidth: 0,
             itemStyle: {
-              color: "blue",
+              // color: "blue",
               fontSize: "15px"
             },
             itemHoverStyle: {
-              color: "#0F2C54"
+              color: "blue"
             },
             //给图例添加占比保留小数点后两位
             labelFormatter: function() {
@@ -463,12 +463,12 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>元"
+            pointFormat: " 收入  <b>{point.y:,.0f}</b>元"
           },
           plotOptions: {
             column: {
               borderWidth: 0,
-              pointWidth: 25, //柱子宽度
+              pointWidth: 15, //柱子宽度
               // color: "#00AEFF",
               dataLabels: {
                 style: {
@@ -477,23 +477,11 @@ export default {
 
                 enabled: false
               }
-            },
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
             }
           },
           series: [
             {
-              name: "近七天收入金额",
+              name: "近七天收入趋势分析",
               data: this.dataListSeven
             }
           ]
@@ -552,7 +540,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>元"
+            pointFormat: "收入<b>{point.y:,.0f}</b>元"
           },
           plotOptions: {
             // column: {
@@ -567,22 +555,10 @@ export default {
             //     enabled: false
             //   }
             // },
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
-            }
           },
           series: [
             {
-              name: "近30天收入金额",
+              name: "近30天收入趋势分析",
               data: this.dataListThirty
             }
           ]
@@ -641,26 +617,25 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name} 停车 <b>{point.y:,.0f}</b>元"
+            pointFormat: "收入 <b>{point.y:,.0f}</b>元"
           },
           plotOptions: {
-            column: {},
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
+            column: {
+              borderWidth: 0,
+              pointWidth: 15, //柱子宽度
+              // color: "#00AEFF",
+              dataLabels: {
+                style: {
+                  fontSize: 11
+                },
+
+                enabled: false
               }
             }
           },
           series: [
             {
-              name: "近一年收入金额",
+              name: "近一年收入趋势分析",
               data: this.dataList365
             }
           ]

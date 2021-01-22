@@ -150,7 +150,7 @@
               当日总停车数量(辆)
             </span>
             <span
-              style="float:right;font-family: HelveticaNeue-Bold;font-size: 18px;color: #08F6E4;letter-spacing: 0.41px;"
+              style="float:right;font-family:   HelveticaNeue-Bold;font-size: 18px;color: #08F6E4;letter-spacing: 0.41px;"
               >{{ numberOfParkingTotal }} 辆
             </span>
           </div>
@@ -469,7 +469,7 @@ letter-spacing: 0.36px;float: right"
           <!--剩余停车场数字-->
           <div class="center-line2">
             <div style="display:flex;">
-              <div class="center-line2-number">
+              <div class="center-line2-number-first">
                 <div class="center-line2-number-text">
                   {{ parseInt((leftPort % 10000) / 1000) }}
                 </div>
@@ -490,8 +490,8 @@ letter-spacing: 0.36px;float: right"
                 </div>
               </div>
             </div>
-            <div style="display:flex;margin-left: 15%">
-              <div class="center-line2-number">
+            <div style="display:flex;margin-left: 13%">
+              <div class="center-line2-number-first">
                 <div class="center-line2-number-text">
                   {{ parseInt((leftPort % 10000) / 1000) }}
                 </div>
@@ -551,20 +551,6 @@ letter-spacing: 0.36px;float: right"
         <!--车位-->
         <div class="center-down">
           <div class="center-down-select">
-            <div class="center-down-parkName">
-              <el-button class="content-parklot" style="color:white;"
-                >全部
-              </el-button>
-              <el-button
-                class="content-parklot"
-                v-for="(item, index) in parkingLotList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
-              >
-                <span style="color:white;">{{ item.name }}</span>
-              </el-button>
-            </div>
             <div class="center-down-select-item">
               <div class="center-down-select-item-img-1"></div>
               <div class="center-down-select-item-text">已占用</div>
@@ -2948,10 +2934,10 @@ letter-spacing: 0.36px;float: right"
               <span class="spanStyle">洗车机近七日报警趋势分析</span>
             </div>
           </div>
-          <div class="leftChartCenter" id="numberOfParking1">
+          <div class="leftChartCenter" id="washCarSevenDaysAnalysis">
             <Xchart
-              id="numberOfParking1"
-              :option="numberOfParkingOptions1"
+              id="washCarSevenDaysAnalysis"
+              :option="washCarSevenDaysAnalysisOption"
             ></Xchart>
           </div>
           <div class="leftChartDown">
@@ -3021,7 +3007,7 @@ letter-spacing: 0.36px;float: right"
           <div class="rightChartCenter" id="washChargeInSevenDays">
             <Xchart
               id="washChargeInSevenDays"
-              :option="washChargeInSevenDaysCharts"
+              :option="washChargeInSevenDaysOption"
             ></Xchart>
           </div>
           <div class="leftChartDown">
@@ -3098,17 +3084,10 @@ export default {
     return {
       //用户名
       userName: "",
-      //右侧倒数第二个图
-      numberOfParkingOptions1: {},
-      // 图表数据
-      numberOfParkingData1: [],
-      numberOfParkingXz1: [],
-      numberOfParkingName1: "",
 
-      //近七日洗车次数
+      //近七日洗车收费金额
       washChargeInSevenDaysCharts: {},
       washChargeInSevenDaysTitle: "",
-      // washChargeInSevenDaysData: [],
       washChargeInSevenDaysX: [
         "01-01",
         "01-02",
@@ -3382,6 +3361,28 @@ export default {
       //车位周转率图表上的数字
       parkingSpaceTurnoverRateTotal: 0,
 
+      // 洗车机近七日报警趋势分析
+      washCarSevenDaysAnalysisOption: {},
+      washCarSevenDaysAnalysisName: "洗车机近七日报警报警趋势分析",
+      washCarSevenDaysAnalysisData: [],
+      washCarSevenDaysAnalysisXz: [],
+
+      //近七日洗车收费金额
+      washChargeInSevenDaysOption: {},
+      washChargeInSevenDaysName: "近七日洗车收费金额",
+      washChargeInSevenDaysXz: [
+        "2021-01-16",
+        "2021-01-17",
+        "2021-01-18",
+        "2021-01-19",
+        "2021-01-20",
+        "2021-01-21",
+        "2021-01-22"
+      ],
+      washChargeInSevenDaysJINGWash: [1, 2, 3, 5, 2, 4, 4],
+      washChargeInSevenDaysPUWash: [2, 1, 3, 4, 2, 3, 6],
+      washChargeInSevenDaysKUAIWash: [4, 2, 6, 5, 2, 1, 5],
+
       // 支付收入排行
       paymentIncomeAnalysis: [],
       paymentIncomeAnalysisPie: {},
@@ -3416,25 +3417,10 @@ export default {
       },
       map: "",
       xlicon: require("../../assets/homePage/TCIcon.png")
-      // 动态绑定的停车折线图的id和option
-      // lineId: "",
-      // lineOptions: {},
-      // // 动态绑定标题
-      // lineTitle: "",
-      // // 图表类型
-      // lineChartsType: "",
-      // // 暂存数据数组
-      // lineChartsList: [],
-      // // x轴坐标的信息
-      // lineChartsX: [],
-      // // serise中的那么数据
-      // lineChartsName: ""
     };
   },
   mounted() {
     this.userName = localStorage.getItem("userName");
-    //停车场列表查询
-    this.queryParkList();
     // 总停车数量图表
     this.queryParkOptByParkCount();
     // 平均停车时长图表
@@ -3448,7 +3434,9 @@ export default {
     //自助洗车按月收入分析图表
     this.querychargeAmountTimes();
     //洗车机近七日报警趋势分析
-
+    this.handleWashCarSevenDaysAnalysis();
+    //近七日洗车收费金额
+    this.handleWashCarIncomeSevenDays();
     //剩余车位数
     this.queryParkMonitorParkSpace();
     //中间总收入应收欠收
@@ -3462,11 +3450,6 @@ export default {
     // this.initMap();
     // // 添加图标的方法
     // this.addMoudel();
-    // //测试方法
-    // this.queryTest();
-    this.queryParkTimes1();
-    //近七日洗车收费金额
-    this.handleWashChargeInSevenDaysCharts();
   },
   methods: {
     //退出
@@ -3474,18 +3457,6 @@ export default {
       localStorage.removeItem("userToken");
       this.$router.push("/");
     },
-    //停车场列表查询
-    queryParkList() {
-      const params = {
-        columnName: ["park_id", "park_name"],
-        tableName: "t_bim_park",
-        whereStr: "district_code = 321302"
-      };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.parkingLotList = res.data.dataList;
-      });
-    },
-
     //tabs点击事件
     handleTopClick(code) {
       if (code == 1) {
@@ -3552,121 +3523,8 @@ export default {
       };
       this.$homePage.countWashFee(param).then(res => {});
     },
-    // 支付方式
-    queryPaymentBehaviorAnalysis() {
-      const param = {
-        statisType: "today"
-      };
-      this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
-        var alipayDataList = ["支付宝支付", 10];
-        var wechatDataList = ["微信支付", 20];
-        var qrCodeDataList = ["扫码支付", 30];
-        var cashDataList = ["现金支付", 40];
-        // var alipayDataList = [
-        //   "支付宝支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
-        // console.log(this.alipayDataList);
-        // var wechatDataList = [
-        //   "微信支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
-        // var qrCodeDataList = [
-        //   "扫码支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
-        // var cashDataList = [
-        //   "现金支付",
-        //   Math.round(
-        //     (Number(res.data.dataList[0].cashPaymentMoneyAmount) /
-        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
-        //       100
-        //   ) / 100
-        // ];
 
-        this.paymentIncomeAnalysis = [
-          {
-            type: "pie",
-            name: "支付占比",
-            data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList]
-          }
-        ];
-        this.paymentIncomeAnalysisPie = {
-          chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: "pie",
-            spacingBottom: 10,
-            backgroundColor: "rgba(0,0,0,0)",
-            color: "red",
-            renderTo: "paymentIncomeAnalysis"
-            // options3d: {
-            //     enabled: true,
-            //     alpha: 45,
-            //     beta: 0
-            // }
-          },
-          title: {
-            text: ""
-          },
-          credits: {
-            enabled: false
-          },
-          tooltip: {
-            shared: true
-          },
-
-          colors: ["#007AFF", "#03D7E9", "#E9C503", "#7654E3"],
-
-          plotOptions: {
-            pie: {
-              allowPointSelect: true,
-              //放到上面是小手
-              cursor: "pointer",
-              //控制距离中心的值
-              innerSize: 60,
-              depth: 45,
-              dataLabels: {
-                //显示映出来的数据
-                enabled: false
-                // format: "{point.name}"
-              },
-              //是否显示图例
-              showInLegend: true
-            }
-          },
-          legend: {
-            layout: "vertival",
-            align: "left",
-            verticalAlign: "top",
-            borderWidth: 0,
-            itemStyle: {
-              color: "white"
-            },
-            itemHoverStyle: {
-              color: "#007AFF"
-            }
-          },
-          series: this.paymentIncomeAnalysis
-        };
-        new HighCharts.chart(this.paymentIncomeAnalysisPie);
-      });
-    },
-
-    // 总停车数量折线图的绑定id和option方法
+    // 总停车数量
     queryParkOptByParkCount() {
       const param = {
         statisType: "today"
@@ -3692,7 +3550,7 @@ export default {
           credits: {
             enabled: false
           },
-          color: ["#03D7E9"],
+          color: ["#0D64F4"],
           xAxis: {
             categories: this.numberOfParkingXz,
             labels: {
@@ -3708,7 +3566,7 @@ export default {
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: "#2B3DA1",
+            gridLineColor: "#0A3167",
             title: {
               text: "",
               style: {
@@ -3799,7 +3657,7 @@ export default {
           credits: {
             enabled: false
           },
-          colors: ["#E9C503"],
+          colors: ["#0D64F4"],
           xAxis: {
             categories: this.averageParkingTimeXz,
             labels: {
@@ -3815,7 +3673,7 @@ export default {
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: "#2B3DA1",
+            gridLineColor: "#0A3167",
             title: {
               text: "",
               style: {
@@ -3910,7 +3768,7 @@ export default {
           credits: {
             enabled: false
           },
-          colors: ["#895EFC"],
+          colors: ["#1EC193"],
           xAxis: {
             categories: this.parkingSpaceUtilizationXz,
             labels: {
@@ -3926,7 +3784,7 @@ export default {
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: "#2B3DA1",
+            gridLineColor: "#0A3167",
             title: {
               text: "",
               style: {
@@ -4017,7 +3875,7 @@ export default {
           credits: {
             enabled: false
           },
-          colors: ["#E9C503"],
+          colors: ["#7654E3"],
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz,
             labels: {
@@ -4033,7 +3891,7 @@ export default {
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: "#2B3DA1",
+            gridLineColor: "#0A3167",
             title: {
               text: "",
               style: {
@@ -4097,6 +3955,118 @@ export default {
       });
     },
 
+    // 支付方式
+    queryPaymentBehaviorAnalysis() {
+      const param = {
+        statisType: "today"
+      };
+      this.$homePage.queryPaymentBehaviorAnalysis(param).then(res => {
+        var alipayDataList = ["支付宝支付", 10];
+        var wechatDataList = ["微信支付", 20];
+        var qrCodeDataList = ["扫码支付", 30];
+        var cashDataList = ["现金支付", 40];
+        // var alipayDataList = [
+        //   "支付宝支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].alipayPaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+        // console.log(this.alipayDataList);
+        // var wechatDataList = [
+        //   "微信支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].wechatPaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+        // var qrCodeDataList = [
+        //   "扫码支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].qrCodePaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+        // var cashDataList = [
+        //   "现金支付",
+        //   Math.round(
+        //     (Number(res.data.dataList[0].cashPaymentMoneyAmount) /
+        //       Number(res.data.dataList[0].paymentMoneyAmountTotalAll)) *
+        //       100
+        //   ) / 100
+        // ];
+
+        this.paymentIncomeAnalysis = [
+          {
+            type: "pie",
+            name: "支付占比",
+            data: [alipayDataList, wechatDataList, qrCodeDataList, cashDataList]
+          }
+        ];
+        this.paymentIncomeAnalysisPie = {
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: "pie",
+            spacingBottom: 10,
+            backgroundColor: "rgba(0,0,0,0)",
+            color: "red",
+            renderTo: "paymentIncomeAnalysis"
+            // options3d: {
+            //     enabled: true,
+            //     alpha: 45,
+            //     beta: 0
+            // }
+          },
+          title: {
+            text: ""
+          },
+          credits: {
+            enabled: false
+          },
+          tooltip: {
+            shared: true
+          },
+          colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3"],
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              //放到上面是小手
+              cursor: "pointer",
+              //控制距离中心的值
+              innerSize: 60,
+              depth: 45,
+              dataLabels: {
+                //显示映出来的数据
+                enabled: false
+                // format: "{point.name}"
+              },
+              //是否显示图例
+              showInLegend: true
+            }
+          },
+          legend: {
+            layout: "vertival",
+            align: "left",
+            verticalAlign: "top",
+            borderWidth: 0,
+            itemStyle: {
+              color: "white"
+            },
+            itemHoverStyle: {
+              color: "#007AFF"
+            }
+          },
+          series: this.paymentIncomeAnalysis
+        };
+        new HighCharts.chart(this.paymentIncomeAnalysisPie);
+      });
+    },
+
     //洗车收费按月分析金额分析
     querychargeAmountTimes() {
       const param = {
@@ -4134,7 +4104,7 @@ export default {
           },
           yAxis: {
             //设置网格线颜色
-            gridLineColor: "#2B3DA1",
+            gridLineColor: "#0A3167",
             title: {
               text: "",
               style: {
@@ -4149,6 +4119,7 @@ export default {
               }
             }
           },
+          colors: ["#00AEFF"],
           legend: {
             enabled: false,
             align: "center",
@@ -4203,85 +4174,53 @@ export default {
       });
     },
 
-    //右侧第二个图
-    queryParkTimes1() {
-      // //这边就是把参数等于对应的值就行了
-      // // 绑定自定义的id的字段名
-      // this.lineId = 'numberOfParking';
-      // // 自定义绑定的options的字段名
-      //   this.lineOptions = 'lineOptions';
-      // // 自定义停车时长
-      // this.lineTitle = '停车数量';
-      // // 定义图表类型
-      // this.lineChartsType = 'area';
-      //
-      // // 绑定定义的名字
-      // this.lineChartsName = this.numberOfParkingName;
-      // var that = this;
-      // const param = {
-      //   "statisDate": this.upQueryList.minTime,
-      //   "cityCode": "321300",
-      //   "districtCode": "321302",
-      //   "parkId": this.upQueryList.parkId
-      // }
-      // this.$reportAnalysis.queryParkOpeIdxParkDetailQtyAnal(param).then(res => {
-      //   this.numberOfParkingXz = [];
-      //   this.numberOfParkingData = [];
-      //   res.data.dataList.forEach((item) => {
-      //     this.numberOfParkingXz.push(item.periodName);
-      //     this.numberOfParkingData.push(item.parkCount);
-      //   })
-      //   // 将数据绑定到暂存数组中
-      //   that.lineChartsList = that.numberOfParkingData;
-      //   that.lineChartsX = that.numberOfParkingXz;
-      //   that.queryLine();
-      // })
-      const param = {
-        statisDate: "2021-01-12"
-      };
-      this.$reportAnalysis.queryParkTimes(param).then(res => {
-        this.numberOfParkingXz1 = [];
-        this.numberOfParkingData1 = [];
+    //洗车机近七日报警报警趋势分析
+    handleWashCarSevenDaysAnalysis() {
+      this.$reportAnalysis.alarmRecent7day(1).then(res => {
+        this.washCarSevenDaysAnalysisXz = [];
+        this.washCarSevenDaysAnalysisData = [];
         res.resultEntity.forEach(item => {
-          this.numberOfParkingXz1.push(item.X);
-          this.numberOfParkingData1.push(Number(item.dataY));
+          this.washCarSevenDaysAnalysisXz.push(item.X);
+          this.washCarSevenDaysAnalysisData.push(Number(item.dataY));
         });
-        this.numberOfParkingOptions1 = {
+        this.washCarSevenDaysAnalysisOption = {
           chart: {
-            type: "line",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "numberOfParking1"
+            renderTo: "washCarSevenDaysAnalysis"
           },
           title: {
-            text: this.numberOfParkingName1
+            text: ""
           },
           credits: {
             enabled: false
           },
           xAxis: {
-            categories: this.numberOfParkingXz1,
+            categories: this.washCarSevenDaysAnalysisXz,
+            tickInterval: 2,
             labels: {
-              format: "{value}",
               style: {
                 color: "rgba(90,142,227,1)",
                 fontSize: "10px"
               }
             }
           },
-          //设置网格线颜色
           yAxis: {
-            gridLineColor: "#2B3DA1",
             title: {
               text: ""
             },
+            //设置网格线颜色
+            gridLineColor: "#0A3167",
             labels: {
               //修改Y轴添加单位
-              format: "{value}",
+              format: "{value}次",
               style: {
-                color: "rgba(90,142,227,1)"
+                color: "rgba(90,142,227,1)",
+                fontSize: "10px"
               }
             }
           },
+          colors: ["#00CDE6"],
           legend: {
             enabled: true,
             align: "center",
@@ -4303,39 +4242,39 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>辆"
+            pointFormat: "{series.name}<b>{point.y}</b>次"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 4,
+              states: {
+                hover: {
+                  lineWidth: 5
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
           series: [
             {
-              name: this.numberOfParkingName1,
-              data: this.numberOfParkingData1
+              name: "报警",
+              data: this.washCarSevenDaysAnalysisData
             }
           ]
         };
-        new HighCharts.chart(this.numberOfParkingOptions1);
+        new HighCharts.chart(this.washCarSevenDaysAnalysisOption);
       });
     },
-    handleWashChargeInSevenDaysCharts() {
-      this.washChargeInSevenDaysCharts = {
+
+    //近七日洗车收费金额
+    handleWashCarIncomeSevenDays() {
+      this.washChargeInSevenDaysOption = {
         chart: {
           type: "column",
           backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "washChargeInSevenDays",
-          spacingBottom: 0
+          renderTo: "washChargeInSevenDays"
         },
         title: {
           text: ""
@@ -4344,39 +4283,38 @@ export default {
           enabled: false
         },
         xAxis: {
-          categories: this.washChargeInSevenDaysX,
+          categories: this.washChargeInSevenDaysXz,
+          tickInterval: 2,
           labels: {
-            format: "{value}",
             style: {
               color: "rgba(90,142,227,1)",
               fontSize: "10px"
             }
           }
         },
+
         yAxis: {
-          //设置网格线颜色
-          gridLineColor: "#2B3DA1",
           title: {
-            text: "",
-            style: {
-              color: "#08F6E4", //字体颜色
-              fontSize: "16px" //字体大小
-            }
+            text: ""
           },
           labels: {
-            format: "{value}",
+            //修改Y轴添加单位
+            format: "{value}元",
             style: {
-              color: "rgba(90,142,227,1)"
+              color: "rgba(90,142,227,1)",
+              fontSize: "10px"
             }
-          }
+          },
+          //设置网格线颜色
+          gridLineColor: "#0A3167"
         },
-
+        colors: ["#7654E3", "#00CDE6", "#FFBC00"],
         legend: {
-          enabled: false,
+          enabled: true,
           align: "center",
-          verticalAlign: "top",
-          x: 0,
-          y: -20,
+          verticalAlign: "left",
+          x: 300,
+          y: 10,
           itemStyle: {
             color: "#cccccc",
             cursor: "pointer",
@@ -4392,13 +4330,9 @@ export default {
           }
         },
         tooltip: {
-          pointFormat: "收入： <b>{point.y:,.0f}</b>元"
+          pointFormat: "{series.name}<b>{point.y}</b>元"
         },
         plotOptions: {
-          series: {
-            depth: 25,
-            color: "#00ABFF"
-          },
           area: {
             marker: {
               enabled: false,
@@ -4415,170 +4349,14 @@ export default {
         series: [
           {
             name: "精洗",
-            data: this.poacherWashInSevenDaysData
+            data: this.washChargeInSevenDaysJINGWash
           },
-          {
-            name: "普洗",
-            data: this.garmentWashInSevenDaysData
-          },
-          {
-            name: "精洗",
-            data: this.fastWashInSevenDaysData
-          }
+          { name: "普洗", data: this.washChargeInSevenDaysPUWash },
+          { name: "快洗", data: this.washChargeInSevenDaysKUAIWash }
         ]
       };
-      // 绘制
-      new HighCharts.Chart(this.washChargeInSevenDaysCharts);
-      // const param = {
-      //   queryType: "currentMonth"
-      // };
-      // this.$realTimeMonitor.queryWashEarn(param).then(res => {
-      // this.washChargeInSevenDaysX = [];
-      // this.washChargeInSevenDaysData = [];
-      // res.resultEntity.forEach(item => {
-      //   this.washChargeInSevenDaysX.push(item.X);
-      //   this.washChargeInSevenDaysData.push(Number(item.dataY));
-      // });
-      // });
+      new HighCharts.chart(this.washChargeInSevenDaysOption);
     }
-    // queryLine() {
-    //   var that = this;
-    //   that.lineOptions = {
-    //     chart: {
-    //       type: that.lineChartsType,
-    //       backgroundColor: "rgba(0,0,0,0)",
-    //       renderTo: that.lineId,
-    //       spacingBottom: 0
-    //     },
-    //     title: {
-    //       // text: that.lineTitle,
-    //       text: "",
-    //       style: {
-    //         color: "white"
-    //       }
-    //     },
-    //     credits: {
-    //       enabled: false
-    //     },
-    //     xAxis: {
-    //       categories: that.lineChartsX
-    //     },
-    //     yAxis: {
-    //       title: {
-    //         text: "",
-    //         style: {
-    //           color: "#08F6E4", //字体颜色
-    //           fontSize: "16px" //字体大小
-    //         }
-    //       },
-    //       labels: {
-    //         formatter: function() {
-    //           return this.value / 1000 + "k";
-    //         }
-    //       }
-    //     },
-    //     legend: {
-    //       enabled: true,
-    //       align: "center",
-    //       verticalAlign: "left",
-    //       x: 300,
-    //       y: 10,
-    //       itemStyle: {
-    //         color: "#cccccc",
-    //         cursor: "pointer",
-    //         fontSize: "12px",
-    //         fontWeight: "bold",
-    //         fill: "#cccccc"
-    //       },
-    //       itemHoverStyle: {
-    //         color: "#666666"
-    //       },
-    //       itemHiddenStyle: {
-    //         color: "#333333"
-    //       }
-    //     },
-    //     tooltip: {
-    //       pointFormat: " 停车 <b>{point.y:,.0f}</b>辆"
-    //     },
-    //     plotOptions: {
-    //       area: {
-    //         marker: {
-    //           enabled: false,
-    //           symbol: "circle",
-    //           radius: 2,
-    //           states: {
-    //             hover: {
-    //               enabled: true
-    //             }
-    //           }
-    //         }
-    //       }
-    //     },
-    //     series: [
-    //       {
-    //         name: this.lineChartsName,
-    //         data: that.lineChartsList
-    //       }
-    //     ]
-    //   };
-    //   // 绘制
-    //   new HighCharts.Chart(that.lineOptions);
-    // },
-    // //测试查询
-    // queryTest() {
-    //   var jsonStr = {
-    //     queryDate: "2020-08-02"
-    //   };
-    //   this.$homePage.test(jsonStr).then(res => {
-    //     console.log("测试新建后台地址", res);
-    //   });
-    // },
-    // // 地图方式开始
-    // initMap() {
-    //   //地图初始化
-    //   this.map = new AMap.Map("map", {
-    //     zoom: 13,
-    //     resizeEnable: true,
-    //     mapStyle: "amap://styles/normal",
-    //     center: [119.016937, 31.706205]
-    //   });
-    //   // this.map.addControl(new AMap.MapType({
-    //   //     defaultType: 0, //0代表默认，1代表卫星
-    //   //     showTraffic: true,//默认显示路况
-    //   //     showRoad: true//显示路况（右上角也可点击）
-    //   // }));
-    // },
-    // // 地图中添加标点方法
-    // addMoudel() {
-    //   var that = this;
-    //   var icon = new AMap.Icon({
-    //     size: new AMap.Size(20, 20), // 图标尺寸
-    //     image: that.xlicon, // Icon的图像
-    //     imageOffset: new AMap.Pixel(1, 1), // 图像相对展示区域的偏移量，适于雪碧图等
-    //     imageSize: new AMap.Size(15, 15) // 根据所设置的大小拉伸或压缩图片
-    //   });
-    //   let marker = new AMap.Marker({
-    //     icon: icon,
-    //     position: [that.mapList.lng, that.mapList.lat],
-    //     offset: new AMap.Pixel(-13, -30)
-    //   });
-    //   // 点击弹出标签方法，其中内容可以根据需要自己定义
-    //   marker.content =
-    //     "停车场名:" + "停车场1" + "<br / >剩余车位:" + "剩余20个车位";
-    //   // 定义完标签后调用显示方法将其显示出来
-    //   marker.on("click", this.showInfoM);
-    //   // 点击时间暂时废弃
-    //   // marker.on('click', e => {
-    //   //   console.log("点击弹框弹出有")
-    //   // });
-    //   this.map.add(marker);
-    // },
-    // // 弹出框中标签
-    // showInfoM(e) {
-    //   var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
-    //   infoWindow.setContent(e.target.content);
-    //   infoWindow.open(this.map, e.target.getPosition());
-    // }
   }
 };
 </script>
@@ -4653,7 +4431,7 @@ export default {
   margin-left: -8.5%;
   margin-top: 1.9%;
   transform: skew(-20.5deg);
-  border: 2px solid #45c3db;
+  border: 1px solid #45c3db;
   /* box-shadow: 0 0 0 2px #45c3db; */
 }
 .top-homepage:hover {
@@ -4663,7 +4441,7 @@ export default {
   width: 100%;
   height: 65%;
   transform: skew(20.5deg);
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.53px;
   position: absolute;
   text-align: center;
@@ -4676,11 +4454,11 @@ export default {
 /*顶部其他文本*/
 .top-others {
   width: 10%;
-  height: 42px;
+  height: 41px;
   line-height: 29px;
   color: white;
   background-color: #043d87;
-  margin-left: 1%;
+  margin-left: 0.8%;
   margin-top: 2%;
   transform: skew(-20.5deg);
   position: relative;
@@ -4692,7 +4470,7 @@ export default {
   width: 100%;
   height: 65%;
   transform: skew(20.5deg);
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.53px;
   position: absolute;
   text-align: center;
@@ -4837,7 +4615,7 @@ export default {
 /*  中间剩余车位*/
 .center-leftport {
   font-family: PingFangSC-Regular;
-  font-size: 16px;
+  font-size: 14px;
   color: #4fcfd7;
   letter-spacing: 0.57px;
 }
@@ -4849,9 +4627,15 @@ export default {
   display: flex;
 }
 /* 数字框*/
+.center-line2-number-first {
+  width: 50px;
+  height: 56px;
+  background: #023376;
+  border: 1px solid #66e3fb;
+}
 .center-line2-number {
   width: 50px;
-  height: 72px;
+  height: 56px;
   margin-left: 5%;
   background: #023376;
   border: 1px solid #66e3fb;
@@ -4862,8 +4646,8 @@ export default {
   font-size: 40px;
   color: #08f6e4;
   text-align: center;
+  line-height: 56px;
   font-weight: 600;
-  margin-top: 20%;
 }
 .center-line2-poacher {
   height: 72px;
@@ -4915,7 +4699,7 @@ export default {
 .center-line2-fast-number {
   font-family: HelveticaNeue-Bold;
   font-size: 40px;
-  color: #e9c503;
+  color: #00cde6;
   letter-spacing: 1.43px;
 }
 /*总收入一行*/
@@ -4974,7 +4758,7 @@ export default {
   width: 130px;
   height: 150px;
   margin-left: 5%;
-  margin-top: 15%;
+  margin-top: 40%;
   /*border: 1px solid red;*/
 }
 /*车位图左侧选项每个div*/
