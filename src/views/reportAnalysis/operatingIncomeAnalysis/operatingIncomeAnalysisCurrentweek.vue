@@ -319,7 +319,7 @@ export default {
     // 缴费类型统计分析
     paymentStyleAnalysis() {
       const param = { querydate: "currentWeek" };
-      this.$reportAnalysis.queryChargeTypeByHours(param).then(res => {
+      this.$reportAnalysis.queryChargeTypeByDays(param).then(res => {
         this.paymentStyleAnalysisXz = [];
         this.paymentStyleAnalysisZFB = [];
         this.paymentStyleAnalysisWX = [];

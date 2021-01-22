@@ -250,10 +250,19 @@ export function alarmRecent7day(param) {
   });
 }
 
-//运营收入分析 缴费类型统计分析图表
+//运营收入分析 缴费类型统计分析图表今日昨日
 export function queryChargeTypeByHours(param) {
   return request({
     url: "http://123.207.189.27:7138/IncomeAnalysis/queryChargeTypeByHours",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营收入分析 缴费类型统计分析图表本周本月
+export function queryChargeTypeByDays(param) {
+  return request({
+    url: "http://123.207.189.27:7138/IncomeAnalysis/queryChargeTypeByDays",
     method: "post",
     data: param,
     flag: "out"

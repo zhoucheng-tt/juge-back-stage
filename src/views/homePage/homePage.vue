@@ -150,11 +150,11 @@
               当日总停车数量(辆)
             </span>
             <span
-              style="float:right;font-family:   HelveticaNeue-Bold;font-size: 18px;color: #08F6E4;letter-spacing: 0.41px;"
+              style="float:right;font-family:   HelveticaNeue-Bold;font-size: 18px;color: #7654E3;letter-spacing: 0.41px;"
               >{{ numberOfParkingTotal }} 辆
             </span>
           </div>
-          <!-- 总停车数量   -->
+          <!-- 总停车数量-->
           <div class="leftChartCenter" id="numberOfParking">
             <Xchart
               id="numberOfParking"
@@ -386,7 +386,7 @@ letter-spacing: 0.36px;float: right"
             <span
               style="margin-top:4px;font-family: PingFangSC-Medium;
               font-size: 1rem;
-              color: #E9C503;
+              color: #00DBEC;
               letter-spacing: 0.36px;
               float: right"
             >
@@ -3085,24 +3085,6 @@ export default {
       //用户名
       userName: "",
 
-      //近七日洗车收费金额
-      washChargeInSevenDaysCharts: {},
-      washChargeInSevenDaysTitle: "",
-      washChargeInSevenDaysX: [
-        "01-01",
-        "01-02",
-        "01-03",
-        "01-04",
-        "01-05",
-        "01-06",
-        "01-07"
-      ],
-      poacherWashInSevenDaysData: [1, 2, 3, 4, 4, 4, 6],
-      garmentWashInSevenDaysData: [2, 3, 5, 6, 4, 1, 2],
-      fastWashInSevenDaysData: [2, 1, 4, 5, 6, 3, 4],
-
-      //停车查询
-      parkingLotList: [],
       //top存放
       topList: [
         {
@@ -3131,233 +3113,38 @@ export default {
         }
       ],
 
-      // 停车总数量折线图
+      // 左侧当日图表查询条件
+      currentDay: new Date().Format("yyyy-MM-dd"),
+
+      // 总停车数量
       numberOfParking: "",
       numberOfParkingOptions: {},
-      // 停车总数量折线图数据
-      numberOfParkingData: [
-        1,
-        2,
-        3,
-        4,
-        2,
-        3,
-        3,
-        6,
-        13,
-        12,
-        4,
-        2,
-        3,
-        6,
-        4,
-        3,
-        4,
-        12,
-        13,
-        2,
-        11,
-        15,
-        1
-      ],
-      numberOfParkingXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23"
-      ],
+      numberOfParkingData: [],
+      numberOfParkingXz: [],
       //总停车数量图表数字
       numberOfParkingTotal: 0,
 
       // 平均停车时长
       averageParkingTime: "",
       averageParkingTimeOptions: {},
-      // 平均停车时长图表数据
-      averageParkingTimeData: [
-        1,
-        2,
-        3,
-        4,
-        2,
-        3,
-        3,
-        6,
-        13,
-        12,
-        4,
-        2,
-        3,
-        6,
-        4,
-        3,
-        4,
-        12,
-        13,
-        2,
-        11,
-        15,
-        1
-      ],
-      averageParkingTimeXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23"
-      ],
+      averageParkingTimeData: [],
+      averageParkingTimeXz: [],
       //平均停车时长图表数字
       averageParkingTimeTotal: 0,
 
       // 车位利用率
       parkingSpaceUtilization: "",
       parkingSpaceUtilizationOptions: {},
-      // 车位利用率图表数据
-      parkingSpaceUtilizationData: [
-        1,
-        2,
-        3,
-        4,
-        2,
-        3,
-        3,
-        6,
-        13,
-        12,
-        4,
-        2,
-        3,
-        6,
-        4,
-        3,
-        4,
-        12,
-        13,
-        2,
-        11,
-        15,
-        1
-      ],
-      parkingSpaceUtilizationXz: [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23"
-      ],
+      parkingSpaceUtilizationData: [],
+      parkingSpaceUtilizationXz: [],
       //车位利用率图表数字
       parkingSpaceUsedRateTotal: 0,
 
       // 车位周转率
       parkingSpaceTurnoverRate: "",
       parkingSpaceTurnoverRateOptions: {},
-      // 车位周转率图表数据
-      parkingSpaceTurnoverRateData: [
-        1,
-        2,
-        3,
-        4,
-        2,
-        3,
-        3,
-        6,
-        13,
-        12,
-        4,
-        2,
-        3,
-        6,
-        4,
-        3,
-        4,
-        12,
-        13,
-        2,
-        11,
-        15,
-        1
-      ],
-      parkingSpaceTurnoverRateXz: [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23"
-      ],
+      parkingSpaceTurnoverRateData: [],
+      parkingSpaceTurnoverRateXz: [],
       //车位周转率图表上的数字
       parkingSpaceTurnoverRateTotal: 0,
 
@@ -3527,102 +3314,98 @@ export default {
     // 总停车数量
     queryParkOptByParkCount() {
       const param = {
-        statisType: "today"
+        endTime: this.currentDay
       };
-      this.$homePage.queryParkOptByParkCount(param).then(res => {
-        // this.numberOfParkingXz = [];
-        // this.numberOfParkingData = [];
-        res.data.dataList.detail.forEach(item => {
-          this.numberOfParkingXz.push(item.date);
-          this.numberOfParkingData.push(Number(item.val));
+      this.$reportAnalysis.queryParkTimes(param).then(res => {
+        this.numberOfParkingXz = [];
+        this.numberOfParkingData = [];
+        res.resultEntity.forEach(item => {
+          this.numberOfParkingXz.push(item.X);
+          this.numberOfParkingData.push(Number(item.dataY));
         });
-        this.numberOfParkingTotal = Math.ceil(res.data.dataList.total);
         this.numberOfParkingOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "numberOfParking",
-            spacingBottom: 0
+            marginBottom: 24
           },
           title: {
-            text: ""
+            text: this.numberOfParkingName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
           },
-          color: ["#0D64F4"],
           xAxis: {
             categories: this.numberOfParkingXz,
             labels: {
-              //设置刻度
-              // tickPositions: [],
               style: {
                 color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
                 fontSize: "10px"
               }
             }
           },
+          colors: ["#7654E3"],
           yAxis: {
-            //设置网格线颜色
-            gridLineColor: "#0A3167",
             title: {
-              text: "",
-              style: {
-                color: "#08F6E4", //字体颜色
-                fontSize: "16px" //字体大小
-              }
+              text: ""
             },
             labels: {
+              //修改Y轴添加单位
+              format: "{value}辆",
               style: {
-                color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
-                fontSize: "12px"
+                color: "rgba(90,142,227,1)"
               }
-            }
+            }, //设置网格线颜色
+            gridLineColor: "#0A3167"
           },
           legend: {
             enabled: true,
             align: "center",
             verticalAlign: "left",
             x: 300,
-            y: 10,
+            y: 0,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: "停车 <b>{point.y:,.0f}</b>辆"
+            pointFormat: "{series.name}: <b>{point.y}</b>辆"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                color: "rgba(3,215,233,1)",
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 2,
+              states: {
+                hover: {
+                  lineWidth: 3
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
           series: [
             {
+              name: this.numberOfParkingName,
               data: this.numberOfParkingData
             }
           ]
@@ -3634,64 +3417,59 @@ export default {
     // 平均停车时长
     queryParkOptByAvgParkDuration() {
       const param = {
-        statisType: "today"
+        endTime: this.currentDay
       };
-      this.$homePage.queryParkOptByAvgParkDuration(param).then(res => {
-        // this.averageParkingTimeXz = [];
-        // this.averageParkingTimeData = [];
-        res.data.dataList.detail.forEach(item => {
-          this.averageParkingTimeXz.push(item.date);
-          this.averageParkingTimeData.push(Number(item.val));
-          this.averageParkingTimeTotal = Math.ceil(res.data.dataList.total);
+      this.$reportAnalysis.avgParkDuration(param).then(res => {
+        this.averageParkingTimeXz = [];
+        this.averageParkingTimeData = [];
+        res.resultEntity.forEach(item => {
+          this.averageParkingTimeXz.push(item.X);
+          this.averageParkingTimeData.push(Number(Math.round(item.dataY)));
         });
         this.averageParkingTimeOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "averageParkingTime",
-            spacingBottom: 0
+            marginBottom: 24
           },
           title: {
-            text: ""
+            text: this.averageParkingTimeName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
           },
-          colors: ["#0D64F4"],
           xAxis: {
             categories: this.averageParkingTimeXz,
             labels: {
-              //设置刻度
-              // tickPositions: [],
               style: {
                 color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
                 fontSize: "10px"
               }
             }
           },
+          colors: ["#00DBEC"],
           yAxis: {
-            //设置网格线颜色
-            gridLineColor: "#0A3167",
             title: {
-              text: "",
-              style: {
-                color: "#E9C503", //字体颜色
-                fontSize: "16px" //字体大小
-              }
+              text: ""
             },
             labels: {
-              formatter: function() {
-                return this.value / 1;
-              },
+              //修改Y轴添加单位
+              format: "{value}min",
               style: {
-                color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
-                fontSize: "12px"
+                color: "rgba(90,142,227,1)"
               }
-            }
+            },
+            //设置网格线颜色
+            gridLineColor: "#0A3167"
           },
           legend: {
             enabled: true,
@@ -3700,39 +3478,38 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: " 停车 <b>{point.y:,.0f}</b>分钟"
+            pointFormat: "{series.name}: <b>{point.y}</b>分钟"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                color: "#fff",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 2,
+              states: {
+                hover: {
+                  lineWidth: 3
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
           series: [
             {
+              name: this.averageParkingTimeName,
               data: this.averageParkingTimeData
             }
           ]
@@ -3744,62 +3521,61 @@ export default {
     // 车位利用率
     queryParkOptByParkSpaceUsedRate() {
       const param = {
-        statisType: "today"
+        endTime: this.currentDay
       };
-      this.$homePage.queryParkOptByParkSpaceUsedRate(param).then(res => {
-        // this.parkingSpaceUtilizationXz = [];
-        // this.parkingSpaceUtilizationData = [];
-        res.data.dataList.detail.forEach(item => {
-          this.parkingSpaceUtilizationXz.push(item.date);
-          this.parkingSpaceUtilizationData.push(Number(item.val));
+      this.$reportAnalysis.usageRate(param).then(res => {
+        this.parkingSpaceUtilizationXz = [];
+        this.parkingSpaceUtilizationData = [];
+        res.resultEntity.forEach(item => {
+          this.parkingSpaceUtilizationXz.push(item.X);
+          //%后小数点后两位
+          this.parkingSpaceUtilizationData.push(
+            Number((Number(item.dataY) * 100).toFixed(2))
+          );
         });
-        this.parkingSpaceUsedRateTotal =
-          (Number(res.data.dataList.total) * 100).toFixed(2) + "%";
         this.parkingSpaceUtilizationOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingSpaceUtilization",
-            spacingBottom: 0
+            marginBottom: 24
           },
           title: {
-            text: ""
+            text: this.parkingSpaceUtilizationName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
           },
-          colors: ["#1EC193"],
           xAxis: {
             categories: this.parkingSpaceUtilizationXz,
             labels: {
-              //设置刻度
-              // tickPositions: [],
               style: {
                 color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
                 fontSize: "10px"
               }
             }
           },
+          colors: ["#1EC193"],
           yAxis: {
-            //设置网格线颜色
-            gridLineColor: "#0A3167",
             title: {
-              text: "",
-              style: {
-                color: "#08F6E4", //字体颜色
-                fontSize: "16px" //字体大小
-              }
+              text: ""
             },
             labels: {
+              format: "{value}%",
               style: {
-                color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
-                fontSize: "12px"
+                color: "rgba(90,142,227,1)"
               }
-            }
+            },
+            //设置网格线颜色
+            gridLineColor: "#0A3167"
           },
           legend: {
             enabled: true,
@@ -3808,38 +3584,39 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: " 停车利用率 <b>{point.y:,.0f}</b>%"
+            //设置每个点位的弹出窗
+            pointFormat: "{series.name}: <b>{point.y}</b>%"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 2,
+              states: {
+                hover: {
+                  lineWidth: 3
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
           series: [
             {
+              name: this.parkingSpaceUtilizationName,
               data: this.parkingSpaceUtilizationData
             }
           ]
@@ -3851,62 +3628,60 @@ export default {
     // 车位周转率
     queryParkOptByParkSpaceTurnoverRate() {
       const param = {
-        statisType: "today"
+        endTime: this.currentDay
       };
-      this.$homePage.queryParkOptByParkSpaceTurnoverRate(param).then(res => {
-        // this.parkingSpaceTurnoverRateXz = [];
-        // this.parkingSpaceTurnoverRateData = [];
-        res.data.dataList.detail.forEach(item => {
-          this.parkingSpaceTurnoverRateXz.push(item.date);
-          this.parkingSpaceTurnoverRateData.push(Number(item.val));
+      this.$reportAnalysis.turnoverRate(param).then(res => {
+        this.parkingSpaceTurnoverRateXz = [];
+        this.parkingSpaceTurnoverRateData = [];
+        res.resultEntity.forEach(item => {
+          this.parkingSpaceTurnoverRateXz.push(item.X);
+          this.parkingSpaceTurnoverRateData.push(
+            Number((Number(item.dataY) * 100).toFixed(2))
+          );
         });
-        this.parkingSpaceTurnoverRateTotal =
-          Number(res.data.dataList.total).toFixed(2) + "%";
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
-            type: "area",
+            type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingSpaceTurnoverRate",
-            spacingBottom: 0
+            marginBottom: 24
           },
           title: {
-            text: ""
+            text: this.parkingSpaceTurnoverRateName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
           },
-          colors: ["#7654E3"],
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz,
             labels: {
-              //设置刻度
-              // tickPositions: [],
               style: {
                 color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
                 fontSize: "10px"
               }
             }
           },
+          colors: ["#FFBC00"],
           yAxis: {
-            //设置网格线颜色
-            gridLineColor: "#0A3167",
             title: {
-              text: "",
-              style: {
-                color: "#E9C503", //字体颜色
-                fontSize: "16px" //字体大小
-              }
+              text: ""
             },
             labels: {
+              format: "{value}%",
               style: {
-                color: "rgba(90,142,227,1)",
-                letterSpacing: "0.27px",
-                lineHeight: "17px",
-                fontSize: "12px"
+                color: "rgba(90,142,227,1)"
               }
-            }
+            },
+            //设置网格线颜色
+            gridLineColor: "#0A3167"
           },
           legend: {
             enabled: true,
@@ -3915,38 +3690,38 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
             }
           },
           tooltip: {
-            pointFormat: " 停车周转率 <b>{point.y:,.0f}</b>%"
+            pointFormat: "{series.name}: <b>{point.y}</b>%"
           },
           plotOptions: {
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
+            spline: {
+              lineWidth: 2,
+              states: {
+                hover: {
+                  lineWidth: 3
                 }
+              },
+              marker: {
+                enabled: false
               }
             }
           },
           series: [
             {
+              name: this.parkingSpaceTurnoverRateName,
               data: this.parkingSpaceTurnoverRateData
             }
           ]
@@ -4084,7 +3859,7 @@ export default {
             type: "column",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "chargeAmountTimes",
-            spacingBottom: 0
+            marginBottom: 24
           },
           title: {
             text: ""
@@ -4187,7 +3962,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "washCarSevenDaysAnalysis"
+            renderTo: "washCarSevenDaysAnalysis",
+            marginBottom: 24
           },
           title: {
             text: ""
@@ -4246,10 +4022,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {
@@ -4274,7 +4050,8 @@ export default {
         chart: {
           type: "column",
           backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "washChargeInSevenDays"
+          renderTo: "washChargeInSevenDays",
+          marginBottom: 24
         },
         title: {
           text: ""
@@ -4512,7 +4289,7 @@ export default {
 }
 /* 每个表格上面的标题名支付方式样式 */
 .spanStyle {
-  font-family: PingFangSC-Medium;
+  /*font-family: PingFangSC-Medium;*/
   font-size: 16px;
   color: #ecfff5;
   letter-spacing: 0.36px;

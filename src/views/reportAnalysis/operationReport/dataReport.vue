@@ -225,6 +225,13 @@ export default {
       deep: true
     }
   },
+  mounted() {
+    this.initQuery();
+    //列表查询
+    this.queryReportList();
+    //停车场下拉菜单
+    this.queryParkList();
+  },
   methods: {
     //查询重置按钮
     resetQuery() {
@@ -278,13 +285,6 @@ export default {
       this.query.startTime = targetday.Format("yyyy-MM-dd");
       this.query.endTime = new Date().Format("yyyy-MM-dd");
     }
-  },
-  mounted() {
-    this.initQuery();
-    //列表查询
-    this.queryReportList();
-    //停车场下拉菜单
-    this.queryParkList();
   }
 };
 </script>

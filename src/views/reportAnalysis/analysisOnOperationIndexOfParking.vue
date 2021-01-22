@@ -15,7 +15,7 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="统计日期:">
           <el-date-picker
-            v-model="upQueryList.minTime"
+            v-model="upQueryList.startTime"
             type="date"
             size="small"
             style="width: 160px"
@@ -25,7 +25,7 @@
           </el-date-picker>
           <span>~</span>
           <el-date-picker
-            v-model="upQueryList.maxTime"
+            v-model="upQueryList.endTime"
             type="date"
             size="small"
             style="width: 160px"
@@ -100,20 +100,6 @@
           :option="parkingSpaceTurnoverRateOptions"
         ></Xchart>
       </div>
-      <!-- 平均充电时间 averageChargingTime-->
-      <!--      <div class="echartStyle" id="averageChargingTime">-->
-      <!--        <Xchart-->
-      <!--          id="averageChargingTime"-->
-      <!--          :option="averageChargingTimeOptions"-->
-      <!--        ></Xchart>-->
-      <!--      </div>-->
-      <!-- 平均洗车时长 averageWashingTime-->
-      <!--      <div class="echartStyle" id="averageWashingTime">-->
-      <!--        <Xchart-->
-      <!--          id="averageWashingTime"-->
-      <!--          :option="averageWashingTimeOptions"-->
-      <!--        ></Xchart>-->
-      <!--      </div>-->
     </div>
     <!-- 底部表格部分 -->
     <div class="down">
@@ -185,29 +171,14 @@ export default {
       upQueryList: {
         parkId: "",
         // 进场时间
-        minTime: new Date().Format("yyyy-MM-dd"),
-        maxTime: new Date().Format("yyyy-MM-dd")
+        startTime: "",
+        endTime: ""
       },
       // 停车场下拉框数据暂存处
       parkingLotList: [],
-      // 动态绑定的停车折线图的id和option
-      lineId: "",
-      lineOptions: {},
-      // 动态绑定标题
-      lineTitle: "",
-      // 图表类型
-      lineChartsType: "",
-      // 暂存数据数组
-      lineChartsList: [],
-      // x轴坐标的信息
-      lineChartsX: [],
-      // serise中的那么数据
-      lineChartsName: "",
 
       // 停车数量折线图
-      // numberOfParking: "",
       numberOfParkingOptions: {},
-      // 图表数据
       numberOfParkingData: [],
       numberOfParkingXz: [],
       numberOfParkingName: "停车数量",
@@ -215,7 +186,6 @@ export default {
       // 平均停车时长
       averageParkingTime: "",
       averageParkingTimeOptions: {},
-      // 图表数据
       averageParkingTimeData: [],
       averageParkingTimeXz: [],
       averageParkingTimeName: "平均停车时长",
@@ -223,7 +193,6 @@ export default {
       // 车位利用率
       parkingSpaceUtilization: "",
       parkingSpaceUtilizationOptions: {},
-      // 图表数据
       parkingSpaceUtilizationData: [],
       parkingSpaceUtilizationXz: [],
       parkingSpaceUtilizationName: "车位利用率",
@@ -231,34 +200,17 @@ export default {
       // 车位周转率
       parkingSpaceTurnoverRate: "",
       parkingSpaceTurnoverRateOptions: {},
-      // 图表数据
       parkingSpaceTurnoverRateData: [],
       parkingSpaceTurnoverRateXz: [],
-      parkingSpaceTurnoverRateName: "车位周转率",
-
-      // 平均充电时间
-      averageChargingTime: "",
-      averageChargingTimeOptions: {},
-      // 图表数据
-      averageChargingTimeData: [],
-      averageChargingTimeXz: [],
-      averageChargingTimeName: "平均充电时间",
-
-      // 平均洗车时长
-      averageWashingTime: "",
-      averageWashingTimeOptions: {},
-      // 图表数据
-      averageWashingTimeData: [],
-      averageWashingTimeXz: [],
-      averageWashingTimeName: "平均洗车时长"
+      parkingSpaceTurnoverRateName: "车位周转率"
     };
   },
   watch: {
     upQueryList: {
       handler(newVal) {
         const param = {
-          startTime: newVal.minTime,
-          endTime: newVal.maxTime,
+          startTime: newVal.startTime,
+          endTime: newVal.endTime,
           parkId: newVal.parkId
         };
         this.exportFile =
@@ -270,6 +222,8 @@ export default {
     }
   },
   mounted() {
+    //  初始化查询条件传入的时间
+    this.initQuery();
     //停车场下拉菜单
     this.queryParkList();
     //初始化列表
@@ -290,6 +244,15 @@ export default {
     resetQuery() {
       this.upQueryList = {};
     },
+    //初始化查询条件
+    initQuery() {
+      var targetday_milliseconds =
+        new Date().getTime() - 1000 * 60 * 60 * 24 * 6;
+      var targetday = new Date();
+      targetday.setTime(targetday_milliseconds);
+      this.upQueryList.startTime = targetday.Format("yyyy-MM-dd");
+      this.upQueryList.endTime = new Date().Format("yyyy-MM-dd");
+    },
     //查询停车场列表数据
     queryParkList() {
       const params = {
@@ -304,8 +267,8 @@ export default {
     //列表查询
     queryData() {
       const param = {
-        startTime: this.upQueryList.minTime,
-        endTime: this.upQueryList.maxTime,
+        startTime: this.upQueryList.startTime,
+        endTime: this.upQueryList.endTime,
         parkId: this.upQueryList.parkId,
         pageNum: this.pageNum,
         pageSize: this.pageSize
@@ -344,8 +307,8 @@ export default {
     //停车数量图表
     queryParkTimes() {
       const param = {
-        startTime: this.upQueryList.minTime,
-        endTime: this.upQueryList.maxTime,
+        startTime: this.upQueryList.startTime,
+        endTime: this.upQueryList.endTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.queryParkTimes(param).then(res => {
@@ -389,20 +352,20 @@ export default {
             }
           },
           legend: {
-            enabled: false,
+            enabled: true,
             align: "center",
             verticalAlign: "left",
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
@@ -436,17 +399,9 @@ export default {
     },
     // 平均停车时长
     avgParkDuration() {
-      // this.lineId = 'averageParkingTime';
-      // this.lineOptions = 'averageParkingTimeOptions';
-      // this.lineTitle = '平均停车时长';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.averageParkingTimeData;
-      // this.lineChartsX = this.averageParkingTimeXz;
-      // this.lineChartsName = this.averageParkingTimeName;
-      // this.queryLine(this.lineId, this.lineOptions);\
       const param = {
-        startTime: this.upQueryList.minTime,
-        endTime: this.upQueryList.maxTime,
+        startTime: this.upQueryList.startTime,
+        endTime: this.upQueryList.endTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.avgParkDuration(param).then(res => {
@@ -496,14 +451,14 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
@@ -537,17 +492,9 @@ export default {
     },
     // 车位利用率
     usageRate() {
-      // this.lineId = 'parkingSpaceUtilization';
-      // this.lineOptions = 'parkingSpaceUtilizationOptions';
-      // this.lineTitle = '车位利用率';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.parkingSpaceUtilizationData;
-      // this.lineChartsX = this.parkingSpaceUtilizationXz;
-      // this.lineChartsName = this.parkingSpaceUtilizationName;
-      // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        startTime: this.upQueryList.minTime,
-        endTime: this.upQueryList.maxTime,
+        startTime: this.upQueryList.startTime,
+        endTime: this.upQueryList.endTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.usageRate(param).then(res => {
@@ -599,14 +546,14 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
@@ -641,17 +588,9 @@ export default {
     },
     // 车位周转率
     turnoverRate() {
-      // this.lineId = 'parkingSpaceTurnoverRate';
-      // this.lineOptions = 'parkingSpaceTurnoverRateOptions';
-      // this.lineTitle = '车位周转率';
-      // this.lineChartsType = 'area';
-      // this.lineChartsList = this.parkingSpaceTurnoverRateData;
-      // this.lineChartsX = this.parkingSpaceTurnoverRateXz;
-      // this.lineChartsName = this.parkingSpaceTurnoverRateName;
-      // this.queryLine(this.lineId, this.lineOptions);
       const param = {
-        startTime: this.upQueryList.minTime,
-        endTime: this.upQueryList.maxTime,
+        startTime: this.upQueryList.startTime,
+        endTime: this.upQueryList.endTime,
         parkId: this.upQueryList.parkId
       };
       this.$reportAnalysis.turnoverRate(param).then(res => {
@@ -702,14 +641,14 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
               color: "#333333"
