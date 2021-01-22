@@ -103,9 +103,9 @@
             <el-button @click="check(scope.row)" type="text">查看</el-button>
             <el-button @click="alter(scope.row)" type="text">修改</el-button>
             <el-button @click="del(scope.row)" type="text">删除</el-button>
-            <el-button @click="retPassword(scope.row)" type="text"
-              >密码重置</el-button
-            >
+            <!--            <el-button @click="retPassword(scope.row)" type="text"-->
+            <!--              >密码重置</el-button-->
+            <!--            >-->
           </template>
         </el-table-column>
       </el-table>
@@ -331,21 +331,21 @@
         </span>
       </el-dialog>
       <!--            密码重置弹框-->
-      <el-dialog title="提示信息" :visible.sync="retListDialog" width="70%">
-        <el-form :inline="true" label-position="right" label-width="100px">
-          <el-form-item label="原密码:" label-width="150px">
-            <el-input v-model="oldPassword" />
-          </el-form-item>
-          <el-row>
-            <el-form-item label="新密码:" label-width="150px">
-              <el-input v-model="newPassword" />
-            </el-form-item>
-          </el-row>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="onSubmitRet()">确 定</el-button>
-        </span>
-      </el-dialog>
+      <!--      <el-dialog title="提示信息" :visible.sync="retListDialog" width="70%">-->
+      <!--        <el-form :inline="true" label-position="right" label-width="100px">-->
+      <!--          <el-form-item label="原密码:" label-width="150px">-->
+      <!--            <el-input v-model="oldPassword" />-->
+      <!--          </el-form-item>-->
+      <!--          <el-row>-->
+      <!--            <el-form-item label="新密码:" label-width="150px">-->
+      <!--              <el-input v-model="newPassword" />-->
+      <!--            </el-form-item>-->
+      <!--          </el-row>-->
+      <!--        </el-form>-->
+      <!--        <span slot="footer" class="dialog-footer">-->
+      <!--          <el-button type="primary" @click="onSubmitRet()">确 定</el-button>-->
+      <!--        </span>-->
+      <!--      </el-dialog>-->
     </div>
   </div>
 </template>
@@ -407,7 +407,7 @@ export default {
       //修改用户弹窗
       modFormDialog: false,
       //密码重置弹窗
-      retListDialog: false,
+      // retListDialog: false,
       //树形下拉获取数据暂存
       treeList: [],
       //修改数据暂存
@@ -421,9 +421,9 @@ export default {
       //角色多选暂存
       checkRoles: [],
       //角色暂存id
-      roleIdList: [],
-      oldPassword: "",
-      newPassword: ""
+      roleIdList: []
+      // oldPassword: "",
+      // newPassword: ""
     };
   },
   mounted() {
@@ -578,23 +578,23 @@ export default {
     },
 
     //表格操作中密码重置方法
-    retPassword(row) {
-      this.$confirm("此操作将重置密码, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.retListDialog = true;
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消重置" });
-        });
-    },
+    // retPassword(row) {
+    //   this.$confirm("此操作将重置密码, 是否继续?", "提示", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning"
+    //   })
+    //     .then(() => {
+    //       this.retListDialog = true;
+    //     })
+    //     .catch(() => {
+    //       this.$message({ type: "info", message: "已取消重置" });
+    //     });
+    // },
     //密码重置方法
-    onSubmitRet() {
-      this.retListDialog = false;
-    },
+    // onSubmitRet() {
+    //   this.retListDialog = false;
+    // },
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {

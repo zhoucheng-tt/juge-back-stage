@@ -252,9 +252,7 @@ export default {
         xAxis: {
           categories: this.carWashTypeIncomeAnalysisXz
         },
-        colors: ["#0D64F4",
-            "#00DBEC",
-            #1EC193],
+        colors: ["#0D64F4", "#00DBEC", "#1EC193"],
         yAxis: {
           title: {
             text: ""
@@ -299,7 +297,6 @@ export default {
             }
           }
         },
-        colors: ["#3D96AE", "#DB843D", "#92A8CD"],
         series: [
           {
             name: "精洗营收金额",
@@ -342,7 +339,7 @@ export default {
         xAxis: {
           categories: this.carWashTimesAnalysisXz
         },
-        colors: ["#03D7E9"],
+        colors: ["#0D64F4"],
         yAxis: {
           title: {
             text: ""
@@ -421,7 +418,7 @@ export default {
         xAxis: {
           categories: this.carWashTypeTimesAnalysisXz
         },
-        colors: ["#03D7E9"],
+        colors: ["#0D64F4", "#00DBEC", "#1EC193"],
         yAxis: {
           title: {
             text: ""
@@ -466,7 +463,6 @@ export default {
             }
           }
         },
-        colors: ["#AA4643", "#89A54E", "#80699B"],
         series: [
           {
             name: "精洗次数",
