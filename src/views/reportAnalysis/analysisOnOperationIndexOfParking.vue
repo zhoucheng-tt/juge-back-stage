@@ -376,10 +376,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {
@@ -469,10 +469,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {
@@ -565,10 +565,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {
@@ -659,10 +659,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {

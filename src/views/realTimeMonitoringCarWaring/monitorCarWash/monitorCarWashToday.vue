@@ -152,7 +152,7 @@ export default {
     handleRevenueCarWashingAnalysis() {
       this.revenueCarWashingAnalysisOption = {
         chart: {
-          type: "line",
+          type: "spline",
           backgroundColor: "rgba(0,0,0,0)",
           renderTo: "revenueCarWashingAnalysisID"
         },
@@ -173,7 +173,7 @@ export default {
         xAxis: {
           categories: this.revenueCarWashingAnalysisXz
         },
-        colors: ["#03D7E9"],
+        colors: ["#0D64F4"],
         yAxis: {
           title: {
             text: ""
@@ -206,16 +206,15 @@ export default {
           pointFormat: "{series.name}: <b>{point.y}</b>"
         },
         plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: "circle",
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
-                }
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 3
               }
+            },
+            marker: {
+              enabled: false
             }
           }
         },
@@ -232,7 +231,7 @@ export default {
     handleCarWashTypeIncomeAnalysis() {
       this.carWashTypeIncomeAnalysisOption = {
         chart: {
-          type: "line",
+          type: "spline",
           backgroundColor: "rgba(0,0,0,0)",
           renderTo: "carWashTypeIncomeAnalysisID"
         },
@@ -253,7 +252,9 @@ export default {
         xAxis: {
           categories: this.carWashTypeIncomeAnalysisXz
         },
-        colors: ["#03D7E9"],
+        colors: ["#0D64F4",
+            "#00DBEC",
+            #1EC193],
         yAxis: {
           title: {
             text: ""
@@ -286,16 +287,15 @@ export default {
           pointFormat: "{series.name}: <b>{point.y}</b>"
         },
         plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: "circle",
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
-                }
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 3
               }
+            },
+            marker: {
+              enabled: false
             }
           }
         },
@@ -321,7 +321,7 @@ export default {
     handleCarWashTimesAnalysis() {
       this.carWashTimesAnalysisOption = {
         chart: {
-          type: "line",
+          type: "spline",
           backgroundColor: "rgba(0,0,0,0)",
           renderTo: "carWashTimesAnalysisID"
         },
@@ -375,16 +375,15 @@ export default {
           pointFormat: "{series.name}: <b>{point.y}</b>"
         },
         plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: "circle",
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
-                }
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 3
               }
+            },
+            marker: {
+              enabled: false
             }
           }
         },
@@ -401,7 +400,7 @@ export default {
     handleCarWashTypeTimesAnalysis() {
       this.carWashTypeTimesAnalysisOption = {
         chart: {
-          type: "line",
+          type: "spline",
           backgroundColor: "rgba(0,0,0,0)",
           renderTo: "carWashTypeTimesAnalysisID"
         },
@@ -455,16 +454,15 @@ export default {
           pointFormat: "{series.name}: <b>{point.y}</b>"
         },
         plotOptions: {
-          area: {
-            marker: {
-              enabled: false,
-              symbol: "circle",
-              radius: 2,
-              states: {
-                hover: {
-                  enabled: true
-                }
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 3
               }
+            },
+            marker: {
+              enabled: false
             }
           }
         },

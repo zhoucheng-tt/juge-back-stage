@@ -69,3 +69,22 @@ export function getInRecord(param) {
     flag: "out"
   });
 }
+
+//洗车机运营分析洗车机收入分析统计
+export function queryCarWashIncomeAnalysis(param) {
+  return request({
+    url: "http://192.168.1.200/CarWashAnalysis/queryCarWashIncomeAnalysis",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//洗车机运营分析洗车次数统计分析
+export function queryCarWashCountAnalysis(param) {
+  return request({
+    url: "http://192.168.1.200:8000/CarWashAnalysis/queryCarWashCountAnalysis",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}

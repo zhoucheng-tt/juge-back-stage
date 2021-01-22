@@ -196,7 +196,7 @@ export default {
             {
               code: "4-1",
               logo: "el-icon-menu",
-              name: "洗车机运营数据",
+              name: "洗车运营分析",
               routeName: "realTimeMonitoringCarWaring"
             },
             // 出入口监测

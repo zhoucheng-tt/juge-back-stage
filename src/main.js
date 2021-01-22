@@ -26,6 +26,8 @@ Vue.prototype.$echarts = echarts;
 // 引入highcharts
 import highcharts from "highcharts";
 import highcharts3d from "highcharts/highcharts-3d";
+import HighchartsNoData from "highcharts/modules/no-data-to-display";
+HighchartsNoData(highcharts);
 highcharts3d(highcharts);
 
 // 封装axios

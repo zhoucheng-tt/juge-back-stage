@@ -163,8 +163,6 @@
           </div>
           <div class="leftChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -243,8 +241,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="leftChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -322,8 +318,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="leftChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -402,8 +396,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="leftChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -2800,8 +2792,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="rightChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -2870,8 +2860,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="rightChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -2942,8 +2930,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="leftChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -3012,8 +2998,6 @@ letter-spacing: 0.36px;float: right"
           </div>
           <div class="leftChartDown">
             <svg
-              width="358px"
-              height="24px"
               viewBox="0 0 358 24"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -3346,6 +3330,8 @@ export default {
           },
           xAxis: {
             categories: this.numberOfParkingXz,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
             labels: {
               style: {
                 color: "rgba(90,142,227,1)",
@@ -3449,6 +3435,8 @@ export default {
           },
           xAxis: {
             categories: this.averageParkingTimeXz,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
             labels: {
               style: {
                 color: "rgba(90,142,227,1)",
@@ -3556,6 +3544,8 @@ export default {
           },
           xAxis: {
             categories: this.parkingSpaceUtilizationXz,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
             labels: {
               style: {
                 color: "rgba(90,142,227,1)",
@@ -3662,6 +3652,8 @@ export default {
           },
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
             labels: {
               style: {
                 color: "rgba(90,142,227,1)",
@@ -3869,6 +3861,8 @@ export default {
           },
           xAxis: {
             categories: this.chargeAmountTimesX,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
             labels: {
               format: "{value}",
               style: {
@@ -3973,6 +3967,8 @@ export default {
           },
           xAxis: {
             categories: this.washCarSevenDaysAnalysisXz,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
             tickInterval: 2,
             labels: {
               style: {
@@ -4189,6 +4185,7 @@ export default {
   display: flex;
 }
 .top-text {
+  font-family: PingFangSC;
   width: 31.4%;
   height: 64px;
   line-height: 64px;
@@ -4200,6 +4197,7 @@ export default {
 }
 /*顶部首页按钮框*/
 .top-homepage {
+  font-family: PingFangSC;
   width: 10%;
   height: 38px;
   position: relative;
@@ -4208,13 +4206,14 @@ export default {
   margin-left: -8.5%;
   margin-top: 1.9%;
   transform: skew(-20.5deg);
-  border: 1px solid #45c3db;
+  border: 2px solid #45c3db;
   /* box-shadow: 0 0 0 2px #45c3db; */
 }
 .top-homepage:hover {
   cursor: pointer;
 }
 .top-homepage-text {
+  font-family: PingFangSC;
   width: 100%;
   height: 65%;
   transform: skew(20.5deg);
@@ -4233,12 +4232,13 @@ export default {
   width: 10%;
   height: 41px;
   line-height: 29px;
-  color: white;
+  color: #74a4e3;
   background-color: #043d87;
   margin-left: 0.8%;
   margin-top: 2%;
   transform: skew(-20.5deg);
   position: relative;
+  border: 1px solid #0071d0;
 }
 .top-others:hover {
   cursor: pointer;
@@ -4289,7 +4289,7 @@ export default {
 }
 /* 每个表格上面的标题名支付方式样式 */
 .spanStyle {
-  /*font-family: PingFangSC-Medium;*/
+  font-family: PingFangSC;
   font-size: 16px;
   color: #ecfff5;
   letter-spacing: 0.36px;
@@ -4434,7 +4434,7 @@ export default {
 .center-line2-poacher-text {
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #ffffff;
+  color: #5a8ee3;
   letter-spacing: 0.5px;
 }
 .center-line2-poacher-number {
@@ -4452,7 +4452,7 @@ export default {
 .center-line2-normal-text {
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #ffffff;
+  color: #5a8ee3;
   letter-spacing: 0.5px;
 }
 .center-line2-normal-number {
@@ -4470,7 +4470,7 @@ export default {
 .center-line2-fast-text {
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #ffffff;
+  color: #5a8ee3;
   letter-spacing: 0.5px;
 }
 .center-line2-fast-number {
@@ -4501,7 +4501,7 @@ export default {
 .center-line3-div-text {
   font-family: PingFangSC-Regular;
   font-size: 14px;
-  color: #ffffff;
+  color: #5a8ee3;
   letter-spacing: 0.57px;
 }
 /*总收入数字*/

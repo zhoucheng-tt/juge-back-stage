@@ -67,6 +67,10 @@ export default {
   },
   data() {
     return {
+      query: {
+        date: "2020-08-01",
+        parkId: ""
+      },
       //停车收费统计分析
       parkIncomeAnalysisName: "停车收费统计分析",
       parkIncomeChart: {},
@@ -88,14 +92,10 @@ export default {
       earnComponentDataList: [],
       earnComponentChart: {},
       earnComponentTotal: 0,
-      earnComponentETC: ["ETC", 0],
-      // earnComponentWX: ["WX", 0],
-      earnComponentWX: {
-        payType: "WX",
-        percent: 0
-      },
-      earnComponentZFB: ["ZFB", 0],
-      earnComponentOTHER: ["OTHER", 0],
+      earnComponentETC: [],
+      earnComponentWX: [],
+      earnComponentZFB: [],
+      earnComponentOTHER: [],
 
       //缴费类型统计分析
       paymentStyleChart: {},
@@ -205,10 +205,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {
@@ -229,10 +229,79 @@ export default {
     // 停车收入构成统计分析
     parkComparativeAnalysis() {
       const param = { querydate: "today" };
+      this.earnComponentChart = {
+        lang: {
+          noData: "暂无数据"
+        },
+        chart: {
+          type: "pie",
+          renderTo: "earnComponent"
+          //3D效果
+          // options3d: {
+          //   enabled: true,
+          //   alpha: 45,
+          //   beta: 0
+          // }
+        },
+        title: {
+          text: "停车收入构成统计分析"
+        },
+        credits: {
+          enabled: false
+        },
+        tooltip: {
+          //饼图显示百分比
+          pointFormat: "{series.name} <b>{point.percentage:.1f}%</b>"
+        },
+        colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC"],
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            innerSize: 100,
+            depth: 45,
+            //是否显示图例
+            showInLegend: true,
+            dataLabels: {
+              //饼图上面的黑线显示
+              enabled: false,
+              format: "{point.name}"
+            }
+          },
+          //给图例添加占比保留小数点后两位
+          labelFormatter: function() {
+            return this.name + " " + this.percentage.toFixed(2) + "%";
+          }
+        },
+        legend: {
+          layout: "vertival",
+          align: "left",
+          verticalAlign: "middle",
+          x: 100,
+          borderWidth: 0,
+          itemStyle: {
+            color: "blue",
+            fontSize: "15px"
+          },
+          itemHoverStyle: {
+            color: "#0F2C54"
+          },
+          //给图例添加占比保留小数点后两位
+          labelFormatter: function() {
+            return this.name + " " + this.percentage.toFixed(2) + "%";
+          }
+        },
+        series: [
+          {
+            name: "",
+            data: []
+          }
+        ]
+      };
       this.$reportAnalysis.queryChargePercent(param).then(res => {
         console.log(res.resultEntity);
         this.earnComponentETC = [];
-        // this.earnComponentWX = [];
+        this.earnComponentWX = [];
         this.earnComponentZFB = [];
         this.earnComponentOTHER = [];
         this.earnComponentETC.push(res.resultEntity[0].payType);
@@ -243,81 +312,16 @@ export default {
         this.earnComponentWX.push(Number(res.resultEntity[2].percent) * 100);
         this.earnComponentZFB.push(res.resultEntity[3].payType);
         this.earnComponentZFB.push(Number(res.resultEntity[3].percent) * 100);
-        console.log(this.earnComponentTotal);
-        this.earnComponentChart = {
-          chart: {
-            type: "pie",
-            renderTo: "earnComponent"
-            //3D效果
-            // options3d: {
-            //   enabled: true,
-            //   alpha: 45,
-            //   beta: 0
-            // }
-          },
-          title: {
-            text: "停车收入构成统计分析"
-          },
-          credits: {
-            enabled: false
-          },
-          tooltip: {
-            //饼图显示百分比
-            pointFormat: "{series.name} <b>{point.percentage:.1f}%</b>"
-          },
-          colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC"],
-          plotOptions: {
-            pie: {
-              allowPointSelect: true,
-              cursor: "pointer",
-              innerSize: 100,
-              depth: 45,
-              //是否显示图例
-              showInLegend: true,
-              dataLabels: {
-                //饼图上面的黑线显示
-                enabled: false,
-                format: "{point.name}"
-              }
-            },
-            //给图例添加占比保留小数点后两位
-            labelFormatter: function() {
-              return this.name + " " + this.percentage.toFixed(2) + "%";
-            }
-          },
-          legend: {
-            layout: "vertival",
-            align: "left",
-            verticalAlign: "middle",
-            x: 100,
-            borderWidth: 0,
-            itemStyle: {
-              color: "blue",
-              fontSize: "15px"
-            },
-            itemHoverStyle: {
-              color: "#0F2C54"
-            },
-            //给图例添加占比保留小数点后两位
-            labelFormatter: function() {
-              return this.name + " " + this.percentage.toFixed(2) + "%";
-            }
-          },
-          series: [
-            {
-              name: "",
-              data: [
-                { name: this.earnComponentETC[0], y: this.earnComponentETC[1] },
-                { name: this.earnComponentWX[0], y: this.earnComponentWX[1] },
-                { name: this.earnComponentZFB[0], y: this.earnComponentZFB[1] },
-                {
-                  name: this.earnComponentOTHER[0],
-                  y: this.earnComponentOTHER[1]
-                }
-              ]
-            }
-          ]
-        };
+        console.log(this.earnComponentZFB);
+        this.earnComponentChart.series[0].data = [
+          { name: this.earnComponentETC[0], y: this.earnComponentETC[1] },
+          { name: this.earnComponentWX[0], y: this.earnComponentWX[1] },
+          { name: this.earnComponentZFB[0], y: this.earnComponentZFB[1] },
+          {
+            name: this.earnComponentOTHER[0],
+            y: this.earnComponentOTHER[1]
+          }
+        ];
         new HighCharts.chart(this.earnComponentChart);
       });
     },

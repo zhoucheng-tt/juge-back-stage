@@ -67,6 +67,10 @@ export default {
   },
   data() {
     return {
+      query: {
+        date: "2020-08-01",
+        parkId: ""
+      },
       //停车收费统计分析
       parkIncomeAnalysisName: "停车收费统计分析",
       parkIncomeChart: {},
