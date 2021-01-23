@@ -64,74 +64,30 @@ export default {
       //洗车收入统计分析
       revenueCarWashingAnalysisOption: {},
       revenueCarWashingAnalysisName: "洗车收入统计分析",
-      revenueCarWashingAnalysisXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09"
-      ],
-      revenueCarWashingAnalysisY: [1, 3, 5, 4, 5, 2, 7, 5, 3, 8],
+      revenueCarWashingAnalysisXz: [],
+      revenueCarWashingAnalysisY: [],
 
       //洗车类型收入统计分析
       carWashTypeIncomeAnalysisOption: {},
       carWashTypeIncomeAnalysisName: "洗车类型收入统计分析",
-      carWashTypeIncomeAnalysisXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09"
-      ],
-      carWashTypeIncomeAnalysisYA: [1, 3, 5, 4, 5, 2, 7, 5, 3, 8],
-      carWashTypeIncomeAnalysisYB: [2, 3, 4, 1, 2, 5, 1, 2, 6, 4],
-      carWashTypeIncomeAnalysisYC: [2, 1, 5, 3, 4, 1, 5, 2, 1, 6],
+      carWashTypeIncomeAnalysisXz: [],
+      carWashTypeIncomeAnalysisJINGY: [],
+      carWashTypeIncomeAnalysisPUY: [],
+      carWashTypeIncomeAnalysisKUAIY: [],
 
       //洗车次数统计分析
       carWashTimesAnalysisOption: {},
       carWashTimesAnalysisName: "洗车次数统计分析",
-      carWashTimesAnalysisXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09"
-      ],
-      carWashTimesAnalysisY: [1, 3, 5, 4, 5, 2, 7, 5, 3, 8],
+      carWashTimesAnalysisXz: [],
+      carWashTimesAnalysisY: [],
 
       // 洗车类型次数统计分析
       carWashTypeTimesAnalysisOption: {},
       carWashTypeTimesAnalysisName: "洗车类型次数统计分析",
-      carWashTypeTimesAnalysisXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09"
-      ],
-      carWashTypeTimesAnalysisYA: [1, 3, 5, 4, 5, 2, 7, 5, 3, 8],
-      carWashTypeTimesAnalysisYB: [1, 5, 2, 6, 6, 1, 5, 2, 4, 2],
-      carWashTypeTimesAnalysisYC: [2, 5, 3, 4, 1, 5, 7, 6, 1, 5]
+      carWashTypeTimesAnalysisXz: [],
+      carWashTypeTimesAnalysisJINGY: [],
+      carWashTypeTimesAnalysisPUY: [],
+      carWashTypeTimesAnalysisKUAIY: []
     };
   },
   mounted() {
@@ -150,335 +106,375 @@ export default {
 
     //洗车收入统计分析
     handleRevenueCarWashingAnalysis() {
-      this.revenueCarWashingAnalysisOption = {
-        chart: {
-          type: "spline",
-          backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "revenueCarWashingAnalysisID"
-        },
-        title: {
-          text: this.revenueCarWashingAnalysisName,
-          align: "left",
-          x: 20,
-          style: {
-            fontFamily: "PingFangSC-Medium",
-            fontSize: "16px",
-            color: "#333333",
-            letterSpacing: "0.17px"
-          }
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.revenueCarWashingAnalysisXz
-        },
-        colors: ["#0D64F4"],
-        yAxis: {
+      const param = { queryDate: "today" };
+      this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
+        res.resultEntity.forEach(item => {
+          this.revenueCarWashingAnalysisXz.push(item.X),
+            this.revenueCarWashingAnalysisY.push(Number(item.dataY));
+        });
+        this.revenueCarWashingAnalysisOption = {
+          chart: {
+            type: "spline",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "revenueCarWashingAnalysisID"
+          },
           title: {
-            text: ""
-          },
-          labels: {
-            format: "{value}"
-          }
-        },
-        legend: {
-          enabled: true,
-          align: "center",
-          verticalAlign: "left",
-          x: 300,
-          y: 10,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
-          },
-          itemHoverStyle: {
-            color: "#666666"
-          },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        tooltip: {
-          pointFormat: "{series.name}: <b>{point.y}</b>"
-        },
-        plotOptions: {
-          spline: {
-            lineWidth: 2,
-            states: {
-              hover: {
-                lineWidth: 3
-              }
-            },
-            marker: {
-              enabled: false
+            text: this.revenueCarWashingAnalysisName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
             }
-          }
-        },
-        series: [
-          {
-            name: "营收金额",
-            data: this.revenueCarWashingAnalysisY
-          }
-        ]
-      };
-      new HighCharts.chart(this.revenueCarWashingAnalysisOption);
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.revenueCarWashingAnalysisXz
+          },
+          colors: ["#0D64F4"],
+          yAxis: {
+            title: {
+              text: ""
+            },
+            labels: {
+              format: "{value}"
+            }
+          },
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: "#666666",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#666666"
+            },
+            itemHoverStyle: {
+              color: "#cccccc"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
+          },
+          tooltip: {
+            pointFormat: "{series.name}: <b>{point.y}</b>"
+          },
+          plotOptions: {
+            spline: {
+              lineWidth: 2,
+              states: {
+                hover: {
+                  lineWidth: 3
+                }
+              },
+              marker: {
+                enabled: false
+              }
+            }
+          },
+          series: [
+            {
+              name: "营收金额",
+              data: this.revenueCarWashingAnalysisY
+            }
+          ]
+        };
+        new HighCharts.chart(this.revenueCarWashingAnalysisOption);
+      });
     },
     //洗车类型收入统计分析
     handleCarWashTypeIncomeAnalysis() {
-      this.carWashTypeIncomeAnalysisOption = {
-        chart: {
-          type: "spline",
-          backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "carWashTypeIncomeAnalysisID"
-        },
-        title: {
-          text: this.carWashTypeIncomeAnalysisName,
-          align: "left",
-          x: 20,
-          style: {
-            fontFamily: "PingFangSC-Medium",
-            fontSize: "16px",
-            color: "#333333",
-            letterSpacing: "0.17px"
-          }
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.carWashTypeIncomeAnalysisXz
-        },
-        colors: ["#0D64F4", "#00DBEC", "#1EC193"],
-        yAxis: {
+      const param = { queryDate: "today" };
+      this.$realTimeMonitor.queryCarWashTypeCountAnalysis(param).then(res => {
+        res.resultEntity["精洗"].forEach(item => {
+          this.carWashTypeIncomeAnalysisXz.push(item.X);
+          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.dataY));
+        });
+        res.resultEntity["普洗"].forEach(item => {
+          this.carWashTypeIncomeAnalysisPUY.push(Number(item.dataY));
+        });
+        res.resultEntity["快洗"].forEach(item => {
+          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.dataY));
+        });
+        this.carWashTypeIncomeAnalysisOption = {
+          chart: {
+            type: "spline",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "carWashTypeIncomeAnalysisID"
+          },
           title: {
-            text: ""
-          },
-          labels: {
-            format: "{value}"
-          }
-        },
-        legend: {
-          enabled: true,
-          align: "center",
-          verticalAlign: "left",
-          x: 200,
-          y: 10,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
-          },
-          itemHoverStyle: {
-            color: "#666666"
-          },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        tooltip: {
-          pointFormat: "{series.name}: <b>{point.y}</b>"
-        },
-        plotOptions: {
-          spline: {
-            lineWidth: 2,
-            states: {
-              hover: {
-                lineWidth: 3
-              }
-            },
-            marker: {
-              enabled: false
+            text: this.carWashTypeIncomeAnalysisName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
             }
-          }
-        },
-        series: [
-          {
-            name: "精洗营收金额",
-            data: this.carWashTypeIncomeAnalysisYA
           },
-          {
-            name: "普洗营收金额",
-            data: this.carWashTypeIncomeAnalysisYB
+          credits: {
+            enabled: false
           },
-          {
-            name: "快洗营收金额",
-            data: this.carWashTypeIncomeAnalysisYC
-          }
-        ]
-      };
-      new HighCharts.chart(this.carWashTypeIncomeAnalysisOption);
+          xAxis: {
+            categories: this.carWashTypeIncomeAnalysisXz
+          },
+          colors: ["#0D64F4", "#00DBEC", "#1EC193"],
+          yAxis: {
+            title: {
+              text: ""
+            },
+            labels: {
+              format: "{value}"
+            }
+          },
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 200,
+            y: 10,
+            itemStyle: {
+              color: "#666666",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#666666"
+            },
+            itemHoverStyle: {
+              color: "#cccccc"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
+          },
+          tooltip: {
+            pointFormat: "{series.name}: <b>{point.y}</b>"
+          },
+          plotOptions: {
+            spline: {
+              lineWidth: 1,
+              states: {
+                hover: {
+                  lineWidth: 2
+                }
+              },
+              marker: {
+                enabled: false
+              }
+            }
+          },
+          series: [
+            {
+              name: "精洗营收金额",
+              data: this.carWashTypeIncomeAnalysisJINGY
+            },
+            {
+              name: "普洗营收金额",
+              data: this.carWashTypeIncomeAnalysisPUY
+            },
+            {
+              name: "快洗营收金额",
+              data: this.carWashTypeIncomeAnalysisKUAIY
+            }
+          ]
+        };
+        new HighCharts.chart(this.carWashTypeIncomeAnalysisOption);
+      });
     },
     //洗车次数统计分析
     handleCarWashTimesAnalysis() {
-      this.carWashTimesAnalysisOption = {
-        chart: {
-          type: "spline",
-          backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "carWashTimesAnalysisID"
-        },
-        title: {
-          text: this.carWashTimesAnalysisName,
-          align: "left",
-          x: 20,
-          style: {
-            fontFamily: "PingFangSC-Medium",
-            fontSize: "16px",
-            color: "#333333",
-            letterSpacing: "0.17px"
-          }
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.carWashTimesAnalysisXz
-        },
-        colors: ["#0D64F4"],
-        yAxis: {
+      const param = { queryDate: "today" };
+      this.$realTimeMonitor.queryCarWashCountAnalysis(param).then(res => {
+        res.resultEntity.forEach(item => {
+          this.carWashTimesAnalysisXz.push(item.X);
+          this.carWashTimesAnalysisY.push(Number(item.dataY));
+        });
+        this.carWashTimesAnalysisOption = {
+          chart: {
+            type: "spline",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "carWashTimesAnalysisID"
+          },
           title: {
-            text: ""
-          },
-          labels: {
-            format: "{value}"
-          }
-        },
-        legend: {
-          enabled: true,
-          align: "center",
-          verticalAlign: "left",
-          x: 300,
-          y: 10,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
-          },
-          itemHoverStyle: {
-            color: "#666666"
-          },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        tooltip: {
-          pointFormat: "{series.name}: <b>{point.y}</b>"
-        },
-        plotOptions: {
-          spline: {
-            lineWidth: 2,
-            states: {
-              hover: {
-                lineWidth: 3
-              }
-            },
-            marker: {
-              enabled: false
+            text: this.carWashTimesAnalysisName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
             }
-          }
-        },
-        series: [
-          {
-            name: "洗车次数",
-            data: this.carWashTimesAnalysisY
-          }
-        ]
-      };
-      new HighCharts.chart(this.carWashTimesAnalysisOption);
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.carWashTimesAnalysisXz
+          },
+          colors: ["#0D64F4"],
+          yAxis: {
+            title: {
+              text: ""
+            },
+            labels: {
+              format: "{value}"
+            }
+          },
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: "#666666",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#666666"
+            },
+            itemHoverStyle: {
+              color: "#cccccc"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
+          },
+          tooltip: {
+            pointFormat: "{series.name}: <b>{point.y}</b>"
+          },
+          plotOptions: {
+            spline: {
+              lineWidth: 2,
+              states: {
+                hover: {
+                  lineWidth: 3
+                }
+              },
+              marker: {
+                enabled: false
+              }
+            }
+          },
+          series: [
+            {
+              name: "洗车次数",
+              data: this.carWashTimesAnalysisY
+            }
+          ]
+        };
+        new HighCharts.chart(this.carWashTimesAnalysisOption);
+      });
     },
     //洗车类型次数统计分析
     handleCarWashTypeTimesAnalysis() {
-      this.carWashTypeTimesAnalysisOption = {
-        chart: {
-          type: "spline",
-          backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "carWashTypeTimesAnalysisID"
-        },
-        title: {
-          text: this.carWashTypeTimesAnalysisName,
-          align: "left",
-          x: 20,
-          style: {
-            fontFamily: "PingFangSC-Medium",
-            fontSize: "16px",
-            color: "#333333",
-            letterSpacing: "0.17px"
-          }
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.carWashTypeTimesAnalysisXz
-        },
-        colors: ["#0D64F4", "#00DBEC", "#1EC193"],
-        yAxis: {
+      const param = { queryDate: "today" };
+      this.$realTimeMonitor.queryCarWashTypeTimesAnalysis(param).then(res => {
+        res.resultEntity["精洗"].forEach(item => {
+          this.carWashTypeTimesAnalysisXz.push(item.X);
+          this.carWashTypeTimesAnalysisJINGY.push(Number(item.dataY));
+        });
+        res.resultEntity["普洗"].forEach(item => {
+          this.carWashTypeTimesAnalysisPUY.push(Number(item.dataY));
+        });
+        res.resultEntity["快洗"].forEach(item => {
+          this.carWashTypeTimesAnalysisKUAIY.push(Number(item.dataY));
+        });
+        this.carWashTypeTimesAnalysisOption = {
+          chart: {
+            type: "spline",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "carWashTypeTimesAnalysisID"
+          },
           title: {
-            text: ""
-          },
-          labels: {
-            format: "{value}"
-          }
-        },
-        legend: {
-          enabled: true,
-          align: "center",
-          verticalAlign: "left",
-          x: 230,
-          y: 10,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
-          },
-          itemHoverStyle: {
-            color: "#666666"
-          },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        tooltip: {
-          pointFormat: "{series.name}: <b>{point.y}</b>"
-        },
-        plotOptions: {
-          spline: {
-            lineWidth: 2,
-            states: {
-              hover: {
-                lineWidth: 3
-              }
-            },
-            marker: {
-              enabled: false
+            text: this.carWashTypeTimesAnalysisName,
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
             }
-          }
-        },
-        series: [
-          {
-            name: "精洗次数",
-            data: this.carWashTypeTimesAnalysisYA
           },
-          {
-            name: "普洗次数",
-            data: this.carWashTypeTimesAnalysisYB
+          credits: {
+            enabled: false
           },
-          {
-            name: "快洗次数",
-            data: this.carWashTypeTimesAnalysisYC
-          }
-        ]
-      };
-      new HighCharts.chart(this.carWashTypeTimesAnalysisOption);
+          xAxis: {
+            categories: this.carWashTypeTimesAnalysisXz
+          },
+          colors: ["#0D64F4", "#00DBEC", "#1EC193"],
+          yAxis: {
+            title: {
+              text: ""
+            },
+            labels: {
+              format: "{value}"
+            }
+          },
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 230,
+            y: 10,
+            itemStyle: {
+              color: "#666666",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#666666"
+            },
+            itemHoverStyle: {
+              color: "#cccccc"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
+          },
+          tooltip: {
+            pointFormat: "{series.name}: <b>{point.y}</b>"
+          },
+          plotOptions: {
+            spline: {
+              lineWidth: 1,
+              states: {
+                hover: {
+                  lineWidth: 2
+                }
+              },
+              marker: {
+                enabled: false
+              }
+            }
+          },
+          series: [
+            {
+              name: "精洗次数",
+              data: this.carWashTypeTimesAnalysisJINGY
+            },
+            {
+              name: "普洗次数",
+              data: this.carWashTypeTimesAnalysisPUY
+            },
+            {
+              name: "快洗次数",
+              data: this.carWashTypeTimesAnalysisKUAIY
+            }
+          ]
+        };
+        new HighCharts.chart(this.carWashTypeTimesAnalysisOption);
+      });
     }
   }
 };

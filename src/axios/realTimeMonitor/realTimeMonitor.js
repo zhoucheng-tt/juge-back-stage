@@ -73,7 +73,19 @@ export function getInRecord(param) {
 //洗车机运营分析洗车机收入分析统计
 export function queryCarWashIncomeAnalysis(param) {
   return request({
-    url: "http://192.168.1.200/CarWashAnalysis/queryCarWashIncomeAnalysis",
+    url:
+      "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashIncomeAnalysis",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//洗车运营分析洗车类型收入统计分析
+export function queryCarWashTypeCountAnalysis(param) {
+  return request({
+    url:
+      "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashTypeCountAnalysis",
     method: "post",
     data: param,
     flag: "out"
@@ -82,7 +94,17 @@ export function queryCarWashIncomeAnalysis(param) {
 //洗车机运营分析洗车次数统计分析
 export function queryCarWashCountAnalysis(param) {
   return request({
-    url: "http://192.168.1.200:8000/CarWashAnalysis/queryCarWashCountAnalysis",
+    url: "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashCountAnalysis",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//洗车运营分析 洗车类型次数统计分析
+export function queryCarWashTypeTimesAnalysis(param) {
+  return request({
+    url:
+      "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashTypeTimesAnalysis",
     method: "post",
     data: param,
     flag: "out"
