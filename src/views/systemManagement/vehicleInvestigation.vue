@@ -14,25 +14,12 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item>
           <el-date-picker
-            v-model="upQueryList.minLogTime"
-            format="yyyy-MM-dd HH:mm:ss"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            type="datetime"
-            size="small"
-            style="width: 160px"
-            placeholder="选择日期时间"
-          >
-          </el-date-picker>
-          <span>~</span>
-          <el-date-picker
-            v-model="upQueryList.maxLogTime"
-            format="yyyy-MM-dd HH:mm:ss"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            type="datetime"
-            size="small"
-            style="width: 160px"
-            placeholder="选择日期时间"
-          >
+              v-model="upQueryList"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
 
@@ -44,8 +31,14 @@
         </el-form-item>
       </el-form>
       <el-row class="line-2">
-        <el-button type="primary" size="small" @click="exportLogList">
-          导出
+        <el-button type="primary" size="small" >
+          <a
+              :href="exportFile"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+          >导出</a
+          >
         </el-button>
       </el-row>
     </div>
@@ -129,53 +122,74 @@
   </div>
 </template>
 <script>
+import {BASE_API} from "@/utils/config";
+
 export default {
   data() {
     return {
       //顶部查询条件存放
-      upQueryList: {},
-      //顶部开始时间
-      minLogTime: "",
-      //顶部结束时间
-      maxLogTime: "",
+      upQueryList: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       //初始化分页
       pageNum: 1,
       pageSize: 13,
       pageTotal: 1,
       //日志管理表格数据存放
-      logManagementData: []
+      logManagementData: [],
+      exportFile:BASE_API + "UserController/download"
     };
   },
   mounted() {
+    this.initQuery()
     //查询日志管理列表
     this.queryLogList();
   },
+  watch: {
+    upQueryList: {
+      handler(newVal) {
+        const param = {
+          minLogTime: newVal[0],
+          maxLogTime: newVal[1]
+        }
+        this.exportFile =
+            BASE_API +
+            "UserController/download?jsonStr=" +
+            encodeURIComponent(JSON.stringify(param));
+        // console.log(this.exportFile)
+      },
+      deep: true
+    }
+  },
   methods: {
-    //顶部导出按钮
-    exportLogList() {},
+    //初始化查询条件
+    initQuery() {
+      var targetday_milliseconds = new Date().getTime() - 1000 * 60 * 60 * 24 * 6;
+      var targetday = new Date();
+      targetday.setTime(targetday_milliseconds);
+      this.upQueryList = [targetday.Format("yyyy-MM-dd hh:mm:ss"), new Date().Format("yyyy-MM-dd hh:mm:ss")];
+      // console.log(this.upQueryList);
+    },
     //查询重置按钮
     resetQuery() {
-      this.upQueryList = {};
+      this.initQuery();
     },
     //顶部查询按钮
     queryLogList() {
       var that = this;
       const param = {
         //传入查询要用的参数
-        minLogTime: this.upQueryList.minLogTime,
-        maxLogTime: this.upQueryList.maxLogTime,
+        minLogTime: this.upQueryList[0],
+        maxLogTime: this.upQueryList[1],
         pageSize: this.pageSize,
-        pageNum: this.pageNum
+        pageNumber: this.pageNum
       };
-      console.log("param", param);
+      // console.log("param", param);
       this.$systemUser.queryLogList(param).then(response => {
-        console.log("打印查询response", response);
+        // console.log("打印查询response", response);
         //分页
         that.pageTotal = response.resultEntity.total;
-        console.log("that.pageTotal", that.pageTotal);
+        // console.log("that.pageTotal", that.pageTotal);
         //查询
         that.logManagementData = response.resultEntity.list;
-        console.log("查询日志管理表格数据", that.logManagementData);
       });
     },
     //分页方法

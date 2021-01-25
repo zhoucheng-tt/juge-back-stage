@@ -445,12 +445,12 @@ export default {
       const param = {
         userAccount: this.upQueryList.userAccount,
         name: this.upQueryList.name,
-        pageNum: this.pageNum,
+        pageNumber: this.pageNum,
         pageSize: this.pageSize
       };
       this.$systemUser.queryUserList(param).then(res => {
-        this.pageTotal = res.data.totalRecord;
-        this.tableData = res.data.dataList;
+        this.pageTotal = res.resultEntity.total;
+        this.tableData = res.resultEntity.list;
       });
     },
     //角色数据暂存
@@ -460,7 +460,7 @@ export default {
         userId: ""
       };
       this.$systemUser.queryRoleListByUser(param).then(res => {
-        this.roleList = res.data.dataList;
+        this.roleList = res.resultEntity;
         // console.log("角色列表", this.roleList);
       });
     },
@@ -510,9 +510,8 @@ export default {
       const param = {
         userId: row.userId
       };
-      this.$systemUser.queryFuncListByUser(param);
       this.$systemUser.queryRoleListByUser(param).then(res => {
-        res.data.dataList.forEach(item => {
+        res.resultEntity.forEach(item => {
           if (item.permission == true) {
             this.checkRoles.push(item.roleId);
           }
@@ -529,7 +528,7 @@ export default {
         userId: row.userId
       };
       this.$systemUser.queryRoleListByUser(param).then(res => {
-        res.data.dataList.forEach(item => {
+        res.resultEntity.forEach(item => {
           if (item.permission == true) {
             this.checkRoles.push(item.roleId);
           }
@@ -565,7 +564,7 @@ export default {
       })
         .then(() => {
           const param = {
-            userId: [row.userId]
+            userId: row.userId
           };
           this.delList.push(param);
           this.$systemUser.deleteUser(param).then(res => {

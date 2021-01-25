@@ -8,8 +8,8 @@ let env = "dev";
 let BASE_API = "";
 
 if (env === "dev") {
-  // BASE_API = "http://192.168.1.163:8000/";
-  BASE_API = "http://123.207.189.27:7138/";
+  BASE_API = "http://192.168.1.163:8000/";
+  // BASE_API = "http://123.207.189.27:7138/";
 } else if (env === "prod") {
   BASE_API = "http://123.207.189.27:7138/";
 }
