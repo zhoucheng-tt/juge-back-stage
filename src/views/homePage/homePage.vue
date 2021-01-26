@@ -158,14 +158,11 @@
           </div>
           <!-- 总停车数量-->
           <div class="leftChartCenter" id="numberOfParking">
-            <Xchart
-              id="numberOfParking"
-              :option="numberOfParkingOptions"
-            ></Xchart>
-            <!--            <dt-line-chart-->
-            <!--              :x-categories="numberOfParkingXz"-->
-            <!--              :series-data="numberOfParkingData"-->
-            <!--            ></dt-line-chart>-->
+            <!--            <Xchart-->
+            <!--              id="numberOfParking"-->
+            <!--              :option="numberOfParkingOptions"-->
+            <!--            ></Xchart>-->
+            <dt-line-chart :chart-data="chartData"></dt-line-chart>
           </div>
           <div class="leftChartDown">
             <svg
@@ -235,7 +232,7 @@
                       color: #08F6E4;
                   letter-spacing: 0.36px;float: right"
             >
-              {{ parkingSpaceUsedRateTotal }}
+              {{ parkingSpaceUsedRateTotal }}分钟/车位
             </span>
           </div>
           <!-- 车位利用率   -->
@@ -312,7 +309,7 @@
                      color: #E9C503;
                      letter-spacing: 0.36px;float:right;"
             >
-              {{ parkingSpaceTurnoverRateTotal }}
+              {{ parkingSpaceTurnoverRateTotal }}次/车位
             </span>
           </div>
           <!-- 车位周转率   -->
@@ -3042,26 +3039,31 @@ import Xchart from "../../components/charts/charts.vue";
 import Xchart3d from "../../components/charts/charts3d.vue";
 import HighCharts from "highcharts";
 import HighCharts3d from "highcharts-3d";
-// import DtLineChart from "@/components/charts/LineChart";
+import DtLineChart from "@/components/charts/LineChart";
 
 export default {
   // 组件导入
   components: {
     Xchart,
-    Xchart3d
-    // DtLineChart
+    Xchart3d,
+    DtLineChart
   },
   data() {
     return {
+      chartData: {
+        //必须写全
+        xCategories: [],
+        seriesData: []
+      },
       //用户名
       userName: "",
       //停车场列表
       parkingLotList: [
-        { name: "", code: "" },
-        { name: "", code: "" },
-        { name: "", code: "" },
-        { name: "", code: "" },
-        { name: "", code: "" }
+        { name: "", code: "", totalNumber: 0, bookNumber: 0, emptyNumber: 0 },
+        { name: "", code: "", totalNumber: 0, bookNumber: 0, emptyNumber: 0 },
+        { name: "", code: "", totalNumber: 0, bookNumber: 0, emptyNumber: 0 },
+        { name: "", code: "", totalNumber: 0, bookNumber: 0, emptyNumber: 0 },
+        { name: "", code: "", totalNumber: 0, bookNumber: 0, emptyNumber: 0 }
       ],
       //top存放
       topList: [
@@ -3179,6 +3181,8 @@ export default {
   },
   mounted() {
     this.userName = localStorage.getItem("userName");
+    //剩余车位数
+    this.queryParkSpace();
     //精洗普洗快洗次数
     this.queryCarWashTypeCount();
     //中间总收入停车场收入洗车收入
@@ -3201,8 +3205,6 @@ export default {
     this.handleWashCarSevenDaysAnalysis();
     //近七日洗车收费金额
     this.handleWashCarIncomeSevenDays();
-    //剩余车位数
-    // this.queryParkMonitorParkSpace();
 
     // // 添加地图图标方式
     // this.initMap();
@@ -3245,7 +3247,59 @@ export default {
         this.parkingLotList = res.resultEntity;
       });
     },
+    //停车场剩余车位数
+    queryParkSpace() {
+      this.$homePage.queryEmptySpace({}).then(res => {
+        console.log(res);
+        this.parkingLotList[0].bookNumber =
+          res.resultEntity[0]["BM01"].bookNumber;
+        this.parkingLotList[0].emptyNumber =
+          res.resultEntity[0]["BM01"].emptyNumber;
+        this.parkingLotList[0].totalNumber =
+          res.resultEntity[0]["BM01"].totalNumber;
 
+        this.parkingLotList[1].bookNumber =
+          res.resultEntity[1]["BMK01"].bookNumber;
+        this.parkingLotList[1].emptyNumber =
+          res.resultEntity[1]["BMK01"].emptyNumber;
+        this.parkingLotList[1].totalNumber =
+          res.resultEntity[1]["BMK01"].totalNumber;
+
+        this.parkingLotList[2].bookNumber =
+          res.resultEntity[2]["HZH01"].bookNumber;
+        this.parkingLotList[2].emptyNumber =
+          res.resultEntity[2]["HZH01"].emptyNumber;
+        this.parkingLotList[2].totalNumber =
+          res.resultEntity[2]["HZH01"].totalNumber;
+
+        this.parkingLotList[3].bookNumber =
+          res.resultEntity[3]["JQ01"].bookNumber;
+        this.parkingLotList[3].emptyNumber =
+          res.resultEntity[3]["JQ01"].emptyNumber;
+        this.parkingLotList[3].totalNumber =
+          res.resultEntity[3]["JQ01"].totalNumber;
+
+        this.parkingLotList[4].bookNumber =
+          res.resultEntity[4]["SJDA01"].bookNumber;
+        this.parkingLotList[4].emptyNumber =
+          res.resultEntity[4]["SJDA01"].emptyNumber;
+        this.parkingLotList[4].totalNumber =
+          res.resultEntity[4]["SJDA01"].totalNumber;
+
+        this.publicLeftPort =
+          this.parkingLotList[0].emptyNumber -
+          this.parkingLotList[0].bookNumber;
+        this.staffLeftPort =
+          this.parkingLotList[1].emptyNumber -
+          this.parkingLotList[1].bookNumber +
+          (this.parkingLotList[2].emptyNumber -
+            this.parkingLotList[2].bookNumber) +
+          (this.parkingLotList[3].emptyNumber -
+            this.parkingLotList[3].bookNumber) +
+          (this.parkingLotList[4].emptyNumber -
+            this.parkingLotList[0].bookNumber);
+      });
+    },
     //获取中间部分总收入、停车场总收入、洗车总收入
     queryFees() {
       this.$homePage.queryFees({}).then(res => {
@@ -3262,6 +3316,8 @@ export default {
         this.poacherWash = Number(res.resultEntity["精洗"]);
       });
     },
+    //剩余车位数查询
+
     // 总停车数量
     queryParkOptByParkCount() {
       const param = {
@@ -3274,97 +3330,103 @@ export default {
           this.numberOfParkingXz.push(item.X);
           this.numberOfParkingData.push(Number(item.dataY));
         });
-
-        this.numberOfParkingOptions = {
-          chart: {
-            type: "spline",
-            backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "numberOfParking",
-            marginBottom: 24
-          },
-          title: {
-            text: "",
-            align: "left",
-            x: 20,
-            style: {
-              fontFamily: "PingFangSC-Medium",
-              fontSize: "16px",
-              color: "#333333",
-              letterSpacing: "0.17px"
-            }
-          },
-          credits: {
-            enabled: false
-          },
-          xAxis: {
-            categories: this.numberOfParkingXz,
-            //x轴坐标颜色
-            lineColor: "#104DA1",
-            labels: {
-              style: {
-                color: "rgba(90,142,227,1)",
-                fontSize: "10px"
-              }
-            }
-          },
-          colors: ["#7654E3"],
-          yAxis: {
-            title: {
-              text: ""
-            },
-            labels: {
-              //修改Y轴添加单位
-              format: "{value}辆",
-              style: {
-                color: "rgba(90,142,227,1)"
-              }
-            }, //设置网格线颜色
-            gridLineColor: "#0A3167"
-          },
-          legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 0,
-            itemStyle: {
-              color: "#666666",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: "bold",
-              fill: "#666666"
-            },
-            itemHoverStyle: {
-              color: "#cccccc"
-            },
-            itemHiddenStyle: {
-              color: "#333333"
-            }
-          },
-          tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>辆"
-          },
-          plotOptions: {
-            spline: {
-              lineWidth: 2,
-              states: {
-                hover: {
-                  lineWidth: 3
-                }
-              },
-              marker: {
-                enabled: false
-              }
-            }
-          },
-          series: [
-            {
-              name: "总停车数量",
-              data: this.numberOfParkingData
-            }
-          ]
+        for (let i = 0; i < this.numberOfParkingData.length; i++) {
+          this.numberOfParkingTotal += this.numberOfParkingData[i];
+        }
+        this.chartData = {
+          xCategories: this.numberOfParkingXz,
+          seriesData: this.numberOfParkingData
         };
-        new HighCharts.chart(this.numberOfParkingOptions);
+        // this.numberOfParkingOptions = {
+        //   chart: {
+        //     type: "spline",
+        //     backgroundColor: "rgba(0,0,0,0)",
+        //     renderTo: "numberOfParking",
+        //     marginBottom: 24
+        //   },
+        //   title: {
+        //     text: "",
+        //     align: "left",
+        //     x: 20,
+        //     style: {
+        //       fontFamily: "PingFangSC-Medium",
+        //       fontSize: "16px",
+        //       color: "#333333",
+        //       letterSpacing: "0.17px"
+        //     }
+        //   },
+        //   credits: {
+        //     enabled: false
+        //   },
+        //   xAxis: {
+        //     categories: this.numberOfParkingXz,
+        //     //x轴坐标颜色
+        //     lineColor: "#104DA1",
+        //     labels: {
+        //       style: {
+        //         color: "rgba(90,142,227,1)",
+        //         fontSize: "10px"
+        //       }
+        //     }
+        //   },
+        //   colors: ["#7654E3"],
+        //   yAxis: {
+        //     title: {
+        //       text: ""
+        //     },
+        //     labels: {
+        //       //修改Y轴添加单位
+        //       format: "{value}辆",
+        //       style: {
+        //         color: "rgba(90,142,227,1)"
+        //       }
+        //     }, //设置网格线颜色
+        //     gridLineColor: "#0A3167"
+        //   },
+        //   legend: {
+        //     enabled: true,
+        //     align: "center",
+        //     verticalAlign: "left",
+        //     x: 300,
+        //     y: 0,
+        //     itemStyle: {
+        //       color: "#666666",
+        //       cursor: "pointer",
+        //       fontSize: "12px",
+        //       fontWeight: "bold",
+        //       fill: "#666666"
+        //     },
+        //     itemHoverStyle: {
+        //       color: "#cccccc"
+        //     },
+        //     itemHiddenStyle: {
+        //       color: "#333333"
+        //     }
+        //   },
+        //   tooltip: {
+        //     pointFormat: "{series.name}: <b>{point.y}</b>辆"
+        //   },
+        //   plotOptions: {
+        //     spline: {
+        //       lineWidth: 2,
+        //       states: {
+        //         hover: {
+        //           lineWidth: 3
+        //         }
+        //       },
+        //       marker: {
+        //         enabled: false
+        //       }
+        //     }
+        //   },
+        //   series: [
+        //     {
+        //       name: "总停车数量",
+        //       data: this.numberOfParkingData
+        //     }
+        //   ]
+        // };
+        // new HighCharts.chart(this.numberOfParkingOptions);
       });
     },
 
@@ -3741,7 +3803,7 @@ export default {
               return this.name + " " + this.percentage.toFixed(2) + "%";
             },
             itemStyle: {
-              color: "white",
+              color: "#ecfff5",
               fontSize: "12px"
             },
             itemHoverStyle: {
@@ -3991,13 +4053,13 @@ export default {
       this.$homePage.queryCarWashAmountRecentDays({}).then(res => {
         res.resultEntity["精洗"].forEach(item => {
           this.washChargeInSevenDaysXz.push(item.X);
-          this.washChargeInSevenDaysJINGWash.push(item.type);
+          this.washChargeInSevenDaysJINGWash.push(Number(item.dataY) / 100);
         });
         res.resultEntity["普洗"].forEach(item => {
-          this.washChargeInSevenDaysPUWash.push(item.type);
+          this.washChargeInSevenDaysPUWash.push(Number(item.dataY) / 100);
         });
         res.resultEntity["快洗"].forEach(item => {
-          this.washChargeInSevenDaysKUAIWash.push(item.type);
+          this.washChargeInSevenDaysKUAIWash.push(Number(item.dataY) / 100);
         });
         this.washChargeInSevenDaysOption = {
           chart: {

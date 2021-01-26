@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div style="height: 100%"></div>
 </template>
 
 <script>
@@ -7,22 +7,30 @@ import Highcharts from "highcharts";
 export default {
   name: "DtLineChart",
   props: {
-    xCategories: {
-      type: Array
-    },
-    seriesData: {
-      type: Array
+    chartData: {
+      type: Object
     }
   },
   data() {
     return {};
   },
+  watch: {
+    chartData: {
+      deep: true,
+      handler(val) {
+        this.initChart(val);
+      }
+    }
+  },
   mounted() {
-    console.log(this.xCategories, this.seriesData);
-    this.initChart();
+    this.$nextTick(() => {
+      this.initChart(this.chartData);
+    });
+    // console.log(this.chartData.xCategories, this.chartData.seriesData);
+    // this.initChart(this.chartData);
   },
   methods: {
-    initChart() {
+    initChart(chartData) {
       var chart = Highcharts.chart(this.$el, {
         chart: {
           type: "spline",
@@ -44,7 +52,7 @@ export default {
           enabled: false
         },
         xAxis: {
-          categories: this.xCategories,
+          categories: chartData.xCategories,
           //x轴坐标颜色
           lineColor: "#104DA1",
           labels: {
@@ -107,7 +115,7 @@ export default {
         series: [
           {
             name: "总停车数量",
-            data: this.seriesData
+            data: chartData.seriesData
           }
         ]
       });

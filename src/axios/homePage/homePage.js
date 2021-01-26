@@ -151,12 +151,56 @@ export function queryParkMonitorParkSpace(params) {
     data: params
   });
 }
-//总收入停车收入洗车收入
-queryCarWashTypeCount;
+
 //停车场下拉代码
 export function queryDict(params) {
   return request({
     url: "http://123.207.189.27:7138/UserController/queryDict",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//总收入停车收入洗车收入 queryFees
+export function queryFees(params) {
+  return request({
+    url: "http://192.168.1.200:8000/homePageFunc/queryFees",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//精洗普洗快洗  queryCarWashTypeCount
+export function queryCarWashTypeCount(params) {
+  return request({
+    url: "http://192.168.1.200:8000/homePageFunc/queryCarWashTypeCount",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+// 支付方式 queryPayTypeAmountPrecent
+export function queryPayTypeAmountPrecent(params) {
+  return request({
+    url: "http://192.168.1.200:8000/homePageFunc/queryPayTypeAmountPrecent",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//近七日洗车金额 queryCarWashAmountRecentDays
+export function queryCarWashAmountRecentDays(params) {
+  return request({
+    url: "http://192.168.1.200:8000/homePageFunc/queryCarWashAmountRecentDays",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//剩余车位数插叙 http://192.168.1.163:8000/homePageFunc/queryEmptySpace
+export function queryEmptySpace(params) {
+  return request({
+    url: "http://192.168.1.163:8000/homePageFunc/queryEmptySpace",
     method: "post",
     data: params,
     flag: "out"
