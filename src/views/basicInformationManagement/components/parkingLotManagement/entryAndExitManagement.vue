@@ -627,12 +627,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$ysParking.queryDictData(param).then(res => {
-        console.log("下拉表单查询数据显示", res);
-        this.parkingLotList = res.data.dataList;
-        // console.log("下拉菜单", this.parkingLotList);
+      this.$homePage.queryDict(param).then(response => {
+        this.parkingLotList = response.resultEntity;
       });
     },
     // 出入口下拉表单
@@ -642,12 +643,10 @@ export default {
       const param = {
         columnName: ["passageway_type_code", "passageway_type_name"],
         tableName: "t_d_passageway_type",
-        whereStr: ""
+        whereStr: []
       };
-      this.$ysParking.queryDictData(param).then(res => {
-        // console.log("出入口下拉数据查询", res);
-        that.entryAndExitList = res.data.dataList;
-        // console.log("出入口下拉菜单", this.entryAndExitList);
+      this.$homePage.queryDict(param).then(res => {
+        that.entryAndExitList = res.resultEntity;
       });
     }
   },

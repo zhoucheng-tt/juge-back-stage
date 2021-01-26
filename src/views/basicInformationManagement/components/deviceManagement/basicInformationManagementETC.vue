@@ -409,12 +409,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$ysParking.queryDictData(param).then(res => {
-        console.log("下拉表单查询数据显示", res);
-        this.parkingLotList = res.data.dataList;
-        // console.log("下拉菜单", this.parkingLotList);
+      this.$homePage.queryDict(param).then(res => {
+        this.parkingLotList = res.resultEntity;
       });
     },
     // 查询列表信息

@@ -302,12 +302,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$orderManagement.queryDictData(param).then(response => {
-        console.log("下拉停车场名称", response);
-        this.parkingLotList = response.data.dataList;
-        console.log("下拉菜单", that.parkingLotList);
+      this.$homePage.queryDict(param).then(response => {
+        this.parkingLotList = response.resultEntity;
       });
     },
     // 分页查询方法

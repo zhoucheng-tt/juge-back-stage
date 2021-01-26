@@ -76,28 +76,18 @@ export default {
             .login(param)
             .then(response => {
               // console.log("返回结果", response);
-              if (
-                response != "" &&
-                response != undefined &&
-                response.status == "0"
-              ) {
                 this.$message({
                   type: "success",
                   message: "登陆成功"
                 });
+                localStorage.setItem("userToken",response.resultEntity.userToken);
                 localStorage.setItem("userName", this.loginList.loginName);
                 // 登陆成功后跳转方法
                 this.$router.push({
                   path: "/homePage"
                 });
-              }
+
             })
-            .catch(err => {
-              // this.$message({
-              //   type: "warning",
-              //   message: "登陆失败,请联系管理员"
-              // });
-            });
         }
       });
     }

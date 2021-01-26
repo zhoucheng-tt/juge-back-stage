@@ -642,11 +642,11 @@ export default {
       const param = {
         columnName: ["number_plate_color_code", "number_plate_color_name"],
         tableName: "t_d_number_plate_color",
-        whereStr: ""
+        whereStr: []
       };
-      this.$listManagement.queryDictData(param).then(response => {
+      this.$homePage.queryDict(param).then(response => {
         // console.log("下拉停车场名称", response);
-        that.plateColorList = response.data.dataList;
+        that.plateColorList = response.resultEntity;
         // console.log("黑名单停车场下拉名称", that.parkLotNameList);
       });
     },
@@ -657,12 +657,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$listManagement.queryDictData(param).then(response => {
-        // console.log("下拉停车场名称", response);
-        this.parkLotNameList = response.data.dataList;
-        // console.log("白名单停车场下拉名称", that.parkLotNameList);
+      this.$homePage.queryDict(param).then(response => {
+        this.parkLotNameList = response.resultEntity;
       });
     },
     //顶部查询按钮获取参数
@@ -677,7 +678,7 @@ export default {
         pageSize: this.pageSize
       };
       // console.log('白名单查询传入的参数',params)
-      this.$listManagement.queryWhiteList(params).then(response => {
+      this.$homePage.queryWhiteList(params).then(response => {
         // console.log("查询白名单表格数据", response)
         //分页
         that.pageTotal = response.data.totalRecord;

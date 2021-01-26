@@ -255,13 +255,17 @@ export default {
     },
     //查询停车场列表数据
     queryParkList() {
-      const params = {
+      alert("你个头")
+      const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = 321302"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.parkingLotList = res.data.dataList;
+      this.$homePage.queryDict(param).then(response => {
+        this.parkingLotList = response.resultEntity;
       });
     },
     //列表查询
@@ -291,8 +295,6 @@ export default {
     },
     // 查询方法
     SelectQueryList() {
-      //停车场下拉菜单
-      this.queryParkList();
       //初始化列表
       this.queryData();
       //停车总数

@@ -339,10 +339,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$orderManagement.queryDictData(param).then(response => {
-        this.parkingLotList = response.data.dataList;
+      this.$homePage.queryDict(param).then(response => {
+        this.parkingLotList = response.resultEntity;
       });
     },
     // 分页查询方法

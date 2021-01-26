@@ -14,53 +14,57 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="计费规则名称:">
           <el-input
-            size="small"
-            style="width: 160px"
-            v-model="upQueryList.chargeModeName"
-            placeholder="计费规则名称"
+              size="small"
+              style="width: 160px"
+              v-model="upQueryList.chargeModeName"
+              placeholder="计费规则名称"
           ></el-input>
         </el-form-item>
         <el-form-item label="停车场:">
           <el-select
-            size="small"
-            style="width: 160px"
-            v-model="upQueryList.TingNum"
-            placeholder="请选择停车场"
+              size="small"
+              style="width: 160px"
+              v-model="upQueryList.TingNum"
+              placeholder="请选择停车场"
           >
             <el-option
-              v-for="(item, index) in parkingLotList"
-              :label="item.parkingName"
-              :value="item.parkingName"
-              :key="index"
+                v-for="(item, index) in parkingLotList"
+                :label="item.parkingName"
+                :value="item.parkingName"
+                :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="selectQueryList"
-            >查询</el-button
+          >查询
+          </el-button
           >
           <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
+          >重置
+          </el-button
           >
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addChargeMode"
-          >新增规则</el-button
+        >新增规则
+        </el-button
         >
         <el-button type="danger" size="small" @click="batchDelete()"
-          >批量删除</el-button
+        >批量删除
+        </el-button
         >
       </el-row>
     </div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="chargeModeManagement"
-        ref="selectChargeModeManagement"
-        @selection-change="handleSelectionChange"
-        stripe
-        :header-cell-style="{
+          :data="chargeModeManagement"
+          ref="selectChargeModeManagement"
+          @selection-change="handleSelectionChange"
+          stripe
+          :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -70,97 +74,97 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-        :cell-style="{
+          :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-        style="width: 98%;margin-left: 1%"
+          style="width: 98%;margin-left: 1%"
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column
-          prop="chargeModeNumber"
-          label="计费规则编号"
+            prop="chargeModeNumber"
+            label="计费规则编号"
         ></el-table-column>
         <el-table-column
-          prop="chargeModeName"
-          :show-overflow-tooltip="true"
-          label="计费规则名称"
+            prop="chargeModeName"
+            :show-overflow-tooltip="true"
+            label="计费规则名称"
         >
         </el-table-column>
         <el-table-column
-          prop="chargeModeType"
-          :show-overflow-tooltip="true"
-          label="计费规则类型"
+            prop="chargeModeType"
+            :show-overflow-tooltip="true"
+            label="计费规则类型"
         >
         </el-table-column>
         <el-table-column
-          prop="description"
-          :show-overflow-tooltip="true"
-          label="描述"
+            prop="description"
+            :show-overflow-tooltip="true"
+            label="描述"
         ></el-table-column>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-              @click="showListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >查看
+                @click="showListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >查看
             </el-button>
             <el-button
-              @click="editListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >修改
+                @click="editListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >修改
             </el-button>
             <el-button
-              @click="deleteListDialogue(scope.row)"
-              type="text"
-              size="small"
-              >删除
+                @click="deleteListDialogue(scope.row)"
+                type="text"
+                size="small"
+            >删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
       <div style="float: right">
         <el-pagination
-          layout="total, prev, pager, next, jumper"
-          @current-change="handleCurrentModify"
-          :current-page="pageNum"
-          :total="pageTotal"
-          :page-size="pageSize"
+            layout="total, prev, pager, next, jumper"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
+            :page-size="pageSize"
         >
         </el-pagination>
       </div>
     </div>
     <el-dialog
-      title="新增洗车机计费规则"
-      :visible.sync="addListDialogueandoff"
-      destroy-on-close
-      width="50%"
+        title="新增洗车机计费规则"
+        :visible.sync="addListDialogueandoff"
+        destroy-on-close
+        width="50%"
     >
       <el-form
-        :inline="true"
-        :model="upQueryList"
-        :rules="addListDiaRules"
-        ref="upQueryListR"
+          :inline="true"
+          :model="upQueryList"
+          :rules="addListDiaRules"
+          ref="upQueryListR"
       >
         <div style="font-size: 20px">停车场信息</div>
-        <el-row style="padding-top: 20px"> </el-row>
+        <el-row style="padding-top: 20px"></el-row>
         <el-col offset="1">
           <el-form-item label="归属停车场" label-width="150px" prop="TingNum">
             <el-select
-              style="width: 200px"
-              v-model="upQueryList.TingNum"
-              placeholder="请选择停车场"
+                style="width: 200px"
+                v-model="upQueryList.TingNum"
+                placeholder="请选择停车场"
             >
               <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.parkingName"
-                :value="item.parkingName"
-                :key="index"
+                  v-for="(item, index) in parkingLotList"
+                  :label="item.parkingName"
+                  :value="item.parkingName"
+                  :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -169,33 +173,33 @@
         <el-row style="padding-top: 20px"></el-row>
         <el-col offset="1">
           <el-form-item
-            label="计费规则类型"
-            label-width="150px"
-            prop="chargeMode"
+              label="计费规则类型"
+              label-width="150px"
+              prop="chargeMode"
           >
             <el-select
-              style="width: 200px;"
-              v-model="upQueryList.chargeMode"
-              placeholder="请选择计费类型"
+                style="width: 200px;"
+                v-model="upQueryList.chargeMode"
+                placeholder="请选择计费类型"
             >
               <el-option
-                v-for="(item, index) in chargeModeList"
-                :label="item.chargeMode"
-                :value="item.chargeMode"
-                :key="index"
+                  v-for="(item, index) in chargeModeList"
+                  :label="item.chargeMode"
+                  :value="item.chargeMode"
+                  :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col offset="1">
           <el-form-item
-            label="计费规则名称"
-            label-width="150px"
-            prop="chargeModeName"
+              label="计费规则名称"
+              label-width="150px"
+              prop="chargeModeName"
           >
             <el-input
-              v-model="upQueryList.chargeModeName"
-              placeholder="请输入计费规则名称"
+                v-model="upQueryList.chargeModeName"
+                placeholder="请输入计费规则名称"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -210,37 +214,37 @@
     </el-dialog>
     <!-- 信息详情点击弹出框 -->
     <el-dialog
-      title="计费规则详情"
-      width="50%"
-      :visible.sync="showListdialogueandoff"
+        title="计费规则详情"
+        width="50%"
+        :visible.sync="showListdialogueandoff"
     >
       <el-form :inline="true" :model="showListdialogueandoffList">
         <el-row>
           <el-col :span="12">
             <el-form-item label="计费规则编号:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.chargeModeNumber"
+                  v-model="showListdialogueandoffList.chargeModeNumber"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="计费规则名称:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.chargeModeName"
+                  v-model="showListdialogueandoffList.chargeModeName"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="计费规则类型:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.chargeModeType"
+                  v-model="showListdialogueandoffList.chargeModeType"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="描述:" label-width="150px">
               <el-input
-                v-model="showListdialogueandoffList.description"
+                  v-model="showListdialogueandoffList.description"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -255,29 +259,32 @@
       <el-form :inline="true" :model="editListDialogueandoffList">
         <el-row style="padding-top: 20px">
           <el-col :span="12"
-            ><el-form-item label="计费规则编号:" label-width="150px">
+          >
+            <el-form-item label="计费规则编号:" label-width="150px">
               <el-input
-                v-model="editListDialogueandoffList.chargeModeNumber"
-              ></el-input> </el-form-item
-          ></el-col>
+                  v-model="editListDialogueandoffList.chargeModeNumber"
+              ></el-input>
+            </el-form-item
+            >
+          </el-col>
           <el-col :span="12">
             <el-form-item label="计费规则名称:" label-width="150px">
               <el-input
-                v-model="editListDialogueandoffList.chargeModeName"
+                  v-model="editListDialogueandoffList.chargeModeName"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="计费规则类型:" label-width="150px">
               <el-input
-                v-model="editListDialogueandoffList.chargeModeType"
+                  v-model="editListDialogueandoffList.chargeModeType"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="描述:" label-width="150px">
               <el-input
-                v-model="editListDialogueandoffList.description"
+                  v-model="editListDialogueandoffList.description"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -424,12 +431,12 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          this.$message({ type: "success", message: "删除成功!" });
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
+          .then(() => {
+            this.$message({type: "success", message: "删除成功!"});
+          })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
     },
     //确定方法
     addInfoInsert() {
@@ -449,9 +456,10 @@ export default {
       this.addListDialogueandoff = true;
       this.addListDialogueandoffList = row;
     },
-    deleteETC() {},
+    deleteETC() {
+    },
     // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
@@ -487,12 +495,12 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-        .then(() => {
-          this.$message({ type: "success", message: "删除成功!" });
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
+          .then(() => {
+            this.$message({type: "success", message: "删除成功!"});
+          })
+          .catch(() => {
+            this.$message({type: "info", message: "已取消删除"});
+          });
     },
     //批量删除监听
     handleSelectionChange(val) {
@@ -509,12 +517,16 @@ export default {
       const params = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.parkingLotNameList = res.data.dataList;
+      this.$homePage.queryDict(params).then(res => {
+        this.parkingLotNameList = res.resultEntity;
       });
     }
+
   },
   mounted() {
     this.queryParkList();
@@ -536,6 +548,7 @@ export default {
   margin-left: 1%;
   margin-top: 0.5%;
 }
+
 /* 下班部分列表部分 */
 .down {
   width: 98%;
@@ -544,6 +557,7 @@ export default {
   margin-left: 1%;
   margin-top: 1%;
 }
+
 /* 查询条件部分样式 */
 .demo-form-inline {
   width: 100%;
@@ -551,6 +565,7 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
+
 .line-2 {
   width: 98%;
   height: 40px;

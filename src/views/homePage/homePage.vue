@@ -3469,8 +3469,11 @@ export default {
   methods: {
     //退出
     loginOut() {
-      localStorage.removeItem("userToken");
-      this.$router.push("/");
+      alert(aaa)
+      this.$homePage.loginOut(1).then(res=>{
+        localStorage.removeItem("userToken");
+        this.$router.push("/");
+      });
     },
     //tabs点击事件
     handleTopClick(code) {

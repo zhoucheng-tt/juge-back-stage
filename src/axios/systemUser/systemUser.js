@@ -4,7 +4,7 @@ import {BASE_API} from "@/utils/config";
 //系统管理角色管理列表查询
 export function queryRoleList(param) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/queryRoleList",
+    url: "http://123.207.189.27:7138/UserController/queryRoleList",
     method: "post",
     data: param,
     flag:'out'
@@ -14,7 +14,7 @@ export function queryRoleList(param) {
 //系统管理角色管理新增角色
 export function addRole(param) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/addRole",
+    url: "http://123.207.189.27:7138/UserController/addRole",
     method: "post",
     data: param,
     flag:'out'
@@ -113,7 +113,7 @@ export function queryFuncListByUser(param) {
 //角色修改 systemManageFunc/updateRole.xhtml
 export function updateRole(param) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/updateRole",
+    url: "http://123.207.189.27:7138/UserController/updateRole",
     method: "post",
     data: param,
     flag: "out"
@@ -123,7 +123,7 @@ export function updateRole(param) {
 //日志管理列表查询
 export function queryLogList(param) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/queryLogList",
+    url: "http://123.207.189.27:7138/UserController/queryLogList",
     method: "post",
     data: param,
     flag: "out"

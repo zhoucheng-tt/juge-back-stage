@@ -323,10 +323,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$orderManagement.queryDictData(param).then(response => {
-        this.parkingLotList = response.data.dataList;
+      this.$homePage.queryDict(param).then(response => {
+        that.parkingLotList = response.resultEntity;
       });
     },
     //查询预约状态下拉
@@ -339,10 +342,10 @@ export default {
           "appointment_order_status_name"
         ],
         tableName: "t_d_appointment_order_status",
-        whereStr: ""
+        whereStr: []
       };
-      this.$orderManagement.queryDictData(param).then(response => {
-        this.strutsList = response.data.dataList;
+      this.$homePage.queryDict(param).then(response => {
+        this.strutsList = response.resultEntity;
       });
     },
     queryAppointmentStopOrder() {

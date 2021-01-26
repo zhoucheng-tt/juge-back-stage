@@ -854,27 +854,26 @@ export default {
       });
     },
     //查询地市数据
-    queryCityList() {
-      const cityParam = {
-        columnName: ["city_code", "city_name"],
-        tableName: "t_d_city",
-        whereStr: ""
-      };
-      this.$ysParking.queryDictData(cityParam).then(res => {
-        this.cityList = res.data.dataList;
-      });
-    },
+    // queryCityList() {
+    //   const cityParam = {
+    //     columnName: ["city_code", "city_name"],
+    //     tableName: "t_d_city",
+    //     whereStr: ""
+    //   };
+    //   this.$ysParking.queryDictData(cityParam).then(res => {
+    //     this.cityList = res.data.dataList;
+    //   });
+    // },
     //查询停车场类型
     queryTypeList() {
       var that = this;
       const paramTypes = {
         columnName: ["park_type_code", "park_type_name"],
         tableName: "t_d_park_type",
-        whereStr: ""
+        whereStr: []
       };
-      this.$ysParking.queryDictData(paramTypes).then(res => {
-        that.parkingLotType = res.data.dataList;
-        // console.log("that.parkingLotType", that.parkingLotType)
+      this.$homePage.queryDict(paramTypes).then(res => {
+        that.parkingLotType = res.resultEntity;
       });
     },
     //查询归属企业下拉菜单数据
@@ -883,10 +882,10 @@ export default {
       const companyParam = {
         columnName: ["company_id", "company_name"],
         tableName: "t_bim_company",
-        whereStr: ""
+        whereStr: []
       };
-      this.$ysParking.queryDictData(companyParam).then(res => {
-        that.enterprises = res.data.dataList;
+      this.$ysParking.queryDict(companyParam).then(res => {
+        that.enterprises = res.resultEntity;
       });
     },
     //计费规则下拉菜单数据查询
@@ -904,16 +903,16 @@ export default {
       });
     },
     //查询区县数据
-    queryDisList(code) {
-      const params = {
-        columnName: ["district_code", "district_name"],
-        tableName: "t_d_district",
-        whereStr: "city_code = " + code
-      };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.districtList = res.data.dataList;
-      });
-    },
+    // queryDisList(code) {
+    //   const params = {
+    //     columnName: ["district_code", "district_name"],
+    //     tableName: "t_d_district",
+    //     whereStr: "city_code = " + code
+    //   };
+    //   this.$deviceManagement.queryDictData(params).then(res => {
+    //     this.districtList = res.data.dataList;
+    //   });
+    // },
     //导出Excel
     exportExcel() {
       var date = new Date();
@@ -962,7 +961,7 @@ export default {
     //初始化计费规则下拉菜单
     this.queryBillingRuleList();
     //初始化地市下拉菜单
-    this.queryCityList();
+    // this.queryCityList();
     //初始化所属公司下拉菜单
     this.queryCompanyList();
     //初始化停车场类型下拉菜单

@@ -593,12 +593,13 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$ysParking.queryDictData(param).then(res => {
-        console.log("下拉表单查询数据显示", res);
-        that.parkingLotList = res.data.dataList;
-        console.log("下拉菜单", this.parkingLotList);
+      this.$homePage.queryDict(param).then(response => {
+        that.parkingLotList = response.resultEntity;
       });
     },
     // 查询监控类型列表
@@ -611,12 +612,10 @@ export default {
           "video_detecter_mntr_type_name"
         ],
         tableName: "t_d_video_detecter_mntr_type",
-        whereStr: ""
+        whereStr: []
       };
-      this.$ysParking.queryDictData(param).then(res => {
-        console.log("监控类型下拉接口数据", res);
-        that.monitoringTypeList = res.data.dataList;
-        console.log("监控类型下拉菜单数据", that.monitoringTypeList);
+      this.$homePage.queryDict(param).then(res => {
+        that.monitoringTypeList = res.resultEntity;
       });
     },
     //查询

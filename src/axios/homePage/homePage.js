@@ -11,11 +11,22 @@ import request from "@/utils/request";
 // 登录接口
 export function login(params) {
   return request({
-    url: "systemManageFunc/loginUser.xhtml",
+    url: "http://192.168.1.163:8000/UserController/login",
     method: "post",
-    data: params
+    data: params,
+    flag:'out'
   });
 }
+
+export function loginOut(params) {
+  return request({
+    url: "http://192.168.1.163:8000/UserController/loginOut",
+    method: "post",
+    data: params,
+    flag:'out'
+  });
+}
+
 // 测试接口   http://123.207.189.27:7138/queryChartData/queryChargeEarnData
 export function test(params) {
   return request({
@@ -138,5 +149,14 @@ export function queryParkMonitorParkSpace(params) {
     url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
     method: "post",
     data: params
+  });
+}
+
+export function queryDict(params){
+  return request({
+    url: "http://123.207.189.27:7138/UserController/queryDict",
+    method: "post",
+    data: params,
+    flag: "out"
   });
 }

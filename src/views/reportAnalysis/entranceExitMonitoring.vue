@@ -516,18 +516,18 @@ export default {
     },
     // 查询停车场下拉表单
     queryParking() {
-      var that = this;
       this.parkingLotList = [];
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$ysParking.queryDictData(param).then(res => {
-        console.log("下拉表单查询数据显示", res);
-        that.parkingLotList = res.data.dataList;
-        that.parkingLotList2 = res.data.dataList;
-        console.log("下拉菜单", this.parkingLotList);
+      this.$homePage.queryDict(param).then(response => {
+        this.parkingLotList = response.resultEntity;
+        this.parkingLotList2 = response.resultEntity;
       });
     },
     //查看入场记录详情

@@ -660,13 +660,16 @@ export default {
         },*/
     //查询停车场列表数据
     queryParkList() {
-      const params = {
+      const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: "district_code = '321302'"
+        whereStr: [{
+          colName: "district_code",
+          value: "321302"
+        }]
       };
-      this.$deviceManagement.queryDictData(params).then(res => {
-        this.parkingLotNameList = res.data.dataList;
+      this.$homePage.queryDict(param).then(response => {
+        that.parkLotNameList = response.resultEntity;
       });
     },
     //下载模版

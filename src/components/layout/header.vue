@@ -131,8 +131,11 @@ export default {
       this.$router.push(value);
     },
     loginOut() {
-      localStorage.removeItem("userToken");
-      this.$router.push("/");
+      alert("aaa)");
+      this.$homePage.loginOut(1).then(res=>{
+        localStorage.removeItem("userToken");
+        this.$router.push("/");
+      });
     },
     getDateTime() {
       var date = new Date();
