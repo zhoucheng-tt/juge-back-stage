@@ -11,7 +11,10 @@
   <!-- 登录页面 -->
   <div class="login-content">
     <div class="login-block">
-      <h1><span>欢迎使用&nbsp;</span>溧水停车采集与发布平台</h1>
+      <div class="login-block-text"><span>欢迎使用</span></div>
+      <div class="login-block-title">
+        <span>溧水经开区管委会智慧停车管理平台</span>
+      </div>
       <el-form
         class="login-form-horizontal"
         :model="loginList"
@@ -143,23 +146,22 @@ body {
   color: #666;
   border: 1px solid #fff;
   padding: 32px;
-  padding-top: 0px;
+  padding-top: 20px;
   box-shadow: 0px 0px 8px #fff;
 }
-
-.login-block h1 {
+.login-block-text {
+  color: #333;
+  font-size: 26px;
+  text-align: center;
+}
+.login-block-title {
   font-weight: normal;
-  height: 120px;
+  height: 90px;
+  line-height: 90px;
   box-sizing: border-box;
-  margin: auto;
   text-align: center;
   font-size: 26px;
   color: #0f81bf;
-  line-height: 120px;
-}
-
-.login-block h1 span {
-  color: #333;
 }
 
 .login-form-horizontal {

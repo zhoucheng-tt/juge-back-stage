@@ -151,7 +151,9 @@ export function queryParkMonitorParkSpace(params) {
     data: params
   });
 }
-
+//总收入停车收入洗车收入
+queryCarWashTypeCount;
+//停车场下拉代码
 export function queryDict(params) {
   return request({
     url: "http://123.207.189.27:7138/UserController/queryDict",
