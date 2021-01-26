@@ -187,13 +187,18 @@
         </div>
       </div>
     </div>
+    <!--    <dt-line-chart style="height: 200px; width: 200px"></dt-line-chart>-->
   </div>
 </template>
 
 <script>
 import { BASE_API } from "@/utils/config";
+// import DtLineChart from "@/components/charts/LineChart";
 
 export default {
+  components: {
+    DtLineChart
+  },
   data() {
     return {
       // 顶部查询数据暂存处
@@ -270,10 +275,12 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: [{
-          colName: "district_code",
-          value: "321302"
-        }]
+        whereStr: [
+          {
+            colName: "district_code",
+            value: "321302"
+          }
+        ]
       };
       this.$homePage.queryDict(param).then(response => {
         this.parkList = response.resultEntity;

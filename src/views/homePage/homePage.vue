@@ -162,6 +162,10 @@
               id="numberOfParking"
               :option="numberOfParkingOptions"
             ></Xchart>
+            <!--            <dt-line-chart-->
+            <!--              :x-categories="numberOfParkingXz"-->
+            <!--              :series-data="numberOfParkingData"-->
+            <!--            ></dt-line-chart>-->
           </div>
           <div class="leftChartDown">
             <svg
@@ -227,9 +231,9 @@
             <span class="spanStyle">当日车位利用率</span>
             <span
               style="font-family: PingFangSC-Medium;
-font-size: 1rem;
-color: #08F6E4;
-letter-spacing: 0.36px;float: right"
+                     font-size: 1rem;
+                      color: #08F6E4;
+                  letter-spacing: 0.36px;float: right"
             >
               {{ parkingSpaceUsedRateTotal }}
             </span>
@@ -3038,19 +3042,27 @@ import Xchart from "../../components/charts/charts.vue";
 import Xchart3d from "../../components/charts/charts3d.vue";
 import HighCharts from "highcharts";
 import HighCharts3d from "highcharts-3d";
+// import DtLineChart from "@/components/charts/LineChart";
 
 export default {
   // 组件导入
   components: {
     Xchart,
     Xchart3d
+    // DtLineChart
   },
   data() {
     return {
       //用户名
       userName: "",
       //停车场列表
-      parkingLotList: {},
+      parkingLotList: [
+        { name: "", code: "" },
+        { name: "", code: "" },
+        { name: "", code: "" },
+        { name: "", code: "" },
+        { name: "", code: "" }
+      ],
       //top存放
       topList: [
         {
@@ -3116,25 +3128,15 @@ export default {
 
       // 洗车机近七日报警趋势分析
       washCarSevenDaysAnalysisOption: {},
-      washCarSevenDaysAnalysisName: "洗车机近七日报警报警趋势分析",
       washCarSevenDaysAnalysisData: [],
       washCarSevenDaysAnalysisXz: [],
 
       //近七日洗车收费金额
       washChargeInSevenDaysOption: {},
-      washChargeInSevenDaysName: "近七日洗车收费金额",
-      washChargeInSevenDaysXz: [
-        "2021-01-16",
-        "2021-01-17",
-        "2021-01-18",
-        "2021-01-19",
-        "2021-01-20",
-        "2021-01-21",
-        "2021-01-22"
-      ],
-      washChargeInSevenDaysJINGWash: [1, 2, 3, 5, 2, 4, 4],
-      washChargeInSevenDaysPUWash: [2, 1, 3, 4, 2, 3, 6],
-      washChargeInSevenDaysKUAIWash: [4, 2, 6, 5, 2, 1, 5],
+      washChargeInSevenDaysXz: [],
+      washChargeInSevenDaysJINGWash: [],
+      washChargeInSevenDaysPUWash: [],
+      washChargeInSevenDaysKUAIWash: [],
 
       // 支付方式
       paymentIncomeAnalysiID: [],
@@ -3177,6 +3179,10 @@ export default {
   },
   mounted() {
     this.userName = localStorage.getItem("userName");
+    //精洗普洗快洗次数
+    this.queryCarWashTypeCount();
+    //中间总收入停车场收入洗车收入
+    this.queryFees();
     //停车场名称查询
     this.queryParkLotList();
     // 总停车数量图表
@@ -3197,10 +3203,6 @@ export default {
     this.handleWashCarIncomeSevenDays();
     //剩余车位数
     // this.queryParkMonitorParkSpace();
-    //精洗普洗快洗次数
-    this.queryCarWashTypeCount();
-    //中间总收入停车场收入洗车收入
-    this.queryFees();
 
     // // 添加地图图标方式
     // this.initMap();
@@ -3210,24 +3212,6 @@ export default {
     // this.countChargeFee();
   },
   methods: {
-    //退出
-    loginOut() {
-      alert(aaa)
-      this.$homePage.loginOut(1).then(res=>{
-        localStorage.removeItem("userToken");
-        this.$router.push("/");
-      });
-    },
-    //停车场名称
-    queryParkLotList() {
-      const param = {
-        columnName: ["park_id", "park_name"],
-        tableName: "t_bim_park"
-      };
-      this.$homePage.queryDict(param).then(res => {
-        this.parkingLotList = res.resultEntity;
-      });
-    },
     //tabs点击事件
     handleTopClick(code) {
       if (code == 1) {
@@ -3244,11 +3228,27 @@ export default {
         this.$router.push("/keyVehicleSupervision");
       }
     },
+    //退出
+    loginOut() {
+      this.$homePage.loginOut(1).then(res => {
+        localStorage.removeItem("userToken");
+        this.$router.push("/");
+      });
+    },
+    //停车场名称
+    queryParkLotList() {
+      const param = {
+        columnName: ["park_id", "park_name"],
+        tableName: "t_bim_park"
+      };
+      this.$homePage.queryDict(param).then(res => {
+        this.parkingLotList = res.resultEntity;
+      });
+    },
 
     //获取中间部分总收入、停车场总收入、洗车总收入
     queryFees() {
       this.$homePage.queryFees({}).then(res => {
-        console.log(res);
         this.totalIncome = Number(res.resultEntity["总收入"]) / 100;
         this.parkIncome = Number(res.resultEntity["停车场收入"]) / 100;
         this.washIncome = Number(res.resultEntity["洗车收入"]) / 100;
@@ -3274,6 +3274,7 @@ export default {
           this.numberOfParkingXz.push(item.X);
           this.numberOfParkingData.push(Number(item.dataY));
         });
+
         this.numberOfParkingOptions = {
           chart: {
             type: "spline",
@@ -3282,7 +3283,7 @@ export default {
             marginBottom: 24
           },
           title: {
-            text: this.numberOfParkingName,
+            text: "",
             align: "left",
             x: 20,
             style: {
@@ -3358,7 +3359,7 @@ export default {
           },
           series: [
             {
-              name: this.numberOfParkingName,
+              name: "总停车数量",
               data: this.numberOfParkingData
             }
           ]
@@ -3387,7 +3388,7 @@ export default {
             marginBottom: 24
           },
           title: {
-            text: this.averageParkingTimeName,
+            text: "",
             align: "left",
             x: 20,
             style: {
@@ -3464,7 +3465,7 @@ export default {
           },
           series: [
             {
-              name: this.averageParkingTimeName,
+              name: "平均停车时长",
               data: this.averageParkingTimeData
             }
           ]
@@ -3496,7 +3497,7 @@ export default {
             marginBottom: 24
           },
           title: {
-            text: this.parkingSpaceUtilizationName,
+            text: "",
             align: "left",
             x: 20,
             style: {
@@ -3573,7 +3574,7 @@ export default {
           },
           series: [
             {
-              name: this.parkingSpaceUtilizationName,
+              name: "车位利用率",
               data: this.parkingSpaceUtilizationData
             }
           ]
@@ -3604,7 +3605,7 @@ export default {
             marginBottom: 24
           },
           title: {
-            text: this.parkingSpaceTurnoverRateName,
+            text: "",
             align: "left",
             x: 20,
             style: {
@@ -3680,7 +3681,7 @@ export default {
           },
           series: [
             {
-              name: this.parkingSpaceTurnoverRateName,
+              name: "车位周转率",
               data: this.parkingSpaceTurnoverRateData
             }
           ]
@@ -3692,7 +3693,6 @@ export default {
     // 支付方式
     queryPayTypeAmountPrecent() {
       this.$homePage.queryPayTypeAmountPrecent({}).then(res => {
-        console.log("zhizhzizz zzzzzz", res.resultEntity[0].type);
         this.paymentIncomeAnalysisOption = {
           chart: {
             type: "pie",
@@ -3750,7 +3750,7 @@ export default {
           },
           series: [
             {
-              name: "",
+              name: "支付占比",
               data: [
                 {
                   name: res.resultEntity[0].type,
@@ -3989,7 +3989,6 @@ export default {
     //近七日洗车收费金额
     handleWashCarIncomeSevenDays() {
       this.$homePage.queryCarWashAmountRecentDays({}).then(res => {
-        console.log(res.resultEntity);
         res.resultEntity["精洗"].forEach(item => {
           this.washChargeInSevenDaysXz.push(item.X);
           this.washChargeInSevenDaysJINGWash.push(item.type);
@@ -4000,92 +3999,92 @@ export default {
         res.resultEntity["快洗"].forEach(item => {
           this.washChargeInSevenDaysKUAIWash.push(item.type);
         });
-      });
-      this.washChargeInSevenDaysOption = {
-        chart: {
-          type: "column",
-          backgroundColor: "rgba(0,0,0,0)",
-          renderTo: "washChargeInSevenDays",
-          marginBottom: 24
-        },
-        title: {
-          text: ""
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: this.washChargeInSevenDaysXz,
-          //x轴坐标颜色
-          lineColor: "#104DA1",
-          //X轴间隔显示
-          tickInterval: 2,
-          labels: {
-            style: {
-              color: "rgba(90,142,227,1)",
-              fontSize: "10px"
-            }
-          }
-        },
-
-        yAxis: {
+        this.washChargeInSevenDaysOption = {
+          chart: {
+            type: "column",
+            backgroundColor: "rgba(0,0,0,0)",
+            renderTo: "washChargeInSevenDays",
+            marginBottom: 24
+          },
           title: {
             text: ""
           },
-          labels: {
-            //修改Y轴添加单位
-            format: "{value}元",
-            style: {
-              color: "rgba(90,142,227,1)",
-              fontSize: "10px"
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            categories: this.washChargeInSevenDaysXz,
+            //x轴坐标颜色
+            lineColor: "#104DA1",
+            //X轴间隔显示
+            tickInterval: 2,
+            labels: {
+              style: {
+                color: "rgba(90,142,227,1)",
+                fontSize: "10px"
+              }
             }
           },
-          //设置网格线颜色
-          gridLineColor: "#0A3167"
-        },
-        colors: ["#7654E3", "#00CDE6", "#FFBC00"],
-        legend: {
-          enabled: true,
-          align: "center",
-          verticalAlign: "left",
-          x: 300,
-          y: 10,
-          itemStyle: {
-            color: "#cccccc",
-            cursor: "pointer",
-            fontSize: "12px",
-            fontWeight: "bold",
-            fill: "#cccccc"
+
+          yAxis: {
+            title: {
+              text: ""
+            },
+            labels: {
+              //修改Y轴添加单位
+              format: "{value}元",
+              style: {
+                color: "rgba(90,142,227,1)",
+                fontSize: "10px"
+              }
+            },
+            //设置网格线颜色
+            gridLineColor: "#0A3167"
           },
-          itemHoverStyle: {
-            color: "#666666"
+          colors: ["#7654E3", "#00CDE6", "#FFBC00"],
+          legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "left",
+            x: 300,
+            y: 10,
+            itemStyle: {
+              color: "#cccccc",
+              cursor: "pointer",
+              fontSize: "12px",
+              fontWeight: "bold",
+              fill: "#cccccc"
+            },
+            itemHoverStyle: {
+              color: "#666666"
+            },
+            itemHiddenStyle: {
+              color: "#333333"
+            }
           },
-          itemHiddenStyle: {
-            color: "#333333"
-          }
-        },
-        tooltip: {
-          pointFormat: "{series.name}<b>{point.y}</b>元"
-        },
-        plotOptions: {
-          column: {
-            pointPadding: 0,
-            //调整每个组的柱形图的间隔
-            // borderWidth: 0,
-            // groupPadding: 0,
-            shadow: false
-          }
-        },
-        series: [
-          {
-            name: "精洗",
-            data: this.washChargeInSevenDaysJINGWash
+          tooltip: {
+            pointFormat: "{series.name}<b>{point.y}</b>元"
           },
-          { name: "普洗", data: this.washChargeInSevenDaysPUWash },
-          { name: "快洗", data: this.washChargeInSevenDaysKUAIWash }
-        ]
-      };
-      new HighCharts.chart(this.washChargeInSevenDaysOption);
+          plotOptions: {
+            column: {
+              pointPadding: 0,
+              //调整每个组的柱形图的间隔
+              // borderWidth: 0,
+              // groupPadding: 0,
+              shadow: false
+            }
+          },
+          series: [
+            {
+              name: "精洗",
+              data: this.washChargeInSevenDaysJINGWash
+            },
+            { name: "普洗", data: this.washChargeInSevenDaysPUWash },
+            { name: "快洗", data: this.washChargeInSevenDaysKUAIWash }
+          ]
+        };
+        new HighCharts.chart(this.washChargeInSevenDaysOption);
+      });
     }
     //查询充电桩总收入总收入
     // countChargeFee() {

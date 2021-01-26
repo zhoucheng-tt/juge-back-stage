@@ -132,7 +132,7 @@ export default {
     },
     loginOut() {
       alert("aaa)");
-      this.$homePage.loginOut(1).then(res=>{
+      this.$homePage.loginOut(1).then(res => {
         localStorage.removeItem("userToken");
         this.$router.push("/");
       });

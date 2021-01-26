@@ -72,22 +72,19 @@ export default {
             password: hex_sha1(this.loginList.loginPassword)
           };
           // console.log("打印登录入参", param);
-          this.$homePage
-            .login(param)
-            .then(response => {
-              // console.log("返回结果", response);
-                this.$message({
-                  type: "success",
-                  message: "登陆成功"
-                });
-                localStorage.setItem("userToken",response.resultEntity.userToken);
-                localStorage.setItem("userName", this.loginList.loginName);
-                // 登陆成功后跳转方法
-                this.$router.push({
-                  path: "/homePage"
-                });
-
-            })
+          this.$homePage.login(param).then(response => {
+            // console.log("返回结果", response);
+            this.$message({
+              type: "success",
+              message: "登陆成功"
+            });
+            localStorage.setItem("userToken", response.resultEntity.userToken);
+            localStorage.setItem("userName", this.loginList.loginName);
+            // 登陆成功后跳转方法
+            this.$router.push({
+              path: "/homePage"
+            });
+          });
         }
       });
     }

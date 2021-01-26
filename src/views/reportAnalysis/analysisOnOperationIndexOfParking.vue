@@ -255,14 +255,16 @@ export default {
     },
     //查询停车场列表数据
     queryParkList() {
-      alert("你个头")
+      alert("你个头");
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: [{
-          colName: "district_code",
-          value: "321302"
-        }]
+        whereStr: [
+          {
+            colName: "district_code",
+            value: "321302"
+          }
+        ]
       };
       this.$homePage.queryDict(param).then(response => {
         this.parkingLotList = response.resultEntity;

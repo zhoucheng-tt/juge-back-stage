@@ -11,19 +11,19 @@ import request from "@/utils/request";
 // 登录接口
 export function login(params) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/login",
+    url: "http://123.207.189.27:7138/UserController/login",
     method: "post",
     data: params,
-    flag:'out'
+    flag: "out"
   });
 }
 
 export function loginOut(params) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/loginOut",
+    url: "http://123.207.189.27:7138/UserController/loginOut",
     method: "post",
     data: params,
-    flag:'out'
+    flag: "out"
   });
 }
 
@@ -152,7 +152,7 @@ export function queryParkMonitorParkSpace(params) {
   });
 }
 
-export function queryDict(params){
+export function queryDict(params) {
   return request({
     url: "http://123.207.189.27:7138/UserController/queryDict",
     method: "post",

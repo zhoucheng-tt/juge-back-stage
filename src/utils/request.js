@@ -92,14 +92,14 @@ service.interceptors.response.use(
     //   return Promise.reject(res.resultMsg || 'error')
     // } else
     if (response.config.flag === "out") {
-      if (response.resultCode=='3004'){
+      if (response.resultCode == "3004") {
         Message({
           message: "未登录或登录超时,请重新登录",
           type: "error",
           duration: 5 * 1000,
           showClose: true
         });
-        router.push({ name: 'login' })
+        router.push({ name: "login" });
       }
       return res;
     } else {

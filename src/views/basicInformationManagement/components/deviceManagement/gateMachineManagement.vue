@@ -15,17 +15,17 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="停车场:">
           <el-select
-              size="small"
-              style="width: 160px"
-              v-model="upQueryList.parkId"
-              placeholder="请选择停车场"
-              @change="queryExit(parkId)"
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.parkId"
+            placeholder="请选择停车场"
+            @change="queryExit(parkId)"
           >
             <el-option
-                v-for="(item, index) in parkingLotNameList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in parkingLotNameList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -42,43 +42,37 @@
         <!--            </el-form-item>-->
         <el-form-item>
           <el-button type="primary" size="small" @click="queryPassagewayGate()"
-          >查 询
-          </el-button
-          >
+            >查 询
+          </el-button>
           <el-button type="primary" size="small" @click="resetQuery()"
-          >重置
-          </el-button
-          >
+            >重置
+          </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addNewGate()"
-        >新增道闸机
-        </el-button
-        >
+          >新增道闸机
+        </el-button>
         <el-button type="primary" size="small" @click="exportExcel()"
-        >导 出
-        </el-button
-        >
+          >导 出
+        </el-button>
         <el-button type="primary" size="small" @click="bulkImport()"
-        >批量导入
-        </el-button
-        >
+          >批量导入
+        </el-button>
         <el-button type="danger" size="small" @click="batchDelete()"
-        >批量删除
-        </el-button
-        >
+          >批量删除
+        </el-button>
       </el-row>
     </div>
     <div class="backgroundLine"></div>
     <!--下半部分列表-->
     <div class="down">
       <el-table
-          :data="gateList"
-          ref="selectGateList"
-          @selection-change="handleSelectionChange"
-          stripe
-          :header-cell-style="{
+        :data="gateList"
+        ref="selectGateList"
+        @selection-change="handleSelectionChange"
+        stripe
+        :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -88,26 +82,26 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-          :cell-style="{
+        :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-          style="width: 98%;margin-left: 1%"
+        style="width: 98%;margin-left: 1%"
       >
-        <el-table-column type="selection"/>
+        <el-table-column type="selection" />
         <!--        <el-table-column fixed prop="parkId" label="停车场编号" />-->
         <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
         />
         <el-table-column
-            prop="passagewayName"
-            :show-overflow-tooltip="true"
-            label="归属出入口"
+          prop="passagewayName"
+          :show-overflow-tooltip="true"
+          label="归属出入口"
         />
         <!--        <el-table-column-->
         <!--          prop="passagewayGateId"-->
@@ -115,86 +109,84 @@
         <!--          label="道闸机编号"-->
         <!--        />-->
         <el-table-column
-            prop="passagewayGateName"
-            :show-overflow-tooltip="true"
-            label="道闸机名称"
+          prop="passagewayGateName"
+          :show-overflow-tooltip="true"
+          label="道闸机名称"
         />
         <el-table-column
-            prop="ipAddress"
-            :show-overflow-tooltip="true"
-            label="Ip地址"
+          prop="ipAddress"
+          :show-overflow-tooltip="true"
+          label="Ip地址"
         />
         <el-table-column
-            prop="serialNumber"
-            :show-overflow-tooltip="true"
-            label="串口号"
+          prop="serialNumber"
+          :show-overflow-tooltip="true"
+          label="串口号"
         />
         <el-table-column
-            prop="manufacturer"
-            :show-overflow-tooltip="true"
-            label="制造商"
+          prop="manufacturer"
+          :show-overflow-tooltip="true"
+          label="制造商"
         />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-                @click="editGateDialog(scope.row)"
-                type="text"
-                size="small"
-            >修改
-            </el-button
-            >
+              @click="editGateDialog(scope.row)"
+              type="text"
+              size="small"
+              >修改
+            </el-button>
             <el-button @click="deleteGate(scope.row)" type="text" size="small"
-            >删除
-            </el-button
-            >
+              >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
       <div style="float: right;">
         <!--分页条-->
         <el-pagination
-            @current-change="handleCurrentModify"
-            layout="total, prev, pager, next, jumper"
-            :current-page="pageNum"
-            :page-size="pageSize"
-            :total="pageTotal"
+          @current-change="handleCurrentModify"
+          layout="total, prev, pager, next, jumper"
+          :current-page="pageNum"
+          :page-size="pageSize"
+          :total="pageTotal"
         >
         </el-pagination>
       </div>
       <!--新增表单弹框-->
       <el-dialog
-          id="add"
-          title="新增道闸机"
-          :visible.sync="addListDialog"
-          destroy-on-close
+        id="add"
+        title="新增道闸机"
+        :visible.sync="addListDialog"
+        destroy-on-close
       >
         <el-form
-            :inline="true"
-            label-position="right"
-            label-width="100px"
-            :model="newGate"
-            :rules="addListRules"
-            ref="newGateR"
+          :inline="true"
+          label-position="right"
+          label-width="100px"
+          :model="newGate"
+          :rules="addListRules"
+          ref="newGateR"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item
-                  label="归属停车场:"
-                  label-width="150px"
-                  prop="parkId"
+                label="归属停车场:"
+                label-width="150px"
+                prop="parkId"
               >
                 <el-select
-                    style="width: 200px;"
-                    v-model="newGate.parkId"
-                    placeholder="请选择"
-                    @change="queryExit(newGate.parkId)"
+                  style="width: 200px;"
+                  v-model="newGate.parkId"
+                  placeholder="请选择"
+                  @change="queryExit(newGate.parkId)"
                 >
                   <el-option
-                      v-for="(item, index) in parkingLotNameList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   >
                   </el-option>
                 </el-select>
@@ -202,20 +194,20 @@
             </el-col>
             <el-col :span="12">
               <el-form-item
-                  label="归属出入口:"
-                  label-width="150px"
-                  prop="passagewayId"
+                label="归属出入口:"
+                label-width="150px"
+                prop="passagewayId"
               >
                 <el-select
-                    style="width: 200px;"
-                    v-model="newGate.passagewayId"
-                    placeholder="请选择"
+                  style="width: 200px;"
+                  v-model="newGate.passagewayId"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in passagesList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in passagesList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   >
                   </el-option>
                 </el-select>
@@ -226,38 +218,38 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item
-                  label="道闸机编号:"
-                  label-width="150px"
-                  prop="passagewayGateId"
+                label="道闸机编号:"
+                label-width="150px"
+                prop="passagewayGateId"
               >
-                <el-input v-model="newGate.passagewayGateId"/>
+                <el-input v-model="newGate.passagewayGateId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
-                  label="道闸机名称:"
-                  label-width="150px"
-                  prop="passagewayGateName"
+                label="道闸机名称:"
+                label-width="150px"
+                prop="passagewayGateName"
               >
-                <el-input v-model="newGate.passagewayGateName"/>
+                <el-input v-model="newGate.passagewayGateName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item
-                  label="IP地址:"
-                  label-width="150px"
-                  prop="ipAddress"
+                label="IP地址:"
+                label-width="150px"
+                prop="ipAddress"
               >
                 <el-input v-model="newGate.ipAddress"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
-                  label="串口号:"
-                  label-width="150px"
-                  prop="serialNumber"
+                label="串口号:"
+                label-width="150px"
+                prop="serialNumber"
               >
                 <el-input v-model="newGate.serialNumber"></el-input>
               </el-form-item>
@@ -266,9 +258,9 @@
           <el-row>
             <el-col :span="12">
               <el-form-item
-                  label="制造商:"
-                  label-width="150px"
-                  prop="manufacturer"
+                label="制造商:"
+                label-width="150px"
+                prop="manufacturer"
               >
                 <el-input v-model="newGate.manufacturer"></el-input>
               </el-form-item>
@@ -282,10 +274,10 @@
       </el-dialog>
       <!--修改表单弹框-->
       <el-dialog
-          id="edit"
-          width="50%"
-          title="修改道闸机"
-          :visible.sync="editListDialog"
+        id="edit"
+        width="50%"
+        title="修改道闸机"
+        :visible.sync="editListDialog"
       >
         <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
@@ -293,16 +285,16 @@
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select
-                    style="width: 200px;"
-                    v-model="editGate.parkId"
-                    placeholder="请选择"
-                    @change="queryExit(editGate.parkId)"
+                  style="width: 200px;"
+                  v-model="editGate.parkId"
+                  placeholder="请选择"
+                  @change="queryExit(editGate.parkId)"
                 >
                   <el-option
-                      v-for="(item, index) in parkingLotNameList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -310,15 +302,15 @@
             <el-col :span="12">
               <el-form-item label="归属出入口:" label-width="150px">
                 <el-select
-                    style="width: 200px;"
-                    v-model="editGate.passagewayName"
-                    placeholder="请选择"
+                  style="width: 200px;"
+                  v-model="editGate.passagewayName"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in parkingLotNameList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -328,12 +320,12 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="道闸机编号:" label-width="150px">
-                <el-input v-model="editGate.passagewayGateId"/>
+                <el-input v-model="editGate.passagewayGateId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="道闸机名称:" label-width="150px">
-                <el-input v-model="editGate.passagewayGateName"/>
+                <el-input v-model="editGate.passagewayGateName" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -365,12 +357,12 @@
           <el-container>
             <el-header style="text-align: center">
               <el-button type="primary" size="medium" @click="imgbtn()"
-              >导 入<i class="el-icon-upload el-icon--right"></i>
+                >导 入<i class="el-icon-upload el-icon--right"></i>
               </el-button>
             </el-header>
             <el-main style="text-align: center">
               <el-button type="primary" size="medium" @click="downModel()"
-              >下载模版<i class="el-icon-download el-icon--right"></i
+                >下载模版<i class="el-icon-download el-icon--right"></i
               ></el-button>
             </el-main>
           </el-container>
@@ -538,7 +530,7 @@ export default {
       };
       this.$deviceManagement.exportPassagewayGate(param).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
         aLink.href = URL.createObjectURL(blob);
         aLink.setAttribute("download", param.fileName + ".xlsx"); // 设置下载文件名称
         aLink.click();
@@ -581,10 +573,12 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: [{
-          colName: "district_code",
-          value: "321302"
-        }]
+        whereStr: [
+          {
+            colName: "district_code",
+            value: "321302"
+          }
+        ]
       };
       this.$homePage.queryDict(param).then(response => {
         that.parkLotNameList = response.resultEntity;
@@ -599,10 +593,12 @@ export default {
         columnName: ["passageway_id", "passageway_name"],
         tableName: "t_bim_passageway",
         //park_id=''通过拼接
-        whereStr: [{
-          colName: "park_id",
-          value: code
-        }]
+        whereStr: [
+          {
+            colName: "park_id",
+            value: code
+          }
+        ]
       };
       this.$homePage.queryDict(param).then(response => {
         //响应中的数据传给出入口
@@ -635,7 +631,7 @@ export default {
           this.$deviceManagement.addPassagewayGate(param).then(response => {
             console.log("打印新增响应数据", response);
             //添加成功弹出
-            this.$message({type: "success", message: "添加成功!"});
+            this.$message({ type: "success", message: "添加成功!" });
             //添加成功 弹出框隐藏
             this.addListDialog = false;
             //添加成功 刷新页面 调用查询方法
@@ -652,27 +648,27 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            //清空删除
-            this.delList = [];
-            //设定传入行数据
-            const param = {
-              passagewayGateId: row.passagewayGateId,
-              parkId: row.parkId
-            };
-            //将参数传到delList中
-            this.delList.push(param);
-            //调用接口中的删除方法 删除要删除的delList
-            this.$deviceManagement.delPassagewayGate(this.delList);
-            //提示删除成功
-            this.$message({type: "success", message: "删除成功!"});
-            //重新执行查询 （重新加载页面）
-            this.queryPassagewayGate();
-          })
-          .catch(() => {
-            //取消删除按钮
-            this.$message({type: "info", message: "已取消删除"});
-          });
+        .then(() => {
+          //清空删除
+          this.delList = [];
+          //设定传入行数据
+          const param = {
+            passagewayGateId: row.passagewayGateId,
+            parkId: row.parkId
+          };
+          //将参数传到delList中
+          this.delList.push(param);
+          //调用接口中的删除方法 删除要删除的delList
+          this.$deviceManagement.delPassagewayGate(this.delList);
+          //提示删除成功
+          this.$message({ type: "success", message: "删除成功!" });
+          //重新执行查询 （重新加载页面）
+          this.queryPassagewayGate();
+        })
+        .catch(() => {
+          //取消删除按钮
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //批量删除监听
     handleSelectionChange(val) {
@@ -703,16 +699,16 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
-                console.log("批量删除成功", res);
-              });
-              this.$message({type: "success", message: "删除成功!"});
-              this.queryPassagewayGate();
-            })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
+          .then(() => {
+            this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
+              console.log("批量删除成功", res);
             });
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryPassagewayGate();
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
 
@@ -741,7 +737,7 @@ export default {
       };
       this.$deviceManagement.updatePassagewayGate(param).then(response => {
         console.log("打印修改传入数据", response);
-        this.$message({type: "success", message: "修改成功!"});
+        this.$message({ type: "success", message: "修改成功!" });
         this.queryPassagewayGate();
         console.log("修改后的数据", this.editGate);
       });
@@ -762,7 +758,7 @@ export default {
       };
       this.$homePage.downloadResource(reqInfo).then(res => {
         const aLink = document.createElement("a");
-        let blob = new Blob([res], {type: "application/vnd.ms-excel"});
+        let blob = new Blob([res], { type: "application/vnd.ms-excel" });
         aLink.href = URL.createObjectURL(blob);
         aLink.setAttribute("download", "道闸机管理" + ".xls"); // 设置下载文件名称
         aLink.click();
@@ -771,7 +767,7 @@ export default {
       });
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
