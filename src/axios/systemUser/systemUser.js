@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 //系统管理角色管理列表查询
 export function queryRoleList(param) {
@@ -7,7 +7,7 @@ export function queryRoleList(param) {
     url: "http://123.207.189.27:7138/UserController/queryRoleList",
     method: "post",
     data: param,
-    flag:'out'
+    flag: "out"
   });
 }
 
@@ -17,7 +17,7 @@ export function addRole(param) {
     url: "http://123.207.189.27:7138/UserController/addRole",
     method: "post",
     data: param,
-    flag:'out'
+    flag: "out"
   });
 }
 
@@ -27,7 +27,7 @@ export function deleteRole(param) {
     url: "http://192.168.1.163:8000/UserController/deleteRole",
     method: "post",
     data: param,
-    flag:'out'
+    flag: "out"
   });
 }
 
@@ -55,7 +55,7 @@ export function queryUserList(param) {
     url: "http://123.207.189.27:7138/UserController/queryUserList",
     method: "post",
     data: param,
-    flag:'out'
+    flag: "out"
   });
 }
 
@@ -65,8 +65,7 @@ export function addUser(param) {
     url: "http://123.207.189.27:7138/UserController/addUser",
     method: "post",
     data: param,
-    flag:'out'
-
+    flag: "out"
   });
 }
 
@@ -76,7 +75,7 @@ export function updateUser(param) {
     url: "http://123.207.189.27:7138/UserController/updateUser",
     method: "post",
     data: param,
-    flag:'out'
+    flag: "out"
   });
 }
 
@@ -86,8 +85,7 @@ export function deleteUser(param) {
     url: "http://123.207.189.27:7138/UserController/deleteUser",
     method: "post",
     data: param,
-    flag:'out'
-
+    flag: "out"
   });
 }
 
@@ -97,7 +95,7 @@ export function queryRoleListByUser(param) {
     url: "http://123.207.189.27:7138/UserController/queryRoleListByUser",
     method: "post",
     data: param,
-    flag:'out'
+    flag: "out"
   });
 }
 

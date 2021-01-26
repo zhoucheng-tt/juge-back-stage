@@ -154,7 +154,7 @@ export default {
       // 图表数据
       washCarSevenDaysAnalysisData: [],
       washCarSevenDaysAnalysisXz: [],
-      washCarSevenDaysAnalysisName: "洗车机近七日报警报警趋势分析"
+      washCarSevenDaysAnalysisName: "洗车机近七日报警趋势分析"
     };
   },
   mounted() {

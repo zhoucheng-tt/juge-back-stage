@@ -597,7 +597,7 @@ export default {
       //引用deviceManagement中的查询接口方法
       this.$systemUser.queryRoleList(param).then(response => {
         //分页
-        that.pageTotal = response.resultEntity.total
+        that.pageTotal = response.resultEntity.total;
         //查询
         that.roleManagementData = response.resultEntity.list;
       });
@@ -625,7 +625,7 @@ export default {
           const param = {
             roleName: this.addRoleList.roleName,
             roleDesc: this.addRoleList.roleDesc,
-            creater: localStorage.getItem("userName"),
+            creater: localStorage.getItem("userName")
             // funcId: this.funcIdSplit,
             // userId: this.xuanzhongList
           };
@@ -894,7 +894,7 @@ export default {
     alter(row) {
       this.modRoleLisDialog = true;
       console.log("本行", row);
-      this.alterRoleList=row;
+      this.alterRoleList = row;
       // this.zixunazhogList = [];
       // this.xuanzhongList = [];
       // const param1 = {

@@ -478,12 +478,12 @@ export default {
         endTime: this.upQueryList.maxDateTime
       };
       this.$realTimeMonitor.queryInRecord(param).then(res => {
-        if (res.resultEntity.list.length===0){
+        if (res.resultEntity.list.length === 0) {
           this.$message({
             type: "fail",
             message: "没有符合条件的记录!请重新输入!"
           });
-          return ;
+          return;
         }
         this.carInRecordList = res.resultEntity.list;
         this.upTotal = res.resultEntity.total;
@@ -501,13 +501,12 @@ export default {
         endTime: this.downQueryList.maxDateTime
       };
       this.$realTimeMonitor.queryOutRecord(param).then(res => {
-
-        if (res.resultEntity.list.length===0){
+        if (res.resultEntity.list.length === 0) {
           this.$message({
             type: "fail",
             message: "没有符合条件的记录!请重新输入!"
           });
-          return ;
+          return;
         }
         this.carOutRecordList = res.resultEntity.list;
         this.downTotal = res.resultEntity.total;

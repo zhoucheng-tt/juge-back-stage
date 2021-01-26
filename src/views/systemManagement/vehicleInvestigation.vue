@@ -14,12 +14,13 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item>
           <el-date-picker
-              v-model="upQueryList"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期">
+            v-model="upQueryList"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            type="datetimerange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          >
           </el-date-picker>
         </el-form-item>
 
@@ -31,13 +32,13 @@
         </el-form-item>
       </el-form>
       <el-row class="line-2">
-        <el-button type="primary" size="small" >
+        <el-button type="primary" size="small">
           <a
-              :href="exportFile"
-              class="download"
-              download=""
-              style="color: #ffffff;text-decoration:none"
-          >导出</a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+            >导出</a
           >
         </el-button>
       </el-row>
@@ -122,24 +123,27 @@
   </div>
 </template>
 <script>
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   data() {
     return {
       //顶部查询条件存放
-      upQueryList: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+      upQueryList: [
+        new Date(2000, 10, 10, 10, 10),
+        new Date(2000, 10, 11, 10, 10)
+      ],
       //初始化分页
       pageNum: 1,
       pageSize: 13,
       pageTotal: 1,
       //日志管理表格数据存放
       logManagementData: [],
-      exportFile:BASE_API + "UserController/download"
+      exportFile: BASE_API + "UserController/download"
     };
   },
   mounted() {
-    this.initQuery()
+    this.initQuery();
     //查询日志管理列表
     this.queryLogList();
   },
@@ -149,11 +153,11 @@ export default {
         const param = {
           minLogTime: newVal[0],
           maxLogTime: newVal[1]
-        }
+        };
         this.exportFile =
-            BASE_API +
-            "UserController/download?jsonStr=" +
-            encodeURIComponent(JSON.stringify(param));
+          BASE_API +
+          "UserController/download?jsonStr=" +
+          encodeURIComponent(JSON.stringify(param));
         // console.log(this.exportFile)
       },
       deep: true
@@ -162,10 +166,14 @@ export default {
   methods: {
     //初始化查询条件
     initQuery() {
-      var targetday_milliseconds = new Date().getTime() - 1000 * 60 * 60 * 24 * 6;
+      var targetday_milliseconds =
+        new Date().getTime() - 1000 * 60 * 60 * 24 * 6;
       var targetday = new Date();
       targetday.setTime(targetday_milliseconds);
-      this.upQueryList = [targetday.Format("yyyy-MM-dd hh:mm:ss"), new Date().Format("yyyy-MM-dd hh:mm:ss")];
+      this.upQueryList = [
+        targetday.Format("yyyy-MM-dd hh:mm:ss"),
+        new Date().Format("yyyy-MM-dd hh:mm:ss")
+      ];
       // console.log(this.upQueryList);
     },
     //查询重置按钮
