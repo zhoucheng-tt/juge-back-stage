@@ -164,7 +164,7 @@ export function queryDict(params) {
 //总收入停车收入洗车收入 queryFees
 export function queryFees(params) {
   return request({
-    url: "http://192.168.1.200:8000/homePageFunc/queryFees",
+    url: "http://123.207.189.27:7138/homePageFunc/queryFees",
     method: "post",
     data: params,
     flag: "out"
@@ -173,7 +173,7 @@ export function queryFees(params) {
 //精洗普洗快洗  queryCarWashTypeCount
 export function queryCarWashTypeCount(params) {
   return request({
-    url: "http://192.168.1.200:8000/homePageFunc/queryCarWashTypeCount",
+    url: "http://123.207.189.27:7138/homePageFunc/queryCarWashTypeCount",
     method: "post",
     data: params,
     flag: "out"
@@ -182,7 +182,7 @@ export function queryCarWashTypeCount(params) {
 // 支付方式 queryPayTypeAmountPrecent
 export function queryPayTypeAmountPrecent(params) {
   return request({
-    url: "http://192.168.1.200:8000/homePageFunc/queryPayTypeAmountPrecent",
+    url: "http://123.207.189.27:7138/homePageFunc/queryPayTypeAmountPrecent",
     method: "post",
     data: params,
     flag: "out"
@@ -191,7 +191,7 @@ export function queryPayTypeAmountPrecent(params) {
 //近七日洗车金额 queryCarWashAmountRecentDays
 export function queryCarWashAmountRecentDays(params) {
   return request({
-    url: "http://192.168.1.200:8000/homePageFunc/queryCarWashAmountRecentDays",
+    url: "http://123.207.189.27:7138/homePageFunc/queryCarWashAmountRecentDays",
     method: "post",
     data: params,
     flag: "out"
@@ -200,7 +200,7 @@ export function queryCarWashAmountRecentDays(params) {
 //剩余车位数插叙 http://192.168.1.163:8000/homePageFunc/queryEmptySpace
 export function queryEmptySpace(params) {
   return request({
-    url: "http://192.168.1.163:8000/homePageFunc/queryEmptySpace",
+    url: "http://123.207.189.27:7138/homePageFunc/queryEmptySpace",
     method: "post",
     data: params,
     flag: "out"
