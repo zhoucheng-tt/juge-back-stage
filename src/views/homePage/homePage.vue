@@ -4128,7 +4128,6 @@ export default {
     },
     //停车场剩余车位数
     queryParkSpace() {
-      debugger;
       let _this = this;
       this.$homePage.queryEmptySpace({}).then(res => {
         // P1
