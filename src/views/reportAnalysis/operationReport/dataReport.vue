@@ -197,7 +197,7 @@ import { BASE_API } from "@/utils/config";
 
 export default {
   components: {
-    DtLineChart
+    // DtLineChart
   },
   data() {
     return {
