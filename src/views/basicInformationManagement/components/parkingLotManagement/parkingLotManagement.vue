@@ -337,7 +337,7 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" top="2vh" :visible.sync="editListDialogueandoff">
+    <el-dialog id="edit"  :visible.sync="editListDialogueandoff">
       <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">基础信息</div>
         <el-row>
