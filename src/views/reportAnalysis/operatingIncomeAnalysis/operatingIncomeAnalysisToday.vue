@@ -5,11 +5,11 @@
     <div class="up">
       <el-button type="primary" size="small">
         <a
-            :href="exportFile"
-            class="download"
-            download=""
-            style="color: #ffffff;text-decoration:none"
-        >导出</a
+          :href="exportFile"
+          class="download"
+          download=""
+          style="color: #ffffff;text-decoration:none"
+          >导出</a
         >
       </el-button>
     </div>
@@ -65,7 +65,7 @@
 import HighCharts from "highcharts";
 import Xchart from "../../../components/charts/charts";
 import Xchart3d from "../../../components/charts/charts3d";
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   components: {
@@ -130,14 +130,17 @@ export default {
       earnComDataList: [],
       earnCompareChart: {},
       //导出
-      exportFile: BASE_API + "IncomeAnalysis/download?jsonStr=",
+      exportFile: BASE_API + "IncomeAnalysis/download?jsonStr="
     };
   },
   mounted() {
     const param = {
       queryDate: "today"
-    }
-    this.exportFile = BASE_API + "IncomeAnalysis/download?jsonStr=" + encodeURIComponent(JSON.stringify(param));
+    };
+    this.exportFile =
+      BASE_API +
+      "IncomeAnalysis/download?jsonStr=" +
+      encodeURIComponent(JSON.stringify(param));
     //停车收费统计分析
     this.parkIncomeAnalysis();
     //停车收入构成统计分析
