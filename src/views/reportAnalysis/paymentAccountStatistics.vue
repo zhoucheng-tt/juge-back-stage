@@ -220,22 +220,6 @@ export default {
       parkList: [],
       //支付方式下拉框数据暂存处
       payMethodList: [
-        {
-          name: "支付宝",
-          code: "ZFB"
-        },
-        {
-          name: "微信",
-          code: "WX"
-        },
-        {
-          name: "其他",
-          code: "OTHER"
-        },
-        {
-          name: "ETC",
-          code: "ETC"
-        }
       ],
       //支付明细列表
       payList: [],
@@ -267,6 +251,7 @@ export default {
     this.drawPayAnaThirtyChart();
     this.drawPayAna365Chart();
     this.drawPayMethodAna();
+    this.queryPayMethodList();
   },
   watch: {
     query: {
@@ -280,6 +265,16 @@ export default {
     }
   },
   methods: {
+    queryPayMethodList(){
+      const param ={
+        columnName: ["payType", "payMethodName"],
+        tableName: "tb_paymethod_rel",
+        whereStr: []
+      };
+      this.$homePage.queryDict(param).then(res=>{
+        this.payMethodList = res.resultEntity;
+      })
+    },
     //  tabs页点击事件
     handleClickTabs() {},
     //查询重置按钮
