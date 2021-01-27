@@ -3,8 +3,14 @@
     <div class="backgroundLine"></div>
     <!-- 上半部分查询-->
     <div class="up">
-      <el-button type="primary" size="small" @click="handleExport">
-        导出
+      <el-button type="primary" size="small">
+        <a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+        >导出</a
+        >
       </el-button>
     </div>
     <div class="backgroundLine"></div>
@@ -59,6 +65,7 @@
 import HighCharts from "highcharts";
 import Xchart from "../../../components/charts/charts";
 import Xchart3d from "../../../components/charts/charts3d";
+import {BASE_API} from "@/utils/config";
 
 export default {
   components: {
@@ -121,10 +128,16 @@ export default {
       //停车收入对比分析
       earnComChartX: [],
       earnComDataList: [],
-      earnCompareChart: {}
+      earnCompareChart: {},
+      //导出
+      exportFile: BASE_API + "IncomeAnalysis/download?jsonStr=",
     };
   },
   mounted() {
+    const param = {
+      queryDate: "yesterday"
+    }
+    this.exportFile = BASE_API + "IncomeAnalysis/download?jsonStr=" + encodeURIComponent(JSON.stringify(param));
     //停车收费统计分析
     this.parkIncomeAnalysis();
     //停车收入构成统计分析
@@ -135,12 +148,9 @@ export default {
     this.revenueCompositionAnalysis();
   },
   methods: {
-    //导出接口
-    handleExport() {},
-
     //停车收费统计分析
     parkIncomeAnalysis() {
-      const param = { querydate: "yesterday" };
+      const param = {querydate: "yesterday"};
       this.$reportAnalysis.queryAmountAnalysis(param).then(res => {
         this.parkIncomeAnalysisXz = [];
         this.parkIncomeAnalysisY = [];
@@ -228,7 +238,7 @@ export default {
     },
     // 停车收入构成统计分析
     parkComparativeAnalysis() {
-      const param = { querydate: "yesterday" };
+      const param = {querydate: "yesterday"};
       this.earnComponentChart = {
         lang: {
           noData: "暂无数据"
@@ -269,7 +279,7 @@ export default {
             }
           },
           //给图例添加占比保留小数点后两位
-          labelFormatter: function() {
+          labelFormatter: function () {
             return this.name + " " + this.percentage.toFixed(2) + "%";
           }
         },
@@ -287,7 +297,7 @@ export default {
             color: "#0F2C54"
           },
           //给图例添加占比保留小数点后两位
-          labelFormatter: function() {
+          labelFormatter: function () {
             return this.name + " " + this.percentage.toFixed(2) + "%";
           }
         },
@@ -315,9 +325,9 @@ export default {
         this.earnComponentZFB.push(Number(res.resultEntity[3].percent) * 100);
         console.log(this.earnComponentZFB);
         this.earnComponentChart.series[0].data = [
-          { name: this.earnComponentETC[0], y: this.earnComponentETC[1] },
-          { name: this.earnComponentWX[0], y: this.earnComponentWX[1] },
-          { name: this.earnComponentZFB[0], y: this.earnComponentZFB[1] },
+          {name: this.earnComponentETC[0], y: this.earnComponentETC[1]},
+          {name: this.earnComponentWX[0], y: this.earnComponentWX[1]},
+          {name: this.earnComponentZFB[0], y: this.earnComponentZFB[1]},
           {
             name: this.earnComponentOTHER[0],
             y: this.earnComponentOTHER[1]
@@ -328,7 +338,7 @@ export default {
     },
     // 缴费类型统计分析
     paymentStyleAnalysis() {
-      const param = { querydate: "yesterday" };
+      const param = {querydate: "yesterday"};
       this.$reportAnalysis.queryChargeTypeByHours(param).then(res => {
         this.paymentStyleAnalysisXz = [];
         this.paymentStyleAnalysisZFB = [];
@@ -429,13 +439,13 @@ export default {
               name: "支付宝支付",
               data: this.paymentStyleAnalysisZFB
             },
-            { name: "微信支付", data: this.paymentStyleAnalysisWX },
+            {name: "微信支付", data: this.paymentStyleAnalysisWX},
             {
               name: "ETC",
               data: this.paymentStyleAnalysisETC
             },
-            { name: "现金支付", data: this.paymentStyleAnalysisCash },
-            { name: "其他", data: this.paymentStyleAnalysisOther }
+            {name: "现金支付", data: this.paymentStyleAnalysisCash},
+            {name: "其他", data: this.paymentStyleAnalysisOther}
           ]
         };
         new HighCharts.chart(this.paymentStyleChart);
@@ -504,7 +514,7 @@ export default {
             {
               // Primary yAxis
               labels: {
-                formatter: function() {
+                formatter: function () {
                   return this.value / 1 + "元";
                 }
               },
@@ -573,33 +583,39 @@ export default {
   height: 90%;
   float: left;
 }
+
 .center-content {
   width: 100%;
   height: 31%;
   display: flex;
   margin-top: 1%;
 }
+
 .center-content-left {
   width: 48.5%;
   height: 100%;
   margin-left: 1%;
 }
+
 .center-content-right {
   width: 48.5%;
   height: 100%;
   margin-left: 1%;
 }
+
 .backgroundLine {
   background-color: #eaf0f6;
   width: 100%;
   height: 15px;
 }
+
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
   height: 363px;
   margin-top: -17px;
 }
+
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 48.5%;
