@@ -10,33 +10,40 @@
 <template>
   <!-- 登录页面 -->
   <div class="login-content">
-    <div class="login-block">
-      <div class="login-block-text"><span>欢迎使用</span></div>
-      <div class="login-block-title">
-        <span>溧水经开区管委会智慧停车管理平台</span>
+    <div style="width:100%;height:100%;padding-top: 76px">
+      <div style="margin-left: 76px">
+        <img src="../../assets/login/logo.png" alt="" />
       </div>
-      <el-form
-        class="login-form-horizontal"
-        :model="loginList"
-        ref="loginList"
-        :rules="rules"
-      >
-        <el-form-item prop="loginName">
-          <el-input v-model="loginList.loginName" placeholder="账号或手机号" />
-        </el-form-item>
-        <el-form-item prop="loginPassword" style="margin-top: 25px">
-          <el-input
-            type="password"
-            v-model="loginList.loginPassword"
-            placeholder="密码"
-          />
-        </el-form-item>
-        <div class="login-form-group">
-          <el-button class="login-btn" @click="loginBtn()">登录</el-button>
+      <div class="login-block">
+        <div class="login-block-text"><span>欢迎使用</span></div>
+        <div class="login-block-title">
+          <span>溧水经开区管委会智慧停车管理平台</span>
         </div>
-        <!--        <a href="forgot.html" class="login-forgot-pass">忘记密码?</a>-->
-        <!--  <a href="javascript:void(0);" class="login-regist">现在注册</a> -->
-      </el-form>
+        <el-form
+          class="login-form-horizontal"
+          :model="loginList"
+          ref="loginList"
+          :rules="rules"
+        >
+          <el-form-item prop="loginName">
+            <el-input
+              v-model="loginList.loginName"
+              placeholder="账号或手机号"
+            />
+          </el-form-item>
+          <el-form-item prop="loginPassword" style="margin-top: 25px">
+            <el-input
+              type="password"
+              v-model="loginList.loginPassword"
+              placeholder="密码"
+            />
+          </el-form-item>
+          <el-button class="login-btn" @click="loginBtn()">登录</el-button>
+          <!--        <a href="forgot.html" class="login-forgot-pass">忘记密码?</a>-->
+          <!--  <a href="javascript:void(0);" class="login-regist">现在注册</a> -->
+        </el-form>
+      </div>
+      <div class="support"><span>技术支持:华设E停车</span></div>
     </div>
   </div>
 </template>
@@ -96,58 +103,40 @@ export default {
 </script>
 <style scoped>
 @charset "utf-8";
-
-/* CSS Document */
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
+.support {
   width: 100%;
-  height: 100%;
-  background-image: url("../../assets/login/dl-di.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  height: 26px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  /*background-color: red;*/
+  margin-top: 10px;
+  bottom: 60px;
+  position: absolute;
 }
-
-.login-form-control {
-  display: inline-block;
-  width: 100%;
-  height: 0.28rem;
-  line-height: 0.28rem;
-  padding: 2px 4px;
-  vertical-align: middle;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-  outline: none;
-  border: none;
-}
-
 .login-content {
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   width: 100%;
   background-image: url("../../assets/login/dl-di.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  /*padding-top: 300px;*/
 }
-
 .login-block {
+  width: 26.5%;
+  height: 38%;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 100px;
+  align-items: center;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(215, 236, 247, 0.6);
   color: #666;
-  border: 1px solid #fff;
+  /*border: 1px solid #fff;*/
   padding: 32px;
   padding-top: 20px;
-  box-shadow: 0px 0px 8px #fff;
+  /*box-shadow: 0px 0px 8px #fff;*/
 }
 .login-block-text {
   color: #333;
@@ -163,21 +152,16 @@ body {
   font-size: 26px;
   color: #0f81bf;
 }
-
 .login-form-horizontal {
   width: 440px;
-  display: block;
 }
-
 .login-form-horizontal input {
   font-family: "微软雅黑";
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #aaa;
+  /*border: 1px solid #aaa;*/
   box-shadow: none;
   width: 440px;
-  height: 30px;
-  line-height: 30px;
   padding: 6px 12px;
   background-color: rgba(255, 255, 255, 0.4);
   background-image: none;
@@ -196,43 +180,23 @@ body {
 }
 
 .login-form-horizontal input:focus {
-  border: 1px solid #41b5f5;
-}
-
-.login-form-group {
-  margin-top: 25px;
-  margin-bottom: 20px;
-}
-
-.login-form-horizontal .login-form-group {
-  display: flex;
-  align-items: center;
+  /*border: 1px solid #41b5f5;*/
 }
 
 .login-btn {
   width: 438px;
-  height: 40px;
-  line-height: 40px;
-  /*padding: 6px 0;*/
-  font-family: "微软雅黑";
-  background-color: #41b5f5;
-  border: 1px solid #41b5f5;
+  height: 50px;
   font-size: 16px;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 4px;
+  background-color: #41b5f5;
   color: white;
-  outline: none;
 }
 
 .login-btn:hover {
   background-color: #3883b8;
   border: 1px solid #3883b8;
+}
+/deep/ .el-input__inner {
+  height: 48px !important;
 }
 
 .login-forgot-pass {

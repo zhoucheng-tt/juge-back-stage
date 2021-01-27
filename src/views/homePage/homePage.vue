@@ -12,7 +12,7 @@
     <!--    顶部导航栏-->
     <div class="top">
       <div class="top-left">
-        <span class="top-text">溧水经济开发区管委会智慧停车管理平台</span>
+        <span class="top-text">溧水经开区管委会智慧停车管理平台</span>
       </div>
       <div class="top-right">
         <!--  首页头部选项卡-->
@@ -232,7 +232,7 @@
                       color: #08F6E4;
                   letter-spacing: 0.36px;float: right"
             >
-              {{ parkingSpaceUsedRateTotal }}分钟/车位
+              {{ parkingSpaceUsedRateNumber }}分钟/车位
             </span>
           </div>
           <!-- 车位利用率   -->
@@ -309,7 +309,7 @@
                      color: #E9C503;
                      letter-spacing: 0.36px;float:right;"
             >
-              {{ parkingSpaceTurnoverRateTotal }}次/车位
+              {{ parkingSpaceTurnoverRateNumber }}次/车位
             </span>
           </div>
           <!-- 车位周转率   -->
@@ -387,7 +387,7 @@
               letter-spacing: 0.36px;
               float: right"
             >
-              {{ averageParkingTimeTotal }} 分钟
+              {{ averageParkingTimeNumber }} 分钟
             </span>
           </div>
           <!-- 平均停车时长   -->
@@ -565,7 +565,7 @@
             </div>
           </div>
           <!--停车场-->
-          <div class="parkListDivP1">
+          <div class="parkListDivP1" @click="handleClickParkLotP1">
             <div class="parkListDiv-svg">
               <svg
                 width="28px"
@@ -3111,6 +3111,7 @@ export default {
       averageParkingTimeXz: [],
       //平均停车时长图表数字
       averageParkingTimeTotal: 0,
+      averageParkingTimeNumber: 0,
 
       // 车位利用率
       parkingSpaceUtilization: "",
@@ -3119,6 +3120,7 @@ export default {
       parkingSpaceUtilizationXz: [],
       //车位利用率图表数字
       parkingSpaceUsedRateTotal: 0,
+      parkingSpaceUsedRateNumber: 0,
 
       // 车位周转率
       parkingSpaceTurnoverRate: "",
@@ -3127,6 +3129,7 @@ export default {
       parkingSpaceTurnoverRateXz: [],
       //车位周转率图表上的数字
       parkingSpaceTurnoverRateTotal: 0,
+      parkingSpaceTurnoverRateNumber: 0,
 
       // 洗车机近七日报警趋势分析
       washCarSevenDaysAnalysisOption: {},
@@ -3237,6 +3240,7 @@ export default {
         this.$router.push("/");
       });
     },
+    handleClickParkLotP1() {},
     //停车场名称
     queryParkLotList() {
       const param = {
@@ -3250,7 +3254,7 @@ export default {
     //停车场剩余车位数
     queryParkSpace() {
       this.$homePage.queryEmptySpace({}).then(res => {
-        console.log(res);
+        // console.log(res);
         this.parkingLotList[0].bookNumber =
           res.resultEntity[0]["BM01"].bookNumber;
         this.parkingLotList[0].emptyNumber =
@@ -3327,7 +3331,7 @@ export default {
         this.numberOfParkingXz = [];
         this.numberOfParkingData = [];
         res.resultEntity.forEach(item => {
-          this.numberOfParkingXz.push(item.X);
+          this.numberOfParkingXz.push(item.X + ":00");
           this.numberOfParkingData.push(Number(item.dataY));
         });
         for (let i = 0; i < this.numberOfParkingData.length; i++) {
@@ -3439,9 +3443,16 @@ export default {
         this.averageParkingTimeXz = [];
         this.averageParkingTimeData = [];
         res.resultEntity.forEach(item => {
-          this.averageParkingTimeXz.push(item.X);
+          this.averageParkingTimeXz.push(item.X + ":00");
           this.averageParkingTimeData.push(Number(Math.round(item.dataY)));
         });
+        // averageParkingTimeTotal  averageParkingTimeNumber
+        for (let i = 0; i < this.averageParkingTimeData.length; i++) {
+          this.averageParkingTimeTotal += this.averageParkingTimeData[i];
+        }
+        this.averageParkingTimeNumber = Number(
+          this.averageParkingTimeTotal / this.averageParkingTimeXz.length
+        ).toFixed(2);
         this.averageParkingTimeOptions = {
           chart: {
             type: "spline",
@@ -3465,6 +3476,8 @@ export default {
           },
           xAxis: {
             categories: this.averageParkingTimeXz,
+            //X轴间隔显示
+            tickInterval: 4,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
@@ -3481,7 +3494,7 @@ export default {
             },
             labels: {
               //修改Y轴添加单位
-              format: "{value}min",
+              format: "{value}分钟",
               style: {
                 color: "rgba(90,142,227,1)"
               }
@@ -3545,12 +3558,19 @@ export default {
         this.parkingSpaceUtilizationXz = [];
         this.parkingSpaceUtilizationData = [];
         res.resultEntity.forEach(item => {
-          this.parkingSpaceUtilizationXz.push(item.X);
+          this.parkingSpaceUtilizationXz.push(item.X + ":00");
           //%后小数点后两位
           this.parkingSpaceUtilizationData.push(
             Number((Number(item.dataY) * 100).toFixed(2))
           );
         });
+        // parkingSpaceUsedRateTotal parkingSpaceUsedRateNumber
+        for (let i = 0; i < this.parkingSpaceUtilizationData.length; i++) {
+          this.parkingSpaceUsedRateTotal += this.parkingSpaceUtilizationData[i];
+        }
+        this.parkingSpaceUsedRateNumber = Number(
+          this.parkingSpaceUsedRateTotal / this.parkingSpaceUtilizationXz.length
+        ).toFixed(2);
         this.parkingSpaceUtilizationOptions = {
           chart: {
             type: "spline",
@@ -3574,6 +3594,8 @@ export default {
           },
           xAxis: {
             categories: this.parkingSpaceUtilizationXz,
+            //X轴间隔显示
+            tickInterval: 4,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
@@ -3589,7 +3611,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}%",
+              format: "{value}",
               style: {
                 color: "rgba(90,142,227,1)"
               }
@@ -3619,7 +3641,7 @@ export default {
           },
           tooltip: {
             //设置每个点位的弹出窗
-            pointFormat: "{series.name}: <b>{point.y}</b>%"
+            pointFormat: "{series.name}: <b>{point.y}</b>分钟/车位"
           },
           plotOptions: {
             spline: {
@@ -3659,6 +3681,17 @@ export default {
             Number((Number(item.dataY) * 100).toFixed(2))
           );
         });
+        // parkingSpaceTurnoverRateTotal parkingSpaceTurnoverRateNumber
+        for (let i = 0; i < this.parkingSpaceTurnoverRateData.length; i++) {
+          this.parkingSpaceTurnoverRateTotal += this.parkingSpaceTurnoverRateData[
+            i
+          ];
+        }
+
+        this.parkingSpaceTurnoverRateNumber = Number(
+          this.parkingSpaceTurnoverRateTotal /
+            this.parkingSpaceTurnoverRateXz.length
+        ).toFixed(2);
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
             type: "spline",
@@ -3682,6 +3715,8 @@ export default {
           },
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz,
+            //X轴间隔显示
+            tickInterval: 4,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
@@ -3697,7 +3732,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}%",
+              format: "{value}",
               style: {
                 color: "rgba(90,142,227,1)"
               }
@@ -3726,7 +3761,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>%"
+            pointFormat: "{series.name}: <b>{point.y}</b>次/车位"
           },
           plotOptions: {
             spline: {
@@ -3869,6 +3904,8 @@ export default {
           },
           xAxis: {
             categories: this.chargeAmountTimesX,
+            //X轴间隔显示
+            tickInterval: 2,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {

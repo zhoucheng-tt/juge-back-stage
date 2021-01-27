@@ -1,6 +1,6 @@
 <template>
   <div class="header-style">
-    <span class="head-title">溧水经济开发区管委会智慧停车管理平台</span>
+    <span class="head-title">溧水经开区管委会智慧停车管理平台</span>
     <!--天气类型-->
     <span class="head-weatherType">{{ weatherList.type }}</span>
     <!--最高最低天气-->
@@ -131,7 +131,6 @@ export default {
       this.$router.push(value);
     },
     loginOut() {
-      alert("aaa)");
       this.$homePage.loginOut(1).then(res => {
         localStorage.removeItem("userToken");
         this.$router.push("/");

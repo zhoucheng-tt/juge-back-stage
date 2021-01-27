@@ -53,6 +53,8 @@ export default {
         },
         xAxis: {
           categories: chartData.xCategories,
+          //X轴间隔显示
+          tickInterval: 4,
           //x轴坐标颜色
           lineColor: "#104DA1",
           labels: {
