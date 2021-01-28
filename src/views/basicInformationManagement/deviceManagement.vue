@@ -10,27 +10,27 @@
 <template>
   <div>
     <el-tabs v-model="activeName" class="tabsStyle" type="card">
-      <el-tab-pane label="视频车位检测器" name="first">
-        <video-Parking-Detector v-if="activeName === 'first'" />
+      <el-tab-pane label="地磁车位检测器" name="first">
+        <geomagnetic-Parking-Detector v-if="activeName === 'first'" />
       </el-tab-pane>
-      <el-tab-pane label="地磁车位检测器" name="second">
-        <geomagnetic-Parking-Detector v-if="activeName === 'second'" />
+      <el-tab-pane label="地锁" name="second">
+        <floor-Lock v-if="activeName === 'second'" />
       </el-tab-pane>
-      <el-tab-pane label="地锁" name="third">
-        <floor-Lock v-if="activeName === 'third'" />
+      <el-tab-pane label="进出口摄像头管理" name="third">
+        <import-Export-Camera-Management v-if="activeName === 'third'" />
       </el-tab-pane>
-      <el-tab-pane label="进出口摄像头管理" name="forth">
-        <import-Export-Camera-Management v-if="activeName === 'forth'" />
+      <el-tab-pane label="道闸机管理" name="forth">
+        <gate-Machine-Management v-if="activeName === 'forth'" />
       </el-tab-pane>
-      <el-tab-pane label="道闸机管理" name="five">
-        <gate-Machine-Management v-if="activeName === 'five'" />
+      <el-tab-pane label="洗车机管理" name="five">
+        <car-Washing-Machine-Management v-if="activeName === 'five'" />
       </el-tab-pane>
-      <el-tab-pane label="洗车机管理" name="six">
-        <car-Washing-Machine-Management v-if="activeName === 'six'" />
+      <el-tab-pane label="ETC管理" name="six">
+        <basic-Information-Management-ETC v-if="activeName === 'six'" />
       </el-tab-pane>
-      <el-tab-pane label="ETC管理" name="seven">
-        <basic-Information-Management-ETC v-if="activeName === 'seven'" />
-      </el-tab-pane>
+      <!--      <el-tab-pane label="视频车位检测器" name="first">-->
+      <!--        <video-Parking-Detector v-if="activeName === 'first'" />-->
+      <!--      </el-tab-pane>-->
       <!--            <el-tab-pane label="充电桩管理" name="eight">-->
       <!--                <charge-Point-Management v-if="activeName === 'eight'" />-->
       <!--            </el-tab-pane>-->
@@ -38,8 +38,6 @@
   </div>
 </template>
 <script>
-//视频车位
-import videoParkingDetector from "./components/deviceManagement/videoParkingDetector";
 //地磁车
 import geomagneticParkingDetector from "./components/deviceManagement/geomagneticParkingDetector";
 // 地锁
@@ -52,18 +50,20 @@ import gateMachineManagement from "./components/deviceManagement/gateMachineMana
 import carWashingMachineManagement from "./components/deviceManagement/carWashingMachineManagement";
 //ETC basicInformationManagementETC
 import basicInformationManagementETC from "./components/deviceManagement/basicInformationManagementETC";
+//视频车位监测器
+// import videoParkingDetector from "./components/deviceManagement/videoParkingDetector";
 // 充电桩管理  chargePointManagement
 // import chargePointManagement from "./components/deviceManagement/chargePointManagement";
 
 export default {
   components: {
-    videoParkingDetector,
     geomagneticParkingDetector,
     floorLock,
     importExportCameraManagement,
     gateMachineManagement,
     carWashingMachineManagement,
     basicInformationManagementETC
+    // videoParkingDetector,
     // chargePointManagement,
   },
   data() {

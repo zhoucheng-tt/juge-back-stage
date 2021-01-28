@@ -35,28 +35,10 @@
         </div>
         <div class="backgroundShu"></div>
         <!--停车收入对比分析-->
-        <div id="earnCompare" class="echartStyle">
+        <div id="earnCompare" class="echartStyle" style="margin-left: 1%">
           <Xchart id="earnCompare" :option="earnCompareChart"></Xchart>
         </div>
       </div>
-      <!--      <div class="center-content">-->
-      <!--        &lt;!&ndash;        &lt;!&ndash; 平均充电时间 averageChargingTime&ndash;&gt;&ndash;&gt;-->
-      <!--        &lt;!&ndash;        <div id="chargeEarn" class="center-content-left">&ndash;&gt;-->
-      <!--        &lt;!&ndash;          <Xchart id="chargeEarn" :option="chargeEarnChart"></Xchart>&ndash;&gt;-->
-      <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
-      <!--        &lt;!&ndash;      平均洗车时长 averageWashingTime&ndash;&gt;-->
-      <!--        &lt;!&ndash;        <div id="washEarn" class="center-content-right">&ndash;&gt;-->
-      <!--        &lt;!&ndash;          <Xchart id="washEarn" :option="washEarnChart"></Xchart>&ndash;&gt;-->
-      <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
-      <!--        &lt;!&ndash;        &lt;!&ndash; 收入与欠费金额趋势分析 &ndash;&gt;&ndash;&gt;-->
-      <!--        &lt;!&ndash;        <div id="earnAndOwe" class="center-content-right">&ndash;&gt;-->
-      <!--        &lt;!&ndash;          <Xchart id="earnAndOwe" :option="earnAndOweChart"></Xchart>&ndash;&gt;-->
-      <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
-      <!--        &lt;!&ndash;停车场收入及欠费分析&ndash;&gt;-->
-      <!--        <div id="parkEarnAndOwe" class="center-content-right">-->
-      <!--          <Xchart id="parkEarnAndOwe" :option="parkEarnAndOweChart"></Xchart>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -74,26 +56,13 @@ export default {
   },
   data() {
     return {
-      query: {
-        date: "2020-08-01",
-        parkId: ""
-      },
+      //导出
+      exportFile: BASE_API + "IncomeAnalysis/download?jsonStr=",
       //停车收费统计分析
       parkIncomeAnalysisName: "停车收费统计分析",
       parkIncomeChart: {},
-      parkIncomeAnalysisXz: [
-        // "00",
-        // "01",
-        // "02",
-        // "03",
-        // "04",
-        // "05",
-        // "06",
-        // "07",
-        // "08",
-        // "09"
-      ],
-      parkIncomeAnalysisY: [1, 3, 5, 4, 5, 2, 7, 5, 3, 8],
+      parkIncomeAnalysisXz: [],
+      parkIncomeAnalysisY: [],
 
       //停车收入构成统计分析
       earnComponentDataList: [],
@@ -103,37 +72,32 @@ export default {
       earnComponentWX: [],
       earnComponentZFB: [],
       earnComponentOTHER: [],
+      earnComponentCASH: [],
 
       //缴费类型统计分析
       paymentStyleChart: {},
       paymentStyleAnalysisName: "缴费类型统计分析",
-      paymentStyleAnalysisXz: [
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09"
-      ],
-      paymentStyleAnalysisZFB: [1, 2, 4, 6, 2, 5, 1, 3, 4, 6],
-      paymentStyleAnalysisWX: [2, 1, 5, 3, 4, 1, 6, 2, 1, 5],
-      paymentStyleAnalysisETC: [1, 2, 3, 5, 1, 6, 4, 1, 2, 5],
-      paymentStyleAnalysisCash: [3, 1, 5, 2, 4, 1, 5, 2, 6, 3],
-      paymentStyleAnalysisOther: [2, 1, 2, 5, 1, 2, 4, 6, 5, 1],
+      paymentStyleAnalysisZFBList: [],
+      paymentStyleAnalysisWXList: [],
+      paymentStyleAnalysisETCList: [],
+      paymentStyleAnalysisCASHList: [],
+      paymentStyleAnalysisOTHERList: [],
+      paymentStyleAnalysisXz: [],
+      paymentStyleAnalysisZFB: [],
+      paymentStyleAnalysisWX: [],
+      paymentStyleAnalysisETC: [],
+      paymentStyleAnalysisCASH: [],
+      paymentStyleAnalysisOTHER: [],
 
       //停车收入对比分析
-      earnComChartX: [],
-      earnComDataList: [],
       earnCompareChart: {},
-      //导出
-      exportFile: BASE_API + "IncomeAnalysis/download?jsonStr="
+      earnComChartX: [],
+      earnComChartIncome: [],
+      earnComChartPercent: []
     };
   },
   mounted() {
+    // 导出
     const param = {
       queryDate: "yesterday"
     };
@@ -158,8 +122,8 @@ export default {
         this.parkIncomeAnalysisXz = [];
         this.parkIncomeAnalysisY = [];
         res.resultEntity.forEach(item => {
-          this.parkIncomeAnalysisXz.push(item.X + ":00");
-          this.parkIncomeAnalysisY.push(Number(item.dataY));
+          this.parkIncomeAnalysisXz.push(item.time);
+          this.parkIncomeAnalysisY.push(Number(item.income));
         });
         this.parkIncomeChart = {
           chart: {
@@ -169,7 +133,7 @@ export default {
           },
           title: {
             text: this.parkIncomeAnalysisName,
-            align: "center",
+            align: "left",
             x: 20,
             style: {
               fontFamily: "PingFangSC-Medium",
@@ -182,7 +146,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkIncomeAnalysisXz
+            categories: this.parkIncomeAnalysisXz,
+            tickInterval: 2
           },
           colors: ["#03D7E9"],
           yAxis: {
@@ -197,20 +162,20 @@ export default {
             enabled: true,
             align: "center",
             verticalAlign: "center",
-            // x: 300,
+            x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -218,10 +183,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {
@@ -242,128 +207,157 @@ export default {
     // 停车收入构成统计分析
     parkComparativeAnalysis() {
       const param = { querydate: "yesterday" };
-      this.earnComponentChart = {
-        lang: {
-          noData: "暂无数据"
-        },
-        chart: {
-          type: "pie",
-          renderTo: "earnComponent"
-          //3D效果
-          // options3d: {
-          //   enabled: true,
-          //   alpha: 45,
-          //   beta: 0
-          // }
-        },
-        title: {
-          text: "停车收入构成统计分析"
-        },
-        credits: {
-          enabled: false
-        },
-        tooltip: {
-          //饼图显示百分比
-          pointFormat: "{series.name} <b>{point.percentage:.1f}%</b>"
-        },
-        colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC"],
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: "pointer",
-            innerSize: 100,
-            depth: 45,
-            //是否显示图例
-            showInLegend: true,
-            dataLabels: {
-              //饼图上面的黑线显示
-              enabled: false,
-              format: "{point.name}"
-            }
-          },
-          //给图例添加占比保留小数点后两位
-          labelFormatter: function() {
-            return this.name + " " + this.percentage.toFixed(2) + "%";
-          }
-        },
-        legend: {
-          layout: "vertival",
-          align: "left",
-          verticalAlign: "middle",
-          x: 100,
-          borderWidth: 0,
-          itemStyle: {
-            color: "blue",
-            fontSize: "15px"
-          },
-          itemHoverStyle: {
-            color: "#0F2C54"
-          },
-          //给图例添加占比保留小数点后两位
-          labelFormatter: function() {
-            return this.name + " " + this.percentage.toFixed(2) + "%";
-          }
-        },
-        series: [
-          {
-            name: "",
-            data: []
-          }
-        ]
-      };
-
       this.$reportAnalysis.queryChargePercent(param).then(res => {
-        console.log(res.resultEntity);
         this.earnComponentETC = [];
         this.earnComponentWX = [];
         this.earnComponentZFB = [];
         this.earnComponentOTHER = [];
-        this.earnComponentETC.push(res.resultEntity[0].payType);
-        this.earnComponentETC.push(Number(res.resultEntity[0].percent) * 100);
-        this.earnComponentOTHER.push(res.resultEntity[1].payType);
-        this.earnComponentOTHER.push(Number(res.resultEntity[1].percent) * 100);
-        this.earnComponentWX.push(res.resultEntity[2].payType);
-        this.earnComponentWX.push(Number(res.resultEntity[2].percent) * 100);
-        this.earnComponentZFB.push(res.resultEntity[3].payType);
-        this.earnComponentZFB.push(Number(res.resultEntity[3].percent) * 100);
-        console.log(this.earnComponentZFB);
-        this.earnComponentChart.series[0].data = [
-          { name: this.earnComponentETC[0], y: this.earnComponentETC[1] },
-          { name: this.earnComponentWX[0], y: this.earnComponentWX[1] },
-          { name: this.earnComponentZFB[0], y: this.earnComponentZFB[1] },
-          {
-            name: this.earnComponentOTHER[0],
-            y: this.earnComponentOTHER[1]
-          }
-        ];
+        this.earnComponentCASH = [];
+        this.earnComponentWX.push(res.resultEntity[0].income);
+        this.earnComponentWX.push(res.resultEntity[0].payMethod);
+        this.earnComponentZFB.push(res.resultEntity[1].income);
+        this.earnComponentZFB.push(res.resultEntity[1].payMethod);
+        this.earnComponentOTHER.push(res.resultEntity[2].income);
+        this.earnComponentOTHER.push(res.resultEntity[2].payMethod);
+        this.earnComponentETC.push(res.resultEntity[3].income);
+        this.earnComponentETC.push(res.resultEntity[3].payMethod);
+        this.earnComponentCASH.push(res.resultEntity[4].income);
+        this.earnComponentCASH.push(res.resultEntity[4].payMethod);
+        this.earnComponentChart = {
+          lang: {
+            noData: "暂无数据"
+          },
+          chart: {
+            type: "pie",
+            renderTo: "earnComponent"
+            //3D效果
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 45,
+            //   beta: 0
+            // }
+          },
+          title: {
+            text: "停车收入构成统计分析",
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
+          },
+          credits: {
+            enabled: false
+          },
+          tooltip: {
+            //饼图显示百分比
+            pointFormat: "{series.name} <b>{point.percentage:.1f}%</b>"
+          },
+          colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC", "#AA4643"],
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: "pointer",
+              innerSize: 100,
+              depth: 45,
+              //是否显示图例
+              showInLegend: true,
+              dataLabels: {
+                //饼图上面的黑线显示
+                enabled: false,
+                format: "{point.name}"
+              }
+            },
+            //给图例添加占比保留小数点后两位
+            labelFormatter: function() {
+              return this.name + " " + this.percentage.toFixed(2) + "%";
+            }
+          },
+          legend: {
+            layout: "vertival",
+            align: "left",
+            verticalAlign: "middle",
+            x: 100,
+            borderWidth: 0,
+            itemStyle: {
+              color: "black",
+              fontSize: "15px"
+            },
+            itemHoverStyle: {
+              color: "blue"
+            },
+            //给图例添加占比保留小数点后两位
+            labelFormatter: function() {
+              return this.name + " " + this.percentage.toFixed(2) + "%";
+            }
+          },
+          series: [
+            {
+              name: "",
+              data: [
+                { name: this.earnComponentETC[1], y: this.earnComponentETC[0] },
+                { name: this.earnComponentWX[1], y: this.earnComponentWX[0] },
+                { name: this.earnComponentZFB[1], y: this.earnComponentZFB[0] },
+                {
+                  name: this.earnComponentOTHER[1],
+                  y: this.earnComponentOTHER[0]
+                },
+                {
+                  name: this.earnComponentCASH[1],
+                  y: this.earnComponentCASH[0]
+                }
+              ]
+            }
+          ]
+        };
         new HighCharts.chart(this.earnComponentChart);
       });
     },
     // 缴费类型统计分析
     paymentStyleAnalysis() {
       const param = { querydate: "yesterday" };
-      this.$reportAnalysis.queryChargeTypeByHours(param).then(res => {
+      this.$reportAnalysis.queryChargeType(param).then(res => {
         this.paymentStyleAnalysisXz = [];
         this.paymentStyleAnalysisZFB = [];
         this.paymentStyleAnalysisWX = [];
         this.paymentStyleAnalysisETC = [];
-        this.paymentStyleAnalysisCash = [];
-        this.paymentStyleAnalysisOther = [];
-        res.resultEntity.ZFB.forEach(item => {
-          this.paymentStyleAnalysisXz.push(item.X);
-          this.paymentStyleAnalysisZFB.push(Number(item.dataY));
+        this.paymentStyleAnalysisCASH = [];
+        this.paymentStyleAnalysisOTHER = [];
+        this.paymentStyleAnalysisZFBList = [];
+        this.paymentStyleAnalysisWXList = [];
+        this.paymentStyleAnalysisETCList = [];
+        this.paymentStyleAnalysisCASHList = [];
+        this.paymentStyleAnalysisOTHERList = [];
+        res.resultEntity.forEach(item => {
+          if (item.payMethod == "微信") {
+            this.paymentStyleAnalysisWXList.push(item);
+          } else if (item.payMethod == "支付宝") {
+            this.paymentStyleAnalysisZFBList.push(item);
+          } else if (item.payMethod == "现金") {
+            this.paymentStyleAnalysisCASHList.push(item);
+          } else if (item.payMethod == "其他") {
+            this.paymentStyleAnalysisOTHERList.push(item);
+          } else if (item.payMethod == "ETC") {
+            this.paymentStyleAnalysisETCList.push(item);
+          }
         });
-        res.resultEntity.WX.forEach(item => {
-          this.paymentStyleAnalysisWX.push(Number(item.dataY));
+        this.paymentStyleAnalysisWXList.forEach(item => {
+          this.paymentStyleAnalysisXz.push(item.time);
+          this.paymentStyleAnalysisWX.push(Number(item.income));
         });
-        res.resultEntity.ETC.forEach(item => {
-          this.paymentStyleAnalysisETC.push(Number(item.dataY));
+        this.paymentStyleAnalysisETCList.forEach(item => {
+          this.paymentStyleAnalysisETC.push(Number(item.income));
         });
-        res.resultEntity.CASH.forEach(item => {
-          this.paymentStyleAnalysisCash.push(Number(item.dataY));
+        this.paymentStyleAnalysisZFBList.forEach(item => {
+          this.paymentStyleAnalysisZFB.push(Number(item.income));
         });
-        res.resultEntity.OTHER.forEach(item => {
-          this.paymentStyleAnalysisOther.push(Number(item.dataY));
+        this.paymentStyleAnalysisCASHList.forEach(item => {
+          this.paymentStyleAnalysisCASH.push(Number(item.income));
+        });
+        this.paymentStyleAnalysisOTHERList.forEach(item => {
+          this.paymentStyleAnalysisOTHER.push(Number(item.income));
         });
         this.paymentStyleChart = {
           chart: {
@@ -373,8 +367,8 @@ export default {
           },
           title: {
             text: this.paymentStyleAnalysisName,
-            align: "center",
-            // x: 20,
+            align: "left",
+            x: 20,
             style: {
               fontFamily: "PingFangSC-Medium",
               fontSize: "16px",
@@ -386,7 +380,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.paymentStyleAnalysisXz
+            categories: this.paymentStyleAnalysisXz,
+            tickInterval: 2
           },
           colors: ["#4572A7", "#AA4643", "#89A54E", "#80699B", "#0F2C54"],
           yAxis: {
@@ -405,20 +400,20 @@ export default {
             enabled: true,
             align: "center",
             verticalAlign: "left",
-            // x: 400,
+            x: 150,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -426,10 +421,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 1,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 2
                 }
               },
               marker: {
@@ -447,8 +442,8 @@ export default {
               name: "ETC",
               data: this.paymentStyleAnalysisETC
             },
-            { name: "现金支付", data: this.paymentStyleAnalysisCash },
-            { name: "其他", data: this.paymentStyleAnalysisOther }
+            { name: "现金支付", data: this.paymentStyleAnalysisCASH },
+            { name: "其他", data: this.paymentStyleAnalysisOTHER }
           ]
         };
         new HighCharts.chart(this.paymentStyleChart);
@@ -457,42 +452,35 @@ export default {
     //停车收入对比分析
     revenueCompositionAnalysis() {
       this.earnComChartX = [];
-      var dataListA = [];
-      var dataListB = [];
       const param = {
-        statisDate: this.query.date,
-        parkId: this.query.parkId
+        queryDate: "yesterday"
       };
-      this.$reportAnalysis.queryParkOpeIncomeCompAnal(param).then(res => {
-        res.data.dataList.forEach(item => {
-          this.earnComChartX.push(item.name);
-          dataListA.push(Number(item.incomeMoneyAmount / 100));
-          dataListB.push(Number(item.yearOnYearRate) * 100);
-          // console.log('A',dataListA);
-          // console.log('b',dataListB);
+      this.$reportAnalysis.queryIncomeContrast(param).then(res => {
+        res.resultEntity.forEach(item => {
+          this.earnComChartX.push(item.time);
+          this.earnComChartIncome.push(item.income);
+          this.earnComChartPercent.push(
+            Number((item.percent * 100).toFixed(2))
+          );
         });
-        this.earnComDataList = [
-          {
-            name: "总收入",
-            type: "column",
-            yAxis: 1,
-            data: dataListA
-          },
-          {
-            name: "同比增幅",
-            type: "spline",
-            data: dataListB
-          }
-        ];
-        // console.log(this.earnComDataList,'aaaaaaa')
         this.earnCompareChart = {
           chart: {
             zoomType: "xy",
+            backgroundColor: "rgba(0,0,0,0)",
             renderTo: "earnCompare"
           },
           title: {
-            text: "收入对比分析"
+            text: "收入对比分析",
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
+          //不显示highcharts官网点击事件
           credits: {
             enabled: false
           },
@@ -504,57 +492,85 @@ export default {
           ],
           yAxis: [
             {
-              // Secondary yAxis
               title: {
-                text: ""
-              },
-              labels: {
-                format: "{value}%"
-              },
-              max: 100,
-              opposite: true
-            },
-            {
-              // Primary yAxis
-              labels: {
-                formatter: function() {
-                  return this.value / 1 + "元";
+                text: "同比增幅",
+                style: {
+                  // color: Highcharts.getOptions().colors[1]
                 }
               },
-              title: {
-                text: ""
+              labels: {
+                format: "{value}%",
+                style: {
+                  // color: Highcharts.getOptions().colors[1]
+                }
               }
+            },
+            {
+              // Secondary yAxis
+              title: {
+                text: "总收入",
+                style: {}
+              },
+              labels: {
+                format: "{value} 元",
+
+                style: {}
+              },
+              //混合图表两侧显示Y轴
+              opposite: true
             }
           ],
-          colors: [
-            "#FFBC00" //蓝
-            // "#00FF00" //绿
-            // "#FF00FF" //紫
-          ],
+          tooltip: {
+            shared: true,
+            //给图例添加占比保留小数点后两位
+            labelFormatter: function() {
+              return this.name + " " + this.percentage.toFixed(2) + "%";
+            }
+          },
           plotOptions: {
             column: {
-              borderWidth: 0,
-              pointWidth: 25, //柱子宽度
-              color: "#00AEFF",
-              dataLabels: {
-                style: {
-                  fontSize: 11
-                },
-
-                enabled: false
-              }
+              //柱子宽度
+              pointWidth: 25,
+              color: "#257CFE"
+            },
+            spline: {
+              color: "#7654E3"
             }
           },
-          tooltip: {
-            shared: true
-          },
           legend: {
+            layout: "horizontal",
             align: "center",
             verticalAlign: "top",
-            x: 0,
-            y: -20
+            x: 300,
+            y: -30,
+            itemStyle: {
+              color: "#666666"
+            },
+            itemHoverStyle: {
+              color: "#cccccc"
+            }
+            // floating: true
           },
-          series: this.earnComDataList
+          series: [
+            {
+              name: "总收入",
+              type: "column",
+              //控制折线图在柱状图上
+              yAxis: 1,
+              data: this.earnComChartIncome,
+              tooltip: {
+                valueSuffix: "元"
+              }
+            },
+            {
+              name: "同比增幅",
+              type: "spline",
+              data: this.earnComChartPercent,
+              tooltip: {
+                valueSuffix: "%"
+              }
+            }
+          ]
         };
         new HighCharts.Chart(this.earnCompareChart);
       });
@@ -586,39 +602,23 @@ export default {
   height: 90%;
   float: left;
 }
-
 .center-content {
   width: 100%;
   height: 31%;
   display: flex;
   margin-top: 1%;
 }
-
-.center-content-left {
-  width: 48.5%;
-  height: 100%;
-  margin-left: 1%;
-}
-
-.center-content-right {
-  width: 48.5%;
-  height: 100%;
-  margin-left: 1%;
-}
-
 .backgroundLine {
   background-color: #eaf0f6;
   width: 100%;
   height: 15px;
 }
-
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
-  height: 363px;
+  height: 368px;
   margin-top: -17px;
 }
-
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 48.5%;

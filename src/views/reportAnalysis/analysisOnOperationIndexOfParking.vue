@@ -371,7 +371,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -465,7 +465,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -561,7 +561,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -657,7 +657,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
