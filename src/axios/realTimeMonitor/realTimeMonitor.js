@@ -30,6 +30,7 @@ export function queryWashEarn(param) {
   });
 }
 
+//入场记录列表查询
 export function queryInRecord(param) {
   return request({
     url:
@@ -40,6 +41,7 @@ export function queryInRecord(param) {
   });
 }
 
+//出场记录列表查询
 export function queryOutRecord(param) {
   return request({
     url:
@@ -50,6 +52,7 @@ export function queryOutRecord(param) {
   });
 }
 
+//入场追踪出场
 export function getOutRecord(param) {
   return request({
     url:
@@ -60,6 +63,7 @@ export function getOutRecord(param) {
   });
 }
 
+//出场追踪入场
 export function getInRecord(param) {
   return request({
     url:

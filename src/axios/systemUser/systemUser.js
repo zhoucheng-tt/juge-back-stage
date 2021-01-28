@@ -31,24 +31,6 @@ export function deleteRole(param) {
   });
 }
 
-//系统管理角色新增查询选择用户
-export function queryUserListByRole(param) {
-  return request({
-    url: "systemManageFunc/queryUserListByRole.xhtml",
-    method: "post",
-    data: param
-  });
-}
-
-//系统管理中新增功能权限的tabs
-export function queryFuncListByRole(param) {
-  return request({
-    url: "systemManageFunc/queryFuncListByRole.xhtml",
-    method: "post",
-    data: param
-  });
-}
-
 // 用户信息列表
 export function queryUserList(param) {
   return request({
@@ -99,15 +81,6 @@ export function queryRoleListByUser(param) {
   });
 }
 
-//新增角色查询
-export function queryFuncListByUser(param) {
-  return request({
-    url: "systemManageFunc/queryFuncListByUser",
-    method: "post",
-    data: param
-  });
-}
-
 //角色修改 systemManageFunc/updateRole.xhtml
 export function updateRole(param) {
   return request({
@@ -127,11 +100,4 @@ export function queryLogList(param) {
     flag: "out"
   });
 }
-//用户管理导出接口  eparking-web/systemManageFunc/exportUserList.xhtml
-export function exportUserList(param) {
-  return request({
-    url: "eparking-web/systemManageFunc/exportUserList.xhtml",
-    method: "post",
-    data: param
-  });
-}
+

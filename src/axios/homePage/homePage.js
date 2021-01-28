@@ -144,13 +144,13 @@ export function queryParkCount(params) {
   });
 }
 //首页剩余车位接口 realtimeMonitorFunc/queryParkMonitorParkSpace
-export function queryParkMonitorParkSpace(params) {
-  return request({
-    url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
-    method: "post",
-    data: params
-  });
-}
+// export function queryParkMonitorParkSpace(params) {
+//   return request({
+//     url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
+//     method: "post",
+//     data: params
+//   });
+// }
 
 //停车场下拉代码
 export function queryDict(params) {

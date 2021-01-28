@@ -49,41 +49,7 @@ export function paymentAnalysis(param) {
   });
 }
 
-//收入对比分析
-export function queryParkOpeIncomeCompAnal(param) {
-  return request({
-    url: "decisionAnalysisFunc/queryParkOpeIncomeCompAnal",
-    method: "post",
-    data: param
-  });
-}
 
-//收入及欠费金额趋势分析
-export function queryParkOpeIncomeArrearsAnal(param) {
-  return request({
-    url: "decisionAnalysisFunc/queryParkOpeIncomeArrearsAnal",
-    method: "post",
-    data: param
-  });
-}
-
-//收入构成分析
-export function queryParkOpeIncomeTypeAnal(param) {
-  return request({
-    url: "decisionAnalysisFunc/queryParkOpeIncomeTypeAnal",
-    method: "post",
-    data: param
-  });
-}
-
-//停车场收入及欠费分析
-export function queryParkOpeIncomeArrearsChart(param) {
-  return request({
-    url: "decisionAnalysisFunc/queryParkOpeIncomeArrearsChart",
-    method: "post",
-    data: param
-  });
-}
 
 //报表分析日报
 export function queryOpeReportStatisDayAnal(param) {
@@ -142,14 +108,6 @@ export function queryWashEarn(param) {
   });
 }
 
-//停车场运营指标分析图表数据接口
-export function queryParkOpeIdxParkDetailAnal(param) {
-  return request({
-    url: "decisionAnalysisFunc/queryParkOpeIdxParkDetailAnal",
-    method: "post",
-    data: param
-  });
-}
 
 //停车场运营指标分析平均充电时间
 export function queryAvgChargeTime(param) {

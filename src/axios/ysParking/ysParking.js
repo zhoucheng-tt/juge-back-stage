@@ -48,7 +48,7 @@ export function trendAnalysis(params) {
 //停车场管理-停车场管理-列表查询
 export function queryParkList(param) {
   return request({
-    url: "http://192.168.1.163:8000/ParkingLotController/queryParkList",
+    url: "http://123.207.189.27:7138/ParkingLotController/queryParkList",
     method: "post",
     data: param,
     flag: "out"
@@ -58,7 +58,7 @@ export function queryParkList(param) {
 //停车场管理-停车场管理-新增停车场
 export function insertPark(param) {
   return request({
-    url: "http://192.168.1.163:8000/ParkingLotController/insertParkingLot",
+    url: "http://123.207.189.27:7138/ParkingLotController/insertParkingLot",
     method: "post",
     data: param,
     flag: "out"
@@ -68,7 +68,7 @@ export function insertPark(param) {
 //停车场管理-停车场管理-删除停车场
 export function deletePark(param) {
   return request({
-    url: "http://192.168.1.163:8000/ParkingLotController/delParkingLot",
+    url: "http://123.207.189.27:7138/ParkingLotController/delParkingLot",
     method: "post",
     data: param,
     flag: "out"
@@ -78,21 +78,10 @@ export function deletePark(param) {
 //停车场管理-停车场管理-修改停车场
 export function updatePark(param) {
   return request({
-    url: "http://192.168.1.163:8000/ParkingLotController/updateParkingLot",
+    url: "http://123.207.189.27:7138/ParkingLotController/updateParkingLot",
     method: "post",
     data: param,
     flag: "out"
-  });
-}
-
-//停车场管理-停车场管理-导出停车场
-export function exportParkList(param) {
-  return request({
-    url: "parkFunc/exportParkList",
-    method: "post",
-    data: param,
-    flag: "innerExt",
-    responseType: "blob"
   });
 }
 

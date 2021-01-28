@@ -1,15 +1,15 @@
 import request from '@/utils/request'
 
 //白名单顶部停车场下拉
-export function queryDictData(param) {
-    return request(
-        {
-            url: 'DictDimFunc/queryDictData.xhtml',
-            method: 'post',
-            data: param
-        }
-    )
-}
+// export function queryDictData(param) {
+//     return request(
+//         {
+//             url: 'DictDimFunc/queryDictData.xhtml',
+//             method: 'post',
+//             data: param
+//         }
+//     )
+// }
 //查询白名单列表  MemberFunc/queryWhiteList
 export function queryWhiteList(param) {
     return request(

@@ -1,14 +1,5 @@
 import request from "@/utils/request";
 
-//停车场订单管理的下拉接口 DictDimFunc/queryDictData.xhtml
-export function queryDictData(param) {
-  return request({
-    url: "DictDimFunc/queryDictData.xhtml",
-    method: "post",
-    data: param
-  });
-}
-
 //停车场订单管理的查询接口
 export function queryStopOrder(params) {
   return request({
