@@ -54,9 +54,7 @@
           <el-button type="primary" size="small" @click="SelectQueryList"
             >查询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="demo-form-inline2">
@@ -129,8 +127,8 @@
         <el-table-column prop="totalParkCount" label="车位数(个)" />
         <el-table-column prop="totalParkTimes" label="停车数量(个)" />
         <el-table-column prop="avgParkDuration" label="平均停车时长(分钟)" />
-        <el-table-column prop="usageRate" label="车位利用率" />
-        <el-table-column prop="turnoverRate" label="车位周转率" />
+        <el-table-column prop="usageRate" label="车位利用率(分钟/车位)" />
+        <el-table-column prop="turnoverRate" label="车位周转率(次/车位)" />
       </el-table>
       <div style="float: right">
         <el-pagination
@@ -166,7 +164,7 @@ export default {
       //初始化分页
       pageNum: 1,
       pageSize: 5,
-      pageTotal: 5,
+      pageTotal: 1,
       // 顶部查询数据暂存处
       upQueryList: {
         parkId: "",
@@ -280,8 +278,8 @@ export default {
       };
       this.$reportAnalysis.queryData(param).then(res => {
         res.resultEntity.list.forEach(item => {
-          item.usageRate = Number(item.usageRate).toFixed(2) + "%";
-          item.turnoverRate = Number(item.turnoverRate).toFixed(2) + "%";
+          item.usageRate = Number(item.usageRate).toFixed(2);
+          item.turnoverRate = Number(item.turnoverRate).toFixed(2);
           item.avgParkDuration = Math.round(item.avgParkDuration);
         });
         this.reportList = res.resultEntity.list;
@@ -296,6 +294,7 @@ export default {
     },
     // 查询方法
     SelectQueryList() {
+      this.pageNum = 1;
       //初始化列表
       this.queryData();
       //停车总数
@@ -318,7 +317,7 @@ export default {
         this.numberOfParkingXz = [];
         this.numberOfParkingData = [];
         res.resultEntity.forEach(item => {
-          this.numberOfParkingXz.push(item.X);
+          this.numberOfParkingXz.push(item.X + ":00");
           this.numberOfParkingData.push(Number(item.dataY));
         });
         this.numberOfParkingOptions = {
@@ -342,7 +341,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.numberOfParkingXz
+            categories: this.numberOfParkingXz,
+            tickInterval: 2
           },
           colors: ["#7654E3"],
           yAxis: {
@@ -411,7 +411,7 @@ export default {
         this.averageParkingTimeXz = [];
         this.averageParkingTimeData = [];
         res.resultEntity.forEach(item => {
-          this.averageParkingTimeXz.push(item.X);
+          this.averageParkingTimeXz.push(item.X + ":00");
           this.averageParkingTimeData.push(Number(Math.round(item.dataY)));
         });
         this.averageParkingTimeOptions = {
@@ -435,7 +435,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.averageParkingTimeXz
+            categories: this.averageParkingTimeXz,
+            tickInterval: 2
           },
           colors: ["#00DBEC"],
           yAxis: {
@@ -444,7 +445,7 @@ export default {
             },
             labels: {
               //修改Y轴添加单位
-              format: "{value}min"
+              format: "{value}分钟"
             }
           },
           legend: {
@@ -504,7 +505,7 @@ export default {
         this.parkingSpaceUtilizationXz = [];
         this.parkingSpaceUtilizationData = [];
         res.resultEntity.forEach(item => {
-          this.parkingSpaceUtilizationXz.push(item.X);
+          this.parkingSpaceUtilizationXz.push(item.X + ":00");
           //%后小数点后两位
           this.parkingSpaceUtilizationData.push(
             Number((Number(item.dataY) * 100).toFixed(2))
@@ -531,7 +532,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkingSpaceUtilizationXz
+            categories: this.parkingSpaceUtilizationXz,
+            tickInterval: 2
           },
           colors: ["#1EC193"],
           yAxis: {
@@ -539,7 +541,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}%"
+              format: "{value}分钟/车位"
             }
           },
           legend: {
@@ -564,7 +566,7 @@ export default {
           },
           tooltip: {
             //设置每个点位的弹出窗
-            pointFormat: "{series.name}: <b>{point.y}</b>%"
+            pointFormat: "{series.name}: <b>{point.y}</b>分钟/车位"
           },
           plotOptions: {
             spline: {
@@ -600,7 +602,7 @@ export default {
         this.parkingSpaceTurnoverRateXz = [];
         this.parkingSpaceTurnoverRateData = [];
         res.resultEntity.forEach(item => {
-          this.parkingSpaceTurnoverRateXz.push(item.X);
+          this.parkingSpaceTurnoverRateXz.push(item.X + ":00");
           this.parkingSpaceTurnoverRateData.push(
             Number((Number(item.dataY) * 100).toFixed(2))
           );
@@ -626,7 +628,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkingSpaceTurnoverRateXz
+            categories: this.parkingSpaceTurnoverRateXz,
+            tickInterval: 2
           },
           colors: ["#FFBC00"],
           yAxis: {
@@ -634,7 +637,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}%"
+              format: "{value}次/车位"
             }
           },
           legend: {
@@ -658,7 +661,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>%"
+            pointFormat: "{series.name}: <b>{point.y}</b>次/车位"
           },
           plotOptions: {
             spline: {

@@ -217,10 +217,7 @@ export default {
     resetQuery() {
       this.query = {};
     },
-    //导出
-    exportReport() {
-      console.log("导出报表");
-    },
+
     // 斑马纹样式
     tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 === 1) {
@@ -240,6 +237,7 @@ export default {
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,
+        parkId: this.query.parkId,
         pageNumber: this.pageNum,
         pageSize: this.pageSize
       };

@@ -15,23 +15,20 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item>
           <el-button type="primary" size="small" @click="addInletAndOutlet()"
-          >新增停车场
-          </el-button
-          >
+            >新增停车场
+          </el-button>
           <el-button type="primary" size="small"
-          ><a
+            ><a
               :href="exportFile"
               class="download"
               download=""
               style="color: #ffffff;text-decoration:none"
-          >导出</a
-          >
-          </el-button
-          >
+              >导出</a
+            >
+          </el-button>
           <el-button type="danger" size="small" @click="deleteSelect()"
-          >批量删除
-          </el-button
-          >
+            >批量删除
+          </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -39,11 +36,11 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-          :data="parkList"
-          ref="selectParkingLotList"
-          @selection-change="handleSelectionChange"
-          stripe
-          :header-cell-style="{
+        :data="parkList"
+        ref="selectParkingLotList"
+        @selection-change="handleSelectionChange"
+        stripe
+        :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -53,31 +50,31 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-          :cell-style="{
+        :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-          style="width: 98%;margin-left: 1%"
+        style="width: 98%;margin-left: 1%"
       >
-        <el-table-column type="selection" width="55"/>
+        <el-table-column type="selection" width="55" />
         <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
         />
         <el-table-column
-            prop="parkTypeName"
-            :show-overflow-tooltip="true"
-            label="停车场类型"
+          prop="parkTypeName"
+          :show-overflow-tooltip="true"
+          label="停车场类型"
         />
         <!--        <el-table-column prop="parkOptIntegratorCode" :show-overflow-tooltip="true" label="运营商编码"/>-->
         <el-table-column
-            prop="companyName"
-            :show-overflow-tooltip="true"
-            label="归属企业名称"
+          prop="companyName"
+          :show-overflow-tooltip="true"
+          label="归属企业名称"
         />
         <!--        <el-table-column-->
         <!--            prop="cityName"-->
@@ -90,29 +87,29 @@
         <!--            label="归属区县名称"-->
         <!--        />-->
         <el-table-column
-            prop="address"
-            :show-overflow-tooltip="true"
-            label="地址"
+          prop="address"
+          :show-overflow-tooltip="true"
+          label="地址"
         />
         <el-table-column
-            prop="parkSpaceNum"
-            :show-overflow-tooltip="true"
-            label="规划总车位数"
+          prop="parkSpaceNum"
+          :show-overflow-tooltip="true"
+          label="规划总车位数"
         />
         <el-table-column
-            prop="billingRuleDesc"
-            :show-overflow-tooltip="true"
-            label="计费规则"
+          prop="billingRuleDesc"
+          :show-overflow-tooltip="true"
+          label="计费规则"
         />
         <el-table-column
-            prop="contact"
-            :show-overflow-tooltip="true"
-            label="联系人"
+          prop="contact"
+          :show-overflow-tooltip="true"
+          label="联系人"
         />
         <el-table-column
-            prop="contactPhoneNumber"
-            :show-overflow-tooltip="true"
-            label="联系人电话"
+          prop="contactPhoneNumber"
+          :show-overflow-tooltip="true"
+          label="联系人电话"
         />
         <!--        <el-table-column-->
         <!--          prop="parkPictureFile"-->
@@ -122,67 +119,80 @@
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-                @click="handleEditListDialogue(scope.row)"
-                type="text"
-                size="small"
-            >修改
-            </el-button
-            >
+              @click="handleEditListDialogue(scope.row)"
+              type="text"
+              size="small"
+              >修改
+            </el-button>
             <el-button
-                @click="HandleDeleteListDialogue(scope.row)"
-                type="text"
-                size="small"
-            >删除
-            </el-button
-            >
+              @click="HandleDeleteListDialogue(scope.row)"
+              type="text"
+              size="small"
+              >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <div style="background-color: white;width: 98%;margin-left: 1%;height: 35px">
+      <div
+        style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
+      >
         <div style="float: right">
           <!--分页条-->
           <el-pagination
-              layout="total, prev, pager, next, jumper"
-              :page-size="pageSize"
-              @current-change="handleCurrentModify"
-              :current-page="pageNum"
-              :total="pageTotal"
+            layout="total, prev, pager, next, jumper"
+            :page-size="pageSize"
+            @current-change="handleCurrentModify"
+            :current-page="pageNum"
+            :total="pageTotal"
           ></el-pagination>
         </div>
       </div>
     </div>
     <!--新增表单弹框-->
     <el-dialog
-        id="add"
-        title="新增停车场信息"
-        :visible.sync="addListDialogueandoff"
-        width="50%"
-        destroy-on-close
+      id="add"
+      title="新增停车场信息"
+      :visible.sync="addListDialogueandoff"
+      width="50%"
+      destroy-on-close
     >
       <el-form
-          :inline="true"
-          :model="newParkingLot"
-          :rules="addListDiaRules"
-          ref="newParkingLotR"
+        :inline="true"
+        :model="newParkingLot"
+        :rules="addListDiaRules"
+        ref="newParkingLotR"
       >
         <div style="font-size: 20px">基础信息</div>
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item
-                label="停车场名称:"
-                label-width="150px"
-                prop="parkName"
+              label="停车场名称:"
+              label-width="150px"
+              prop="parkName"
             >
               <el-input
-                  v-model="newParkingLot.parkName"
-                  placeholder="请输入停车场名称"
+                v-model="newParkingLot.parkName"
+                placeholder="请输入停车场名称"
               />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="停车场类型:" label-width="150px" prop="parkTypeCode">
-              <el-select style="width: 200px" v-model="newParkingLot.parkTypeCode" placeholder="请选择">
-                <el-option v-for="(item, index) in parkingLotType" :label="item.name" :value="item.code" :key="index"/>
+            <el-form-item
+              label="停车场类型:"
+              label-width="150px"
+              prop="parkTypeCode"
+            >
+              <el-select
+                style="width: 200px"
+                v-model="newParkingLot.parkTypeCode"
+                placeholder="请选择"
+              >
+                <el-option
+                  v-for="(item, index) in parkingLotType"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -190,33 +200,33 @@
         <el-row>
           <el-col :span="12">
             <el-form-item
-                label="归属企业名称:"
-                label-width="150px"
-                prop="companyId"
+              label="归属企业名称:"
+              label-width="150px"
+              prop="companyId"
             >
               <el-select
-                  style="width: 200px"
-                  v-model="newParkingLot.companyId"
-                  placeholder="请选择"
+                style="width: 200px"
+                v-model="newParkingLot.companyId"
+                placeholder="请选择"
               >
                 <el-option
-                    v-for="(item, index) in enterprises"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                  v-for="(item, index) in enterprises"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
                 ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item
-                label="规划总车位数:"
-                label-width="150px"
-                prop="parkSpaceNum"
+              label="规划总车位数:"
+              label-width="150px"
+              prop="parkSpaceNum"
             >
               <el-input
-                  v-model="newParkingLot.parkSpaceNum"
-                  placeholder="请输入规划总车位数"
+                v-model="newParkingLot.parkSpaceNum"
+                placeholder="请输入规划总车位数"
               />
             </el-form-item>
           </el-col>
@@ -226,8 +236,8 @@
           <el-col :span="12">
             <el-form-item label="地址:" label-width="150px" prop="address">
               <el-input
-                  v-model="newParkingLot.address"
-                  placeholder="请输入地址"
+                v-model="newParkingLot.address"
+                placeholder="请输入地址"
               />
             </el-form-item>
           </el-col>
@@ -248,22 +258,21 @@
         <el-row style="padding-top: 20px">
           <el-col :span="12">
             <el-form-item
-                label="计费规则:"
-                label-width="150px"
-                prop="billingRuleDefId"
+              label="计费规则:"
+              label-width="150px"
+              prop="billingRuleDefId"
             >
               <el-select
-                  style="width: 200px"
-                  v-model="newParkingLot.billingRuleDefId"
-                  placeholder="请选择"
+                style="width: 200px"
+                v-model="newParkingLot.billingRuleDefId"
+                placeholder="请选择"
               >
                 <el-option
-                    v-for="(item, index) in chargingRules"
-                    :key="index"
-                    :label="item.name"
-                    :value="item.code"
+                  v-for="(item, index) in chargingRules"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.code"
                 />
-
               </el-select>
             </el-form-item>
           </el-col>
@@ -273,20 +282,20 @@
           <el-col :span="12">
             <el-form-item label="联系人:" label-width="150px" prop="contact">
               <el-input
-                  v-model="newParkingLot.contact"
-                  placeholder="请输入联系人"
+                v-model="newParkingLot.contact"
+                placeholder="请输入联系人"
               />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item
-                label="联系人电话:"
-                label-width="150px"
-                prop="contactPhoneNumber"
+              label="联系人电话:"
+              label-width="150px"
+              prop="contactPhoneNumber"
             >
               <el-input
-                  v-model="newParkingLot.contactPhoneNumber"
-                  placeholder="请输入联系人电话"
+                v-model="newParkingLot.contactPhoneNumber"
+                placeholder="请输入联系人电话"
               />
             </el-form-item>
           </el-col>
@@ -337,15 +346,15 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit"  :visible.sync="editListDialogueandoff">
+    <el-dialog id="edit" :visible.sync="editListDialogueandoff">
       <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">基础信息</div>
         <el-row>
           <el-col :span="12">
             <el-form-item label="停车场名称:" label-width="150px">
               <el-input
-                  v-model="editParkingLot.parkName"
-                  placeholder="请输入停车场名称"
+                v-model="editParkingLot.parkName"
+                placeholder="请输入停车场名称"
               />
             </el-form-item>
           </el-col>
@@ -361,34 +370,33 @@
           <el-col :span="12">
             <el-form-item label="停车场类型名称:" label-width="150px">
               <el-select
-                  v-model="editParkingLot.parkTypeCode"
-                  placeholder="请选择"
-                  style="width: 200px"
+                v-model="editParkingLot.parkTypeCode"
+                placeholder="请选择"
+                style="width: 200px"
               >
                 <el-option
-                    v-for="(item, index) in parkingLotType"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                  v-for="(item, index) in parkingLotType"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
                 ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="归属企业名称:" label-width="150px">
               <el-select
-                  style="width: 200px"
-                  v-model="editParkingLot.companyId"
-                  placeholder="请选择"
+                style="width: 200px"
+                v-model="editParkingLot.companyId"
+                placeholder="请选择"
               >
                 <el-option
-                    v-for="(item, index) in enterprises"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                  v-for="(item, index) in enterprises"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -396,8 +404,8 @@
           <el-col :span="12">
             <el-form-item label="规划总车位数:" label-width="150px">
               <el-input
-                  v-model="editParkingLot.parkSpaceNum"
-                  placeholder="请输入规划总车位数"
+                v-model="editParkingLot.parkSpaceNum"
+                placeholder="请输入规划总车位数"
               />
             </el-form-item>
           </el-col>
@@ -407,8 +415,8 @@
           <el-col :span="12">
             <el-form-item label="地址:" label-width="150px">
               <el-input
-                  v-model="editParkingLot.address"
-                  placeholder="请输入地址"
+                v-model="editParkingLot.address"
+                placeholder="请输入地址"
               />
             </el-form-item>
           </el-col>
@@ -434,15 +442,15 @@
           <el-col :span="12">
             <el-form-item label="计费规则:" label-width="150px">
               <el-select
-                  style="width: 200px"
-                  v-model="editParkingLot.billingRuleDefId"
-                  placeholder="请选择"
+                style="width: 200px"
+                v-model="editParkingLot.billingRuleDefId"
+                placeholder="请选择"
               >
                 <el-option
-                    v-for="(item, index) in chargingRules"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                  v-for="(item, index) in chargingRules"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
                 />
                 >
               </el-select>
@@ -454,16 +462,16 @@
           <el-col :span="12">
             <el-form-item label="联系人:" label-width="150px">
               <el-input
-                  v-model="editParkingLot.contact"
-                  placeholder="请输入联系人"
+                v-model="editParkingLot.contact"
+                placeholder="请输入联系人"
               />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="联系人电话:" label-width="150px">
               <el-input
-                  v-model="editParkingLot.contactPhoneNumber"
-                  placeholder="请输入联系人电话"
+                v-model="editParkingLot.contactPhoneNumber"
+                placeholder="请输入联系人电话"
               />
             </el-form-item>
           </el-col>
@@ -502,7 +510,7 @@
   </div>
 </template>
 <script>
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   data() {
@@ -615,7 +623,7 @@ export default {
   },
   methods: {
     //斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
@@ -637,22 +645,22 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              // console.log(this.idList)
-              const param = {
-                parkId: this.idList
-              };
-              this.$ysParking.deletePark(param).then(res => {
-                this.$message({
-                  type: "success",
-                  message: "删除成功!"
-                });
-                this.queryParkList();
+          .then(() => {
+            // console.log(this.idList)
+            const param = {
+              parkId: this.idList
+            };
+            this.$ysParking.deletePark(param).then(res => {
+              this.$message({
+                type: "success",
+                message: "删除成功!"
               });
-            })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
+              this.queryParkList();
             });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
         //  console.log(this.selectParkingLotList);
       }
     },
@@ -663,25 +671,25 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            // console.log("你要删除的id是" + row.parkId);
-            this.idList = [];
-            this.idList.push(row.parkId);
-            const param = {
-              parkId: this.idList
-            };
-            this.$ysParking.deletePark(param).then(res => {
-              // console.log("打印响应", res)
-              this.$message({
-                type: "success",
-                message: "删除成功!"
-              });
-              this.queryParkList();
+        .then(() => {
+          // console.log("你要删除的id是" + row.parkId);
+          this.idList = [];
+          this.idList.push(row.parkId);
+          const param = {
+            parkId: this.idList
+          };
+          this.$ysParking.deletePark(param).then(res => {
+            // console.log("打印响应", res)
+            this.$message({
+              type: "success",
+              message: "删除成功!"
             });
-          })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
+            this.queryParkList();
           });
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     // 点击新增
     addInletAndOutlet() {
@@ -721,13 +729,12 @@ export default {
           };
           this.$ysParking.insertPark(param).then(res => {
             this.$message({
-              message: '添加成功',
-              type: 'success'
+              message: "添加成功",
+              type: "success"
             });
             this.queryParkList();
             this.addListDialogueandoff = false;
-          })
-
+          });
         }
       });
     },

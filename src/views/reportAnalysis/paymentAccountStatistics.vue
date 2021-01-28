@@ -219,8 +219,7 @@ export default {
       // 停车场下拉框数据暂存处
       parkList: [],
       //支付方式下拉框数据暂存处
-      payMethodList: [
-      ],
+      payMethodList: [],
       //支付明细列表
       payList: [],
       //初始化分页
@@ -265,15 +264,15 @@ export default {
     }
   },
   methods: {
-    queryPayMethodList(){
-      const param ={
+    queryPayMethodList() {
+      const param = {
         columnName: ["payType", "payMethodName"],
         tableName: "tb_paymethod_rel",
         whereStr: []
       };
-      this.$homePage.queryDict(param).then(res=>{
+      this.$homePage.queryDict(param).then(res => {
         this.payMethodList = res.resultEntity;
-      })
+      });
     },
     //  tabs页点击事件
     handleClickTabs() {},
