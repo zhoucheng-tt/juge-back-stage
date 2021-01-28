@@ -4,7 +4,13 @@
     <!-- 上半部分查询-->
     <div class="up">
       <el-button type="primary" size="small" @click="handleExport">
-        导出
+        <a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none">
+          导出
+        </a>
       </el-button>
     </div>
     <div class="backgroundLine"></div>
@@ -53,6 +59,7 @@
 import HighCharts from "highcharts";
 import Xchart from "../../../components/charts/charts";
 import Xchart3d from "../../../components/charts/charts3d";
+import {BASE_API} from "@/utils/config";
 
 export default {
   components: {
@@ -61,6 +68,8 @@ export default {
   },
   data() {
     return {
+      //导出
+      exportFile: BASE_API + "/CarWashAnalysis/download?jsonStr=",
       //洗车收入统计分析
       revenueCarWashingAnalysisOption: {},
       revenueCarWashingAnalysisName: "洗车收入统计分析",
@@ -99,6 +108,11 @@ export default {
     this.handleCarWashTimesAnalysis();
     //洗车类型次数统计分析
     this.handleCarWashTypeTimesAnalysis();
+    const param = {
+      queryDate: "today"
+    };
+    this.exportFile = BASE_API + "/CarWashAnalysis/download?jsonStr=" + encodeURIComponent(JSON.stringify(param));
+
   },
   methods: {
     //导出接口

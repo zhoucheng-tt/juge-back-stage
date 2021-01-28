@@ -3,8 +3,14 @@
     <div class="backgroundLine"></div>
     <!-- 上半部分查询-->
     <div class="up">
-      <el-button type="primary" size="small" @click="handleExport">
-        导出
+      <el-button type="primary" size="small">
+        <a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none">
+          导出
+        </a>
       </el-button>
     </div>
     <div class="backgroundLine"></div>
@@ -14,16 +20,16 @@
         <!--洗车收入统计分析-->
         <div id="revenueCarWashingAnalysisID" class="echartStyle">
           <Xchart
-            id="revenueCarWashingAnalysisID"
-            :option="revenueCarWashingAnalysisOption"
+              id="revenueCarWashingAnalysisID"
+              :option="revenueCarWashingAnalysisOption"
           ></Xchart>
         </div>
         <div class="backgroundShu"></div>
         <!-- 洗车类型收入统计分析 -->
         <div id="carWashTypeIncomeAnalysisID" class="echartStyle">
           <Xchart
-            id="carWashTypeIncomeAnalysisID"
-            :option="carWashTypeIncomeAnalysisOption"
+              id="carWashTypeIncomeAnalysisID"
+              :option="carWashTypeIncomeAnalysisOption"
           ></Xchart>
         </div>
       </div>
@@ -32,16 +38,16 @@
         <!--洗车次数统计分析-->
         <div id="carWashTimesAnalysisID" class="echartStyle">
           <Xchart
-            id="carWashTimesAnalysisID"
-            :option="carWashTimesAnalysisOption"
+              id="carWashTimesAnalysisID"
+              :option="carWashTimesAnalysisOption"
           ></Xchart>
         </div>
         <div class="backgroundShu"></div>
         <!--洗车类型次数统计分析-->
         <div id="carWashTypeTimesAnalysisID" class="echartStyle">
           <Xchart
-            id="carWashTypeTimesAnalysisID"
-            :option="carWashTypeTimesAnalysisOption"
+              id="carWashTypeTimesAnalysisID"
+              :option="carWashTypeTimesAnalysisOption"
           ></Xchart>
         </div>
       </div>
@@ -53,6 +59,7 @@
 import HighCharts from "highcharts";
 import Xchart from "../../../components/charts/charts";
 import Xchart3d from "../../../components/charts/charts3d";
+import {BASE_API} from "@/utils/config";
 
 export default {
   components: {
@@ -61,6 +68,8 @@ export default {
   },
   data() {
     return {
+      //导出
+      exportFile: BASE_API + "/CarWashAnalysis/download?jsonStr=",
       //洗车收入统计分析
       revenueCarWashingAnalysisOption: {},
       revenueCarWashingAnalysisName: "洗车收入统计分析",
@@ -99,18 +108,24 @@ export default {
     this.handleCarWashTimesAnalysis();
     //洗车类型次数统计分析
     this.handleCarWashTypeTimesAnalysis();
+    // 导出
+    const param = {
+      queryDate: "today"
+    };
+    this.exportFile = BASE_API + "/CarWashAnalysis/download?jsonStr=" + encodeURIComponent(JSON.stringify(param));
   },
   methods: {
     //导出接口
-    handleExport() {},
+    handleExport() {
+    },
 
     //洗车收入统计分析
     handleRevenueCarWashingAnalysis() {
-      const param = { queryDate: "today" };
+      const param = {queryDate: "today"};
       this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
           this.revenueCarWashingAnalysisXz.push(item.X),
-            this.revenueCarWashingAnalysisY.push(Number(item.dataY));
+              this.revenueCarWashingAnalysisY.push(Number(item.dataY));
         });
         this.revenueCarWashingAnalysisOption = {
           chart: {
@@ -192,7 +207,7 @@ export default {
     },
     //洗车类型收入统计分析
     handleCarWashTypeIncomeAnalysis() {
-      const param = { queryDate: "today" };
+      const param = {queryDate: "today"};
       this.$realTimeMonitor.queryCarWashTypeCountAnalysis(param).then(res => {
         res.resultEntity["精洗"].forEach(item => {
           this.carWashTypeIncomeAnalysisXz.push(item.X);
@@ -292,7 +307,7 @@ export default {
     },
     //洗车次数统计分析
     handleCarWashTimesAnalysis() {
-      const param = { queryDate: "today" };
+      const param = {queryDate: "today"};
       this.$realTimeMonitor.queryCarWashCountAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
           this.carWashTimesAnalysisXz.push(item.X);
@@ -378,7 +393,7 @@ export default {
     },
     //洗车类型次数统计分析
     handleCarWashTypeTimesAnalysis() {
-      const param = { queryDate: "today" };
+      const param = {queryDate: "today"};
       this.$realTimeMonitor.queryCarWashTypeTimesAnalysis(param).then(res => {
         res.resultEntity["精洗"].forEach(item => {
           this.carWashTypeTimesAnalysisXz.push(item.X);
@@ -503,6 +518,7 @@ export default {
   height: 90%;
   float: left;
 }
+
 .center-content {
   width: 100%;
   height: 31%;
@@ -515,12 +531,14 @@ export default {
   width: 100%;
   height: 15px;
 }
+
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
   height: 363px;
   margin-top: -17px;
 }
+
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 48.5%;
