@@ -49,8 +49,6 @@ export function paymentAnalysis(param) {
   });
 }
 
-
-
 //报表分析日报
 export function queryOpeReportStatisDayAnal(param) {
   return request({
@@ -107,7 +105,6 @@ export function queryWashEarn(param) {
     flag: "out"
   });
 }
-
 
 //停车场运营指标分析平均充电时间
 export function queryAvgChargeTime(param) {

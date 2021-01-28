@@ -100,4 +100,3 @@ export function queryLogList(param) {
     flag: "out"
   });
 }
-
