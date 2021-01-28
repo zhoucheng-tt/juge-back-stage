@@ -232,10 +232,7 @@ export default {
     resetQuery() {
       this.query = {};
     },
-    //导出
-    exportReport() {
-      console.log("导出报表");
-    },
+
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
@@ -268,7 +265,6 @@ export default {
         pageSize: this.pageSize
       };
       this.$reportAnalysis.queryOpeReportStatisYearAnal(param).then(res => {
-        console.log(res, "1111111111111111111111111111111111");
         this.reportList = res.resultEntity.list;
         this.reportList.forEach(item => {
           item.avgParkDuration = Number(item.avgParkDuration).toFixed(0);

@@ -356,7 +356,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{point.x}报警 <b>{point.y}</b>次"
+            pointFormat: "报警 <b>{point.y}</b>次"
           },
           plotOptions: {
             spline: {
