@@ -254,7 +254,6 @@ export default {
     },
     //列表查询
     queryReportList() {
-      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,

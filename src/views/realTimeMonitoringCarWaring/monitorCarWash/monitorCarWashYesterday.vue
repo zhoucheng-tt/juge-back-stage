@@ -1,9 +1,10 @@
+<!--洗车运营分析昨日-->
 <template>
   <div class="about">
     <div class="backgroundLine"></div>
     <!-- 上半部分查询-->
     <div class="up">
-      <el-button type="primary" size="small" @click="handleExport">
+      <el-button type="primary" size="small">
         <a
           :href="exportFile"
           class="download"
@@ -84,6 +85,9 @@ export default {
       carWashTypeIncomeAnalysisJINGY: [],
       carWashTypeIncomeAnalysisPUY: [],
       carWashTypeIncomeAnalysisKUAIY: [],
+      carWashTypeIncomeAnalysisJINGList: [],
+      carWashTypeIncomeAnalysisPUList: [],
+      carWashTypeIncomeAnalysisKUAIList: [],
 
       //洗车次数统计分析
       carWashTimesAnalysisOption: {},
@@ -97,10 +101,21 @@ export default {
       carWashTypeTimesAnalysisXz: [],
       carWashTypeTimesAnalysisJINGY: [],
       carWashTypeTimesAnalysisPUY: [],
-      carWashTypeTimesAnalysisKUAIY: []
+      carWashTypeTimesAnalysisKUAIY: [],
+      carWashTypeTimesAnalysisJINGList: [],
+      carWashTypeTimesAnalysisPUList: [],
+      carWashTypeTimesAnalysisKUAIList: []
     };
   },
   mounted() {
+    // 导出
+    const param = {
+      queryDate: "yesterday"
+    };
+    this.exportFile =
+      BASE_API +
+      "/CarWashAnalysis/download?jsonStr=" +
+      encodeURIComponent(JSON.stringify(param));
     //洗车收入统计分析
     this.handleRevenueCarWashingAnalysis();
     //洗车类型收入统计分析
@@ -109,25 +124,15 @@ export default {
     this.handleCarWashTimesAnalysis();
     //洗车类型次数统计分析
     this.handleCarWashTypeTimesAnalysis();
-    const param = {
-      queryDate: "today"
-    };
-    this.exportFile =
-      BASE_API +
-      "/CarWashAnalysis/download?jsonStr=" +
-      encodeURIComponent(JSON.stringify(param));
   },
   methods: {
-    //导出接口
-    handleExport() {},
-
     //洗车收入统计分析
     handleRevenueCarWashingAnalysis() {
       const param = { queryDate: "yesterday" };
       this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
-          this.revenueCarWashingAnalysisXz.push(item.X),
-            this.revenueCarWashingAnalysisY.push(Number(item.dataY));
+          this.revenueCarWashingAnalysisXz.push(item.time),
+            this.revenueCarWashingAnalysisY.push(Number(item.amount));
         });
         this.revenueCarWashingAnalysisOption = {
           chart: {
@@ -150,7 +155,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.revenueCarWashingAnalysisXz
+            categories: this.revenueCarWashingAnalysisXz,
+            tickInterval: 2
           },
           colors: ["#0D64F4"],
           yAxis: {
@@ -158,7 +164,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}"
+              format: "{value}元"
             }
           },
           legend: {
@@ -178,7 +184,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -210,16 +216,25 @@ export default {
     //洗车类型收入统计分析
     handleCarWashTypeIncomeAnalysis() {
       const param = { queryDate: "yesterday" };
-      this.$realTimeMonitor.queryCarWashTypeCountAnalysis(param).then(res => {
-        res.resultEntity["精洗"].forEach(item => {
-          this.carWashTypeIncomeAnalysisXz.push(item.X);
-          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.dataY));
+      this.$realTimeMonitor.queryCarWashTypeIncomeAnalysis(param).then(res => {
+        res.resultEntity.forEach(item => {
+          if (item.washType == "精洗") {
+            this.carWashTypeIncomeAnalysisJINGList.push(item);
+          } else if (item.washType == "普洗") {
+            this.carWashTypeIncomeAnalysisPUList.push(item);
+          } else if (item.washType == "快洗") {
+            this.carWashTypeIncomeAnalysisKUAIList.push(item);
+          }
         });
-        res.resultEntity["普洗"].forEach(item => {
-          this.carWashTypeIncomeAnalysisPUY.push(Number(item.dataY));
+        this.carWashTypeIncomeAnalysisJINGList.forEach(item => {
+          this.carWashTypeIncomeAnalysisXz.push(item.time);
+          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.income));
         });
-        res.resultEntity["快洗"].forEach(item => {
-          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.dataY));
+        this.carWashTypeIncomeAnalysisPUList.forEach(item => {
+          this.carWashTypeIncomeAnalysisPUY.push(Number(item.income));
+        });
+        this.carWashTypeIncomeAnalysisKUAIList.forEach(item => {
+          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.income));
         });
         this.carWashTypeIncomeAnalysisOption = {
           chart: {
@@ -242,7 +257,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTypeIncomeAnalysisXz
+            categories: this.carWashTypeIncomeAnalysisXz,
+            tickInterval: 2
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193"],
           yAxis: {
@@ -250,7 +266,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}"
+              format: "{value}元"
             }
           },
           legend: {
@@ -270,7 +286,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -312,8 +328,8 @@ export default {
       const param = { queryDate: "yesterday" };
       this.$realTimeMonitor.queryCarWashCountAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
-          this.carWashTimesAnalysisXz.push(item.X);
-          this.carWashTimesAnalysisY.push(Number(item.dataY));
+          this.carWashTimesAnalysisXz.push(item.time);
+          this.carWashTimesAnalysisY.push(Number(item.times));
         });
         this.carWashTimesAnalysisOption = {
           chart: {
@@ -336,7 +352,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTimesAnalysisXz
+            categories: this.carWashTimesAnalysisXz,
+            tickInterval: 2
           },
           colors: ["#0D64F4"],
           yAxis: {
@@ -344,7 +361,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}"
+              format: "{value}次"
             }
           },
           legend: {
@@ -364,7 +381,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -397,15 +414,24 @@ export default {
     handleCarWashTypeTimesAnalysis() {
       const param = { queryDate: "yesterday" };
       this.$realTimeMonitor.queryCarWashTypeTimesAnalysis(param).then(res => {
-        res.resultEntity["精洗"].forEach(item => {
-          this.carWashTypeTimesAnalysisXz.push(item.X);
-          this.carWashTypeTimesAnalysisJINGY.push(Number(item.dataY));
+        res.resultEntity.forEach(item => {
+          if (item.washType == "精洗") {
+            this.carWashTypeTimesAnalysisJINGList.push(item);
+          } else if (item.washType == "普洗") {
+            this.carWashTypeTimesAnalysisPUList.push(item);
+          } else if (item.washType == "快洗") {
+            this.carWashTypeTimesAnalysisKUAIList.push(item);
+          }
         });
-        res.resultEntity["普洗"].forEach(item => {
-          this.carWashTypeTimesAnalysisPUY.push(Number(item.dataY));
+        this.carWashTypeTimesAnalysisJINGList.forEach(item => {
+          this.carWashTypeTimesAnalysisXz.push(item.time);
+          this.carWashTypeTimesAnalysisJINGY.push(Number(item.times));
         });
-        res.resultEntity["快洗"].forEach(item => {
-          this.carWashTypeTimesAnalysisKUAIY.push(Number(item.dataY));
+        this.carWashTypeTimesAnalysisPUList.forEach(item => {
+          this.carWashTypeTimesAnalysisPUY.push(Number(item.times));
+        });
+        this.carWashTypeTimesAnalysisKUAIList.forEach(item => {
+          this.carWashTypeTimesAnalysisKUAIY.push(Number(item.times));
         });
         this.carWashTypeTimesAnalysisOption = {
           chart: {
@@ -428,7 +454,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTypeTimesAnalysisXz
+            categories: this.carWashTypeTimesAnalysisXz,
+            tickInterval: 2
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193"],
           yAxis: {
@@ -436,7 +463,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}"
+              format: "{value}次"
             }
           },
           legend: {
@@ -456,7 +483,7 @@ export default {
               color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -520,6 +547,7 @@ export default {
   height: 90%;
   float: left;
 }
+
 .center-content {
   width: 100%;
   height: 31%;
@@ -532,12 +560,14 @@ export default {
   width: 100%;
   height: 15px;
 }
+
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
-  height: 363px;
+  height: 370px;
   margin-top: -17px;
 }
+
 /* 中间每个图表部分样式 */
 .echartStyle {
   width: 48.5%;
