@@ -4203,9 +4203,9 @@ export default {
     //获取中间部分总收入、停车场总收入、洗车总收入
     queryFees() {
       this.$homePage.queryFees({}).then(res => {
-        this.totalIncome = Number(res.resultEntity["总收入"]) / 100;
-        this.parkIncome = Number(res.resultEntity["停车场收入"]) / 100;
-        this.washIncome = Number(res.resultEntity["洗车收入"]) / 100;
+        this.totalIncome = Number(res.resultEntity["总收入"]);
+        this.parkIncome = Number(res.resultEntity["停车场收入"]);
+        this.washIncome = Number(res.resultEntity["洗车收入"]);
       });
     },
     //精洗普洗快洗次数
