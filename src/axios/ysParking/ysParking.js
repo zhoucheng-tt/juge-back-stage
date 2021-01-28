@@ -88,47 +88,40 @@ export function updatePark(param) {
 //停车场管理-出入口管理-列表查询
 export function queryPassagewayList(param) {
     return request({
-        url: "parkFunc/queryPassagewayList",
+        url: "http://localhost:8000/PassagewayController/queryPassagewayList",
         method: "post",
-        data: param
+        data: param,
+        flag: "out"
     });
 }
 
 //停车场管理-出入口管理-新增出入口 insertPassagewayList
 export function insertPassagewayList(param) {
     return request({
-        url: "parkFunc/insertPassagewayList",
+        url: "http://localhost:8000/PassagewayController/insertPassageway",
         method: "post",
-        data: param
+        data: param,
+        flag: "out"
     });
 }
 
 //停车场管理-出入口管理-删除出入口 deletePassagewayList
 export function deletePassagewayList(param) {
     return request({
-        url: "parkFunc/deletePassagewayList",
+        url: "http://localhost:8000/PassagewayController/delPassagewayList",
         method: "post",
-        data: param
+        data: param,
+        flag: "out"
     });
 }
 
 //停车场管理-出入口管理-修改出入口 updatePassagewayList
 export function updatePassagewayList(param) {
     return request({
-        url: "parkFunc/updatePassagewayList",
-        method: "post",
-        data: param
-    });
-}
-
-//停车场管理-出入口管理-导出
-export function exportPassagewayList(param) {
-    return request({
-        url: "parkFunc/exportPassagewayList",
+        url: "http://localhost:8000/PassagewayController/updatePassagewayList",
         method: "post",
         data: param,
-        flag: "innerExt",
-        responseType: "blob"
+        flag: "out"
     });
 }
 
