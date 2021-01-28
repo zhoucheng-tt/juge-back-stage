@@ -5,10 +5,11 @@
     <div class="up">
       <el-button type="primary" size="small" @click="handleExport">
         <a
-            :href="exportFile"
-            class="download"
-            download=""
-            style="color: #ffffff;text-decoration:none">
+          :href="exportFile"
+          class="download"
+          download=""
+          style="color: #ffffff;text-decoration:none"
+        >
           导出
         </a>
       </el-button>
@@ -59,7 +60,7 @@
 import HighCharts from "highcharts";
 import Xchart from "../../../components/charts/charts";
 import Xchart3d from "../../../components/charts/charts3d";
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   components: {
@@ -111,8 +112,10 @@ export default {
     const param = {
       queryDate: "today"
     };
-    this.exportFile = BASE_API + "/CarWashAnalysis/download?jsonStr=" + encodeURIComponent(JSON.stringify(param));
-
+    this.exportFile =
+      BASE_API +
+      "/CarWashAnalysis/download?jsonStr=" +
+      encodeURIComponent(JSON.stringify(param));
   },
   methods: {
     //导出接口

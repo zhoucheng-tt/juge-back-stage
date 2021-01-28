@@ -442,17 +442,17 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -519,17 +519,17 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
@@ -596,17 +596,17 @@ export default {
             x: 300,
             y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
