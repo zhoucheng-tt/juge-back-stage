@@ -53,9 +53,7 @@
           <el-button type="primary" size="small" @click="queryReportList"
             >查询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -75,7 +73,6 @@
     <div class="down">
       <el-table
         :data="reportList"
-        :row-class-name="tableRowClassName"
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -116,22 +113,24 @@
           label="停车数(个)"
         />
         <el-table-column
-          width="160"
           prop="avgParkDuration"
           :show-overflow-tooltip="true"
           label="平均停车时长(分钟)"
         />
         <el-table-column
-          width="120"
           prop="usageRate"
           :show-overflow-tooltip="true"
           label="车位利用率"
         />
         <el-table-column
-          width="120"
           prop="turnoverRate"
           :show-overflow-tooltip="true"
           label="车辆周转率"
+        />
+        <el-table-column
+          prop="income"
+          :show-overflow-tooltip="true"
+          label="总收入(元)"
         />
         <!--        <el-table-column-->
         <!--          width="150"-->
@@ -145,11 +144,7 @@
         <!--          :show-overflow-tooltip="true"-->
         <!--          label="预约完成率"-->
         <!--        />-->
-        <el-table-column
-          prop="income"
-          :show-overflow-tooltip="true"
-          label="总收入(元)"
-        />
+
         <!--        <el-table-column-->
         <!--          prop="arrearageMoneyAmount"-->
         <!--          :show-overflow-tooltip="true"-->
@@ -179,20 +174,20 @@ import { BASE_API } from "@/utils/config";
 export default {
   data() {
     return {
+      //导出
+      exportFile: BASE_API + "EarnAnalysisController/month/download/",
       // 顶部查询数据暂存处
       query: {
         startTime: new Date().Format("yyyy-MM"),
         endTime: new Date().Format("yyyy-MM"),
         parkId: ""
       },
-      //导出
-      exportFile: BASE_API + "EarnAnalysisController/month/download/",
       // 停车场下拉框数据暂存处
       parkList: [],
-      // 分页8
+      // 分页
       pageNum: 1,
-      pageSize: 10,
-      pageTotal: 4,
+      pageSize: 13,
+      pageTotal: 1,
       //列表数据
       reportList: []
     };
@@ -201,6 +196,7 @@ export default {
     this.queryParkList();
     this.queryReportList();
   },
+  //导出监听
   watch: {
     query: {
       handler(newVal) {
@@ -217,16 +213,6 @@ export default {
     resetQuery() {
       this.query = {};
     },
-
-    // 斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2 === 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 === 0) {
-        return "successSecond";
-      }
-      return "";
-    },
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
@@ -234,6 +220,7 @@ export default {
     },
     //列表查询
     queryReportList() {
+      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,
@@ -243,6 +230,11 @@ export default {
       };
       this.$reportAnalysis.queryOpeReportStatisMonthAnal(param).then(res => {
         this.reportList = res.resultEntity.list;
+        this.reportList.forEach(item => {
+          item.avgParkDuration = Number(item.avgParkDuration).toFixed(0);
+          item.turnoverRate = Number(item.turnoverRate).toFixed(2);
+          item.usageRate = Number(item.usageRate).toFixed(2);
+        });
         this.pageTotal = res.resultEntity.total;
       });
     },

@@ -52,9 +52,7 @@
           <el-button type="primary" size="small" @click="queryReportList"
             >查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <div class="line-2">
@@ -74,7 +72,7 @@
     <div class="down">
       <el-table
         :data="reportList"
-        :row-class-name="tableRowClassName"
+        stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -115,22 +113,24 @@
           label="停车数(个)"
         />
         <el-table-column
-          width="160"
           prop="avgParkDuration"
           :show-overflow-tooltip="true"
           label="平均停车时长(分钟)"
         />
         <el-table-column
-          width="180"
           prop="usageRate"
           :show-overflow-tooltip="true"
           label="车位利用率(分钟/车位)"
         />
         <el-table-column
-          width="180"
           prop="turnoverRate"
           :show-overflow-tooltip="true"
           label="车辆周转率(次/车位)"
+        />
+        <el-table-column
+          prop="income"
+          :show-overflow-tooltip="true"
+          label="总收入(元)"
         />
         <!--        <el-table-column-->
         <!--          width="150"-->
@@ -144,11 +144,6 @@
         <!--          :show-overflow-tooltip="true"-->
         <!--          label="预约完成率"-->
         <!--        />-->
-        <el-table-column
-          prop="income"
-          :show-overflow-tooltip="true"
-          label="总收入(元)"
-        />
         <!--        <el-table-column-->
         <!--          width="120"-->
         <!--          prop="wechatPaymentMoneyAmount"-->
@@ -187,13 +182,11 @@
         </div>
       </div>
     </div>
-    <!--    <dt-line-chart style="height: 200px; width: 200px"></dt-line-chart>-->
   </div>
 </template>
 
 <script>
 import { BASE_API } from "@/utils/config";
-// import DtLineChart from "@/components/charts/LineChart";
 
 export default {
   components: {
@@ -201,24 +194,26 @@ export default {
   },
   data() {
     return {
+      //导出
+      exportFile: BASE_API + "EarnAnalysisController/day/download/",
       // 顶部查询数据暂存处
       query: {
         startTime: "",
         endTime: "",
         parkId: ""
       },
-      //导出
-      exportFile: BASE_API + "EarnAnalysisController/day/download/",
       // 停车场下拉框数据暂存处
       parkList: [],
+      //列表数据
+      reportList: [],
       // 分页
       pageNum: 1,
-      pageSize: 10,
-      pageTotal: 4,
-      //列表数据
-      reportList: []
+      pageSize: 13,
+      pageTotal: 1,
+      list: []
     };
   },
+  //导出监听
   watch: {
     query: {
       handler(newVal) {
@@ -231,6 +226,7 @@ export default {
     }
   },
   mounted() {
+    //初始化查询条件
     this.initQuery();
     //列表查询
     this.queryReportList();
@@ -238,18 +234,18 @@ export default {
     this.queryParkList();
   },
   methods: {
+    //初始化查询条件
+    initQuery() {
+      var targetday_milliseconds =
+        new Date().getTime() - 1000 * 60 * 60 * 24 * 6;
+      var targetday = new Date();
+      targetday.setTime(targetday_milliseconds);
+      this.query.startTime = targetday.Format("yyyy-MM-dd");
+      this.query.endTime = new Date().Format("yyyy-MM-dd");
+    },
     //查询重置按钮
     resetQuery() {
       this.query = {};
-    },
-    // 斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2 === 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 === 0) {
-        return "successSecond";
-      }
-      return "";
     },
     // 分页查询方法
     handleCurrentModify(val) {
@@ -258,6 +254,7 @@ export default {
     },
     //列表查询
     queryReportList() {
+      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,
@@ -267,6 +264,11 @@ export default {
       };
       this.$reportAnalysis.queryOpeReportStatisDayAnal(param).then(res => {
         this.reportList = res.resultEntity.list;
+        this.reportList.forEach(item => {
+          item.avgParkDuration = Number(item.avgParkDuration).toFixed(0);
+          item.turnoverRate = Number(item.turnoverRate).toFixed(2);
+          item.usageRate = Number(item.usageRate).toFixed(2);
+        });
         this.pageTotal = res.resultEntity.total;
       });
     },
@@ -285,15 +287,6 @@ export default {
       this.$homePage.queryDict(param).then(response => {
         this.parkList = response.resultEntity;
       });
-    },
-    //初始化查询条件
-    initQuery() {
-      var targetday_milliseconds =
-        new Date().getTime() - 1000 * 60 * 60 * 24 * 6;
-      var targetday = new Date();
-      targetday.setTime(targetday_milliseconds);
-      this.query.startTime = targetday.Format("yyyy-MM-dd");
-      this.query.endTime = new Date().Format("yyyy-MM-dd");
     }
   }
 };

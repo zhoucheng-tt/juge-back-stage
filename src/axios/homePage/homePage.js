@@ -26,6 +26,15 @@ export function loginOut(params) {
     flag: "out"
   });
 }
+//停车场下拉代码
+export function queryDict(params) {
+  return request({
+    url: "http://123.207.189.27:7138/UserController/queryDict",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
 
 // 测试接口   http://123.207.189.27:7138/queryChartData/queryChargeEarnData
 export function test(params) {
@@ -152,15 +161,6 @@ export function queryParkCount(params) {
 //   });
 // }
 
-//停车场下拉代码
-export function queryDict(params) {
-  return request({
-    url: "http://123.207.189.27:7138/UserController/queryDict",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
 //总收入停车收入洗车收入 queryFees
 export function queryFees(params) {
   return request({

@@ -154,7 +154,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}"
+              format: "{value}元"
             }
           },
           legend: {
@@ -381,13 +381,13 @@ export default {
           xAxis: {
             categories: this.paymentStyleAnalysisXz
           },
-          colors: ["#4572A7", "#AA4643", "#89A54E", "#80699B", "#0F2C54"],
+          colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3", "#FFBC00"],
           yAxis: {
             title: {
               text: ""
             },
             labels: {
-              format: "{value}"
+              format: "{value}元"
             },
             min: 0,
             minorGridLineWidth: 0,

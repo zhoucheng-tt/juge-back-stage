@@ -53,9 +53,7 @@
             <el-button type="primary" size="small" @click="queryReportList"
               >查询
             </el-button>
-            <el-button type="primary" size="small" @click="resetQuery"
-              >重置
-            </el-button>
+            <el-button size="small" @click="resetQuery">重置 </el-button>
           </el-form-item>
         </el-form>
         <el-row class="line-2">
@@ -76,7 +74,6 @@
     <div class="down">
       <el-table
         :data="reportList"
-        :row-class-name="tableRowClassName"
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
@@ -198,26 +195,27 @@ import { BASE_API } from "@/utils/config";
 export default {
   data() {
     return {
+      //导出
+      exportFile: BASE_API + "EarnAnalysisController/year/download/",
       // 顶部查询数据暂存处
       query: {
         startTime: new Date().Format("yyyy"),
         endTime: new Date().Format("yyyy"),
         parkId: ""
       },
-      //导出
-      exportFile: BASE_API + "EarnAnalysisController/year/download/",
       //统计年份下拉菜单
       yearList: [],
       // 停车场下拉框数据暂存处
       parkList: [],
       // 分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 13,
       pageTotal: 4,
       //列表数据
       reportList: []
     };
   },
+  //  导出监听
   watch: {
     query: {
       handler(newVal) {
@@ -237,15 +235,6 @@ export default {
     //导出
     exportReport() {
       console.log("导出报表");
-    },
-    // 斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2 === 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 === 0) {
-        return "successSecond";
-      }
-      return "";
     },
     // 分页查询方法
     handleCurrentModify(val) {
@@ -270,6 +259,7 @@ export default {
     },
     //列表查询
     queryReportList() {
+      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,
@@ -278,7 +268,13 @@ export default {
         pageSize: this.pageSize
       };
       this.$reportAnalysis.queryOpeReportStatisYearAnal(param).then(res => {
+        console.log(res, "1111111111111111111111111111111111");
         this.reportList = res.resultEntity.list;
+        this.reportList.forEach(item => {
+          item.avgParkDuration = Number(item.avgParkDuration).toFixed(0);
+          item.turnoverRate = Number(item.turnoverRate).toFixed(2);
+          item.usageRate = Number(item.usageRate).toFixed(2);
+        });
         this.pageTotal = res.resultEntity.total;
       });
     }

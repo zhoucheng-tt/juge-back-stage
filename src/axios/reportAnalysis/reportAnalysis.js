@@ -80,15 +80,29 @@ export function queryIncomeContrast(param) {
     flag: "out"
   });
 }
-
-//运营指标分析平均充电时间
-export function queryAvgChargeTime(param) {
+//报表分析日报
+export function queryOpeReportStatisDayAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/avgChargeTime",
+    url: "http://123.207.189.27:7138/EarnAnalysisController/reportDate",
     method: "post",
-    header: {
-      "content-type": "application/json;charset=utf-8"
-    },
+    data: param,
+    flag: "out"
+  });
+}
+//报表分析月报
+export function queryOpeReportStatisMonthAnal(param) {
+  return request({
+    url: "http://123.207.189.27:7138/EarnAnalysisController/reportMonth",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//报表分析年报
+export function queryOpeReportStatisYearAnal(param) {
+  return request({
+    url: "http://123.207.189.27:7138/EarnAnalysisController/reportYear",
+    method: "post",
     data: param,
     flag: "out"
   });
@@ -102,7 +116,6 @@ export function queryAccountStatisList(param) {
     flag: "out"
   });
 }
-
 //缴费金额趋势分析近七天
 export function sevenPayAna(param) {
   return request({
@@ -112,7 +125,6 @@ export function sevenPayAna(param) {
     flag: "out"
   });
 }
-
 //缴费金额趋势分析近30天
 export function thirtyPayAna(param) {
   return request({
@@ -122,7 +134,6 @@ export function thirtyPayAna(param) {
     flag: "out"
   });
 }
-
 //缴费金额趋势分析近一年
 export function PayAna365(param) {
   return request({
@@ -132,7 +143,6 @@ export function PayAna365(param) {
     flag: "out"
   });
 }
-
 //缴费组成分析
 export function paymentAnalysis(param) {
   return request({
@@ -143,31 +153,14 @@ export function paymentAnalysis(param) {
   });
 }
 
-//报表分析日报
-export function queryOpeReportStatisDayAnal(param) {
+//运营指标分析平均充电时间
+export function queryAvgChargeTime(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportDate",
+    url: "http://123.207.189.27:7138/EarnAnalysisController/avgChargeTime",
     method: "post",
-    data: param,
-    flag: "out"
-  });
-}
-
-//报表分析月报
-export function queryOpeReportStatisMonthAnal(param) {
-  return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportMonth",
-    method: "post",
-    data: param,
-    flag: "out"
-  });
-}
-
-//报表分析年报
-export function queryOpeReportStatisYearAnal(param) {
-  return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportYear",
-    method: "post",
+    header: {
+      "content-type": "application/json;charset=utf-8"
+    },
     data: param,
     flag: "out"
   });
@@ -199,20 +192,6 @@ export function queryWashEarn(param) {
     flag: "out"
   });
 }
-
-//停车场运营指标分析平均充电时间
-export function queryAvgWashTime(param) {
-  return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/avgWashTime",
-    method: "post",
-    header: {
-      "content-type": "application/json;charset=utf-8"
-    },
-    data: param,
-    flag: "out"
-  });
-}
-
 //洗车机报警列表查询
 export function carWasherAlarm(param) {
   return request({
@@ -222,6 +201,7 @@ export function carWasherAlarm(param) {
     flag: "out"
   });
 }
+
 //洗车机报警类型分析
 export function alarmTypeAna(param) {
   return request({
@@ -240,3 +220,15 @@ export function alarmRecent7day(param) {
     flag: "out"
   });
 }
+//停车场运营指标分析平均充电时间
+// export function queryAvgWashTime(param) {
+//   return request({
+//     url: "http://123.207.189.27:7138/EarnAnalysisController/avgWashTime",
+//     method: "post",
+//     header: {
+//       "content-type": "application/json;charset=utf-8"
+//     },
+//     data: param,
+//     flag: "out"
+//   });
+// }

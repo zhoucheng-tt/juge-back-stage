@@ -36,9 +36,7 @@
           <el-button type="primary" size="small" @click="queryButton"
             >查询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -110,7 +108,11 @@
           ></Xchart>
         </div>
         <!-- 洗车机近七日报警趋势分析 -->
-        <div class="echartStyle" id="washCarSevenDaysAnalysis">
+        <div
+          class="echartStyle"
+          id="washCarSevenDaysAnalysis"
+          style="margin-top: 8px"
+        >
           <Xchart
             id="washCarSevenDaysAnalysis"
             :option="washCarSevenDaysAnalysisOption"
@@ -172,6 +174,7 @@ export default {
     },
     //查询按钮
     queryButton() {
+      this.pageNum = 1;
       //列表查询
       this.queryList();
       //报警次数统计

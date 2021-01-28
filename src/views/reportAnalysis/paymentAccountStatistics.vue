@@ -81,9 +81,7 @@
           <el-button type="primary" size="small" @click="queryButton"
             >查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery">重置 </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line2">
@@ -186,7 +184,7 @@
             </el-tab-pane>
           </el-tabs>
         </el-row>
-        <el-row style="width: 49.5%;margin-left: 1%">
+        <el-row style="width: 48.5%;margin-left: 1%">
           <!-- 平均洗车时长 averageWashingTime-->
           <div class="echartStyle" id="payMethod" style="height: 405px">
             <Xchart id="payMethod" :option="payMethodChart"></Xchart>
@@ -225,7 +223,7 @@ export default {
       //初始化分页
       pageNum: 1,
       pageSize: 5,
-      pageTotal: 12,
+      pageTotal: 1,
       // 柱状图serise中的数据
       payAnaSevenX: [],
       dataListSeven: [],
@@ -284,6 +282,7 @@ export default {
     },
     //查询
     queryButton() {
+      this.pageNum = 1;
       this.queryPayList();
       this.drawPayMethodAna();
     },
@@ -692,7 +691,7 @@ export default {
 
 /* 中间每个图表部分样式 */
 .echartStyle {
-  width: 100%;
+  width: 98%;
   height: 350px;
 }
 
