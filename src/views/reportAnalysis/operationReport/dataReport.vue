@@ -49,7 +49,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryReportList"
+          <el-button type="primary" size="small" @click="queryFormList"
             >查询
           </el-button>
           <el-button size="small" @click="resetQuery">重置</el-button>
@@ -242,6 +242,11 @@ export default {
       targetday.setTime(targetday_milliseconds);
       this.query.startTime = targetday.Format("yyyy-MM-dd");
       this.query.endTime = new Date().Format("yyyy-MM-dd");
+    },
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryReportList();
     },
     //查询重置按钮
     resetQuery() {

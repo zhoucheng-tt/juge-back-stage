@@ -1,3 +1,4 @@
+<!--出入口监测-->
 <template>
   <div class="all">
     <!--上半部分入口监测-->
@@ -56,12 +57,10 @@
           </el-form-item>
           <!--      查询按钮-->
           <el-form-item>
-            <el-button type="primary" size="small" @click="query"
+            <el-button type="primary" size="small" @click="queryUpFormList"
               >查询
             </el-button>
-            <el-button type="primary" size="small" @click="resetQuery"
-              >重置
-            </el-button>
+            <el-button size="small" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -246,12 +245,10 @@
           </el-form-item>
           <!--      查询按钮-->
           <el-form-item>
-            <el-button type="primary" size="small" @click="downQuery"
+            <el-button type="primary" size="small" @click="queryDownFormList"
               >查询
             </el-button>
-            <el-button type="primary" size="small" @click="downResetQuery"
-              >重置
-            </el-button>
+            <el-button size="small" @click="downResetQuery">重置 </el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -407,20 +404,30 @@ export default {
 
       //入场记录分页数据
       upPageNum: 1,
-      upPageSize: 4,
+      upPageSize: 5,
       upTotal: 5,
       //出场记录分页数据
       downPageNum: 1,
-      downPageSize: 4,
+      downPageSize: 5,
       downTotal: 5
     };
   },
   mounted() {
     this.queryParking();
-    this.query();
-    this.downQuery();
+    this.queryUpList();
+    this.queryDownList();
   },
   methods: {
+    //上半部查询按钮
+    queryUpFormList() {
+      this.upPageNum = 1;
+      this.queryUpList();
+    },
+    //下半部查询按钮
+    queryDownFormList() {
+      this.downPageNum = 1;
+      this.queryDownList();
+    },
     //入场记录追踪出场记录
     getOutRecord(inRecordId) {
       this.$realTimeMonitor.getOutRecord(inRecordId).then(res => {
@@ -453,12 +460,12 @@ export default {
     //入场记录跳页
     handleUpQuery(val) {
       this.upPageNum = val;
-      this.query();
+      this.queryUpList();
     },
     //出场记录跳页
     handleDownQuery(val) {
       this.downPageNum = val;
-      this.downQuery();
+      this.queryDownList();
     },
     //查询重置按钮
     resetQuery() {
@@ -468,7 +475,7 @@ export default {
       this.downQueryList = {};
     },
     //入场记录查询
-    query() {
+    queryUpList() {
       const param = {
         pageNum: this.upPageNum,
         pageSize: this.upPageSize,
@@ -491,7 +498,7 @@ export default {
       });
     },
     //出场记录查询
-    downQuery() {
+    queryDownList() {
       const param = {
         pageNum: this.downPageNum,
         pageSize: this.downPageSize,
@@ -554,7 +561,7 @@ export default {
 
 .up-half {
   width: 98%;
-  height: 48%;
+  height: 48.5%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;
@@ -562,7 +569,7 @@ export default {
 
 .down-half {
   width: 98%;
-  height: 48%;
+  height: 48.5%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;

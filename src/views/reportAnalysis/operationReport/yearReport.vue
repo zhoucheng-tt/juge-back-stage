@@ -50,7 +50,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" size="small" @click="queryReportList"
+            <el-button type="primary" size="small" @click="queryFormList"
               >查询
             </el-button>
             <el-button size="small" @click="resetQuery">重置 </el-button>
@@ -227,12 +227,21 @@ export default {
       deep: true
     }
   },
+  mounted() {
+    //初始化数据
+    this.queryParkList();
+    this.queryReportList();
+  },
   methods: {
+    // 查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryParkList();
+    },
     //查询重置按钮
     resetQuery() {
       this.query = {};
     },
-
     // 分页查询方法
     handleCurrentModify(val) {
       this.pageNum = val;
@@ -256,7 +265,6 @@ export default {
     },
     //列表查询
     queryReportList() {
-      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,
@@ -274,11 +282,6 @@ export default {
         this.pageTotal = res.resultEntity.total;
       });
     }
-  },
-  mounted() {
-    //初始化数据
-    this.queryParkList();
-    this.queryReportList();
   }
 };
 </script>
