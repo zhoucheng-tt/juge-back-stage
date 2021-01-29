@@ -195,8 +195,6 @@ import { BASE_API } from "@/utils/config";
 export default {
   data() {
     return {
-      //导出
-      exportFile: BASE_API + "EarnAnalysisController/year/download/",
       // 顶部查询数据暂存处
       query: {
         startTime: new Date().Format("yyyy"),
@@ -216,15 +214,16 @@ export default {
     };
   },
   //  导出监听
-  watch: {
-    query: {
-      handler(newVal) {
-        this.exportFile =
-          BASE_API +
+  computed: {
+    exportFile: function () {
+      const param = {
+        parkId: this.query.parkId,
+        startTime: this.query.startTime,
+        endTime: this.query.endTime
+      }
+      return BASE_API +
           "EarnAnalysisController/year/download?jsonStr=" +
-          encodeURIComponent(JSON.stringify(newVal));
-      },
-      deep: true
+          encodeURIComponent(JSON.stringify(param));
     }
   },
   mounted() {

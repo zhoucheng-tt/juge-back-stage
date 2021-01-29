@@ -15,56 +15,57 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="统计月份:">
           <el-date-picker
-            v-model="query.startTime"
-            type="month"
-            size="small"
-            style="width: 160px"
-            placeholder="选择月份"
-            value-format="yyyy-MM"
+              v-model="query.startTime"
+              type="month"
+              size="small"
+              style="width: 160px"
+              placeholder="选择月份"
+              value-format="yyyy-MM"
           />
         </el-form-item>
         <el-form-item label="~">
           <el-date-picker
-            v-model="query.endTime"
-            type="month"
-            size="small"
-            style="width: 160px"
-            placeholder="选择月份"
-            value-format="yyyy-MM"
+              v-model="query.endTime"
+              type="month"
+              size="small"
+              style="width: 160px"
+              placeholder="选择月份"
+              value-format="yyyy-MM"
           />
         </el-form-item>
         <el-form-item label="停车场：">
           <el-select
-            size="small"
-            style="width: 160px"
-            v-model="query.parkId"
-            placeholder="请选择停车场"
+              size="small"
+              style="width: 160px"
+              v-model="query.parkId"
+              placeholder="请选择停车场"
           >
             <el-option label="全部" value=""></el-option>
             <el-option
-              v-for="(item, index) in parkList"
-              :label="item.name"
-              :value="item.code"
-              :key="index"
+                v-for="(item, index) in parkList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryFormList"
-            >查询</el-button
+          <el-button type="primary" size="small" @click="queryReportList"
+          >查询
+          </el-button
           >
           <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small"
-          ><a
+        ><a
             :href="exportFile"
             class="download"
             download=""
             style="color: #ffffff;text-decoration:none"
-            >导出</a
-          >
+        >导出</a
+        >
         </el-button>
       </el-row>
     </div>
@@ -72,8 +73,8 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="reportList"
-        :header-cell-style="{
+          :data="reportList"
+          :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -83,54 +84,54 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-        :cell-style="{
+          :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-        style="width: 98%;margin-left: 1%"
+          style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-          prop="statisticDate"
-          :show-overflow-tooltip="true"
-          label="统计月份"
+            prop="statisticDate"
+            :show-overflow-tooltip="true"
+            label="统计月份"
         />
         <el-table-column
-          prop="parkName"
-          :show-overflow-tooltip="true"
-          label="停车场名称"
+            prop="parkName"
+            :show-overflow-tooltip="true"
+            label="停车场名称"
         />
         <el-table-column
-          prop="parkCount"
-          :show-overflow-tooltip="true"
-          label="车位数(个)"
+            prop="parkCount"
+            :show-overflow-tooltip="true"
+            label="车位数(个)"
         />
         <el-table-column
-          prop="parkTimes"
-          :show-overflow-tooltip="true"
-          label="停车数(个)"
+            prop="parkTimes"
+            :show-overflow-tooltip="true"
+            label="停车数(个)"
         />
         <el-table-column
-          prop="avgParkDuration"
-          :show-overflow-tooltip="true"
-          label="平均停车时长(分钟)"
+            prop="avgParkDuration"
+            :show-overflow-tooltip="true"
+            label="平均停车时长(分钟)"
         />
         <el-table-column
-          prop="usageRate"
-          :show-overflow-tooltip="true"
-          label="车位利用率"
+            prop="usageRate"
+            :show-overflow-tooltip="true"
+            label="车位利用率"
         />
         <el-table-column
-          prop="turnoverRate"
-          :show-overflow-tooltip="true"
-          label="车辆周转率"
+            prop="turnoverRate"
+            :show-overflow-tooltip="true"
+            label="车辆周转率"
         />
         <el-table-column
-          prop="income"
-          :show-overflow-tooltip="true"
-          label="总收入(元)"
+            prop="income"
+            :show-overflow-tooltip="true"
+            label="总收入(元)"
         />
         <!--        <el-table-column-->
         <!--          width="150"-->
@@ -152,15 +153,15 @@
         <!--        />-->
       </el-table>
       <div
-        style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
+          style="background-color: white;width: 98%;margin-left: 1%;height: 35px"
       >
         <div style="float: right">
           <el-pagination
-            layout="total, prev, pager, next, jumper"
-            :page-size="pageSize"
-            @current-change="handleCurrentModify"
-            :current-page="pageNum"
-            :total="pageTotal"
+              layout="total, prev, pager, next, jumper"
+              :page-size="pageSize"
+              @current-change="handleCurrentModify"
+              :current-page="pageNum"
+              :total="pageTotal"
           />
         </div>
       </div>
@@ -169,13 +170,11 @@
 </template>
 
 <script>
-import { BASE_API } from "@/utils/config";
+import {BASE_API} from "@/utils/config";
 
 export default {
   data() {
     return {
-      //导出
-      exportFile: BASE_API + "EarnAnalysisController/month/download/",
       // 顶部查询数据暂存处
       query: {
         startTime: new Date().Format("yyyy-MM"),
@@ -197,23 +196,19 @@ export default {
     this.queryReportList();
   },
   //导出监听
-  watch: {
-    query: {
-      handler(newVal) {
-        this.exportFile =
-          BASE_API +
+  computed: {
+    exportFile: function () {
+      const param = {
+        parkId: this.query.parkId,
+        startTime: this.query.startTime,
+        endTime: this.query.endTime
+      }
+      return BASE_API +
           "EarnAnalysisController/month/download?jsonStr=" +
-          encodeURIComponent(JSON.stringify(newVal));
-      },
-      deep: true
+          encodeURIComponent(JSON.stringify(param));
     }
   },
   methods: {
-    //查询按钮
-    queryFormList() {
-      this.pageNum = 1;
-      this.queryReportList();
-    },
     //查询重置按钮
     resetQuery() {
       this.query = {};
@@ -225,6 +220,7 @@ export default {
     },
     //列表查询
     queryReportList() {
+      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,
@@ -267,6 +263,7 @@ export default {
   height: 100%;
   overflow: hidden;
 }
+
 /*查询*/
 .up {
   width: 98%;
@@ -283,6 +280,7 @@ export default {
   margin-left: 1%;
   margin-top: 1%;
 }
+
 /* 斑马纹样式 */
 /deep/ .el-table .successRow11 {
   background: #f8f9fa !important;
@@ -299,11 +297,13 @@ export default {
   padding-left: 1%;
   padding-top: 0.5%;
 }
+
 .line-2 {
   width: 98%;
   height: 40px;
   margin-left: 1%;
 }
+
 .backgroundLine {
   background-color: #eaf0f6;
   width: 100%;

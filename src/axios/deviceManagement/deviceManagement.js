@@ -64,49 +64,45 @@ export function exportMagneticDetecter(param) {
   });
 }
 
-//下拉框数据查询
-export function queryDictData(params) {
-  return request({
-    url: "DictDimFunc/queryDictData.xhtml",
-    method: "post",
-    data: params
-  });
-}
 
 //地磁车列表查询
 export function queryMagneticDetecter(params) {
   return request({
-    url: "DeviceFunc/queryMagneticDetecter.xhtml",
+    url: "http://localhost:8000/MagneticDetecterController/queryMagneticDetecter",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 
 //新增地磁车
 export function addMagneticDetecter(params) {
-  return request({
-    url: "DeviceFunc/addMagneticDetecter.xhtml",
-    method: "post",
-    data: params
-  });
+    return request({
+        url: "http://localhost:8000/MagneticDetecterController/addMagneticDetecter",
+        method: "post",
+        data: params,
+        flag: "out"
+    });
 }
 
 //删除地磁车
 export function delMagneticDetecter(params) {
   return request({
-    url: "DeviceFunc/delMagneticDetecter.xhtml",
+    url: "http://localhost:8000/MagneticDetecterController/deleteMagneticDetecter",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 
 //修改地磁车
 export function updateMagneticDetecter(params) {
-  return request({
-    url: "DeviceFunc/updateMagneticDetecter.xhtml",
-    method: "post",
-    data: params
-  });
+    return request({
+        url: "http://localhost:8000/MagneticDetecterController/updateMagneticDetecter",
+        method: "post",
+        data: params,
+        flag: "out"
+    });
 }
 
 //地锁列表查询

@@ -88,7 +88,7 @@ export function updatePark(param) {
 //停车场管理-出入口管理-列表查询
 export function queryPassagewayList(param) {
   return request({
-    url: "http://localhost:8000/PassagewayController/queryPassagewayList",
+    url: "http://123.207.189.27:7138/PassagewayController/queryPassagewayList",
     method: "post",
     data: param,
     flag: "out"
@@ -98,7 +98,7 @@ export function queryPassagewayList(param) {
 //停车场管理-出入口管理-新增出入口 insertPassagewayList
 export function insertPassagewayList(param) {
   return request({
-    url: "http://localhost:8000/PassagewayController/insertPassageway",
+    url: "http://123.207.189.27:7138/PassagewayController/insertPassageway",
     method: "post",
     data: param,
     flag: "out"
@@ -108,7 +108,7 @@ export function insertPassagewayList(param) {
 //停车场管理-出入口管理-删除出入口 deletePassagewayList
 export function deletePassagewayList(param) {
   return request({
-    url: "http://localhost:8000/PassagewayController/delPassagewayList",
+    url: "http://123.207.189.27:7138/PassagewayController/delPassagewayList",
     method: "post",
     data: param,
     flag: "out"
@@ -118,7 +118,7 @@ export function deletePassagewayList(param) {
 //停车场管理-出入口管理-修改出入口 updatePassagewayList
 export function updatePassagewayList(param) {
   return request({
-    url: "http://localhost:8000/PassagewayController/updatePassagewayList",
+    url: "http://123.207.189.27:7138/PassagewayController/updatePassagewayList",
     method: "post",
     data: param,
     flag: "out"
@@ -128,7 +128,7 @@ export function updatePassagewayList(param) {
 //停车场管理-车位管理-上半部分列表查询 queryParkLayerList
 export function queryParkLayerList(param) {
   return request({
-    url: "http://localhost:8000/ParkingSpaceController/queryParkLayerList",
+    url: "http://123.207.189.27:7138/ParkingSpaceController/queryParkLayerList",
     method: "post",
     data: param,
     flag: "out"
@@ -138,7 +138,7 @@ export function queryParkLayerList(param) {
 //停车场管理-车位管理-下半部分列表查询 queryParkSpaceList
 export function queryParkSpaceList(param) {
   return request({
-    url: "http://localhost:8000/ParkingSpaceController/queryParkSpaceList",
+    url: "http://123.207.189.27:7138//ParkingSpaceController/queryParkSpaceList",
     method: "post",
     data: param,
     flag: "out"
@@ -148,7 +148,7 @@ export function queryParkSpaceList(param) {
 //停车场管理-车位管理-删除 deleteParkLayer
 export function deleteParkLayer(param) {
   return request({
-    url: "http://localhost:8000/ParkingSpaceController/delParkLayer",
+    url: "http://123.207.189.27:7138//ParkingSpaceController/delParkLayer",
     method: "post",
     data: param,
     flag: "out"
@@ -158,7 +158,7 @@ export function deleteParkLayer(param) {
 //停车场管理-车位管理-修改 deleteParkLayer
 export function updateParkLayer(param) {
   return request({
-    url: "http://localhost:8000/ParkingSpaceController/updateParkLayer",
+    url: "http://123.207.189.27:7138//ParkingSpaceController/updateParkLayer",
     method: "post",
     data: param,
     flag: "out"
@@ -177,7 +177,7 @@ export function uploadFile(param) {
 //停车场管理车位管理的上传接口 parkFunc/insertParkLayer
 export function insertParkLayer(param) {
   return request({
-    url: "http://localhost:8000/ParkingSpaceController/addParkLayer",
+    url: "http://123.207.189.27:7138//ParkingSpaceController/addParkLayer",
     method: "post",
     data: param,
     flag: "out"
