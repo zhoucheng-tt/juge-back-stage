@@ -264,6 +264,7 @@
         :visible.sync="modFormDialog"
         width="50%"
         overflow="hidden"
+        @close="queryList"
       >
         <!--基本信息-->
         <div class="table-mod">
@@ -441,7 +442,6 @@ export default {
     //上边按钮查询功能
     queryList() {
       this.tableData = [];
-      ``;
       const param = {
         userAccount: this.upQueryList.userAccount,
         name: this.upQueryList.name,
@@ -499,7 +499,7 @@ export default {
     },
     //查看用户弹窗
     check(row) {
-      (this.checkRoles = []), (this.showForm = row);
+      this.showForm = row
       const param = {
         userId: row.userId
       };
@@ -515,19 +515,19 @@ export default {
     },
     //表格操作中修改方法
     alter(row) {
+      this.modForm = row;
       this.checkRoles = [];
       const param = {
         userId: row.userId
       };
       this.$systemUser.queryRoleListByUser(param).then(res => {
         res.resultEntity.forEach(item => {
-          if (item.permission == true) {
+          if (item.permission === true) {
             this.checkRoles.push(item.roleId);
           }
         });
         console.log("打印存储的id", this.checkRoles);
       });
-      this.modForm = row;
       this.modFormDialog = true;
       console.log(row);
     },
@@ -567,25 +567,6 @@ export default {
           this.$message({ type: "info", message: "已取消删除" });
         });
     },
-
-    //表格操作中密码重置方法
-    // retPassword(row) {
-    //   this.$confirm("此操作将重置密码, 是否继续?", "提示", {
-    //     confirmButtonText: "确定",
-    //     cancelButtonText: "取消",
-    //     type: "warning"
-    //   })
-    //     .then(() => {
-    //       this.retListDialog = true;
-    //     })
-    //     .catch(() => {
-    //       this.$message({ type: "info", message: "已取消重置" });
-    //     });
-    // },
-    //密码重置方法
-    // onSubmitRet() {
-    //   this.retListDialog = false;
-    // },
     // 斑马纹样式
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
