@@ -110,36 +110,44 @@ export function updateMagneticDetecter(params) {
 //地锁列表查询
 export function queryGroundLock(params) {
   return request({
-    url: "DeviceFunc/queryGroundLock.xhtml",
+    url:
+        "http://localhost:8000/GroundLockController/queryGroundLock",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 
 //新增地锁
 export function addGroundLock(params) {
   return request({
-    url: "DeviceFunc/addGroundLock.xhtml",
+    url:
+        "http://localhost:8000/GroundLockController/addGroundLock",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 
 //删除地锁
 export function delGroundLock(params) {
   return request({
-    url: "DeviceFunc/delGroundLock.xhtml",
+    url:
+        "http://localhost:8000/GroundLockController/delGroundLock",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 
 //修改地锁
 export function updateGroundLock(params) {
   return request({
-    url: "DeviceFunc/updateGroundLock.xhtml",
+    url:
+        "http://localhost:8000/GroundLockController/updateGroundLock",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 

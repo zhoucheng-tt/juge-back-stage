@@ -350,7 +350,7 @@
         </el-upload>
 
         <span slot="footer" class="dialog-footer">
-          <el-button @click="importDataOff = false">取 消</el-button>
+          <el-button @click="importDialog = false">取 消</el-button>
           <el-button type="primary" @click="confimImportBatch">导 入</el-button>
         </span>
       </el-dialog>
