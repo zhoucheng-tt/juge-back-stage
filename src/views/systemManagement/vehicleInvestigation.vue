@@ -9,7 +9,7 @@
 -->
 <template>
   <div class="about">
-    <!--       日志时间-->
+    <!--日志时间-->
     <div class="up">
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item>

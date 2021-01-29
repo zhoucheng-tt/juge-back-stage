@@ -138,7 +138,8 @@ export function queryParkLayerList(param) {
 //停车场管理-车位管理-下半部分列表查询 queryParkSpaceList
 export function queryParkSpaceList(param) {
   return request({
-    url: "http://123.207.189.27:7138//ParkingSpaceController/queryParkSpaceList",
+    url:
+      "http://123.207.189.27:7138//ParkingSpaceController/queryParkSpaceList",
     method: "post",
     data: param,
     flag: "out"

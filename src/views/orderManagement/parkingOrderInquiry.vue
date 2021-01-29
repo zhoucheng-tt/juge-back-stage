@@ -84,12 +84,10 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryStopOrder"
+          <el-button type="primary" size="small" @click="queryFormList"
             >查询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -308,7 +306,12 @@ export default {
     this.queryPark();
   },
   methods: {
-    //查询重置按钮
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryStopOrder();
+    },
+    //重置按钮
     resetQuery() {
       this.upQueryList = {};
     },

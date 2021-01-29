@@ -64,11 +64,11 @@ export function exportMagneticDetecter(param) {
   });
 }
 
-
 //地磁车列表查询
 export function queryMagneticDetecter(params) {
   return request({
-    url: "http://localhost:8000/MagneticDetecterController/queryMagneticDetecter",
+    url:
+      "http://localhost:8000/MagneticDetecterController/queryMagneticDetecter",
     method: "post",
     data: params,
     flag: "out"
@@ -77,18 +77,19 @@ export function queryMagneticDetecter(params) {
 
 //新增地磁车
 export function addMagneticDetecter(params) {
-    return request({
-        url: "http://localhost:8000/MagneticDetecterController/addMagneticDetecter",
-        method: "post",
-        data: params,
-        flag: "out"
-    });
+  return request({
+    url: "http://localhost:8000/MagneticDetecterController/addMagneticDetecter",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
 }
 
 //删除地磁车
 export function delMagneticDetecter(params) {
   return request({
-    url: "http://localhost:8000/MagneticDetecterController/deleteMagneticDetecter",
+    url:
+      "http://localhost:8000/MagneticDetecterController/deleteMagneticDetecter",
     method: "post",
     data: params,
     flag: "out"
@@ -97,12 +98,13 @@ export function delMagneticDetecter(params) {
 
 //修改地磁车
 export function updateMagneticDetecter(params) {
-    return request({
-        url: "http://localhost:8000/MagneticDetecterController/updateMagneticDetecter",
-        method: "post",
-        data: params,
-        flag: "out"
-    });
+  return request({
+    url:
+      "http://localhost:8000/MagneticDetecterController/updateMagneticDetecter",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
 }
 
 //地锁列表查询

@@ -615,7 +615,7 @@ export default {
 /*查询*/
 .up {
   width: 98%;
-  height: 12%;
+  height: 11%;
   background-color: white;
   margin-left: 1%;
   margin-top: 0.5%;

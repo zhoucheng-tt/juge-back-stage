@@ -215,15 +215,17 @@ export default {
   },
   //  导出监听
   computed: {
-    exportFile: function () {
+    exportFile: function() {
       const param = {
         parkId: this.query.parkId,
         startTime: this.query.startTime,
         endTime: this.query.endTime
-      }
-      return BASE_API +
-          "EarnAnalysisController/year/download?jsonStr=" +
-          encodeURIComponent(JSON.stringify(param));
+      };
+      return (
+        BASE_API +
+        "EarnAnalysisController/year/download?jsonStr=" +
+        encodeURIComponent(JSON.stringify(param))
+      );
     }
   },
   mounted() {
