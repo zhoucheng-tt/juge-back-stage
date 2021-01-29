@@ -32,7 +32,7 @@
           <el-button
             type="primary"
             class="top-select"
-            @click="select"
+            @click="queryFormList"
             size="small"
             >查询
           </el-button>
@@ -204,24 +204,24 @@
             <el-row style="padding-top: 20px">
               <el-col :span="12">
                 <el-form-item label="用户账号:" label-width="150px">
-                  <el-input v-model="showForm.userAccount" disabled />
+                  <el-input v-model="showForm.userAccount" readonly />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="姓名:" label-width="150px">
-                  <el-input v-model="showForm.name" disabled />
+                  <el-input v-model="showForm.name" readonly />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
                 <el-form-item label="手机号:" label-width="150px">
-                  <el-input v-model="showForm.phoneNumber" disabled></el-input>
+                  <el-input v-model="showForm.phoneNumber" readonly></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="邮箱:" label-width="150px">
-                  <el-input v-model="showForm.email" disabled />
+                  <el-input v-model="showForm.email" readonly />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -386,7 +386,7 @@ export default {
       },
       //初始化分页
       pageNum: 1,
-      pageSize: 9,
+      pageSize: 10,
       pageTotal: 2,
       //顶部查询条件
       upQueryList: {},
@@ -422,26 +422,26 @@ export default {
       checkRoles: [],
       //角色暂存id
       roleIdList: []
-      // oldPassword: "",
-      // newPassword: ""
     };
   },
   mounted() {
-    this.select();
+    this.queryList();
     this.queryRoleListByUser();
   },
   methods: {
-    //上边部分按钮导出功能
-    // exPort() {
-    //   console.log("export");
-    // },
-    //查询重置按钮
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryList();
+    },
+    //重置按钮
     resetQuery() {
       this.upQueryList = {};
     },
     //上边按钮查询功能
-    select() {
+    queryList() {
       this.tableData = [];
+      ``;
       const param = {
         userAccount: this.upQueryList.userAccount,
         name: this.upQueryList.name,
@@ -461,7 +461,6 @@ export default {
       };
       this.$systemUser.queryRoleListByUser(param).then(res => {
         this.roleList = res.resultEntity;
-        // console.log("角色列表", this.roleList);
       });
     },
     //拿到角色数据多选数据
@@ -471,21 +470,17 @@ export default {
       // val.forEach(item => {
       //   this.roleIdList.push(item.roleId);
       // // })
-      // console.log("角色暂存id", this.roleIdList);
-      // console.log("checkbox数据", this.checkRoles);
     },
-
     //分页方法
     handleCurrentModify(val) {
       this.pageNum = val;
-      this.select();
+      this.queryList();
     },
     //新增用户弹窗
     addUser() {
       this.addListDialog = true;
       this.checkRoles = [];
       this.addUserForm = {};
-      // console.log("新增");
     },
     //新增用户确认提交
     onSubmitAdd() {
@@ -498,12 +493,10 @@ export default {
         roleId: this.checkRoles
       };
       this.$systemUser.addUser(param).then(res => {
-        // console.log("打印新增的数据", res);
-        this.select();
+        this.queryList();
       });
       this.addListDialog = false;
     },
-    //表格操作中的查看方法
     //查看用户弹窗
     check(row) {
       (this.checkRoles = []), (this.showForm = row);
@@ -516,7 +509,6 @@ export default {
             this.checkRoles.push(item.roleId);
           }
         });
-        // console.log("打印存储的id", this.checkRoles);
       });
       this.selectListDialog = true;
       console.log(row);
@@ -551,7 +543,7 @@ export default {
       };
       this.$systemUser.updateUser(param).then(() => {
         this.$message({ type: "success", message: "修改成功!" });
-        this.select();
+        this.queryList();
       });
       this.modFormDialog = false;
     },
@@ -568,7 +560,7 @@ export default {
           };
           this.delList.push(param);
           this.$systemUser.deleteUser(param).then(res => {
-            this.select();
+            this.queryList();
           });
         })
         .catch(() => {

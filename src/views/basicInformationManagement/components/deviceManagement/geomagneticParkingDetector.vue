@@ -34,17 +34,17 @@
 
         <el-form-item label="停车场">
           <el-select
-              size="small"
-              style="width: 160px"
-              v-model="upQueryList.parkId"
-              placeholder="请选择"
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.parkId"
+            placeholder="请选择"
           >
             <el-option label="全部" value=""></el-option>
             <el-option
-                v-for="(item, index) in parkingLotNameList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in parkingLotNameList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             />
           </el-select>
         </el-form-item>
@@ -56,36 +56,33 @@
         <!--              </el-select>-->
         <!--            </el-form-item>-->
         <el-form-item>
-          <el-button
-              type="primary"
-              size="small"
-              @click="queryButton()"
-          >查 询
+          <el-button type="primary" size="small" @click="queryButton()"
+            >查 询
           </el-button>
           <el-button type="primary" size="small" @click="resetQuery"
-          >重置
+            >重置
           </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addNewGeo()"
-        >新增地磁车检测器
+          >新增地磁车检测器
         </el-button>
         <el-button type="primary" size="small"
-        ><a
+          ><a
             :href="exportFile"
             class="download"
             download=""
             style="color: #ffffff;text-decoration:none"
-        >导出</a
-        >
+            >导出</a
+          >
         </el-button>
 
         <el-button type="primary" size="small" @click="bulkImport()"
-        >批量导入
+          >批量导入
         </el-button>
         <el-button type="danger" size="small" @click="batchDelete()"
-        >批量删除
+          >批量删除
         </el-button>
       </el-row>
     </div>
@@ -93,11 +90,11 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-          :data="geoList"
-          ref="selectGeoList"
-          @selection-change="handleSelectionChange"
-          stripe
-          :header-cell-style="{
+        :data="geoList"
+        ref="selectGeoList"
+        @selection-change="handleSelectionChange"
+        stripe
+        :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -107,21 +104,21 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-          :cell-style="{
+        :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-          style="width: 98%;margin-left: 1%"
+        style="width: 98%;margin-left: 1%"
       >
-        <el-table-column type="selection"/>
+        <el-table-column type="selection" />
         <!--        <el-table-column prop="parkId" label="停车场编号" />-->
         <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
         />
         <!--        <el-table-column-->
         <!--          prop="magneticDetecterId"-->
@@ -129,30 +126,30 @@
         <!--          label="地磁车位检测器编号"-->
         <!--        />-->
         <el-table-column
-            prop="magneticDetecterName"
-            :show-overflow-tooltip="true"
-            label="地磁车位检测器名称"
+          prop="magneticDetecterName"
+          :show-overflow-tooltip="true"
+          label="地磁车位检测器名称"
         />
         <el-table-column
-            prop="sensorId"
-            :show-overflow-tooltip="true"
-            label="传感器ID"
+          prop="sensorId"
+          :show-overflow-tooltip="true"
+          label="传感器ID"
         />
         <el-table-column
-            prop="producer"
-            :show-overflow-tooltip="true"
-            label="制造商"
+          prop="producer"
+          :show-overflow-tooltip="true"
+          label="制造商"
         />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-                @click="editGeoDialog(scope.row)"
-                type="text"
-                size="small"
-            >修改
+              @click="editGeoDialog(scope.row)"
+              type="text"
+              size="small"
+              >修改
             </el-button>
             <el-button @click="deleteGeo(scope.row)" type="text" size="small"
-            >删除
+              >删除
             </el-button>
           </template>
         </el-table-column>
@@ -160,28 +157,28 @@
       <div style="float: right;">
         <!--分页条-->
         <el-pagination
-            layout="total, prev, pager, next, jumper"
-            :page-size="pageSize"
-            @current-change="handleCurrentModify"
-            :current-page="pageNum"
-            :total="pageTotal"
+          layout="total, prev, pager, next, jumper"
+          :page-size="pageSize"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
         ></el-pagination>
       </div>
       <!--新增表单弹框-->
       <el-dialog
-          id="add"
-          width="50%"
-          title="新增地磁车位检测器"
-          :visible.sync="addListDialog"
-          destroy-on-close
+        id="add"
+        width="50%"
+        title="新增地磁车位检测器"
+        :visible.sync="addListDialog"
+        destroy-on-close
       >
         <el-form
-            :inline="true"
-            label-position="right"
-            label-width="100px"
-            :model="newGeo"
-            :rules="addListRules"
-            ref="newGeoR"
+          :inline="true"
+          label-position="right"
+          label-width="100px"
+          :model="newGeo"
+          :rules="addListRules"
+          ref="newGeoR"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <!--          <el-row style="padding-top: 20px">
@@ -203,15 +200,15 @@
           <el-row style="padding-top: 20px">
             <el-form-item label="归属停车场:" label-width="150px" prop="parkId">
               <el-select
-                  width="200px"
-                  v-model="newGeo.parkId"
-                  placeholder="请选择"
+                width="200px"
+                v-model="newGeo.parkId"
+                placeholder="请选择"
               >
                 <el-option
-                    v-for="(item, index) in parkingLotNameList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                  v-for="(item, index) in parkingLotNameList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -223,18 +220,18 @@
             <!--              </el-form-item>-->
             <el-col :span="12">
               <el-form-item
-                  label="地磁车位检测器名称:"
-                  label-width="160px"
-                  prop="magneticDetecterName"
+                label="地磁车位检测器名称:"
+                label-width="160px"
+                prop="magneticDetecterName"
               >
-                <el-input v-model="newGeo.magneticDetecterName"/>
+                <el-input v-model="newGeo.magneticDetecterName" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
-                  label="传感器ID:"
-                  label-width="160px  "
-                  prop="sensorId"
+                label="传感器ID:"
+                label-width="160px  "
+                prop="sensorId"
               >
                 <el-input v-model="newGeo.sensorId"></el-input>
               </el-form-item>
@@ -253,10 +250,10 @@
       </el-dialog>
       <!--修改表单弹框-->
       <el-dialog
-          id="edit"
-          width="50%"
-          title="修改地磁车位检测器"
-          :visible.sync="editListDialog"
+        id="edit"
+        width="50%"
+        title="修改地磁车位检测器"
+        :visible.sync="editListDialog"
       >
         <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
@@ -278,10 +275,10 @@
             <el-form-item label="归属停车场:" label-width="150px">
               <el-select v-model="editGeo.parkId" placeholder="请选择" disabled>
                 <el-option
-                    v-for="(item, index) in parkingLotNameList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
+                  v-for="(item, index) in parkingLotNameList"
+                  :label="item.name"
+                  :value="item.code"
+                  :key="index"
                 />
               </el-select>
             </el-form-item>
@@ -295,7 +292,7 @@
             <!--            </el-col>-->
             <el-col :span="12">
               <el-form-item label="地磁车位检测器名称:" label-width="160px">
-                <el-input v-model="editGeo.magneticDetecterName"/>
+                <el-input v-model="editGeo.magneticDetecterName" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -318,35 +315,35 @@
       <el-dialog :visible.sync="importDialog" title="导入数据" width="40%">
         <!-- style="text-align: center;" -->
         <el-upload
-            ref="upload"
-            :auto-upload="false"
-            :file-list="fileList"
-            :http-request="myUpload"
-            :limit="1"
-            :on-change="addFile"
-            :on-exceed="handleExceed"
-            :show-file-list="true"
-            accept=".xls, .xlsx"
-            action=""
-            class="upload-demo"
-            style="text-align: center;"
+          ref="upload"
+          :auto-upload="false"
+          :file-list="fileList"
+          :http-request="myUpload"
+          :limit="1"
+          :on-change="addFile"
+          :on-exceed="handleExceed"
+          :show-file-list="true"
+          accept=".xls, .xlsx"
+          action=""
+          class="upload-demo"
+          style="text-align: center;"
         >
           <el-button slot="trigger" size="small" type="primary"
-          >选择文件
+            >选择文件
           </el-button>
           <el-button size="small" style="margin-left: 15px" type="primary">
             <a
-                :href="templateDl"
-                class="download"
-                download=""
-                style="color: #ffffff;text-decoration:none"
-            >模板下载</a
+              :href="templateDl"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+              >模板下载</a
             >
           </el-button>
           <div
-              slot="tip"
-              class="el-upload__tip"
-              style="font-size:10px;color:#ff0000;margin-top:30px;"
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:#ff0000;margin-top:30px;"
           >
             请先下载模板！
           </div>
@@ -361,7 +358,7 @@
   </div>
 </template>
 <script>
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   data() {
@@ -445,22 +442,22 @@ export default {
       template: "dici"
     };
     this.templateDl =
-        BASE_API +
-        "CommonController/downloadResource?jsonStr=" +
-        encodeURIComponent(JSON.stringify(param));
+      BASE_API +
+      "CommonController/downloadResource?jsonStr=" +
+      encodeURIComponent(JSON.stringify(param));
     //初始化列表
     this.queryMagneticDetecter();
     //初始化停车场下拉菜单
     this.queryParkList();
   },
   computed: {
-    exportFile: function () {
+    exportFile: function() {
       return BASE_API + "MagneticDetecterController/download";
     }
   },
   methods: {
-    queryButton(){
-      this.pageNum =1;
+    queryButton() {
+      this.pageNum = 1;
       this.queryMagneticDetecter();
     },
     //处理导入
@@ -529,7 +526,7 @@ export default {
     },
 
     //斑马纹样式
-    tableRowClassName({rowIndex}) {
+    tableRowClassName({ rowIndex }) {
       if (rowIndex % 2 === 1) {
         return "successRow11";
       } else if (rowIndex % 2 === 0) {
@@ -566,17 +563,17 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$deviceManagement
-                  .delMagneticDetecter(this.idList)
-                  .then(res => {
-                    this.$message({type: "success", message: "删除成功!"});
-                    this.queryMagneticDetecter();
-                  });
-            })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
-            });
+          .then(() => {
+            this.$deviceManagement
+              .delMagneticDetecter(this.idList)
+              .then(res => {
+                this.$message({ type: "success", message: "删除成功!" });
+                this.queryMagneticDetecter();
+              });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     //修改弹框弹出
@@ -598,17 +595,17 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            this.idList = [];
-            this.idList.push(row.magneticDetecterId);
-            this.$deviceManagement.delMagneticDetecter(this.idList).then(res => {
-              this.$message({type: "success", message: "删除成功!"});
-              this.queryMagneticDetecter();
-            });
-          })
-          .catch(() => {
-            this.$message({type: "info", message: "已取消删除"});
+        .then(() => {
+          this.idList = [];
+          this.idList.push(row.magneticDetecterId);
+          this.$deviceManagement.delMagneticDetecter(this.idList).then(res => {
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryMagneticDetecter();
           });
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //新增表单提交
     onSubmitAdd() {

@@ -126,24 +126,28 @@
           >
             <p style="font-size: 20px">基本信息</p>
             <el-row style="padding-top: 20px">
-              <el-col :span="12">
-                <el-form-item
-                  label="角色名称:"
-                  label-width="150px"
-                  prop="roleName"
-                >
-                  <el-input v-model="addRoleList.roleName" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  label="角色描述:"
-                  label-width="150px"
-                  prop="roleDesc"
-                >
-                  <el-input v-model="addRoleList.roleDesc"></el-input>
-                </el-form-item>
-              </el-col>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item
+                    label="角色名称:"
+                    label-width="150px"
+                    prop="roleName"
+                  >
+                    <el-input v-model="addRoleList.roleName" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item
+                    label="角色描述:"
+                    label-width="150px"
+                    prop="roleDesc"
+                  >
+                    <el-input v-model="addRoleList.roleDesc"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-row>
           </el-form>
         </div>
