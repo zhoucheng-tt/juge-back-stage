@@ -615,7 +615,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 83%;
+  height: 85%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;

@@ -15,6 +15,7 @@
         <el-form-item>
           <el-date-picker
             v-model="upQueryList"
+            size="small"
             value-format="yyyy-MM-dd HH:mm:ss"
             type="datetimerange"
             range-separator="至"
@@ -23,9 +24,8 @@
           >
           </el-date-picker>
         </el-form-item>
-
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryLogList">
+          <el-button type="primary" size="small" @click="queryFormList">
             查询
           </el-button>
           <el-button size="small" @click="resetQuery">重置</el-button>
@@ -135,7 +135,7 @@ export default {
       ],
       //初始化分页
       pageNum: 1,
-      pageSize: 13,
+      pageSize: 14,
       pageTotal: 1,
       //日志管理表格数据存放
       logManagementData: [],
@@ -176,9 +176,14 @@ export default {
       ];
       // console.log(this.upQueryList);
     },
-    //查询重置按钮
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryLogList();
+    },
+    //重置按钮
     resetQuery() {
-      this.initQuery();
+      this.upQueryList = [];
     },
     //顶部查询按钮
     queryLogList() {

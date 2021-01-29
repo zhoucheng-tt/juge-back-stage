@@ -145,7 +145,7 @@
               alt=""
             />
             <span class="spanStyle">
-              当日总停车数量(辆)
+              当日总停车数量
             </span>
             <span
               style="float:right;font-family:   HelveticaNeue-Bold;font-size: 18px;color: #7654E3;letter-spacing: 0.41px;"
@@ -375,7 +375,7 @@
               class="leftChartUpImage"
               alt=""
             />
-            <span class="spanStyle">当日平均停车时长(分钟)</span>
+            <span class="spanStyle">当日平均停车时长</span>
             <span
               style="margin-top:4px;font-family: PingFangSC-Medium;
               font-size: 1rem;
@@ -3662,7 +3662,7 @@
               class="rightChartUpImage"
               alt=""
             />
-            <span class="spanStyle">自助洗车收入本月分析(元)</span>
+            <span class="spanStyle">自助洗车收入本月分析</span>
           </div>
           <div class="rightChartCenter" id="chargeAmountTimes">
             <Xchart
@@ -3800,7 +3800,7 @@
               class="leftChartUpImage"
               alt=""
             />
-            <span class="spanStyle">近七日洗车收费金额(元)</span>
+            <span class="spanStyle">近七日洗车收费金额</span>
           </div>
           <div class="rightChartCenter" id="washChargeInSevenDays">
             <Xchart
@@ -4568,7 +4568,7 @@ export default {
         this.parkingSpaceTurnoverRateXz = [];
         this.parkingSpaceTurnoverRateData = [];
         res.resultEntity.forEach(item => {
-          this.parkingSpaceTurnoverRateXz.push(item.X);
+          this.parkingSpaceTurnoverRateXz.push(item.X + ":00");
           this.parkingSpaceTurnoverRateData.push(
             Number((Number(item.dataY) * 100).toFixed(2))
           );
@@ -4819,7 +4819,7 @@ export default {
               }
             },
             labels: {
-              format: "{value}",
+              format: "{value}元",
               style: {
                 color: "rgba(90,142,227,1)"
               }

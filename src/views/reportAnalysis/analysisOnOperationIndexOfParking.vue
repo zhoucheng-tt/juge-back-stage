@@ -78,7 +78,7 @@
         <Xchart id="numberOfParking" :option="numberOfParkingOptions"></Xchart>
       </div>
       <!-- 平均停车时长 averageParkingTime -->
-      <div class="echartStyle" id="averageParkingTime">
+      <div class="echartStyle" id="averageParkingTime" style="margin-left: 1%;">
         <Xchart
           id="averageParkingTime"
           :option="averageParkingTimeOptions"
@@ -92,7 +92,11 @@
         ></Xchart>
       </div>
       <!-- 车位周转率  parkingSpaceTurnoverRate-->
-      <div class="echartStyle" id="parkingSpaceTurnoverRate">
+      <div
+        class="echartStyle"
+        id="parkingSpaceTurnoverRate"
+        style="margin-left: 1%;"
+      >
         <Xchart
           id="parkingSpaceTurnoverRate"
           :option="parkingSpaceTurnoverRateOptions"
@@ -721,18 +725,17 @@ export default {
 }
 /* 中间部分图表内容 */
 .center {
-  width: 100%;
   height: 50%;
+  width: 98%;
+  margin-left: 1%;
 }
-
 /* 中间每个图表部分样式 */
 .echartStyle {
-  width: 48.5%;
+  width: 49.5%;
   height: 45%;
   background-color: #ffffff;
   float: left;
   margin-top: 1%;
-  margin-left: 1%;
 }
 
 /* 底部表格部分 */
@@ -741,7 +744,6 @@ export default {
   height: 37%;
   background-color: white;
   margin-left: 1%;
-  margin-top: 0.5%;
 }
 
 /* 斑马纹样式 */

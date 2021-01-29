@@ -24,7 +24,7 @@
             type="primary"
             size="small"
             class="top-select"
-            @click="queryRoleList"
+            @click="queryFormList"
             >查询
           </el-button>
           <el-button size="small" @click="roleName = ''"
@@ -534,7 +534,7 @@ export default {
       roleManagementData: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 11,
+      pageSize: 12,
       pageTotal: 1,
       //查看角色弹窗
       viewListDialog: false,
@@ -557,11 +557,16 @@ export default {
     //调用查询列表
     this.queryRoleList();
     //新增权限功能
-    this.queryFuncListByRole("10");
+    // this.queryFuncListByRole("10");
     //新增选择用户功能
-    this.queryUserListByRole();
+    // this.queryUserListByRole();
   },
   methods: {
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryRoleList();
+    },
     //操作中的删除按钮(删除一行)
     del(row) {
       //点击删除按钮出现的提示框
@@ -575,7 +580,6 @@ export default {
           const param = {
             roleId: row.roleId
           };
-          console.log("打印删除行id", param);
           //调用接口中的删除方法
           this.$systemUser.deleteRole(param).then(() => {
             //提示删除成功
@@ -634,7 +638,6 @@ export default {
             // userId: this.xuanzhongList
           };
           this.$systemUser.addRole(param).then(response => {
-            console.log("打印新增响应数据", response);
             //添加成功弹出
             this.$message({ type: "success", message: "添加成功!" });
             //添加成功 弹出框隐藏
@@ -677,7 +680,6 @@ export default {
     //     funcId: "20"
     //   };
     //   this.$systemUser.queryFuncListByRole(param2).then(res => {
-    //     // console.log("打印新增功能权限获取到的参数2", res)
     //     let list = res.data.dataList;
     //     for (var i = 0; i < list.length; i++) {
     //       let item = list[i];
@@ -700,7 +702,6 @@ export default {
     //     funcId: "30"
     //   };
     //   this.$systemUser.queryFuncListByRole(param3).then(res => {
-    //     // console.log("打印新增功能权限获取到的参数3", res)
     //     let list = res.data.dataList;
     //     for (var i = 0; i < list.length; i++) {
     //       let item = list[i];
@@ -725,13 +726,11 @@ export default {
     //   this.$systemUser.queryUserListByRole(param).then(res => {
     //     //将选择的用户存到addChooseList中
     //     this.addChooseList = res.data.dataList;
-    //     console.log("打印出userId参数", this.addChooseList);
     //   });
     // },
     //新增中的权限功能选择用户多选框
     // handleCheckedUserChoose(val) {
     //   this.xuanzhongList = val;
-    //   console.log("打印传入选择用户的userId", this.xuanzhongList);
     // },
     //新增子集
     // handleCheckChange(val, item, innerItem) {
@@ -836,11 +835,8 @@ export default {
       // };
       // console.log("传入的参数", param1);
       // this.$systemUser.queryFuncListByRole(param1).then(response => {
-      //   console.log("打印传入的数据", response);
       //   var list = response.data.dataList;
-      //   console.log("list", list);
       //   this.chakanList = list;
-      //   console.log("查看部分处理完的数据", this.chakanList);
       //   for (let i = 0; i < this.chakanList.length; i++) {
       //     // this.fuxuanzhongList.push(this.chakanList[i].permission);
       //     for (let j = 0; j < this.chakanList[i].children.length; j++) {
@@ -852,44 +848,28 @@ export default {
       //       this.fuxuanzhongList.push(this.chakanList[i].id);
       //     }
       //   }
-      //   //打印父选中框中的数据
-      //   console.log("父选中框中的check", this.fuxuanzhongList);
-      //   //子选中框中的数据
-      //   console.log("子选中框中的check", this.zixunazhogList);
-      //
-      //   console.log("子idlist", this.idList1);
       // });
       // const param2 = {
       //   roleId: row.roleId,
       //   funcId: "20"
       // };
-      // console.log("传入的参数", param2);
       // this.$systemUser.queryFuncListByRole(param2).then(response => {
-      //   console.log("打印传入的数据", response);
       // });
       // const param3 = {
       //   roleId: row.roleId,
       //   funcId: "30"
       // };
-      // console.log("传入的参数", param3);
       // this.$systemUser.queryFuncListByRole(param3).then(response => {
-      //   console.log("打印传入的数据", response);
       // });
       // const param4 = {
       //   roleId: row.roleId
       // };
-      // console.log("传入的参数", param4);
       // this.$systemUser.queryUserListByRole(param4).then(response => {
-      //   console.log("打印传入的数据", response);
       //   var list = response.data.dataList;
-      //   // console.log('listUSER',list)
       //   this.addChooseUser = list;
-      //   // console.log('123',this.addChooseUser)
       //   for (let i = 0; i < this.addChooseUser.length; i++) {
       //     if (this.addChooseUser[i].permission === true) {
-      //       // console.log('qwe',this.addChooseUser[i].userId)
       //       this.xuanzhongList.push(this.addChooseUser[i].userId);
-      //       // console.log('123',this.xuanzhongList)
       //     }
       //   }
       // });
@@ -897,7 +877,6 @@ export default {
     //操作中的修改按钮
     alter(row) {
       this.modRoleLisDialog = true;
-      console.log("本行", row);
       this.alterRoleList = row;
       // this.zixunazhogList = [];
       // this.xuanzhongList = [];
@@ -905,13 +884,9 @@ export default {
       //   roleId: row.roleId,
       //   funcId: "10"
       // };
-      // console.log("传入的参数10", param1);
       // this.$systemUser.queryFuncListByRole(param1).then(response => {
-      //   console.log("打印传入的数据", response);
       //   var list = response.data.dataList;
-      //   console.log("list", list);
       //   this.chakanList = list;
-      //   console.log("查看部分处理完的数据", this.chakanList);
       //   for (let i = 0; i < this.chakanList.length; i++) {
       //     // this.fuxuanzhongList.push(this.chakanList[i].permission);
       //     for (let j = 0; j < this.chakanList[i].children.length; j++) {
@@ -925,42 +900,28 @@ export default {
       //       this.fuxuanzhongList.push(this.chakanList[i].id);
       //     }
       //   }
-      //   //打印父选中框中的数据
-      //   console.log("父选中框中的check", this.fuxuanzhongList);
-      //   //子选中框中的数据
-      //   console.log("子选中框中的check", this.zixunazhogList);
-      //
-      //   // console.log("子idlist", this.idList1)
+
       // });
       // const param2 = {
       //   roleId: row.roleId,
       //   funcId: "20"
       // };
-      // console.log("传入的参数20", param2);
       // this.$systemUser.queryFuncListByRole(param2).then(response => {
-      //   console.log("打印20传入的数据", response);
       // });
       // const param3 = {
       //   roleId: row.roleId,
       //   funcId: "30"
       // };
-      // console.log("传入的参数30", param3);
       // this.$systemUser.queryFuncListByRole(param3).then(response => {
-      //   console.log("打印30传入的数据", response);
       // });
       // const param4 = {
       //   roleId: row.roleId
       // };
-      // console.log("传入的参数4", param4);
       // this.$systemUser.queryUserListByRole(param4).then(response => {
-      //   console.log("打印选择用户传入的数据", response);
       //   var list = response.data.dataList;
-      //   // console.log('listUSER',list)
       //   this.addChooseUser = list;
-      //   // console.log('123',this.addChooseUser)
       //   for (let i = 0; i < this.addChooseUser.length; i++) {
       //     if (this.addChooseUser[i].permission === true) {
-      //       // console.log('qwe',this.addChooseUser[i].userId)
       //       this.xuanzhongList.push(this.addChooseUser[i].userId);
       //     }
       //   }
@@ -979,7 +940,6 @@ export default {
         // userId: this.userId
       };
       this.$systemUser.updateRole(param).then(response => {
-        // console.log("打印新增响应数据", response);
         // 添加成功弹出
         this.$message({ type: "success", message: "修改成功!" });
         //添加成功 弹出框隐藏
@@ -1018,7 +978,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 84%;
+  height: 85%;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
