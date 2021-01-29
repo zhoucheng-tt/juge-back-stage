@@ -220,11 +220,13 @@ export function addPassagewayCamera(param) {
 }
 
 //出入口摄像头列表查询
-export function queryPassagewayCamera(param) {
+export function queryPassagewayCamera(params) {
   return request({
-    url: "DeviceFunc/queryPassagewayCamera",
+    url:
+        "http://localhost:8000/PassagewayCameraController/queryPassagewayCamera",
     method: "post",
-    data: param
+    data: params,
+    flag: "out"
   });
 }
 

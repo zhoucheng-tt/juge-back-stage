@@ -47,55 +47,6 @@ export function test(params) {
   });
 }
 
-//总停车数量接口
-//首页今日总收入接口方法
-export function queryTotalIncome(params) {
-  return request({
-    url: "indexPageFunc/queryTotalIncome",
-    method: "post",
-    data: params
-  });
-}
-//总停车数量
-export function queryParkOptByParkCount(params) {
-  return request({
-    url: "indexPageFunc/queryParkOptByParkCount",
-    method: "post",
-    data: params
-  });
-}
-//平均停车时长接口  indexPageFunc/queryParkOptByAvgParkDuration
-export function queryParkOptByAvgParkDuration(params) {
-  return request({
-    url: "indexPageFunc/queryParkOptByAvgParkDuration",
-    method: "post",
-    data: params
-  });
-}
-//车位利用率接口 indexPageFunc/queryParkOptByParkSpaceUsedRate
-export function queryParkOptByParkSpaceUsedRate(params) {
-  return request({
-    url: "indexPageFunc/queryParkOptByParkSpaceUsedRate",
-    method: "post",
-    data: params
-  });
-}
-//车位周转率 indexPageFunc/queryParkOptByParkSpaceTurnoverRate
-export function queryParkOptByParkSpaceTurnoverRate(params) {
-  return request({
-    url: "indexPageFunc/queryParkOptByParkSpaceTurnoverRate",
-    method: "post",
-    data: params
-  });
-}
-//停车场收入排行 indexPageFunc/queryParkIncomeRanking
-export function queryParkIncomeRanking(params) {
-  return request({
-    url: "indexPageFunc/queryParkIncomeRanking",
-    method: "post",
-    data: params
-  });
-}
 //缴费行为分析 indexPageFunc/queryPaymentBehaviorAnalysis
 export function queryPaymentBehaviorAnalysis(params) {
   return request({
@@ -104,16 +55,7 @@ export function queryPaymentBehaviorAnalysis(params) {
     data: params
   });
 }
-//模版下载
-export function downloadResource(params) {
-  return request({
-    url: "CommonController/downloadResource",
-    method: "post",
-    data: params,
-    flag: "innerExt",
-    responseType: "blob"
-  });
-}
+
 //首页洗车机收入  http://123.207.189.27:7138/homePageFunc/countWashFee
 export function countWashFee(params) {
   return request({
@@ -152,14 +94,7 @@ export function queryParkCount(params) {
     flag: "out"
   });
 }
-//首页剩余车位接口 realtimeMonitorFunc/queryParkMonitorParkSpace
-// export function queryParkMonitorParkSpace(params) {
-//   return request({
-//     url: "realtimeMonitorFunc/queryParkMonitorParkSpace",
-//     method: "post",
-//     data: params
-//   });
-// }
+
 
 //总收入停车收入洗车收入 queryFees
 export function queryFees(params) {
