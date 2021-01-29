@@ -95,7 +95,6 @@ export function queryParkCount(params) {
   });
 }
 
-
 //总收入停车收入洗车收入 queryFees
 export function queryFees(params) {
   return request({

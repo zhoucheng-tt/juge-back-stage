@@ -114,19 +114,16 @@
           label="停车数(个)"
         />
         <el-table-column
-          width="160"
           prop="avgParkDuration"
           :show-overflow-tooltip="true"
           label="平均停车时长(分钟)"
         />
         <el-table-column
-          width="120"
           prop="usageRate"
           :show-overflow-tooltip="true"
           label="车位利用率"
         />
         <el-table-column
-          width="120"
           prop="turnoverRate"
           :show-overflow-tooltip="true"
           label="车辆周转率"

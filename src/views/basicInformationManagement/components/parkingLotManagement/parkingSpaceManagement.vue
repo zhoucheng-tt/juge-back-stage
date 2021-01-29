@@ -1,6 +1,6 @@
 <!--
     停车场管理车位管理
- * @Author: 王思远
+ * @Author: 周成
  * @Date: 2020-10-20 09:41:41
  * @LastEditTime: 2020-10-20 10:24:11
  * @LastEditors: Please set LastEditors
@@ -31,12 +31,10 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryParkLayerList"
+          <el-button type="primary" size="small" @click="queryFormList"
             >查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery">重置 </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -709,6 +707,11 @@ export default {
   },
 
   methods: {
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryParkLayerList();
+    },
     handleSelection(row) {
       this.selectedLayerId = row.parkLayerId;
       this.selectedParkId = row.parkId;

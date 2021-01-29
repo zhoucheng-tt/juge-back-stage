@@ -223,7 +223,7 @@ export function addPassagewayCamera(param) {
 export function queryPassagewayCamera(params) {
   return request({
     url:
-        "http://localhost:8000/PassagewayCameraController/queryPassagewayCamera",
+      "http://localhost:8000/PassagewayCameraController/queryPassagewayCamera",
     method: "post",
     data: params,
     flag: "out"

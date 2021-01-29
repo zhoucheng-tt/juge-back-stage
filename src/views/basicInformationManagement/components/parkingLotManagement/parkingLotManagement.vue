@@ -600,7 +600,7 @@ export default {
       chargingRules: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 11,
       pageTotal: 4,
       //前端暂时数据
       parkList: [],

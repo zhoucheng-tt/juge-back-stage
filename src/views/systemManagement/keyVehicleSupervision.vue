@@ -499,7 +499,7 @@ export default {
     },
     //查看用户弹窗
     check(row) {
-      this.showForm = row
+      this.showForm = row;
       const param = {
         userId: row.userId
       };

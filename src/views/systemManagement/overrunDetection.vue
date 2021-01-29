@@ -352,8 +352,12 @@
         </span>
       </el-dialog>
       <!--修改弹框-->
-      <el-dialog title="修改角色" :visible.sync="modRoleLisDialog" width="50%"
-      @close="queryRoleList">
+      <el-dialog
+        title="修改角色"
+        :visible.sync="modRoleLisDialog"
+        width="50%"
+        @close="queryRoleList"
+      >
         <!--基本信息-->
         <div>
           <el-form :inline="true" label-position="right" label-width="100px">
