@@ -110,8 +110,7 @@ export function updateMagneticDetecter(params) {
 //地锁列表查询
 export function queryGroundLock(params) {
   return request({
-    url:
-        "http://localhost:8000/GroundLockController/queryGroundLock",
+    url: "http://localhost:8000/GroundLockController/queryGroundLock",
     method: "post",
     data: params,
     flag: "out"
@@ -121,8 +120,7 @@ export function queryGroundLock(params) {
 //新增地锁
 export function addGroundLock(params) {
   return request({
-    url:
-        "http://localhost:8000/GroundLockController/addGroundLock",
+    url: "http://localhost:8000/GroundLockController/addGroundLock",
     method: "post",
     data: params,
     flag: "out"
@@ -132,8 +130,7 @@ export function addGroundLock(params) {
 //删除地锁
 export function delGroundLock(params) {
   return request({
-    url:
-        "http://localhost:8000/GroundLockController/delGroundLock",
+    url: "http://localhost:8000/GroundLockController/delGroundLock",
     method: "post",
     data: params,
     flag: "out"
@@ -143,8 +140,7 @@ export function delGroundLock(params) {
 //修改地锁
 export function updateGroundLock(params) {
   return request({
-    url:
-        "http://localhost:8000/GroundLockController/updateGroundLock",
+    url: "http://localhost:8000/GroundLockController/updateGroundLock",
     method: "post",
     data: params,
     flag: "out"

@@ -560,12 +560,16 @@
         <el-form-item label="计费规则名称:" label-width="150px">
           <el-input
             v-model="checkChargeList.billingRuleDefName"
-            disabled
+            readonly
             style="width:200px"
           />
         </el-form-item>
         <el-form-item label="计费规则描述:" label-width="150px">
-          <el-input v-model="checkChargeList.remark" style="width:200px" />
+          <el-input
+            v-model="checkChargeList.remark"
+            readonly
+            style="width:200px"
+          />
         </el-form-item>
       </el-form>
       <el-row v-if="checkChargeList.billingRuleTypeCode === 0">
@@ -584,7 +588,7 @@
                   v-model="
                     checkChargeList.billingRuleDetailList[0].dayBeginTime
                   "
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -598,7 +602,7 @@
                 <span>~</span>
                 <el-time-select
                   v-model="checkChargeList.billingRuleDetailList[0].dayEndTime"
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -617,7 +621,7 @@
                   v-model="
                     checkChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -633,7 +637,7 @@
                   v-model="
                     checkChargeList.billingRuleDetailList[0].nightEndTime
                   "
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -665,7 +669,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -676,7 +680,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -686,7 +690,7 @@
           <div style="width: 12%;height:50px">
             <el-input
               v-model="checkChargeList.billingRuleDetailList[0].freeDuration"
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -697,7 +701,7 @@
               v-model="
                 checkChargeList.billingRuleDetailList[0].rebillingDuration
               "
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -714,7 +718,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -725,7 +729,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -735,7 +739,7 @@
           <div style="width: 12%;height:50px">
             <el-input
               v-model="checkChargeList.billingRuleDetailList[1].freeDuration"
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -746,7 +750,7 @@
               v-model="
                 checkChargeList.billingRuleDetailList[1].rebillingDuration
               "
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -802,7 +806,7 @@
                 <span>~</span>
                 <el-time-select
                   v-model="checkChargeList.billingRuleDetailList[0].dayEndTime"
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -821,7 +825,7 @@
                   v-model="
                     checkChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -837,7 +841,7 @@
                   v-model="
                     checkChargeList.billingRuleDetailList[0].nightEndTime
                   "
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{
@@ -875,7 +879,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -888,7 +892,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[0].nightBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -900,7 +904,7 @@
           <div style="width: 12%;height:50px">
             <el-input
               v-model="checkChargeList.billingRuleDetailList[0].freeDuration"
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -911,7 +915,7 @@
               v-model="
                 checkChargeList.billingRuleDetailList[0].ceilingMoneyAmount
               "
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -929,7 +933,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -942,7 +946,7 @@
                 v-model="
                   checkChargeList.billingRuleDetailList[1].nightBillingPrice
                 "
-                disabled
+                readonly
                 size="small"
                 style="width: 115px"
               ></el-input>
@@ -954,7 +958,7 @@
           <div style="width: 12%;height:50px">
             <el-input
               v-model="checkChargeList.billingRuleDetailList[1].freeDuration"
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
@@ -965,7 +969,7 @@
               v-model="
                 checkChargeList.billingRuleDetailList[1].ceilingMoneyAmount
               "
-              disabled
+              readonly
               size="small"
               style="width: 80px"
             ></el-input>
