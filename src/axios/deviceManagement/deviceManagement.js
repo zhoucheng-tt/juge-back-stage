@@ -68,10 +68,90 @@ export function delGroundLock(params) {
     flag: "out"
   });
 }
+
 //修改地锁
 export function updateGroundLock(params) {
   return request({
     url: "http://123.207.189.27:7138/GroundLockController/updateGroundLock",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//道闸机按钮查询 query
+export function queryPassagewayGate(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayGateController/queryPassagewayGate",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+// 道闸机新增 addPassagewayGate
+export function addPassagewayGate(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayGateController/addPassagewayGate",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//道闸机删除 delPassagewayGate
+export function delPassagewayGate(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayGateController/delPassagewayGate",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//道闸机修改 updatePassagewayGate
+export function updatePassagewayGate(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayGateController/updatePassagewayGate",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//新增出入口摄像头
+export function addPassagewayCamera(param) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayCameraController/addPassagewayCamera",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//出入口摄像头列表查询
+export function queryPassagewayCamera(params) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayCameraController/queryPassagewayCamera",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+
+//出入口摄像头修改
+export function updatePassagewayCamera(params) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayCameraController/updatePassagewayCamera",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+
+//出入口摄像头删除
+export function delPassagewayCamera(params) {
+  return request({
+    url: "http://123.207.189.27:7138/PassagewayCameraController/delPassagewayCamera",
     method: "post",
     data: params,
     flag: "out"
@@ -96,32 +176,23 @@ export function updateETC(param) {
     flag: "out"
   });
 }
+
 //新增ETC addETC
 export function addETC(param) {
   return request({
-    url: "http://123.207.189.27:7138ETCFunc/addETC",
-    method: "post",
-    data: param,
-    flag: "out"
-  });
-}
-//删除ETC
-export function delETC(param) {
-  return request({
-    url: "http://123.207.189.27:7138/ETCFunc/delETC",
+    url: "http://123.207.189.27:7138/ETCFunc/addETC",
     method: "post",
     data: param,
     flag: "out"
   });
 }
 
-//出入口摄像头列表查询
-export function queryPassagewayCamera(params) {
+//删除ETC
+export function delETC(param) {
   return request({
-    url:
-      "http://localhost:8000/PassagewayCameraController/queryPassagewayCamera",
+    url: "http://123.207.189.27:7138/ETCFunc/delETC",
     method: "post",
-    data: params,
+    data: param,
     flag: "out"
   });
 }
@@ -198,4 +269,3 @@ export function exportETC(param) {
     flag: "out"
   });
 }
-

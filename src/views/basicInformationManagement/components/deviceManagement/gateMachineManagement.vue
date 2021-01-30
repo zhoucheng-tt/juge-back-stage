@@ -21,8 +21,9 @@
             placeholder="请选择停车场"
             @change="queryExit(parkId)"
           >
+            <el-option label="全部" value=""></el-option>
             <el-option
-              v-for="(item, index) in parkingLotNameList"
+              v-for="(item, index) in parkLotNameList"
               :label="item.name"
               :value="item.code"
               :key="index"
@@ -54,7 +55,13 @@
           >新增道闸机
         </el-button>
         <el-button type="primary" size="small" @click="exportExcel()"
-          >导 出
+          ><a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+        >导出</a
+        >
         </el-button>
         <el-button type="primary" size="small" @click="bulkImport()"
           >批量导入
@@ -183,7 +190,7 @@
                   @change="queryExit(newGate.parkId)"
                 >
                   <el-option
-                    v-for="(item, index) in parkingLotNameList"
+                    v-for="(item, index) in parkLotNameList"
                     :label="item.name"
                     :value="item.code"
                     :key="index"
@@ -291,7 +298,7 @@
                   @change="queryExit(editGate.parkId)"
                 >
                   <el-option
-                    v-for="(item, index) in parkingLotNameList"
+                    v-for="(item, index) in parkLotNameList"
                     :label="item.name"
                     :value="item.code"
                     :key="index"
@@ -307,7 +314,7 @@
                   placeholder="请选择"
                 >
                   <el-option
-                    v-for="(item, index) in parkingLotNameList"
+                    v-for="(item, index) in parkLotNameList"
                     :label="item.name"
                     :value="item.code"
                     :key="index"
@@ -353,20 +360,40 @@
         </div>
       </el-dialog>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
-        <el-form>
-          <el-container>
-            <el-header style="text-align: center">
-              <el-button type="primary" size="medium" @click="imgbtn()"
-                >导 入<i class="el-icon-upload el-icon--right"></i>
-              </el-button>
-            </el-header>
-            <el-main style="text-align: center">
-              <el-button type="primary" size="medium" @click="downModel()"
-                >下载模版<i class="el-icon-download el-icon--right"></i
-              ></el-button>
-            </el-main>
-          </el-container>
-        </el-form>
+        <el-upload
+            ref="upload"
+            :auto-upload="false"
+            :file-list="fileList"
+            :http-request="myUpload"
+            :limit="1"
+            :on-change="addFile"
+            :on-exceed="handleExceed"
+            :show-file-list="true"
+            accept=".xls, .xlsx"
+            action=""
+            class="upload-demo"
+            style="text-align: center;"
+        >
+          <el-button slot="trigger" size="small" type="primary"
+          >选择文件
+          </el-button>
+          <el-button size="small" style="margin-left: 15px" type="primary">
+            <a
+                :href="templateDl"
+                class="download"
+                download=""
+                style="color: #ffffff;text-decoration:none"
+            >模板下载</a
+            >
+          </el-button>
+          <div
+              slot="tip"
+              class="el-upload__tip"
+              style="font-size:10px;color:#ff0000;margin-top:30px;"
+          >
+            请先下载模板！
+          </div>
+        </el-upload>
         <div slot="footer" class="dialog-footer">
           <el-button @click="importDialog = false">取 消</el-button>
           <el-button type="primary" @click="commitImport()">确 定</el-button>
@@ -376,6 +403,8 @@
   </div>
 </template>
 <script>
+import {BASE_API} from "@/utils/config";
+
 export default {
   data() {
     return {
@@ -432,16 +461,17 @@ export default {
         ]
       },
       //查询数据
-      upQueryList: [],
-      //查询数据暂留处
-      parkId: "",
+      upQueryList: {
+        //查询数据暂留处
+        parkId: "",
+      },
       //header param
       cityCode: "",
       districtCode: "",
       //表格数据
       gateList: [],
       //停车场名称列表
-      parkingLotNameList: [],
+      parkLotNameList: [],
       //出入口名称列表
       passagesList: [],
       //初始化分页
@@ -482,17 +512,90 @@ export default {
       //旧的出口id
       oldpassagewayGateId: [],
       // 导入弹框
-      importDialog: false
+      importDialog: false,
+      templateDl: ""
     };
   },
   //加载一级页面时候调用
   mounted() {
+    const param = {
+      template: "daozhaji"
+    };
+    this.templateDl =
+        BASE_API +
+        "CommonController/downloadResource?jsonStr=" +
+        encodeURIComponent(JSON.stringify(param));
     //调用查询表格
     this.queryPassagewayGate();
     //查询停车场名称下拉
     this.queryParking();
   },
+  computed: {
+    exportFile: function () {
+      return BASE_API + "PassagewayGateController/download";
+    }
+  },
   methods: {
+    //处理导入
+    addFile(file, fileList) {
+      console.log(file, fileList);
+
+      if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
+        this.fileList = [];
+        this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
+      }
+    },
+    handleExceed() {
+      this.$message.warning(`对不起,一次仅限上传一个文件！`);
+    },
+    myUpload(content) {
+      let _self = this;
+      // 1.导入
+      var FileController = "";
+      FileController = BASE_API + "PassagewayGateController/upload";
+      console.log(FileController);
+      //创建空对象，通过append方法添加数据
+      var form = new FormData();
+      form.append("file", content.file);
+      var xhr = new XMLHttpRequest();
+      //状态改变回调方法
+      xhr.onreadystatechange = onloadFun;
+      //使用open()方法启动一个请求以备发送,请求类型，请求的URL,第三个参数是否为异步请求
+      xhr.open("POST", FileController, true);
+      xhr.send(form);
+
+      function onloadFun() {
+        // 0 － （未初始化）还没有调用send()方法
+        // 1 － （载入）已调用send()方法，正在发送请求
+        // 2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+        // 3 － （交互）正在解析响应内容
+        // 4 － （完成）响应内容解析完成，可以在客户端调用了
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
+          var resText = JSON.parse(xhr.responseText);
+          console.log(resText);
+          if (resText.resultCode === "2000") {
+            _self.fileList = [];
+            _self.$message({
+              message: "导入成功",
+              type: "success"
+            });
+            _self.importDialog = false;
+            _self.queryPassagewayGate();
+          } else {
+            _self.$message.error({
+              message: "对不起！文件上传失败",
+              type: "error"
+            });
+          }
+          // loading.close();
+        }
+      }
+    },
+    confimImportBatch() {
+      this.$refs.upload.submit();
+      this.importDialog = false;
+    },
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
@@ -544,10 +647,8 @@ export default {
       var that = this;
       const param = {
         //传入查询要用的参数
-        cityCode: this.cityCode,
-        districtCode: this.districtCode,
         parkId: this.upQueryList.parkId,
-        pageNum: this.pageNum,
+        pageNumber: this.pageNum,
         pageSize: this.pageSize
       };
       //引用deviceManagement中的查询接口方法
@@ -555,9 +656,9 @@ export default {
         console.log("查询表格数据", response);
         console.log("that.gateList", that.gateList);
         //分页
-        that.pageTotal = response.data.totalRecord;
+        that.pageTotal = response.resultEntity.total;
         //查询
-        that.gateList = response.data.dataList;
+        that.gateList = response.resultEntity.list;
       });
     },
     //分页（跳转页面）//val选中的所有行
@@ -569,7 +670,7 @@ export default {
     //归属停车场名称下拉查询
     queryParking() {
       var that = this;
-      this.parkingLotNameList = [];
+      this.parkLotNameList = [];
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
@@ -654,7 +755,6 @@ export default {
           //设定传入行数据
           const param = {
             passagewayGateId: row.passagewayGateId,
-            parkId: row.parkId
           };
           //将参数传到delList中
           this.delList.push(param);
@@ -676,11 +776,7 @@ export default {
       this.idList = [];
       //获取批量删除id
       val.forEach(item => {
-        const param = {
-          passagewayGateId: item.passagewayGateId,
-          parkId: item.parkId
-        };
-        this.idList.push(param);
+        this.idList.push(item.passagewayGateId);
       });
       console.log(this.selectGateList);
     },
