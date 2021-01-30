@@ -248,7 +248,6 @@ export function delCarWashingMachine(param) {
   });
 }
 
-
 //文件上传
 export function uploadFile(param) {
   return request({
