@@ -12,17 +12,17 @@
     <div class="up">
       <!--顶部查询-->
       <el-form
-          :inline="true"
-          :model="formInline"
-          size="small"
-          class="demo-form-inline"
+        :inline="true"
+        :model="formInline"
+        size="small"
+        class="demo-form-inline"
       >
         <el-form-item label="计费规则名称：">
           <el-input
-              size="small"
-              style="width: 160px"
-              v-model="formInline.billingRuleDefName"
-              placeholder="计费规则名称"
+            size="small"
+            style="width: 160px"
+            v-model="formInline.billingRuleDefName"
+            placeholder="计费规则名称"
           ></el-input>
         </el-form-item>
         <!--        <el-form-item label="停车场：">-->
@@ -42,16 +42,16 @@
         <!--        </el-form-item>-->
         <el-form-item>
           <el-button type="primary" @click="queryBillingRuleList"
-          >查询
+            >查询
           </el-button>
           <el-button @click="resetQuery" type="primary" size="small"
-          >重置
+            >重置
           </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addRule"
-        >新增规则
+          >新增规则
         </el-button>
         <!--        <el-button type="primary" size="small" @click="handleExport"-->
         <!--          >导出</el-button-->
@@ -64,9 +64,9 @@
     <!-- 初始化页面表格表格 -->
     <div class="down">
       <el-table
-          :data="accountRules"
-          stripe
-          :header-cell-style="{
+        :data="accountRules"
+        stripe
+        :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -76,40 +76,40 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-          :cell-style="{
+        :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-          style="width: 98%;margin-left: 1%"
+        style="width: 98%;margin-left: 1%"
       >
         <el-table-column
-            prop="billingRuleDefName"
-            :show-overflow-tooltip="true"
-            label="计费规则名称"
+          prop="billingRuleDefName"
+          :show-overflow-tooltip="true"
+          label="计费规则名称"
         />
         <el-table-column
-            prop="billingRuleTypeName"
-            :show-overflow-tooltip="true"
-            label="计费规则类型"
+          prop="billingRuleTypeName"
+          :show-overflow-tooltip="true"
+          label="计费规则类型"
         />
         <el-table-column
-            prop="remark"
-            :show-overflow-tooltip="true"
-            label="描述"
+          prop="remark"
+          :show-overflow-tooltip="true"
+          label="描述"
         />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button @click="handleCheck(scope.row)" type="text" size="small"
-            >查看
+              >查看
             </el-button>
             <el-button @click="handleAlter(scope.row)" type="text" size="small"
-            >修改
+              >修改
             </el-button>
             <el-button @click="handleDelete(scope.row)" type="text" size="small"
-            >删除
+              >删除
             </el-button>
           </template>
         </el-table-column>
@@ -117,63 +117,63 @@
       <div style="float: right">
         <!--分页条-->
         <el-pagination
-            @current-change="handleCurrentModify"
-            layout="total, prev, pager, next, jumper"
-            :current-page="pageNum"
-            :page-size="pageSize"
-            :total="pageTotal"
+          @current-change="handleCurrentModify"
+          layout="total, prev, pager, next, jumper"
+          :current-page="pageNum"
+          :page-size="pageSize"
+          :total="pageTotal"
         >
         </el-pagination>
       </div>
     </div>
     <!-- 新增计费弹框 -->
     <el-dialog
-        title="新增计费信息"
-        :visible.sync="addChargeListDialog"
-        width="60%"
-        destroy-on-close
+      title="新增计费信息"
+      :visible.sync="addChargeListDialog"
+      width="60%"
+      destroy-on-close
     >
       <el-form
-          :model="addChargeList"
-          label-width="150px"
-          :rules="addChargeListRules"
-          ref="addChargeList"
+        :model="addChargeList"
+        label-width="150px"
+        :rules="addChargeListRules"
+        ref="addChargeList"
       >
         <span>计费规则信息</span>
         <el-form-item
-            label="计费规则类型:"
-            label-width="150px"
-            prop="billingRuleTypeCode"
+          label="计费规则类型:"
+          label-width="150px"
+          prop="billingRuleTypeCode"
         >
           <el-select
-              style="width: 200px"
-              v-model="addChargeList.billingRuleTypeCode"
-              placeholder="请选择计费规则"
+            style="width: 200px"
+            v-model="addChargeList.billingRuleTypeCode"
+            placeholder="请选择计费规则"
           >
             <el-option
-                v-for="(item, index) in chargeTypeList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in chargeTypeList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item
-            label="计费规则名称:"
-            label-width="150px"
-            prop="billingRuleDefName"
+          label="计费规则名称:"
+          label-width="150px"
+          prop="billingRuleDefName"
         >
           <el-input
-              v-model="addChargeList.billingRuleDefName"
-              placeholder="请输入"
-              style="width: 200px;"
+            v-model="addChargeList.billingRuleDefName"
+            placeholder="请输入"
+            style="width: 200px;"
           ></el-input>
         </el-form-item>
         <el-form-item label="计费规则描述:" label-width="150px">
           <el-input
-              v-model="addChargeList.remark"
-              placeholder="请输入"
-              style="width: 200px;"
+            v-model="addChargeList.remark"
+            placeholder="请输入"
+            style="width: 200px;"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -189,61 +189,61 @@
             <div style="display: flex">
               <div>
                 <span>白天时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="addChargeList.billingRuleDetailList[0].dayBeginTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="addChargeList.billingRuleDetailList[0].dayBeginTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="addChargeList.billingRuleDetailList[0].dayEndTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="addChargeList.billingRuleDetailList[0].dayEndTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
               <div style="margin-left: 7%">
                 <span>夜间时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     addChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="addChargeList.billingRuleDetailList[0].nightEndTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="addChargeList.billingRuleDetailList[0].nightEndTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
@@ -264,36 +264,36 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="addChargeList.billingRuleDetailList[0].dayBillingPrice"
-                  size="small"
-                  style="width: 115px"
+                v-model="addChargeList.billingRuleDetailList[0].dayBillingPrice"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   addChargeList.billingRuleDetailList[0].nightBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="addChargeList.billingRuleDetailList[0].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="addChargeList.billingRuleDetailList[0].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="addChargeList.billingRuleDetailList[0].rebillingDuration"
-                size="small"
-                style="width: 80px"
+              v-model="addChargeList.billingRuleDetailList[0].rebillingDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
@@ -306,36 +306,36 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="addChargeList.billingRuleDetailList[1].dayBillingPrice"
-                  size="small"
-                  style="width: 115px"
+                v-model="addChargeList.billingRuleDetailList[1].dayBillingPrice"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   addChargeList.billingRuleDetailList[1].nightBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="addChargeList.billingRuleDetailList[1].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="addChargeList.billingRuleDetailList[1].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="addChargeList.billingRuleDetailList[1].rebillingDuration"
-                size="small"
-                style="width: 80px"
+              v-model="addChargeList.billingRuleDetailList[1].rebillingDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
@@ -347,16 +347,16 @@
         <el-form>
           <el-form-item label="最短计费时长:" label-width="150px">
             <el-select
-                style="width: 200px;"
-                v-model="
+              style="width: 200px;"
+              v-model="
                 addChargeList.billingRuleDetailList[0].minBillingDurationCode
               "
             >
               <el-option
-                  v-for="(item, index) in minTimeList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
+                v-for="(item, index) in minTimeList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -370,61 +370,61 @@
             <div style="display: flex">
               <div>
                 <span>白天时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="addChargeList.billingRuleDetailList[0].dayBeginTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="addChargeList.billingRuleDetailList[0].dayBeginTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="addChargeList.billingRuleDetailList[0].dayEndTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="addChargeList.billingRuleDetailList[0].dayEndTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
               <div style="margin-left: 7%">
                 <span>夜间时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     addChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="addChargeList.billingRuleDetailList[0].nightEndTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="addChargeList.billingRuleDetailList[0].nightEndTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
@@ -435,9 +435,9 @@
           </div>
           <div style="width: 12%">
             <el-checkbox
-                v-model="addChargeList.billingRuleDetailList[0].ceilingFlag === 1"
-                @change="handleAddClick"
-            >24小时是否封顶
+              v-model="addChargeList.billingRuleDetailList[0].ceilingFlag === 1"
+              @change="handleAddClick"
+              >24小时是否封顶
             </el-checkbox>
           </div>
         </el-row>
@@ -449,38 +449,38 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="addChargeList.billingRuleDetailList[0].dayBillingPrice"
-                  size="small"
-                  style="width: 115px"
+                v-model="addChargeList.billingRuleDetailList[0].dayBillingPrice"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ addMinBillingDurationName }}
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   addChargeList.billingRuleDetailList[0].nightBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ addMinBillingDurationName }}
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="addChargeList.billingRuleDetailList[0].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="addChargeList.billingRuleDetailList[0].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 addChargeList.billingRuleDetailList[0].ceilingMoneyAmount
               "
-                size="small"
-                style="width: 80px"
+              size="small"
+              style="width: 80px"
             ></el-input>
             元
           </div>
@@ -493,38 +493,38 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="addChargeList.billingRuleDetailList[1].dayBillingPrice"
-                  size="small"
-                  style="width: 115px"
+                v-model="addChargeList.billingRuleDetailList[1].dayBillingPrice"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ addMinBillingDurationName }}
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   addChargeList.billingRuleDetailList[1].nightBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ addMinBillingDurationName }}
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="addChargeList.billingRuleDetailList[1].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="addChargeList.billingRuleDetailList[1].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 addChargeList.billingRuleDetailList[1].ceilingMoneyAmount
               "
-                size="small"
-                style="width: 80px"
+              size="small"
+              style="width: 80px"
             ></el-input>
             元
           </div>
@@ -537,38 +537,38 @@
     </el-dialog>
     <!--查看计费弹窗-->
     <el-dialog
-        title="查看计费信息"
-        :visible.sync="checkChargeListDialog"
-        width="60%"
+      title="查看计费信息"
+      :visible.sync="checkChargeListDialog"
+      width="60%"
     >
       <el-form :model="checkChargeList" label-width="150px">
         <span>计费规则信息</span>
         <el-form-item label="计费规则类型:" label-width="150px">
           <el-select
-              style="width:200px"
-              v-model="checkChargeList.billingRuleTypeCode"
-              disabled
+            style="width:200px"
+            v-model="checkChargeList.billingRuleTypeCode"
+            disabled
           >
             <el-option
-                v-for="(item, index) in chargeTypeList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in chargeTypeList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="计费规则名称:" label-width="150px">
           <el-input
-              v-model="checkChargeList.billingRuleDefName"
-              readonly
-              style="width:200px"
+            v-model="checkChargeList.billingRuleDefName"
+            readonly
+            style="width:200px"
           />
         </el-form-item>
         <el-form-item label="计费规则描述:" label-width="150px">
           <el-input
-              v-model="checkChargeList.remark"
-              readonly
-              style="width:200px"
+            v-model="checkChargeList.remark"
+            readonly
+            style="width:200px"
           />
         </el-form-item>
       </el-form>
@@ -583,69 +583,69 @@
             <div style="display: flex">
               <div>
                 <span>白天时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     checkChargeList.billingRuleDetailList[0].dayBeginTime
                   "
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="checkChargeList.billingRuleDetailList[0].dayEndTime"
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="checkChargeList.billingRuleDetailList[0].dayEndTime"
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
               <div style="margin-left: 7%">
                 <span>夜间时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     checkChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="
+                  v-model="
                     checkChargeList.billingRuleDetailList[0].nightEndTime
                   "
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
@@ -666,44 +666,44 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="checkChargeList.billingRuleDetailList[0].freeDuration"
-                readonly
-                size="small"
-                style="width: 80px"
+              v-model="checkChargeList.billingRuleDetailList[0].freeDuration"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 checkChargeList.billingRuleDetailList[0].rebillingDuration
               "
-                readonly
-                size="small"
-                style="width: 80px"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
@@ -715,44 +715,44 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="checkChargeList.billingRuleDetailList[1].freeDuration"
-                readonly
-                size="small"
-                style="width: 80px"
+              v-model="checkChargeList.billingRuleDetailList[1].freeDuration"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 checkChargeList.billingRuleDetailList[1].rebillingDuration
               "
-                readonly
-                size="small"
-                style="width: 80px"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
@@ -764,16 +764,16 @@
         <el-form>
           <el-form-item label="最短计费时长:" label-width="150px">
             <el-select
-                v-model="
+              v-model="
                 checkChargeList.billingRuleDetailList[0].minBillingDurationCode
               "
-                disabled
+              disabled
             >
               <el-option
-                  v-for="(item, index) in minTimeList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
+                v-for="(item, index) in minTimeList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -787,69 +787,69 @@
             <div style="display: flex">
               <div>
                 <span>白天时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     checkChargeList.billingRuleDetailList[0].dayBeginTime
                   "
-                    disabled
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  disabled
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="checkChargeList.billingRuleDetailList[0].dayEndTime"
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="checkChargeList.billingRuleDetailList[0].dayEndTime"
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
               <div style="margin-left: 7%">
                 <span>夜间时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     checkChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="
+                  v-model="
                     checkChargeList.billingRuleDetailList[0].nightEndTime
                   "
-                    readonly
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  readonly
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
@@ -860,11 +860,11 @@
           </div>
           <div style="width: 12%">
             <el-checkbox
-                v-model="
+              v-model="
                 checkChargeList.billingRuleDetailList[0].ceilingFlag === 1
               "
-                disabled
-            >24小时是否封顶
+              disabled
+              >24小时是否封顶
             </el-checkbox>
           </div>
         </el-row>
@@ -876,12 +876,12 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{
                 checkChargeList.billingRuleDetailList[0].minBillingDurationName
@@ -889,12 +889,12 @@
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[0].nightBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{
                 checkChargeList.billingRuleDetailList[0].minBillingDurationName
@@ -903,21 +903,21 @@
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="checkChargeList.billingRuleDetailList[0].freeDuration"
-                readonly
-                size="small"
-                style="width: 80px"
+              v-model="checkChargeList.billingRuleDetailList[0].freeDuration"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 checkChargeList.billingRuleDetailList[0].ceilingMoneyAmount
               "
-                readonly
-                size="small"
-                style="width: 80px"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             元
           </div>
@@ -930,12 +930,12 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{
                 checkChargeList.billingRuleDetailList[0].minBillingDurationName
@@ -943,12 +943,12 @@
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   checkChargeList.billingRuleDetailList[1].nightBillingPrice
                 "
-                  readonly
-                  size="small"
-                  style="width: 115px"
+                readonly
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{
                 checkChargeList.billingRuleDetailList[0].minBillingDurationName
@@ -957,21 +957,21 @@
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="checkChargeList.billingRuleDetailList[1].freeDuration"
-                readonly
-                size="small"
-                style="width: 80px"
+              v-model="checkChargeList.billingRuleDetailList[1].freeDuration"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 checkChargeList.billingRuleDetailList[1].ceilingMoneyAmount
               "
-                readonly
-                size="small"
-                style="width: 80px"
+              readonly
+              size="small"
+              style="width: 80px"
             ></el-input>
             元
           </div>
@@ -984,39 +984,39 @@
     </el-dialog>
     <!--修改计费弹窗-->
     <el-dialog
-        title="修改计费信息"
-        :visible.sync="alterChargeListDialog"
-        width="60%"
-        @close="queryBillingRuleList"
+      title="修改计费信息"
+      :visible.sync="alterChargeListDialog"
+      width="60%"
+      @close="queryBillingRuleList"
     >
       <el-form :model="alertChargeList" label-width="150px">
         <span>计费规则信息</span>
         <el-form-item label="计费规则类型:" label-width="150px">
           <el-select
-              style="width: 200px"
-              v-model="alertChargeList.billingRuleTypeCode"
-              disabled
+            style="width: 200px"
+            v-model="alertChargeList.billingRuleTypeCode"
+            disabled
           >
             <el-option
-                v-for="(item, index) in chargeTypeList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in chargeTypeList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="计费规则名称:" label-width="150px">
           <el-input
-              v-model="alertChargeList.billingRuleDefName"
-              placeholder="请输入"
-              style="width: 200px"
+            v-model="alertChargeList.billingRuleDefName"
+            placeholder="请输入"
+            style="width: 200px"
           ></el-input>
         </el-form-item>
         <el-form-item label="计费规则描述:" label-width="150px">
           <el-input
-              v-model="alertChargeList.remark"
-              placeholder="请输入"
-              style="width: 200px"
+            v-model="alertChargeList.remark"
+            placeholder="请输入"
+            style="width: 200px"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -1031,15 +1031,15 @@
             <div style="display: flex">
               <div>
                 <span>白天时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     alertChargeList.billingRuleDetailList[0].dayBeginTime
                   "
-                    size="small"
-                    style="width: 100px;"
-                    placeholder="选择时间"
-                    :picker-options="{
+                  size="small"
+                  style="width: 100px;"
+                  placeholder="选择时间"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
@@ -1048,11 +1048,11 @@
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="alertChargeList.billingRuleDetailList[0].dayEndTime"
-                    size="small"
-                    style="width: 100px;"
-                    placeholder="选择时间"
-                    :picker-options="{
+                  v-model="alertChargeList.billingRuleDetailList[0].dayEndTime"
+                  size="small"
+                  style="width: 100px;"
+                  placeholder="选择时间"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
@@ -1062,34 +1062,34 @@
               </div>
               <div style="margin-left: 7%">
                 <span>夜间时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     alertChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                    :picker-options="{
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    size="small"
-                    style="width: 100px;"
-                    placeholder="选择时间"
+                  size="small"
+                  style="width: 100px;"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="
+                  v-model="
                     alertChargeList.billingRuleDetailList[0].nightEndTime
                   "
-                    :picker-options="{
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    size="small"
-                    style="width: 100px;"
-                    placeholder="选择时间"
+                  size="small"
+                  style="width: 100px;"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
@@ -1110,40 +1110,40 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="alertChargeList.billingRuleDetailList[0].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="alertChargeList.billingRuleDetailList[0].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 alertChargeList.billingRuleDetailList[0].rebillingDuration
               "
-                size="small"
-                style="width: 80px"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
@@ -1155,40 +1155,40 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/次
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="alertChargeList.billingRuleDetailList[1].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="alertChargeList.billingRuleDetailList[1].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 alertChargeList.billingRuleDetailList[1].rebillingDuration
               "
-                size="small"
-                style="width: 80px"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
@@ -1200,15 +1200,15 @@
         <el-form>
           <el-form-item label="最短计费时长:" label-width="150px">
             <el-select
-                v-model="
+              v-model="
                 alertChargeList.billingRuleDetailList[0].minBillingDurationCode
               "
             >
               <el-option
-                  v-for="(item, index) in minTimeList"
-                  :label="item.name"
-                  :value="item.code"
-                  :key="index"
+                v-for="(item, index) in minTimeList"
+                :label="item.name"
+                :value="item.code"
+                :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -1222,65 +1222,65 @@
             <div style="display: flex">
               <div>
                 <span>白天时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     alertChargeList.billingRuleDetailList[0].dayBeginTime
                   "
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="alertChargeList.billingRuleDetailList[0].dayEndTime"
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  v-model="alertChargeList.billingRuleDetailList[0].dayEndTime"
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
               <div style="margin-left: 7%">
                 <span>夜间时段</span>
-                <br/>
+                <br />
                 <el-time-select
-                    v-model="
+                  v-model="
                     alertChargeList.billingRuleDetailList[0].nightBeginTime
                   "
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
                 <span>~</span>
                 <el-time-select
-                    v-model="
+                  v-model="
                     alertChargeList.billingRuleDetailList[0].nightEndTime
                   "
-                    size="small"
-                    style="width: 115px;"
-                    :picker-options="{
+                  size="small"
+                  style="width: 115px;"
+                  :picker-options="{
                     start: '06:00',
                     step: '00:30',
                     end: '23:00'
                   }"
-                    placeholder="选择时间"
+                  placeholder="选择时间"
                 >
                 </el-time-select>
               </div>
@@ -1291,11 +1291,11 @@
           </div>
           <div style="width: 12%">
             <el-checkbox
-                v-model="
+              v-model="
                 alertChargeList.billingRuleDetailList[0].ceilingFlag === 1
               "
-                @change="handleAlterClick()"
-            >24小时是否封顶
+              @change="handleAlterClick()"
+              >24小时是否封顶
             </el-checkbox>
           </div>
         </el-row>
@@ -1307,40 +1307,40 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[0].dayBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ alertMinBillingDurationName }}
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[0].nightBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ alertMinBillingDurationName }}
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="alertChargeList.billingRuleDetailList[0].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="alertChargeList.billingRuleDetailList[0].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 alertChargeList.billingRuleDetailList[0].ceilingMoneyAmount
               "
-                size="small"
-                style="width: 80px"
+              size="small"
+              style="width: 80px"
             ></el-input>
             元
           </div>
@@ -1353,40 +1353,40 @@
           <div style="width: 60%;height:50px;display:flex">
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[1].dayBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ alertMinBillingDurationName }}
             </div>
             <div style="width: 50%;height:50px">
               <el-input
-                  v-model="
+                v-model="
                   alertChargeList.billingRuleDetailList[1].nightBillingPrice
                 "
-                  size="small"
-                  style="width: 115px"
+                size="small"
+                style="width: 115px"
               ></el-input>
               元/{{ alertMinBillingDurationName }}
             </div>
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="alertChargeList.billingRuleDetailList[1].freeDuration"
-                size="small"
-                style="width: 80px"
+              v-model="alertChargeList.billingRuleDetailList[1].freeDuration"
+              size="small"
+              style="width: 80px"
             ></el-input>
             分钟
           </div>
           <div style="width: 12%;height:50px">
             <el-input
-                v-model="
+              v-model="
                 alertChargeList.billingRuleDetailList[1].ceilingMoneyAmount
               "
-                size="small"
-                style="width: 80px"
+              size="small"
+              style="width: 80px"
             ></el-input>
             元
           </div>
@@ -1563,24 +1563,24 @@ export default {
     this.queryMinTime();
   },
   computed: {
-    addMinBillingDurationName: function () {
+    addMinBillingDurationName: function() {
       let s;
       this.minTimeList.forEach(item => {
         if (
-            item.code ===
-            this.addChargeList.billingRuleDetailList[0].minBillingDurationCode
+          item.code ===
+          this.addChargeList.billingRuleDetailList[0].minBillingDurationCode
         ) {
           s = item.name;
         }
       });
       return s;
     },
-    alertMinBillingDurationName: function () {
+    alertMinBillingDurationName: function() {
       let s;
       this.minTimeList.forEach(item => {
         if (
-            item.code ===
-            this.alertChargeList.billingRuleDetailList[0].minBillingDurationCode
+          item.code ===
+          this.alertChargeList.billingRuleDetailList[0].minBillingDurationCode
         ) {
           s = item.name;
         }
@@ -1643,11 +1643,11 @@ export default {
         billingRuleDefName: this.formInline.billingRuleDefName
       };
       this.$basicInformationManagement
-          .queryBillingRuleList(params)
-          .then(response => {
-            this.pageTotal = response.resultEntity.total;
-            this.accountRules = response.resultEntity.list;
-          });
+        .queryBillingRuleList(params)
+        .then(response => {
+          this.pageTotal = response.resultEntity.total;
+          this.accountRules = response.resultEntity.list;
+        });
     },
     //分页条
     handleCurrentModify(val) {
@@ -1706,20 +1706,20 @@ export default {
           this.addChargeList.billingRuleDetailList[0].vehicleTypeCode = 1;
           this.addChargeList.billingRuleDetailList[1].vehicleTypeCode = 2;
           this.$basicInformationManagement
-              .insertBillingRule(this.addChargeList)
-              .then(response => {
-                if (response.resultCode == 2000) {
-                  //添加成功弹出
-                  this.$message({type: "success", message: "添加成功!"});
-                  //添加成功 刷新页面 调用查询方法
-                  this.queryBillingRuleList();
-                  this.addChargeListDialog = false;
-                } else {
-                  this.$message({type: "fail", message: "添加失败!"});
-                  this.queryBillingRuleList();
-                  this.addChargeListDialog = false;
-                }
-              });
+            .insertBillingRule(this.addChargeList)
+            .then(response => {
+              if (response.resultCode == 2000) {
+                //添加成功弹出
+                this.$message({ type: "success", message: "添加成功!" });
+                //添加成功 刷新页面 调用查询方法
+                this.queryBillingRuleList();
+                this.addChargeListDialog = false;
+              } else {
+                this.$message({ type: "fail", message: "添加失败!" });
+                this.queryBillingRuleList();
+                this.addChargeListDialog = false;
+              }
+            });
         } else {
           return false;
         }
@@ -1744,16 +1744,16 @@ export default {
       this.alertChargeList.billingRuleDetailList[1].nightEndTime = this.alertChargeList.billingRuleDetailList[0].nightEndTime;
       this.alertChargeList.billingRuleDetailList[1].minBillingDurationCode = this.alertChargeList.billingRuleDetailList[0].minBillingDurationCode;
       this.$basicInformationManagement
-          .updateBillingRule(this.alertChargeList)
-          .then(response => {
-            if(response.resultCode==2000){
-              this.$message({type: "success", message: "修改成功!"});
-              this.queryBillingRuleList();
-            }else {
-              this.$message({type: "fail", message: "修改失败!"});
-              this.queryBillingRuleList();
-            }
-          });
+        .updateBillingRule(this.alertChargeList)
+        .then(response => {
+          if (response.resultCode == 2000) {
+            this.$message({ type: "success", message: "修改成功!" });
+            this.queryBillingRuleList();
+          } else {
+            this.$message({ type: "fail", message: "修改失败!" });
+            this.queryBillingRuleList();
+          }
+        });
     },
 
     //删除一行
@@ -1765,22 +1765,22 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            //设定传入行数据
+        .then(() => {
+          //设定传入行数据
 
-            this.$basicInformationManagement.deleteBillingRule(row).then(res => {
-              this.$message({type: "success", message: "删除成功!"});
-              this.queryBillingRuleList();
-            });
-          })
-          .catch(() => {
-            //取消删除按钮
-            this.$message({type: "info", message: "已取消删除"});
+          this.$basicInformationManagement.deleteBillingRule(row).then(res => {
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryBillingRuleList();
           });
+        })
+        .catch(() => {
+          //取消删除按钮
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
 
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
