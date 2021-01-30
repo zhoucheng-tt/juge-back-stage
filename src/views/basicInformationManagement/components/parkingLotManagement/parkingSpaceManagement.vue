@@ -138,7 +138,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <div style="float: right;">
+      <div style="float: right;background-color: white">
         <el-pagination
           :current-page="pageNumUp"
           :page-size="pageSizeUp"
@@ -660,10 +660,10 @@ export default {
       parkingLotList: [],
       // 分页
       pageNumUp: 1,
-      pageSizeUp: 10,
-      pageTotalUp: 4,
+      pageSizeUp: 5,
+      pageTotalUp: 1,
       pageNumDown: 1,
-      pageSizeDown: 10,
+      pageSizeDown: 5,
       pageTotalDown: 4,
       // 停车场平面(层)配置列表数据暂存处
       parkLayerList: [],
@@ -1051,7 +1051,7 @@ export default {
 /* 下班部分列表部分 */
 .down {
   width: 98%;
-  height: 40%;
+  height: 380px;
   background-color: white;
   margin-left: 1%;
   margin-top: 1%;
@@ -1059,7 +1059,7 @@ export default {
 
 .down-2 {
   width: 100%;
-  height: 40%;
+  height: 380px;
   background-color: white;
   margin-top: 1%;
 }

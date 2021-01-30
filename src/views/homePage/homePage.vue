@@ -38,7 +38,7 @@
         <!--用户名和退出-->
         <div class="top-loginName">
           <!--用户名-->
-          <div class="">{{ userName }}</div>
+          <div class="top-loginName-Text">{{ userName }}</div>
           <!--          <div class="top-loginName-Text">超级管理员</div>-->
           <!--退出-->
           <div @click="loginOut()" class="exit">
