@@ -755,7 +755,7 @@ export default {
   },
   computed: {
     exportFile: function () {
-      return BASE_API + "PassagewayController/download";
+      return BASE_API + "PassagewayCameraController/download";
     }
   },
   mounted() {
