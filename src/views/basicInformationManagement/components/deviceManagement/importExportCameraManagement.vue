@@ -45,7 +45,7 @@
         >新增摄像头
         </el-button
         >
-        <el-button type="primary" size="small" @click="exportExcel()"
+        <el-button type="primary" size="small"
         ><a
             :href="exportFile"
             class="download"
