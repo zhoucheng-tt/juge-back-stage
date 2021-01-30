@@ -58,7 +58,7 @@
         </el-form-item>
       </el-form>
       <el-row class="demo-form-inline2">
-        <e-form-item>
+        <el-form-item>
           <el-button type="primary" size="small">
             <a
               :href="exportFile"
@@ -68,7 +68,7 @@
               >导出</a
             >
           </el-button>
-        </e-form-item>
+        </el-form-item>
       </el-row>
     </div>
     <!-- 中间图标部分内容 -->
