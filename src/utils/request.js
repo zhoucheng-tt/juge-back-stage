@@ -53,7 +53,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    config.headers["userToken"] = localStorage.getItem("userToken");
+    // config.headers["userToken"] = localStorage.getItem("userToken");
     // config.cancelToken = source.token; // 全局添加cancelToken
     return config;
   },
@@ -92,13 +92,14 @@ service.interceptors.response.use(
     //   return Promise.reject(res.resultMsg || 'error')
     // } else
     if (response.config.flag === "out") {
-      if (response.resultCode == "3004") {
+      if (res.resultCode == "3004") {
         Message({
           message: "未登录或登录超时,请重新登录",
           type: "error",
           duration: 5 * 1000,
           showClose: true
         });
+        debugger;
         router.push({ name: "login" });
       }
       return res;
