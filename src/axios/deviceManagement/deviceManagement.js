@@ -241,14 +241,6 @@ export function delCarWashingMachine(param) {
   });
 }
 
-//导入视频车 batchInsertVideoDetecter
-export function batchInsertVideoDetecter(param) {
-  return request({
-    url: "DeviceFunc/batchInsertVideoDetecter",
-    method: "post",
-    data: param
-  });
-}
 
 //文件上传
 export function uploadFile(param) {

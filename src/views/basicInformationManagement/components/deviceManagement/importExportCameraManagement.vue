@@ -30,7 +30,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryPkLot()"
+          <el-button type="primary" size="small" @click="queryFormList()"
           >查 询
           </el-button
           >
@@ -402,7 +402,7 @@
 
         <div slot="footer" class="dialog-footer">
           <el-button @click="importDialog = false">取 消</el-button>
-          <el-button type="primary" @click="commitImport()">确 定</el-button>
+          <el-button type="primary" @click="confimImportBatch()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -511,6 +511,10 @@ export default {
     };
   },
   methods: {
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryPkLot();
+    },
     //处理导入
     addFile(file, fileList) {
       console.log(file, fileList);
@@ -650,7 +654,7 @@ export default {
     // 分页
     handleCurrentModify(val) {
       this.pageNum = val;
-      this.queryVideoDetecter();
+      this.queryPassagewayCamera();
     },
     //修改
     editCameraDialog(row) {

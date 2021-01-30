@@ -42,7 +42,7 @@
         <!--              </el-select>-->
         <!--            </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryPassagewayGate()"
+            <el-button type="primary" size="small" @click="queryFormList()"
           >查 询
           </el-button>
           <el-button type="primary" size="small" @click="resetQuery()"
@@ -396,7 +396,7 @@
         </el-upload>
         <div slot="footer" class="dialog-footer">
           <el-button @click="importDialog = false">取 消</el-button>
-          <el-button type="primary" @click="commitImport()">确 定</el-button>
+          <el-button type="primary" @click="confimImportBatch()">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -536,6 +536,10 @@ export default {
     }
   },
   methods: {
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryPassagewayGate();
+    },
     //处理导入
     addFile(file, fileList) {
       console.log(file, fileList);
