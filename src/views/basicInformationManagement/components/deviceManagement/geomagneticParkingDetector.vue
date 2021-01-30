@@ -57,11 +57,9 @@
         <!--            </el-form-item>-->
         <el-form-item>
           <el-button type="primary" size="small" @click="queryButton()"
-            >查 询
+            >查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -418,8 +416,8 @@ export default {
       selectGeoList: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 10,
-      pageTotal: 4,
+      pageSize: 11,
+      pageTotal: 2,
       /*      //归属地市下拉菜单
             cityList: [],
             //归属区县下拉菜单

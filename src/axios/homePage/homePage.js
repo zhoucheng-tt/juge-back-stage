@@ -46,16 +46,6 @@ export function test(params) {
     flag: "out"
   });
 }
-
-//缴费行为分析 indexPageFunc/queryPaymentBehaviorAnalysis
-export function queryPaymentBehaviorAnalysis(params) {
-  return request({
-    url: "indexPageFunc/queryPaymentBehaviorAnalysis",
-    method: "post",
-    data: params
-  });
-}
-
 //首页洗车机收入  http://123.207.189.27:7138/homePageFunc/countWashFee
 export function countWashFee(params) {
   return request({

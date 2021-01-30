@@ -4212,8 +4212,6 @@ export default {
         this.poacherWash = Number(res.resultEntity["精洗"]);
       });
     },
-    //剩余车位数查询
-
     // 总停车数量
     queryParkOptByParkCount() {
       const param = {
@@ -4350,7 +4348,7 @@ export default {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "averageParkingTime",
-            marginBottom: 24
+            marginBottom: 35
           },
           title: {
             text: "",
@@ -4369,7 +4367,7 @@ export default {
           xAxis: {
             categories: this.averageParkingTimeXz,
             //X轴间隔显示
-            tickInterval: 4,
+            // tickInterval: 1,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
@@ -4468,7 +4466,7 @@ export default {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingSpaceUtilization",
-            marginBottom: 24
+            marginBottom: 35
           },
           title: {
             text: "",
@@ -4487,7 +4485,7 @@ export default {
           xAxis: {
             categories: this.parkingSpaceUtilizationXz,
             //X轴间隔显示
-            tickInterval: 4,
+            // tickInterval: 4,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
@@ -4589,7 +4587,7 @@ export default {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "parkingSpaceTurnoverRate",
-            marginBottom: 24
+            marginBottom: 35
           },
           title: {
             text: "",
@@ -4608,7 +4606,7 @@ export default {
           xAxis: {
             categories: this.parkingSpaceTurnoverRateXz,
             //X轴间隔显示
-            tickInterval: 4,
+            // tickInterval: 4,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
@@ -4894,7 +4892,7 @@ export default {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "washCarSevenDaysAnalysis",
-            marginBottom: 24
+            marginBottom: 60
           },
           title: {
             text: ""
@@ -4906,7 +4904,7 @@ export default {
             categories: this.washCarSevenDaysAnalysisXz,
             //x轴坐标颜色
             lineColor: "#104DA1",
-            tickInterval: 2,
+            // tickInterval: 2,
             labels: {
               style: {
                 color: "rgba(90,142,227,1)",
@@ -4995,7 +4993,7 @@ export default {
             type: "column",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "washChargeInSevenDays",
-            marginBottom: 24
+            marginBottom: 60
           },
           title: {
             text: ""
@@ -5008,7 +5006,7 @@ export default {
             //x轴坐标颜色
             lineColor: "#104DA1",
             //X轴间隔显示
-            tickInterval: 2,
+            // tickInterval: 2,
             labels: {
               style: {
                 color: "rgba(90,142,227,1)",
@@ -5034,23 +5032,22 @@ export default {
           },
           colors: ["#7654E3", "#00CDE6", "#FFBC00"],
           legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 10,
+            align: "right",
+            verticalAlign: "top",
+            floating: true,
+            y: -15,
             itemStyle: {
-              color: "#cccccc",
+              color: "white",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "white"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "blue"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "blue"
             }
           },
           tooltip: {

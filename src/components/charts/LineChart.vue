@@ -35,7 +35,7 @@ export default {
         chart: {
           type: "spline",
           backgroundColor: "rgba(0,0,0,0)",
-          marginBottom: 24
+          marginBottom: 35
         },
         title: {
           text: "",
@@ -54,7 +54,7 @@ export default {
         xAxis: {
           categories: chartData.xCategories,
           //X轴间隔显示
-          tickInterval: 4,
+          // tickInterval: 4,
           //x轴坐标颜色
           lineColor: "#104DA1",
           labels: {

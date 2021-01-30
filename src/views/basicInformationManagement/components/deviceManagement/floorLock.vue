@@ -29,7 +29,6 @@
             />
           </el-select>
         </el-form-item>
-
         <!--          <el-form-item label="设备状态">-->
         <!--            <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
         <!--              <el-option-->
@@ -41,12 +40,10 @@
         <!--            </el-select>-->
         <!--          </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryGroundLock()"
-            >查 询
+          <el-button type="primary" size="small" @click="queryFormList()"
+            >查询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -423,8 +420,8 @@ export default {
       selectLockList: [],
       //分页
       pageNum: 1,
-      pageSize: 10,
-      pageTotal: 4,
+      pageSize: 11,
+      pageTotal: 2,
       //条件查询
       query: {
         parkId: ""
@@ -439,17 +436,22 @@ export default {
     }
   },
   methods: {
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryGroundLock();
+    },
     //处理导入
     addFile(file, fileList) {
       console.log(file, fileList);
 
       if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
         this.fileList = [];
-        this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
+        this.$message.warning(`文件格式有误,请选择正确的Excel文件!`);
       }
     },
     handleExceed() {
-      this.$message.warning(`对不起,一次仅限上传一个文件！`);
+      this.$message.warning(`对不起,一次仅限上传一个文件!`);
     },
     myUpload(content) {
       let _self = this;

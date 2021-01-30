@@ -1,4 +1,119 @@
 import request from "@/utils/request";
+//地磁车列表查询
+export function queryMagneticDetecter(params) {
+  return request({
+    url:
+      "http://123.207.189.27:7138/MagneticDetecterController/queryMagneticDetecter",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+
+//新增地磁车
+export function addMagneticDetecter(params) {
+  return request({
+    url:
+      "http://123.207.189.27:7138/MagneticDetecterController/addMagneticDetecter",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+
+//删除地磁车
+export function delMagneticDetecter(params) {
+  return request({
+    url:
+      "http://123.207.189.27:7138/MagneticDetecterController/deleteMagneticDetecter",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//修改地磁车
+export function updateMagneticDetecter(params) {
+  return request({
+    url:
+      "http://123.207.189.27.7138/MagneticDetecterController/updateMagneticDetecter",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//地锁列表查询
+export function queryGroundLock(params) {
+  return request({
+    url: "http://123.207.189.27:7138/GroundLockController/queryGroundLock",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//新增地锁
+export function addGroundLock(params) {
+  return request({
+    url: "http://123.207.189.27:7138/GroundLockController/addGroundLock",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//删除地锁
+export function delGroundLock(params) {
+  return request({
+    url: "http://123.207.189.27:7138/GroundLockController/delGroundLock",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//修改地锁
+export function updateGroundLock(params) {
+  return request({
+    url: "http://123.207.189.27:7138/GroundLockController/updateGroundLock",
+    method: "post",
+    data: params,
+    flag: "out"
+  });
+}
+//基础信息管理信息ETC
+export function queryETCList(param) {
+  return request({
+    url: "http://123.207.189.27:7138/ETCFunc/queryETCList",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+
+//修改ETC updateETC
+export function updateETC(param) {
+  return request({
+    url: "http://123.207.189.27:7138/ETCFunc/updateETC",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//新增ETC addETC
+export function addETC(param) {
+  return request({
+    url: "http://123.207.189.27:7138ETCFunc/addETC",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//删除ETC
+export function delETC(param) {
+  return request({
+    url: "http://123.207.189.27:7138/ETCFunc/delETC",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
 
 //视频车位修改 updateVideoDetecter
 export function updateVideoDetecter(param) {
@@ -19,7 +134,6 @@ export function exportVideoDetecter(param) {
     responseType: "blob"
   });
 }
-
 //地锁车位导出
 export function exportGroundLock(param) {
   return request({
@@ -30,7 +144,6 @@ export function exportGroundLock(param) {
     responseType: "blob"
   });
 }
-
 //进出口摄像头导出
 export function exportPassagewayCamera(param) {
   return request({
@@ -50,100 +163,6 @@ export function exportPassagewayGate(param) {
     data: param,
     flag: "innerExt",
     responseType: "blob"
-  });
-}
-
-//地磁车位导出
-export function exportMagneticDetecter(param) {
-  return request({
-    url: "DeviceFunc/exportMagneticDetecter",
-    method: "post",
-    data: param,
-    flag: "innerExt",
-    responseType: "blob"
-  });
-}
-
-//地磁车列表查询
-export function queryMagneticDetecter(params) {
-  return request({
-    url:
-      "http://localhost:8000/MagneticDetecterController/queryMagneticDetecter",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//新增地磁车
-export function addMagneticDetecter(params) {
-  return request({
-    url: "http://localhost:8000/MagneticDetecterController/addMagneticDetecter",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//删除地磁车
-export function delMagneticDetecter(params) {
-  return request({
-    url:
-      "http://localhost:8000/MagneticDetecterController/deleteMagneticDetecter",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//修改地磁车
-export function updateMagneticDetecter(params) {
-  return request({
-    url:
-      "http://localhost:8000/MagneticDetecterController/updateMagneticDetecter",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//地锁列表查询
-export function queryGroundLock(params) {
-  return request({
-    url: "http://localhost:8000/GroundLockController/queryGroundLock",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//新增地锁
-export function addGroundLock(params) {
-  return request({
-    url: "http://localhost:8000/GroundLockController/addGroundLock",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//删除地锁
-export function delGroundLock(params) {
-  return request({
-    url: "http://localhost:8000/GroundLockController/delGroundLock",
-    method: "post",
-    data: params,
-    flag: "out"
-  });
-}
-
-//修改地锁
-export function updateGroundLock(params) {
-  return request({
-    url: "http://localhost:8000/GroundLockController/updateGroundLock",
-    method: "post",
-    data: params,
-    flag: "out"
   });
 }
 
@@ -226,46 +245,6 @@ export function queryPassagewayCamera(params) {
       "http://localhost:8000/PassagewayCameraController/queryPassagewayCamera",
     method: "post",
     data: params,
-    flag: "out"
-  });
-}
-
-//基础信息管理信息ETC
-export function queryETCList(param) {
-  return request({
-    url: "http://123.207.189.27:7138/ETCFunc/queryETCList",
-    method: "post",
-    data: param,
-    flag: "out"
-  });
-}
-
-//修改ETC updateETC
-export function updateETC(param) {
-  return request({
-    url: "http://123.207.189.27:7138/ETCFunc/updateETC",
-    method: "post",
-    data: param,
-    flag: "out"
-  });
-}
-
-//新增ETC addETC
-export function addETC(param) {
-  return request({
-    url: "http://123.207.189.27:7138/ETCFunc/addETC",
-    method: "post",
-    data: param,
-    flag: "out"
-  });
-}
-
-//删除ETC
-export function delETC(param) {
-  return request({
-    url: "http://123.207.189.27:7138/ETCFunc/delETC",
-    method: "post",
-    data: param,
     flag: "out"
   });
 }
@@ -380,5 +359,15 @@ export function exportETC(param) {
     method: "post",
     data: param,
     flag: "out"
+  });
+}
+//地磁车位导出
+export function exportMagneticDetecter(param) {
+  return request({
+    url: "DeviceFunc/exportMagneticDetecter",
+    method: "post",
+    data: param,
+    flag: "innerExt",
+    responseType: "blob"
   });
 }

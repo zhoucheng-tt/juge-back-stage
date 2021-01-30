@@ -38,12 +38,10 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button size="small" type="primary" @click="queryETCList"
+          <el-button size="small" type="primary" @click="queryFormList"
             >查询
           </el-button>
-          <el-button size="small" type="primary" @click="resetQuery"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -361,8 +359,8 @@ export default {
       parkingLotList: [],
       // 分页
       pageNum: 1,
-      pageSize: 10,
-      pageTotal: 4,
+      pageSize: 11,
+      pageTotal: 2,
       ETCInformationManagement: [],
       // 控制订单详情弹出框展示和隐藏属性
       showListdialogueandoff: false,
@@ -395,15 +393,19 @@ export default {
       }
     };
   },
-  created() {
+  mounted() {
     this.queryETCList();
   },
   methods: {
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryETCList();
+    },
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
     },
-
     // 查询停车场下拉表单
     queryParking() {
       const param = {
@@ -432,7 +434,6 @@ export default {
       this.$deviceManagement.queryETCList(param).then(res => {
         this.ETCInformationManagement = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
-        console.log("etc列表信息", this.ETCInformationManagement);
       });
     },
     // 点击新增
@@ -445,7 +446,6 @@ export default {
     addInfoInsert() {
       this.$refs["addETC"].validate(valid => {
         if (valid) {
-          console.log("保存后打印出来的数据", this.addETCForm);
           this.$deviceManagement.addETC(this.addETCForm).then(res => {
             // console.log("打印相应", res);
             this.$message({ type: "success", message: "添加成功!" });
@@ -465,8 +465,6 @@ export default {
         };
         this.idList.push(param);
       });
-      console.log("批量删除ID", this.idList);
-      console.log(this.selectETC);
     },
     // 批量删除
     deleteETC() {
@@ -485,7 +483,6 @@ export default {
           .then(() => {
             console.log("你要批量删除的id是" + this.idList);
             this.$deviceManagement.delETC(this.idList).then(res => {
-              console.log("批量删除成功", res);
               this.$message({ type: "success", message: "删除成功!" });
               this.queryETCList();
             });
@@ -503,15 +500,12 @@ export default {
         type: "warning"
       })
         .then(() => {
-          console.log("你要删除的id是" + row.etcNumber);
           const param = [
             {
               etcNumber: row.etcNumber
             }
           ];
-          this.$deviceManagement.delETC(param).then(res => {
-            console.log("删除成功", res);
-          });
+          this.$deviceManagement.delETC(param).then(res => {});
           this.$message({
             type: "success",
             message: "删除成功!"
@@ -521,15 +515,6 @@ export default {
         .catch(() => {
           this.$message({ type: "info", message: "已取消删除" });
         });
-    },
-    // 斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 == 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 == 0) {
-        return "successSecond";
-      }
-      return "";
     },
     // 分页查询方法
     handleCurrentModify(val) {
@@ -551,7 +536,6 @@ export default {
     },
     // 点击确定提交修改信息
     ETCInfoInsert() {
-      console.log("确定后打印出来的数据", this.editListDialogueandoffList);
       this.$deviceManagement
         .updateETC(this.editListDialogueandoffList)
         .then(res => {
