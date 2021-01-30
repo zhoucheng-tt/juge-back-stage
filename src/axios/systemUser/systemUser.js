@@ -24,7 +24,7 @@ export function addRole(param) {
 //系统管理角色管理删除行
 export function deleteRole(param) {
   return request({
-    url: "http://192.168.1.163:8000/UserController/deleteRole",
+    url: "http://123.207.189.27:7138//UserController/deleteRole",
     method: "post",
     data: param,
     flag: "out"
