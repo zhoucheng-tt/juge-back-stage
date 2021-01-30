@@ -37,8 +37,6 @@ export function queryImgUrl(params) {
   });
 }
 
-
-
 //停车场管理-停车场管理-列表查询
 export function queryParkList(param) {
   return request({
@@ -159,7 +157,6 @@ export function updateParkLayer(param) {
     flag: "out"
   });
 }
-
 
 //停车场管理车位管理的上传接口 parkFunc/insertParkLayer
 export function insertParkLayer(param) {

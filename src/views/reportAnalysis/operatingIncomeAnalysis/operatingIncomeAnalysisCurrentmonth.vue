@@ -123,14 +123,15 @@ export default {
         this.parkIncomeAnalysisXz = [];
         this.parkIncomeAnalysisY = [];
         res.resultEntity.forEach(item => {
-          this.parkIncomeAnalysisXz.push(item.time);
+          this.parkIncomeAnalysisXz.push(item.time.replaceAll("-", ""));
           this.parkIncomeAnalysisY.push(Number(item.income));
         });
         this.parkIncomeChart = {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "parkIncome"
+            renderTo: "parkIncome",
+            marginBottom: 60
           },
           title: {
             text: this.parkIncomeAnalysisName,
@@ -147,8 +148,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkIncomeAnalysisXz,
-            tickInterval: 4
+            categories: this.parkIncomeAnalysisXz
+            // tickInterval: 4
           },
           colors: ["#03D7E9"],
           yAxis: {
@@ -345,7 +346,7 @@ export default {
           }
         });
         this.paymentStyleAnalysisWXList.forEach(item => {
-          this.paymentStyleAnalysisXz.push(item.time);
+          this.paymentStyleAnalysisXz.push(item.time.replaceAll("-", ""));
           this.paymentStyleAnalysisWX.push(Number(item.income));
         });
         this.paymentStyleAnalysisETCList.forEach(item => {
@@ -364,7 +365,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "paymentStyle"
+            renderTo: "paymentStyle",
+            marginBottom: 60
           },
           title: {
             text: this.paymentStyleAnalysisName,
@@ -381,8 +383,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.paymentStyleAnalysisXz,
-            tickInterval: 4
+            categories: this.paymentStyleAnalysisXz
+            // tickInterval: 4
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3", "#FFBC00"],
           yAxis: {
@@ -617,7 +619,7 @@ export default {
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
-  height: 368px;
+  height: 370px;
   margin-top: -17px;
 }
 /* 中间每个图表部分样式 */

@@ -307,7 +307,7 @@ export default {
         this.washCarSevenDaysAnalysisXz = [];
         this.washCarSevenDaysAnalysisData = [];
         res.resultEntity.forEach(item => {
-          this.washCarSevenDaysAnalysisXz.push(item.X);
+          this.washCarSevenDaysAnalysisXz.push(item.X.replaceAll("-", ""));
           this.washCarSevenDaysAnalysisData.push(Number(item.dataY));
         });
         this.washCarSevenDaysAnalysisOption = {
@@ -323,8 +323,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.washCarSevenDaysAnalysisXz,
-            tickInterval: 2
+            categories: this.washCarSevenDaysAnalysisXz
+            // tickInterval: 2
           },
           yAxis: {
             title: {
@@ -360,10 +360,10 @@ export default {
           },
           plotOptions: {
             spline: {
-              lineWidth: 4,
+              lineWidth: 2,
               states: {
                 hover: {
-                  lineWidth: 5
+                  lineWidth: 3
                 }
               },
               marker: {

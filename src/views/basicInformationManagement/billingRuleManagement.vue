@@ -44,9 +44,7 @@
           <el-button type="primary" @click="queryBillingRuleList"
             >查询
           </el-button>
-          <el-button @click="resetQuery" type="primary" size="small"
-            >重置
-          </el-button>
+          <el-button @click="resetQuery" size="small">重置 </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -792,7 +790,7 @@
                   v-model="
                     checkChargeList.billingRuleDetailList[0].dayBeginTime
                   "
-                  disabled
+                  readonly
                   size="small"
                   style="width: 115px;"
                   :picker-options="{

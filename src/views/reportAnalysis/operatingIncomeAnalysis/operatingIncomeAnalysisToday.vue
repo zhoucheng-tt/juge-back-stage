@@ -130,7 +130,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "parkIncome"
+            renderTo: "parkIncome",
+            marginBottom: 40
           },
           title: {
             text: this.parkIncomeAnalysisName,
@@ -147,8 +148,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkIncomeAnalysisXz,
-            tickInterval: 2
+            categories: this.parkIncomeAnalysisXz
+            // tickInterval: 2
           },
           colors: ["#03D7E9"],
           yAxis: {
@@ -364,7 +365,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "paymentStyle"
+            renderTo: "paymentStyle",
+            marginBottom: 40
           },
           title: {
             text: this.paymentStyleAnalysisName,
@@ -381,8 +383,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.paymentStyleAnalysisXz,
-            tickInterval: 2
+            categories: this.paymentStyleAnalysisXz
+            // tickInterval: 2
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3", "#FFBC00"],
           yAxis: {
@@ -617,7 +619,7 @@ export default {
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
-  height: 368px;
+  height: 370px;
   margin-top: -17px;
 }
 /* 中间每个图表部分样式 */

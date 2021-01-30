@@ -615,7 +615,7 @@ export default {
 .backgroundShu {
   background-color: #eaf0f6;
   width: 1%;
-  height: 368px;
+  height: 370px;
   margin-top: -17px;
 }
 /* 中间每个图表部分样式 */

@@ -81,7 +81,8 @@ export function updateGroundLock(params) {
 //道闸机按钮查询 query
 export function queryPassagewayGate(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayGateController/queryPassagewayGate",
+    url:
+      "http://123.207.189.27:7138/PassagewayGateController/queryPassagewayGate",
     method: "post",
     data: param,
     flag: "out"
@@ -91,7 +92,8 @@ export function queryPassagewayGate(param) {
 // 道闸机新增 addPassagewayGate
 export function addPassagewayGate(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayGateController/addPassagewayGate",
+    url:
+      "http://123.207.189.27:7138/PassagewayGateController/addPassagewayGate",
     method: "post",
     data: param,
     flag: "out"
@@ -101,7 +103,8 @@ export function addPassagewayGate(param) {
 //道闸机删除 delPassagewayGate
 export function delPassagewayGate(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayGateController/delPassagewayGate",
+    url:
+      "http://123.207.189.27:7138/PassagewayGateController/delPassagewayGate",
     method: "post",
     data: param,
     flag: "out"
@@ -111,7 +114,8 @@ export function delPassagewayGate(param) {
 //道闸机修改 updatePassagewayGate
 export function updatePassagewayGate(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayGateController/updatePassagewayGate",
+    url:
+      "http://123.207.189.27:7138/PassagewayGateController/updatePassagewayGate",
     method: "post",
     data: param,
     flag: "out"
@@ -121,7 +125,8 @@ export function updatePassagewayGate(param) {
 //新增出入口摄像头
 export function addPassagewayCamera(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayCameraController/addPassagewayCamera",
+    url:
+      "http://123.207.189.27:7138/PassagewayCameraController/addPassagewayCamera",
     method: "post",
     data: param,
     flag: "out"
@@ -131,7 +136,8 @@ export function addPassagewayCamera(param) {
 //出入口摄像头列表查询
 export function queryPassagewayCamera(params) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayCameraController/queryPassagewayCamera",
+    url:
+      "http://123.207.189.27:7138/PassagewayCameraController/queryPassagewayCamera",
     method: "post",
     data: params,
     flag: "out"
@@ -141,7 +147,8 @@ export function queryPassagewayCamera(params) {
 //出入口摄像头修改
 export function updatePassagewayCamera(params) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayCameraController/updatePassagewayCamera",
+    url:
+      "http://123.207.189.27:7138/PassagewayCameraController/updatePassagewayCamera",
     method: "post",
     data: params,
     flag: "out"
@@ -151,7 +158,8 @@ export function updatePassagewayCamera(params) {
 //出入口摄像头删除
 export function delPassagewayCamera(params) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayCameraController/delPassagewayCamera",
+    url:
+      "http://123.207.189.27:7138/PassagewayCameraController/delPassagewayCamera",
     method: "post",
     data: params,
     flag: "out"
@@ -207,7 +215,6 @@ export function queryCarWashingMachineList(param) {
     flag: "out"
   });
 }
-
 //新增洗车机 addCarWashingMachine
 export function addCarWashingMachine(param) {
   return request({
