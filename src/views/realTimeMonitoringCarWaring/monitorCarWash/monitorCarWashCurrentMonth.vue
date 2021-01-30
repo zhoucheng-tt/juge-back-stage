@@ -131,14 +131,15 @@ export default {
       const param = { queryDate: "currentMonth" };
       this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
-          this.revenueCarWashingAnalysisXz.push(item.time),
+          this.revenueCarWashingAnalysisXz.push(item.time.replaceAll("-", "")),
             this.revenueCarWashingAnalysisY.push(Number(item.amount));
         });
         this.revenueCarWashingAnalysisOption = {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "revenueCarWashingAnalysisID"
+            renderTo: "revenueCarWashingAnalysisID",
+            marginBottom: 60
           },
           title: {
             text: this.revenueCarWashingAnalysisName,
@@ -155,8 +156,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.revenueCarWashingAnalysisXz,
-            tickInterval: 4
+            categories: this.revenueCarWashingAnalysisXz
+            // tickInterval: 4
           },
           colors: ["#0D64F4"],
           yAxis: {
@@ -188,7 +189,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}元</b>"
           },
           plotOptions: {
             spline: {
@@ -227,7 +228,7 @@ export default {
           }
         });
         this.carWashTypeIncomeAnalysisJINGList.forEach(item => {
-          this.carWashTypeIncomeAnalysisXz.push(item.time);
+          this.carWashTypeIncomeAnalysisXz.push(item.time.replaceAll("-", ""));
           this.carWashTypeIncomeAnalysisJINGY.push(Number(item.income));
         });
         this.carWashTypeIncomeAnalysisPUList.forEach(item => {
@@ -240,7 +241,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "carWashTypeIncomeAnalysisID"
+            renderTo: "carWashTypeIncomeAnalysisID",
+            marginBottom: 60
           },
           title: {
             text: this.carWashTypeIncomeAnalysisName,
@@ -257,8 +259,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTypeIncomeAnalysisXz,
-            tickInterval: 4
+            categories: this.carWashTypeIncomeAnalysisXz
+            // tickInterval: 4
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193"],
           yAxis: {
@@ -290,7 +292,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}元</b>"
           },
           plotOptions: {
             spline: {
@@ -328,14 +330,15 @@ export default {
       const param = { queryDate: "currentMonth" };
       this.$realTimeMonitor.queryCarWashCountAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
-          this.carWashTimesAnalysisXz.push(item.time);
+          this.carWashTimesAnalysisXz.push(item.time.replace("-", ""));
           this.carWashTimesAnalysisY.push(Number(item.times));
         });
         this.carWashTimesAnalysisOption = {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "carWashTimesAnalysisID"
+            renderTo: "carWashTimesAnalysisID",
+            marginBottom: 60
           },
           title: {
             text: this.carWashTimesAnalysisName,
@@ -352,8 +355,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTimesAnalysisXz,
-            tickInterval: 4
+            categories: this.carWashTimesAnalysisXz
+            // tickInterval: 4
           },
           colors: ["#0D64F4"],
           yAxis: {
@@ -385,7 +388,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}次</b>"
           },
           plotOptions: {
             spline: {
@@ -424,7 +427,7 @@ export default {
           }
         });
         this.carWashTypeTimesAnalysisJINGList.forEach(item => {
-          this.carWashTypeTimesAnalysisXz.push(item.time);
+          this.carWashTypeTimesAnalysisXz.push(item.time.replace("-", ""));
           this.carWashTypeTimesAnalysisJINGY.push(Number(item.times));
         });
         this.carWashTypeTimesAnalysisPUList.forEach(item => {
@@ -437,7 +440,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "carWashTypeTimesAnalysisID"
+            renderTo: "carWashTypeTimesAnalysisID",
+            marginBottom: 60
           },
           title: {
             text: this.carWashTypeTimesAnalysisName,
@@ -454,8 +458,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTypeTimesAnalysisXz,
-            tickInterval: 4
+            categories: this.carWashTypeTimesAnalysisXz
+            // tickInterval: 4
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193"],
           yAxis: {
@@ -487,7 +491,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}次</b>"
           },
           plotOptions: {
             spline: {

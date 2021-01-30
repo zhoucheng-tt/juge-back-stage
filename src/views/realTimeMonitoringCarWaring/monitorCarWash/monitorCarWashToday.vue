@@ -138,7 +138,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "revenueCarWashingAnalysisID"
+            renderTo: "revenueCarWashingAnalysisID",
+            marginBottom: 40
           },
           title: {
             text: this.revenueCarWashingAnalysisName,
@@ -155,8 +156,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.revenueCarWashingAnalysisXz,
-            tickInterval: 2
+            categories: this.revenueCarWashingAnalysisXz
+            // tickInterval: 2
           },
           colors: ["#0D64F4"],
           yAxis: {
@@ -188,7 +189,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}元</b>"
           },
           plotOptions: {
             spline: {
@@ -240,7 +241,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "carWashTypeIncomeAnalysisID"
+            renderTo: "carWashTypeIncomeAnalysisID",
+            marginBottom: 40
           },
           title: {
             text: this.carWashTypeIncomeAnalysisName,
@@ -257,8 +259,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTypeIncomeAnalysisXz,
-            tickInterval: 2
+            categories: this.carWashTypeIncomeAnalysisXz
+            // tickInterval: 2
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193"],
           yAxis: {
@@ -290,7 +292,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}元</b>"
           },
           plotOptions: {
             spline: {
@@ -335,7 +337,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "carWashTimesAnalysisID"
+            renderTo: "carWashTimesAnalysisID",
+            marginBottom: 40
           },
           title: {
             text: this.carWashTimesAnalysisName,
@@ -352,8 +355,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTimesAnalysisXz,
-            tickInterval: 2
+            categories: this.carWashTimesAnalysisXz
+            // tickInterval: 2
           },
           colors: ["#0D64F4"],
           yAxis: {
@@ -385,7 +388,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}次</b>"
           },
           plotOptions: {
             spline: {
@@ -437,7 +440,8 @@ export default {
           chart: {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "carWashTypeTimesAnalysisID"
+            renderTo: "carWashTypeTimesAnalysisID",
+            marginBottom: 40
           },
           title: {
             text: this.carWashTypeTimesAnalysisName,
@@ -454,8 +458,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.carWashTypeTimesAnalysisXz,
-            tickInterval: 2
+            categories: this.carWashTypeTimesAnalysisXz
+            // tickInterval: 2
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193"],
           yAxis: {
@@ -487,7 +491,7 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>"
+            pointFormat: "{series.name}: <b>{point.y}次</b>"
           },
           plotOptions: {
             spline: {

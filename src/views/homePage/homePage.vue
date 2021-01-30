@@ -3664,10 +3664,10 @@
             />
             <span class="spanStyle">自助洗车收入本月分析</span>
           </div>
-          <div class="rightChartCenter" id="chargeAmountTimes">
+          <div class="leftChartCenter" id="revenueCarWashingAnalysisID">
             <Xchart
-              id="chargeAmountTimes"
-              :option="chargeAmountTimesOptions"
+              id="revenueCarWashingAnalysisID"
+              :option="revenueCarWashingAnalysisOption"
             ></Xchart>
           </div>
           <div class="rightChartDown">
@@ -4032,11 +4032,11 @@ export default {
       parkIncome: 1000,
       washIncome: 300,
 
-      // 收费金额按照时间段分析
-      chargeAmountTimes: "",
-      chargeAmountTimesOptions: {},
-      chargeAmountTimesData: [],
-      chargeAmountTimesX: [],
+      //自助洗车收入本月分析
+      revenueCarWashingAnalysisOption: {},
+      revenueCarWashingAnalysisName: "洗车收入统计分析",
+      revenueCarWashingAnalysisXz: [],
+      revenueCarWashingAnalysisY: [],
 
       // 地图中点击添加弹框
       mapList: {
@@ -4732,7 +4732,7 @@ export default {
               fontSize: "12px"
             },
             itemHoverStyle: {
-              color: "blue"
+              color: "#cccccc"
             }
           },
           series: [
@@ -4767,114 +4767,94 @@ export default {
       });
     },
 
-    //洗车收费按月分析金额分析
+    //自助洗车收入本月分析
     querychargeAmountTimes() {
-      const param = {
-        queryType: "currentMonth"
-      };
-      this.$realTimeMonitor.queryWashEarn(param).then(res => {
-        this.chargeAmountTimesX = [];
-        this.chargeAmountTimesData = [];
+      const param = { queryDate: "currentMonth" };
+      this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
-          this.chargeAmountTimesX.push(item.X);
-          this.chargeAmountTimesData.push(Number(item.dataY));
+          this.revenueCarWashingAnalysisXz.push(item.time.replaceAll("-", "")),
+            this.revenueCarWashingAnalysisY.push(Number(item.amount));
         });
-        this.chargeAmountTimesOptions = {
+        this.revenueCarWashingAnalysisOption = {
           chart: {
             type: "column",
             backgroundColor: "rgba(0,0,0,0)",
-            renderTo: "chargeAmountTimes",
-            marginBottom: 24
+            renderTo: "revenueCarWashingAnalysisID",
+            marginBottom: 60
           },
           title: {
-            text: ""
+            text: "",
+            align: "left",
+            x: 20,
+            style: {
+              fontFamily: "PingFangSC-Medium",
+              fontSize: "16px",
+              color: "#333333",
+              letterSpacing: "0.17px"
+            }
           },
           credits: {
             enabled: false
           },
           xAxis: {
-            categories: this.chargeAmountTimesX,
-            //X轴间隔显示
-            tickInterval: 2,
+            categories: this.revenueCarWashingAnalysisXz,
+            // tickInterval: 4,
             //x轴坐标颜色
             lineColor: "#104DA1",
             labels: {
-              format: "{value}",
               style: {
                 color: "rgba(90,142,227,1)",
                 fontSize: "10px"
               }
             }
           },
+          colors: ["#0D64F4"],
           yAxis: {
-            //设置网格线颜色
-            gridLineColor: "#0A3167",
             title: {
-              text: "",
-              style: {
-                color: "#08F6E4", //字体颜色
-                fontSize: "16px" //字体大小
-              }
+              text: ""
             },
             labels: {
               format: "{value}元",
               style: {
-                color: "rgba(90,142,227,1)"
+                color: "rgba(90,142,227,1)",
+                fontSize: "10px"
               }
-            }
+            },
+            //设置网格线颜色
+            gridLineColor: "#0A3167"
           },
-          colors: ["#00AEFF"],
           legend: {
-            enabled: false,
+            enabled: true,
             align: "center",
-            verticalAlign: "top",
-            x: 0,
-            y: -20,
+            verticalAlign: "left",
+            x: 300,
+            y: 10,
             itemStyle: {
-              color: "#cccccc",
+              color: "#666666",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "#666666"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc"
             }
           },
           tooltip: {
-            pointFormat: "收入： <b>{point.y:,.0f}</b>元"
+            pointFormat: "{series.name}: <b>{point.y}</b>元"
           },
-          plotOptions: {
-            series: {
-              depth: 25,
-              // colorByPoint: true,
-              color: "#00ABFF"
-            },
-            area: {
-              marker: {
-                enabled: false,
-                symbol: "circle",
-                radius: 2,
-                states: {
-                  hover: {
-                    enabled: true
-                  }
-                }
-              }
-            }
-          },
+          plotOptions: {},
           series: [
             {
-              name: "数量",
-              data: this.chargeAmountTimesData
+              name: "营收金额",
+              data: this.revenueCarWashingAnalysisY
             }
           ]
         };
-        // 绘制
-        new HighCharts.Chart(this.chargeAmountTimesOptions);
+        new HighCharts.chart(this.revenueCarWashingAnalysisOption);
       });
     },
 
@@ -4884,7 +4864,7 @@ export default {
         this.washCarSevenDaysAnalysisXz = [];
         this.washCarSevenDaysAnalysisData = [];
         res.resultEntity.forEach(item => {
-          this.washCarSevenDaysAnalysisXz.push(item.X);
+          this.washCarSevenDaysAnalysisXz.push(item.X.replaceAll("-", ""));
           this.washCarSevenDaysAnalysisData.push(Number(item.dataY));
         });
         this.washCarSevenDaysAnalysisOption = {
@@ -4892,7 +4872,7 @@ export default {
             type: "spline",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "washCarSevenDaysAnalysis",
-            marginBottom: 60
+            marginBottom: 50
           },
           title: {
             text: ""
@@ -4945,7 +4925,7 @@ export default {
               color: "#666666"
             },
             itemHiddenStyle: {
-              color: "#333333"
+              color: "#cccccc "
             }
           },
           tooltip: {
@@ -4979,7 +4959,7 @@ export default {
     handleWashCarIncomeSevenDays() {
       this.$homePage.queryCarWashAmountRecentDays({}).then(res => {
         res.resultEntity["精洗"].forEach(item => {
-          this.washChargeInSevenDaysXz.push(item.X);
+          this.washChargeInSevenDaysXz.push(item.X.replaceAll("-", ""));
           this.washChargeInSevenDaysJINGWash.push(Number(item.dataY) / 100);
         });
         res.resultEntity["普洗"].forEach(item => {
@@ -4993,7 +4973,7 @@ export default {
             type: "column",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "washChargeInSevenDays",
-            marginBottom: 60
+            marginBottom: 50
           },
           title: {
             text: ""

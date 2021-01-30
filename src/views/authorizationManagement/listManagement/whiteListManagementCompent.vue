@@ -45,7 +45,7 @@
         </el-form-item>
         <!--                查询按钮-->
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryWhiteList"
+          <el-button type="primary" size="small" @click="queryFormList"
             >查询
           </el-button>
           <el-button size="small" @click="resetQuery">重置</el-button>
@@ -461,6 +461,11 @@ export default {
     this.queryPlate();
   },
   methods: {
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryWhiteList();
+    },
     //查询重置按钮
     resetQuery() {
       this.whiteManagementList = {
@@ -477,9 +482,7 @@ export default {
         whereStr: []
       };
       this.$homePage.queryDict(param).then(response => {
-        // console.log("下拉停车场名称", response);
         that.plateColorList = response.resultEntity;
-        // console.log("黑名单停车场下拉名称", that.parkLotNameList);
       });
     },
     //查询停车场下拉
@@ -509,9 +512,7 @@ export default {
         pageNumber: this.pageNum,
         pageSize: this.pageSize
       };
-      // console.log('白名单查询传入的参数',params)
       this.$listManagement.queryWhiteList(params).then(response => {
-        // console.log("查询白名单表格数据", response)
         //分页
         that.pageTotal = response.resultEntity.total;
         //查询
@@ -547,7 +548,6 @@ export default {
             plateColor: this.addWhiteData.plateColor
           };
           this.$listManagement.insertWhiteList(param).then(response => {
-            console.log("打印新增白名单数据", response);
             //添加成功弹出
             this.$message({ type: "success", message: "添加成功!" });
             //添加成功 刷新页面 调用查询方法
@@ -586,11 +586,8 @@ export default {
       //获取批量删除id
       val.forEach(item => {
         this.idList.push(item.whiteListId);
-        // console.log('打印批量删除选择框',param)
-        // console.log("1111111111",this.idList)
         // this.selectGateList = this.idList;
       });
-      // console.log('批量删除存放ID',this.selectGateList);
     },
     //批量删除
     deleteInBatches() {
@@ -601,8 +598,6 @@ export default {
           type: "warning"
         });
       } else {
-        // console.log("批量删除id存放", this.idList);
-
         this.$confirm(
           "此操作将永久删除选中的全部白名单人员, 是否继续?",
           "提示",
@@ -614,7 +609,6 @@ export default {
         )
           .then(() => {
             this.$listManagement.deleteWhiteList(this.idList).then(res => {
-              console.log("批量删除成功", res);
               this.$message({ type: "success", message: "删除成功!" });
               this.queryWhiteList();
             });
@@ -629,7 +623,6 @@ export default {
       //修改黑名单显示弹窗
       this.modifyWhiteList = row;
       this.ModifyWhiteListDialog = true;
-      // console.log("查询修改表格数据",this.modifyWhiteList)
     },
     //操作中的修改按钮的提交
     onSubmitModify() {
@@ -655,10 +648,8 @@ export default {
       })
         .then(() => {
           this.$listManagement.enableWhite(row.whiteListId).then(response => {
-            // console.log("打印修改传入数据", response);
             this.$message({ type: "success", message: "启用成功!" });
             this.queryWhiteList();
-            // console.log("修改后的数据", this.startUpList);
           });
         })
         .catch(() => {
@@ -673,7 +664,6 @@ export default {
         type: "warning"
       })
         .then(() => {
-          // console.log("传入的参数", param);
           this.$listManagement.disableWhite(row.whiteListId).then(response => {
             this.$message({ type: "success", message: "停用成功!" });
             this.queryWhiteList();

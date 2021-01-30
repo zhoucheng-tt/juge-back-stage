@@ -345,8 +345,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.numberOfParkingXz,
-            tickInterval: 2
+            categories: this.numberOfParkingXz
+            // tickInterval: 2
           },
           colors: ["#7654E3"],
           yAxis: {
@@ -439,8 +439,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.averageParkingTimeXz,
-            tickInterval: 2
+            categories: this.averageParkingTimeXz
+            // tickInterval: 2
           },
           colors: ["#00DBEC"],
           yAxis: {
@@ -536,8 +536,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkingSpaceUtilizationXz,
-            tickInterval: 2
+            categories: this.parkingSpaceUtilizationXz
+            // tickInterval: 2
           },
           colors: ["#1EC193"],
           yAxis: {
@@ -632,8 +632,8 @@ export default {
             enabled: false
           },
           xAxis: {
-            categories: this.parkingSpaceTurnoverRateXz,
-            tickInterval: 2
+            categories: this.parkingSpaceTurnoverRateXz
+            // tickInterval: 2
           },
           colors: ["#FFBC00"],
           yAxis: {

@@ -408,7 +408,7 @@ export default {
     drawPayAnaSevenChart() {
       this.$reportAnalysis.sevenPayAna(1).then(res => {
         res.resultEntity.forEach(item => {
-          this.payAnaSevenX.push(item.statisticDate);
+          this.payAnaSevenX.push(item.statisticDate.replaceAll("-", ""));
           this.dataListSeven.push(Number(item.income));
         });
         this.payAnaChartSeven = {
@@ -486,7 +486,7 @@ export default {
     drawPayAnaThirtyChart() {
       this.$reportAnalysis.thirtyPayAna(1).then(res => {
         res.resultEntity.forEach(item => {
-          this.payAnaThirtyX.push(item.statisticDate);
+          this.payAnaThirtyX.push(item.statisticDate.replaceAll("-", ""));
           this.dataListThirty.push(Number(item.income));
         });
         this.payAnaChartThirty = {
@@ -563,7 +563,7 @@ export default {
     drawPayAna365Chart() {
       this.$reportAnalysis.PayAna365(1).then(res => {
         res.resultEntity.forEach(item => {
-          this.payAna365X.push(item.statisticDate);
+          this.payAna365X.push(item.statisticDate.replaceAll("-", ""));
           this.dataList365.push(Number(item.income));
         });
         this.payAnaChart365 = {

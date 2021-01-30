@@ -15,52 +15,47 @@
       <el-form :inline="true" :model="upQueryList" class="demo-form-inline">
         <el-form-item label="停车场：">
           <el-select
-              size="small"
-              style="width: 160px"
-              v-model="upQueryList.parkId"
-              placeholder="请选择停车场"
+            size="small"
+            style="width: 160px"
+            v-model="upQueryList.parkId"
+            placeholder="请选择停车场"
           >
             <el-option label="全部" value=""></el-option>
             <el-option
-                v-for="(item, index) in parkingLotList"
-                :label="item.name"
-                :value="item.code"
-                :key="index"
+              v-for="(item, index) in parkingLotList"
+              :label="item.name"
+              :value="item.code"
+              :key="index"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="queryPkLot()"
-          >查 询
-          </el-button
-          >
+            >查 询
+          </el-button>
           <el-button type="primary" size="small" @click="resetQuery"
-          >重置
-          </el-button
-          >
+            >重置
+          </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
         <el-button type="primary" size="small" @click="addNewCamera()"
-        >新增摄像头
-        </el-button
-        >
+          >新增摄像头
+        </el-button>
         <el-button type="primary" size="small"
-        ><a
+          ><a
             :href="exportFile"
             class="download"
             download=""
             style="color: #ffffff;text-decoration:none"
-        >导出</a
-        >
-        </el-button
-        >
+            >导出</a
+          >
+        </el-button>
         <el-button type="primary" size="small" @click="bulkImport()"
-        >批量导入
-        </el-button
-        >
+          >批量导入
+        </el-button>
         <el-button type="danger" size="small" @click="batchDelete()"
-        >批量删除
+          >批量删除
         </el-button>
       </el-row>
     </div>
@@ -68,11 +63,11 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-          :data="cameraList"
-          ref="selectCameraList"
-          @selection-change="handleSelectionChange"
-          stripe
-          :header-cell-style="{
+        :data="cameraList"
+        ref="selectCameraList"
+        @selection-change="handleSelectionChange"
+        stripe
+        :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
           background: '#FFFFFF',
           color: '#333333',
@@ -82,26 +77,26 @@
           letterSpacing: '0.56px',
           'text-align': 'center'
         }"
-          :cell-style="{
+        :cell-style="{
           fontfamily: 'PingFangSC-Regular',
           letterSpacing: '0.56px',
           fontSize: '14px',
           color: '#333333',
           'text-align': 'center'
         }"
-          style="width: 98%;margin-left: 1%"
+        style="width: 98%;margin-left: 1%"
       >
-        <el-table-column type="selection"/>
+        <el-table-column type="selection" />
         <!--        <el-table-column fixed prop="parkId" label="停车场编号" />-->
         <el-table-column
-            prop="parkName"
-            :show-overflow-tooltip="true"
-            label="停车场名称"
+          prop="parkName"
+          :show-overflow-tooltip="true"
+          label="停车场名称"
         />
         <el-table-column
-            prop="passagewayName"
-            :show-overflow-tooltip="true"
-            label="归属出入口"
+          prop="passagewayName"
+          :show-overflow-tooltip="true"
+          label="归属出入口"
         />
         <!--        <el-table-column-->
         <!--          prop="passagewayCameraId"-->
@@ -109,107 +104,107 @@
         <!--          label="进出口摄像头编号"-->
         <!--        />-->
         <el-table-column
-            prop="passagewayCameraName"
-            :show-overflow-tooltip="true"
-            label="进出口摄像头名称"
+          prop="passagewayCameraName"
+          :show-overflow-tooltip="true"
+          label="进出口摄像头名称"
         />
         <el-table-column
-            prop="ipAddress"
-            :show-overflow-tooltip="true"
-            label="IP地址"
+          prop="ipAddress"
+          :show-overflow-tooltip="true"
+          label="IP地址"
         />
         <el-table-column
-            prop="portNumber"
-            :show-overflow-tooltip="true"
-            label="端口"
+          prop="portNumber"
+          :show-overflow-tooltip="true"
+          label="端口"
         />
         <el-table-column
-            prop="userName"
-            :show-overflow-tooltip="true"
-            label="用户名"
+          prop="userName"
+          :show-overflow-tooltip="true"
+          label="用户名"
         />
         <el-table-column
-            prop="manufacturer"
-            :show-overflow-tooltip="true"
-            label="制造商"
+          prop="manufacturer"
+          :show-overflow-tooltip="true"
+          label="制造商"
         />
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
-                @click="editCameraDialog(scope.row)"
-                type="text"
-                size="small"
-            >修改
+              @click="editCameraDialog(scope.row)"
+              type="text"
+              size="small"
+              >修改
             </el-button>
             <el-button @click="deleteCamera(scope.row)" type="text" size="small"
-            >删除
+              >删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
       <div style="float: right;">
         <el-pagination
-            layout="total, prev, pager, next, jumper"
-            @current-change="handleCurrentModify"
-            :current-page="pageNum"
-            :total="pageTotal"
-            :page-size="pageSize"
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentModify"
+          :current-page="pageNum"
+          :total="pageTotal"
+          :page-size="pageSize"
         >
         </el-pagination>
       </div>
       <!--新增表单弹框-->
       <el-dialog
-          id="add"
-          width="50%"
-          title="新增出入口摄像头"
-          :visible.sync="addListDialog"
+        id="add"
+        width="50%"
+        title="新增出入口摄像头"
+        :visible.sync="addListDialog"
       >
         <el-form
-            :inline="true"
-            label-position="right"
-            label-width="100px"
-            :model="newCamera"
-            :rules="addListRules"
-            ref="newCameraR"
+          :inline="true"
+          label-position="right"
+          label-width="100px"
+          :model="newCamera"
+          :rules="addListRules"
+          ref="newCameraR"
         >
           <div style="font-size: 20px">归属停车场信息</div>
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item
-                  label="归属停车场:"
-                  label-width="150px"
-                  prop="parkId"
+                label="归属停车场:"
+                label-width="150px"
+                prop="parkId"
               >
                 <el-select
-                    style="width:200px"
-                    v-model="newCamera.parkId"
-                    placeholder="请选择"
+                  style="width:200px"
+                  v-model="newCamera.parkId"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in parkingLotList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
-                  label="归属出入口:"
-                  label-width="150px"
-                  prop="passagewayId"
+                label="归属出入口:"
+                label-width="150px"
+                prop="passagewayId"
               >
                 <el-select
-                    style="width:200px"
-                    v-model="newCamera.passagewayId"
-                    placeholder="请选择"
+                  style="width:200px"
+                  v-model="newCamera.passagewayId"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in importExportNameList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in importExportNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -219,29 +214,29 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item
-                  label="进出口摄像头编号:"
-                  label-width="150px"
-                  prop="passagewayCameraId"
+                label="进出口摄像头编号:"
+                label-width="150px"
+                prop="passagewayCameraId"
               >
-                <el-input v-model="newCamera.passagewayCameraId"/>
+                <el-input v-model="newCamera.passagewayCameraId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
-                  label="进出口摄像头名称:"
-                  label-width="150px"
-                  prop="passagewayCameraName"
+                label="进出口摄像头名称:"
+                label-width="150px"
+                prop="passagewayCameraName"
               >
-                <el-input v-model="newCamera.passagewayCameraName"/>
+                <el-input v-model="newCamera.passagewayCameraName" />
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item
-                  label="IP地址:"
-                  label-width="150px"
-                  prop="ipAddress"
+                label="IP地址:"
+                label-width="150px"
+                prop="ipAddress"
               >
                 <el-input v-model="newCamera.ipAddress"></el-input>
               </el-form-item>
@@ -262,9 +257,9 @@
           <el-row>
             <el-col :span="12">
               <el-form-item
-                  label="制造商:"
-                  label-width="150px"
-                  prop="manufacturer"
+                label="制造商:"
+                label-width="150px"
+                prop="manufacturer"
               >
                 <el-input v-model="newCamera.manufacturer"></el-input>
               </el-form-item>
@@ -278,10 +273,10 @@
       </el-dialog>
       <!--修改表单弹框-->
       <el-dialog
-          id="edit"
-          title="修改出入口摄像头"
-          width="50%"
-          :visible.sync="editListDialog"
+        id="edit"
+        title="修改出入口摄像头"
+        width="50%"
+        :visible.sync="editListDialog"
       >
         <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
@@ -289,15 +284,15 @@
             <el-col :span="12">
               <el-form-item label="归属停车场:" label-width="150px">
                 <el-select
-                    style="width:200px"
-                    v-model="editCamera.parkId"
-                    placeholder="请选择"
+                  style="width:200px"
+                  v-model="editCamera.parkId"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in parkingLotList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in parkingLotList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -305,15 +300,15 @@
             <el-col :span="12">
               <el-form-item label="归属出入口:" label-width="150px">
                 <el-select
-                    style="width:200px"
-                    v-model="editCamera.passagewayId"
-                    placeholder="请选择"
+                  style="width:200px"
+                  v-model="editCamera.passagewayId"
+                  placeholder="请选择"
                 >
                   <el-option
-                      v-for="(item, index) in importExportNameList"
-                      :label="item.name"
-                      :value="item.code"
-                      :key="index"
+                    v-for="(item, index) in importExportNameList"
+                    :label="item.name"
+                    :value="item.code"
+                    :key="index"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -323,12 +318,12 @@
           <el-row style="padding-top: 20px">
             <el-col :span="12">
               <el-form-item label="进出口摄像头编号:" label-width="150px">
-                <el-input v-model="editCamera.passagewayCameraId"/>
+                <el-input v-model="editCamera.passagewayCameraId" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="进出口摄像头名称:" label-width="150px">
-                <el-input v-model="editCamera.passagewayCameraName"/>
+                <el-input v-model="editCamera.passagewayCameraName" />
               </el-form-item>
             </el-col>
           </el-row>
@@ -366,35 +361,35 @@
       </el-dialog>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
         <el-upload
-            ref="upload"
-            :auto-upload="false"
-            :file-list="fileList"
-            :http-request="myUpload"
-            :limit="1"
-            :on-change="addFile"
-            :on-exceed="handleExceed"
-            :show-file-list="true"
-            accept=".xls, .xlsx"
-            action=""
-            class="upload-demo"
-            style="text-align: center;"
+          ref="upload"
+          :auto-upload="false"
+          :file-list="fileList"
+          :http-request="myUpload"
+          :limit="1"
+          :on-change="addFile"
+          :on-exceed="handleExceed"
+          :show-file-list="true"
+          accept=".xls, .xlsx"
+          action=""
+          class="upload-demo"
+          style="text-align: center;"
         >
           <el-button slot="trigger" size="small" type="primary"
-          >选择文件
+            >选择文件
           </el-button>
           <el-button size="small" style="margin-left: 15px" type="primary">
             <a
-                :href="templateDl"
-                class="download"
-                download=""
-                style="color: #ffffff;text-decoration:none"
-            >模板下载</a
+              :href="templateDl"
+              class="download"
+              download=""
+              style="color: #ffffff;text-decoration:none"
+              >模板下载</a
             >
           </el-button>
           <div
-              slot="tip"
-              class="el-upload__tip"
-              style="font-size:10px;color:#ff0000;margin-top:30px;"
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:#ff0000;margin-top:30px;"
           >
             请先下载模板！
           </div>
@@ -409,7 +404,7 @@
   </div>
 </template>
 <script>
-import {BASE_API} from "@/utils/config";
+import { BASE_API } from "@/utils/config";
 
 export default {
   data() {
@@ -635,16 +630,17 @@ export default {
           cancelButtonText: "取消",
           type: "warning"
         })
-            .then(() => {
-              this.$deviceManagement.delPassagewayCamera(this.idList).then(res => {
-                    this.$message({type: "success", message: "删除成功!"});
-                    this.queryPassagewayCamera();
-                  }
-              )
-            })
-            .catch(() => {
-              this.$message({type: "info", message: "已取消删除"});
-            });
+          .then(() => {
+            this.$deviceManagement
+              .delPassagewayCamera(this.idList)
+              .then(res => {
+                this.$message({ type: "success", message: "删除成功!" });
+                this.queryPassagewayCamera();
+              });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
       }
     },
     // 分页
@@ -664,19 +660,18 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       })
-          .then(() => {
-            this.idList = [];
-            this.idList.push(row.passagewayCameraId);
-            this.$deviceManagement.delPassagewayCamera(this.idList).then(res => {
-                  this.$message({type: "success", message: "删除成功!"});
-                  this.queryPassagewayCamera();
-                }
-            )
-          })
-          .catch(err => {
-            console.log("cuowu", err);
-            this.$message({type: "info", message: "已取消删除"});
+        .then(() => {
+          this.idList = [];
+          this.idList.push(row.passagewayCameraId);
+          this.$deviceManagement.delPassagewayCamera(this.idList).then(res => {
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryPassagewayCamera();
           });
+        })
+        .catch(err => {
+          console.log("cuowu", err);
+          this.$message({ type: "info", message: "已取消删除" });
+        });
     },
     //新增表单提交
     onSubmitAdd() {
@@ -692,16 +687,19 @@ export default {
             manufacturer: this.newCamera.manufacturer,
             parkId: this.newCamera.parkId,
             passagewayId: this.newCamera.passagewayId
-          }
-          this.$deviceManagement.addPassagewayCamera(param).then(res => {
-            console.log("打印响应", res);
-            this.queryPassagewayCamera();
-            this.addListDialog = false;
-          }).catch(err => {
-            console.log("错误", err);
-          })
+          };
+          this.$deviceManagement
+            .addPassagewayCamera(param)
+            .then(res => {
+              console.log("打印响应", res);
+              this.queryPassagewayCamera();
+              this.addListDialog = false;
+            })
+            .catch(err => {
+              console.log("错误", err);
+            });
         }
-      })
+      });
     },
     //修改表单提交
     onSubmitEdit() {
@@ -714,12 +712,12 @@ export default {
         manufacturer: this.editCamera.manufacturer,
         parkId: this.editCamera.parkId,
         passagewayId: this.editCamera.passagewayId
-      }
+      };
       this.$deviceManagement.updatePassagewayCamera(param).then(res => {
         console.log("打印响应", res);
         this.queryPassagewayCamera();
         this.editListDialog = false;
-      })
+      });
     },
     //批量删除监听
     handleSelectionChange(val) {
@@ -730,7 +728,7 @@ export default {
       });
     },
     // 斑马纹样式
-    tableRowClassName({row, rowIndex}) {
+    tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 == 1) {
         return "successRow11";
       } else if (rowIndex % 2 == 0) {
@@ -740,21 +738,22 @@ export default {
     },
     queryInAndOut(parkId) {
       const param = {
-        "columnName": ["passageway_id", "passageway_name"],
-        "tableName": "t_bim_passageway",
-        "whereStr": [{
-          colName: "park_id",
-          value: parkId
-        }
+        columnName: ["passageway_id", "passageway_name"],
+        tableName: "t_bim_passageway",
+        whereStr: [
+          {
+            colName: "park_id",
+            value: parkId
+          }
         ]
       };
       this.$homePage.queryDict(param).then(res => {
         this.importExportNameList = res.resultEntity;
-      })
+      });
     }
   },
   computed: {
-    exportFile: function () {
+    exportFile: function() {
       return BASE_API + "PassagewayController/download";
     }
   },
@@ -763,9 +762,9 @@ export default {
       template: "jinchukou"
     };
     this.templateDl =
-        BASE_API +
-        "CommonController/downloadResource?jsonStr=" +
-        encodeURIComponent(JSON.stringify(param));
+      BASE_API +
+      "CommonController/downloadResource?jsonStr=" +
+      encodeURIComponent(JSON.stringify(param));
     this.queryPassagewayCamera();
     this.queryParking();
   },

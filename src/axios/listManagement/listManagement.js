@@ -3,7 +3,7 @@ import request from "@/utils/request";
 //查询白名单列表  MemberFunc/queryWhiteList
 export function queryWhiteList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/queryWhiteList",
+    url: "http://123.207.189.27:7138/AuthorizationController/queryWhiteList",
     method: "post",
     data: param,
     flag: "out"
@@ -13,7 +13,7 @@ export function queryWhiteList(param) {
 //新增白名单接口 MemberFunc/insertWhiteList
 export function insertWhiteList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/addWhite",
+    url: "http://123.207.189.27:7138/AuthorizationController/addWhite",
     method: "post",
     data: param,
     flag: "out"
@@ -23,7 +23,7 @@ export function insertWhiteList(param) {
 //白名单删除接口 MemberFunc/deleteWhiteList
 export function deleteWhiteList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/delWhite",
+    url: "http://123.207.189.27:7138/AuthorizationController/delWhite",
     method: "post",
     data: param,
     flag: "out"
@@ -33,7 +33,7 @@ export function deleteWhiteList(param) {
 //白名单修改接口 MemberFunc/updateWhiteList
 export function updateWhiteList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/updateWhite",
+    url: "http://123.207.189.27:7138/AuthorizationController/updateWhite",
     method: "post",
     data: param,
     flag: "out"
@@ -43,7 +43,7 @@ export function updateWhiteList(param) {
 //启动白名单
 export function enableWhite(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/enableWhite",
+    url: "http://123.207.189.27:7138/AuthorizationController/enableWhite",
     method: "post",
     data: param,
     flag: "out"
@@ -53,7 +53,7 @@ export function enableWhite(param) {
 //失效白名单
 export function disableWhite(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/disableWhite",
+    url: "http://123.207.189.27:7138/AuthorizationController/disableWhite",
     method: "post",
     data: param,
     flag: "out"
@@ -63,7 +63,7 @@ export function disableWhite(param) {
 //查询黑名单列表 MemberFunc/queryBlackList
 export function queryBlackList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/queryBlackList",
+    url: "http://123.207.189.27:7138/AuthorizationController/queryBlackList",
     method: "post",
     data: param,
     flag: "out"
@@ -73,7 +73,7 @@ export function queryBlackList(param) {
 //新增黑名单接口 MemberFunc/insertBlackList
 export function insertBlackList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/addBlack",
+    url: "http://123.207.189.27:7138/AuthorizationController/addBlack",
     method: "post",
     data: param,
     flag: "out"
@@ -83,7 +83,7 @@ export function insertBlackList(param) {
 //黑名单删除接口 MemberFunc/deleteBlackList
 export function deleteBlackList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/delBlack",
+    url: "http://123.207.189.27:7138/AuthorizationController/delBlack",
     method: "post",
     data: param,
     flag: "out"
@@ -93,7 +93,7 @@ export function deleteBlackList(param) {
 //黑名单修改接口 MemberFunc/updateBlackList
 export function updateBlackList(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/updateBlack",
+    url: "http://123.207.189.27:7138/AuthorizationController/updateBlack",
     method: "post",
     data: param,
     flag: "out"
@@ -103,7 +103,7 @@ export function updateBlackList(param) {
 //黑名单修改状态 MemberFunc/updateBlackListStatus
 export function enableBlack(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/enableBlack",
+    url: "http://123.207.189.27:7138/AuthorizationController/enableBlack",
     method: "post",
     data: param,
     flag: "out"
@@ -112,7 +112,7 @@ export function enableBlack(param) {
 
 export function disableBlack(param) {
   return request({
-    url: "http://localhost:8000/AuthorizationController/disableBlack",
+    url: "http://123.207.189.27:7138/AuthorizationController/disableBlack",
     method: "post",
     data: param,
     flag: "out"
