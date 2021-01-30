@@ -185,10 +185,9 @@
       >
         <div style="font-size: 20px">基本信息</div>
         <el-row style="padding-top: 20px">
-          <!--          <!-·-            <el-form-item label="洗车机编号:" label-width="150px">&ndash;&gt;-->
-          <!--              <el-input v-model="newWasher.washerId" />-->
-          <!--            </el-form-item>-->
-
+          <el-form-item label="洗车机编号:" label-width="150px">
+            <el-input v-model="newWasher.washerId" />
+          </el-form-item>
           <el-form-item
             label="洗车机名称:"
             label-width="150px"
@@ -450,13 +449,12 @@ export default {
         .then(() => {
           const param = [{ washerId: row.washerId }];
           this.$deviceManagement.delCarWashingMachine(param).then(res => {
-            console.log("删除成功", res);
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+            this.queryWasher();
           });
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-          this.queryWasher();
         })
         .catch(() => {
           this.$message({ type: "info", message: "已取消删除" });

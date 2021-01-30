@@ -505,12 +505,13 @@ export default {
               etcNumber: row.etcNumber
             }
           ];
-          this.$deviceManagement.delETC(param).then(res => {});
-          this.$message({
-            type: "success",
-            message: "删除成功!"
+          this.$deviceManagement.delETC(param).then(res => {
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+            this.queryETCList();
           });
-          this.queryETCList();
         })
         .catch(() => {
           this.$message({ type: "info", message: "已取消删除" });
