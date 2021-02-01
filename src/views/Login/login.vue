@@ -88,6 +88,7 @@ export default {
               type: "success",
               message: "登陆成功"
             });
+            debugger;
             localStorage.setItem("userToken", response.resultEntity.userToken);
             localStorage.setItem("userName", this.loginList.loginName);
             // 登陆成功后跳转方法

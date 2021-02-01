@@ -2,113 +2,95 @@ import request from "@/utils/request";
 //洗车机运营分析洗车机收入分析统计
 export function queryCarWashIncomeAnalysis(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashIncomeAnalysis",
+    url: "/CarWashAnalysis/queryCarWashIncomeAnalysis",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //洗车运营分析洗车类型收入统计分析
 export function queryCarWashTypeIncomeAnalysis(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashTypeIncomeAnalysis",
+    url: "/CarWashAnalysis/queryCarWashTypeIncomeAnalysis",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //洗车机运营分析洗车次数统计分析
 export function queryCarWashCountAnalysis(param) {
   return request({
-    url: "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashCountAnalysis",
+    url: "/CarWashAnalysis/queryCarWashCountAnalysis",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //洗车运营分析 洗车类型次数统计分析
 export function queryCarWashTypeTimesAnalysis(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/CarWashAnalysis/queryCarWashTypeTimesAnalysis",
+    url: "/CarWashAnalysis/queryCarWashTypeTimesAnalysis",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //洗车机信息查询
 export function queryWashData(param) {
   return request({
-    url: "http://123.207.189.27:7138/RealTimeMonitorController/washData",
+    url: "/RealTimeMonitorController/washData",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //洗车收入分析
 export function queryWashCount(param) {
   return request({
-    url: "http://123.207.189.27:7138/RealTimeMonitorController/washCarCount",
+    url: "/RealTimeMonitorController/washCarCount",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //洗车收入分析
 export function queryWashEarn(param) {
   return request({
-    url: "http://123.207.189.27:7138/RealTimeMonitorController/washEarn",
+    url: "/RealTimeMonitorController/washEarn",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //入场记录列表查询
 export function queryInRecord(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/RealTimeMonitorController/getRecentCarInRecord",
+    url: "/RealTimeMonitorController/getRecentCarInRecord",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //出场记录列表查询
 export function queryOutRecord(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/RealTimeMonitorController/getRecentCarOutRecord",
+    url: "/RealTimeMonitorController/getRecentCarOutRecord",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //入场追踪出场
 export function getOutRecord(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/RealTimeMonitorController/getCarOutRecordByInRecordId",
+    url: "/RealTimeMonitorController/getCarOutRecordByInRecordId",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //出场追踪入场
 export function getInRecord(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/RealTimeMonitorController/getCarInRecordByInRecordId",
+    url: "/RealTimeMonitorController/getCarInRecordByInRecordId",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }

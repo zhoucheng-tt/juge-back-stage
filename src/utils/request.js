@@ -21,7 +21,7 @@ const service = axios.create({
   // baseURL: "http://123.207.189.27:7146/eparking-web/",
   // 服务器版本
   // baseURL:'/e-parking-api',
-  baseURL: "/eparking-web/",
+  baseURL: "/eparking-web",
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   // 这边也走两套
@@ -91,36 +91,40 @@ service.interceptors.response.use(
     // router.push({ name: 'login' })
     //   return Promise.reject(res.resultMsg || 'error')
     // } else
-    if (response.config.flag === "out") {
-      if (res.resultCode == "3004") {
-        Message({
-          message: "未登录或登录超时,请重新登录",
-          type: "error",
-          duration: 5 * 1000,
-          showClose: true
-        });
-        debugger;
-        router.push({ name: "login" });
-      }
-      return res;
-    } else {
-      if (res.status !== "0") {
-        if (response.config.flag === "innerExt") {
-          return res;
-        } else {
-          Message({
-            message: res.resultMsg || "系统错误，请联系管理员",
-            type: "error",
-            duration: 5 * 1000,
-            showClose: true
-          });
-          // router.push({ name: '/login' })
-          return Promise.reject(res.resultMsg || "error");
-        }
-      } else {
-        return res;
-      }
+    // if (res.status !== "0") {
+    //   if (response.config.flag === "innerExt") {
+    //     return res;
+    //   } else {
+    //     Message({
+    //       message: res.resultMsg || "系统错误，请联系管理员",
+    //       type: "error",
+    //       duration: 5 * 1000,
+    //       showClose: true
+    //     });
+    //     // router.push({ name: '/login' })
+    //     return Promise.reject(res.resultMsg || "error");
+    //   }
+    // } else {
+    //   return res;
+    // }
+    if (res.resultCode == "3004") {
+      Message({
+        message: "未登录或登录超时,请重新登录",
+        type: "error",
+        duration: 5 * 1000,
+        showClose: true
+      });
+      router.push({ name: "login" });
+    } else if (res.resultCode != "2000") {
+      Message({
+        message: res.resultMsg || "系统错误，请联系管理员",
+        type: "error",
+        duration: 5 * 1000,
+        showClose: true
+      });
+      return Promise.reject(res.resultMsg || "error");
     }
+    return res;
   },
   error => {
     console.log("err" + error); // for debug

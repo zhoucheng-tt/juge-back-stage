@@ -22,8 +22,7 @@ export function queryList(params) {
     url:
       "http://paks.jitunet.cn:83/parkingspace/parking/space/queryAllSpace.action?parkingId=28&start=0&limit=100",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
@@ -32,138 +31,123 @@ export function queryImgUrl(params) {
     url:
       "http://paks.jitunet.cn:83/parkingspace/parking/record/queryRecordByCameraId.action?cameraId=47",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
 //停车场管理-停车场管理-列表查询
 export function queryParkList(param) {
   return request({
-    url: "http://123.207.189.27:7138/ParkingLotController/queryParkList",
+    url: "/ParkingLotController/queryParkList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-停车场管理-新增停车场
 export function insertPark(param) {
   return request({
-    url: "http://123.207.189.27:7138/ParkingLotController/insertParkingLot",
+    url: "/ParkingLotController/insertParkingLot",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-停车场管理-删除停车场
 export function deletePark(param) {
   return request({
-    url: "http://123.207.189.27:7138/ParkingLotController/delParkingLot",
+    url: "/ParkingLotController/delParkingLot",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-停车场管理-修改停车场
 export function updatePark(param) {
   return request({
-    url: "http://123.207.189.27:7138/ParkingLotController/updateParkingLot",
+    url: "/ParkingLotController/updateParkingLot",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-出入口管理-列表查询
 export function queryPassagewayList(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayController/queryPassagewayList",
+    url: "/PassagewayController/queryPassagewayList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-出入口管理-新增出入口 insertPassagewayList
 export function insertPassagewayList(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayController/insertPassageway",
+    url: "/PassagewayController/insertPassageway",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-出入口管理-删除出入口 deletePassagewayList
 export function deletePassagewayList(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayController/delPassagewayList",
+    url: "/PassagewayController/delPassagewayList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-出入口管理-修改出入口 updatePassagewayList
 export function updatePassagewayList(param) {
   return request({
-    url: "http://123.207.189.27:7138/PassagewayController/updatePassagewayList",
+    url: "/PassagewayController/updatePassagewayList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-车位管理-上半部分列表查询 queryParkLayerList
 export function queryParkLayerList(param) {
   return request({
-    url: "http://123.207.189.27:7138/ParkingSpaceController/queryParkLayerList",
+    url: "/ParkingSpaceController/queryParkLayerList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-车位管理-下半部分列表查询 queryParkSpaceList
 export function queryParkSpaceList(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138//ParkingSpaceController/queryParkSpaceList",
+    url: "/ParkingSpaceController/queryParkSpaceList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-车位管理-删除 deleteParkLayer
 export function deleteParkLayer(param) {
   return request({
-    url: "http://123.207.189.27:7138//ParkingSpaceController/delParkLayer",
+    url: "/ParkingSpaceController/delParkLayer",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理-车位管理-修改 deleteParkLayer
 export function updateParkLayer(param) {
   return request({
-    url: "http://123.207.189.27:7138//ParkingSpaceController/updateParkLayer",
+    url: "/ParkingSpaceController/updateParkLayer",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //停车场管理车位管理的上传接口 parkFunc/insertParkLayer
 export function insertParkLayer(param) {
   return request({
-    url: "http://123.207.189.27:7138//ParkingSpaceController/addParkLayer",
+    url: "/ParkingSpaceController/addParkLayer",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }

@@ -23,9 +23,10 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      this.initChart(this.chartData);
-    });
+    // this.$nextTick(() => {
+    //   this.initChart(this.chartData);
+    // });
+    this.initChart(this.chartData);
     // console.log(this.chartData.xCategories, this.chartData.seriesData);
     // this.initChart(this.chartData);
   },

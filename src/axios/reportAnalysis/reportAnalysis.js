@@ -2,233 +2,209 @@ import request from "@/utils/request";
 //运营指标分析表格  operateController/queryData
 export function queryData(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/queryData",
+    url: "/operateController/queryData",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营指标分析停车数量 operateController/queryParkTimes
 export function queryParkTimes(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/queryParkTimes",
+    url: "/operateController/queryParkTimes",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营指标分析 平均停车时长 operateController/avgParkDuration
 export function avgParkDuration(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/avgParkDuration",
+    url: "/operateController/avgParkDuration",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营指标分析 车位利用率 operateController/usageRate
 export function usageRate(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/usageRate",
+    url: "/operateController/usageRate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营指标分析 车位周转率 operateController/turnoverRate
 export function turnoverRate(param) {
   return request({
-    url: "http://123.207.189.27:7138/operateController/turnoverRate",
+    url: "/operateController/turnoverRate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营收入分析 停车收费统计分析
 export function queryAmountAnalysis(param) {
   return request({
-    url: "http://123.207.189.27:7138/IncomeAnalysis/queryAmountAnalysis",
+    url: "/IncomeAnalysis/queryAmountAnalysis",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营收入分析 停车收入构成统计分析
 export function queryChargePercent(param) {
   return request({
-    url: "http://123.207.189.27:7138/IncomeAnalysis/queryChargePercent",
+    url: "/IncomeAnalysis/queryChargePercent",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //运营收入分析 缴费类型统计分析 IncomeAnalysis/queryChargeType
 export function queryChargeType(param) {
   return request({
-    url: "http://123.207.189.27:7138/IncomeAnalysis/queryChargeType",
+    url: "/IncomeAnalysis/queryChargeType",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //停车收入对比分析 IncomeAnalysis/queryIncomeContrast
 export function queryIncomeContrast(param) {
   return request({
-    url: "http://123.207.189.27:7138/IncomeAnalysis/queryIncomeContrast",
+    url: "/IncomeAnalysis/queryIncomeContrast",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //报表分析日报
 export function queryOpeReportStatisDayAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportDate",
+    url: "/EarnAnalysisController/reportDate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //报表分析月报
 export function queryOpeReportStatisMonthAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportMonth",
+    url: "/EarnAnalysisController/reportMonth",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //报表分析年报
 export function queryOpeReportStatisYearAnal(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/reportYear",
+    url: "/EarnAnalysisController/reportYear",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //支付台账分析列表查询
 export function queryAccountStatisList(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/queryPayStatistic",
+    url: "/PayStatisticController/queryPayStatistic",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //缴费金额趋势分析近七天
 export function sevenPayAna(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/sevenPayAna",
+    url: "/PayStatisticController/sevenPayAna",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //缴费金额趋势分析近30天
 export function thirtyPayAna(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/thirtyPayAna",
+    url: "/PayStatisticController/thirtyPayAna",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //缴费金额趋势分析近一年
 export function PayAna365(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/PayAna365",
+    url: "/PayStatisticController/PayAna365",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //缴费组成分析
 export function paymentAnalysis(param) {
   return request({
-    url: "http://123.207.189.27:7138/PayStatisticController/payMethodAna",
+    url: "/PayStatisticController/payMethodAna",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //运营指标分析平均充电时间
 export function queryAvgChargeTime(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/avgChargeTime",
+    url: "/EarnAnalysisController/avgChargeTime",
     method: "post",
     header: {
       "content-type": "application/json;charset=utf-8"
     },
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //充电桩收入分析
 export function queryChargeEarn(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/EarnAnalysisController/queryChargeEarnData",
+    url: "/EarnAnalysisController/queryChargeEarnData",
     method: "post",
     header: {
       "content-type": "application/json;charset=utf-8"
     },
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //洗车站收入分析
 export function queryWashEarn(param) {
   return request({
-    url: "http://123.207.189.27:7138/EarnAnalysisController/queryWashEarnData",
+    url: "/EarnAnalysisController/queryWashEarnData",
     method: "post",
     header: {
       "content-type": "application/json;charset=utf-8"
     },
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //洗车机报警列表查询
 export function carWasherAlarm(param) {
   return request({
-    url: "http://123.207.189.27:7138/CarWasherController/queryAlarmInfo",
+    url: "/CarWasherController/queryAlarmInfo",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //洗车机报警类型分析
 export function alarmTypeAna(param) {
   return request({
-    url: "http://123.207.189.27:7138/CarWasherController/alarmTypeAna",
+    url: "/CarWasherController/alarmTypeAna",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //洗车机报警近七天
 export function alarmRecent7day(param) {
   return request({
-    url: "http://123.207.189.27:7138/CarWasherController/alarmRecent7day",
+    url: "/CarWasherController/alarmRecent7day",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //停车场运营指标分析平均充电时间
 // export function queryAvgWashTime(param) {
 //   return request({
-//     url: "http://123.207.189.27:7138/EarnAnalysisController/avgWashTime",
+//     url: "/EarnAnalysisController/avgWashTime",
 //     method: "post",
 //     header: {
 //       "content-type": "application/json;charset=utf-8"
 //     },
 //     data: param,
-//     flag: "out"
+//
 //   });
 // }

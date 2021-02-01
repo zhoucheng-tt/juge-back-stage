@@ -2,268 +2,226 @@ import request from "@/utils/request";
 //地磁车列表查询
 export function queryMagneticDetecter(params) {
   return request({
-    url:
-      "http://123.207.189.27:7138/MagneticDetecterController/queryMagneticDetecter",
+    url: "/MagneticDetecterController/queryMagneticDetecter",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
 //新增地磁车
 export function addMagneticDetecter(params) {
   return request({
-    url:
-      "http://123.207.189.27:7138/MagneticDetecterController/addMagneticDetecter",
+    url: "/MagneticDetecterController/addMagneticDetecter",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
 //删除地磁车
 export function delMagneticDetecter(params) {
   return request({
-    url:
-      "http://123.207.189.27:7138/MagneticDetecterController/deleteMagneticDetecter",
+    url: "/MagneticDetecterController/deleteMagneticDetecter",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 //修改地磁车
 export function updateMagneticDetecter(params) {
   return request({
-    url:
-      "http://123.207.189.27.7138/MagneticDetecterController/updateMagneticDetecter",
+    url: "/MagneticDetecterController/updateMagneticDetecter",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 //地锁列表查询
 export function queryGroundLock(params) {
   return request({
-    url: "http://123.207.189.27:7138/GroundLockController/queryGroundLock",
+    url: "/GroundLockController/queryGroundLock",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 //新增地锁
 export function addGroundLock(params) {
   return request({
-    url: "http://123.207.189.27:7138/GroundLockController/addGroundLock",
+    url: "/GroundLockController/addGroundLock",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 //删除地锁
 export function delGroundLock(params) {
   return request({
-    url: "http://123.207.189.27:7138/GroundLockController/delGroundLock",
+    url: "/GroundLockController/delGroundLock",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
 //修改地锁
 export function updateGroundLock(params) {
   return request({
-    url: "http://123.207.189.27:7138/GroundLockController/updateGroundLock",
+    url: "/GroundLockController/updateGroundLock",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 //道闸机按钮查询 query
 export function queryPassagewayGate(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayGateController/queryPassagewayGate",
+    url: "/PassagewayGateController/queryPassagewayGate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 // 道闸机新增 addPassagewayGate
 export function addPassagewayGate(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayGateController/addPassagewayGate",
+    url: "/PassagewayGateController/addPassagewayGate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //道闸机删除 delPassagewayGate
 export function delPassagewayGate(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayGateController/delPassagewayGate",
+    url: "/PassagewayGateController/delPassagewayGate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //道闸机修改 updatePassagewayGate
 export function updatePassagewayGate(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayGateController/updatePassagewayGate",
+    url: "/PassagewayGateController/updatePassagewayGate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //新增出入口摄像头
 export function addPassagewayCamera(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayCameraController/addPassagewayCamera",
+    url: "/PassagewayCameraController/addPassagewayCamera",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //出入口摄像头列表查询
 export function queryPassagewayCamera(params) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayCameraController/queryPassagewayCamera",
+    url: "/PassagewayCameraController/queryPassagewayCamera",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
 //出入口摄像头修改
 export function updatePassagewayCamera(params) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayCameraController/updatePassagewayCamera",
+    url: "/PassagewayCameraController/updatePassagewayCamera",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 
 //出入口摄像头删除
 export function delPassagewayCamera(params) {
   return request({
-    url:
-      "http://123.207.189.27:7138/PassagewayCameraController/delPassagewayCamera",
+    url: "/PassagewayCameraController/delPassagewayCamera",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
   });
 }
 //基础信息管理信息ETC
 export function queryETCList(param) {
   return request({
-    url: "http://123.207.189.27:7138/ETCFunc/queryETCList",
+    url: "/ETCFunc/queryETCList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //修改ETC updateETC
 export function updateETC(param) {
   return request({
-    url: "http://123.207.189.27:7138/ETCFunc/updateETC",
+    url: "/ETCFunc/updateETC",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //新增ETC addETC
 export function addETC(param) {
   return request({
-    url: "http://123.207.189.27:7138/ETCFunc/addETC",
+    url: "/ETCFunc/addETC",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //删除ETC
 export function delETC(param) {
   return request({
-    url: "http://123.207.189.27:7138/ETCFunc/delETC",
+    url: "/ETCFunc/delETC",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //洗车机列表
 export function queryCarWashingMachineList(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/carWashingMachineFunc/queryCarWashingMachineList",
+    url: "/carWashingMachineFunc/queryCarWashingMachineList",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 //新增洗车机 addCarWashingMachine
 export function addCarWashingMachine(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/carWashingMachineFunc/addCarWashingMachine",
+    url: "/carWashingMachineFunc/addCarWashingMachine",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //修改洗车机 updateCarWashingMachine
 export function updateCarWashingMachine(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/carWashingMachineFunc/updateCarWashingMachine",
+    url: "/carWashingMachineFunc/updateCarWashingMachine",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //删除洗车机 delCarWashingMachine
 export function delCarWashingMachine(param) {
   return request({
-    url:
-      "http://123.207.189.27:7138/carWashingMachineFunc/delCarWashingMachine",
+    url: "/carWashingMachineFunc/delCarWashingMachine",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //文件上传
 export function uploadFile(param) {
   return request({
-    url: "http://123.207.189.27:7138/FileController/upFile",
+    url: "/FileController/upFile",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }
 
 //导出ETC数据
 export function exportETC(param) {
   return request({
-    url: "http://123.207.189.27:7138/ETCFunc/exportETC",
+    url: "/ETCFunc/exportETC",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
   });
 }

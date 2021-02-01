@@ -4004,6 +4004,9 @@ export default {
       //近七日洗车收费金额
       washChargeInSevenDaysOption: {},
       washChargeInSevenDaysXz: [],
+      washChargeInSevenDaysJINGWashList: [],
+      washChargeInSevenDaysPUWashList: [],
+      washChargeInSevenDaysKUAIWashList: [],
       washChargeInSevenDaysJINGWash: [],
       washChargeInSevenDaysPUWash: [],
       washChargeInSevenDaysKUAIWash: [],
@@ -4214,6 +4217,7 @@ export default {
     },
     // 总停车数量
     queryParkOptByParkCount() {
+      let that = this;
       const param = {
         endTime: this.currentDay
       };
@@ -4227,10 +4231,11 @@ export default {
         for (let i = 0; i < this.numberOfParkingData.length; i++) {
           this.numberOfParkingTotal += this.numberOfParkingData[i];
         }
-        this.chartData = {
+        that.chartData = {
           xCategories: this.numberOfParkingXz,
           seriesData: this.numberOfParkingData
         };
+        debugger;
         // this.numberOfParkingOptions = {
         //   chart: {
         //     type: "spline",
@@ -4958,14 +4963,24 @@ export default {
     //近七日洗车收费金额
     handleWashCarIncomeSevenDays() {
       this.$homePage.queryCarWashAmountRecentDays({}).then(res => {
-        res.resultEntity["精洗"].forEach(item => {
+        console.log(res);
+        res.resultEntity.forEach(item => {
+          if (item.type == "精洗") {
+            this.washChargeInSevenDaysJINGWashList.push(item);
+          } else if (item.type == "普洗") {
+            this.washChargeInSevenDaysPUWashList.push(item);
+          } else if (item.type == "快洗") {
+            this.washChargeInSevenDaysKUAIWashList.push(item);
+          }
+        });
+        this.washChargeInSevenDaysJINGWashList.forEach(item => {
           this.washChargeInSevenDaysXz.push(item.X.replaceAll("-", ""));
           this.washChargeInSevenDaysJINGWash.push(Number(item.dataY) / 100);
         });
-        res.resultEntity["普洗"].forEach(item => {
+        this.washChargeInSevenDaysPUWashList.forEach(item => {
           this.washChargeInSevenDaysPUWash.push(Number(item.dataY) / 100);
         });
-        res.resultEntity["快洗"].forEach(item => {
+        this.washChargeInSevenDaysKUAIWashList.forEach(item => {
           this.washChargeInSevenDaysKUAIWash.push(Number(item.dataY) / 100);
         });
         this.washChargeInSevenDaysOption = {
@@ -5024,10 +5039,10 @@ export default {
               fill: "white"
             },
             itemHoverStyle: {
-              color: "blue"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "blue"
+              color: "#cccccc"
             }
           },
           tooltip: {
