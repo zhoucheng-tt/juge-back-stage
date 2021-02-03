@@ -1738,7 +1738,7 @@
               style="enable-background:new 0 0 1075.6 717.9;margin-top:2%"
               xml:space="preserve"
             >
-              <title>溧水机电系统图纸0409wyh(1) Model (1)</title>
+              <title>溧水智慧停车场平面图</title>
               <g id="底图">
                 <path
                   class="st0"
@@ -4103,11 +4103,21 @@ export default {
         this.$router.push("/keyVehicleSupervision");
       }
     },
-    handleClickP1Dialog() {},
-    handleClickP2Dialog() {},
-    handleClickP3Dialog() {},
-    handleClickP4Dialog() {},
-    handleClickP5Dialog() {},
+    handleClickP1Dialog() {
+      this.$router.push("/publicParking");
+    },
+    handleClickP2Dialog() {
+      this.$router.push("/staffParking");
+    },
+    handleClickP3Dialog() {
+      this.$router.push("/temporaryParking");
+    },
+    handleClickP4Dialog() {
+      this.$router.push("/newEnergyParking");
+    },
+    handleClickP5Dialog() {
+      this.$router.push("/dedicatedParking");
+    },
     //退出
     loginOut() {
       this.$homePage.loginOut(1).then(res => {
@@ -4235,7 +4245,6 @@ export default {
           xCategories: this.numberOfParkingXz,
           seriesData: this.numberOfParkingData
         };
-        debugger;
         // this.numberOfParkingOptions = {
         //   chart: {
         //     type: "spline",
@@ -4963,7 +4972,6 @@ export default {
     //近七日洗车收费金额
     handleWashCarIncomeSevenDays() {
       this.$homePage.queryCarWashAmountRecentDays({}).then(res => {
-        console.log(res);
         res.resultEntity.forEach(item => {
           if (item.type == "精洗") {
             this.washChargeInSevenDaysJINGWashList.push(item);
@@ -5306,8 +5314,8 @@ export default {
 /*左边内容部分 */
 .leftContent {
   width: 20.6%;
-  height: 96%;
-  margin-top: 1.3%;
+  height: 98%;
+  margin-top: 0.8%;
   margin-left: 1.3%;
   background-image: url("../../assets/homePage/bothBack.png");
   background-size: 100% 100%;
@@ -5364,9 +5372,9 @@ export default {
 /*右边内容*/
 .rightContent {
   width: 20.6%;
-  height: 96%;
-  margin-top: 1.3%;
-  margin-left: 1.8%;
+  height: 98%;
+  margin-top: 0.8%;
+  margin-left: 1.4%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-image: url("../../assets/homePage/bothBack.png");
@@ -5409,11 +5417,10 @@ export default {
 
 /*中间上部分样式*/
 .center {
-  width: 52.6%;
+  width: 53.6%;
   height: 94%;
-  margin-top: 1.3%;
-  margin-left: 1.8%;
-  /*border: 1px solid red;*/
+  margin-top: 0.7%;
+  margin-left: 1.4%;
 }
 /*  中间剩余车位*/
 .center-leftport {
@@ -5541,7 +5548,7 @@ export default {
 /*  车位图*/
 .center-down {
   width: 100%;
-  height: 78%;
+  height: 81%;
   display: flex;
   margin-top: 3%;
   border: 1px solid #3d71c1;
@@ -5620,10 +5627,10 @@ export default {
 }
 /* 车位图svg*/
 .center-down-svg {
-  width: 90%;
-  height: 100%;
-  margin-left: 5%;
-  margin-top: 2%;
+  width: 92%;
+  height: 90%;
+  margin-left: 4%;
+  margin-top: 4%;
 }
 .parkListDiv-svg {
   width: 100px;
@@ -5637,7 +5644,7 @@ export default {
   text-align: center;
   position: absolute;
   margin-left: 7.5%;
-  margin-top: 15%;
+  margin-top: 17%;
 }
 .parkListDivP2 {
   width: 100px;
@@ -5647,8 +5654,8 @@ export default {
   letter-spacing: 0.32px;
   text-align: center;
   position: absolute;
-  margin-left: 45%;
-  margin-top: 11%;
+  margin-left: 45.5%;
+  margin-top: 12%;
 }
 .parkListDivP3 {
   width: 100px;
@@ -5658,8 +5665,8 @@ export default {
   letter-spacing: 0.32px;
   text-align: center;
   position: absolute;
-  margin-left: 44%;
-  margin-top: 2%;
+  margin-left: 44.8%;
+  margin-top: 3.5%;
 }
 .parkListDivP4 {
   width: 100px;
@@ -5669,8 +5676,8 @@ export default {
   letter-spacing: 0.32px;
   text-align: center;
   position: absolute;
-  margin-left: 29%;
-  margin-top: 8%;
+  margin-left: 30%;
+  margin-top: 9.5%;
 }
 .parkListDivP5 {
   width: 100px;
@@ -5681,7 +5688,7 @@ export default {
   text-align: center;
   position: absolute;
   margin-left: 33%;
-  margin-top: 13%;
+  margin-top: 15%;
 }
 .parkListDialogP1 {
   display: flex;

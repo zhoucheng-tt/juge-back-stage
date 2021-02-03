@@ -244,6 +244,51 @@ const routes = [
           import(
             /* webpackChunkName: "about" */ "@/views/systemManagement/vehicleInvestigation.vue"
           )
+      },
+      //公共停车场
+      {
+        path: "/publicParking",
+        name: "publicParking",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/park/publicParking.vue"
+          )
+      },
+      //员工停车场
+      {
+        path: "/staffParking",
+        name: "staffParking",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/park/staffParking.vue"
+          )
+      },
+      //临时停车场
+      {
+        path: "/temporaryParking",
+        name: "temporaryParking",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/park/temporaryParking.vue"
+          )
+      },
+      //新能源停车场
+      {
+        path: "/newEnergyParking",
+        name: "newEnergyParking",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/park/newEnergyParking.vue"
+          )
+      },
+      //专用停车场
+      {
+        path: "/dedicatedParking",
+        name: "dedicatedParking",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/park/dedicatedParking.vue"
+          )
       }
     ]
   }
