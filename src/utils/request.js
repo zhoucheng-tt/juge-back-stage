@@ -21,7 +21,7 @@ const service = axios.create({
   // baseURL: "http://123.207.189.27:7146/eparking-web/",
   // 服务器版本
   // baseURL:'/e-parking-api',
-  baseURL: "/eparking-web",
+  baseURL: "/eparking-web/",
   withCredentials: false, // send cookies when cross-domain requests
   timeout: 15000, // request timeout
   // 这边也走两套
