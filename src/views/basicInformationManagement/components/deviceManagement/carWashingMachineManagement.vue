@@ -50,9 +50,7 @@
           <el-button type="primary" size="small" @click="queryWasher()"
             >查 询</el-button
           >
-          <el-button type="primary" size="small" @click="resetQuery"
-            >重置</el-button
-          >
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -217,6 +215,7 @@
       width="50%"
       title="修改洗车机"
       :visible.sync="editListDialog"
+      @close="queryWasher"
     >
       <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">基本信息</div>
@@ -243,8 +242,8 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editListDialog = false">取 消</el-button>
-        <el-button type="primary" @click="onSubmitEdit()">确定</el-button>
+        <!--        <el-button @click="editListDialog = false">取 消</el-button>-->
+        <el-button type="primary" @click="onSubmitEdit()">保 存</el-button>
       </div>
     </el-dialog>
     <!--      导入弹框-->
@@ -258,8 +257,6 @@
         :limit="1"
         :on-change="addFile"
         :on-exceed="handleExceed"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
         :show-file-list="true"
         accept=".xls, .xlsx"
         action=""
@@ -305,23 +302,11 @@ export default {
       //导出
       exportFile: BASE_API + "carWashingMachineFunc/download",
       fileList: [],
-      //充电桩编号列表
+      //洗车机编号列表
       carWashingMachineNameList: [
         {
-          carWashingMachineName: "1号",
+          carWashingMachineName: "龙门洗车机",
           id: "1"
-        },
-        {
-          carWashingMachineName: "2号",
-          id: "2"
-        },
-        {
-          carWashingMachineName: "3号",
-          id: "3"
-        },
-        {
-          carWashingMachineName: "4号",
-          id: "4"
         }
       ],
       //设备状态
@@ -399,7 +384,6 @@ export default {
     },
     //新增洗车机
     addWasher() {
-      console.log("新增弹框弹出");
       this.newWasher = {};
       this.addListDialog = true;
     },
@@ -412,7 +396,6 @@ export default {
           type: "warning"
         });
       } else {
-        console.log("批量删除", this.idList);
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -422,7 +405,6 @@ export default {
             this.$deviceManagement
               .delCarWashingMachine(this.idList)
               .then(res => {
-                console.log("删除成功", res);
                 this.$message({ type: "success", message: "删除成功!" });
                 this.queryWasher();
               });
@@ -436,11 +418,9 @@ export default {
     editDialog(row) {
       this.editWasher = row;
       this.editListDialog = true;
-      console.log("修改弹窗弹出");
     },
     //删除
     deleteWasher(row) {
-      console.log("删除的洗车机Id", row.washerId);
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -464,11 +444,9 @@ export default {
     onSubmitAdd() {
       this.$refs["addWasher"].validate(valid => {
         if (valid) {
-          console.log("保存后打印出来的数据", this.newWasher);
           this.$deviceManagement
             .addCarWashingMachine(this.newWasher)
             .then(res => {
-              // console.log("打印相应", res);
               this.$message({ type: "success", message: "添加成功!" });
               this.queryWasher();
             });
@@ -478,14 +456,15 @@ export default {
     },
     //修改表单提交
     onSubmitEdit() {
+      this.editListDialog = false;
       this.$deviceManagement
         .updateCarWashingMachine(this.editWasher)
         .then(res => {
-          console.log("打印更新数据", res);
-          this.$message({ type: "success", message: "修改成功!" });
-          this.queryWasher();
+          if (res.resultCode == "2000") {
+            this.$message({ type: "success", message: "修改成功!" });
+            this.queryWasher();
+          }
         });
-      this.editListDialog = false;
     },
     //批量删除监听
     handleSelectionChange(val) {
@@ -498,7 +477,6 @@ export default {
         };
         this.idList.push(param);
       });
-      console.log(this.selectList);
     },
     // 分页查询方法
     handleCurrentModify(val) {
@@ -515,32 +493,20 @@ export default {
     },
     //处理导入
     addFile(file, fileList) {
-      console.log(file, fileList);
       var index = file.name.split(".").slice(-1);
       if (!(index == "xlsx" || index == "XLSX")) {
         this.fileList = [];
         this.$message.warning(`文件格式有误,请选择xls文件`);
       }
-      console.log(index);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
-    handleExceed(files, fileList) {
+    handleExceed() {
       this.$message.warning(`对不起,一次仅限上传一个文件！`);
-    },
-    confimImportBatch() {
-      this.$refs.upload.submit();
     },
     myUpload(content) {
       let _self = this;
       // 1.导入
       var FileController = "";
       FileController = BASE_API + "carWashingMachineFunc/upload"; //请求接口
-      console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
       form.append("file", content.file);
@@ -560,7 +526,6 @@ export default {
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
           var resText = JSON.parse(xhr.responseText);
-          console.log(resText);
           if (resText.resultCode === "2000") {
             _self.fileList = [];
             _self.$message({
@@ -578,6 +543,9 @@ export default {
           // loading.close();
         }
       }
+    },
+    confimImportBatch() {
+      this.$refs.upload.submit();
     }
   },
   mounted() {

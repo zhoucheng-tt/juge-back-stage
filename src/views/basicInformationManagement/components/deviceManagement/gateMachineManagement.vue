@@ -30,7 +30,6 @@
             ></el-option>
           </el-select>
         </el-form-item>
-
         <!--            <el-form-item label="设备状态">-->
         <!--              <el-select v-model="eqStatusList.eqStatus" placeholder="请选择">-->
         <!--                <el-option-->
@@ -45,9 +44,7 @@
           <el-button type="primary" size="small" @click="queryFormList()"
             >查 询
           </el-button>
-          <el-button type="primary" size="small" @click="resetQuery()"
-            >重置
-          </el-button>
+          <el-button size="small" @click="resetQuery()">重置 </el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -285,6 +282,7 @@
         width="50%"
         title="修改道闸机"
         :visible.sync="editListDialog"
+        @close="queryPassagewayGate"
       >
         <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
@@ -355,8 +353,8 @@
           </el-row>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="editListDialog = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
+          <!--          <el-button @click="editListDialog = false">取 消</el-button>-->
+          <el-button type="primary" @click="onSubmitEdit()">保 存</el-button>
         </div>
       </el-dialog>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
@@ -467,6 +465,7 @@ export default {
         //查询数据暂留处
         parkId: ""
       },
+      fileList: [],
       //header param
       cityCode: "",
       districtCode: "",
@@ -538,14 +537,13 @@ export default {
     }
   },
   methods: {
+    //查询按钮
     queryFormList() {
       this.pageNum = 1;
       this.queryPassagewayGate();
     },
     //处理导入
     addFile(file, fileList) {
-      console.log(file, fileList);
-
       if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
         this.fileList = [];
         this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
@@ -559,7 +557,6 @@ export default {
       // 1.导入
       var FileController = "";
       FileController = BASE_API + "PassagewayGateController/upload";
-      console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
       form.append("file", content.file);
@@ -579,7 +576,6 @@ export default {
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
           var resText = JSON.parse(xhr.responseText);
-          console.log(resText);
           if (resText.resultCode === "2000") {
             _self.fileList = [];
             _self.$message({
@@ -618,8 +614,6 @@ export default {
       };
       //引用deviceManagement中的查询接口方法
       this.$deviceManagement.queryPassagewayGate(param).then(response => {
-        console.log("查询表格数据", response);
-        console.log("that.gateList", that.gateList);
         //分页
         that.pageTotal = response.resultEntity.total;
         //查询
@@ -628,7 +622,6 @@ export default {
     },
     //分页（跳转页面）//val选中的所有行
     handleCurrentModify(val) {
-      //查询
       this.pageNum = val;
       this.queryPassagewayGate();
     },
@@ -673,7 +666,6 @@ export default {
     },
     //新增道闸机
     addNewGate() {
-      console.log("新增道闸机弹框弹出");
       //清空弹出框
       this.newGate = {};
       //弹出框显示
@@ -683,7 +675,6 @@ export default {
     onSubmitAdd() {
       this.$refs["newGateR"].validate(valid => {
         if (valid) {
-          console.log("新增数据", this.newGate);
           const param = {
             //道闸机需要传入的参数
             parkId: this.newGate.parkId,
@@ -695,7 +686,6 @@ export default {
             manufacturer: this.newGate.manufacturer
           };
           this.$deviceManagement.addPassagewayGate(param).then(response => {
-            console.log("打印新增响应数据", response);
             //添加成功弹出
             this.$message({ type: "success", message: "添加成功!" });
             //添加成功 弹出框隐藏
@@ -717,18 +707,15 @@ export default {
         .then(() => {
           //清空删除
           this.delList = [];
-          //设定传入行数据
-          const param = {
-            passagewayGateId: row.passagewayGateId
-          };
           //将参数传到delList中
-          this.delList.push(param);
+          this.delList.push(row.passagewayGateId);
           //调用接口中的删除方法 删除要删除的delList
-          this.$deviceManagement.delPassagewayGate(this.delList);
-          //提示删除成功
-          this.$message({ type: "success", message: "删除成功!" });
-          //重新执行查询 （重新加载页面）
-          this.queryPassagewayGate();
+          this.$deviceManagement.delPassagewayGate(this.delList).then(res => {
+            //提示删除成功
+            this.$message({ type: "success", message: "删除成功!" });
+            //重新执行查询 （重新加载页面）
+            this.queryPassagewayGate();
+          });
         })
         .catch(() => {
           //取消删除按钮
@@ -743,7 +730,6 @@ export default {
       val.forEach(item => {
         this.idList.push(item.passagewayGateId);
       });
-      console.log(this.selectGateList);
     },
     //批量删除
     batchDelete() {
@@ -754,16 +740,15 @@ export default {
           type: "warning"
         });
       } else {
-        console.log("批量删除", this.idList);
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
         })
           .then(() => {
-            this.$deviceManagement.delPassagewayGate(this.idList).then(res => {
-              console.log("批量删除成功", res);
-            });
+            this.$deviceManagement
+              .delPassagewayGate(this.idList)
+              .then(res => {});
             this.$message({ type: "success", message: "删除成功!" });
             this.queryPassagewayGate();
           })
@@ -777,14 +762,12 @@ export default {
     editGateDialog(row) {
       this.editGate = row;
       this.editListDialog = true;
-      // console.log("打印修改的参数",row);
       this.oldParkId = row.parkId;
       this.oldpassagewayGateId = row.passagewayGateId;
     },
 
     //修改表单提交
     onSubmitEdit() {
-      console.log("修改数据", this.editGate);
       const param = {
         parkId: this.editGate.parkId,
         passagewayId: this.editGate.passagewayId,
@@ -797,10 +780,10 @@ export default {
         manufacturer: this.editGate.manufacturer
       };
       this.$deviceManagement.updatePassagewayGate(param).then(response => {
-        console.log("打印修改传入数据", response);
-        this.$message({ type: "success", message: "修改成功!" });
-        this.queryPassagewayGate();
-        console.log("修改后的数据", this.editGate);
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryPassagewayGate();
+        }
       });
       this.editListDialog = false;
     },
@@ -808,7 +791,6 @@ export default {
     //批量导入
     bulkImport() {
       this.importDialog = true;
-      console.log("批量导入");
     },
 
     //下载模版

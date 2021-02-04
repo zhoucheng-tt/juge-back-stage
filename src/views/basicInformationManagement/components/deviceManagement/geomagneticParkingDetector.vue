@@ -483,7 +483,6 @@ export default {
       //使用open()方法启动一个请求以备发送,请求类型，请求的URL,第三个参数是否为异步请求
       xhr.open("POST", FileController, true);
       xhr.send(form);
-
       function onloadFun() {
         // 0 － （未初始化）还没有调用send()方法
         // 1 － （载入）已调用send()方法，正在发送请求
@@ -620,7 +619,7 @@ export default {
           this.$message({ type: "success", message: "修改成功" });
           this.queryMagneticDetecter();
         } else {
-          this.$message({ type: "fail", message: "修改失败" });
+          this.$message({ type: "error", message: "修改失败" });
           this.queryMagneticDetecter();
         }
       });

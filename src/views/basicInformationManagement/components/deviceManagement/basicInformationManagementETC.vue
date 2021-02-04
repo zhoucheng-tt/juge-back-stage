@@ -41,7 +41,7 @@
           <el-button size="small" type="primary" @click="queryFormList"
             >查询
           </el-button>
-          <el-button size="small" @click="resetQuery">重置</el-button>
+          <el-button @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -305,6 +305,7 @@
       :visible.sync="editListDialogueandoff"
       title="修改ETC"
       width="50%"
+      @close="queryETCList"
     >
       <el-form
         :inline="true"
@@ -341,7 +342,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <!--        <el-button @click="editListDialogueandoff = false">取 消</el-button>-->
-        <el-button type="primary" @click="ETCInfoInsert">确 定</el-button>
+        <el-button type="primary" @click="ETCInfoInsert">保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -543,13 +544,18 @@ export default {
     },
     // 点击确定提交修改信息
     ETCInfoInsert() {
+      this.editListDialogueandoff = false;
       this.$deviceManagement
         .updateETC(this.editListDialogueandoffList)
         .then(res => {
-          this.$message({ type: "success", message: "修改成功!" });
-          this.queryETCList();
+          if (res.resultCode == "2000") {
+            this.$message({ type: "success", message: "修改成功!" });
+            this.queryETCList();
+          } else {
+            this.$message({ type: "error", message: "修改失败!" });
+            this.queryETCList();
+          }
         });
-      this.editListDialogueandoff = false;
     },
     //处理导入
     addFile(file, fileList) {

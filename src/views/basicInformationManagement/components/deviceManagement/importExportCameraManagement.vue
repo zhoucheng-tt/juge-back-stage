@@ -605,6 +605,7 @@ export default {
         parkId: this.upQueryList.parkId
       };
       this.$deviceManagement.queryPassagewayCamera(param).then(res => {
+        console.log(res);
         this.cameraList = res.resultEntity.list;
         this.pageTotal = res.resultEntity.total;
       });
@@ -688,7 +689,7 @@ export default {
           this.$deviceManagement
             .addPassagewayCamera(param)
             .then(res => {
-              this.$message({ type: "success", type: "新增成功" });
+              this.$message({ type: "success", message: "新增成功" });
               this.queryPassagewayCamera();
               this.addListDialog = false;
             })
