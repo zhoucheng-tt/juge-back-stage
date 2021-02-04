@@ -277,6 +277,7 @@
         title="修改出入口摄像头"
         width="50%"
         :visible.sync="editListDialog"
+        @close="queryPassagewayCamera"
       >
         <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
@@ -356,7 +357,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <!--          <el-button @click="addListDialog = false">取 消</el-button>-->
-          <el-button type="primary" @click="onSubmitEdit()">确定</el-button>
+          <el-button type="primary" @click="onSubmitEdit()">保 存</el-button>
         </div>
       </el-dialog>
       <el-dialog id="import" title="批量导入" :visible.sync="importDialog">
@@ -514,8 +515,6 @@ export default {
     },
     //处理导入
     addFile(file, fileList) {
-      console.log(file, fileList);
-
       if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
         this.fileList = [];
         this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
@@ -529,7 +528,6 @@ export default {
       // 1.导入
       var FileController = "";
       FileController = BASE_API + "PassagewayCameraController/upload";
-      console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
       form.append("file", content.file);
@@ -549,7 +547,6 @@ export default {
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
           var resText = JSON.parse(xhr.responseText);
-          console.log(resText);
           if (resText.resultCode === "2000") {
             _self.fileList = [];
             _self.$message({
@@ -612,11 +609,7 @@ export default {
         this.pageTotal = res.resultEntity.total;
       });
     },
-    //新增摄像头
-    addNewCamera() {
-      this.newCamera = {};
-      this.addListDialog = true;
-    },
+
     //批量导入
     bulkImport() {
       this.importDialog = true;
@@ -630,7 +623,6 @@ export default {
           type: "warning"
         });
       } else {
-        console.log("批量删除", this.idList);
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -654,11 +646,7 @@ export default {
       this.pageNum = val;
       this.queryPassagewayCamera();
     },
-    //修改
-    editCameraDialog(row) {
-      this.editCamera = row;
-      this.editListDialog = true;
-    },
+
     //删除
     deleteCamera(row) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -675,15 +663,18 @@ export default {
           });
         })
         .catch(err => {
-          console.log("cuowu", err);
           this.$message({ type: "info", message: "已取消删除" });
         });
+    },
+    //新增摄像头
+    addNewCamera() {
+      this.newCamera = {};
+      this.addListDialog = true;
     },
     //新增表单提交
     onSubmitAdd() {
       this.$refs["newCameraR"].validate(valid => {
         if (valid) {
-          console.log("新增数据", this.newCamera);
           const param = {
             passagewayCameraId: this.newCamera.passagewayCameraId,
             passagewayCameraName: this.newCamera.passagewayCameraName,
@@ -697,18 +688,22 @@ export default {
           this.$deviceManagement
             .addPassagewayCamera(param)
             .then(res => {
-              console.log("打印响应", res);
+              this.$message({ type: "success", type: "新增成功" });
               this.queryPassagewayCamera();
               this.addListDialog = false;
             })
-            .catch(err => {
-              console.log("错误", err);
-            });
+            .catch(err => {});
         }
       });
     },
+    //修改
+    editCameraDialog(row) {
+      this.editCamera = row;
+      this.editListDialog = true;
+    },
     //修改表单提交
     onSubmitEdit() {
+      this.editListDialog = false;
       const param = {
         passagewayCameraId: this.editCamera.passagewayCameraId,
         passagewayCameraName: this.editCamera.passagewayCameraName,
@@ -720,9 +715,13 @@ export default {
         passagewayId: this.editCamera.passagewayId
       };
       this.$deviceManagement.updatePassagewayCamera(param).then(res => {
-        console.log("打印响应", res);
-        this.queryPassagewayCamera();
-        this.editListDialog = false;
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功" });
+          this.queryPassagewayCamera();
+        } else {
+          this.$message({ type: "fail", message: "修改失败" });
+          this.queryPassagewayCamera();
+        }
       });
     },
     //批量删除监听

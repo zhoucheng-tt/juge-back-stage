@@ -278,6 +278,7 @@
         :visible.sync="ModifyWhiteListDialog"
         width="50%"
         overflow="hidden"
+        @close="queryWhiteList"
       >
         <el-row>
           <!--          归属停车场信息-->
@@ -297,8 +298,8 @@
                 <el-form-item style="margin-left: 1%">
                   <el-select
                     v-model="modifyWhiteList.parkId"
-                    disabled
                     placeholder="请选择停车场"
+                    disabled
                   >
                     <el-option
                       v-for="(item, index) in parkLotNameList"
@@ -378,7 +379,7 @@
           </el-form>
         </el-row>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="onSubmitModify()">确 定</el-button>
+          <el-button type="primary" @click="onSubmitModify()">保 存</el-button>
         </span>
       </el-dialog>
     </div>
@@ -626,6 +627,7 @@ export default {
     },
     //操作中的修改按钮的提交
     onSubmitModify() {
+      this.ModifyWhiteListDialog = false;
       const param = {
         whiteListId: this.modifyWhiteList.whiteListId,
         plateColor: this.modifyWhiteList.plateColor,
@@ -633,11 +635,15 @@ export default {
         expirationTime: this.modifyWhiteList.expirationTime,
         remark: this.modifyWhiteList.remark
       };
-      this.$listManagement.updateWhiteList(param).then(response => {
-        this.$message({ type: "success", message: "修改成功!" });
-        this.queryWhiteList();
+      this.$listManagement.updateWhiteList(param).then(res => {
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryWhiteList();
+        } else {
+          this.$message({ type: "fail", message: "修改失败!" });
+          this.queryWhiteList();
+        }
       });
-      this.ModifyWhiteListDialog = false;
     },
     //操作中的启用按钮
     enAble(row) {

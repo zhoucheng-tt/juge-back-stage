@@ -79,7 +79,7 @@ export default {
   margin-top: 0.5%;
   margin-left: 1%;
   width: 98%;
-  height: 888px;
+  height: 907px;
   background-color: white;
 }
 

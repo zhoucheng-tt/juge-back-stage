@@ -300,45 +300,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--        <el-row>-->
-        <!--          <el-col :span="12">-->
-        <!--            &lt;!&ndash;            <el-form-item&ndash;&gt;-->
-        <!--            &lt;!&ndash;              label="停车场图片:"&ndash;&gt;-->
-        <!--            &lt;!&ndash;              label-width="150px"&ndash;&gt;-->
-        <!--            &lt;!&ndash;              prop="parkPictureFile"&ndash;&gt;-->
-        <!--            &lt;!&ndash;            >&ndash;&gt;-->
-        <!--            &lt;!&ndash;              <el-input v-model="newParkingLot.parkPictureFile" />&ndash;&gt;-->
-        <!--            &lt;!&ndash;            </el-form-item>&ndash;&gt;-->
-        <!--            <p style="font-size: 20px">停车场图片</p>-->
-        <!--            <el-upload-->
-        <!--                class="upload-demo"-->
-        <!--                action="https://jsonplaceholder.typicode.com/posts/"-->
-        <!--                :file-list="fileList"-->
-        <!--                list-type="picture"-->
-        <!--            >-->
-        <!--              <el-button size="small" type="primary"-->
-        <!--              >点击上传停车场图片-->
-        <!--              </el-button-->
-        <!--              >-->
-        <!--              &lt;!&ndash;              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>&ndash;&gt;-->
-        <!--            </el-upload>-->
-        <!--          </el-col>-->
-        <!--          &lt;!&ndash;          <el-col :span="2">&ndash;&gt;-->
-        <!--          &lt;!&ndash;            <el-button type="info" @click="choosePicture()" size="small"&ndash;&gt;-->
-        <!--          &lt;!&ndash;              >选择</el-button&ndash;&gt;-->
-        <!--          &lt;!&ndash;            >&ndash;&gt;-->
-        <!--          &lt;!&ndash;          </el-col>&ndash;&gt;-->
-        <!--          &lt;!&ndash;          <el-col :span="2">&ndash;&gt;-->
-        <!--          &lt;!&ndash;            <el-button type="info" @click="uploadPicture()" size="small"&ndash;&gt;-->
-        <!--          &lt;!&ndash;              >上传</el-button&ndash;&gt;-->
-        <!--          &lt;!&ndash;            >&ndash;&gt;-->
-        <!--          &lt;!&ndash;          </el-col>&ndash;&gt;-->
-        <!--          &lt;!&ndash;          <el-col :span="2">&ndash;&gt;-->
-        <!--          &lt;!&ndash;            <el-button type="info" @click="viewPicture()" size="small"&ndash;&gt;-->
-        <!--          &lt;!&ndash;              >预览</el-button&ndash;&gt;-->
-        <!--          &lt;!&ndash;            >&ndash;&gt;-->
-        <!--          &lt;!&ndash;          </el-col>&ndash;&gt;-->
-        <!--        </el-row>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <!--        <el-button @click="addListDialogueandoff = false">取 消</el-button>-->
@@ -346,7 +307,11 @@
       </div>
     </el-dialog>
     <!--修改表单弹框-->
-    <el-dialog id="edit" :visible.sync="editListDialogueandoff">
+    <el-dialog
+      id="edit"
+      :visible.sync="editListDialogueandoff"
+      @close="queryParkList"
+    >
       <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">基础信息</div>
         <el-row>
@@ -476,31 +441,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--        <el-row>-->
-        <!--          <el-col :span="12">-->
-        <!--            <el-form-item label="停车场图片:" label-width="150px">-->
-        <!--              <el-input v-model="editParkingLot.parkPictureFile"/>-->
-        <!--            </el-form-item>-->
-        <!--          </el-col>-->
-        <!--          <el-col :span="2">-->
-        <!--            <el-button type="info" @click="choosePicture()" size="small"-->
-        <!--            >选择-->
-        <!--            </el-button-->
-        <!--            >-->
-        <!--          </el-col>-->
-        <!--&lt;!&ndash;          <el-col :span="2">&ndash;&gt;-->
-        <!--&lt;!&ndash;            <el-button type="info" @click="uploadPicture()" size="small"&ndash;&gt;-->
-        <!--&lt;!&ndash;            >上传&ndash;&gt;-->
-        <!--&lt;!&ndash;            </el-button&ndash;&gt;-->
-        <!--&lt;!&ndash;            >&ndash;&gt;-->
-        <!--&lt;!&ndash;          </el-col>&ndash;&gt;-->
-        <!--&lt;!&ndash;          <el-col :span="2">&ndash;&gt;-->
-        <!--&lt;!&ndash;            <el-button type="info" @click="viewPicture()" size="small"&ndash;&gt;-->
-        <!--&lt;!&ndash;            >预览&ndash;&gt;-->
-        <!--&lt;!&ndash;            </el-button&ndash;&gt;-->
-        <!--&lt;!&ndash;            >&ndash;&gt;-->
-        <!--&lt;!&ndash;          </el-col>&ndash;&gt;-->
-        <!--        </el-row>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <!--        <el-button @click="editListDialogueandoff = false">取 消</el-button>-->
@@ -604,116 +544,37 @@ export default {
       pageTotal: 4,
       //前端暂时数据
       parkList: [],
-      //新增表单弹框属性：false:不显露
+      //新增弹窗
       addListDialogueandoff: false,
-      //修改表单弹框属性：false:不显露
+      //修改弹窗
       editListDialogueandoff: false,
       //修改停车场数据暂存
       editParkingLot: {},
       //批量删除暂存id
       idList: []
-      //表单验证规则
-      // rules: {
-      //   parkId: [
-      //     {required: true, message: '请输入ID', trigger: 'blur'},
-      //     {max: 5, min: 3, message: "3到5位数", trigger: 'blur'}
-      //   ]
-      // }
     };
   },
+  mounted() {
+    //初始化列表
+    this.queryParkList();
+    //初始化计费规则下拉菜单
+    this.queryBillingRuleList();
+    //初始化所属公司下拉菜单
+    this.queryCompanyList();
+    //初始化停车场类型下拉菜单
+    this.queryTypeList();
+  },
   methods: {
-    //斑马纹样式
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex % 2 == 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 == 0) {
-        return "successSecond";
-      }
-      return "";
-    },
-    //批量删除
-    deleteSelect() {
-      if (this.idList === [] || this.idList.length === 0) {
-        this.$confirm("请选中!", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        });
-      } else {
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
-            // console.log(this.idList)
-            const param = {
-              parkId: this.idList
-            };
-            this.$ysParking.deletePark(param).then(res => {
-              this.$message({
-                type: "success",
-                message: "删除成功!"
-              });
-              this.queryParkList();
-            });
-          })
-          .catch(() => {
-            this.$message({ type: "info", message: "已取消删除" });
-          });
-        //  console.log(this.selectParkingLotList);
-      }
-    },
-    //单个删除
-    HandleDeleteListDialogue(row) {
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          // console.log("你要删除的id是" + row.parkId);
-          this.idList = [];
-          this.idList.push(row.parkId);
-          const param = {
-            parkId: this.idList
-          };
-          this.$ysParking.deletePark(param).then(res => {
-            // console.log("打印响应", res)
-            this.$message({
-              type: "success",
-              message: "删除成功!"
-            });
-            this.queryParkList();
-          });
-        })
-        .catch(() => {
-          this.$message({ type: "info", message: "已取消删除" });
-        });
-    },
-    // 点击新增
+    //点击新增
     addInletAndOutlet() {
       this.newParkingLot = {};
       this.districtList = [];
       this.addListDialogueandoff = true;
     },
-    //选择停车场图片
-    choosePicture() {
-      // console.log("选择图片");
-    },
-    //上传图片
-    uploadPicture() {
-      // console.log("上传图片");
-    },
-    //预览图片
-    viewPicture() {
-      // console.log("预览图片");
-    },
-    //提交表单
+    //新增提交表单
     onSubmitAdd() {
       this.$refs["newParkingLotR"].validate(valid => {
         if (valid) {
-          // console.log(this.newParkingLot);
           //将新增数据展示到页面（仅做展示用）
           // this.parkList.push(this.newParkingLot);
           const param = {
@@ -738,16 +599,71 @@ export default {
         }
       });
     },
+    //单个删除
+    HandleDeleteListDialogue(row) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.idList = [];
+          this.idList.push(row.parkId);
+          const param = {
+            parkId: this.idList
+          };
+          this.$ysParking.deletePark(param).then(res => {
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+            this.queryParkList();
+          });
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
+    },
+    //批量删除
+    deleteSelect() {
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            const param = {
+              parkId: this.idList
+            };
+            this.$ysParking.deletePark(param).then(res => {
+              this.$message({
+                type: "success",
+                message: "删除成功!"
+              });
+              this.queryParkList();
+            });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
+      }
+    },
     //修改弹框弹出
     handleEditListDialogue(row) {
       this.editListDialogueandoff = true;
       this.editParkingLot = row;
-      console.log(this.editParkingLot);
       // this.queryDisList(row.cityCode);
     },
     //修改表单提交
     onSubmitEdit() {
-      // console.log(this.editParkingLot);
+      this.editListDialogueandoff = false;
       const param = {
         parkId: this.editParkingLot.parkId,
         parkName: this.editParkingLot.parkName,
@@ -760,10 +676,14 @@ export default {
         contactPhoneNumber: this.editParkingLot.contactPhoneNumber
       };
       this.$ysParking.updatePark(param).then(res => {
-        // console.log("打印响应", res);
-        this.queryParkList();
+        if (res.resultCode == 2000) {
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryParkList();
+        } else {
+          this.$message({ type: "fail", message: "修改失败!" });
+          this.queryParkList();
+        }
       });
-      this.editListDialogueandoff = false;
     },
     //多选监听
     handleSelectionChange(val) {
@@ -787,7 +707,6 @@ export default {
         pageNumber: this.pageNum
       };
       this.$ysParking.queryParkList(param).then(res => {
-        // console.log("打印出来res", res);
         this.pageTotal = res.resultEntity.total;
         this.parkList = res.resultEntity.list;
       });
@@ -827,16 +746,6 @@ export default {
         this.chargingRules = res.resultEntity;
       });
     }
-  },
-  mounted() {
-    //初始化列表
-    this.queryParkList();
-    //初始化计费规则下拉菜单
-    this.queryBillingRuleList();
-    //初始化所属公司下拉菜单
-    this.queryCompanyList();
-    //初始化停车场类型下拉菜单
-    this.queryTypeList();
   }
 };
 </script>

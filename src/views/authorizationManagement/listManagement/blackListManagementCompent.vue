@@ -247,6 +247,7 @@
       :visible.sync="ModifyBlackListDialog"
       width="50%"
       overflow="hidden"
+      @close="queryBlackList"
     >
       <el-row>
         <!--          归属停车场信息-->
@@ -286,7 +287,7 @@
                 <el-form-item label="车牌号码:" label-width="180px">
                   <el-input
                     v-model="modifyBlackList.plateNumber"
-                    :disabled="true"
+                    readonly
                   ></el-input>
                 </el-form-item>
               </el-col>
@@ -435,9 +436,7 @@ export default {
         whereStr: []
       };
       this.$homePage.queryDict(param).then(response => {
-        // console.log("下拉停车场名称", response);
         that.addBlackListReason = response.resultEntity;
-        // console.log("黑名单停车场下拉名称", that.parkLotNameList);
       });
     },
     // //查询车牌颜色
@@ -468,9 +467,7 @@ export default {
         ]
       };
       this.$homePage.queryDict(param).then(response => {
-        // console.log("下拉停车场名称", response);
         that.parkLotNameList = response.resultEntity;
-        // console.log("黑名单停车场下拉名称", that.parkLotNameList);
       });
     },
     //顶部查询按钮获取参数
@@ -482,9 +479,7 @@ export default {
         pageNumber: this.pageNum,
         pageSize: this.pageSize
       };
-      // console.log('黑名单查询传入的参数',params)
       this.$listManagement.queryBlackList(params).then(response => {
-        // console.log("查询黑名单表格数据", response)
         //分页
         that.pageTotal = response.resultEntity.total;
         //查询
@@ -519,9 +514,7 @@ export default {
             //加入黑名单时间 加入黑名单原因
             reasonCode: this.addBlackData.reasonCode
           };
-          // console.log("新增黑名单传入的参数", param);
           this.$listManagement.insertBlackList(param).then(response => {
-            // console.log("打印新增黑名单数据", response);
             //添加成功弹出
             this.$message({ type: "success", message: "添加成功!" });
             //添加成功 刷新页面 调用查询方法
@@ -542,7 +535,7 @@ export default {
           //清空删除
           this.idList = [];
           //设定传入行数据
-          this.idList.push(row.blackBright);
+          this.idList.push(row.blackListId);
           //调用接口中的删除方法
           this.$listManagement.deleteBlackList(this.idList).then(res => {
             //提示删除成功
@@ -563,11 +556,7 @@ export default {
       //获取批量删除id
       val.forEach(item => {
         this.idList.push(item.blackListId);
-        // console.log('打印批量删除选择框',param)
-        // console.log("1111111111",this.idList)
-        // this.selectGateList = this.idList;
       });
-      // console.log('批量删除存放ID',this.selectGateList);
     },
     //批量删除
     deleteInBatches() {
@@ -578,8 +567,6 @@ export default {
           type: "warning"
         });
       } else {
-        // console.log("批量删除id存放", this.idList.blackListId);
-
         this.$confirm(
           "此操作将永久删除选中的所有黑名单人员, 是否继续?",
           "提示",
@@ -591,7 +578,6 @@ export default {
         )
           .then(() => {
             this.$listManagement.deleteBlackList(this.idList).then(res => {
-              console.log("批量删除成功", res);
               this.$message({ type: "success", message: "删除成功!" });
               this.queryBlackList();
             });
@@ -606,23 +592,24 @@ export default {
       //修改黑名单显示弹窗
       this.modifyBlackList = row;
       this.ModifyBlackListDialog = true;
-      // console.log("查询修改表格数据",this.modifyBlackList)
     },
     //操作中的修改按钮的提交
     onSubmitModify() {
-      // console.log("修改数据", this.modifyBlackList);
+      this.ModifyBlackListDialog = false;
       const param = {
         blackListId: this.modifyBlackList.blackListId,
         reasonCode: this.modifyBlackList.reasonCode,
         remark: this.modifyBlackList.remark
       };
-      this.$listManagement.updateBlackList(param).then(response => {
-        console.log("打印修改传入数据", response);
-        this.$message({ type: "success", message: "修改成功!" });
-        this.queryBlackList();
-        console.log("修改后的数据", this.modifyBlackList);
+      this.$listManagement.updateBlackList(param).then(res => {
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功!" });
+          this.queryBlackList();
+        } else {
+          this.$message({ type: "fail", message: "修改失败!" });
+          this.queryBlackList();
+        }
       });
-      this.ModifyBlackListDialog = false;
     },
     //操作中的启用按钮
     enAble(row) {
@@ -634,12 +621,9 @@ export default {
         type: "warning"
       })
         .then(() => {
-          // console.log("传入的参数", param);
           this.$listManagement.enableBlack(row.blackListId).then(response => {
-            // console.log("打印修改传入数据", response);
             this.$message({ type: "success", message: "启用成功!" });
             this.queryBlackList();
-            // console.log("修改后的数据", this.startUpList);
           });
         })
         .catch(() => {
@@ -660,7 +644,6 @@ export default {
           this.$listManagement.disableBlack(row.blackListId).then(response => {
             this.$message({ type: "success", message: "停用成功!" });
             this.queryBlackList();
-            // console.log("修改后的数据", this.blockUpList);
           });
         })
         .catch(() => {

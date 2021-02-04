@@ -38,7 +38,7 @@
               placeholder="密码"
             />
           </el-form-item>
-          <el-button class="login-btn" @click="loginBtn()">登录</el-button>
+          <el-button id="login-btn" @click="loginBtn()">登录</el-button>
           <!--        <a href="forgot.html" class="login-forgot-pass">忘记密码?</a>-->
           <!--  <a href="javascript:void(0);" class="login-regist">现在注册</a> -->
         </el-form>
@@ -48,6 +48,15 @@
   </div>
 </template>
 <script>
+// document.onkeydown = function(e) {
+//   //事件对象兼容
+//   let event =
+//     e || event || window.event || arguments.callee.caller.arguments[0];
+//   //键盘按键判断:enter=13
+//   if (event && event.keyCode == 13) {
+//     alert("????????????");
+//   }
+// };
 // 引入密码加密js
 import { hex_sha1 } from "../../assets/JS/sha1.js";
 export default {
@@ -71,7 +80,10 @@ export default {
       }
     };
   },
-  mounted() {},
+  mounted() {
+    // 13就是回车键的keycode,这样点击回车就能触发loginBtn这个事件
+    this.$keyBoard(this, "loginBtn", 13);
+  },
   methods: {
     //登录
     loginBtn() {
@@ -88,7 +100,6 @@ export default {
               type: "success",
               message: "登陆成功"
             });
-            debugger;
             localStorage.setItem("userToken", response.resultEntity.userToken);
             localStorage.setItem("userName", this.loginList.loginName);
             // 登陆成功后跳转方法
@@ -184,7 +195,7 @@ export default {
   /*border: 1px solid #41b5f5;*/
 }
 
-.login-btn {
+#login-btn {
   width: 438px;
   height: 50px;
   font-size: 16px;
@@ -192,7 +203,7 @@ export default {
   color: white;
 }
 
-.login-btn:hover {
+#login-btn:hover {
   background-color: #3883b8;
   border: 1px solid #3883b8;
 }

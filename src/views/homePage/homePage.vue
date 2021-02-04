@@ -4075,7 +4075,7 @@ export default {
     this.queryPayTypeAmountPrecent();
     //自助洗车按月收入分析图表
     this.querychargeAmountTimes();
-    //洗车机近七日报警趋势分析
+    //洗车机近七日报警趋势分析lo
     this.handleWashCarSevenDaysAnalysis();
     //近七日洗车收费金额
     this.handleWashCarIncomeSevenDays();

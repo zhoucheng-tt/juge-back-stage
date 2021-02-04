@@ -396,6 +396,7 @@
         title="修改停车场平面(层)配置管理"
         :visible.sync="editListDialogueandoff"
         width="50%"
+        @close="queryParkLayerList"
       >
         <el-form
           :inline="true"
@@ -533,7 +534,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-
           <!--            <el-form-item label="车位检测器编号:" >-->
           <!--              <el-input-->
           <!--                      v-model="configurationDialogueandoffList.parkSpaceDetecterId"-->
@@ -549,7 +549,7 @@
           <!--            <el-button @click="configurationDialogueandoff = false"-->
           <!--              >取 消</el-button-->
           <!--            >-->
-          <el-button type="primary" @click="InfoInsert">确 定</el-button>
+          <el-button @click="InfoInsert">返 回</el-button>
         </div>
       </el-dialog>
       <!--      导入弹框-->
@@ -571,9 +571,13 @@
           class="upload-demo"
           style="text-align: center;"
         >
-          <el-button slot="trigger" size="small" type="primary"
-            >选择文件
-          </el-button>
+          <el-row
+            slot="tip"
+            class="el-upload__tip"
+            style="font-size:10px;color:#ff0000;margin-top:30px;"
+          >
+            请下载模板文件后上传!
+          </el-row>
           <el-button size="small" style="margin-left: 15px" type="primary">
             <a
               :href="templateDl"
@@ -583,13 +587,10 @@
               >模板下载</a
             >
           </el-button>
-          <div
-            slot="tip"
-            class="el-upload__tip"
-            style="font-size:10px;color:#ff0000;margin-top:30px;"
-          >
-            请下载模板文件后上传。
-          </div>
+
+          <el-button slot="trigger" size="small" type="primary"
+            >选择文件
+          </el-button>
         </el-upload>
 
         <span slot="footer" class="dialog-footer">
@@ -995,11 +996,10 @@ export default {
     editListDialogue(row) {
       this.editListDialogueandoff = true;
       this.editListDialogueandoffList = row;
-      console.log(this.editListDialogueandoffList);
     },
     // 点击确定
     InfoInsert() {
-      console.log("确定后打印出来的数据", this.editListDialogueandoffList);
+      this.editListDialogueandoff = false;
       const param = {
         parkLayerName: this.editListDialogueandoffList.parkLayerName,
         parkLayerId: this.editListDialogueandoffList.parkLayerId,
@@ -1007,8 +1007,13 @@ export default {
         parkSpaceNum: this.editListDialogueandoffList.parkSpaceNum
       };
       this.$ysParking.updateParkLayer(param).then(res => {
-        this.editListDialogueandoff = false;
-        this.queryParkLayerList();
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功" });
+          this.queryParkLayerList();
+        } else {
+          this.$message({ type: "fail", message: "修改失败" });
+          this.queryParkLayerList();
+        }
       });
     },
     // 点击导入调用的方法

@@ -261,30 +261,39 @@
             <el-form-item label="ETC编号:" label-width="150px">
               <el-input
                 v-model="showListdialogueandoffList.etcNumber"
+                readonly
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="ETC名称:" label-width="150px">
-              <el-input v-model="showListdialogueandoffList.etcName"></el-input>
+              <el-input
+                v-model="showListdialogueandoffList.etcName"
+                readonly
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="所属停车场:" label-width="150px">
               <el-input
                 v-model="showListdialogueandoffList.parkName"
+                readonly
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="类型:" label-width="150px">
-              <el-input v-model="showListdialogueandoffList.type"></el-input>
+              <el-input
+                v-model="showListdialogueandoffList.type"
+                readonly
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="描述:" label-width="150px">
               <el-input
                 v-model="showListdialogueandoffList.description"
+                readonly
               ></el-input>
             </el-form-item>
           </el-col>
@@ -447,7 +456,6 @@ export default {
       this.$refs["addETC"].validate(valid => {
         if (valid) {
           this.$deviceManagement.addETC(this.addETCForm).then(res => {
-            // console.log("打印相应", res);
             this.$message({ type: "success", message: "添加成功!" });
             this.queryETCList();
           });
@@ -481,7 +489,6 @@ export default {
           type: "warning"
         })
           .then(() => {
-            console.log("你要批量删除的id是" + this.idList);
             this.$deviceManagement.delETC(this.idList).then(res => {
               this.$message({ type: "success", message: "删除成功!" });
               this.queryETCList();
@@ -531,7 +538,6 @@ export default {
 
     // 点击修改调用的方法
     editListDialogue(row) {
-      console.log(row);
       this.editListDialogueandoff = true;
       this.editListDialogueandoffList = row;
     },
@@ -540,7 +546,6 @@ export default {
       this.$deviceManagement
         .updateETC(this.editListDialogueandoffList)
         .then(res => {
-          console.log("打印更新数据", res);
           this.$message({ type: "success", message: "修改成功!" });
           this.queryETCList();
         });
@@ -548,20 +553,14 @@ export default {
     },
     //处理导入
     addFile(file, fileList) {
-      console.log(file, fileList);
       var index = file.name.split(".").slice(-1);
       if (!(index == "xlsx" || index == "XLSX")) {
         this.fileList = [];
         this.$message.warning(`文件格式有误,请选择xls文件`);
       }
-      console.log(index);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
+    handleRemove(file, fileList) {},
+    handlePreview(file) {},
     handleExceed(files, fileList) {
       this.$message.warning(`对不起,一次仅限上传一个文件！`);
     },
@@ -573,7 +572,6 @@ export default {
       // 1.导入
       var FileController = "";
       FileController = BASE_API + "ETCFunc/upload";
-      console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
       form.append("file", content.file);
@@ -593,7 +591,6 @@ export default {
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
           var resText = JSON.parse(xhr.responseText);
-          console.log(resText);
           if (resText.resultCode === "2000") {
             _self.fileList = [];
             _self.$message({

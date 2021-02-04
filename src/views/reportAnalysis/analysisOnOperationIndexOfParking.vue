@@ -58,17 +58,15 @@
         </el-form-item>
       </el-form>
       <el-row class="demo-form-inline2">
-        <el-form-item>
-          <el-button type="primary" size="small">
-            <a
-              :href="exportFile"
-              class="download"
-              download=""
-              style="color: #ffffff;text-decoration:none"
-              >导出</a
-            >
-          </el-button>
-        </el-form-item>
+        <el-button type="primary" size="small">
+          <a
+            :href="exportFile"
+            class="download"
+            download=""
+            style="color: #ffffff;text-decoration:none"
+            >导出</a
+          >
+        </el-button>
       </el-row>
     </div>
     <!-- 中间图标部分内容 -->

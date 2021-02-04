@@ -44,7 +44,7 @@
           <el-button type="primary" @click="queryBillingRuleList"
             >查询
           </el-button>
-          <el-button @click="resetQuery" size="small">重置 </el-button>
+          <el-button @click="resetQuery" size="small">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -1391,8 +1391,8 @@
         </el-row>
       </el-row>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="alterChargeListDialog = false">返回</el-button>
-        <el-button type="primary" @click="onCommitAlter">确 定</el-button>
+        <!--        <el-button @click="alterChargeListDialog = false">返回</el-button>-->
+        <el-button type="primary" @click="onCommitAlter">保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -1429,7 +1429,7 @@ export default {
       accountRules: [],
       //初始化分页
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 12,
       pageTotal: 2,
       //新增计费弹窗
       addChargeListDialog: false,

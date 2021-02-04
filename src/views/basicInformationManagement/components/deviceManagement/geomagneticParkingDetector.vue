@@ -252,6 +252,7 @@
         width="50%"
         title="修改地磁车位检测器"
         :visible.sync="editListDialog"
+        @close="queryMagneticDetecter"
       >
         <el-form :inline="true" label-position="right" label-width="100px">
           <div style="font-size: 20px">归属停车场信息</div>
@@ -307,7 +308,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <!--          <el-button @click="editListDialog = false">取 消</el-button>-->
-          <el-button type="primary" @click="onSubmitEdit()">确 定</el-button>
+          <el-button type="primary" @click="onSubmitEdit()">保 存</el-button>
         </div>
       </el-dialog>
       <el-dialog :visible.sync="importDialog" title="导入数据" width="40%">
@@ -460,8 +461,6 @@ export default {
     },
     //处理导入
     addFile(file, fileList) {
-      console.log(file, fileList);
-
       if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
         this.fileList = [];
         this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
@@ -475,7 +474,6 @@ export default {
       // 1.导入
       var FileController = "";
       FileController = BASE_API + "MagneticDetecterController/upload";
-      console.log(FileController);
       //创建空对象，通过append方法添加数据
       var form = new FormData();
       form.append("file", content.file);
@@ -495,7 +493,6 @@ export default {
         if (xhr.readyState == 4 && xhr.status == 200) {
           //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
           var resText = JSON.parse(xhr.responseText);
-          console.log(resText);
           if (resText.resultCode === "2000") {
             _self.fileList = [];
             _self.$message({
@@ -523,25 +520,6 @@ export default {
       this.upQueryList = {};
     },
 
-    //斑马纹样式
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2 === 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 === 0) {
-        return "successSecond";
-      }
-      return "";
-    },
-    //新增地磁车弹框弹出
-    addNewGeo() {
-      console.log("新增地磁车弹框弹出");
-      this.newGeo = {};
-      /*      //初始化下拉菜单
-            this.districtList = [];*/
-      this.parkingLotNameList = [];
-      this.addListDialog = true;
-      this.queryParkList();
-    },
     //批量导入
     bulkImport() {
       this.importDialog = true;
@@ -555,7 +533,6 @@ export default {
           type: "warning"
         });
       } else {
-        console.log("批量删除", this.idList);
         this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -574,20 +551,9 @@ export default {
           });
       }
     },
-    //修改弹框弹出
-    editGeoDialog(row) {
-      this.editGeo = row;
-      this.oldParkId = row.parkId;
-      this.oldMagneticDetecterId = row.magneticDetecterId;
-      //初始化下拉菜单
-      //     this.queryDisList(row.cityCode);
-      // this.queryParkList();
-      this.editListDialog = true;
-      console.log("修改弹窗弹出");
-    },
+
     //删除
     deleteGeo(row) {
-      console.log("删除的地磁车Id", row.magneticDetecterId);
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -605,11 +571,17 @@ export default {
           this.$message({ type: "info", message: "已取消删除" });
         });
     },
+    //新增地磁车弹框弹出
+    addNewGeo() {
+      this.newGeo = {};
+      this.parkingLotNameList = [];
+      this.addListDialog = true;
+      this.queryParkList();
+    },
     //新增表单提交
     onSubmitAdd() {
       this.$refs["newGeoR"].validate(valid => {
         if (valid) {
-          console.log("新增数据", this.newGeo);
           const param = {
             parkId: this.newGeo.parkId,
             magneticDetecterId: this.newGeo.magneticDetecterId,
@@ -618,15 +590,24 @@ export default {
             producer: this.newGeo.producer
           };
           this.$deviceManagement.addMagneticDetecter(param).then(res => {
-            console.log("打印响应", res);
             this.queryMagneticDetecter();
             this.addListDialog = false;
           });
         }
       });
     },
+    //修改弹框弹出
+    editGeoDialog(row) {
+      this.editGeo = row;
+      this.oldParkId = row.parkId;
+      this.oldMagneticDetecterId = row.magneticDetecterId;
+      //初始化下拉菜单
+      //     this.queryDisList(row.cityCode);
+      this.editListDialog = true;
+    },
     //修改表单提交
     onSubmitEdit() {
+      this.editListDialog = false;
       const param = {
         parkId: this.editGeo.parkId,
         magneticDetecterId: this.editGeo.magneticDetecterId,
@@ -635,8 +616,13 @@ export default {
         producer: this.editGeo.producer
       };
       this.$deviceManagement.updateMagneticDetecter(param).then(res => {
-        this.queryMagneticDetecter();
-        this.editListDialog = false;
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功" });
+          this.queryMagneticDetecter();
+        } else {
+          this.$message({ type: "fail", message: "修改失败" });
+          this.queryMagneticDetecter();
+        }
       });
     },
     //批量删除监听

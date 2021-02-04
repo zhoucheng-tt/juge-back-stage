@@ -493,6 +493,7 @@ export default {
         roleId: this.checkRoles
       };
       this.$systemUser.addUser(param).then(res => {
+        this.$message({ type: "success", message: "添加成功!" });
         this.queryList();
       });
       this.addListDialog = false;
@@ -511,7 +512,6 @@ export default {
         });
       });
       this.selectListDialog = true;
-      console.log(row);
     },
     //表格操作中修改方法
     alter(row) {
@@ -526,10 +526,8 @@ export default {
             this.checkRoles.push(item.roleId);
           }
         });
-        console.log("打印存储的id", this.checkRoles);
       });
       this.modFormDialog = true;
-      console.log(row);
     },
     //修改确认按钮
     onSubmitMod() {
@@ -560,6 +558,7 @@ export default {
           };
           this.delList.push(param);
           this.$systemUser.deleteUser(param).then(res => {
+            this.$message({ type: "success", message: "删除成功" });
             this.queryList();
           });
         })
