@@ -34,7 +34,7 @@
           <el-button type="primary" size="small" @click="queryFormList"
             >查询
           </el-button>
-          <el-button size="small" @click="resetQuery">重置 </el-button>
+          <el-button size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row class="line-2">
@@ -549,7 +549,9 @@
           <!--            <el-button @click="configurationDialogueandoff = false"-->
           <!--              >取 消</el-button-->
           <!--            >-->
-          <el-button @click="InfoInsert">返 回</el-button>
+          <el-button @click="configurationDialogueandoff = false"
+            >返 回</el-button
+          >
         </div>
       </el-dialog>
       <!--      导入弹框-->
@@ -708,15 +710,6 @@ export default {
   },
 
   methods: {
-    //查询按钮
-    queryFormList() {
-      this.pageNum = 1;
-      this.queryParkLayerList();
-    },
-    handleSelection(row) {
-      this.selectedLayerId = row.parkLayerId;
-      this.selectedParkId = row.parkId;
-    },
     //处理导入
     addFile(file, fileList) {
       console.log(file, fileList);
@@ -782,16 +775,6 @@ export default {
         }
       }
     },
-    //查询重置按钮
-    resetQuery() {
-      this.upQueryList = {};
-    },
-    // onBeforeUpload(file) {
-    //   this.Cert.upfile = file;
-    // },
-    // handleAvatarSuccess() {
-    //   this.fileImgList();
-    // },
     //删除上传文件
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -800,61 +783,14 @@ export default {
     handlePreview(file) {
       console.log(file);
     },
-    // beforeRemove() {
-    // },
+
     handleExceed() {
       this.$message.warning(`对不起,一次仅限上传一个文件！`);
     },
-    // //删除上传图片
-    // handleRemovePicture(picture, pictureList) {
-    //   console.log(picture, pictureList);
-    // },
-    // //图片上传预览
-    // handlePreviewPicture(picture) {
-    //   console.log(picture);
-    // },
-    // //上传图片接口
-    // uploadPicture(picture) {
-    //   const param = {
-    //     upload: 1,
-    //     dir: "park",
-    //     upfile: picture
-    //   };
-    //   this.$ysParking.uploadFile(param).then(res => {
-    //     this.addListDialogueandoffList.uploadPictureList.push(res.data);
-    //   });
-    // },
-    // 点击新增
-    addInletAndOutlet() {
-      //提前清空表单中数据
-      this.addListDialogueandoffList = {};
-      this.addListDialogueandoff = true;
-    },
-    // 点击保存
-    addInfoInsert() {
-      // console.log("this.pictureList", this.pictureList);
-      // return;
-      // for (let i = 0; i < this.pictureList.length; i++) {
-      //   this.uploadFile(this.pictureList[i]);
-      // }
-      const param = {
-        parkId: this.addListDialogueandoffList.parkId,
-        parkLayerName: this.addListDialogueandoffList.parkLayerName,
-        remark: this.addListDialogueandoffList.remark,
-        parkSpaceNum: this.addListDialogueandoffList.parkSpaceNum,
-        // imageHeight: this.addListDialogueandoffList.imageHeight,
-        // imageWidth: this.addListDialogueandoffList.imageWidth,
-        // layerMapFile: this.addListDialogueandoffList.layerMapFile,
-        // parkSpaceLocationFile: this.addListDialogueandoffList.uploadPictureList
-        creater: localStorage.getItem("userName")
-      };
-      console.log("上传参数", param);
-      console.log("保存后打印出来的数据", this.addListDialogueandoffList);
-      this.$ysParking.insertParkLayer(param).then(res => {
-        this.$message({ type: "success", message: "添加成功!" });
-        this.queryParkLayerList();
-        this.addListDialogueandoff = false;
-      });
+    //查询按钮
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryParkLayerList();
     },
     // 查询停车场下拉表单
     queryParking() {
@@ -866,6 +802,35 @@ export default {
       };
       this.$homePage.queryDict(param).then(response => {
         that.parkingLotList = response.resultEntity;
+      });
+    },
+    //查询重置按钮
+    resetQuery() {
+      this.upQueryList = {};
+    },
+    handleSelection(row) {
+      this.selectedLayerId = row.parkLayerId;
+      this.selectedParkId = row.parkId;
+    },
+    // 点击新增
+    addInletAndOutlet() {
+      //提前清空表单中数据
+      this.addListDialogueandoffList = {};
+      this.addListDialogueandoff = true;
+    },
+    // 点击保存
+    addInfoInsert() {
+      const param = {
+        parkId: this.addListDialogueandoffList.parkId,
+        parkLayerName: this.addListDialogueandoffList.parkLayerName,
+        remark: this.addListDialogueandoffList.remark,
+        parkSpaceNum: this.addListDialogueandoffList.parkSpaceNum,
+        creater: localStorage.getItem("userName")
+      };
+      this.$ysParking.insertParkLayer(param).then(res => {
+        this.$message({ type: "success", message: "添加成功!" });
+        this.queryParkLayerList();
+        this.addListDialogueandoff = false;
       });
     },
     // 上表列表查询
@@ -909,23 +874,7 @@ export default {
           this.$message({ type: "info", message: "已取消删除" });
         });
     },
-    // 切换单选框查询下表列表数据
-    // changeRedio(event, row) {
-    //   // console.log("event,row:", event, row);
-    //   this.currentRowId = event;
-    //   this.parkSpaceList = [];
-    //   const param = {
-    //     parkId: row.parkId,
-    //     parkLayerId: row.parkLayerId,
-    //     pageNum: this.pageNum,
-    //     pageSize: 5
-    //   };
-    //   this.$ysParking.queryParkSpaceList(param).then(res => {
-    //     // console.log("下表接口数据", res);
-    //     this.parkSpaceList = res.data.dataList;
-    //     // console.log("下表列表数据", this.parkSpaceList);
-    //   });
-    // },
+
     // 下表列表查询
     queryParkSpaceList(layerId) {
       const param = {
@@ -934,22 +883,11 @@ export default {
         pageSize: this.pageSizeDown
       };
       this.$ysParking.queryParkSpaceList(param).then(res => {
-        // console.log("下表接口数据", res);
         this.parkSpaceList = res.resultEntity.list;
         this.pageTotalDown = res.resultEntity.total;
-        // console.log("下表列表数据", this.parkSpaceList);
       });
     },
 
-    // 拿到上表多选数据
-    // handleSelectParkLayerList(val) {
-    //   this.selectParkLayerList = val;
-    // },
-
-    //拿到下表多选数据
-    // handleSelectParkSpaceList(val) {
-    //   this.selectParkSpaceList = val;
-    // },
     // 分页
     handleCurrentModifyUp(val) {
       this.pageNumUp = val;
@@ -959,19 +897,9 @@ export default {
       this.pageNumDown = val;
       this.queryParkSpaceList(this.selectedLayerId);
     },
-    // 斑马纹样式
-    // eslint-disable-next-line no-unused-vars
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2 === 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 === 0) {
-        return "successSecond";
-      }
-      return "";
-    },
+
     // 点击查询调用的方法
     selectQueryList() {
-      console.log("打印出来点击查询后所产生的值", this.queryParkId);
       if (this.queryParkId != 0) {
         this.parkLayerList = [];
         const param = {
