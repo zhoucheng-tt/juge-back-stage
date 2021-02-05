@@ -289,6 +289,15 @@ const routes = [
           import(
             /* webpackChunkName: "about" */ "@/views/park/dedicatedParking.vue"
           )
+      },
+      //HighChartsSpline
+      {
+        path: "/highCharts",
+        name: "highCharts",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/highCharts/highCharts.vue"
+          )
       }
     ]
   }

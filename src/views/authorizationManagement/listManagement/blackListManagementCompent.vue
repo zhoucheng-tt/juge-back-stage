@@ -459,12 +459,7 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: [
-          {
-            colName: "district_code",
-            value: "321302"
-          }
-        ]
+        whereStr: []
       };
       this.$homePage.queryDict(param).then(response => {
         that.parkLotNameList = response.resultEntity;

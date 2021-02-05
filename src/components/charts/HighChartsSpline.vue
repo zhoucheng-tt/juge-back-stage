@@ -28,6 +28,9 @@ export default {
   methods: {
     initChart(chartData) {
       var chart = Highcharts.chart(this.$el, {
+        lang: {
+          noData: "图表暂无数据"
+        },
         chart: {
           type: "spline",
           backgroundColor: "rgba(0,0,0,0)",

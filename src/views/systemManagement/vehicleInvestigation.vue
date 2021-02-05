@@ -41,6 +41,7 @@
             >导出</a
           >
         </el-button>
+        <el-button @click="handleClick">highcharts</el-button>
       </el-row>
     </div>
     <!--        日志管理表格-->
@@ -158,12 +159,15 @@ export default {
           BASE_API +
           "UserController/download?jsonStr=" +
           encodeURIComponent(JSON.stringify(param));
-        // console.log(this.exportFile)
       },
       deep: true
     }
   },
   methods: {
+    //hgihcharts
+    handleClick() {
+      this.$router.push("highCharts");
+    },
     //初始化查询条件
     initQuery() {
       var targetday_milliseconds =

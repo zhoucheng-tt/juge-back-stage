@@ -632,12 +632,7 @@ export default {
       const param = {
         columnName: ["park_id", "park_name"],
         tableName: "t_bim_park",
-        whereStr: [
-          {
-            colName: "district_code",
-            value: "321302"
-          }
-        ]
+        whereStr: []
       };
       this.$homePage.queryDict(param).then(response => {
         that.parkLotNameList = response.resultEntity;
@@ -652,12 +647,7 @@ export default {
         columnName: ["passageway_id", "passageway_name"],
         tableName: "t_bim_passageway",
         //park_id=''通过拼接
-        whereStr: [
-          {
-            colName: "park_id",
-            value: code
-          }
-        ]
+        whereStr: []
       };
       this.$homePage.queryDict(param).then(response => {
         //响应中的数据传给出入口
