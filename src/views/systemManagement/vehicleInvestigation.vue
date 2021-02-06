@@ -41,7 +41,7 @@
             >导出</a
           >
         </el-button>
-        <el-button @click="handleClick">highcharts</el-button>
+        <!--        <el-button @click="handleClick">highcharts</el-button>-->
       </el-row>
     </div>
     <!--        日志管理表格-->

@@ -1,43 +1,54 @@
 <template>
   <div style="height:100%;width: 100%;">
-    <dt-line-chart
-      :chart-data="chartData"
-      style="width: 48.5%;height:200px;float:left;margin-left: 1%;margin-top: 20px;"
-    ></dt-line-chart>
+    <div style="width: 48.5%;height:200px;margin-left: 1%;margin-top: 20px;">
+      <dt-spline-high-chart
+        :spline-high-charts-data-list="splineHighChartsDataList"
+      ></dt-spline-high-chart>
+    </div>
   </div>
 </template>
 <script>
 // 导入相关的依赖
 import Xchart from "../../components/charts/charts.vue";
 import Xchart3d from "../../components/charts/charts3d.vue";
-import DtLineChart from "@/components/charts/HighChartsSpline";
+//在charts中给vueHighChartsSpline中给他命名为dtSplineHighChart
+import dtSplineHighChart from "@/components/charts/HighChartsSpline";
 export default {
   // 组件导入
   components: {
     Xchart,
     Xchart3d,
-    DtLineChart
+    dtSplineHighChart
   },
   name: "highCharts",
   data() {
     return {
-      chartData: {
-        //必须写全
-        xCategories: [],
-        seriesData: []
+      //组件中的数据 !必须写全!
+      splineHighChartsDataList: {
+        categoriesX: [],
+        seriesDataY: [],
+        chartMarginBottom: 0,
+        titleText: "",
+        colors: "",
+        XAxisLineColor: "",
+        YAxisLabelsFormat: ""
       },
       // 传参
-      currentDay: new Date().Format("yyyy-MM-dd"),
-      numberOfParkingData: [],
-      numberOfParkingXz: []
+      // currentDay: new Date().Format("yyyy-MM-dd"),
+      currentDay: "2021-01-21",
+      //splineX轴的数据
+      categoriesX: [],
+      //splineY轴数据
+      seriesDataY: []
     };
   },
   mounted() {
-    this.useHighChartsSpline();
+    this.splineHighChartsUse();
   },
   //方法集合
   methods: {
-    useHighChartsSpline() {
+    //spline Highcharts
+    splineHighChartsUse() {
       let that = this;
       const param = {
         endTime: this.currentDay
@@ -46,12 +57,18 @@ export default {
         .queryParkTimes(param)
         .then(res => {
           res.resultEntity.forEach(item => {
-            this.numberOfParkingXz.push(item.X + ":00");
-            this.numberOfParkingData.push(Number(item.dataY));
+            this.categoriesX.push(item.X + ":00");
+            this.seriesDataY.push(Number(item.dataY));
           });
-          that.chartData = {
-            xCategories: this.numberOfParkingXz,
-            seriesData: this.numberOfParkingData
+          that.splineHighChartsDataList = {
+            categoriesX: this.categoriesX,
+            seriesDataY: this.seriesDataY,
+            chartMarginBottom: 35,
+            titleText: "splineHighCharts",
+            colors: "#7654E3",
+            XAxisLineColor: "#104DA1",
+            XAxisLabelsStyle: "rgba(90,142,227,1)",
+            YAxisLabelsFormat: "辆"
           };
         })
         .catch(err => {

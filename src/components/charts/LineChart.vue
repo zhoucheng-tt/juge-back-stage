@@ -50,7 +50,7 @@ export default {
         xAxis: {
           categories: chartData.xCategories,
           //X轴间隔显示
-          // tickInterval: 4,
+          tickInterval: 0,
           //x轴坐标颜色
           lineColor: "#104DA1",
           labels: {
@@ -67,7 +67,7 @@ export default {
           },
           labels: {
             //修改Y轴添加单位
-            format: "{value}辆",
+            format: "{value}",
             style: {
               color: "rgba(90,142,227,1)"
             }
