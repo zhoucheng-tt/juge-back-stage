@@ -20,12 +20,12 @@ module.exports = {
       // 当遇见所有的跨域问题中需要进行这边调整
       "/eparking-web": {
         // target: "http://192.168.1.161:8000",
-        target: "http://123.207.189.27:7108",
-        // target: "http://192.168.99.10:8000",
+        // target: "http://123.207.189.27:7108",
+        target: "http://192.168.99.10:8000",
         ws: false,
         pathRewrite: {
-          "^/eparking-web/": "/eparking-web/"
-          // "^/eparking-web/": "/"
+          // "^/eparking-web/": "/eparking-web/"
+          "^/eparking-web/": "/"
           //pathRewrite: {'^/api': '/'} 重写之后url为 http://192.168.1.16:8085/xxxx
           //pathRewrite: {'^/api': '/api'} 重写之后url为 http://192.168.1.16:8085/api/xxxx
         }

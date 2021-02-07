@@ -6936,6 +6936,7 @@ export default {
       // 公共停车场车位状态
       const param1 = ["BM01"];
       this.$homePage.queryParkSpaceStatus(param1).then(res => {
+        console.log("P1", res);
         this.P1occupyList = res.resultEntity;
         //   .forEach(item => {
         //   document.getElementById(item).style.fill = "red";
@@ -6944,6 +6945,7 @@ export default {
       //员工停车场车位状态
       const param2 = ["BMK01"];
       this.$homePage.queryParkSpaceStatus(param2).then(res => {
+        console.log("P2", res);
         this.P2occupyList = res.resultEntity;
         //   .forEach(item => {
         //   document.getElementById(item).style.fill = "red";
@@ -6952,6 +6954,7 @@ export default {
       //临时停车场车位状态
       const param3 = ["HZH01"];
       this.$homePage.queryParkSpaceStatus(param3).then(res => {
+        console.log("P3", res);
         this.P3occupyList = res.resultEntity;
         //   .forEach(item => {
         //   document.getElementById(item).style.fill = "red";
@@ -6960,6 +6963,7 @@ export default {
       //新能源停车场车位状态
       const param4 = ["JQ01"];
       this.$homePage.queryParkSpaceStatus(param4).then(res => {
+        console.log("P4", res);
         this.P4occupyList = res.resultEntity;
         //   .forEach(item => {
         //   document.getElementById(item).style.fill = "red";
@@ -6968,6 +6972,7 @@ export default {
       //专用停车场车位状态
       const param5 = ["SJDA01"];
       this.$homePage.queryParkSpaceStatus(param5).then(res => {
+        console.log("P5", res);
         this.P5occupyList = res.resultEntity;
         //   .forEach(item => {
         //   document.getElementById(item).style.fill = "red";
