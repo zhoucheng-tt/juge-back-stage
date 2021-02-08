@@ -112,7 +112,7 @@ export function queryCarWashAmountRecentDays(params) {
 //剩余车位数查询 http://192.168.1.163:8000/homePageFunc/queryEmptySpace
 export function queryEmptySpace(params) {
   return request({
-    url: "/homePageFunc/queryEmptySpace",
+    url: "http://192.168.1.163:8000/homePageFunc/queryEmptySpace",
     method: "post",
     data: params,
     flag: "out"
