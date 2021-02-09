@@ -50,7 +50,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>nav_exit</title>
+              <title></title>
               <defs>
                 <filter
                   x="-0.6%"
@@ -138,26 +138,63 @@
       <div class="leftContent">
         <!-- 总停车数量 totalNumberParking-->
         <div class="leftCharts">
-          <div class="leftChartUp">
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">
-              当日总停车数量
-            </span>
-            <span
-              style="float:right;font-family:   HelveticaNeue-Bold;font-size: 18px;color: #7654E3;letter-spacing: 0.41px;"
-              >{{ numberOfParkingTotal }} 辆
-            </span>
+          <div class="leftChartUp" style="display:flex">
+            <div style="width: 40%" class="leftChartUpImage">
+              <svg
+                width="14px"
+                height="14px"
+                viewBox="0 0 14 14"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <title>形状结合</title>
+                <g
+                  id="切图"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <g
+                    id="智慧停车管理平台备份-2"
+                    transform="translate(-44.000000, -108.000000)"
+                    fill="#1398FF"
+                  >
+                    <g
+                      id="支付方式"
+                      transform="translate(44.000000, 104.000000)"
+                    >
+                      <path
+                        d="M4,14 L4,18 L0,18 L0,14 L4,14 Z M9,14 L9,18 L5,18 L5,14 L9,14 Z M14,14 L14,18 L10,18 L10,14 L14,14 Z M4,9 L4,13 L0,13 L0,9 L4,9 Z M9,9 L9,13 L5,13 L5,9 L9,9 Z M14,9 L14,13 L10,13 L10,9 L14,9 Z M4,4 L4,8 L0,8 L0,4 L4,4 Z M9,4 L9,8 L5,8 L5,4 L9,4 Z M14,4 L14,8 L10,8 L10,4 L14,4 Z"
+                        id="形状结合"
+                      ></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              <span class="spanStyle">
+                当日总停车次数
+              </span>
+            </div>
+            <div style="width: 20%">
+              <el-tooltip effect="light" content="当前停车次数">
+                <img
+                  style="width: 18px;height: 18px;margin-top: 3px;margin-left: 1px"
+                  src="../../assets/homePage/i.png"
+                  alt=""
+                />
+              </el-tooltip>
+            </div>
+            <div style="width: 40%">
+              <span
+                style="float:right;font-family:HelveticaNeue-Bold;font-size: 18px;color: #7654E3;letter-spacing: 0.41px;"
+                >{{ numberOfParkingTotal }} 次
+              </span>
+            </div>
           </div>
           <!-- 总停车数量-->
           <div class="leftChartCenter" id="numberOfParking">
-            <!--            <Xchart-->
-            <!--              id="numberOfParking"-->
-            <!--              :option="numberOfParkingOptions"-->
-            <!--            ></Xchart>-->
             <dt-line-chart :chart-data="chartData"></dt-line-chart>
           </div>
           <div class="leftChartDown">
@@ -167,7 +204,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -216,20 +253,33 @@
         <!-- 车位利用率 parkingSpaceUtilization-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">当日车位利用率</span>
-            <span
-              style="font-family: PingFangSC-Medium;
+            <div style="width:40%">
+              <img
+                src="../../assets/homePage/fangkuai.svg"
+                class="leftChartUpImage"
+                alt=""
+              />
+              <span class="spanStyle">当日车位利用率</span>
+            </div>
+            <div style="width: 20%">
+              <el-tooltip effect="light" content="停车时长/总车位数">
+                <img
+                  style="width: 18px;height: 18px;margin-top: 2px"
+                  src="../../assets/homePage/i.png"
+                  alt=""
+                />
+              </el-tooltip>
+            </div>
+            <div style="width:40%">
+              <span
+                style="font-family: PingFangSC-Medium;
                      font-size: 1rem;
                       color: #08F6E4;
                   letter-spacing: 0.36px;float: right"
-            >
-              {{ parkingSpaceUsedRateNumber }}分钟/车位
-            </span>
+              >
+                {{ parkingSpaceUsedRateNumber }}分钟/车位
+              </span>
+            </div>
           </div>
           <!-- 车位利用率   -->
           <div class="leftChartCenter" id="parkingSpaceUtilization">
@@ -245,7 +295,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -293,20 +343,33 @@
         <!-- 车位周转率 parkingSpaceTurnoverRate-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">当日车位周转率</span>
-            <span
-              style="font-family: PingFangSC-Medium;
+            <div style="width: 40%">
+              <img
+                src="../../assets/homePage/fangkuai.svg"
+                class="leftChartUpImage"
+                alt=""
+              />
+              <span class="spanStyle">当日车位周转率</span>
+            </div>
+            <div style="width:20%">
+              <el-tooltip effect="light" content="停车次数/总车位数">
+                <img
+                  style="width: 18px;height: 18px;margin-top: 2px"
+                  src="../../assets/homePage/i.png"
+                  alt=""
+                />
+              </el-tooltip>
+            </div>
+            <div style="width: 40%">
+              <span
+                style="font-family: PingFangSC-Medium;
                      font-size: 1rem;
                      color: #E9C503;
                      letter-spacing: 0.36px;float:right;"
-            >
-              {{ parkingSpaceTurnoverRateNumber }}次/车位
-            </span>
+              >
+                {{ parkingSpaceTurnoverRateNumber }}次/车位
+              </span>
+            </div>
           </div>
           <!-- 车位周转率   -->
           <div class="leftChartCenter" id="parkingSpaceTurnoverRate">
@@ -322,7 +385,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -370,21 +433,34 @@
         <!-- 平均停车时长 averageParkingTime-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
-            <img
-              src="../../assets/homePage/fangkuai.svg"
-              class="leftChartUpImage"
-              alt=""
-            />
-            <span class="spanStyle">当日平均停车时长</span>
-            <span
-              style="margin-top:4px;font-family: PingFangSC-Medium;
+            <div style="width: 45%;">
+              <img
+                src="../../assets/homePage/fangkuai.svg"
+                class="leftChartUpImage"
+                alt=""
+              />
+              <span class="spanStyle">当日平均停车时长</span>
+            </div>
+            <div style="width: 15%">
+              <el-tooltip effect="light" content="停车时长/停车次数">
+                <img
+                  style="width: 18px;height: 18px;margin-top: 3px;margin-left: 1px"
+                  src="../../assets/homePage/i.png"
+                  alt=""
+                />
+              </el-tooltip>
+            </div>
+            <div style="width: 40%;">
+              <span
+                style="margin-top:4px;font-family: PingFangSC-Medium;
               font-size: 1rem;
               color: #00DBEC;
               letter-spacing: 0.36px;
               float: right"
-            >
-              {{ averageParkingTimeNumber }} 分钟
-            </span>
+              >
+                {{ averageParkingTimeNumber }} 分钟
+              </span>
+            </div>
           </div>
           <!-- 平均停车时长   -->
           <div class="leftChartCenter" id="averageParkingTime">
@@ -400,7 +476,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -561,8 +637,13 @@
             </div>
           </div>
           <!--停车场p1-->
-          <el-tooltip placement="top" popper-class="popperClass">
-            <div slot="content" style="width: 162px;height: 47px">
+          <el-tooltip
+            placement="top"
+            popper-class="popperClass"
+            :value="true"
+            :manual="true"
+          >
+            <div slot="content" style="width: 140px;height: 47px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
@@ -575,7 +656,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                   >
-                    <title>iconp2</title>
+                    <title></title>
                     <g
                       id="切图"
                       stroke="none"
@@ -661,141 +742,20 @@
                     >
                   </div>
                 </div>
-                <div class="parkListDialogP1-shuxian"></div>
-                <!--右键箭头svg-->
-                <div
-                  class="parkListDialogP1-rightSvg"
-                  @click="handleClickP1Dialog"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="12px"
-                    height="12px"
-                    viewBox="0 0 12 12"
-                    version="1.1"
-                  >
-                    <title>icon/arrow</title>
-                    <g
-                      id="页面-1"
-                      stroke="none"
-                      stroke-width="1"
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <g
-                        id="智慧停车管理首页-点击停车场"
-                        transform="translate(-1118.000000, -508.000000)"
-                      >
-                        <g
-                          id="气泡"
-                          transform="translate(978.000000, 490.000000)"
-                        >
-                          <g
-                            id="btn"
-                            transform="translate(130.000000, 0.000000)"
-                          >
-                            <g
-                              id="icon/arrow"
-                              transform="translate(10.000000, 18.000000)"
-                            >
-                              <polygon
-                                id="Fill-1"
-                                points="0 12 12 12 12 0.000375 0 0.000375"
-                              />
-                              <g
-                                id="编组"
-                                transform="translate(0.750000, 0.750000)"
-                                fill="#FFFFFF"
-                              >
-                                <path
-                                  d="M5.37334091,5.26834091 C5.44459091,5.19879545 5.49879545,5.11697727 5.53390909,5.02663636 C5.54856818,4.99084091 5.55334091,4.95845455 5.55640909,4.93902273 L5.56390909,4.90629545 C5.57209091,4.87254545 5.58368182,4.82720455 5.58368182,4.77197727 C5.58368182,4.71640909 5.57209091,4.67106818 5.56356818,4.63731818 L5.55640909,4.60629545 C5.55334091,4.58686364 5.54822727,4.55515909 5.53390909,4.51936364 C5.49811364,4.42765909 5.44459091,4.34584091 5.373,4.27527273 L1.24459091,0.264818182 C0.972545455,-0.00347727273 0.540954545,-0.00961363636 0.261409091,0.250840909 L0.256636364,0.255272727 C0.128113636,0.382772727 0.0568636364,0.552545455 0.0558409091,0.733568182 C0.0551590909,0.91425 0.124704545,1.08470455 0.251863636,1.21288636 C0.258,1.21936364 0.264136364,1.22515909 0.267886364,1.22856818 L3.91425,4.77129545 L0.270272727,8.31129545 C0.138,8.43470455 0.0616363636,8.60243182 0.0558409091,8.78345455 C0.0497045455,8.96413636 0.114477273,9.13629545 0.237886364,9.26822727 C0.244022727,9.27470455 0.250159091,9.28118182 0.260045455,9.29106818 C0.395727273,9.41856818 0.571295455,9.48197727 0.746181818,9.48197727 C0.927204545,9.48197727 1.10788636,9.41413636 1.24254545,9.27947727 L5.373,5.26868182 L5.37334091,5.26834091 Z"
-                                  id="Fill-2"
-                                />
-                                <path
-                                  d="M9.45760227,4.63711364 L9.45044318,4.60609091 C9.447375,4.587 9.44226136,4.55529545 9.42794318,4.51984091 C9.39282955,4.42779545 9.33930682,4.34597727 9.26771591,4.27506818 L5.13828409,0.263590909 C4.86623864,-0.00334090909 4.43464773,-0.00879545455 4.15578409,0.251318182 L4.15067045,0.256090909 C3.88544318,0.519613636 3.88407955,0.950181818 4.14760227,1.21540909 C4.15305682,1.22086364 4.15885227,1.22631818 4.16430682,1.23177273 L7.80828409,4.77143182 L4.16396591,8.31245455 C4.02828409,8.43995455 3.95226136,8.61177273 3.94919318,8.79586364 C3.94646591,8.98029545 4.017375,9.1545 4.14896591,9.28643182 L4.15373864,9.29086364 C4.28498864,9.41495455 4.45680682,9.48279545 4.63851136,9.48279545 C4.64226136,9.48279545 4.64567045,9.48279545 4.64907955,9.48245455 C4.83282955,9.47972727 5.01146591,9.40438636 5.13589773,9.27859091 L9.26771591,5.26540909 C9.33692045,5.19756818 9.39010227,5.11779545 9.42521591,5.02881818 C9.443625,4.98790909 9.44907955,4.95143182 9.45180682,4.92859091 L9.45623864,4.91052273 C9.46510227,4.87609091 9.47805682,4.82870455 9.47805682,4.77143182 C9.47805682,4.71586364 9.46578409,4.67052273 9.45760227,4.63711364"
-                                  id="Fill-4"
-                                />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
               </div>
             </div>
             <div class="parkListDivP1">
-              <div class="parkListDiv-svg">
-                <svg
-                  width="28px"
-                  height="28px"
-                  viewBox="0 0 28 28"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>iconp</title>
-                  <defs>
-                    <polygon
-                      id="path-1"
-                      points="0 0.0007 28 0.0007 28 28 0 28"
-                    ></polygon>
-                  </defs>
-                  <g
-                    id="切图"
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <g
-                      id="智慧停车管理平台备份-2"
-                      transform="translate(-1018.000000, -653.000000)"
-                    >
-                      <g
-                        id="Bitmap"
-                        transform="translate(445.000000, 415.000000)"
-                      >
-                        <g
-                          id="iconp"
-                          transform="translate(573.000000, 238.000000)"
-                        >
-                          <path
-                            d="M24.7457,14.0061 C24.7457,19.8861 19.9797,24.6521 14.0997,24.6521 C8.2207,24.6521 3.4537,19.8861 3.4537,14.0061 C3.4537,8.1271 8.2207,3.3601 14.0997,3.3601 C19.9797,3.3601 24.7457,8.1271 24.7457,14.0061"
-                            id="Fill-1"
-                            fill="#FFFFFF"
-                          ></path>
-                          <g id="编组">
-                            <mask id="mask-2" fill="white">
-                              <use xlink:href="#path-1"></use>
-                            </mask>
-                            <g id="Clip-4"></g>
-                            <path
-                              d="M15.609,10.1697 L12.553,10.1697 L12.553,13.2267 L15.609,13.2267 C16.9,13.2267 17.135,12.8887 17.135,11.6977 C17.135,10.5067 17.208,10.1697 15.914,10.1697 L15.609,10.1697 Z M14,0.0007 C6.267,0.0007 0,6.2657 0,13.9997 C0,21.7307 6.267,28.0007 14,28.0007 C21.733,28.0007 28,21.7307 28,13.9997 C28,6.2657 21.733,0.0007 14,0.0007 L14,0.0007 Z M15.609,16.2827 L12.553,16.2827 L12.553,22.3927 L9.498,22.3927 L9.498,7.1167 L15.609,7.1167 C18.626,7.1167 20.095,9.2147 20.095,11.6977 C20.095,14.1817 18.938,16.2797 15.917,16.2797 L15.609,16.2797 L15.609,16.2827 Z"
-                              id="Fill-3"
-                              fill="#0057D0"
-                              mask="url(#mask-2)"
-                            ></path>
-                          </g>
-                          <path
-                            d="M26.0553,14.0774 C26.0553,20.7054 20.6823,26.0774 14.0553,26.0774 C7.4283,26.0774 2.0553,20.7054 2.0553,14.0774 C2.0553,7.4504 7.4283,2.0774 14.0553,2.0774 C20.6823,2.0774 26.0553,7.4504 26.0553,14.0774 Z"
-                            id="Stroke-5"
-                            stroke="#FFFFFF"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div>{{ parkingLotList[0].name }}</div>
+              <!--              <div>{{ parkingLotList[0].name }}</div>-->
             </div>
           </el-tooltip>
           <!--停车场p2-->
-          <el-tooltip placement="top" popper-class="popperClass">
-            <div slot="content" style="width: 162px;height: 47px">
+          <el-tooltip
+            placement="right"
+            popper-class="popperClass"
+            :value="true"
+            :manual="true"
+          >
+            <div slot="content" style="width: 140px;height: 47px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
@@ -808,7 +768,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                   >
-                    <title>iconp2</title>
+                    <title></title>
                     <g
                       id="切图"
                       stroke="none"
@@ -894,141 +854,20 @@
                     >
                   </div>
                 </div>
-                <div class="parkListDialogP1-shuxian"></div>
-                <!--右键箭头svg-->
-                <div
-                  class="parkListDialogP1-rightSvg"
-                  @click="handleClickP2Dialog"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="12px"
-                    height="12px"
-                    viewBox="0 0 12 12"
-                    version="1.1"
-                  >
-                    <title>icon/arrow</title>
-                    <g
-                      id="页面-1"
-                      stroke="none"
-                      stroke-width="1"
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <g
-                        id="智慧停车管理首页-点击停车场"
-                        transform="translate(-1118.000000, -508.000000)"
-                      >
-                        <g
-                          id="气泡"
-                          transform="translate(978.000000, 490.000000)"
-                        >
-                          <g
-                            id="btn"
-                            transform="translate(130.000000, 0.000000)"
-                          >
-                            <g
-                              id="icon/arrow"
-                              transform="translate(10.000000, 18.000000)"
-                            >
-                              <polygon
-                                id="Fill-1"
-                                points="0 12 12 12 12 0.000375 0 0.000375"
-                              />
-                              <g
-                                id="编组"
-                                transform="translate(0.750000, 0.750000)"
-                                fill="#FFFFFF"
-                              >
-                                <path
-                                  d="M5.37334091,5.26834091 C5.44459091,5.19879545 5.49879545,5.11697727 5.53390909,5.02663636 C5.54856818,4.99084091 5.55334091,4.95845455 5.55640909,4.93902273 L5.56390909,4.90629545 C5.57209091,4.87254545 5.58368182,4.82720455 5.58368182,4.77197727 C5.58368182,4.71640909 5.57209091,4.67106818 5.56356818,4.63731818 L5.55640909,4.60629545 C5.55334091,4.58686364 5.54822727,4.55515909 5.53390909,4.51936364 C5.49811364,4.42765909 5.44459091,4.34584091 5.373,4.27527273 L1.24459091,0.264818182 C0.972545455,-0.00347727273 0.540954545,-0.00961363636 0.261409091,0.250840909 L0.256636364,0.255272727 C0.128113636,0.382772727 0.0568636364,0.552545455 0.0558409091,0.733568182 C0.0551590909,0.91425 0.124704545,1.08470455 0.251863636,1.21288636 C0.258,1.21936364 0.264136364,1.22515909 0.267886364,1.22856818 L3.91425,4.77129545 L0.270272727,8.31129545 C0.138,8.43470455 0.0616363636,8.60243182 0.0558409091,8.78345455 C0.0497045455,8.96413636 0.114477273,9.13629545 0.237886364,9.26822727 C0.244022727,9.27470455 0.250159091,9.28118182 0.260045455,9.29106818 C0.395727273,9.41856818 0.571295455,9.48197727 0.746181818,9.48197727 C0.927204545,9.48197727 1.10788636,9.41413636 1.24254545,9.27947727 L5.373,5.26868182 L5.37334091,5.26834091 Z"
-                                  id="Fill-2"
-                                />
-                                <path
-                                  d="M9.45760227,4.63711364 L9.45044318,4.60609091 C9.447375,4.587 9.44226136,4.55529545 9.42794318,4.51984091 C9.39282955,4.42779545 9.33930682,4.34597727 9.26771591,4.27506818 L5.13828409,0.263590909 C4.86623864,-0.00334090909 4.43464773,-0.00879545455 4.15578409,0.251318182 L4.15067045,0.256090909 C3.88544318,0.519613636 3.88407955,0.950181818 4.14760227,1.21540909 C4.15305682,1.22086364 4.15885227,1.22631818 4.16430682,1.23177273 L7.80828409,4.77143182 L4.16396591,8.31245455 C4.02828409,8.43995455 3.95226136,8.61177273 3.94919318,8.79586364 C3.94646591,8.98029545 4.017375,9.1545 4.14896591,9.28643182 L4.15373864,9.29086364 C4.28498864,9.41495455 4.45680682,9.48279545 4.63851136,9.48279545 C4.64226136,9.48279545 4.64567045,9.48279545 4.64907955,9.48245455 C4.83282955,9.47972727 5.01146591,9.40438636 5.13589773,9.27859091 L9.26771591,5.26540909 C9.33692045,5.19756818 9.39010227,5.11779545 9.42521591,5.02881818 C9.443625,4.98790909 9.44907955,4.95143182 9.45180682,4.92859091 L9.45623864,4.91052273 C9.46510227,4.87609091 9.47805682,4.82870455 9.47805682,4.77143182 C9.47805682,4.71586364 9.46578409,4.67052273 9.45760227,4.63711364"
-                                  id="Fill-4"
-                                />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
               </div>
             </div>
             <div class="parkListDivP2">
-              <div class="parkListDiv-svg">
-                <svg
-                  width="28px"
-                  height="28px"
-                  viewBox="0 0 28 28"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>iconp</title>
-                  <defs>
-                    <polygon
-                      id="path-1"
-                      points="0 0.0007 28 0.0007 28 28 0 28"
-                    ></polygon>
-                  </defs>
-                  <g
-                    id="切图"
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <g
-                      id="智慧停车管理平台备份-2"
-                      transform="translate(-1018.000000, -653.000000)"
-                    >
-                      <g
-                        id="Bitmap"
-                        transform="translate(445.000000, 415.000000)"
-                      >
-                        <g
-                          id="iconp"
-                          transform="translate(573.000000, 238.000000)"
-                        >
-                          <path
-                            d="M24.7457,14.0061 C24.7457,19.8861 19.9797,24.6521 14.0997,24.6521 C8.2207,24.6521 3.4537,19.8861 3.4537,14.0061 C3.4537,8.1271 8.2207,3.3601 14.0997,3.3601 C19.9797,3.3601 24.7457,8.1271 24.7457,14.0061"
-                            id="Fill-1"
-                            fill="#FFFFFF"
-                          ></path>
-                          <g id="编组">
-                            <mask id="mask-2" fill="white">
-                              <use xlink:href="#path-1"></use>
-                            </mask>
-                            <g id="Clip-4"></g>
-                            <path
-                              d="M15.609,10.1697 L12.553,10.1697 L12.553,13.2267 L15.609,13.2267 C16.9,13.2267 17.135,12.8887 17.135,11.6977 C17.135,10.5067 17.208,10.1697 15.914,10.1697 L15.609,10.1697 Z M14,0.0007 C6.267,0.0007 0,6.2657 0,13.9997 C0,21.7307 6.267,28.0007 14,28.0007 C21.733,28.0007 28,21.7307 28,13.9997 C28,6.2657 21.733,0.0007 14,0.0007 L14,0.0007 Z M15.609,16.2827 L12.553,16.2827 L12.553,22.3927 L9.498,22.3927 L9.498,7.1167 L15.609,7.1167 C18.626,7.1167 20.095,9.2147 20.095,11.6977 C20.095,14.1817 18.938,16.2797 15.917,16.2797 L15.609,16.2797 L15.609,16.2827 Z"
-                              id="Fill-3"
-                              fill="#0057D0"
-                              mask="url(#mask-2)"
-                            ></path>
-                          </g>
-                          <path
-                            d="M26.0553,14.0774 C26.0553,20.7054 20.6823,26.0774 14.0553,26.0774 C7.4283,26.0774 2.0553,20.7054 2.0553,14.0774 C2.0553,7.4504 7.4283,2.0774 14.0553,2.0774 C20.6823,2.0774 26.0553,7.4504 26.0553,14.0774 Z"
-                            id="Stroke-5"
-                            stroke="#FFFFFF"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div>{{ parkingLotList[1].name }}</div>
+              <!--              <div>{{ parkingLotList[1].name }}</div>-->
             </div>
           </el-tooltip>
           <!--停车场p3-->
-          <el-tooltip placement="top" popper-class="popperClass">
-            <div slot="content" style="width: 162px;height: 47px">
+          <el-tooltip
+            placement="top"
+            popper-class="popperClass"
+            :value="true"
+            :manual="true"
+          >
+            <div slot="content" style="width: 140px;height: 47px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
@@ -1041,7 +880,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                   >
-                    <title>iconp2</title>
+                    <title></title>
                     <g
                       id="切图"
                       stroke="none"
@@ -1127,141 +966,20 @@
                     >
                   </div>
                 </div>
-                <div class="parkListDialogP1-shuxian"></div>
-                <!--右键箭头svg-->
-                <div
-                  class="parkListDialogP1-rightSvg"
-                  @click="handleClickP3Dialog"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="12px"
-                    height="12px"
-                    viewBox="0 0 12 12"
-                    version="1.1"
-                  >
-                    <title>icon/arrow</title>
-                    <g
-                      id="页面-1"
-                      stroke="none"
-                      stroke-width="1"
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <g
-                        id="智慧停车管理首页-点击停车场"
-                        transform="translate(-1118.000000, -508.000000)"
-                      >
-                        <g
-                          id="气泡"
-                          transform="translate(978.000000, 490.000000)"
-                        >
-                          <g
-                            id="btn"
-                            transform="translate(130.000000, 0.000000)"
-                          >
-                            <g
-                              id="icon/arrow"
-                              transform="translate(10.000000, 18.000000)"
-                            >
-                              <polygon
-                                id="Fill-1"
-                                points="0 12 12 12 12 0.000375 0 0.000375"
-                              />
-                              <g
-                                id="编组"
-                                transform="translate(0.750000, 0.750000)"
-                                fill="#FFFFFF"
-                              >
-                                <path
-                                  d="M5.37334091,5.26834091 C5.44459091,5.19879545 5.49879545,5.11697727 5.53390909,5.02663636 C5.54856818,4.99084091 5.55334091,4.95845455 5.55640909,4.93902273 L5.56390909,4.90629545 C5.57209091,4.87254545 5.58368182,4.82720455 5.58368182,4.77197727 C5.58368182,4.71640909 5.57209091,4.67106818 5.56356818,4.63731818 L5.55640909,4.60629545 C5.55334091,4.58686364 5.54822727,4.55515909 5.53390909,4.51936364 C5.49811364,4.42765909 5.44459091,4.34584091 5.373,4.27527273 L1.24459091,0.264818182 C0.972545455,-0.00347727273 0.540954545,-0.00961363636 0.261409091,0.250840909 L0.256636364,0.255272727 C0.128113636,0.382772727 0.0568636364,0.552545455 0.0558409091,0.733568182 C0.0551590909,0.91425 0.124704545,1.08470455 0.251863636,1.21288636 C0.258,1.21936364 0.264136364,1.22515909 0.267886364,1.22856818 L3.91425,4.77129545 L0.270272727,8.31129545 C0.138,8.43470455 0.0616363636,8.60243182 0.0558409091,8.78345455 C0.0497045455,8.96413636 0.114477273,9.13629545 0.237886364,9.26822727 C0.244022727,9.27470455 0.250159091,9.28118182 0.260045455,9.29106818 C0.395727273,9.41856818 0.571295455,9.48197727 0.746181818,9.48197727 C0.927204545,9.48197727 1.10788636,9.41413636 1.24254545,9.27947727 L5.373,5.26868182 L5.37334091,5.26834091 Z"
-                                  id="Fill-2"
-                                />
-                                <path
-                                  d="M9.45760227,4.63711364 L9.45044318,4.60609091 C9.447375,4.587 9.44226136,4.55529545 9.42794318,4.51984091 C9.39282955,4.42779545 9.33930682,4.34597727 9.26771591,4.27506818 L5.13828409,0.263590909 C4.86623864,-0.00334090909 4.43464773,-0.00879545455 4.15578409,0.251318182 L4.15067045,0.256090909 C3.88544318,0.519613636 3.88407955,0.950181818 4.14760227,1.21540909 C4.15305682,1.22086364 4.15885227,1.22631818 4.16430682,1.23177273 L7.80828409,4.77143182 L4.16396591,8.31245455 C4.02828409,8.43995455 3.95226136,8.61177273 3.94919318,8.79586364 C3.94646591,8.98029545 4.017375,9.1545 4.14896591,9.28643182 L4.15373864,9.29086364 C4.28498864,9.41495455 4.45680682,9.48279545 4.63851136,9.48279545 C4.64226136,9.48279545 4.64567045,9.48279545 4.64907955,9.48245455 C4.83282955,9.47972727 5.01146591,9.40438636 5.13589773,9.27859091 L9.26771591,5.26540909 C9.33692045,5.19756818 9.39010227,5.11779545 9.42521591,5.02881818 C9.443625,4.98790909 9.44907955,4.95143182 9.45180682,4.92859091 L9.45623864,4.91052273 C9.46510227,4.87609091 9.47805682,4.82870455 9.47805682,4.77143182 C9.47805682,4.71586364 9.46578409,4.67052273 9.45760227,4.63711364"
-                                  id="Fill-4"
-                                />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
               </div>
             </div>
             <div class="parkListDivP3">
-              <div class="parkListDiv-svg">
-                <svg
-                  width="28px"
-                  height="28px"
-                  viewBox="0 0 28 28"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>iconp</title>
-                  <defs>
-                    <polygon
-                      id="path-1"
-                      points="0 0.0007 28 0.0007 28 28 0 28"
-                    ></polygon>
-                  </defs>
-                  <g
-                    id="切图"
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <g
-                      id="智慧停车管理平台备份-2"
-                      transform="translate(-1018.000000, -653.000000)"
-                    >
-                      <g
-                        id="Bitmap"
-                        transform="translate(445.000000, 415.000000)"
-                      >
-                        <g
-                          id="iconp"
-                          transform="translate(573.000000, 238.000000)"
-                        >
-                          <path
-                            d="M24.7457,14.0061 C24.7457,19.8861 19.9797,24.6521 14.0997,24.6521 C8.2207,24.6521 3.4537,19.8861 3.4537,14.0061 C3.4537,8.1271 8.2207,3.3601 14.0997,3.3601 C19.9797,3.3601 24.7457,8.1271 24.7457,14.0061"
-                            id="Fill-1"
-                            fill="#FFFFFF"
-                          ></path>
-                          <g id="编组">
-                            <mask id="mask-2" fill="white">
-                              <use xlink:href="#path-1"></use>
-                            </mask>
-                            <g id="Clip-4"></g>
-                            <path
-                              d="M15.609,10.1697 L12.553,10.1697 L12.553,13.2267 L15.609,13.2267 C16.9,13.2267 17.135,12.8887 17.135,11.6977 C17.135,10.5067 17.208,10.1697 15.914,10.1697 L15.609,10.1697 Z M14,0.0007 C6.267,0.0007 0,6.2657 0,13.9997 C0,21.7307 6.267,28.0007 14,28.0007 C21.733,28.0007 28,21.7307 28,13.9997 C28,6.2657 21.733,0.0007 14,0.0007 L14,0.0007 Z M15.609,16.2827 L12.553,16.2827 L12.553,22.3927 L9.498,22.3927 L9.498,7.1167 L15.609,7.1167 C18.626,7.1167 20.095,9.2147 20.095,11.6977 C20.095,14.1817 18.938,16.2797 15.917,16.2797 L15.609,16.2797 L15.609,16.2827 Z"
-                              id="Fill-3"
-                              fill="#0057D0"
-                              mask="url(#mask-2)"
-                            ></path>
-                          </g>
-                          <path
-                            d="M26.0553,14.0774 C26.0553,20.7054 20.6823,26.0774 14.0553,26.0774 C7.4283,26.0774 2.0553,20.7054 2.0553,14.0774 C2.0553,7.4504 7.4283,2.0774 14.0553,2.0774 C20.6823,2.0774 26.0553,7.4504 26.0553,14.0774 Z"
-                            id="Stroke-5"
-                            stroke="#FFFFFF"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div>{{ parkingLotList[2].name }}</div>
+              <!--              <div>{{ parkingLotList[2].name }}</div>-->
             </div>
           </el-tooltip>
           <!--停车场p4-->
-          <el-tooltip placement="top" popper-class="popperClass">
-            <div slot="content" style="width: 175px;height: 47px">
+          <el-tooltip
+            placement="top"
+            popper-class="popperClass"
+            :value="true"
+            :manual="true"
+          >
+            <div slot="content" style="width: 150px;height: 47px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
@@ -1274,7 +992,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                   >
-                    <title>iconp2</title>
+                    <title></title>
                     <g
                       id="切图"
                       stroke="none"
@@ -1360,141 +1078,15 @@
                     >
                   </div>
                 </div>
-                <div class="parkListDialogP1-shuxian"></div>
-                <!--右键箭头svg-->
-                <div
-                  class="parkListDialogP1-rightSvg"
-                  @click="handleClickP4Dialog"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="12px"
-                    height="12px"
-                    viewBox="0 0 12 12"
-                    version="1.1"
-                  >
-                    <title>icon/arrow</title>
-                    <g
-                      id="页面-1"
-                      stroke="none"
-                      stroke-width="1"
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <g
-                        id="智慧停车管理首页-点击停车场"
-                        transform="translate(-1118.000000, -508.000000)"
-                      >
-                        <g
-                          id="气泡"
-                          transform="translate(978.000000, 490.000000)"
-                        >
-                          <g
-                            id="btn"
-                            transform="translate(130.000000, 0.000000)"
-                          >
-                            <g
-                              id="icon/arrow"
-                              transform="translate(10.000000, 18.000000)"
-                            >
-                              <polygon
-                                id="Fill-1"
-                                points="0 12 12 12 12 0.000375 0 0.000375"
-                              />
-                              <g
-                                id="编组"
-                                transform="translate(0.750000, 0.750000)"
-                                fill="#FFFFFF"
-                              >
-                                <path
-                                  d="M5.37334091,5.26834091 C5.44459091,5.19879545 5.49879545,5.11697727 5.53390909,5.02663636 C5.54856818,4.99084091 5.55334091,4.95845455 5.55640909,4.93902273 L5.56390909,4.90629545 C5.57209091,4.87254545 5.58368182,4.82720455 5.58368182,4.77197727 C5.58368182,4.71640909 5.57209091,4.67106818 5.56356818,4.63731818 L5.55640909,4.60629545 C5.55334091,4.58686364 5.54822727,4.55515909 5.53390909,4.51936364 C5.49811364,4.42765909 5.44459091,4.34584091 5.373,4.27527273 L1.24459091,0.264818182 C0.972545455,-0.00347727273 0.540954545,-0.00961363636 0.261409091,0.250840909 L0.256636364,0.255272727 C0.128113636,0.382772727 0.0568636364,0.552545455 0.0558409091,0.733568182 C0.0551590909,0.91425 0.124704545,1.08470455 0.251863636,1.21288636 C0.258,1.21936364 0.264136364,1.22515909 0.267886364,1.22856818 L3.91425,4.77129545 L0.270272727,8.31129545 C0.138,8.43470455 0.0616363636,8.60243182 0.0558409091,8.78345455 C0.0497045455,8.96413636 0.114477273,9.13629545 0.237886364,9.26822727 C0.244022727,9.27470455 0.250159091,9.28118182 0.260045455,9.29106818 C0.395727273,9.41856818 0.571295455,9.48197727 0.746181818,9.48197727 C0.927204545,9.48197727 1.10788636,9.41413636 1.24254545,9.27947727 L5.373,5.26868182 L5.37334091,5.26834091 Z"
-                                  id="Fill-2"
-                                />
-                                <path
-                                  d="M9.45760227,4.63711364 L9.45044318,4.60609091 C9.447375,4.587 9.44226136,4.55529545 9.42794318,4.51984091 C9.39282955,4.42779545 9.33930682,4.34597727 9.26771591,4.27506818 L5.13828409,0.263590909 C4.86623864,-0.00334090909 4.43464773,-0.00879545455 4.15578409,0.251318182 L4.15067045,0.256090909 C3.88544318,0.519613636 3.88407955,0.950181818 4.14760227,1.21540909 C4.15305682,1.22086364 4.15885227,1.22631818 4.16430682,1.23177273 L7.80828409,4.77143182 L4.16396591,8.31245455 C4.02828409,8.43995455 3.95226136,8.61177273 3.94919318,8.79586364 C3.94646591,8.98029545 4.017375,9.1545 4.14896591,9.28643182 L4.15373864,9.29086364 C4.28498864,9.41495455 4.45680682,9.48279545 4.63851136,9.48279545 C4.64226136,9.48279545 4.64567045,9.48279545 4.64907955,9.48245455 C4.83282955,9.47972727 5.01146591,9.40438636 5.13589773,9.27859091 L9.26771591,5.26540909 C9.33692045,5.19756818 9.39010227,5.11779545 9.42521591,5.02881818 C9.443625,4.98790909 9.44907955,4.95143182 9.45180682,4.92859091 L9.45623864,4.91052273 C9.46510227,4.87609091 9.47805682,4.82870455 9.47805682,4.77143182 C9.47805682,4.71586364 9.46578409,4.67052273 9.45760227,4.63711364"
-                                  id="Fill-4"
-                                />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
               </div>
             </div>
             <div class="parkListDivP4">
-              <div class="parkListDiv-svg">
-                <svg
-                  width="28px"
-                  height="28px"
-                  viewBox="0 0 28 28"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>iconp</title>
-                  <defs>
-                    <polygon
-                      id="path-1"
-                      points="0 0.0007 28 0.0007 28 28 0 28"
-                    ></polygon>
-                  </defs>
-                  <g
-                    id="切图"
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <g
-                      id="智慧停车管理平台备份-2"
-                      transform="translate(-1018.000000, -653.000000)"
-                    >
-                      <g
-                        id="Bitmap"
-                        transform="translate(445.000000, 415.000000)"
-                      >
-                        <g
-                          id="iconp"
-                          transform="translate(573.000000, 238.000000)"
-                        >
-                          <path
-                            d="M24.7457,14.0061 C24.7457,19.8861 19.9797,24.6521 14.0997,24.6521 C8.2207,24.6521 3.4537,19.8861 3.4537,14.0061 C3.4537,8.1271 8.2207,3.3601 14.0997,3.3601 C19.9797,3.3601 24.7457,8.1271 24.7457,14.0061"
-                            id="Fill-1"
-                            fill="#FFFFFF"
-                          ></path>
-                          <g id="编组">
-                            <mask id="mask-2" fill="white">
-                              <use xlink:href="#path-1"></use>
-                            </mask>
-                            <g id="Clip-4"></g>
-                            <path
-                              d="M15.609,10.1697 L12.553,10.1697 L12.553,13.2267 L15.609,13.2267 C16.9,13.2267 17.135,12.8887 17.135,11.6977 C17.135,10.5067 17.208,10.1697 15.914,10.1697 L15.609,10.1697 Z M14,0.0007 C6.267,0.0007 0,6.2657 0,13.9997 C0,21.7307 6.267,28.0007 14,28.0007 C21.733,28.0007 28,21.7307 28,13.9997 C28,6.2657 21.733,0.0007 14,0.0007 L14,0.0007 Z M15.609,16.2827 L12.553,16.2827 L12.553,22.3927 L9.498,22.3927 L9.498,7.1167 L15.609,7.1167 C18.626,7.1167 20.095,9.2147 20.095,11.6977 C20.095,14.1817 18.938,16.2797 15.917,16.2797 L15.609,16.2797 L15.609,16.2827 Z"
-                              id="Fill-3"
-                              fill="#0057D0"
-                              mask="url(#mask-2)"
-                            ></path>
-                          </g>
-                          <path
-                            d="M26.0553,14.0774 C26.0553,20.7054 20.6823,26.0774 14.0553,26.0774 C7.4283,26.0774 2.0553,20.7054 2.0553,14.0774 C2.0553,7.4504 7.4283,2.0774 14.0553,2.0774 C20.6823,2.0774 26.0553,7.4504 26.0553,14.0774 Z"
-                            id="Stroke-5"
-                            stroke="#FFFFFF"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div>{{ parkingLotList[3].name }}</div>
+              <!--              <div>{{ parkingLotList[3].name }}</div>-->
             </div>
           </el-tooltip>
           <!--停车场p5-->
-          <el-tooltip placement="top" popper-class="popperClass">
-            <div slot="content" style="width: 165px;height: 47px">
+          <el-tooltip popper-class="popperClass" :value="true" :manual="true">
+            <div slot="content" style="width: 140px;height: 47px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
@@ -1507,7 +1099,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                   >
-                    <title>iconp2</title>
+                    <title></title>
                     <g
                       id="切图"
                       stroke="none"
@@ -1593,136 +1185,10 @@
                     >
                   </div>
                 </div>
-                <div class="parkListDialogP1-shuxian"></div>
-                <!--右键箭头svg-->
-                <div
-                  class="parkListDialogP1-rightSvg"
-                  @click="handleClickP5Dialog"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="12px"
-                    height="12px"
-                    viewBox="0 0 12 12"
-                    version="1.1"
-                  >
-                    <title>icon/arrow</title>
-                    <g
-                      id="页面-1"
-                      stroke="none"
-                      stroke-width="1"
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <g
-                        id="智慧停车管理首页-点击停车场"
-                        transform="translate(-1118.000000, -508.000000)"
-                      >
-                        <g
-                          id="气泡"
-                          transform="translate(978.000000, 490.000000)"
-                        >
-                          <g
-                            id="btn"
-                            transform="translate(130.000000, 0.000000)"
-                          >
-                            <g
-                              id="icon/arrow"
-                              transform="translate(10.000000, 18.000000)"
-                            >
-                              <polygon
-                                id="Fill-1"
-                                points="0 12 12 12 12 0.000375 0 0.000375"
-                              />
-                              <g
-                                id="编组"
-                                transform="translate(0.750000, 0.750000)"
-                                fill="#FFFFFF"
-                              >
-                                <path
-                                  d="M5.37334091,5.26834091 C5.44459091,5.19879545 5.49879545,5.11697727 5.53390909,5.02663636 C5.54856818,4.99084091 5.55334091,4.95845455 5.55640909,4.93902273 L5.56390909,4.90629545 C5.57209091,4.87254545 5.58368182,4.82720455 5.58368182,4.77197727 C5.58368182,4.71640909 5.57209091,4.67106818 5.56356818,4.63731818 L5.55640909,4.60629545 C5.55334091,4.58686364 5.54822727,4.55515909 5.53390909,4.51936364 C5.49811364,4.42765909 5.44459091,4.34584091 5.373,4.27527273 L1.24459091,0.264818182 C0.972545455,-0.00347727273 0.540954545,-0.00961363636 0.261409091,0.250840909 L0.256636364,0.255272727 C0.128113636,0.382772727 0.0568636364,0.552545455 0.0558409091,0.733568182 C0.0551590909,0.91425 0.124704545,1.08470455 0.251863636,1.21288636 C0.258,1.21936364 0.264136364,1.22515909 0.267886364,1.22856818 L3.91425,4.77129545 L0.270272727,8.31129545 C0.138,8.43470455 0.0616363636,8.60243182 0.0558409091,8.78345455 C0.0497045455,8.96413636 0.114477273,9.13629545 0.237886364,9.26822727 C0.244022727,9.27470455 0.250159091,9.28118182 0.260045455,9.29106818 C0.395727273,9.41856818 0.571295455,9.48197727 0.746181818,9.48197727 C0.927204545,9.48197727 1.10788636,9.41413636 1.24254545,9.27947727 L5.373,5.26868182 L5.37334091,5.26834091 Z"
-                                  id="Fill-2"
-                                />
-                                <path
-                                  d="M9.45760227,4.63711364 L9.45044318,4.60609091 C9.447375,4.587 9.44226136,4.55529545 9.42794318,4.51984091 C9.39282955,4.42779545 9.33930682,4.34597727 9.26771591,4.27506818 L5.13828409,0.263590909 C4.86623864,-0.00334090909 4.43464773,-0.00879545455 4.15578409,0.251318182 L4.15067045,0.256090909 C3.88544318,0.519613636 3.88407955,0.950181818 4.14760227,1.21540909 C4.15305682,1.22086364 4.15885227,1.22631818 4.16430682,1.23177273 L7.80828409,4.77143182 L4.16396591,8.31245455 C4.02828409,8.43995455 3.95226136,8.61177273 3.94919318,8.79586364 C3.94646591,8.98029545 4.017375,9.1545 4.14896591,9.28643182 L4.15373864,9.29086364 C4.28498864,9.41495455 4.45680682,9.48279545 4.63851136,9.48279545 C4.64226136,9.48279545 4.64567045,9.48279545 4.64907955,9.48245455 C4.83282955,9.47972727 5.01146591,9.40438636 5.13589773,9.27859091 L9.26771591,5.26540909 C9.33692045,5.19756818 9.39010227,5.11779545 9.42521591,5.02881818 C9.443625,4.98790909 9.44907955,4.95143182 9.45180682,4.92859091 L9.45623864,4.91052273 C9.46510227,4.87609091 9.47805682,4.82870455 9.47805682,4.77143182 C9.47805682,4.71586364 9.46578409,4.67052273 9.45760227,4.63711364"
-                                  id="Fill-4"
-                                />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
               </div>
             </div>
             <div class="parkListDivP5">
-              <div class="parkListDiv-svg">
-                <svg
-                  width="28px"
-                  height="28px"
-                  viewBox="0 0 28 28"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>iconp</title>
-                  <defs>
-                    <polygon
-                      id="path-1"
-                      points="0 0.0007 28 0.0007 28 28 0 28"
-                    ></polygon>
-                  </defs>
-                  <g
-                    id="切图"
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                  >
-                    <g
-                      id="智慧停车管理平台备份-2"
-                      transform="translate(-1018.000000, -653.000000)"
-                    >
-                      <g
-                        id="Bitmap"
-                        transform="translate(445.000000, 415.000000)"
-                      >
-                        <g
-                          id="iconp"
-                          transform="translate(573.000000, 238.000000)"
-                        >
-                          <path
-                            d="M24.7457,14.0061 C24.7457,19.8861 19.9797,24.6521 14.0997,24.6521 C8.2207,24.6521 3.4537,19.8861 3.4537,14.0061 C3.4537,8.1271 8.2207,3.3601 14.0997,3.3601 C19.9797,3.3601 24.7457,8.1271 24.7457,14.0061"
-                            id="Fill-1"
-                            fill="#FFFFFF"
-                          ></path>
-                          <g id="编组">
-                            <mask id="mask-2" fill="white">
-                              <use xlink:href="#path-1"></use>
-                            </mask>
-                            <g id="Clip-4"></g>
-                            <path
-                              d="M15.609,10.1697 L12.553,10.1697 L12.553,13.2267 L15.609,13.2267 C16.9,13.2267 17.135,12.8887 17.135,11.6977 C17.135,10.5067 17.208,10.1697 15.914,10.1697 L15.609,10.1697 Z M14,0.0007 C6.267,0.0007 0,6.2657 0,13.9997 C0,21.7307 6.267,28.0007 14,28.0007 C21.733,28.0007 28,21.7307 28,13.9997 C28,6.2657 21.733,0.0007 14,0.0007 L14,0.0007 Z M15.609,16.2827 L12.553,16.2827 L12.553,22.3927 L9.498,22.3927 L9.498,7.1167 L15.609,7.1167 C18.626,7.1167 20.095,9.2147 20.095,11.6977 C20.095,14.1817 18.938,16.2797 15.917,16.2797 L15.609,16.2797 L15.609,16.2827 Z"
-                              id="Fill-3"
-                              fill="#0057D0"
-                              mask="url(#mask-2)"
-                            ></path>
-                          </g>
-                          <path
-                            d="M26.0553,14.0774 C26.0553,20.7054 20.6823,26.0774 14.0553,26.0774 C7.4283,26.0774 2.0553,20.7054 2.0553,14.0774 C2.0553,7.4504 7.4283,2.0774 14.0553,2.0774 C20.6823,2.0774 26.0553,7.4504 26.0553,14.0774 Z"
-                            id="Stroke-5"
-                            stroke="#FFFFFF"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div>{{ parkingLotList[4].name }}</div>
+              <!--              <div>{{ parkingLotList[4].name }}</div>-->
             </div>
           </el-tooltip>
           <!--车位-->
@@ -6451,7 +5917,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -6519,7 +5985,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -6589,7 +6055,7 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -6656,7 +6122,7 @@
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <title>矩形</title>
+              <title></title>
               <defs>
                 <linearGradient
                   x1="50%"
@@ -6795,7 +6261,7 @@ export default {
       numberOfParkingData: [],
       numberOfParkingXz: [],
       //总停车数量图表数字
-      numberOfParkingTotal: 0,
+      // numberOfParkingTotal: 0,
 
       // 平均停车时长
       averageParkingTime: "",
@@ -6803,8 +6269,8 @@ export default {
       averageParkingTimeData: [],
       averageParkingTimeXz: [],
       //平均停车时长图表数字
-      averageParkingTimeTotal: 0,
-      averageParkingTimeNumber: 0,
+      // averageParkingTimeTotal: 0,
+      // averageParkingTimeNumber: 0,
 
       // 车位利用率
       parkingSpaceUtilization: "",
@@ -6812,8 +6278,8 @@ export default {
       parkingSpaceUtilizationData: [],
       parkingSpaceUtilizationXz: [],
       //车位利用率图表数字
-      parkingSpaceUsedRateTotal: 0,
-      parkingSpaceUsedRateNumber: 0,
+      // parkingSpaceUsedRateTotal: 0,
+      // parkingSpaceUsedRateNumber: 0,
 
       // 车位周转率
       parkingSpaceTurnoverRate: "",
@@ -6821,8 +6287,8 @@ export default {
       parkingSpaceTurnoverRateData: [],
       parkingSpaceTurnoverRateXz: [],
       //车位周转率图表上的数字
-      parkingSpaceTurnoverRateTotal: 0,
-      parkingSpaceTurnoverRateNumber: 0,
+      // parkingSpaceTurnoverRateTotal: 0,
+      // parkingSpaceTurnoverRateNumber: 0,
 
       // 洗车机近七日报警趋势分析
       washCarSevenDaysAnalysisOption: {},
@@ -6849,7 +6315,7 @@ export default {
       paymentIncomeAnalysisOther: [],
 
       //公共停车场剩余车位数
-      publicLeftPort: 312,
+      publicLeftPort: 158,
       //员工停车场剩余车位数
       // staffLeftPort: 120,
 
@@ -6868,24 +6334,22 @@ export default {
       revenueCarWashingAnalysisName: "洗车收入统计分析",
       revenueCarWashingAnalysisXz: [],
       revenueCarWashingAnalysisY: [],
-
+      //存放已占用车位ID
       P1occupyList: [],
       P2occupyList: [],
       P3occupyList: [],
       P4occupyList: [],
       P5occupyList: [],
 
-      // 地图中点击添加弹框
-      mapList: {
-        lng: 119.016937,
-        lat: 31.706205
-      },
-      map: "",
-      xlicon: require("../../assets/homePage/TCIcon.png")
+      //定时任务
+      countDownTime: 0
     };
   },
   created() {
-    // this.queryParkSpace();
+    // 实现轮询
+    window.setInterval(() => {
+      setTimeout(this.getNewMessage(), 0);
+    }, 300000);
   },
   mounted() {
     this.userName = localStorage.getItem("userName");
@@ -6915,68 +6379,103 @@ export default {
     this.handleWashCarSevenDaysAnalysis();
     //近七日洗车收费金额
     this.handleWashCarIncomeSevenDays();
-    // // 添加地图图标方式
-    // this.initMap();
-    // // 添加图标的方法
-    // this.addMoudel();
-    //充电桩图标
-    // this.countChargeFee();
   },
-  //顶部员工停车场剩余车位数
   computed: {
+    //顶部员工停车场剩余车位数
     staffLeftPort: function() {
       return (
         this.P2LeftPort + this.P3LeftPort + this.P4LeftPort + this.P5LeftPort
       );
+    },
+    //当日停车总次数
+    numberOfParkingTotal: function() {
+      let sum = 0;
+      for (let i = 0; i < this.numberOfParkingData.length; i++) {
+        sum += this.numberOfParkingData[i];
+      }
+      // return (s / this.numberOfParkingData.length).toFixed(2);
+      return sum;
+    },
+    //当日车位利用率
+    parkingSpaceUsedRateNumber: function() {
+      let total = 0;
+      let dat = 0;
+      for (let i = 0; i < this.parkingSpaceUtilizationData.length; i++) {
+        total += this.parkingSpaceUtilizationData[i];
+      }
+      dat = Number(total / this.parkingSpaceUtilizationXz.length).toFixed(2);
+      return dat;
+    },
+    //当日车位周转率
+    parkingSpaceTurnoverRateNumber: function() {
+      let total = 0;
+      let dat = 0;
+      for (let i = 0; i < this.parkingSpaceTurnoverRateData.length; i++) {
+        total += this.parkingSpaceTurnoverRateData[i];
+      }
+      dat = Number(total / this.parkingSpaceTurnoverRateXz.length).toFixed(2);
+      return dat;
+    },
+    //当日平均停车时长
+    averageParkingTimeNumber: function() {
+      let total = 0;
+      let dat = 0;
+      for (let i = 0; i < this.averageParkingTimeData.length; i++) {
+        total += this.averageParkingTimeData[i];
+      }
+      dat = Number(total / this.averageParkingTimeXz.length).toFixed(2);
+      return dat;
     }
   },
   methods: {
+    // 定时任务重新渲染页面请求是否有新消息
+    getNewMessage() {
+      this.currentHour = new Date().Format("hh");
+      //查询车位状态
+      this.queryParkSpaceStatus();
+      //剩余车位数
+      this.queryParkSpace();
+      //精洗普洗快洗次数
+      this.queryCarWashTypeCount();
+      //中间总收入停车场收入洗车收入
+      this.queryFees();
+      //停车场名称查询
+      this.queryParkLotList();
+      // 总停车数量图表
+      this.queryParkOptByParkCount();
+      // 平均停车时长图表
+      this.queryParkOptByAvgParkDuration();
+      // 车位利用率图表
+      this.queryParkOptByParkSpaceUsedRate();
+      // 车位周转率图表
+      this.queryParkOptByParkSpaceTurnoverRate();
+    },
     //查询停车场车位占用状态
     queryParkSpaceStatus() {
       // 公共停车场车位状态
       const param1 = ["BM01"];
       this.$homePage.queryParkSpaceStatus(param1).then(res => {
-        console.log("P1", res);
         this.P1occupyList = res.resultEntity;
-        //   .forEach(item => {
-        //   document.getElementById(item).style.fill = "red";
-        // });
       });
       //员工停车场车位状态
       const param2 = ["BMK01"];
       this.$homePage.queryParkSpaceStatus(param2).then(res => {
-        console.log("P2", res);
         this.P2occupyList = res.resultEntity;
-        //   .forEach(item => {
-        //   document.getElementById(item).style.fill = "red";
-        // });
       });
       //临时停车场车位状态
       const param3 = ["HZH01"];
       this.$homePage.queryParkSpaceStatus(param3).then(res => {
-        console.log("P3", res);
         this.P3occupyList = res.resultEntity;
-        //   .forEach(item => {
-        //   document.getElementById(item).style.fill = "red";
-        // });
       });
       //新能源停车场车位状态
       const param4 = ["JQ01"];
       this.$homePage.queryParkSpaceStatus(param4).then(res => {
-        console.log("P4", res);
         this.P4occupyList = res.resultEntity;
-        //   .forEach(item => {
-        //   document.getElementById(item).style.fill = "red";
-        // });
       });
       //专用停车场车位状态
       const param5 = ["SJDA01"];
       this.$homePage.queryParkSpaceStatus(param5).then(res => {
-        console.log("P5", res);
         this.P5occupyList = res.resultEntity;
-        //   .forEach(item => {
-        //   document.getElementById(item).style.fill = "red";
-        // });
       });
     },
     //tabs点击事件
@@ -6995,21 +6494,7 @@ export default {
         this.$router.push("/keyVehicleSupervision");
       }
     },
-    handleClickP1Dialog() {
-      this.$router.push("/publicParking");
-    },
-    handleClickP2Dialog() {
-      this.$router.push("/staffParking");
-    },
-    handleClickP3Dialog() {
-      this.$router.push("/temporaryParking");
-    },
-    handleClickP4Dialog() {
-      this.$router.push("/newEnergyParking");
-    },
-    handleClickP5Dialog() {
-      this.$router.push("/dedicatedParking");
-    },
+
     //退出
     loginOut() {
       this.$homePage.loginOut(1).then(res => {
@@ -7088,9 +6573,7 @@ export default {
           this.numberOfParkingXz.push(res.resultEntity[i].X);
           this.numberOfParkingData.push(Number(res.resultEntity[i].dataY));
         }
-        for (let i = 0; i < this.numberOfParkingData.length; i++) {
-          this.numberOfParkingTotal += this.numberOfParkingData[i];
-        }
+
         that.chartData = {
           xCategories: this.numberOfParkingXz,
           seriesData: this.numberOfParkingData
@@ -7112,13 +6595,7 @@ export default {
             Number(Math.round(res.resultEntity[i].dataY))
           );
         }
-        // averageParkingTimeTotal  averageParkingTimeNumber
-        for (let i = 0; i < this.averageParkingTimeData.length; i++) {
-          this.averageParkingTimeTotal += this.averageParkingTimeData[i];
-        }
-        this.averageParkingTimeNumber = Number(
-          this.averageParkingTimeTotal / this.averageParkingTimeXz.length
-        ).toFixed(2);
+
         this.averageParkingTimeOptions = {
           chart: {
             type: "spline",
@@ -7189,9 +6666,27 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>分钟"
+            // pointFormat: "{series.name}: <b>{point.y}</b>分钟"
+            formatter: function() {
+              return (
+                this.x +
+                ":00" +
+                "-" +
+                (Number(this.x) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "分钟"
+              );
+            }
           },
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             spline: {
               lineWidth: 2,
               states: {
@@ -7228,16 +6723,9 @@ export default {
           this.parkingSpaceUtilizationXz.push(res.resultEntity[i].X);
           //%后小数点后两位
           this.parkingSpaceUtilizationData.push(
-            Number((Number(res.resultEntity[i].dataY) * 100).toFixed(2))
+            Number(Number(res.resultEntity[i].dataY).toFixed(2))
           );
         }
-        // parkingSpaceUsedRateTotal parkingSpaceUsedRateNumber
-        for (let i = 0; i < this.parkingSpaceUtilizationData.length; i++) {
-          this.parkingSpaceUsedRateTotal += this.parkingSpaceUtilizationData[i];
-        }
-        this.parkingSpaceUsedRateNumber = Number(
-          this.parkingSpaceUsedRateTotal / this.parkingSpaceUtilizationXz.length
-        ).toFixed(2);
         this.parkingSpaceUtilizationOptions = {
           chart: {
             type: "spline",
@@ -7308,9 +6796,26 @@ export default {
           },
           tooltip: {
             //设置每个点位的弹出窗
-            pointFormat: "{series.name}: <b>{point.y}</b>分钟/车位"
+            formatter: function() {
+              return (
+                this.x +
+                ":00" +
+                "-" +
+                (Number(this.x) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "分钟/车位"
+              );
+            }
           },
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             spline: {
               lineWidth: 2,
               states: {
@@ -7333,7 +6838,6 @@ export default {
         new HighCharts.chart(this.parkingSpaceUtilizationOptions);
       });
     },
-
     // 车位周转率
     queryParkOptByParkSpaceTurnoverRate() {
       const param = {
@@ -7349,17 +6853,7 @@ export default {
             Number((Number(res.resultEntity[i].dataY) * 100).toFixed(2))
           );
         }
-        // parkingSpaceTurnoverRateTotal parkingSpaceTurnoverRateNumber
-        for (let i = 0; i < this.parkingSpaceTurnoverRateData.length; i++) {
-          this.parkingSpaceTurnoverRateTotal += this.parkingSpaceTurnoverRateData[
-            i
-          ];
-        }
 
-        this.parkingSpaceTurnoverRateNumber = Number(
-          this.parkingSpaceTurnoverRateTotal /
-            this.parkingSpaceTurnoverRateXz.length
-        ).toFixed(2);
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
             type: "spline",
@@ -7429,9 +6923,27 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>次/车位"
+            // pointFormat: "{series.name}: <b>{point.y}</b>次/车位"
+            formatter: function() {
+              return (
+                this.x +
+                ":00" +
+                "-" +
+                (Number(this.x) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "次/车位"
+              );
+            }
           },
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             spline: {
               lineWidth: 2,
               states: {
@@ -7481,6 +6993,10 @@ export default {
           },
           colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3", "#FFBC00"],
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             pie: {
               borderWidth: 0,
               allowPointSelect: true,
@@ -7629,6 +7145,10 @@ export default {
             pointFormat: "{series.name}: <b>{point.y}</b>元"
           },
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             column: {
               borderWidth: 0,
               pointWidth: 15, //柱子宽度
@@ -7726,6 +7246,10 @@ export default {
             pointFormat: "{series.name}<b>{point.y}</b>次"
           },
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             spline: {
               lineWidth: 2,
               states: {
@@ -7837,6 +7361,10 @@ export default {
             pointFormat: "{series.name}<b>{point.y}</b>元"
           },
           plotOptions: {
+            //  静态渲染
+            series: {
+              animation: false
+            },
             column: {
               pointPadding: 0,
               //调整每个组的柱形图的间隔
@@ -7857,22 +7385,21 @@ export default {
         new HighCharts.chart(this.washChargeInSevenDaysOption);
       });
     }
-    //查询充电桩总收入总收入
-    // countChargeFee() {
-    //   var that = this;
-    //   const param = {
-    //     queryType: "today"
-    //   };
-    //   // console.log('充电桩总收入惨参',param)
-    //   this.$homePage.countChargeFee(param).then(res => {
-    //     // console.log("resres", res);
-    //     that.rechargeLeftIncome = res.resultEntity;
-    //     if (that.rechargeLeftIncome == null) {
-    //       that.rechargeLeftIncome = 0;
-    //     }
-    //     // console.log("洗车机总收入",that.rechargeLeftIncome)
-    //   });
-    // }
+    // handleClickP1Dialog() {
+    //   this.$router.push("/publicParking");
+    // },
+    // handleClickP2Dialog() {
+    //   this.$router.push("/staffParking");
+    // },
+    // handleClickP3Dialog() {
+    //   this.$router.push("/temporaryParking");
+    // },
+    // handleClickP4Dialog() {
+    //   this.$router.push("/newEnergyParking");
+    // },
+    // handleClickP5Dialog() {
+    //   this.$router.push("/dedicatedParking");
+    // },
   }
 };
 </script>
@@ -8092,14 +7619,12 @@ export default {
   font-size: 16px;
   color: #ecfff5;
   letter-spacing: 0.36px;
-  line-height: 22px;
-  margin-left: 2%;
+  margin-left: 3px;
 }
 /* 每个表格上面的标题名左边小图片样式 */
 .leftChartUpImage {
   color: #1398ff;
-  margin-left: 4%;
-  margin-top: 2.5%;
+  margin-left: 3%;
 }
 
 /*图表*/
@@ -8121,6 +7646,7 @@ export default {
 .leftChartUp {
   width: 100%;
   height: 10%;
+  display: flex;
 }
 /* 图表部分 */
 .leftChartCenter {
@@ -8395,7 +7921,7 @@ export default {
   width: 92%;
   height: 90%;
   margin-left: 4%;
-  margin-top: 4%;
+  margin-top: 4.5%;
 }
 .parkListDiv-svg {
   width: 100px;
@@ -8409,7 +7935,7 @@ export default {
   text-align: center;
   position: absolute;
   margin-left: 7.5%;
-  margin-top: 17%;
+  margin-top: 20%;
 }
 .parkListDivP2 {
   width: 100px;
@@ -8419,8 +7945,8 @@ export default {
   letter-spacing: 0.32px;
   text-align: center;
   position: absolute;
-  margin-left: 45.5%;
-  margin-top: 12%;
+  margin-left: 40.5%;
+  margin-top: 18%;
 }
 .parkListDivP3 {
   width: 100px;
@@ -8430,8 +7956,8 @@ export default {
   letter-spacing: 0.32px;
   text-align: center;
   position: absolute;
-  margin-left: 45.3%;
-  margin-top: 2.5%;
+  margin-left: 45.5%;
+  margin-top: 5.5%;
 }
 .parkListDivP4 {
   width: 100px;
@@ -8442,7 +7968,7 @@ export default {
   text-align: center;
   position: absolute;
   margin-left: 31%;
-  margin-top: 9%;
+  margin-top: 12%;
 }
 .parkListDivP5 {
   width: 100px;
@@ -8452,8 +7978,8 @@ export default {
   letter-spacing: 0.32px;
   text-align: center;
   position: absolute;
-  margin-left: 30.5%;
-  margin-top: 14.5%;
+  margin-left: 30%;
+  margin-top: 14.1%;
 }
 .parkListDialogP1 {
   display: flex;
@@ -8501,5 +8027,9 @@ export default {
   line-height: normal;
   background-color: rgba(4, 61, 135, 0.8) !important;
   border: solid 1px rgba(19, 152, 255, 0.6);
+}
+.el-tooltip__popper.is-light {
+  background: #3d71c1 !important;
+  color: white;
 }
 </style>

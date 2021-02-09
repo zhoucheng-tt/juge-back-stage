@@ -7,38 +7,7 @@ export function queryData(param) {
     data: param
   });
 }
-//运营指标分析停车数量 operateController/queryParkTimes
-export function queryParkTimes(param) {
-  return request({
-    url: "/operateController/queryParkTimes",
-    method: "post",
-    data: param
-  });
-}
-//运营指标分析 平均停车时长 operateController/avgParkDuration
-export function avgParkDuration(param) {
-  return request({
-    url: "/operateController/avgParkDuration",
-    method: "post",
-    data: param
-  });
-}
-//运营指标分析 车位利用率 operateController/usageRate
-export function usageRate(param) {
-  return request({
-    url: "/operateController/usageRate",
-    method: "post",
-    data: param
-  });
-}
-//运营指标分析 车位周转率 operateController/turnoverRate
-export function turnoverRate(param) {
-  return request({
-    url: "/operateController/turnoverRate",
-    method: "post",
-    data: param
-  });
-}
+
 //运营收入分析 停车收费统计分析
 export function queryAmountAnalysis(param) {
   return request({
@@ -194,6 +163,44 @@ export function alarmRecent7day(param) {
     url: "/CarWasherController/alarmRecent7day",
     method: "post",
     data: param
+  });
+}
+//运营指标分析停车数量 operateController/queryParkTimes
+export function queryParkTimes(param) {
+  return request({
+    url: "/operateController/queryParkTimes",
+    method: "post",
+    data: param
+    // flag: "out"
+  });
+}
+//运营指标分析 平均停车时长 operateController/avgParkDuration
+export function avgParkDuration(param) {
+  return request({
+    url: "/operateController/avgParkDuration",
+    method: "post",
+    data: param
+    // flag: "out"
+  });
+}
+//运营指标分析 车位利用率 operateController/usageRate
+export function usageRate(param) {
+  return request({
+    url: "/operateController/usageRate",
+    // url: "http://192.168.1.163:8000/operateController/usageRate",
+    method: "post",
+    data: param,
+    flag: "out"
+  });
+}
+//运营指标分析 车位周转率 operateController/turnoverRate
+export function turnoverRate(param) {
+  return request({
+    url: "/operateController/turnoverRate",
+    // url: "http://192.168.1.163:8000/operateController/turnoverRate",
+    method: "post",
+    data: param,
+    flag: "out"
   });
 }
 //停车场运营指标分析平均充电时间

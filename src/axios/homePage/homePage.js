@@ -104,15 +104,17 @@ export function queryPayTypeAmountPrecent(params) {
 //近七日洗车金额 queryCarWashAmountRecentDays
 export function queryCarWashAmountRecentDays(params) {
   return request({
-    url: "/homePageFunc/queryCarWashAmountRecentDays",
+    url: "homePageFunc/queryCarWashAmountRecentDays",
     method: "post",
-    data: params
+    data: params,
+    flag: "out"
   });
 }
 //剩余车位数查询 http://192.168.1.163:8000/homePageFunc/queryEmptySpace
 export function queryEmptySpace(params) {
   return request({
-    url: "http://192.168.1.163:8000/homePageFunc/queryEmptySpace",
+    url: "/homePageFunc/queryEmptySpace",
+    // url: "http://192.168.1.163:8000/homePageFunc/queryEmptySpace",
     method: "post",
     data: params,
     flag: "out"
@@ -122,8 +124,9 @@ export function queryEmptySpace(params) {
 export function queryParkSpaceStatus(params) {
   return request({
     url: "/homePageFunc/queryParkSpaceStatus",
+    // url: "http://192.168.1.163:8000//homePageFunc/queryParkSpaceStatus",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
+    // flag: "out"
   });
 }

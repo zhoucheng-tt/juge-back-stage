@@ -95,9 +95,26 @@ export default {
           }
         },
         tooltip: {
-          pointFormat: "{series.name}: <b>{point.y}</b>辆"
+          formatter: function() {
+            return (
+              this.x +
+              ":00" +
+              "-" +
+              (Number(this.x) + 1) +
+              ":00" +
+              "<br>" +
+              this.series.name +
+              ":" +
+              this.y +
+              "次"
+            );
+          }
         },
         plotOptions: {
+          //  静态渲染
+          series: {
+            animation: false
+          },
           spline: {
             lineWidth: 2,
             states: {
@@ -112,7 +129,7 @@ export default {
         },
         series: [
           {
-            name: "总停车数量",
+            name: "停车次数",
             data: chartData.seriesData
           }
         ]

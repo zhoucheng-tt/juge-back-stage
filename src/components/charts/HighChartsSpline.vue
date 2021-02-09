@@ -12,6 +12,9 @@ export default {
     //引入传入的DataList
     splineHighChartsDataList: {
       type: Object
+    },
+    chartStyle: {
+      type: String
     }
   },
   data() {
@@ -27,6 +30,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.chartStyle);
     // 初始化splineHIG和Chart是方法传入DataList
     this.splintHighChartsInit(this.splineHighChartsDataList);
   },
@@ -67,7 +71,8 @@ export default {
         chart: {
           type: "spline",
           //背景色默认为透明色装HighCharts图表的盒子的颜色
-          backgroundColor: "rgba(0,0,0,0)",
+          backgroundColor:
+            this.chartStyle !== null ? this.chartStyle : "rgba(0,0,0,0)",
           //距离底部的距离默认为100
           marginBottom: splineHighChartsDataList.chartMarginBottom
         },
