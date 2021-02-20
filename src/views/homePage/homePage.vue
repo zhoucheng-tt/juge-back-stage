@@ -643,14 +643,14 @@
             :value="true"
             :manual="true"
           >
-            <div slot="content" style="width: 140px;height: 47px">
+            <div slot="content" style="width: 155px;height: 55px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
                 <div class="parkListDialogP1-leftSvg">
                   <svg
-                    width="36px"
-                    height="36px"
+                    width="44px"
+                    height="44px"
                     viewBox="0 0 36 36"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -755,14 +755,14 @@
             :value="true"
             :manual="true"
           >
-            <div slot="content" style="width: 140px;height: 47px">
+            <div slot="content" style="width: 155px;height: 55px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
                 <div class="parkListDialogP1-leftSvg">
                   <svg
-                    width="36px"
-                    height="36px"
+                    width="44px"
+                    height="44px"
                     viewBox="0 0 36 36"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -867,14 +867,14 @@
             :value="true"
             :manual="true"
           >
-            <div slot="content" style="width: 140px;height: 47px">
+            <div slot="content" style="width: 155px;height: 55px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
                 <div class="parkListDialogP1-leftSvg">
                   <svg
-                    width="36px"
-                    height="36px"
+                    width="44px"
+                    height="44px"
                     viewBox="0 0 36 36"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -979,14 +979,14 @@
             :value="true"
             :manual="true"
           >
-            <div slot="content" style="width: 150px;height: 47px">
+            <div slot="content" style="width: 170px;height: 55px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
                 <div class="parkListDialogP1-leftSvg">
                   <svg
-                    width="36px"
-                    height="36px"
+                    width="44px"
+                    height="44px"
                     viewBox="0 0 36 36"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1086,14 +1086,14 @@
           </el-tooltip>
           <!--停车场p5-->
           <el-tooltip popper-class="popperClass" :value="true" :manual="true">
-            <div slot="content" style="width: 140px;height: 47px">
+            <div slot="content" style="width: 155px;height: 55px">
               <!--停车场点击弹窗-->
               <div class="parkListDialogP1">
                 <!--停车场图片svg-->
                 <div class="parkListDialogP1-leftSvg">
                   <svg
-                    width="36px"
-                    height="36px"
+                    width="44px"
+                    height="44px"
                     viewBox="0 0 36 36"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -7987,25 +7987,25 @@ export default {
 }
 .parkListDialogP1-leftSvg {
   margin-top: 6px;
-  margin-left: 10px;
+  margin-left: 6px;
 }
 .parkListDialogP1-text {
-  margin-top: 6px;
+  margin-top: 7px;
   font-family: PingFangSC-Medium;
-  font-size: 11px;
+  font-size: 14px;
   color: #ffffff;
   letter-spacing: 0.39px;
   margin-left: 4px;
 }
 .parkListDialogP1-text-leftPort {
   font-family: PingFangSC-Regular;
-  font-size: 10px;
+  font-size: 13px;
   color: #b3b3b3;
   letter-spacing: 0.36px;
 }
 .parkListDialogP1-text-leftPortNumber {
   font-family: HelveticaNeue-Bold;
-  font-size: 12px;
+  font-size: 16px;
   color: #fd4a4a;
   letter-spacing: 0.43px;
 }

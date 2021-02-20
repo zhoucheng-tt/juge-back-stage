@@ -484,20 +484,25 @@ export default {
     },
     //新增用户确认提交
     onSubmitAdd() {
-      const param = {
-        phoneNumber: this.addUserForm.phoneNumber,
-        email: this.addUserForm.email,
-        name: this.addUserForm.name,
-        password: "",
-        userAccount: this.addUserForm.userAccount,
-        roleId: this.checkRoles
-      };
-      this.$systemUser.addUser(param).then(res => {
-        this.$message({ type: "success", message: "添加成功!" });
-        this.queryList();
+      this.$refs["addUser"].validate(valid => {
+        if (valid) {
+          const param = {
+            phoneNumber: this.addUserForm.phoneNumber,
+            email: this.addUserForm.email,
+            name: this.addUserForm.name,
+            password: "",
+            userAccount: this.addUserForm.userAccount,
+            roleId: this.checkRoles
+          };
+          this.$systemUser.addUser(param).then(res => {
+            this.$message({ type: "success", message: "添加成功!" });
+            this.queryList();
+          });
+          this.addListDialog = false;
+        }
       });
-      this.addListDialog = false;
     },
+    onSubmitAdd() {},
     //查看用户弹窗
     check(row) {
       this.showForm = row;

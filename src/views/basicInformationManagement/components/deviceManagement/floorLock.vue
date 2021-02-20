@@ -245,6 +245,7 @@
       width="50%"
       title="修改地锁"
       :visible.sync="editListDialog"
+      @close="queryFormList"
     >
       <el-form :inline="true" label-position="right" label-width="100px">
         <div style="font-size: 20px">归属停车场信息</div>
@@ -435,11 +436,34 @@ export default {
       return BASE_API + "GroundLockController/download";
     }
   },
+  mounted() {
+    const param = {
+      template: "disuo"
+    };
+    this.templateDl =
+      BASE_API +
+      "CommonController/downloadResource?jsonStr=" +
+      encodeURIComponent(JSON.stringify(param));
+    //初始化列表
+    this.queryGroundLock();
+    //初始化下拉菜单
+    this.queryParkList();
+  },
   methods: {
+    //重置按钮
+    resetQuery() {
+      this.query = {
+        parkId: ""
+      };
+    },
     //查询按钮
     queryFormList() {
       this.pageNum = 1;
       this.queryGroundLock();
+    },
+    //批量导入
+    bulkImport() {
+      this.importDialog = true;
     },
     //处理导入
     addFile(file, fileList) {
@@ -501,61 +525,49 @@ export default {
       this.$refs.upload.submit();
       this.importDialog = false;
     },
-    //重置按钮
-    resetQuery() {
-      this.query = {
-        parkId: ""
-      };
-    },
-    //斑马纹样式
-    // eslint-disable-next-line no-unused-vars
-    tableRowClassName({ rowIndex }) {
-      if (rowIndex % 2 === 1) {
-        return "successRow11";
-      } else if (rowIndex % 2 === 0) {
-        return "successSecond";
-      }
-      return "";
-    },
     //新增地锁
     addNewLock() {
       this.newLock = {};
       this.addListDialog = true;
     },
-    //批量导入
-    bulkImport() {
-      this.importDialog = true;
-    },
-    //批量删除
-    batchDelete() {
-      if (this.idList === [] || this.idList.length === 0) {
-        this.$confirm("请选中!", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        });
-      } else {
-        console.log("批量删除", this.idList);
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
-            this.$deviceManagement.delGroundLock(this.idList).then(res => {
-              this.$message({ type: "success", message: "删除成功!" });
-              this.queryGroundLock();
-            });
-          })
-          .catch(() => {
-            this.$message({ type: "info", message: "已取消删除" });
+    //新增表单提交
+    onSubmitAdd() {
+      this.$refs["newLockR"].validate(valid => {
+        if (valid) {
+          const param = {
+            parkId: this.newLock.parkId,
+            groundLockId: this.newLock.groundLockId,
+            groundLockName: this.newLock.groundLockName,
+            macAddress: this.newLock.macAddress,
+            gatewayId: this.newLock.gatewayId
+          };
+          this.$deviceManagement.addGroundLock(param).then(res => {
+            this.$message({ type: "success", message: "新增成功!" });
+            this.queryGroundLock();
+            this.addListDialog = false;
           });
-      }
+        }
+      });
     },
     //修改
     editLockDialog(row) {
       this.editLock = row;
       this.editListDialog = true;
+    },
+    //修改表单提交
+    onSubmitEdit() {
+      const param = {
+        parkId: this.editLock.parkId,
+        groundLockId: this.editLock.groundLockId,
+        groundLockName: this.editLock.groundLockName,
+        macAddress: this.editLock.macAddress,
+        gatewayId: this.editLock.gatewayId
+      };
+      this.$deviceManagement.updateGroundLock(param).then(res => {
+        this.$message({ type: "success", message: "修改成功!" });
+        this.queryGroundLock();
+      });
+      this.editListDialog = false;
     },
     //删除
     deleteLock(row) {
@@ -578,39 +590,30 @@ export default {
           this.$message({ type: "info", message: "已取消删除" });
         });
     },
-    //新增表单提交
-    onSubmitAdd() {
-      this.$refs["newLockR"].validate(valid => {
-        if (valid) {
-          const param = {
-            parkId: this.newLock.parkId,
-            groundLockId: this.newLock.groundLockId,
-            groundLockName: this.newLock.groundLockName,
-            macAddress: this.newLock.macAddress,
-            gatewayId: this.newLock.gatewayId
-          };
-          this.$deviceManagement.addGroundLock(param).then(res => {
-            this.$message({ type: "success", message: "新增成功!" });
-            this.queryGroundLock();
-            this.addListDialog = false;
+    //批量删除
+    batchDelete() {
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$deviceManagement.delGroundLock(this.idList).then(res => {
+              this.$message({ type: "success", message: "删除成功!" });
+              this.queryGroundLock();
+            });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
           });
-        }
-      });
-    },
-    //修改表单提交
-    onSubmitEdit() {
-      const param = {
-        parkId: this.editLock.parkId,
-        groundLockId: this.editLock.groundLockId,
-        groundLockName: this.editLock.groundLockName,
-        macAddress: this.editLock.macAddress,
-        gatewayId: this.editLock.gatewayId
-      };
-      this.$deviceManagement.updateGroundLock(param).then(res => {
-        this.$message({ type: "success", message: "修改成功!" });
-        this.queryGroundLock();
-      });
-      this.editListDialog = false;
+      }
     },
     //批量删除监听
     handleSelectionChange(val) {
@@ -648,19 +651,6 @@ export default {
         this.parkingLotNameList = response.resultEntity;
       });
     }
-  },
-  mounted() {
-    const param = {
-      template: "disuo"
-    };
-    this.templateDl =
-      BASE_API +
-      "CommonController/downloadResource?jsonStr=" +
-      encodeURIComponent(JSON.stringify(param));
-    //初始化列表
-    this.queryGroundLock();
-    //初始化下拉菜单
-    this.queryParkList();
   }
 };
 </script>

@@ -110,7 +110,7 @@
         <el-table-column
           prop="parkTimes"
           :show-overflow-tooltip="true"
-          label="停车数(个)"
+          label="停车数(次)"
         />
         <el-table-column
           prop="avgParkDuration"
