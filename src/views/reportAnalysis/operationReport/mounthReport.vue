@@ -50,7 +50,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" @click="queryReportList"
+          <el-button type="primary" size="small" @click="queryFormList"
             >查询
           </el-button>
           <el-button size="small" @click="resetQuery">重置</el-button>
@@ -219,9 +219,12 @@ export default {
       this.pageNum = val;
       this.queryReportList();
     },
+    queryFormList() {
+      this.pageNum = 1;
+      this.queryReportList();
+    },
     //列表查询
     queryReportList() {
-      this.pageNum = 1;
       const param = {
         startTime: this.query.startTime,
         endTime: this.query.endTime,

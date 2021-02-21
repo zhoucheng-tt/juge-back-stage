@@ -127,7 +127,7 @@
         <el-table-column prop="statisDate" label="日期" />
         <el-table-column prop="parkName" label="停车场" />
         <el-table-column prop="totalParkCount" label="车位数(个)" />
-        <el-table-column prop="totalParkTimes" label="停车数量(个)" />
+        <el-table-column prop="totalParkTimes" label="停车数量(次)" />
         <el-table-column prop="avgParkDuration" label="平均停车时长(分钟)" />
         <el-table-column prop="usageRate" label="车位利用率(分钟/车位)" />
         <el-table-column prop="turnoverRate" label="车位周转率(次/车位)" />
@@ -348,7 +348,7 @@ export default {
             },
             labels: {
               //修改Y轴添加单位
-              format: "{value}辆"
+              format: "{value}"
             }
           },
           legend: {
@@ -369,6 +369,9 @@ export default {
             },
             itemHiddenStyle: {
               color: "#cccccc"
+            },
+            labelFormatter: function() {
+              return this.name + "(辆)";
             }
           },
           tooltip: {
@@ -442,7 +445,7 @@ export default {
             },
             labels: {
               //修改Y轴添加单位
-              format: "{value}分钟"
+              format: "{value}"
             }
           },
           legend: {
@@ -463,6 +466,9 @@ export default {
             },
             itemHiddenStyle: {
               color: "#cccccc"
+            },
+            labelFormatter: function() {
+              return this.name + "(分钟)";
             }
           },
           tooltip: {
@@ -538,7 +544,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}分钟/车位"
+              format: "{value}"
             }
           },
           legend: {
@@ -559,6 +565,9 @@ export default {
             },
             itemHiddenStyle: {
               color: "#cccccc"
+            },
+            labelFormatter: function() {
+              return this.name + "(分钟/车位)";
             }
           },
           tooltip: {
@@ -634,7 +643,7 @@ export default {
               text: ""
             },
             labels: {
-              format: "{value}次/车位"
+              format: "{value}"
             }
           },
           legend: {
@@ -655,6 +664,9 @@ export default {
             },
             itemHiddenStyle: {
               color: "#cccccc"
+            },
+            labelFormatter: function() {
+              return this.name + "(次/车位)";
             }
           },
           tooltip: {

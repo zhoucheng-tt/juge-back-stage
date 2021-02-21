@@ -234,7 +234,7 @@ export default {
     // 查询按钮
     queryFormList() {
       this.pageNum = 1;
-      this.queryParkList();
+      this.queryReportList();
     },
     //查询重置按钮
     resetQuery() {
