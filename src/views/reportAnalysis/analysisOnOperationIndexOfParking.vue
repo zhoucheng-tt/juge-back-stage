@@ -371,11 +371,23 @@ export default {
               color: "#cccccc"
             },
             labelFormatter: function() {
-              return this.name + "(辆)";
+              return this.name + "(次)";
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>辆"
+            formatter: function() {
+              return (
+                this.x +
+                "-" +
+                (Number(this.x.slice(0, 2)) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "次"
+              );
+            }
           },
           plotOptions: {
             spline: {
@@ -472,7 +484,19 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>分钟"
+            formatter: function() {
+              return (
+                this.x +
+                "-" +
+                (Number(this.x.slice(0, 2)) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "分钟"
+              );
+            }
           },
           plotOptions: {
             spline: {
@@ -571,8 +595,19 @@ export default {
             }
           },
           tooltip: {
-            //设置每个点位的弹出窗
-            pointFormat: "{series.name}: <b>{point.y}</b>分钟/车位"
+            formatter: function() {
+              return (
+                this.x +
+                "-" +
+                (Number(this.x.slice(0, 2)) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "分钟/车位"
+              );
+            }
           },
           plotOptions: {
             spline: {
@@ -670,7 +705,19 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "{series.name}: <b>{point.y}</b>次/车位"
+            formatter: function() {
+              return (
+                this.x +
+                "-" +
+                (Number(this.x.slice(0, 2)) + 1) +
+                ":00" +
+                "<br>" +
+                this.series.name +
+                ":" +
+                this.y +
+                "次/车位"
+              );
+            }
           },
           plotOptions: {
             spline: {

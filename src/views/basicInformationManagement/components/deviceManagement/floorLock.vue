@@ -113,9 +113,9 @@
           label="地锁名称"
         />
         <el-table-column
-          prop="macAddress"
+          prop="camIp"
           :show-overflow-tooltip="true"
-          label="MAC地址"
+          label="摄像头IP"
         />
         <el-table-column
           prop="gatewayId"
@@ -219,12 +219,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item
-              label="MAC地址:"
-              label-width="150px"
-              prop="macAddress"
-            >
-              <el-input v-model="newLock.macAddress"></el-input>
+            <el-form-item label="MAC地址:" label-width="150px" prop="camIp">
+              <el-input v-model="newLock.camIp"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -297,7 +293,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="mac地址:" label-width="150px">
-              <el-input v-model="editLock.macAddress"></el-input>
+              <el-input v-model="editLock.camIp"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -386,7 +382,7 @@ export default {
             trigger: "blur"
           }
         ],
-        macAddress: [
+        camIp: [
           {
             required: true,
             message: "mac地址不能为空",
@@ -538,7 +534,7 @@ export default {
             parkId: this.newLock.parkId,
             groundLockId: this.newLock.groundLockId,
             groundLockName: this.newLock.groundLockName,
-            macAddress: this.newLock.macAddress,
+            camIp: this.newLock.camIp,
             gatewayId: this.newLock.gatewayId
           };
           this.$deviceManagement.addGroundLock(param).then(res => {
@@ -560,7 +556,7 @@ export default {
         parkId: this.editLock.parkId,
         groundLockId: this.editLock.groundLockId,
         groundLockName: this.editLock.groundLockName,
-        macAddress: this.editLock.macAddress,
+        camIp: this.editLock.camIp,
         gatewayId: this.editLock.gatewayId
       };
       this.$deviceManagement.updateGroundLock(param).then(res => {

@@ -8,9 +8,10 @@ let env = "dev";
 let BASE_API = "";
 
 if (env === "dev") {
-  // BASE_API = "http://192.168.1.200:8000/";
-  BASE_API = "http://123.207.189.27:7138/";
+  // BASE_API = "http://123.207.189.27:7138/";
+  BASE_API = "http://192.168.99.10:8000/";
 } else if (env === "prod") {
-  BASE_API = "http://123.207.189.27:7138/";
+  // BASE_API = "http://123.207.189.27:7138/";
+  BASE_API = "http://192.168.99.10:8000/";
 }
 export { BASE_API };
