@@ -139,7 +139,7 @@
         <!-- 总停车数量 totalNumberParking-->
         <div class="leftCharts">
           <div class="leftChartUp" style="display:flex">
-            <div style="width: 40%" class="leftChartUpImage">
+            <div style="width: 50%" class="leftChartUpImage">
               <svg
                 width="14px"
                 height="14px"
@@ -253,7 +253,7 @@
         <!-- 车位利用率 parkingSpaceUtilization-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
-            <div style="width:40%">
+            <div style="width:50%">
               <img
                 src="../../assets/homePage/fangkuai.svg"
                 class="leftChartUpImage"
@@ -343,7 +343,7 @@
         <!-- 车位周转率 parkingSpaceTurnoverRate-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
-            <div style="width: 40%">
+            <div style="width: 50%">
               <img
                 src="../../assets/homePage/fangkuai.svg"
                 class="leftChartUpImage"
@@ -433,7 +433,7 @@
         <!-- 平均停车时长 averageParkingTime-->
         <div class="leftCharts-others">
           <div class="leftChartUp">
-            <div style="width: 45%;">
+            <div style="width: 50%;">
               <img
                 src="../../assets/homePage/fangkuai.svg"
                 class="leftChartUpImage"
