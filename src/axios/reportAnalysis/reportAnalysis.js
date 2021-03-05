@@ -189,8 +189,8 @@ export function usageRate(param) {
     url: "/operateController/usageRate",
     // url: "http://192.168.1.163:8000/operateController/usageRate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
+    // flag: "out"
   });
 }
 //运营指标分析 车位周转率 operateController/turnoverRate
@@ -199,8 +199,8 @@ export function turnoverRate(param) {
     url: "/operateController/turnoverRate",
     // url: "http://192.168.1.163:8000/operateController/turnoverRate",
     method: "post",
-    data: param,
-    flag: "out"
+    data: param
+    // flag: "out"
   });
 }
 //停车场运营指标分析平均充电时间

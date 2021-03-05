@@ -130,3 +130,44 @@ export function queryParkSpaceStatus(params) {
     // flag: "out"
   });
 }
+
+//停车数量 operateController/queryParkTimes
+export function queryPark7Days(param) {
+  return request({
+    url: "/operateController/queryPark7Days",
+    method: "post",
+    data: param
+    // url: "http://192.168.1.163:8000/operateController/queryPark7Days",
+    // flag: "out"
+  });
+}
+// 平均停车时长 operateController/avgParkDuration
+export function avgParkDuration7Days(param) {
+  return request({
+    url: "/operateController/avgParkDuration7Days",
+    method: "post",
+    data: param
+    // url: "http://192.168.1.163:8000/operateController/avgParkDuration7Days",
+    // flag: "out"
+  });
+}
+// 车位利用率 operateController/usageRate
+export function usageRate7Days(param) {
+  return request({
+    url: "/operateController/usageRate7Days",
+    method: "post",
+    data: param
+    // url: "http://192.168.1.163:8000/operateController/usageRate7Days",
+    // flag: "out"
+  });
+}
+//车位周转率 operateController/turnoverRate
+export function turnoverRate7Days(param) {
+  return request({
+    url: "/operateController/turnoverRate7Days",
+    method: "post",
+    data: param
+    // url: "http://192.168.1.163:8000/operateController/turnoverRate7Days",
+    // flag: "out"
+  });
+}

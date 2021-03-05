@@ -95,20 +95,22 @@ export default {
           }
         },
         tooltip: {
-          formatter: function() {
-            return (
-              this.x +
-              ":00" +
-              "-" +
-              (Number(this.x) + 1) +
-              ":00" +
-              "<br>" +
-              this.series.name +
-              ":" +
-              this.y +
-              "次"
-            );
-          }
+          pointFormat: "{series.name}: <b>{point.y}</b>辆"
+
+          // formatter: function() {
+          //   return (
+          //     this.x +
+          //     ":00" +
+          //     "-" +
+          //     (Number(this.x) + 1) +
+          //     ":00" +
+          //     "<br>" +
+          //     this.series.name +
+          //     ":" +
+          //     this.y +
+          //     "次"
+          //   );
+          // }
         },
         plotOptions: {
           //  静态渲染

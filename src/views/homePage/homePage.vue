@@ -174,7 +174,7 @@
                 </g>
               </svg>
               <span class="spanStyle">
-                当日总停车次数
+                近七日总停车次数
               </span>
             </div>
             <div style="width: 20%">
@@ -259,7 +259,7 @@
                 class="leftChartUpImage"
                 alt=""
               />
-              <span class="spanStyle">当日车位利用率</span>
+              <span class="spanStyle">近七日车位利用率</span>
             </div>
             <div style="width: 20%">
               <el-tooltip effect="light" content="停车时长/总车位数">
@@ -349,7 +349,7 @@
                 class="leftChartUpImage"
                 alt=""
               />
-              <span class="spanStyle">当日车位周转率</span>
+              <span class="spanStyle">近七日车位周转率</span>
             </div>
             <div style="width:20%">
               <el-tooltip effect="light" content="停车次数/总车位数">
@@ -439,7 +439,7 @@
                 class="leftChartUpImage"
                 alt=""
               />
-              <span class="spanStyle">当日平均停车时长</span>
+              <span class="spanStyle">近七日平均停车时长</span>
             </div>
             <div style="width: 15%">
               <el-tooltip effect="light" content="停车时长/停车次数">
@@ -4255,16 +4255,16 @@
                     height="6.4"
                   />
                   <!--员工停车场059-->
-                  <rect
-                    id="BMK01L1_058"
-                    x="945.9"
-                    y="203.1"
-                    :class="
-                      P2occupyList.includes('BMK01L1_058') ? 'st10' : 'st7'
-                    "
-                    width="14"
-                    height="6.4"
-                  />
+                  <!--                  <rect-->
+                  <!--                    id="BMK01L1_058"-->
+                  <!--                    x="945.9"-->
+                  <!--                    y="203.1"-->
+                  <!--                    :class="-->
+                  <!--                      P2occupyList.includes('BMK01L1_058') ? 'st10' : 'st7'-->
+                  <!--                    "-->
+                  <!--                    width="14"-->
+                  <!--                    height="6.4"-->
+                  <!--                  />-->
                   <!--员工停车场059-->
                   <rect
                     id="BMK01L1_059"
@@ -4827,16 +4827,16 @@
                     height="6.4"
                   />
                   <!--员工停车场114-->
-                  <rect
-                    id="BMK01L1_114"
-                    x="945.9"
-                    y="578.4"
-                    :class="
-                      P2occupyList.includes('BMK01L1_114') ? 'st10' : 'st7'
-                    "
-                    width="14"
-                    height="6.4"
-                  />
+                  <!--                  <rect-->
+                  <!--                    id="BMK01L1_114"-->
+                  <!--                    x="945.9"-->
+                  <!--                    y="578.4"-->
+                  <!--                    :class="-->
+                  <!--                      P2occupyList.includes('BMK01L1_114') ? 'st10' : 'st7'-->
+                  <!--                    "-->
+                  <!--                    width="14"-->
+                  <!--                    height="6.4"-->
+                  <!--                  />-->
                 </g>
                 <g>
                   <line
@@ -4947,16 +4947,16 @@
                     height="6.4"
                   />
                   <!--员工停车场057-->
-                  <rect
-                    id="BMK01L1_057"
-                    x="913.9"
-                    y="203.1"
-                    :class="
-                      P2occupyList.includes('BMK01L1_057') ? 'st10' : 'st7'
-                    "
-                    width="14"
-                    height="6.4"
-                  />
+                  <!--                  <rect-->
+                  <!--                    id="BMK01L1_057"-->
+                  <!--                    x="913.9"-->
+                  <!--                    y="203.1"-->
+                  <!--                    :class="-->
+                  <!--                      P2occupyList.includes('BMK01L1_057') ? 'st10' : 'st7'-->
+                  <!--                    "-->
+                  <!--                    width="14"-->
+                  <!--                    height="6.4"-->
+                  <!--                  />-->
                   <!--员工停车场056-->
                   <rect
                     id="BMK01L1_056"
@@ -5519,25 +5519,26 @@
                     height="6.4"
                   />
                   <!--员工停车场001-->
-                  <rect
-                    id="BMK01L1_001"
-                    x="913.9"
-                    y="578.4"
-                    :class="
-                      P2occupyList.includes('BMK01L1_001') ? 'st10' : 'st7'
-                    "
-                    width="14"
-                    height="6.4"
-                  />
+                  <!--                  <rect-->
+                  <!--                    id="BMK01L1_001"-->
+                  <!--                    x="913.9"-->
+                  <!--                    y="578.4"-->
+                  <!--                    :class="-->
+                  <!--                      P2occupyList.includes('BMK01L1_001') ? 'st10' : 'st7'-->
+                  <!--                    "-->
+                  <!--                    width="14"-->
+                  <!--                    height="6.4"-->
+                  <!--                  />-->
                 </g>
               </g>
               <g id="临时停车场">
-                <!--临时停车场034-->
-                <path
-                  id="HZH01L1_034"
-                  :class="P3occupyList.includes('HZH01L1_034') ? 'st10' : 'st7'"
-                  d="M950.9,82V68h6.4v14H950.9z"
-                />
+                <!--                &lt;!&ndash;临时停车场034&ndash;&gt;-->
+                <!--                <path-->
+                <!--                  id="HZH01L1_034"-->
+                <!--                  style="fill: red"-->
+                <!--                  :class="P3occupyList.includes('HZH01L1_034') ? 'st10' : 'st7'"-->
+                <!--                  d="M950.9,82V68h6.4v14H950.9z"-->
+                <!--                />-->
                 <!--临时停车场035-->
                 <path
                   id="HZH01L1_035"
@@ -6251,7 +6252,7 @@ export default {
         }
       ],
 
-      // 左侧当日图表查询条件
+      // 左侧近七日图表查询条件
       currentDay: new Date().Format("yyyy-MM-dd"),
       currentHour: new Date().Format("hh"),
       currentToday: new Date().Format("dd"),
@@ -6387,7 +6388,7 @@ export default {
         this.P2LeftPort + this.P3LeftPort + this.P4LeftPort + this.P5LeftPort
       );
     },
-    //当日停车总次数
+    //近七日停车总次数
     numberOfParkingTotal: function() {
       let sum = 0;
       for (let i = 0; i < this.numberOfParkingData.length; i++) {
@@ -6396,7 +6397,7 @@ export default {
       // return (s / this.numberOfParkingData.length).toFixed(2);
       return sum;
     },
-    //当日车位利用率
+    //近七日车位利用率
     parkingSpaceUsedRateNumber: function() {
       let total = 0;
       let dat = 0;
@@ -6406,7 +6407,7 @@ export default {
       dat = Number(total / this.parkingSpaceUtilizationXz.length).toFixed(2);
       return dat;
     },
-    //当日车位周转率
+    //近七日车位周转率
     parkingSpaceTurnoverRateNumber: function() {
       let total = 0;
       let dat = 0;
@@ -6416,7 +6417,7 @@ export default {
       dat = Number(total / this.parkingSpaceTurnoverRateXz.length).toFixed(2);
       return dat;
     },
-    //当日平均停车时长
+    //近七日平均停车时长
     averageParkingTimeNumber: function() {
       let total = 0;
       let dat = 0;
@@ -6562,18 +6563,13 @@ export default {
     // 总停车数量
     queryParkOptByParkCount() {
       let that = this;
-      const param = {
-        startTime: this.currentDay,
-        endTime: this.currentDay
-      };
-      this.$reportAnalysis.queryParkTimes(param).then(res => {
+      this.$homePage.queryPark7Days({}).then(res => {
         this.numberOfParkingXz = [];
         this.numberOfParkingData = [];
-        for (let i = 0; i < Number(this.currentHour) + 1; i++) {
-          this.numberOfParkingXz.push(res.resultEntity[i].X);
-          this.numberOfParkingData.push(Number(res.resultEntity[i].dataY));
-        }
-
+        res.resultEntity.forEach(item => {
+          this.numberOfParkingXz.push(item.X.slice(5, 10));
+          this.numberOfParkingData.push(Number(item.dataY));
+        });
         that.chartData = {
           xCategories: this.numberOfParkingXz,
           seriesData: this.numberOfParkingData
@@ -6582,20 +6578,19 @@ export default {
     },
     // 平均停车时长
     queryParkOptByAvgParkDuration() {
-      const param = {
-        startTime: this.currentDay,
-        endTime: this.currentDay
-      };
-      this.$reportAnalysis.avgParkDuration(param).then(res => {
+      this.$homePage.avgParkDuration7Days({}).then(res => {
         this.averageParkingTimeXz = [];
         this.averageParkingTimeData = [];
-        for (let i = 0; i < Number(this.currentHour) + 1; i++) {
-          this.averageParkingTimeXz.push(res.resultEntity[i].X);
-          this.averageParkingTimeData.push(
-            Number(Math.round(res.resultEntity[i].dataY))
-          );
-        }
-
+        // for (let i = 0; i < Number(this.currentHour) + 1; i++) {
+        //   this.averageParkingTimeXz.push(res.resultEntity[i].X);
+        //   this.averageParkingTimeData.push(
+        //     Number(Math.round(res.resultEntity[i].dataY))
+        //   );
+        // }
+        res.resultEntity.forEach(item => {
+          this.averageParkingTimeXz.push(item.X.slice(5, 10));
+          this.averageParkingTimeData.push(Number(item.dataY.toFixed(2)));
+        });
         this.averageParkingTimeOptions = {
           chart: {
             type: "spline",
@@ -6665,23 +6660,7 @@ export default {
               color: "#333333"
             }
           },
-          tooltip: {
-            // pointFormat: "{series.name}: <b>{point.y}</b>分钟"
-            formatter: function() {
-              return (
-                this.x +
-                ":00" +
-                "-" +
-                (Number(this.x) + 1) +
-                ":00" +
-                "<br>" +
-                this.series.name +
-                ":" +
-                this.y +
-                "分钟"
-              );
-            }
-          },
+          tooltip: { pointFormat: "{series.name}: <b>{point.y}</b>分钟" },
           plotOptions: {
             //  静态渲染
             series: {
@@ -6712,20 +6691,22 @@ export default {
 
     // 车位利用率
     queryParkOptByParkSpaceUsedRate() {
-      const param = {
-        startTime: this.currentDay,
-        endTime: this.currentDay
-      };
-      this.$reportAnalysis.usageRate(param).then(res => {
+      this.$homePage.usageRate7Days({}).then(res => {
         this.parkingSpaceUtilizationXz = [];
         this.parkingSpaceUtilizationData = [];
-        for (let i = 0; i < Number(this.currentHour) + 1; i++) {
-          this.parkingSpaceUtilizationXz.push(res.resultEntity[i].X);
-          //%后小数点后两位
+        // for (let i = 0; i < Number(this.currentHour) + 1; i++) {
+        //   this.parkingSpaceUtilizationXz.push(res.resultEntity[i].X);
+        //   //%后小数点后两位
+        //   this.parkingSpaceUtilizationData.push(
+        //     Number(Number(res.resultEntity[i].dataY).toFixed(2))
+        //   );
+        // }
+        res.resultEntity.forEach(item => {
+          this.parkingSpaceUtilizationXz.push(item.X.slice(5, 10));
           this.parkingSpaceUtilizationData.push(
-            Number(Number(res.resultEntity[i].dataY).toFixed(2))
+            Number(Number(item.dataY).toFixed(2))
           );
-        }
+        });
         this.parkingSpaceUtilizationOptions = {
           chart: {
             type: "spline",
@@ -6794,23 +6775,7 @@ export default {
               color: "#333333"
             }
           },
-          tooltip: {
-            //设置每个点位的弹出窗
-            formatter: function() {
-              return (
-                this.x +
-                ":00" +
-                "-" +
-                (Number(this.x) + 1) +
-                ":00" +
-                "<br>" +
-                this.series.name +
-                ":" +
-                this.y +
-                "分钟/车位"
-              );
-            }
-          },
+          tooltip: { pointFormat: "{series.name}: <b>{point.y}</b>分钟/车位" },
           plotOptions: {
             //  静态渲染
             series: {
@@ -6840,19 +6805,19 @@ export default {
     },
     // 车位周转率
     queryParkOptByParkSpaceTurnoverRate() {
-      const param = {
-        startTime: this.currentDay,
-        endTime: this.currentDay
-      };
-      this.$reportAnalysis.turnoverRate(param).then(res => {
+      this.$homePage.turnoverRate7Days({}).then(res => {
         this.parkingSpaceTurnoverRateXz = [];
         this.parkingSpaceTurnoverRateData = [];
-        for (let i = 0; i < Number(this.currentHour) + 1; i++) {
-          this.parkingSpaceTurnoverRateXz.push(res.resultEntity[i].X);
-          this.parkingSpaceTurnoverRateData.push(
-            Number((Number(res.resultEntity[i].dataY) * 100).toFixed(2))
-          );
-        }
+        // for (let i = 0; i < Number(this.currentHour) + 1; i++) {
+        //   this.parkingSpaceTurnoverRateXz.push(res.resultEntity[i].X);
+        //   this.parkingSpaceTurnoverRateData.push(
+        //     Number((Number(res.resultEntity[i].dataY) * 100).toFixed(2))
+        //   );
+        // }
+        res.resultEntity.forEach(item => {
+          this.parkingSpaceTurnoverRateXz.push(item.X.slice(5, 10));
+          this.parkingSpaceTurnoverRateData.push(Number(item.dataY.toFixed(2)));
+        });
 
         this.parkingSpaceTurnoverRateOptions = {
           chart: {
@@ -6922,23 +6887,7 @@ export default {
               color: "#333333"
             }
           },
-          tooltip: {
-            // pointFormat: "{series.name}: <b>{point.y}</b>次/车位"
-            formatter: function() {
-              return (
-                this.x +
-                ":00" +
-                "-" +
-                (Number(this.x) + 1) +
-                ":00" +
-                "<br>" +
-                this.series.name +
-                ":" +
-                this.y +
-                "次/车位"
-              );
-            }
-          },
+          tooltip: { pointFormat: "{series.name}: <b>{point.y}</b>次" },
           plotOptions: {
             //  静态渲染
             series: {

@@ -19,7 +19,7 @@ module.exports = {
       // 配置跨域
       // 当遇见所有的跨域问题中需要进行这边调整
       "/eparking-web": {
-        // target: "http://192.168.1.161:8000",
+        // target: "http://192.168.1.163:8000",
         target: "http://123.207.189.27:7108",
         // target: "http://192.168.99.10:8000",
         ws: false,
