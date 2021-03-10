@@ -6887,7 +6887,7 @@ export default {
               color: "#333333"
             }
           },
-          tooltip: { pointFormat: "{series.name}: <b>{point.y}</b>次" },
+          tooltip: { pointFormat: "{series.name}: <b>{point.y}</b>次/车位" },
           plotOptions: {
             //  静态渲染
             series: {
