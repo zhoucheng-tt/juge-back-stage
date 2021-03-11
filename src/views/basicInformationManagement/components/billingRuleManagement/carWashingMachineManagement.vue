@@ -13,9 +13,7 @@
     <!--下半部分列表-->
     <div class="down">
       <el-table
-        :data="chargeModeManagement"
-        ref="selectChargeModeManagement"
-        @selection-change="handleSelectionChange"
+        :data="washCarTableList"
         stripe
         :header-cell-style="{
           fontfamily: 'PingFangSC-Medium',
@@ -38,25 +36,21 @@
       >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column
-          prop="chargeModeNumber"
-          label="计费规则编号"
-        ></el-table-column>
-        <el-table-column
-          prop="chargeModeName"
+          prop="fineFee"
           :show-overflow-tooltip="true"
-          label="计费规则名称"
+          label="精洗价格(元)"
         >
         </el-table-column>
         <el-table-column
-          prop="chargeModeType"
+          prop="generalFee"
           :show-overflow-tooltip="true"
-          label="计费规则类型"
+          label="普洗价格(元)"
         >
         </el-table-column>
         <el-table-column
-          prop="description"
+          prop="fastFee"
           :show-overflow-tooltip="true"
-          label="描述"
+          label="快洗价格(元)"
         ></el-table-column>
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
@@ -69,46 +63,42 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-dialog
+        title="修改"
+        :visible.sync="alterDialogShow"
+        width="50%"
+        @close="queryWashCar"
+      >
+        <!-- 基础信息表单-->
+        <div class="">
+          <el-form
+            :inline="true"
+            v-model="alterList"
+            label-position="right"
+            label-width="100px"
+          >
+            <el-row style="padding-top: 20px">
+              <el-form-item label="精洗价格(元):" label-width="150px">
+                <el-input v-model="alterList.fineFee" />
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="普洗价格(元):" label-width="150px">
+                <el-input v-model="alterList.generalFee" />
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="快洗价格(元):" label-width="150px">
+                <el-input v-model="alterList.fastFee"></el-input>
+              </el-form-item>
+            </el-row>
+          </el-form>
+        </div>
+        <span slot="footer">
+          <el-button @click="handleClickConfirm">确认</el-button>
+        </span>
+      </el-dialog>
     </div>
-    <!-- 信息修改点击弹出框 -->
-    <el-dialog title="修改计费规则" :visible.sync="editListDialogueandoff">
-      <el-form :inline="true" :model="editListDialogueandoffList">
-        <el-row style="padding-top: 20px">
-          <el-col :span="12">
-            <el-form-item label="计费规则编号:" label-width="150px">
-              <el-input
-                v-model="editListDialogueandoffList.chargeModeNumber"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="计费规则名称:" label-width="150px">
-              <el-input
-                v-model="editListDialogueandoffList.chargeModeName"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="计费规则类型:" label-width="150px">
-              <el-input
-                v-model="editListDialogueandoffList.chargeModeType"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="描述:" label-width="150px">
-              <el-input
-                v-model="editListDialogueandoffList.description"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <!--        <el-button @click="editListDialogueandoff = false">取 消</el-button>-->
-        <el-button type="primary" @click="InfoInsert">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -116,24 +106,47 @@
 export default {
   data() {
     return {
-      editListDialogueandoff: false,
-      editListDialogueandoffList: {},
-      chargeModeManagement: [
-        {
-          chargeModeNumber: "J001",
-          chargeModeName: "洗车机按次计费规则1",
-          chargeModeType: "按次",
-          description: "无"
-        }
-      ]
+      washCarTableList: [],
+      alterList: {},
+      alterDialogShow: false
     };
   },
   mounted() {
-    this.queryParkList();
+    this.queryWashCar();
   },
   methods: {
-    handleClickAlter() {},
-    InfoInsert() {}
+    // 列表查询
+    queryWashCar() {
+      this.$basicInformationManagement
+        .queryCarWasherBillingRuleList({})
+        .then(res => {
+          const fee = [];
+          res.resultEntity.fastFee = Number(res.resultEntity.fastFee) / 100;
+          res.resultEntity.generalFee =
+            Number(res.resultEntity.generalFee) / 100;
+          res.resultEntity.fineFee = Number(res.resultEntity.fineFee) / 100;
+          fee.push(res.resultEntity);
+          this.washCarTableList = fee;
+        });
+    },
+    handleClickAlter(row) {
+      this.alterDialogShow = true;
+      this.alterList = row;
+    },
+    handleClickConfirm() {
+      this.alterDialogShow = false;
+      const param = {
+        fastFee: Number(this.alterList.fastFee) * 100,
+        fineFee: Number(this.alterList.fineFee) * 100,
+        generalFee: Number(this.alterList.generalFee) * 100
+      };
+      console.log(param);
+      this.$basicInformationManagement
+        .updateCawWasherBillingRule(param)
+        .then(res => {
+          this.queryWashCar();
+        });
+    }
   }
 };
 </script>

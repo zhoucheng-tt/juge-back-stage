@@ -35,3 +35,18 @@ export function deleteBillingRule(param) {
     data: param
   });
 }
+//洗车机计费规则查询
+export function queryCarWasherBillingRuleList(param) {
+  return request({
+    url: "/billingRuleFunc/queryCarWasherBillingRuleList",
+    method: "post",
+    data: param
+  });
+}
+export function updateCawWasherBillingRule(param) {
+  return request({
+    url: "/billingRuleFunc/updateCawWasherBillingRule",
+    method: "post",
+    data: param
+  });
+}
