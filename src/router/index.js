@@ -88,7 +88,7 @@ const routes = [
         name: "analysisOfOperatingIncomeOfParking",
         component: () =>
           import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis//analysisOfOperatingIncomeOfParking.vue"
+            /* webpackChunkName: "about" */ "@/views/reportAnalysis/analysisOfOperatingIncomeOfParking.vue"
           )
       },
       // 停车场运营收入分析
@@ -181,15 +181,15 @@ const routes = [
             /* webpackChunkName: "about" */ "@/views/basicInformationManagement/billingRuleManagement.vue"
           )
       },
-      // 洗车机计费规则管理  carWashingMachineManagement
-      {
-        path: "/carWashingMachineManagement",
-        name: "carWashingMachineManagement",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/basicInformationManagement/carWashingMachineManagement.vue"
-          )
-      },
+      // // 洗车机计费规则管理  carWashingMachineManagement
+      // {
+      //   path: "/carWashingMachineManagement",
+      //   name: "carWashingMachineManagement",
+      //   component: () =>
+      //     import(
+      //       /* webpackChunkName: "about" */ "@/views/basicInformationManagement/carWashingMachineManagement.vue"
+      //     )
+      // },
       // 停车场管理  parkingLotManagement
       {
         path: "/parkingLotManagement",
