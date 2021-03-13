@@ -171,3 +171,13 @@ export function turnoverRate7Days(param) {
     // flag: "out"
   });
 }
+//洗车机近七日洗车次数统计 homePageFunc/queryCarWashTiemsRecentDays
+export function queryCarWashTiemsRecentDays(param) {
+  return request({
+    url: "/homePageFunc/queryCarWashTiemsRecentDays",
+    method: "post",
+    data: param
+    // url: "http://192.168.1.163:8000/homePageFunc/queryCarWashTiemsRecentDays",
+    // flag: "out"
+  });
+}

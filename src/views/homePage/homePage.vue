@@ -6040,7 +6040,7 @@
                 class="rightChartUpImage"
                 alt=""
               />
-              <span class="spanStyle">洗车机近七日报警趋势分析</span>
+              <span class="spanStyle">洗车机近七日次数分析</span>
             </div>
           </div>
           <div class="leftChartCenter" id="washCarSevenDaysAnalysis">
@@ -6293,8 +6293,13 @@ export default {
 
       // 洗车机近七日报警趋势分析
       washCarSevenDaysAnalysisOption: {},
-      washCarSevenDaysAnalysisData: [],
       washCarSevenDaysAnalysisXz: [],
+      washCarSevenDaysAnalysisDataJINGList: [],
+      washCarSevenDaysAnalysisDataPUList: [],
+      washCarSevenDaysAnalysisDataKUAIList: [],
+      washCarSevenDaysAnalysisDataJING: [],
+      washCarSevenDaysAnalysisDataPU: [],
+      washCarSevenDaysAnalysisDataKUAI: [],
 
       //近七日洗车收费金额
       washChargeInSevenDaysOption: {},
@@ -7121,18 +7126,40 @@ export default {
       });
     },
 
-    //洗车机近七日报警报警趋势分析
+    //洗车机近七日次数分析
     handleWashCarSevenDaysAnalysis() {
-      this.$reportAnalysis.alarmRecent7day(1).then(res => {
+      this.$homePage.queryCarWashTiemsRecentDays({}).then(res => {
         this.washCarSevenDaysAnalysisXz = [];
-        this.washCarSevenDaysAnalysisData = [];
+        this.washCarSevenDaysAnalysisDataJINGList = [];
+        this.washCarSevenDaysAnalysisDataPUList = [];
+        this.washCarSevenDaysAnalysisDataKUAIList = [];
+        this.washCarSevenDaysAnalysisDataJING = [];
+        this.washCarSevenDaysAnalysisDataPU = [];
+        this.washCarSevenDaysAnalysisDataKUAI = [];
         res.resultEntity.forEach(item => {
-          this.washCarSevenDaysAnalysisXz.push(item.X.slice(5, 10));
-          this.washCarSevenDaysAnalysisData.push(Number(item.dataY));
+          if (item.type == "精洗") {
+            this.washCarSevenDaysAnalysisDataJINGList.push(item);
+          } else if (item.type == "普洗") {
+            this.washCarSevenDaysAnalysisDataPUList.push(item);
+          } else if (item.type == "快洗") {
+            this.washCarSevenDaysAnalysisDataKUAIList.push(item);
+          }
+          // console.log(this.washCarSevenDaysAnalysisDataPUList);
+          // console.log(this.washCarSevenDaysAnalysisDataKUAIList);
+        });
+        this.washCarSevenDaysAnalysisDataJINGList.forEach(item => {
+          this.washCarSevenDaysAnalysisXz.push(item.time.slice(5, 10));
+          this.washCarSevenDaysAnalysisDataJING.push(item.times);
+        });
+        this.washCarSevenDaysAnalysisDataPUList.forEach(item => {
+          this.washCarSevenDaysAnalysisDataPU.push(item.times);
+        });
+        this.washCarSevenDaysAnalysisDataKUAIList.forEach(item => {
+          this.washCarSevenDaysAnalysisDataKUAI.push(item.times);
         });
         this.washCarSevenDaysAnalysisOption = {
           chart: {
-            type: "spline",
+            type: "column",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "washCarSevenDaysAnalysis",
             marginBottom: 35
@@ -7170,7 +7197,7 @@ export default {
               }
             }
           },
-          colors: ["#00CDE6"],
+          colors: ["#7654E3", "#00CDE6", "#FFBC00"],
           legend: {
             enabled: true,
             align: "center",
@@ -7199,22 +7226,26 @@ export default {
             series: {
               animation: false
             },
-            spline: {
-              lineWidth: 2,
-              states: {
-                hover: {
-                  lineWidth: 3
-                }
-              },
-              marker: {
-                enabled: false
-              }
+            column: {
+              pointPadding: 0,
+              //调整每个组的柱形图的间隔
+              borderWidth: 0,
+              // groupPadding: 0,
+              shadow: false
             }
           },
           series: [
             {
-              name: "报警",
-              data: this.washCarSevenDaysAnalysisData
+              name: "精洗次数",
+              data: this.washCarSevenDaysAnalysisDataJING
+            },
+            {
+              name: "普洗次数",
+              data: this.washCarSevenDaysAnalysisDataPU
+            },
+            {
+              name: "快洗次数",
+              data: this.washCarSevenDaysAnalysisDataKUAI
             }
           ]
         };
