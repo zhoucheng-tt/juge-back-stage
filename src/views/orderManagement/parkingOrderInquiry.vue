@@ -329,6 +329,10 @@ export default {
         pageSize: this.pageSize
       };
       this.$orderManagement.queryStopOrder(params).then(response => {
+        response.resultEntity.list.forEach(item => {
+          item.needPay = Number(item.needPay) / 100;
+        });
+        console.log(response);
         //分页
         that.pageTotal = response.resultEntity.total;
         //查询
