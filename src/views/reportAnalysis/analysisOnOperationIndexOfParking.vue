@@ -535,7 +535,7 @@ export default {
           this.parkingSpaceUtilizationXz.push(item.X + ":00");
           //%后小数点后两位
           this.parkingSpaceUtilizationData.push(
-            Number((Number(item.dataY) * 100).toFixed(2))
+            Number(Number(item.dataY).toFixed(2))
           );
         });
         this.parkingSpaceUtilizationOptions = {
@@ -645,7 +645,7 @@ export default {
         res.resultEntity.forEach(item => {
           this.parkingSpaceTurnoverRateXz.push(item.X + ":00");
           this.parkingSpaceTurnoverRateData.push(
-            Number((Number(item.dataY) * 100).toFixed(2))
+            Number(Number(item.dataY).toFixed(2))
           );
         });
         this.parkingSpaceTurnoverRateOptions = {

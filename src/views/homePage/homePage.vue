@@ -6040,7 +6040,7 @@
                 class="rightChartUpImage"
                 alt=""
               />
-              <span class="spanStyle">洗车机近七日次数分析</span>
+              <span class="spanStyle">洗车机近七日洗车次数分析</span>
             </div>
           </div>
           <div class="leftChartCenter" id="washCarSevenDaysAnalysis">
@@ -6291,7 +6291,13 @@ export default {
       // parkingSpaceTurnoverRateTotal: 0,
       // parkingSpaceTurnoverRateNumber: 0,
 
-      // 洗车机近七日报警趋势分析
+      //  支付方式
+      payStyleWXList: 0,
+      payStyleZFBList: 0,
+      payStyleETCList: 0,
+      payStyleOTHERList: 0,
+
+      // 洗车机近七日洗车次数分析
       washCarSevenDaysAnalysisOption: {},
       washCarSevenDaysAnalysisXz: [],
       washCarSevenDaysAnalysisDataJINGList: [],
@@ -6552,9 +6558,9 @@ export default {
     //获取中间部分总收入、停车场总收入、洗车总收入
     queryFees() {
       this.$homePage.queryFees({}).then(res => {
-        this.totalIncome = Number(res.resultEntity["总收入"]);
-        this.parkIncome = Number(res.resultEntity["停车场收入"]);
-        this.washIncome = Number(res.resultEntity["洗车收入"]);
+        this.totalIncome = Number(res.resultEntity["总收入"]) / 100;
+        this.parkIncome = Number(res.resultEntity["停车场收入"]) / 100;
+        this.washIncome = Number(res.resultEntity["洗车收入"]) / 100;
       });
     },
     //精洗普洗快洗次数
@@ -6922,7 +6928,22 @@ export default {
     },
     // 支付方式
     queryPayTypeAmountPrecent() {
+      this.payStyleWXList = 0;
+      this.payStyleZFBList = 0;
+      this.payStyleETCList = 0;
+      this.payStyleOTHERList = 0;
       this.$homePage.queryPayTypeAmountPrecent({}).then(res => {
+        res.resultEntity.forEach(item => {
+          if (item.type == "WX") {
+            this.payStyleWXList = Number(item.amount) / 100;
+          } else if (item.type == "ETC") {
+            this.payStyleETCList = Number(item.amount) / 100;
+          } else if (item.type == "ZFB") {
+            this.payStyleZFBList = Number(item.amount) / 100;
+          } else if (item.type == "OTHER") {
+            this.payStyleOTHERList = Number(item.amount) / 100;
+          }
+        });
         this.paymentIncomeAnalysisOption = {
           chart: {
             type: "pie",
@@ -6988,24 +7009,20 @@ export default {
               name: "支付占比",
               data: [
                 {
-                  name: "ETC",
-                  y: Number(res.resultEntity[0].percent)
-                },
-                {
-                  name: "其他",
-                  y: Number(res.resultEntity[1].percent)
-                },
-                {
                   name: "微信",
-                  y: Number(res.resultEntity[2].percent)
+                  y: this.payStyleWXList
                 },
                 {
                   name: "支付宝",
-                  y: Number(res.resultEntity[3].percent)
+                  y: this.payStyleZFBList
                 },
                 {
-                  name: "现金",
-                  y: Number(res.resultEntity[4].percent)
+                  name: "ETC",
+                  y: this.payStyleETCList
+                },
+                {
+                  name: "其他",
+                  y: this.payStyleETCList
                 }
               ]
             }
@@ -7024,7 +7041,7 @@ export default {
             res.resultEntity[i].time.slice(8, 10)
           ),
             this.revenueCarWashingAnalysisY.push(
-              Number(res.resultEntity[i].amount)
+              Number(res.resultEntity[i].amount) / 100
             );
         }
         this.revenueCarWashingAnalysisOption = {
@@ -7126,7 +7143,7 @@ export default {
       });
     },
 
-    //洗车机近七日次数分析
+    //洗车机近七日洗车次数分析
     handleWashCarSevenDaysAnalysis() {
       this.$homePage.queryCarWashTiemsRecentDays({}).then(res => {
         this.washCarSevenDaysAnalysisXz = [];
@@ -7144,8 +7161,6 @@ export default {
           } else if (item.type == "快洗") {
             this.washCarSevenDaysAnalysisDataKUAIList.push(item);
           }
-          // console.log(this.washCarSevenDaysAnalysisDataPUList);
-          // console.log(this.washCarSevenDaysAnalysisDataKUAIList);
         });
         this.washCarSevenDaysAnalysisDataJINGList.forEach(item => {
           this.washCarSevenDaysAnalysisXz.push(item.time.slice(5, 10));
@@ -7199,23 +7214,22 @@ export default {
           },
           colors: ["#7654E3", "#00CDE6", "#FFBC00"],
           legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "left",
-            x: 300,
-            y: 10,
+            align: "right",
+            verticalAlign: "top",
+            floating: true,
+            y: -15,
             itemStyle: {
-              color: "#cccccc",
+              color: "white",
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: "bold",
-              fill: "#cccccc"
+              fill: "white"
             },
             itemHoverStyle: {
-              color: "#666666"
+              color: "#cccccc"
             },
             itemHiddenStyle: {
-              color: "#cccccc "
+              color: "#cccccc"
             }
           },
           tooltip: {

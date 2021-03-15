@@ -34,7 +34,7 @@
         }"
         style="width: 98%;margin-left: 1%"
       >
-        <el-table-column type="selection" width="55"></el-table-column>
+        <!--        <el-table-column type="selection" width="55"></el-table-column>-->
         <el-table-column
           prop="fineFee"
           :show-overflow-tooltip="true"

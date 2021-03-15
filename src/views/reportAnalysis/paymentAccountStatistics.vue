@@ -305,10 +305,14 @@ export default {
         pageSize: this.pageSize
       };
       this.$reportAnalysis.queryAccountStatisList(param).then(res => {
+        console.log(res);
         res.resultEntity.list.forEach(item => {
           this.payMethodList.forEach(item1 => {
             if (item1.code == item.payMethod) {
               item.payMethodName = item1.name;
+              if (item.paid != null) {
+                item.paid = Number(item.paid) / 100;
+              }
             }
           });
         });

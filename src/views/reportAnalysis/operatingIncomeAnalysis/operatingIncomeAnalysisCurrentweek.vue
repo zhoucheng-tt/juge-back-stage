@@ -255,7 +255,7 @@ export default {
             //饼图显示百分比
             pointFormat: "{series.name} <b>{point.percentage:.1f}%</b>"
           },
-          colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC", "#AA4643"],
+          colors: ["#0D64F4", "#7654E3", "#FFBC00", "#00DBEC"],
           plotOptions: {
             pie: {
               allowPointSelect: true,
@@ -303,11 +303,11 @@ export default {
                 {
                   name: this.earnComponentOTHER[1],
                   y: this.earnComponentOTHER[0]
-                },
-                {
-                  name: this.earnComponentCASH[1],
-                  y: this.earnComponentCASH[0]
                 }
+                // {
+                //   name: this.earnComponentCASH[1],
+                //   y: this.earnComponentCASH[0]
+                // }
               ]
             }
           ]
@@ -382,7 +382,7 @@ export default {
           xAxis: {
             categories: this.paymentStyleAnalysisXz
           },
-          colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3", "#FFBC00"],
+          colors: ["#0D64F4", "#00DBEC", "#1EC193", "#7654E3"],
           yAxis: {
             title: {
               text: ""
@@ -399,7 +399,7 @@ export default {
             enabled: true,
             align: "center",
             verticalAlign: "left",
-            x: 150,
+            x: 200,
             y: 10,
             itemStyle: {
               color: "#666666",
@@ -441,7 +441,7 @@ export default {
               name: "ETC",
               data: this.paymentStyleAnalysisETC
             },
-            { name: "现金支付", data: this.paymentStyleAnalysisCASH },
+            // { name: "现金支付", data: this.paymentStyleAnalysisCASH },
             { name: "其他", data: this.paymentStyleAnalysisOTHER }
           ]
         };
