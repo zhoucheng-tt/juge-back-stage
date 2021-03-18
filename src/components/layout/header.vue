@@ -1,6 +1,6 @@
 <template>
   <div class="header-style">
-    <span class="head-title">小区物业管理系统</span>
+    <span class="head-title">溧水经开区管委会智慧停车管理平台</span>
     <!--天气类型-->
     <span class="head-weatherType">{{ weatherList.type }}</span>
     <!--最高最低天气-->

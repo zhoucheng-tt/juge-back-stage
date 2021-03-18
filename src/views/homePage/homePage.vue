@@ -6354,14 +6354,21 @@ export default {
       P5occupyList: [],
 
       //定时任务
-      countDownTime: 0
+      countDownTime: 0,
+      timer: null
     };
   },
   created() {
     // 实现轮询
-    window.setInterval(() => {
+    this.timer = setInterval(() => {
       setTimeout(this.getNewMessage(), 0);
     }, 300000);
+  },
+  destroyed() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
   },
   mounted() {
     this.userName = localStorage.getItem("userName");
