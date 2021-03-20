@@ -184,6 +184,7 @@
                 prop="parkId"
               >
                 <el-select
+                  style="width: 200px"
                   v-model="addWhiteData.parkId"
                   placeholder="请选择停车场"
                 >
@@ -218,6 +219,7 @@
                   prop="numberPlateColorCode"
                 >
                   <el-select
+                    style="width: 200px"
                     v-model="addWhiteData.plateColor"
                     placeholder="请选择"
                   >
@@ -261,7 +263,7 @@
             <el-row>
               <el-form-item label="备注:" label-width="150px">
                 <el-input
-                  style="width: 600px"
+                  style="width: 665px"
                   v-model="addWhiteData.remark"
                 ></el-input>
               </el-form-item>
@@ -288,15 +290,16 @@
             label-width="100px"
             v-model="modifyWhiteList"
           >
-            <!--                    归属停车场信息-->
+            <!--归属停车场信息-->
             <el-row>
               <p>归属停车场信息</p>
-              <el-col :span="12" style="display: flex;margin-left: 6%">
+              <el-col :span="12" style="display: flex;margin-left: 7.5%">
                 <div>
                   <p>归属停车场:</p>
                 </div>
-                <el-form-item style="margin-left: 1%">
+                <el-form-item style="margin-left: 1%" label-width="150px">
                   <el-select
+                    style="width: 200px"
                     v-model="modifyWhiteList.parkId"
                     placeholder="请选择停车场"
                     disabled
@@ -327,6 +330,7 @@
                 <el-col :span="12">
                   <el-form-item label="车牌颜色:" label-width="150px">
                     <el-select
+                      style="width: 200px"
                       v-model="modifyWhiteList.plateColor"
                       placeholder="请选择"
                     >
@@ -370,7 +374,7 @@
               <el-row>
                 <el-form-item label="备注:" label-width="150px">
                   <el-input
-                    style="width: 600px"
+                    style="width: 665px"
                     v-model="modifyWhiteList.remark"
                   ></el-input>
                 </el-form-item>

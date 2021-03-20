@@ -178,7 +178,7 @@
         <!--                    归属停车场信息-->
         <el-row>
           <el-form-item label="归属停车场：" prop="parkId">
-            <el-select v-model="addBlackData.parkId" placeholder="请选择停车场">
+            <el-select style="width: 200px" v-model="addBlackData.parkId" placeholder="请选择停车场">
               <el-option
                 v-for="(item, index) in parkLotNameList"
                 :label="item.name"

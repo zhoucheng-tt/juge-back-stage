@@ -27,21 +27,6 @@
             placeholder="计费规则名称"
           ></el-input>
         </el-form-item>
-        <!--        <el-form-item label="停车场：">-->
-        <!--          <el-select-->
-        <!--            size="small"-->
-        <!--            style="width: 160px"-->
-        <!--            v-model="formInline.parkId"-->
-        <!--            placeholder="请选择停车场"-->
-        <!--          >-->
-        <!--            <el-option-->
-        <!--              v-for="(item, index) in parkLotNameList"-->
-        <!--              :label="item.name"-->
-        <!--              :value="item.code"-->
-        <!--              :key="index"-->
-        <!--            ></el-option>-->
-        <!--          </el-select>-->
-        <!--        </el-form-item>-->
         <el-form-item>
           <el-button type="primary" @click="queryBillingRuleList"
             >查询
@@ -53,16 +38,9 @@
         <el-button type="primary" size="small" @click="addRule"
           >新增规则
         </el-button>
-        <!--        <el-button type="primary" size="small" @click="handleExport"-->
-        <!--          >导出</el-button-->
-        <!--        >-->
-        <!--        <el-button type="danger" size="small" @click="onBatch"-->
-        <!--          >批量删除</el-button-->
-        <!--        >-->
       </el-row>
     </div>
     <div class="backgroundLine"></div>
-
     <!-- 初始化页面表格表格 -->
     <div class="down">
       <el-table
@@ -264,7 +242,7 @@
             小型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="addChargeList.billingRuleDetailList[0].dayBillingPrice"
                 size="small"
@@ -306,7 +284,7 @@
             大型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="addChargeList.billingRuleDetailList[1].dayBillingPrice"
                 size="small"
@@ -449,7 +427,7 @@
             小型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="addChargeList.billingRuleDetailList[0].dayBillingPrice"
                 size="small"
@@ -493,7 +471,7 @@
             大型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="addChargeList.billingRuleDetailList[1].dayBillingPrice"
                 size="small"
@@ -660,13 +638,13 @@
             <div>重新计费时长</div>
           </div>
         </el-row>
-        <!--    获取的小型车辆数据-->
+        <!--获取的小型车辆数据-->
         <el-row style="width: 100%;height:50px;margin-top:1%;display:flex">
           <div style="width: 16%;height:50px">
             小型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
@@ -715,7 +693,7 @@
             大型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
@@ -770,6 +748,7 @@
                 checkChargeList.billingRuleDetailList[0].minBillingDurationCode
               "
               disabled
+              style="width: 200px"
             >
               <el-option
                 v-for="(item, index) in minTimeList"
@@ -876,7 +855,7 @@
             小型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   checkChargeList.billingRuleDetailList[0].dayBillingPrice
@@ -930,7 +909,7 @@
             大型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   checkChargeList.billingRuleDetailList[1].dayBillingPrice
@@ -1110,7 +1089,7 @@
             小型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   alertChargeList.billingRuleDetailList[0].dayBillingPrice
@@ -1155,7 +1134,7 @@
             大型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   alertChargeList.billingRuleDetailList[1].dayBillingPrice
@@ -1201,7 +1180,7 @@
         <span>按照时长计费</span>
         <el-form>
           <el-form-item label="最短计费时长:" label-width="150px">
-            <el-select
+            <el-select style="width: 200px"
               v-model="
                 alertChargeList.billingRuleDetailList[0].minBillingDurationCode
               "
@@ -1307,7 +1286,7 @@
             小型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   alertChargeList.billingRuleDetailList[0].dayBillingPrice
@@ -1353,7 +1332,7 @@
             大型车辆
           </div>
           <div style="width: 60%;height:50px;display:flex">
-            <div style="width: 50%;height:50px">
+            <div style="width: 43%;height:50px">
               <el-input
                 v-model="
                   alertChargeList.billingRuleDetailList[1].dayBillingPrice

@@ -7128,7 +7128,8 @@ export default {
               animation: false
             },
             column: {
-              borderWidth: 0,
+              borderWidth: 1,
+              borderColor: "black",
               pointWidth: 15, //柱子宽度
               // color: "#00AEFF",
               dataLabels: {
@@ -7301,7 +7302,7 @@ export default {
             type: "column",
             backgroundColor: "rgba(0,0,0,0)",
             renderTo: "washChargeInSevenDays",
-            marginBottom: 35
+            marginBottom: 40
           },
           title: {
             text: ""
