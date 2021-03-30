@@ -14,6 +14,26 @@ import main from "../components/main.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/induce",
+    name: "induce",
+    component: () => import("../../src/induce/induce"),
+    meta: {
+      name: "彩屏诱导",
+      icon: "",
+      type: "list"
+    }
+  },
+  {
+    path: "/colorInductionScreen",
+    name: "colorInductionScreen",
+    component: () => import("../colorInductionScreen/colorInductionScreen"),
+    meta: {
+      name: "彩屏诱导",
+      icon: "",
+      type: "list"
+    }
+  },
   // 登录
   {
     path: "/login",
