@@ -9,7 +9,8 @@ let BASE_API = "";
 
 if (env === "dev") {
   // BASE_API = "http://123.207.189.27:7138/";
-  BASE_API = "http://192.168.99.10:8000/";
+  // BASE_API = "http://192.168.99.10:8000/";
+  BASE_API = "http://221.226.72.122:8888/eparking-web/";
 } else if (env === "prod") {
   // BASE_API = "http://123.207.189.27:7138/";
   BASE_API = "http://192.168.99.10:8000/";

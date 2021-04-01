@@ -40,13 +40,13 @@
             </g>
             <g id="编组-3" transform="translate(279.000000, 29.000000)" fill="#FFFFFF">
               <polygon id="矩形" transform="translate(14.486743, 40.000000) rotate(-315.000000) translate(-14.486743, -40.000000) " points="3.9993946 30 24.9740913 38.2323814 13.5790421 39.6089984 13.2064727 50"></polygon>
-              <text id="西" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" letter-spacing="0.147368421">
-                <tspan x="6.9993946" y="15">西</tspan>
+              <text  id="西" font-family="PingFangSC-Regular, PingFang SC" font-size="18" font-weight="normal" letter-spacing="0.147368421">
+                <tspan x="6" y="12">西</tspan>
               </text>
             </g>
             <path d="M140.221712,136 L140.221,138.642 L143,138.642977 L143,143.357023 L140.221,143.357 L140.221712,146 L135,141 L140.221712,136 Z" id="形状结合" fill="#8FFFE5" transform="translate(139.000000, 141.000000) scale(1, -1) rotate(90.000000) translate(-139.000000, -141.000000) "></path>
-            <text id="员工停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="7" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-              <tspan x="121.315789" y="152">员工停车场</tspan>
+            <text id="员工停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
+              <tspan x="110" y="152">员工停车场</tspan>
             </text>
             <g id="编组-6" transform="translate(116.000000, 157.000000)">
               <rect id="矩形备份" stroke="#FAF82C" fill="#010302" x="0.5" y="0.5" width="46" height="17"></rect>
@@ -65,8 +65,8 @@
             </g>
             <path d="M145.221712,47 L145.221,49.642 L148,49.6429774 L148,54.3570226 L145.221,54.357 L145.221712,57 L140,52 L145.221712,47 Z" id="形状结合备份" fill="#00FFFD" transform="translate(144.000000, 52.000000) scale(-1, -1) rotate(-90.000000) translate(-144.000000, -52.000000) "></path>
             <g id="编组-7" transform="translate(120.000000, 13.000000)">
-              <text id="公共停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="7" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-                <tspan x="6.31578947" y="7">公共停车场</tspan>
+              <text id="公共停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
+                <tspan x="0" y="7">公共停车场</tspan>
               </text>
               <g id="编组" transform="translate(0.000000, 12.000000)">
                 <rect id="矩形" stroke="#FAF82C" fill="#010302" x="0.5" y="0.5" width="46" height="17"></rect>
@@ -102,13 +102,13 @@
                   {{P4LeftPort}}
                 </tspan>
               </text>
-              <text id="新能源停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="7" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-                <tspan x="2.27894737" y="7">新能源停车场</tspan>
+              <text id="新能源停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
+                <tspan x="0" y="7">新能源停车场</tspan>
               </text>
             </g>
             <g id="编组-9" transform="translate(134.000000, 79.000000)">
-              <text id="专用停车场" transform="translate(23.000000, 4.500000) rotate(-360.000000) translate(-23.000000, -4.500000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="7" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-                <tspan x="5.31578947" y="7">专用停车场</tspan>
+              <text id="专用停车场" transform="translate(23.000000, 4.500000) rotate(-360.000000) translate(-23.000000, -4.500000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
+                <tspan x="-12" y="7">专用停车场</tspan>
               </text>
               <rect id="矩形备份" stroke="#FAF82C" fill="#010302" transform="translate(23.500000, 21.000000) rotate(-360.000000) translate(-23.500000, -21.000000) " x="0.5" y="12.5" width="46" height="17"></rect>
               <text  v-if="P5LeftPortShow==0" id="218备份" transform="translate(23.500000, 20.000000) rotate(-360.000000) translate(-23.500000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#04F60F">

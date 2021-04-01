@@ -140,13 +140,6 @@ export default {
           routeName: "homePage",
           children: []
         },
-          {
-              code: "1",
-              logo: "el-icon-odometer",
-              name: "首页",
-              routeName: "youdao",
-              children: []
-          },
         // {
         //     code: '2',
         //     logo: 'el-icon-document',
