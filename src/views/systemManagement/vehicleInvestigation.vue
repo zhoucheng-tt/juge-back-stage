@@ -175,8 +175,8 @@ export default {
       var targetday = new Date();
       targetday.setTime(targetday_milliseconds);
       this.upQueryList = [
-        targetday.Format("yyyy-MM-dd hh:mm:ss"),
-        new Date().Format("yyyy-MM-dd hh:mm:ss")
+        targetday.Format("yyyy-MM-dd HH:mm:ss"),
+        new Date().Format("yyyy-MM-dd HH:mm:ss")
       ];
       // console.log(this.upQueryList);
     },

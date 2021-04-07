@@ -497,7 +497,6 @@ export default {
     onSubmitAdd() {
       this.$refs["addBlackDataR"].validate(valid => {
         if (valid) {
-          console.log(new Date().Format("yyyy-MM-dd hh:mm:ss"), new Date());
           //点击提交隐藏弹窗
           this.addBlackListDialog = false;
           const param = {

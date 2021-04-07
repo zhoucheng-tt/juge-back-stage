@@ -44,7 +44,7 @@
             size="small"
             style="width: 160px"
             placeholder="请选择起始日期"
-            value-format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
           <span>
@@ -56,7 +56,7 @@
             size="small"
             style="width: 160px"
             placeholder="请选择截止日期"
-            value-format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
         </el-form-item>
