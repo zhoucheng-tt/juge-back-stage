@@ -135,6 +135,12 @@
         <el-table-column :show-overflow-tooltip="true" label="操作">
           <template slot-scope="scope">
             <el-button
+              @click="handleClickOpenGate(scope.row)"
+              type="text"
+              size="small"
+            >开闸
+            </el-button>
+            <el-button
               @click="editGateDialog(scope.row)"
               type="text"
               size="small"
@@ -312,7 +318,7 @@
                   placeholder="请选择"
                 >
                   <el-option
-                    v-for="(item, index) in parkLotNameList"
+                    v-for="(item, index) in passagesList"
                     :label="item.name"
                     :value="item.code"
                     :key="index"
@@ -647,7 +653,10 @@ export default {
         columnName: ["passageway_id", "passageway_name"],
         tableName: "t_bim_passageway",
         //park_id=''通过拼接
-        whereStr: []
+        whereStr: [{
+            colName:"park_id",
+            value:code
+        }]
       };
       this.$homePage.queryDict(param).then(response => {
         //响应中的数据传给出入口
@@ -686,6 +695,29 @@ export default {
         }
       });
     },
+      //主动开闸
+      handleClickOpenGate(row){
+          this.$confirm("请确认是否要开闸?", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning"
+          })
+              .then(() => {
+                  const param={deviceId:row.passagewayGateId};
+                  this.$homePage.openGate(param).then(res=>{
+                      if(res.resultCode==="2000"){
+                          this.$message({
+                           type: "success", message: "开闸成功!"
+                          })
+                      }
+                      else {
+                          this.$message({
+                              type: "error", message: "开闸失败,请联系管理员!"
+                          })
+                      }
+                  })
+              })
+      },
     //删除一行
     deleteGate(row) {
       //点击删除按钮出现的提示框
@@ -712,6 +744,7 @@ export default {
           this.$message({ type: "info", message: "已取消删除" });
         });
     },
+
     //批量删除监听
     handleSelectionChange(val) {
       this.selectGateList = val;

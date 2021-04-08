@@ -24,6 +24,15 @@ export function loginOut(params) {
     data: params
   });
 }
+//主动开闸
+export function openGate(params) {
+  return request({
+    url: "/RealTimeMonitorController/openGate",
+    method: "post",
+    data: params
+  });
+}
+
 //停车场下拉代码
 export function queryDict(params) {
   return request({
