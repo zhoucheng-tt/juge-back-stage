@@ -1,155 +1,140 @@
-/**
-* @author admin
-* @since 2021-03-29
-* @data 2021-03-29
-*/
+<!--彩屏诱导-->
 <template>
-  <div class="mainBody">
-<!--    class="backBody"-->
-    <div >
-      <svg width="320px" height="192px" viewBox="0 0 320 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title></title>
-        <defs>
-          <polygon id="path-1" points="0 0.000177156177 19.2451133 0.000177156177 19.2451133 19.9826853 0 19.9826853"></polygon>
-        </defs>
-        <g id="智能停车备份-3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g id="编组-4" transform="translate(0.000000, -0.000000)">
-            <g id="编组-2">
-              <rect id="矩形" fill="#000000" transform="translate(160.000000, 96.000000) rotate(-90.000000) translate(-160.000000, -96.000000) " x="64" y="-64" width="192" height="320"></rect>
-              <g id="icon/park" transform="translate(23.000000, 144.000000)">
-                <rect id="矩形" stroke="#FFFFFF" fill="#00A8FF" x="0" y="0" width="24" height="24" rx="2"></rect>
-                <g id="编组" transform="translate(5.000000, 5.000000)" fill="#FFFFFF">
-                  <path d="M5.21184174,5.62853184 L2.00390328,5.62853184 L2.00390328,1.96256536 L5.21192072,1.96256536 C6.14966226,2.00612961 7.00929815,2.85535866 7.00929815,3.78029721 C7.00929815,4.70523575 6.14958328,5.58457654 5.21184174,5.62853184 M9.40695969,3.80172737 C9.40695969,1.70618547 7.66486431,0.00757094972 5.51573508,0.00757094972 C5.41788585,0.00757094972 5.32185303,0.0148446927 5.22574123,0.0218055866 L1.78838226,0.0218055866 L1.78838226,0.0290011173 L0.0297022564,0.0290011173 L0.0297022564,13.9377274 L2.00390328,13.9377274 L2.00390328,7.58376089 L5.21192072,7.58376089 C5.36252482,7.60088939 5.36070841,7.59596201 5.51581405,7.59596201 C7.66494328,7.5958838 9.40695969,5.8974257 9.40695969,3.80172737" id="Fill-2"></path>
-                  <path d="M12.9748554,12.0662324 C12.6630646,12.0662324 12.4090041,11.8142324 12.4090041,11.5061542 C12.4090041,11.1973721 12.6630646,10.946076 12.9748554,10.946076 C13.2863303,10.946076 13.5401538,11.1973721 13.5401538,11.5061542 C13.5401538,11.8143106 13.2863303,12.0662324 12.9748554,12.0662324 M8.32421333,12.0662324 C8.01210667,12.0662324 7.75836205,11.8142324 7.75836205,11.5061542 C7.75836205,11.1973721 8.01210667,10.946076 8.32421333,10.946076 C8.63576718,10.946076 8.88943289,11.1973721 8.88943289,11.5061542 C8.88959077,11.8143106 8.63584615,12.0662324 8.32421333,12.0662324 M8.24808205,10.0284894 C8.27746051,9.92227709 8.47418564,9.0899419 8.56129436,8.80157318 C8.59714872,8.70193073 8.8300441,8.4051933 9.1017159,8.42208715 L12.1798995,8.42208715 C12.4514133,8.40511508 12.6845456,8.70185251 12.7197682,8.80157318 C12.8072718,9.0899419 13.003681,9.92227709 13.0334544,10.0284894 C13.068519,10.1546458 12.9528215,10.1436179 12.9528215,10.1436179 L8.32879385,10.1436179 C8.32879385,10.1435397 8.21278051,10.1546458 8.24808205,10.0284894 M14.2105672,10.5134056 C14.1481774,10.389752 13.9764082,10.2489698 13.9764082,10.2489698 L13.2684031,8.37187486 C13.1214318,8.01608715 12.6887313,7.82837765 12.4999826,7.82837765 L8.78155385,7.82837765 C8.59264718,7.82837765 8.16026256,8.01608715 8.01321231,8.37187486 L7.30504923,10.2489698 C7.30504923,10.2489698 7.13367487,10.389752 7.07073231,10.5134056 C7.00786872,10.6365117 6.93939795,10.7467128 6.93939795,11.5788134 C6.93939795,12.390657 7.10382256,12.6790257 7.30031077,12.7791374 L7.45573231,12.8661877 L7.45573231,13.6198413 C7.45573231,13.8640983 7.51425231,13.9368358 7.74872718,13.9368358 L8.27453846,13.9368358 C8.50869744,13.9368358 8.66656718,13.9377743 8.66656718,13.6935173 L8.66656718,12.9604335 L12.6149692,12.9604335 L12.6149692,13.6935173 C12.6149692,13.9377743 12.7726021,13.9368358 13.006761,13.9368358 L13.5327303,13.9368358 C13.7670472,13.9368358 13.8255672,13.8640983 13.8255672,13.6198413 L13.8255672,12.8661877 L13.9809887,12.7791374 C14.1776349,12.6791039 14.3419015,12.3908134 14.3422175,11.5788134 C14.3422964,10.7467128 14.2737467,10.6365117 14.2105672,10.5134056" id="Fill-4"></path>
-                </g>
-              </g>
-              <text id="空余-车位" font-family="PingFangSC-Semibold, PingFang SC" font-size="10" font-weight="500" line-spacing="12" letter-spacing="0.105263158" fill="#FFFFFF">
-                <tspan x="51" y="154">空余</tspan>
-                <tspan x="51" y="166">车位</tspan>
-              </text>
-              <g id="icon/arrow" transform="translate(54.000000, 84.000000)">
-                <mask id="mask-2" fill="white">
-                  <use xlink:href="#path-1"></use>
-                </mask>
-                <g id="Clip-2"></g>
-                <path d="M19.2451133,5.49180606 L15.2357147,-3.54312354e-05 L15.2357147,2.62116737 L5.66892681,2.62116737 C2.53822284,2.62116737 -7.08624709e-05,5.15946107 -7.08624709e-05,8.29016503 L-7.08624709e-05,19.982827 L5.66892681,19.982827 L5.66892681,10.8727478 C5.66892681,9.44664056 6.82504802,8.29016503 8.25150956,8.29016503 L15.2357147,8.29016503 L15.2357147,10.9836476 L19.2451133,5.49180606 Z" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
-              </g>
-              <g id="编组-5" transform="translate(171.000000, 92.000000) scale(1, -1) rotate(90.000000) translate(-171.000000, -92.000000) translate(116.500000, 1.000000)" fill="#00FFF3">
-                <path d="M107.5,62.4697945 L107.5,70.4697945 L91,70.4697945 L91,163.499795 L108.5,163.5 L108.5,171.5 L63.499,171.499795 L63.5,181.969795 L53.5,181.969795 L53.499,171.499795 L9.5,171.5 L9.499,50.9997945 L0.5,51 L0.5,43 L9.499,42.9997945 L9.5,0.469794546 L17.5,0.469794546 L17.499,42.9997945 L17.5,43 L17.5,51 L17.499,50.9997945 L17.499,62.4697945 L107.5,62.4697945 Z M83,163.499795 L83,70.4697945 L17.499,70.4697945 L17.499,163.499795 L83,163.499795 Z" id="形状结合"></path>
-              </g>
-            </g>
-            <g id="编组-3" transform="translate(279.000000, 29.000000)" fill="#FFFFFF">
-              <polygon id="矩形" transform="translate(14.486743, 40.000000) rotate(-315.000000) translate(-14.486743, -40.000000) " points="3.9993946 30 24.9740913 38.2323814 13.5790421 39.6089984 13.2064727 50"></polygon>
-              <text  id="西" font-family="PingFangSC-Regular, PingFang SC" font-size="18" font-weight="normal" letter-spacing="0.147368421">
-                <tspan x="6" y="12">西</tspan>
-              </text>
-            </g>
-            <path d="M140.221712,136 L140.221,138.642 L143,138.642977 L143,143.357023 L140.221,143.357 L140.221712,146 L135,141 L140.221712,136 Z" id="形状结合" fill="#8FFFE5" transform="translate(139.000000, 141.000000) scale(1, -1) rotate(90.000000) translate(-139.000000, -141.000000) "></path>
-            <text id="员工停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-              <tspan x="110" y="152">员工停车场</tspan>
-            </text>
-            <g id="编组-6" transform="translate(116.000000, 157.000000)">
-              <rect id="矩形备份" stroke="#FAF82C" fill="#010302" x="0.5" y="0.5" width="46" height="17"></rect>
-              <text v-if="P2LeftPortShow==0" id="018" font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#04F60F">
-                <tspan x="11" y="14.5">{{P2LeftPort}}</tspan>
-              </text>
-              <text v-if="P2LeftPortShow==1" id="018" font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#04F60F">
-                <tspan x="14" y="14.5">{{P2LeftPort}}</tspan>
-              </text>
-              <text v-if="P2LeftPortShow==2" id="018" font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#FF0000">
-                <tspan x="14" y="14.5">{{P2LeftPort}}</tspan>
-              </text>
-              <text v-if="P2LeftPortShow==3" id="018" font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#FF0000">
-                <tspan x="18" y="14.5">{{P2LeftPort}}</tspan>
-              </text>
-            </g>
-            <path d="M145.221712,47 L145.221,49.642 L148,49.6429774 L148,54.3570226 L145.221,54.357 L145.221712,57 L140,52 L145.221712,47 Z" id="形状结合备份" fill="#00FFFD" transform="translate(144.000000, 52.000000) scale(-1, -1) rotate(-90.000000) translate(-144.000000, -52.000000) "></path>
-            <g id="编组-7" transform="translate(120.000000, 13.000000)">
-              <text id="公共停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-                <tspan x="0" y="7">公共停车场</tspan>
-              </text>
-              <g id="编组" transform="translate(0.000000, 12.000000)">
-                <rect id="矩形" stroke="#FAF82C" fill="#010302" x="0.5" y="0.5" width="46" height="17"></rect>
-                <text v-if="P1LeftPortShow==0" id="218" font-family="PingFangSC-Semibold, PingFang SC" font-size="15" font-weight="500" line-spacing="16" letter-spacing="0.157894737" fill="#04F60F">
-                  <tspan x="9" y="14.5">{{P1LeftPort}}</tspan>
-                </text>
-                <text v-if="P1LeftPortShow==1" id="218" font-family="PingFangSC-Semibold, PingFang SC" font-size="15" font-weight="500" line-spacing="16" letter-spacing="0.157894737" fill="#04F60F">
-                  <tspan x="14.5" y="14.5">{{P1LeftPort}}</tspan>
-                </text>
-                <text v-if="P1LeftPortShow==2" id="218" font-family="PingFangSC-Semibold, PingFang SC" font-size="15" font-weight="500" line-spacing="16" letter-spacing="0.157894737" fill="#FF0000">
-                  <tspan x="14.5" y="14.5">{{P1LeftPort}}</tspan>
-                </text>
-                <text v-if="P1LeftPortShow==3" id="218" font-family="PingFangSC-Semibold, PingFang SC" font-size="15" font-weight="500" line-spacing="16" letter-spacing="0.157894737" fill="#FF0000">
-                  <tspan x="19" y="14.5">{{P1LeftPort}}</tspan>
-                </text>
-              </g>
-            </g>
-            <path d="M189.221712,87 L189.221,89.642 L192,89.6429774 L192,94.3570226 L189.221,94.357 L189.221712,97 L184,92 L189.221712,87 Z" id="形状结合备份-2" fill="#00FFFD"></path>
-            <g id="编组-8" transform="translate(215.000000, 87.000000)">
-              <rect id="矩形备份" stroke="#FAF82C" fill="#010302" transform="translate(23.500000, 21.000000) rotate(-360.000000) translate(-23.500000, -21.000000) " x="0.5" y="12.5" width="46" height="17"></rect>
-              <text v-if="P4LeftPortShow==0" id="218备份" transform="translate(23.000000, 20.000000) rotate(-360.000000) translate(-23.000000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#04F60F">
-                <tspan x="14.5" y="26.5" >
-                  {{P4LeftPort}}
-                </tspan>
-              </text>
-              <text v-if="P4LeftPortShow==1" id="218备份" transform="translate(23.000000, 20.000000) rotate(-360.000000) translate(-23.000000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#FF0000">
-                <tspan x="14.5" y="26.5" >
-                  {{P4LeftPort}}
-                </tspan>
-              </text>
-              <text v-if="P4LeftPortShow==2" id="218备份" transform="translate(23.000000, 20.000000) rotate(-360.000000) translate(-23.000000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#FF0000">
-                <tspan x="19" y="26.5" >
-                  {{P4LeftPort}}
-                </tspan>
-              </text>
-              <text id="新能源停车场" font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-                <tspan x="0" y="7">新能源停车场</tspan>
-              </text>
-            </g>
-            <g id="编组-9" transform="translate(134.000000, 79.000000)">
-              <text id="专用停车场" transform="translate(23.000000, 4.500000) rotate(-360.000000) translate(-23.000000, -4.500000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="12" font-weight="500" letter-spacing="0.0736842105" fill="#FFFFFF">
-                <tspan x="-12" y="7">专用停车场</tspan>
-              </text>
-              <rect id="矩形备份" stroke="#FAF82C" fill="#010302" transform="translate(23.500000, 21.000000) rotate(-360.000000) translate(-23.500000, -21.000000) " x="0.5" y="12.5" width="46" height="17"></rect>
-              <text  v-if="P5LeftPortShow==0" id="218备份" transform="translate(23.500000, 20.000000) rotate(-360.000000) translate(-23.500000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#04F60F">
-                <tspan x="14" y="26.5">{{P5LeftPort}}</tspan>
-              </text>
-              <text v-if="P5LeftPortShow==1"  id="218备份" transform="translate(23.500000, 20.000000) rotate(-360.000000) translate(-23.500000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#04F60F">
-                <tspan x="19" y="26.5">{{P5LeftPort}}</tspan>
-              </text>
-              <text  v-if="P5LeftPortShow==2" id="218备份" transform="translate(23.500000, 20.000000) rotate(-360.000000) translate(-23.500000, -20.000000) " font-family="PingFangSC-Semibold, PingFang SC" font-size="14" font-weight="500" line-spacing="14" letter-spacing="0.147368421" fill="#FF0000">
-                <tspan x="19" y="26.5">{{P5LeftPort}}</tspan>
-              </text>
-            </g>
-            <path d="M204.221712,109 L204.221,111.642 L207,111.642977 L207,116.357023 L204.221,116.357 L204.221712,119 L199,114 L204.221712,109 Z" id="形状结合备份" fill="#00FFFD" transform="translate(203.000000, 114.000000) scale(1, -1) rotate(-180.000000) translate(-203.000000, -114.000000) "></path>
-          </g>
+  <div class="body">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 192">
+      <defs></defs>
+      <title></title>
+      <g id="图层_1" data-name="图层 1">
+        <rect id="矩形" width="320" height="192"/>
+      </g>
+      <g id="图层_10" data-name="图层 10">
+        <g class="cls-1">
+          <polyline class="cls-2" points="210.75 125.21 210.75 126.21 209.75 126.21"/>
+          <line class="cls-3" x1="207.71" y1="126.21" x2="118.93" y2="126.21"/>
+          <polyline class="cls-2" points="117.91 126.21 116.91 126.21 116.91 125.21"/>
+          <line class="cls-4" x1="116.91" y1="123.18" x2="116.91" y2="75.56"/>
+          <polyline class="cls-2" points="116.91 74.55 116.91 73.55 117.91 73.55"/>
+          <line class="cls-3" x1="119.95" y1="73.55" x2="208.73" y2="73.55"/>
+          <polyline class="cls-2" points="209.75 73.55 210.75 73.55 210.75 74.55"/>
+          <line class="cls-4" x1="210.75" y1="76.57" x2="210.75" y2="124.2"/>
         </g>
-      </svg>
-    </div>
+        <line class="cls-5" x1="116.75" y1="115.6" x2="127.29" y2="127.28"/>
+        <line class="cls-5" x1="117.22" y1="105.25" x2="136.76" y2="126.22"/>
+        <line class="cls-5" x1="147.26" y1="126.14" x2="116.99" y2="93.62"/>
+        <line class="cls-5" x1="117.53" y1="80.49" x2="160.13" y2="125.52"/>
+        <line class="cls-5" x1="124.4" y1="74.14" x2="173.25" y2="125.53"/>
+        <line class="cls-5" x1="138.1" y1="74.14" x2="186.96" y2="125.53"/>
+        <line class="cls-5" x1="152.61" y1="74.14" x2="201.46" y2="125.53"/>
+        <line class="cls-5" x1="166.58" y1="74.14" x2="210.94" y2="120.82"/>
+        <line class="cls-5" x1="180.73" y1="73.75" x2="209.99" y2="104.7"/>
+        <line class="cls-5" x1="196.07" y1="74.01" x2="210.25" y2="88.96"/>
+      </g>
+      <g id="图层_9" data-name="图层 9">
+        <path class="cls-6" d="M278,131.45H228.5V111.89h3.16v3.17l6.27-6-6.27-6v3.17H228.5V82.51h8l2.3-5.19-2.33-4.81h-8V42.89l-5.07-3.11-4.93,3.12V59H166.82V56H170l-6-6.27L158,56h3.18v3H109.46V28.41L104.1,24.8l-4.64,3.65V101.5H89v12H99.46v27.95H166v3.1h-3.18l6,6.26,6-6.26h-3.17v-3.1H236v8.61l4.75,2.46,5.25-2.43v-8.64h32l3.7-5Zm-59.5,0h-109V69h109Z"/></g><g id="图层_8" data-name="图层 8"><g class="cls-7">
+      <text class="cls-8" transform="translate(14.04 35.46)">溧水经济开发区</text>
+      <text class="cls-8" transform="translate(14.04 47.06)">管委会停车场</text>
+    </g>
+    </g>
+      <g id="图层_7" data-name="图层 7">
+        <rect id="矩形-4" class="cls-9" x="12.53" y="158.7" width="16.17" height="16.17" rx="1.35"/>
+        <g id="编组">
+          <path id="Fill-2" class="cls-10" d="M19.41,165.86H17.25v-2.47h2.16a1.24,1.24,0,0,1,0,2.47m2.83-1.23a2.59,2.59,0,0,0-2.63-2.55H15.92v9.37h1.33v-4.28h2.36a2.59,2.59,0,0,0,2.63-2.55h0"/>
+          <path id="Fill-4" class="cls-10" d="M24.64,170.2a.38.38,0,1,1,.38-.38.38.38,0,0,1-.38.38h0m-3.13,0a.39.39,0,0,1-.44-.31.39.39,0,0,1,.32-.44h.12a.39.39,0,0,1,.44.31.39.39,0,0,1-.32.44.24.24,0,0,1-.12,0m-.06-1.37c0-.07.16-.63.22-.83a.46.46,0,0,1,.36-.25H24.1a.45.45,0,0,1,.37.25c.06.2.19.76.21.83a.07.07,0,0,1,0,.08H21.51a.06.06,0,0,1-.06-.06v0m4,.33a.69.69,0,0,0-.16-.18l-.47-1.27a.66.66,0,0,0-.52-.36H21.81a.66.66,0,0,0-.51.36L20.82,169a.69.69,0,0,0-.16.18,2.14,2.14,0,0,0-.09.71c0,.56.11.74.25.81l.1.06v.51c0,.16,0,.21.2.21h.35c.16,0,.27,0,.27-.16v-.5H24.4v.5c0,.16.1.16.26.16H25c.15,0,.19,0,.19-.21v-.51l.11-.06c.13-.07.24-.26.24-.81s0-.63-.09-.71"/>
+        </g>
+        <path class="cls-11" d="M35.1,160.53h2.56V162H37v-.83H35.78v1c0,.12.07.19.22.19h1.47v.57H35.7c-.36,0-.54-.16-.54-.49v-1.22H34l.55.06a3.39,3.39,0,0,1-2.33,1.92l-.3-.56a2.86,2.86,0,0,0,2-1.42H32.51V162h-.64v-1.42h2.56a5.77,5.77,0,0,0-.27-.56l.7-.11C34.94,160.07,35,160.29,35.1,160.53Zm2,2.77v.61h-2v1.4h2.57v.61h-5.8v-.61h2.56v-1.4h-2v-.61Z"/>
+        <path class="cls-11" d="M41.8,159.93a9.92,9.92,0,0,0,2.92,1.81l-.34.58a9.25,9.25,0,0,1-1-.49v.48H41.94V163h2.4v.62h-2.4v1.66a.67.67,0,0,1-.58.75h-1l-.14-.61H41a.32.32,0,0,0,.36-.28v-1.56H38.81V163h2.51v-.72H39.75v-.49c-.32.19-.66.36-1,.52l-.33-.6a9.78,9.78,0,0,0,3-1.81Zm-1.2,4.31a4.11,4.11,0,0,1-1.46,1.58l-.49-.41A3.46,3.46,0,0,0,40,164Zm2.55-2.54a8.08,8.08,0,0,1-1.58-1.21A8.42,8.42,0,0,1,40,161.7Zm1.4,3.74-.54.38a12.78,12.78,0,0,0-1.42-1.61l.49-.31A14.25,14.25,0,0,1,44.55,165.44Z"/>
+        <path class="cls-11" d="M33.51,168.82l.36-.86.64.14-.31.72h3.36v.62H33.9a10.3,10.3,0,0,1-.88,1.37h1.5v-.91h.65v.91h2v.58h-2v.86h2.49v.62H35.17v1.39h-.65v-1.39H31.87v-.62h2.65v-.86H32.35l-.15-.58a6.42,6.42,0,0,0,1-1.37H32v-.62Z"/>
+        <path class="cls-11" d="M40.54,168.23a7.68,7.68,0,0,1-.66,1.46v4.54h-.63v-3.6q-.3.38-.63.72l-.21-.68A7.5,7.5,0,0,0,39.94,168Zm2,5.09A20,20,0,0,0,43.4,170l.62.16a22.91,22.91,0,0,1-.82,3.16h1.44v.62H40.29v-.62ZM42.15,169c-.1-.32-.2-.62-.31-.9l.67-.11c.09.3.19.64.28,1H44.5v.62H40.41V169ZM42,173l-.59.16a23.94,23.94,0,0,0-.68-2.9l.59-.19A26.49,26.49,0,0,1,42,173Z"/>
+      </g>
+      <g id="图层_6" data-name="图层 6">
+        <g id="公共停车场">
+          <text class="cls-12" transform="translate(142.04 25.78)">公共停车场</text>
+        </g>
+        <rect id="矩形-3" class="cls-13" x="143.23" y="31.76" width="42" height="17"/>
+        <g id="_218" data-name=" 218" >
+          <text class="cls-100"  v-if="P1LeftPortShow==0"
+                transform="translate(156.23 45.5)" x="-6">{{P1LeftPort}}</text>
+          <text class="cls-100" v-if="P1LeftPortShow==1"
+                transform="translate(156.23 45.5)" >{{P1LeftPort}}</text>
+          <text class="cls-14" v-if="P1LeftPortShow==2"
+                transform="translate(156.23 45.5)">{{P1LeftPort}}</text>
+          <text class="cls-14" v-if="P1LeftPortShow==3"
+                transform="translate(156.23 45.5)" x="4.5">{{P1LeftPort}}</text>
+        </g>
+        <g id="编组-2">
+          <path id="Fill-2-2" class="cls-10" d="M130.12,38.06h-3.21V34.39h3.21a1.84,1.84,0,0,1,0,3.67m4.19-1.83a3.84,3.84,0,0,0-3.89-3.79h-5.49V46.37h2V40h3.51a3.84,3.84,0,0,0,3.89-3.79h0"/>
+          <path id="Fill-4-2" class="cls-10" d="M137.88,44.5a.56.56,0,1,1,0-1.12h0a.56.56,0,1,1,0,1.12h0m-4.65,0a.56.56,0,1,1,0-1.12h0a.56.56,0,1,1,0,1.12h0m-.08-2c0-.11.23-.94.32-1.23a.64.64,0,0,1,.54-.38h3.07a.64.64,0,0,1,.54.38c.09.29.29,1.12.32,1.23a.08.08,0,0,1-.08.11h-4.63a.08.08,0,0,1-.08-.11m6,.48a1,1,0,0,0-.23-.26l-.71-1.88a1,1,0,0,0-.77-.54h-3.71a1,1,0,0,0-.77.54l-.71,1.88A1.48,1.48,0,0,0,132,43c-.06.13-.13.24-.13,1.07s.17,1.1.36,1.2l.16.09v.75c0,.25.06.32.29.32h.53c.23,0,.39,0,.39-.25v-.73h4v.73c0,.25.16.25.39.25h.53c.23,0,.29-.07.29-.32V45.3l.16-.09c.19-.1.36-.39.36-1.2s-.07-.94-.14-1.07"/></g></g><g id="图层_5" data-name="图层 5">
+      <g id="icon_arrow" data-name="icon arrow">
+        <path id="Fill-1" class="cls-10" d="M79.77,108.65l-4-5.49v2.62H66.19a5.67,5.67,0,0,0-5.67,5.67v11.69h5.67V114a2.6,2.6,0,0,1,2.58-2.58h7v2.69Z"/>
+      </g>
+      <text class="cls-15" transform="translate(56.56 133.22)">入口</text>
+    </g>
+      <g id="图层_4" data-name="图层 4">
+        <g id="员工停车场">
+          <text class="cls-15" transform="translate(111.95 168.31)">员工停车场</text>
+        </g>
+        <rect id="矩形备份" class="cls-13" x="171.04" y="154.89" width="42.77" height="17"/>
+        <text class="cls-100" v-if="P2LeftPortShow==0"
+              transform="translate(182 169)" x="-3" >{{P2LeftPort}}</text>
+        <text class="cls-100" v-if="P2LeftPortShow==1"
+              transform="translate(182 169)" x="1.8">{{P2LeftPort}}</text>
+        <text class="cls-14" v-if="P2LeftPortShow==2"
+              transform="translate(182 169)" x="1.8">{{P2LeftPort}}</text>
+        <text class="cls-14" v-if="P2LeftPortShow==3"
+              transform="translate(182 169)" x="6">{{P2LeftPort}}</text>
+        <g id="编组-4">
+          <path id="Fill-2-4" class="cls-10" d="M157.51,161.5h-3.2v-3.67h3.2a1.84,1.84,0,0,1,0,3.67m4.2-1.83a3.84,3.84,0,0,0-3.89-3.79h-5.49v13.91h2v-6.36h3.51a3.84,3.84,0,0,0,3.89-3.79h0"/>
+          <path id="Fill-4-4" class="cls-10" d="M165.28,167.94a.56.56,0,1,1,0-1.12h0a.56.56,0,0,1,0,1.12m-4.65,0a.56.56,0,1,1,.56-.56h0a.56.56,0,0,1-.56.56m-.08-2c0-.11.23-.94.31-1.23a.67.67,0,0,1,.54-.38h3.08a.67.67,0,0,1,.54.38c.09.29.29,1.12.32,1.23a.08.08,0,0,1-.08.11h-4.63a.08.08,0,0,1-.08-.11m6,.48a1,1,0,0,0-.23-.26l-.71-1.88a1,1,0,0,0-.77-.54h-3.72a1,1,0,0,0-.76.54l-.71,1.88a1.48,1.48,0,0,0-.24.26c-.06.13-.13.24-.13,1.07s.17,1.1.36,1.2l.16.09v.75c0,.25.06.32.29.32h.53c.23,0,.39,0,.39-.25v-.73h4v.73c0,.25.16.25.39.25h.53c.23,0,.29-.07.29-.32v-.75l.15-.09c.2-.1.36-.39.37-1.2s-.07-.94-.14-1.07"/>
+        </g>
+      </g>
+      <g id="图层_3" data-name="图层 3">
+        <rect id="矩形备份-2" class="cls-13" x="260.85" y="105.85" width="42" height="17"/>
+        <g id="_218备份" data-name=" 218备份">
+          <text class="cls-100" v-if="P4LeftPortShow==0"
+                transform="translate(276.66 119.35)" x="-3" y="0.5">{{P4LeftPort}}</text>
+          <text class="cls-14" v-if="P4LeftPortShow==1"
+                transform="translate(276.66 119.35)" x="-2.8" y="0.7">{{P4LeftPort}}</text>
+          <text class="cls-14" v-if="P4LeftPortShow==2"
+                transform="translate(276.66 119.35)"  x="0.5" y="0.7">{{P4LeftPort}}</text>
+        </g><g id="新能源停车场">
+        <text class="cls-15" transform="translate(260.79 100.35)">新能源停车场</text>
+      </g>
+        <g id="编组-3">
+          <path id="Fill-2-3" class="cls-10" d="M248.07,113.83h-3.21v-3.67h3.21a1.94,1.94,0,0,1,1.79,1.82,2,2,0,0,1-1.79,1.85m4.19-1.83a3.84,3.84,0,0,0-3.89-3.79h-5.49v13.91h2v-6.36h3.51a3.84,3.84,0,0,0,3.89-3.79h0"/>
+          <path id="Fill-4-3" class="cls-10" d="M255.83,120.27a.56.56,0,1,1,0-1.12.56.56,0,0,1,.56.56h0a.57.57,0,0,1-.56.56m-4.65,0a.56.56,0,1,1,0-1.12.56.56,0,0,1,.56.56.57.57,0,0,1-.56.56m-.08-2c0-.11.23-.94.31-1.23a.66.66,0,0,1,.55-.38h3a.61.61,0,0,1,.54.38c.09.29.29,1.12.32,1.23a.08.08,0,0,1-.08.11h-4.63a.08.08,0,0,1-.08-.11m6,.48a1,1,0,0,0-.23-.26l-.71-1.88a1,1,0,0,0-.77-.54h-3.71a1,1,0,0,0-.77.54l-.71,1.88a1.48,1.48,0,0,0-.24.26c-.06.13-.13.24-.13,1.07s.17,1.1.36,1.2l.16.09v.75c0,.24.06.32.29.32h.53c.23,0,.39,0,.39-.25v-.73h3.95v.73c0,.25.16.25.39.25h.53c.23,0,.29-.08.29-.32v-.75l.15-.09c.2-.1.37-.39.37-1.2s-.07-.94-.14-1.07"/>
+        </g>
+      </g>
+      <g id="图层_2" data-name="图层 2">
+        <polygon id="矩形-2" class="cls-17" points="293.36 41.98 300.43 58.18 293.34 52.62 287.37 58.18 293.36 41.98"/>
+        <g id="西">
+          <text class="cls-18" transform="translate(288.39 33.61)">西</text>
+        </g>
+      </g>
+    </svg>
   </div>
 </template>
-<script>
 
+<script>
     export default {
         name: "induce",
         components: {},
         data() {
             return {
                 timer:null,
-                P3LeftPort: 0,//47
                 P1LeftPort: 0,//158
                 P2LeftPort: 0,//110
-                P4LeftPort: 0,//28
-                P5LeftPort: 0,//14
+                P4LeftPort:0,//28
                 //公共停车场158 100-158为0 80-99为1(绿)  10-79为2  0-9为3(红)
-                P1LeftPortShow:0,
+                P1LeftPortShow:3,
                 //员工停车场110 100-110为0 56-99为1(绿) 10-55为2  0-9为3(红)
-                P2LeftPortShow:0,
+                P2LeftPortShow:3,
                 //新能源停车场28 15-28为0(绿) 10-14为1 0-9为2(红)
-                P4LeftPortShow:0,
+                P4LeftPortShow:2,
+                P3LeftPort: 0,//47
+                P5LeftPort: 0,//14
                 //专用停车场14 10-14为0 8-9为1 (绿) 0-7为2(红)
                 P5LeftPortShow:0,
-                socailParkName:"社会停车场",
+                socailParkName:"公共停车场",
                 socailPark:500,
                 socailParkLeft:218,
                 staffParkName:"员工停车场",
@@ -224,11 +209,6 @@
                         this.P2LeftPortShow=3
                     }
                 });
-                //临时停车场剩余车位数
-                const param3 = "HZH01";
-                this.$homePage.queryEmptySpace(param3).then(res => {
-                    this.P3LeftPort = res.resultEntity;
-                });
                 //新能源停车场剩余车位数
                 const param4 = "JQ01";
                 this.$homePage.queryEmptySpace(param4).then(res => {
@@ -242,6 +222,11 @@
                     else if(this.P4LeftPort>=0&&this.P4LeftPort<=9){
                         this.P4LeftPortShow=2
                     }
+                });
+                //临时停车场剩余车位数
+                const param3 = "HZH01";
+                this.$homePage.queryEmptySpace(param3).then(res => {
+                    this.P3LeftPort = res.resultEntity;
                 });
                 //专用停车场剩余车位数
                 const param5 = "SJDA01";
@@ -261,19 +246,85 @@
         },
     }
 </script>
-<style scoped>
-  .mainBody{
-    width: 100%;
-    height: 100%;
-    background-color: #f5f6f7;
-  }
-  .backBody{
+<style  scoped>
+  .body{
     width: 320px;
     height: 192px;
-    background-color:#000000;
-    position: relative;
-    margin-left: 800px;
-    margin-top:444px ;
   }
-
+  .cls-1,.cls-5{
+    opacity:0.5
+  }
+  .cls-13,.cls-2,.cls-3,.cls-4,.cls-5 {
+    fill:none;stroke-width:0.5px;
+  }
+  .cls-2,.cls-3,.cls-4,.cls-5{
+    stroke:#0aa2ff;stroke-miterlimit:10;
+  }
+  .cls-3{
+    stroke-dasharray:2.04 2.04;
+  }
+  .cls-4{
+    stroke-dasharray:2.03 2.03;
+  }
+  .cls-5{
+    stroke-dasharray:2 2;
+  }
+  .cls-12,.cls-14,.cls-15,.cls-18,.cls-5,.cls-7,.cls-8 .cls-100{
+    isolation:isolate;
+  }
+  .cls-6{
+    fill:#00fff3;
+  }
+  .cls-8{
+    font-size:10px;
+    fill:#00fffd;
+    font-family:PingFangSC-Medium-GBpc-EUC-H, PingFang SC;
+    letter-spacing:0.05em;
+  }
+  .cls-9{
+    fill:#00a8ff;stroke:#fff;stroke-width:0.75px;
+  }
+  .cls-10,.cls-11,.cls-12,.cls-15,.cls-18{
+    fill:#fff;
+  }
+  .cls-10,.cls-17{
+    fill-rule:evenodd;
+  }
+  .cls-12{
+    font-size:8px;letter-spacing:0.01em;
+  }
+  .cls-12,.cls-15{
+    font-family:PingFangHK-Medium-B5pc-H, PingFang HK;
+  }
+  .cls-13{
+    stroke:#00ff97;
+  }
+  .cls-14{
+    font-size:15px;
+    font-family:Helvetica-Bold, Helvetica;
+    font-weight:700;
+    letter-spacing:0.01em;
+  }
+  .cls-100{
+    font-size:15px;
+    font-family:Helvetica-Bold, Helvetica;
+    font-weight:700;
+    letter-spacing:0.01em;
+    fill:#04F60F;
+  }
+  .cls-14,.cls-16{
+    fill:#f40606;
+  }
+  .cls-15{
+    font-size:7px;
+    letter-spacing:0.01em;
+  }
+  .cls-17{
+    fill:#f9e100;
+  }
+  .cls-18{
+    font-size:11px;
+    font-family:PingFangSC-Regular-GBpc-EUC-H, PingFang SC;
+    letter-spacing:0.01em;
+  }
 </style>

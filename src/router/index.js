@@ -34,6 +34,16 @@ const routes = [
       type: "list"
     }
   },
+  {
+    path: "/inductionScreen",
+    name: "inductionScreen",
+    component: () => import("../inductionScreen/inductionScreen"),
+    meta: {
+      name: "彩屏诱导",
+      icon: "",
+      type: "list"
+    }
+  },
   // 登录
   {
     path: "/login",
