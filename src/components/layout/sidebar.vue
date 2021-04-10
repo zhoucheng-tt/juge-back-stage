@@ -184,7 +184,14 @@ export default {
               logo: "el-icon-menu",
               name: "洗车机报警信息统计",
               routeName: "alarmInformationCarWashingMachine"
-            }
+            },
+              //洗车运营分析
+              {
+                  code: "3-6",
+                  logo: "el-icon-menu",
+                  name: "洗车运营分析",
+                  routeName: "realTimeMonitoringCarWaring"
+              },
           ]
         },
         {
@@ -193,15 +200,9 @@ export default {
           name: "实时监测",
           // routeName: 'realTimeMonitoringCarWaring'
           children: [
-            {
-              code: "4-1",
-              logo: "el-icon-menu",
-              name: "洗车运营分析",
-              routeName: "realTimeMonitoringCarWaring"
-            },
             // 出入口监测
             {
-              code: "4-2",
+              code: "4-1",
               logo: "el-icon-menu",
               name: "出入口监测",
               routeName: "entranceExitMonitoring"

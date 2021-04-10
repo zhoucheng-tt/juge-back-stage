@@ -183,9 +183,9 @@
               </el-row>
             </el-row>
 
-            <span slot="footer" class="dialog-footer">
-              <el-button @click="upDetailDialogVisible = false">关闭</el-button>
-            </span>
+<!--            <span slot="footer" class="dialog-footer">-->
+<!--              <el-button @click="upDetailDialogVisible = false">关闭</el-button>-->
+<!--            </span>-->
           </el-dialog>
         </el-row>
       </el-row>
@@ -364,11 +364,11 @@
                 <el-row> 备注:{{ selectedInRecord2.remark }}</el-row>
               </el-row>
             </el-row>
-            <span slot="footer" class="dialog-footer">
-              <el-button @click="downDetailDialogVisible = false"
-                >关闭</el-button
-              >
-            </span>
+<!--            <span slot="footer" class="dialog-footer">-->
+<!--              <el-button @click="downDetailDialogVisible = false"-->
+<!--                >关闭</el-button-->
+<!--              >-->
+<!--            </span>-->
           </el-dialog>
         </el-row>
       </el-row>

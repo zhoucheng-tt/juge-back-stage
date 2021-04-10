@@ -238,6 +238,7 @@ export default {
           item.avgParkDuration = Number(item.avgParkDuration).toFixed(0);
           item.turnoverRate = Number(item.turnoverRate).toFixed(2);
           item.usageRate = Number(item.usageRate).toFixed(2);
+            item.income=Number(Number(item.income)/100).toFixed(2)
         });
         this.pageTotal = res.resultEntity.total;
       });

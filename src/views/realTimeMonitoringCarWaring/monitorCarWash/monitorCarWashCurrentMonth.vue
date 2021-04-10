@@ -132,7 +132,7 @@ export default {
       this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
           this.revenueCarWashingAnalysisXz.push(item.time.replaceAll("-", "")),
-            this.revenueCarWashingAnalysisY.push(Number(item.amount));
+            this.revenueCarWashingAnalysisY.push(Number(item.amount)/100);
         });
         this.revenueCarWashingAnalysisOption = {
           chart: {
@@ -229,13 +229,13 @@ export default {
         });
         this.carWashTypeIncomeAnalysisJINGList.forEach(item => {
           this.carWashTypeIncomeAnalysisXz.push(item.time.replaceAll("-", ""));
-          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.income));
+          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.income)/100);
         });
         this.carWashTypeIncomeAnalysisPUList.forEach(item => {
-          this.carWashTypeIncomeAnalysisPUY.push(Number(item.income));
+          this.carWashTypeIncomeAnalysisPUY.push(Number(item.income)/100);
         });
         this.carWashTypeIncomeAnalysisKUAIList.forEach(item => {
-          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.income));
+          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.income)/100);
         });
         this.carWashTypeIncomeAnalysisOption = {
           chart: {
@@ -330,7 +330,7 @@ export default {
       const param = { queryDate: "currentMonth" };
       this.$realTimeMonitor.queryCarWashCountAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
-          this.carWashTimesAnalysisXz.push(item.time.replace("-", ""));
+          this.carWashTimesAnalysisXz.push(item.time.replaceAll("-", ""));
           this.carWashTimesAnalysisY.push(Number(item.times));
         });
         this.carWashTimesAnalysisOption = {
@@ -427,7 +427,7 @@ export default {
           }
         });
         this.carWashTypeTimesAnalysisJINGList.forEach(item => {
-          this.carWashTypeTimesAnalysisXz.push(item.time.replace("-", ""));
+          this.carWashTypeTimesAnalysisXz.push(item.time.replaceAll("-", ""));
           this.carWashTypeTimesAnalysisJINGY.push(Number(item.times));
         });
         this.carWashTypeTimesAnalysisPUList.forEach(item => {

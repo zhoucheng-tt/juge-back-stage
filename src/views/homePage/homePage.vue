@@ -6502,7 +6502,7 @@ export default {
       if (code == 1) {
         this.$router.push("/analysisOnOperationIndexOfParking");
       } else if (code == 2) {
-        this.$router.push("/realTimeMonitoringCarWaring");
+        this.$router.push("/entranceExitMonitoring");
       } else if (code == 3) {
         this.$router.push("/parkingOrderInquiry");
       } else if (code == 4) {

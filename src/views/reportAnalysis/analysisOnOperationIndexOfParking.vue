@@ -324,7 +324,7 @@ export default {
             renderTo: "numberOfParking"
           },
           title: {
-            text: this.numberOfParkingName,
+            text:"停车数量(统计周期内总和)",
             align: "left",
             x: 20,
             style: {
@@ -433,7 +433,7 @@ export default {
             renderTo: "averageParkingTime"
           },
           title: {
-            text: this.averageParkingTimeName,
+            text: "平均停车时长(统计周期内总和)",
             align: "left",
             x: 20,
             style: {
@@ -545,7 +545,7 @@ export default {
             renderTo: "parkingSpaceUtilization"
           },
           title: {
-            text: this.parkingSpaceUtilizationName,
+            text: "车位利用率(统计周期内总和)",
             align: "left",
             x: 20,
             style: {
@@ -655,7 +655,7 @@ export default {
             renderTo: "parkingSpaceTurnoverRate"
           },
           title: {
-            text: this.parkingSpaceTurnoverRateName,
+            text: '车位周转率(统计周期内总和)',
             align: "left",
             x: 20,
             style: {

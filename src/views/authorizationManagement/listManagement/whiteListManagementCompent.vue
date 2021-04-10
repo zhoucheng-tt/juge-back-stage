@@ -105,16 +105,16 @@
           :show-overflow-tooltip="true"
           label="车牌颜色"
         />
-        <el-table-column
-          prop="effectiveTime"
-          :show-overflow-tooltip="true"
-          label="生效时间"
-        />
-        <el-table-column
-          prop="expirationTime"
-          :show-overflow-tooltip="true"
-          label="失效时间"
-        />
+<!--        <el-table-column-->
+<!--          prop="effectiveTime"-->
+<!--          :show-overflow-tooltip="true"-->
+<!--          label="生效时间"-->
+<!--        />-->
+<!--        <el-table-column-->
+<!--          prop="expirationTime"-->
+<!--          :show-overflow-tooltip="true"-->
+<!--          label="失效时间"-->
+<!--        />-->
         <el-table-column
           prop="remark"
           :show-overflow-tooltip="true"
@@ -234,32 +234,32 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row style="display: flex">
-              <el-row style="margin-left: 6%">
-                <el-form-item label="生效时间:" prop="effectiveTime">
-                  <el-date-picker
-                    v-model="addWhiteData.effectiveTime"
-                    type="datetime"
-                    style="width: 200px;"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    placeholder="请选择生效时间"
-                  >
-                  </el-date-picker>
-                </el-form-item>
-              </el-row>
-              <el-row style="margin-left: 16%">
-                <el-form-item label="失效时间:" prop="expirationTime">
-                  <el-date-picker
-                    v-model="addWhiteData.expirationTime"
-                    type="datetime"
-                    style="width: 200px;"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    placeholder="请选择失效时间"
-                  >
-                  </el-date-picker>
-                </el-form-item>
-              </el-row>
-            </el-row>
+<!--            <el-row style="display: flex">-->
+<!--              <el-row style="margin-left: 6%">-->
+<!--                <el-form-item label="生效时间:" prop="effectiveTime">-->
+<!--                  <el-date-picker-->
+<!--                    v-model="addWhiteData.effectiveTime"-->
+<!--                    type="datetime"-->
+<!--                    style="width: 200px;"-->
+<!--                    value-format="yyyy-MM-dd HH:mm:ss"-->
+<!--                    placeholder="请选择生效时间"-->
+<!--                  >-->
+<!--                  </el-date-picker>-->
+<!--                </el-form-item>-->
+<!--              </el-row>-->
+<!--              <el-row style="margin-left: 16%">-->
+<!--                <el-form-item label="失效时间:" prop="expirationTime">-->
+<!--                  <el-date-picker-->
+<!--                    v-model="addWhiteData.expirationTime"-->
+<!--                    type="datetime"-->
+<!--                    style="width: 200px;"-->
+<!--                    value-format="yyyy-MM-dd HH:mm:ss"-->
+<!--                    placeholder="请选择失效时间"-->
+<!--                  >-->
+<!--                  </el-date-picker>-->
+<!--                </el-form-item>-->
+<!--              </el-row>-->
+<!--            </el-row>-->
             <el-row>
               <el-form-item label="备注:" label-width="150px">
                 <el-input
@@ -346,30 +346,30 @@
                 </el-col>
               </el-row>
               <el-row style="display: flex">
-                <el-row style="margin-left: 6%">
-                  <el-form-item label="生效时间:" prop="effectiveTime">
-                    <el-date-picker
-                      v-model="modifyWhiteList.effectiveTime"
-                      type="datetime"
-                      style="width: 200px;"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      placeholder="请选择生效时间"
-                    >
-                    </el-date-picker>
-                  </el-form-item>
-                </el-row>
-                <el-row style="margin-left: 16%">
-                  <el-form-item label="失效时间:" prop="expirationTime">
-                    <el-date-picker
-                      v-model="modifyWhiteList.expirationTime"
-                      type="datetime"
-                      style="width: 200px;"
-                      value-format="yyyy-MM-dd HH:mm:ss"
-                      placeholder="请选择失效时间"
-                    >
-                    </el-date-picker>
-                  </el-form-item>
-                </el-row>
+<!--                <el-row style="margin-left: 6%">-->
+<!--                  <el-form-item label="生效时间:" prop="effectiveTime">-->
+<!--                    <el-date-picker-->
+<!--                      v-model="modifyWhiteList.effectiveTime"-->
+<!--                      type="datetime"-->
+<!--                      style="width: 200px;"-->
+<!--                      value-format="yyyy-MM-dd HH:mm:ss"-->
+<!--                      placeholder="请选择生效时间"-->
+<!--                    >-->
+<!--                    </el-date-picker>-->
+<!--                  </el-form-item>-->
+<!--                </el-row>-->
+<!--                <el-row style="margin-left: 16%">-->
+<!--                  <el-form-item label="失效时间:" prop="expirationTime">-->
+<!--                    <el-date-picker-->
+<!--                      v-model="modifyWhiteList.expirationTime"-->
+<!--                      type="datetime"-->
+<!--                      style="width: 200px;"-->
+<!--                      value-format="yyyy-MM-dd HH:mm:ss"-->
+<!--                      placeholder="请选择失效时间"-->
+<!--                    >-->
+<!--                    </el-date-picker>-->
+<!--                  </el-form-item>-->
+<!--                </el-row>-->
               </el-row>
               <el-row>
                 <el-form-item label="备注:" label-width="150px">
@@ -416,20 +416,20 @@ export default {
             trigger: "blur"
           }
         ],
-        effectiveTime: [
-          {
-            required: true,
-            message: "请选择生效时间",
-            trigger: "blur"
-          }
-        ],
-        expirationTime: [
-          {
-            required: true,
-            message: "请选择失效时间",
-            trigger: "blur"
-          }
-        ]
+        // effectiveTime: [
+        //   {
+        //     required: true,
+        //     message: "请选择生效时间",
+        //     trigger: "blur"
+        //   }
+        // ],
+        // expirationTime: [
+        //   {
+        //     required: true,
+        //     message: "请选择失效时间",
+        //     trigger: "blur"
+        //   }
+        // ]
       },
       // 顶部查询数据暂存处
       whiteManagementList: { parkId: "" },

@@ -132,7 +132,7 @@ export default {
       this.$realTimeMonitor.queryCarWashIncomeAnalysis(param).then(res => {
         res.resultEntity.forEach(item => {
           this.revenueCarWashingAnalysisXz.push(item.time),
-            this.revenueCarWashingAnalysisY.push(Number(item.amount));
+            this.revenueCarWashingAnalysisY.push(Number(item.amount)/100);
         });
         this.revenueCarWashingAnalysisOption = {
           chart: {
@@ -229,13 +229,13 @@ export default {
         });
         this.carWashTypeIncomeAnalysisJINGList.forEach(item => {
           this.carWashTypeIncomeAnalysisXz.push(item.time);
-          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.income));
+          this.carWashTypeIncomeAnalysisJINGY.push(Number(item.income)/100);
         });
         this.carWashTypeIncomeAnalysisPUList.forEach(item => {
-          this.carWashTypeIncomeAnalysisPUY.push(Number(item.income));
+          this.carWashTypeIncomeAnalysisPUY.push(Number(item.income)/100);
         });
         this.carWashTypeIncomeAnalysisKUAIList.forEach(item => {
-          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.income));
+          this.carWashTypeIncomeAnalysisKUAIY.push(Number(item.income)/100);
         });
         this.carWashTypeIncomeAnalysisOption = {
           chart: {
