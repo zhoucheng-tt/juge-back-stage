@@ -240,17 +240,19 @@ export default {
       payMethodChart: {}
     };
   },
-  mounted() {
-    //初始化列表
-    this.queryPayList();
-    this.queryParkList();
-    this.drawPayAnaSevenChart();
-    this.drawPayAnaThirtyChart();
-    this.drawPayAna365Chart();
-    this.drawPayMethodAna();
-    this.queryPayMethodList();
-  },
-  watch: {
+    created() {
+        //初始化列表
+        this.queryPayList();
+
+      },
+    mounted() {
+        this.drawPayMethodAna();
+        this.queryParkList();
+        this.drawPayAnaSevenChart();
+        this.drawPayAnaThirtyChart();
+        this.drawPayAna365Chart();
+      },
+    watch: {
     query: {
       handler(newVal) {
         this.exportFile =
@@ -262,6 +264,33 @@ export default {
     }
   },
   methods: {
+      //列表查询
+      queryPayList() {
+          this.queryPayMethodList();
+          const param = {
+              endTime: this.query.endStatisDate,
+              startTime: this.query.startStatisDate,
+              parkIds: this.query.checkedPark,
+              plateNumber: this.query.carNum,
+              payMethods: this.query.checkedPayMethods,
+              pageNum: this.pageNum,
+              pageSize: this.pageSize
+          };
+          this.$reportAnalysis.queryAccountStatisList(param).then(res => {
+              res.resultEntity.list.forEach(item => {
+                  this.payMethodList.forEach(item1 => {
+                      if (item1.code == item.payMethod) {
+                          item.payMethodName = item1.name;
+                          if (item.paid != null) {
+                              item.paid = Number(item.paid) / 100;
+                          }
+                      }
+                  });
+              });
+              this.payList = res.resultEntity.list;
+              this.pageTotal = res.resultEntity.total;
+          });
+      },
     queryPayMethodList() {
       const param = {
         columnName: ["payType", "payMethodName"],
@@ -293,33 +322,7 @@ export default {
       // 查询列表方法
       this.queryPayList();
     },
-    //列表查询
-    queryPayList() {
-      const param = {
-        endTime: this.query.endStatisDate,
-        startTime: this.query.startStatisDate,
-        parkIds: this.query.checkedPark,
-        plateNumber: this.query.carNum,
-        payMethods: this.query.checkedPayMethods,
-        pageNum: this.pageNum,
-        pageSize: this.pageSize
-      };
-      this.$reportAnalysis.queryAccountStatisList(param).then(res => {
-        console.log(res);
-        res.resultEntity.list.forEach(item => {
-          this.payMethodList.forEach(item1 => {
-            if (item1.code == item.payMethod) {
-              item.payMethodName = item1.name;
-              if (item.paid != null) {
-                item.paid = Number(item.paid) / 100;
-              }
-            }
-          });
-        });
-        this.payList = res.resultEntity.list;
-        this.pageTotal = res.resultEntity.total;
-      });
-    },
+
     //收入构成分析
     drawPayMethodAna() {
       const param = {
@@ -413,7 +416,7 @@ export default {
       this.$reportAnalysis.sevenPayAna(1).then(res => {
         res.resultEntity.forEach(item => {
           this.payAnaSevenX.push(item.statisticDate.replaceAll("-", ""));
-          this.dataListSeven.push(Number(item.income));
+          this.dataListSeven.push(Number(Number(Number(item.income)/100).toFixed(2)));
         });
         this.payAnaChartSeven = {
           chart: {
@@ -460,7 +463,14 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: " 收入  <b>{point.y:,.0f}</b>元"
+              formatter: function() {
+                  return (
+                      this.series.name +
+                      ":" +
+                      this.y +
+                      "元"
+                  );
+              }
           },
           plotOptions: {
             column: {
@@ -491,7 +501,7 @@ export default {
       this.$reportAnalysis.thirtyPayAna(1).then(res => {
         res.resultEntity.forEach(item => {
           this.payAnaThirtyX.push(item.statisticDate.replaceAll("-", ""));
-          this.dataListThirty.push(Number(item.income));
+          this.dataListThirty.push(Number(Number(Number(item.income)/100).toFixed(2)));
         });
         this.payAnaChartThirty = {
           chart: {
@@ -537,7 +547,14 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "收入<b>{point.y:,.0f}</b>元"
+              formatter: function() {
+                  return (
+                      this.series.name +
+                      ":" +
+                      this.y +
+                      "元"
+                  );
+              }
           },
           plotOptions: {
             // column: {
@@ -568,7 +585,7 @@ export default {
       this.$reportAnalysis.PayAna365(1).then(res => {
         res.resultEntity.forEach(item => {
           this.payAna365X.push(item.statisticDate.replaceAll("-", ""));
-          this.dataList365.push(Number(item.income));
+          this.dataList365.push(Number(Number(Number(item.income)/100).toFixed(2)));
         });
         this.payAnaChart365 = {
           chart: {
@@ -614,7 +631,14 @@ export default {
             }
           },
           tooltip: {
-            pointFormat: "收入 <b>{point.y:,.0f}</b>元"
+              formatter: function() {
+                  return (
+                      this.series.name +
+                      ":" +
+                      this.y +
+                      "元"
+                  );
+              }
           },
           plotOptions: {
             column: {

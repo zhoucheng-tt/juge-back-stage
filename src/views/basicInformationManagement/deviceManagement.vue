@@ -16,9 +16,7 @@
       <el-tab-pane label="地锁" name="second">
         <floor-Lock v-if="activeName === 'second'" />
       </el-tab-pane>
-      <el-tab-pane label="进出口摄像头管理" name="third">
-        <import-Export-Camera-Management v-if="activeName === 'third'" />
-      </el-tab-pane>
+
       <el-tab-pane label="道闸机管理" name="forth">
         <gate-Machine-Management v-if="activeName === 'forth'" />
       </el-tab-pane>
@@ -28,6 +26,9 @@
       <el-tab-pane label="ETC管理" name="six">
         <basic-Information-Management-ETC v-if="activeName === 'six'" />
       </el-tab-pane>
+<!--      <el-tab-pane label="进出口摄像头管理" name="third">-->
+<!--        <import-Export-Camera-Management v-if="activeName === 'third'" />-->
+<!--      </el-tab-pane>-->
       <!--      <el-tab-pane label="视频车位检测器" name="first">-->
       <!--        <video-Parking-Detector v-if="activeName === 'first'" />-->
       <!--      </el-tab-pane>-->
@@ -43,7 +44,7 @@ import geomagneticParkingDetector from "./components/deviceManagement/geomagneti
 // 地锁
 import floorLock from "./components/deviceManagement/floorLock";
 // 进出口摄像头管理
-import importExportCameraManagement from "./components/deviceManagement/importExportCameraManagement";
+// import importExportCameraManagement from "./components/deviceManagement/importExportCameraManagement";
 // 道闸机管理  gateMachineManagement
 import gateMachineManagement from "./components/deviceManagement/gateMachineManagement";
 // 洗车机管理  carWashingMachineManagement
@@ -59,11 +60,11 @@ export default {
   components: {
     geomagneticParkingDetector,
     floorLock,
-    importExportCameraManagement,
     gateMachineManagement,
     carWashingMachineManagement,
-    basicInformationManagementETC
-    // videoParkingDetector,
+    basicInformationManagementETC,
+      // importExportCameraManagement,
+      // videoParkingDetector,
     // chargePointManagement,
   },
   data() {

@@ -251,14 +251,14 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="实收金额:" label-width="150px">
-              <el-input
-                v-model="showListDloageandoffList.paid"
-                readonly
-              ></el-input>
-            </el-form-item>
-          </el-col>
+<!--          <el-col :span="12">-->
+<!--            <el-form-item label="实收金额:" label-width="150px">-->
+<!--              <el-input-->
+<!--                v-model="showListDloageandoffList.paid"-->
+<!--                readonly-->
+<!--              ></el-input>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
           <el-col :span="12">
             <el-form-item label="支付方式:" label-width="150px">
               <el-input
