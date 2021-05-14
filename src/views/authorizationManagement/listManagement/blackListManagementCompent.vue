@@ -463,6 +463,7 @@ export default {
       };
       this.$homePage.queryDict(param).then(response => {
         that.parkLotNameList = response.resultEntity;
+          that.parkLotNameList.splice(2,1)
       });
     },
     //顶部查询按钮获取参数

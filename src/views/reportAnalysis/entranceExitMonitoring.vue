@@ -409,15 +409,34 @@ export default {
       //出场记录分页数据
       downPageNum: 1,
       downPageSize: 5,
-      downTotal: 5
+      downTotal: 5,
+        timer:null
     };
   },
-  mounted() {
+    created() {
+
+            // 实现轮询
+            this.timer = setInterval(() => {
+                setTimeout(this.getNewMessage(), 0);
+            }, 60000);
+    },
+    mounted() {
     this.queryParking();
     this.queryUpList();
     this.queryDownList();
   },
+    destroyed() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+    },
   methods: {
+      //  定时任务
+      getNewMessage() {
+          this.queryUpList();
+          this.queryDownList();
+      },
     //上半部查询按钮
     queryUpFormList() {
       this.upPageNum = 1;
