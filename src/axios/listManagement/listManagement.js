@@ -1,5 +1,24 @@
 import request from "@/utils/request";
 
+//查询专车列表
+export function specialParkWhiteList(param) {
+  return request({
+    url: "http://192.168.1.63:8000/AuthorizationController/specialParkWhiteList",
+    method: "post",
+    data: param,
+    flag:"out"
+  });
+}
+//专车配置修改
+export function updateSpecialParkWhiteList(param) {
+  return request({
+    url: "http://192.168.1.63:8000/AuthorizationController/updateSpecialParkWhiteList",
+    method: "post",
+    data: param,
+    flag:"out"
+  });
+}
+
 //查询白名单列表  MemberFunc/queryWhiteList
 export function queryWhiteList(param) {
   return request({

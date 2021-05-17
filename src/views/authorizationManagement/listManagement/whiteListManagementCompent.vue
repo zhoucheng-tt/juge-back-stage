@@ -186,6 +186,7 @@
                 <el-select
                   style="width: 200px"
                   v-model="addWhiteData.parkId"
+                  multiple
                   placeholder="请选择停车场"
                 >
                   <el-option
@@ -446,7 +447,7 @@
                 //新增白名单的弹窗
                 addWhiteListDialog: false,
                 //新增白名单数据暂存
-                addWhiteData: {parkIds:[]},
+                addWhiteData: {parkIds:[],plateColor:1},
                 //多选数据id暂存
                 idList: [],
                 //多选后数据暂存
@@ -502,6 +503,7 @@
                 this.$homePage.queryDict(param).then(response => {
                     this.parkLotNameList = response.resultEntity;
                     this.parkLotNameList.splice(2,1)
+                    this.parkLotNameList.splice(3,1)
                 });
             },
             //顶部查询按钮获取参数
@@ -530,7 +532,7 @@
                 //显示新增白名单弹窗
                 this.addWhiteListDialog = true;
                 //点击新增白名单弹出未输入的空白框
-                this.addWhiteData = {};
+                this.addWhiteData = {plateColor:1};
             },
             //新增白名单确认提交
             onSubmitAdd() {
@@ -538,22 +540,23 @@
                     if (valid) {
                         //点击提交隐藏弹窗
                         this.addWhiteListDialog = false;
-                        const param = {
-                            plateNumber: this.addWhiteData.plateNumber,
-                            effectiveTime: this.addWhiteData.effectiveTime,
-                            expirationTime: this.addWhiteData.expirationTime,
-                            remark: this.addWhiteData.remark,
-                            //停车场编号 停车场名称
-                            parkId: this.addWhiteData.parkId,
-                            //车牌颜色
-                            plateColor: this.addWhiteData.plateColor
-                        };
-                        this.$listManagement.insertWhiteList(param).then(response => {
-                            //添加成功弹出
-                            this.$message({ type: "success", message: "添加成功!" });
-                            //添加成功 刷新页面 调用查询方法
-                            this.queryWhiteList();
-                        });
+                        this.addWhiteData.parkId.forEach(item=>{
+                            const param = {
+                                plateNumber: this.addWhiteData.plateNumber,
+                                // effectiveTime: this.addWhiteData.effectiveTime,
+                                // expirationTime: this.addWhiteData.expirationTime,
+                                remark: this.addWhiteData.remark,
+                                parkId: item,
+                                plateColor: this.addWhiteData.plateColor
+                            };
+                            this.$listManagement.insertWhiteList(param).then(response => {
+                                //添加成功弹出
+                                this.$message({ type: "success", message: "添加成功!" });
+                                //添加成功 刷新页面 调用查询方法
+                                this.queryWhiteList();
+                            });
+                        })
+
                     }
                 });
             },
