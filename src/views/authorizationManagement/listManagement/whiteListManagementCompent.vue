@@ -175,27 +175,28 @@
           ref="addWhiteDataR"
         >
           <!--                    归属停车场信息-->
-          <p>归属停车场信息</p>
+          <p>归属停车场</p>
           <el-row>
             <el-col :span="12" style="display: flex;margin-left: 6%">
               <el-form-item
                 style="margin-left: 1%"
-                label="归属停车场"
-                prop="parkId"
               >
-                <el-select
-                  style="width: 200px"
-                  v-model="addWhiteData.parkId"
-                  multiple
-                  placeholder="请选择停车场"
-                >
-                  <el-option
-                    v-for="(item, index) in parkLotNameList"
-                    :label="item.name"
-                    :value="item.code"
-                    :key="index"
-                  ></el-option>
-                </el-select>
+                <el-checkbox-group v-model="whiteCheckList">
+                  <el-checkbox  v-for="item in parkLotNameList" :label="item.name" :value="item.code"></el-checkbox>
+                </el-checkbox-group>
+<!--                <el-select-->
+<!--                  style="width: 200px"-->
+<!--                  v-model="addWhiteData.parkId"-->
+<!--                  multiple-->
+<!--                  placeholder="请选择停车场"-->
+<!--                >-->
+<!--                  <el-option-->
+<!--                    v-for="(item, index) in parkLotNameList"-->
+<!--                    :label="item.name"-->
+<!--                    :value="item.code"-->
+<!--                    :key="index"-->
+<!--                  ></el-option>-->
+<!--                </el-select>-->
               </el-form-item>
             </el-col>
           </el-row>
@@ -235,32 +236,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <!--            <el-row style="display: flex">-->
-            <!--              <el-row style="margin-left: 6%">-->
-            <!--                <el-form-item label="生效时间:" prop="effectiveTime">-->
-            <!--                  <el-date-picker-->
-            <!--                    v-model="addWhiteData.effectiveTime"-->
-            <!--                    type="datetime"-->
-            <!--                    style="width: 200px;"-->
-            <!--                    value-format="yyyy-MM-dd HH:mm:ss"-->
-            <!--                    placeholder="请选择生效时间"-->
-            <!--                  >-->
-            <!--                  </el-date-picker>-->
-            <!--                </el-form-item>-->
-            <!--              </el-row>-->
-            <!--              <el-row style="margin-left: 16%">-->
-            <!--                <el-form-item label="失效时间:" prop="expirationTime">-->
-            <!--                  <el-date-picker-->
-            <!--                    v-model="addWhiteData.expirationTime"-->
-            <!--                    type="datetime"-->
-            <!--                    style="width: 200px;"-->
-            <!--                    value-format="yyyy-MM-dd HH:mm:ss"-->
-            <!--                    placeholder="请选择失效时间"-->
-            <!--                  >-->
-            <!--                  </el-date-picker>-->
-            <!--                </el-form-item>-->
-            <!--              </el-row>-->
-            <!--            </el-row>-->
             <el-row>
               <el-form-item label="备注:" label-width="150px">
                 <el-input
@@ -396,13 +371,13 @@
             return {
                 //新增字段约束
                 addListRules: {
-                    parkId: [
-                        {
-                            required: true,
-                            message: "请选择归属停车场",
-                            trigger: "change"
-                        }
-                    ],
+                    // parkId: [
+                    //     {
+                    //         required: true,
+                    //         message: "请选择归属停车场",
+                    //         trigger: "change"
+                    //     }
+                    // ],
                     plateNumber: [
                         {
                             required: true,
@@ -417,21 +392,8 @@
                             trigger: "blur"
                         }
                     ],
-                    // effectiveTime: [
-                    //   {
-                    //     required: true,
-                    //     message: "请选择生效时间",
-                    //     trigger: "blur"
-                    //   }
-                    // ],
-                    // expirationTime: [
-                    //   {
-                    //     required: true,
-                    //     message: "请选择失效时间",
-                    //     trigger: "blur"
-                    //   }
-                    // ]
                 },
+                whiteCheckList:["公共停车场", "员工停车场"],
                 // 顶部查询数据暂存处
                 whiteManagementList: { parkId: "" },
                 //顶部停车场下拉数据存放
@@ -533,30 +495,46 @@
                 this.addWhiteListDialog = true;
                 //点击新增白名单弹出未输入的空白框
                 this.addWhiteData = {plateColor:1};
+                this.whiteCheckList=["公共停车场", "员工停车场"];
             },
             //新增白名单确认提交
             onSubmitAdd() {
+                let parkIdList=[]
+                this.whiteCheckList.forEach(item=>{
+                    if(item==="公共停车场"){
+                        parkIdList.push("BM01")
+                    }
+                    else if(item==="员工停车场"){
+                        parkIdList.push("BMK01")
+                    }
+                    else if(item==="新能源停车场"){
+                        parkIdList.push("JQ01")
+                    }
+                })
                 this.$refs["addWhiteDataR"].validate(valid => {
                     if (valid) {
-                        //点击提交隐藏弹窗
-                        this.addWhiteListDialog = false;
-                        this.addWhiteData.parkId.forEach(item=>{
-                            const param = {
-                                plateNumber: this.addWhiteData.plateNumber,
-                                // effectiveTime: this.addWhiteData.effectiveTime,
-                                // expirationTime: this.addWhiteData.expirationTime,
-                                remark: this.addWhiteData.remark,
-                                parkId: item,
-                                plateColor: this.addWhiteData.plateColor
-                            };
-                            this.$listManagement.insertWhiteList(param).then(response => {
-                                //添加成功弹出
-                                this.$message({ type: "success", message: "添加成功!" });
-                                //添加成功 刷新页面 调用查询方法
-                                this.queryWhiteList();
-                            });
-                        })
+                        if(parkIdList.length===0||parkIdList===null){
+                            this.$message({ type: "info", message: "请选择停车场!" });
+                        }
+                            else {
+                            parkIdList.forEach(item=>{
+                                const param = {
+                                    plateNumber: this.addWhiteData.plateNumber,
+                                    remark: this.addWhiteData.remark,
+                                    parkId:item ,
+                                    plateColor: this.addWhiteData.plateColor
+                                };
+                                this.$listManagement.insertWhiteList(param).then(response => {
+                                    //添加成功弹出
+                                    this.$message({ type: "success", message: "添加成功!" });
+                                    this.addWhiteListDialog = false;
+                                    //添加成功 刷新页面 调用查询方法
+                                    this.queryWhiteList();
+                                });
 
+                            })
+
+                            }
                     }
                 });
             },
