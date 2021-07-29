@@ -184,26 +184,12 @@
                 <el-checkbox-group v-model="whiteCheckList">
                   <el-checkbox  v-for="item in parkLotNameList" :label="item.name" :value="item.code"></el-checkbox>
                 </el-checkbox-group>
-<!--                <el-select-->
-<!--                  style="width: 200px"-->
-<!--                  v-model="addWhiteData.parkId"-->
-<!--                  multiple-->
-<!--                  placeholder="请选择停车场"-->
-<!--                >-->
-<!--                  <el-option-->
-<!--                    v-for="(item, index) in parkLotNameList"-->
-<!--                    :label="item.name"-->
-<!--                    :value="item.code"-->
-<!--                    :key="index"-->
-<!--                  ></el-option>-->
-<!--                </el-select>-->
+
               </el-form-item>
             </el-col>
           </el-row>
-          <!--                白名单信息-->
           <p>白名单信息</p>
           <el-row>
-            <!--                白名单信息第一行车牌号 车主姓名-->
             <el-row>
               <el-col :span="12">
                 <el-form-item
@@ -211,7 +197,7 @@
                   label-width="150px"
                   prop="plateNumber"
                 >
-                  <el-input v-model="addWhiteData.plateNumber"></el-input>
+                  <el-input onkeyup="this.value=this.value.replace(/[, ]/g,'')" v-model="addWhiteData.plateNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
@@ -259,14 +245,12 @@
         @close="queryWhiteList"
       >
         <el-row>
-          <!--          归属停车场信息-->
           <el-form
             :inline="true"
             label-position="right"
             label-width="100px"
             v-model="modifyWhiteList"
           >
-            <!--归属停车场信息-->
             <el-row>
               <p>归属停车场信息</p>
               <el-col :span="12" style="display: flex;margin-left: 7.5%">
@@ -290,16 +274,14 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <!--                白名单信息-->
             <el-row>
               <p>白名单信息</p>
-              <!--                白名单信息第一行车牌号 车主姓名-->
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="车牌号码:" label-width="150px">
-                    <el-input
+                    <el-input onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                       v-model="modifyWhiteList.plateNumber"
-                      readonly
+                              readonly
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -321,32 +303,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row style="display: flex">
-                <!--                <el-row style="margin-left: 6%">-->
-                <!--                  <el-form-item label="生效时间:" prop="effectiveTime">-->
-                <!--                    <el-date-picker-->
-                <!--                      v-model="modifyWhiteList.effectiveTime"-->
-                <!--                      type="datetime"-->
-                <!--                      style="width: 200px;"-->
-                <!--                      value-format="yyyy-MM-dd HH:mm:ss"-->
-                <!--                      placeholder="请选择生效时间"-->
-                <!--                    >-->
-                <!--                    </el-date-picker>-->
-                <!--                  </el-form-item>-->
-                <!--                </el-row>-->
-                <!--                <el-row style="margin-left: 16%">-->
-                <!--                  <el-form-item label="失效时间:" prop="expirationTime">-->
-                <!--                    <el-date-picker-->
-                <!--                      v-model="modifyWhiteList.expirationTime"-->
-                <!--                      type="datetime"-->
-                <!--                      style="width: 200px;"-->
-                <!--                      value-format="yyyy-MM-dd HH:mm:ss"-->
-                <!--                      placeholder="请选择失效时间"-->
-                <!--                    >-->
-                <!--                    </el-date-picker>-->
-                <!--                  </el-form-item>-->
-                <!--                </el-row>-->
-              </el-row>
               <el-row>
                 <el-form-item label="备注:" label-width="150px">
                   <el-input
@@ -366,24 +322,20 @@
   </div>
 </template>
 <script>
+
     export default {
         data() {
             return {
                 //新增字段约束
                 addListRules: {
-                    // parkId: [
-                    //     {
-                    //         required: true,
-                    //         message: "请选择归属停车场",
-                    //         trigger: "change"
-                    //     }
-                    // ],
                     plateNumber: [
                         {
                             required: true,
                             message: "请输入车牌号码",
                             trigger: "blur"
-                        }
+                        },
+                        {pattern: /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/
+                            , message: '请输入正确的车牌'}
                     ],
                     plateColor: [
                         {
@@ -393,7 +345,8 @@
                         }
                     ],
                 },
-                whiteCheckList:["公共停车场", "员工停车场"],
+
+                whiteCheckList:["公共停车场", "员工停车场1"],
                 // 顶部查询数据暂存处
                 whiteManagementList: { parkId: "" },
                 //顶部停车场下拉数据存放
@@ -465,7 +418,7 @@
                 this.$homePage.queryDict(param).then(response => {
                     this.parkLotNameList = response.resultEntity;
                     this.parkLotNameList.splice(2,1)
-                    this.parkLotNameList.splice(3,1)
+                    // this.parkLotNameList.splice(3,1)
                 });
             },
             //顶部查询按钮获取参数
@@ -495,7 +448,8 @@
                 this.addWhiteListDialog = true;
                 //点击新增白名单弹出未输入的空白框
                 this.addWhiteData = {plateColor:1};
-                this.whiteCheckList=["公共停车场", "员工停车场"];
+                this.whiteCheckList=["公共停车场", "员工停车场1"];
+
             },
             //新增白名单确认提交
             onSubmitAdd() {
@@ -504,11 +458,14 @@
                     if(item==="公共停车场"){
                         parkIdList.push("BM01")
                     }
-                    else if(item==="员工停车场"){
+                    else if(item==="员工停车场1"){
                         parkIdList.push("BMK01")
                     }
                     else if(item==="新能源停车场"){
                         parkIdList.push("JQ01")
+                    }
+                    else if(item==="专用停车场"){
+                        parkIdList.push("SJDA01")
                     }
                 })
                 this.$refs["addWhiteDataR"].validate(valid => {
@@ -531,10 +488,8 @@
                                     //添加成功 刷新页面 调用查询方法
                                     this.queryWhiteList();
                                 });
-
                             })
-
-                            }
+                        }
                     }
                 });
             },
@@ -609,22 +564,22 @@
             //操作中的修改按钮的提交
             onSubmitModify() {
                 this.ModifyWhiteListDialog = false;
-                const param = {
-                    whiteListId: this.modifyWhiteList.whiteListId,
-                    plateColor: this.modifyWhiteList.plateColor,
-                    effectiveTime: this.modifyWhiteList.effectiveTime,
-                    expirationTime: this.modifyWhiteList.expirationTime,
-                    remark: this.modifyWhiteList.remark
-                };
-                this.$listManagement.updateWhiteList(param).then(res => {
-                    if (res.resultCode == "2000") {
-                        this.$message({ type: "success", message: "修改成功!" });
-                        this.queryWhiteList();
-                    } else {
-                        this.$message({ type: "fail", message: "修改失败!" });
-                        this.queryWhiteList();
-                    }
-                });
+                        const param = {
+                            whiteListId: this.modifyWhiteList.whiteListId,
+                            plateColor: this.modifyWhiteList.plateColor,
+                            effectiveTime: this.modifyWhiteList.effectiveTime,
+                            expirationTime: this.modifyWhiteList.expirationTime,
+                            remark: this.modifyWhiteList.remark
+                        };
+                        this.$listManagement.updateWhiteList(param).then(res => {
+                            if (res.resultCode == "2000") {
+                                this.$message({ type: "success", message: "修改成功!" });
+                                this.queryWhiteList();
+                            } else {
+                                this.$message({ type: "fail", message: "修改失败!" });
+                                this.queryWhiteList();
+                            }
+                        });
             },
             //操作中的启用按钮
             enAble(row) {

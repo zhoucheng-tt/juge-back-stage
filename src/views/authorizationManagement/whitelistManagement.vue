@@ -14,8 +14,8 @@
       <el-tab-pane label="白名单管理" name="first">
         <white-List-Management-Compent />
       </el-tab-pane>
-      <el-tab-pane label="专车配置" name="second">
-        <configuration-car />
+<!--      <el-tab-pane label="专车配置" name="second">-->
+<!--        <configuration-car />-->
       </el-tab-pane>
       <el-tab-pane label="黑名单管理" name="third">
         <black-List-Management-Compent />
@@ -29,12 +29,12 @@ import whiteListManagementCompent from "./listManagement/whiteListManagementComp
 // 黑名单管理
 import blackListManagementCompent from "./listManagement/blackListManagementCompent";
 // 专车配置
-import configurationCar from "./listManagement/configurationCar";
+// import configurationCar from "./listManagement/configurationCar";
 
 export default {
   components: {
     whiteListManagementCompent,
-    configurationCar,
+    // configurationCar,
     blackListManagementCompent
   },
   data() {

@@ -118,21 +118,41 @@
           :show-overflow-tooltip="true"
           label="停车场名称"
         />
-        <!--        <el-table-column-->
-        <!--          prop="magneticDetecterId"-->
-        <!--          :show-overflow-tooltip="true"-->
-        <!--          label="地磁车位检测器编号"-->
-        <!--        />-->
         <el-table-column
-          prop="magneticDetecterName"
+          prop="parkSpaceId"
           :show-overflow-tooltip="true"
-          label="地磁车位检测器名称"
+          label="车位号"
+        />
+       <el-table-column
+          prop="magneticDetecterId"
+          :show-overflow-tooltip="true"
+          label="地磁车位检测器编号"
+       />
+<!--        <el-table-column-->
+<!--          prop="magneticDetecterName"-->
+<!--          :show-overflow-tooltip="true"-->
+<!--          label="地磁车位检测器名称"-->
+<!--        />-->
+        <el-table-column
+          prop="cmd"
+          :show-overflow-tooltip="true"
+          label="推送事件类型(实时数据)"
         />
         <el-table-column
-          prop="sensorId"
+          prop="time"
           :show-overflow-tooltip="true"
-          label="传感器ID"
+          label="最新推送事件(实时数据)"
         />
+        <el-table-column
+          prop="parkStatus"
+          :show-overflow-tooltip="true"
+          label="车位状态(实时数据)"
+        />
+<!--        <el-table-column-->
+<!--          prop="sensorId"-->
+<!--          :show-overflow-tooltip="true"-->
+<!--          label="传感器ID"-->
+<!--        />-->
         <el-table-column
           prop="producer"
           :show-overflow-tooltip="true"

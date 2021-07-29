@@ -2,7 +2,8 @@ import request from "@/utils/request";
 //地磁车列表查询
 export function queryMagneticDetecter(params) {
   return request({
-    url: "/MagneticDetecterController/queryMagneticDetecter",
+    // url: "/MagneticDetecterController/queryMagneticDetecter",
+    url: "http://192.168.1.171:8000/MagneticDetecterController/queryMagneticDetecter",
     method: "post",
     data: params
   });

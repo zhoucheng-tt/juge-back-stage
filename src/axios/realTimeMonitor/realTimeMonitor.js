@@ -3,8 +3,10 @@ import request from "@/utils/request";
 export function queryCarWashIncomeAnalysis(param) {
   return request({
     url: "/CarWashAnalysis/queryCarWashIncomeAnalysis",
+    // url: "http://192.168.1.171:8000/CarWashAnalysis/queryCarWashIncomeAnalysis",
     method: "post",
-    data: param
+    data: param,
+    flag:"out"
   });
 }
 //洗车运营分析洗车类型收入统计分析

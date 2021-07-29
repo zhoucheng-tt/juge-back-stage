@@ -10,9 +10,12 @@ let BASE_API = "";
 if (env === "dev") {
   // BASE_API = "http://123.207.189.27:7138/";
   // BASE_API = "http://192.168.99.10:8000/";
-  BASE_API = "http://221.226.72.122:8888/eparking-web/";
+  // BASE_API = "http://192.168.1.156:8000/";
+  BASE_API = "http://221.226.72.122:8888/eparking-web/";//溧水现场
 } else if (env === "prod") {
   // BASE_API = "http://123.207.189.27:7138/";
-  BASE_API = "http://192.168.99.10:8000/";
+  // BASE_API = "http://123.207.189.27:7138/";
+  // BASE_API = "http://192.168.1.156:8000/";
+  BASE_API = "http://192.168.99.10:8000/";//溧水现场
 }
 export { BASE_API };
