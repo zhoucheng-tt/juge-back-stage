@@ -5,8 +5,8 @@ export function queryCarWashIncomeAnalysis(param) {
     url: "/CarWashAnalysis/queryCarWashIncomeAnalysis",
     // url: "http://192.168.1.171:8000/CarWashAnalysis/queryCarWashIncomeAnalysis",
     method: "post",
-    data: param,
-    flag:"out"
+    data: param
+    // flag:"out"
   });
 }
 //洗车运营分析洗车类型收入统计分析

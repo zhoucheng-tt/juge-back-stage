@@ -14,8 +14,8 @@ export function login(params) {
     url: "/UserController/login",
     // url: "http://192.168.1.171:8000/UserController/login",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -24,8 +24,8 @@ export function loginOut(params) {
     url: "/UserController/loginOut",
     // url: "http://192.168.1.171:8000/UserController/loginOut",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 //主动开闸
@@ -34,8 +34,8 @@ export function openGate(params) {
     url: "/RealTimeMonitorController/openGate",
     // url: "http://192.168.1.171:8000/RealTimeMonitorController/openGate",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -45,8 +45,8 @@ export function queryDict(params) {
     url: "/UserController/queryDict",
     // url: "http://192.168.1.171:8000/UserController/queryDict",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -56,8 +56,8 @@ export function test(params) {
     url: "/EarnAnalysisController/queryChargeEarnData",
     // url: "http://192.168.1.171:8000/EarnAnalysisController/queryChargeEarnData",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 //首页洗车机收入  /homePageFunc/countWashFee
@@ -66,8 +66,8 @@ export function countWashFee(params) {
     url: "/homePageFunc/countWashFee",
     // url: "http://192.168.1.171:8000/homePageFunc/countWashFee",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -77,8 +77,8 @@ export function countChargeFee(params) {
     url: "/homePageFunc/countChargeFee",
     // url: "http://192.168.1.171:8000/homePageFunc/countChargeFee",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -88,8 +88,8 @@ export function queryChargeEarn(params) {
     url: "/homePageFunc/queryChargeEarn",
     // url: "http://192.168.1.171:8000/homePageFunc/queryChargeEarn",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -99,8 +99,8 @@ export function queryParkCount(params) {
     url: "/homePageFunc/queryParkCount",
     // url: "http://192.168.1.171:8000/homePageFunc/queryParkCount",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -110,8 +110,8 @@ export function queryFees(params) {
     url: "/homePageFunc/queryFees",
     // url: "http://192.168.1.171:8000/homePageFunc/queryFees",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 //精洗普洗快洗  queryCarWashTypeCount
@@ -120,8 +120,8 @@ export function queryCarWashTypeCount(params) {
     url: "/homePageFunc/queryCarWashTypeCount",
     // url: "http://192.168.1.171:8000/homePageFunc/queryCarWashTypeCount",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 // 支付方式 queryPayTypeAmountPrecent
@@ -130,8 +130,8 @@ export function queryPayTypeAmountPrecent(params) {
     url: "/homePageFunc/queryPayTypeAmountPrecent",
     // url: "http://192.168.1.171:8000/homePageFunc/queryPayTypeAmountPrecent",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 //近七日洗车金额 queryCarWashAmountRecentDays
@@ -140,8 +140,8 @@ export function queryCarWashAmountRecentDays(params) {
     url: "/homePageFunc/queryCarWashAmountRecentDays",
     // url: "http://192.168.1.171:8000/homePageFunc/queryCarWashAmountRecentDays",
     method: "post",
-    data: params,
-    flag: "out"
+    data: params
+    // flag: "out"
   });
 }
 //剩余车位数查询 http://192.168.1.163:8000/homePageFunc/queryEmptySpace
@@ -150,8 +150,8 @@ export function queryEmptySpace(params) {
     url: "/homePageFunc/queryEmptySpace",
     // url: "http://192.168.1.171:8000/homePageFunc/queryEmptySpace",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 //被占用的车位Id http://192.168.1.163:8000/homePageFunc/queryParkSpaceStatus
@@ -160,8 +160,8 @@ export function queryParkSpaceStatus(params) {
     url: "/homePageFunc/queryParkSpaceStatus",
     // url: "http://192.168.1.171:8000/homePageFunc/queryParkSpaceStatus",
     method: "post",
-    data: params,
-    flag:"out"
+    data: params
+    // flag:"out"
   });
 }
 
@@ -171,8 +171,8 @@ export function queryPark7Days(param) {
     url: "/operateController/queryPark7Days",
     // url: "http://192.168.1.171:8000/operateController/queryPark7Days",
     method: "post",
-    data: param,
-    flag:"out"
+    data: param
+    // flag:"out"
   });
 }
 // 平均停车时长 operateController/avgParkDuration
@@ -181,8 +181,8 @@ export function avgParkDuration7Days(param) {
     url: "/operateController/avgParkDuration7Days",
     // url: "http://192.168.1.171:8000/operateController/avgParkDuration7Days",
     method: "post",
-    data: param,
-    flag:"out"
+    data: param
+    // flag:"out"
   });
 }
 // 车位利用率 operateController/usageRate
@@ -191,8 +191,8 @@ export function usageRate7Days(param) {
     url: "/operateController/usageRate7Days",
     // url: "http://192.168.1.171:8000/operateController/usageRate7Days",
     method: "post",
-    data: param,
-    flag:"out"
+    data: param
+    // flag:"out"
   });
 }
 //车位周转率 operateController/turnoverRate
@@ -201,8 +201,8 @@ export function turnoverRate7Days(param) {
     url: "/operateController/turnoverRate7Days",
     // url: "http://192.168.1.171:8000/operateController/turnoverRate7Days",
     method: "post",
-    data: param,
-    flag:"out"
+    data: param
+    // flag:"out"
   });
 }
 //洗车机近七日洗车次数统计 homePageFunc/queryCarWashTiemsRecentDays
@@ -211,7 +211,7 @@ export function queryCarWashTiemsRecentDays(param) {
     url: "/homePageFunc/queryCarWashTiemsRecentDays",
     // url: "http://192.168.1.171:8000/homePageFunc/queryCarWashTiemsRecentDays",
     method: "post",
-    data: param,
-    flag:"out"
+    data: param
+    // flag:"out"
   });
 }
