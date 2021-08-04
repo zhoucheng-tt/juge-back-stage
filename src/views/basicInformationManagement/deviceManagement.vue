@@ -26,6 +26,9 @@
       <el-tab-pane label="ETC管理" name="six">
         <basic-Information-Management-ETC v-if="activeName === 'six'" />
       </el-tab-pane>
+      <el-tab-pane label="诱导屏管理" name="seven">
+        <inducte-screen v-if="activeName === 'seven'" />
+      </el-tab-pane>
 <!--      <el-tab-pane label="进出口摄像头管理" name="third">-->
 <!--        <import-Export-Camera-Management v-if="activeName === 'third'" />-->
 <!--      </el-tab-pane>-->
@@ -51,6 +54,8 @@ import gateMachineManagement from "./components/deviceManagement/gateMachineMana
 import carWashingMachineManagement from "./components/deviceManagement/carWashingMachineManagement";
 //ETC basicInformationManagementETC
 import basicInformationManagementETC from "./components/deviceManagement/basicInformationManagementETC";
+//诱导屏管理
+import InducteScreen from './components/deviceManagement/inducteScreen'
 //视频车位监测器
 // import videoParkingDetector from "./components/deviceManagement/videoParkingDetector";
 // 充电桩管理  chargePointManagement
@@ -58,6 +63,7 @@ import basicInformationManagementETC from "./components/deviceManagement/basicIn
 
 export default {
   components: {
+      InducteScreen,
     geomagneticParkingDetector,
     floorLock,
     gateMachineManagement,

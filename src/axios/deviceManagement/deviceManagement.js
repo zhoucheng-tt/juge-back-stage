@@ -1,10 +1,96 @@
 import request from "@/utils/request";
 
+// 诱导屏查询
+export function queryGuideScreenList(params) {
+  return request({
+    url: "/guideScreen/queryGuideScreenList",
+    // url: "http://192.168.1.205:8000/guideScreen/queryGuideScreenList",
+    method: "post",
+    data: params
+  });
+}
+
+// 诱导屏配置查询
+export function queryGuideScreenConfiguration(params) {
+  return request({
+    url: "/guideScreen/queryGuideScreenConfiguration",
+    // url: "http://192.168.1.205:8000/guideScreen/queryGuideScreenConfiguration",
+    method: "post",
+    data: params
+  });
+}
+
+// 修改诱导屏配置
+export function editGuideScreenConfiguration(params) {
+  return request({
+    url: "/guideScreen/editGuideScreenConfiguration",
+    // url: "http://192.168.1.205:8000/guideScreen/editGuideScreenConfiguration",
+    method: "post",
+    data: params
+  });
+}
+
+// 新增诱导屏
+export function addGuideScreen(params) {
+  return request({
+    url: "/guideScreen/addGuideScreen",
+    // url: "http://192.168.1.205:8000/guideScreen/addGuideScreen",
+    method: "post",
+    data: params
+  });
+}
+
+// 修改诱导屏
+export function updateGuideScreen(params) {
+  return request({
+    url: "/guideScreen/updateGuideScreen",
+    // url: "http://192.168.1.205:8000/guideScreen/updateGuideScreen",
+    method: "post",
+    data: params
+  });
+}
+// 删除诱导屏
+export function delGuideScreen(params) {
+  return request({
+    url: "/guideScreen/delGuideScreen",
+    // url: "http://192.168.1.205:8000/guideScreen/delGuideScreen",
+    method: "post",
+    data: params
+  });
+}
+// 导出
+export function downloadScreen(params) {
+  return request({
+    url: "/guideScreen/download",
+    // url: "http://192.168.1.205:8000/guideScreen/download",
+    method: "get",
+    data: params
+  });
+}
+// 模板下载
+export function downloadResourceScreen(params) {
+  return request({
+    url: "/guideScreen/updateGuideScreen",
+    // url: "http://192.168.1.205:8000/CommonController/downloadResource",
+    method: "get",
+    data: params
+  });
+}
+// 上传
+export function uploadScreen(params) {
+  return request({
+    url: "/guideScreen/upload",
+    // url: "http://192.168.1.205:8000/guideScreen/upload",
+    method: "post",
+    data: params
+  });
+}
+
 //地磁车列表查询
 export function queryMagneticDetecter(params) {
   return request({
     url: "/MagneticDetecterController/queryMagneticDetecter",
-    // url: "http://192.168.1.171:8000/MagneticDetecterController/queryMagneticDetecter",
+    // url: "http://192.168.1.205:8000/MagneticDetecterController/queryMagneticDetecter",
     method: "post",
     data: params
   });

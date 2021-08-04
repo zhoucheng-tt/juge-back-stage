@@ -136,23 +136,27 @@
         <el-table-column
           prop="cmd"
           :show-overflow-tooltip="true"
-          label="推送事件类型(实时数据)"
+          label="推送事件类型(实时)"
         />
-        <el-table-column
-          prop="time"
-          :show-overflow-tooltip="true"
-          label="最新推送事件(实时数据)"
-        />
-        <el-table-column
+                <el-table-column
+                  prop="time"
+                  :show-overflow-tooltip="true"
+                  label="最新推送时间(实时)"
+                >
+                  <template slot="header">
+                    <span @click="handleClickTimeOrder">
+                      最新推送时间(实时)
+                    </span>
+                    <span @click="handleClickTimeOrder">
+                      <i class="el-icon-caret-bottom"></i>
+                    </span>
+                  </template>
+                </el-table-column>
+          <el-table-column
           prop="parkStatus"
           :show-overflow-tooltip="true"
           label="车位状态(实时数据)"
         />
-<!--        <el-table-column-->
-<!--          prop="sensorId"-->
-<!--          :show-overflow-tooltip="true"-->
-<!--          label="传感器ID"-->
-<!--        />-->
         <el-table-column
           prop="producer"
           :show-overflow-tooltip="true"
@@ -453,7 +457,7 @@ export default {
       },
       //批量导入会话
       importDialog: false,
-      templateDl: ""
+      templateDl: "",
     };
   },
   mounted() {
@@ -475,6 +479,33 @@ export default {
     }
   },
   methods: {
+      //点击最新时间推送
+      handleClickTimeOrder(){
+          console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+          const param = {
+              parkId: this.upQueryList.parkId,
+              pageNumber: this.pageNum,
+              pageSize: this.pageSize,
+              sort:"time"
+          };
+          this.$deviceManagement.queryMagneticDetecter(param).then(res => {
+              this.geoList = res.resultEntity.list;
+              this.pageTotal = res.resultEntity.total;
+          });
+      },
+      // 默认查询表格数据
+      queryMagneticDetecter() {
+          const param = {
+              parkId: this.upQueryList.parkId,
+              pageNumber: this.pageNum,
+              pageSize: this.pageSize
+          };
+          this.$deviceManagement.queryMagneticDetecter(param).then(res => {
+              this.geoList = res.resultEntity.list;
+              this.pageTotal = res.resultEntity.total;
+          });
+      },
+    //
     queryButton() {
       this.pageNum = 1;
       this.queryMagneticDetecter();
@@ -537,6 +568,7 @@ export default {
     //查询重置按钮
     resetQuery() {
       this.upQueryList = {};
+        this.queryMagneticDetecter()
     },
 
     //批量导入
