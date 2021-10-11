@@ -18,6 +18,7 @@
         <div class="login-block-text"><span>欢迎使用</span></div>
         <div class="login-block-title">
           <span>溧水经开区管委会智慧停车管理平台</span>
+<!--          <span>华设园区智慧停车管理服务平台软件</span>-->
         </div>
         <el-form
           class="login-form-horizontal"
