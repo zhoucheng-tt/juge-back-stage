@@ -157,6 +157,15 @@ const routes = [
             /* webpackChunkName: "about" */ "@/views/reportAnalysis/entranceExitMonitoring.vue"
           )
       },
+      // 监测点流量统计
+      {
+        path: "/trafficstatistics",
+        name: "trafficstatistics",
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ "@/views/realtimeMonitor/trafficstatistics.vue"
+          )
+      },
       // 洗车机报警信息统计
       {
         path: "/alarmInformationCarWashingMachine",

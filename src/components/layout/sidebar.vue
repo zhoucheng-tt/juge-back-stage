@@ -116,7 +116,9 @@
     <!--      </el-col>-->
 
     <!--    </el-row>-->
-    <side-nav class="tac" :routes="routes" :active-menu="menuValue"></side-nav>
+    <side-nav class="tac"
+              :routes="routes"
+              :active-menu="menuValue"></side-nav>
   </el-container>
 </template>
 
@@ -128,7 +130,7 @@ export default {
   components: {
     SideNav
   },
-  data() {
+  data () {
     return {
       menuValue: "homePage",
 
@@ -185,13 +187,13 @@ export default {
               name: "洗车机报警信息统计",
               routeName: "alarmInformationCarWashingMachine"
             },
-              //洗车运营分析
-              {
-                  code: "3-6",
-                  logo: "el-icon-menu",
-                  name: "洗车运营分析",
-                  routeName: "realTimeMonitoringCarWaring"
-              },
+            //洗车运营分析
+            {
+              code: "3-6",
+              logo: "el-icon-menu",
+              name: "洗车运营分析",
+              routeName: "realTimeMonitoringCarWaring"
+            },
           ]
         },
         {
@@ -206,6 +208,13 @@ export default {
               logo: "el-icon-menu",
               name: "出入口监测",
               routeName: "entranceExitMonitoring"
+            },
+            // 监测点流量统计
+            {
+              code: "4-2",
+              logo: "el-icon-menu",
+              name: "监测点流量统计",
+              routeName: "trafficstatistics"
             }
           ]
         },
@@ -333,8 +342,8 @@ export default {
     // },
   },
   watch: {},
-  created() {},
-  mounted() {
+  created () { },
+  mounted () {
     // eslint-disable-next-line no-mixed-spaces-and-tabs
     this.menuValue = this.$route.path.split("/")[1];
   }
