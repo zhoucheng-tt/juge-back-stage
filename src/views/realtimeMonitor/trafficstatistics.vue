@@ -10,28 +10,25 @@
           <el-form-item label="监测点:">
             <el-select size="small"
                        style="width: 160px"
-                       v-model="upQueryList.parkId">
+                       v-model="upQueryList.deviceId">
               <el-option label="全部"
                          value="" />
-              <el-option v-for="(item, index) in parkingLotList"
-                         :label="item.name"
-                         :value="item.code"
+              <el-option v-for="(item, index) in cameraList"
+                         :label="item.code"
+                         :value="item.name"
                          :key="index"></el-option>
             </el-select>
           </el-form-item>
-          <!--时间-->
           <el-form-item label="选择时间:">
-            <el-date-picker v-model="upQueryList.minDateTime"
+            <el-date-picker v-model="upQueryList.startTime"
                             type="datetime"
                             size="small"
                             style="width: 160px"
                             value-format="yyyy-MM-dd HH:mm:ss"
                             placeholder="请选择起始时间">
             </el-date-picker>
-            <span>
-              ~
-            </span>
-            <el-date-picker v-model="upQueryList.maxDateTime"
+            <span>~</span>
+            <el-date-picker v-model="upQueryList.endTime"
                             type="datetime"
                             size="small"
                             style="width: 160px"
@@ -39,29 +36,27 @@
                             value-format="yyyy-MM-dd HH:mm:ss">
             </el-date-picker>
           </el-form-item>
-          <!--    车牌号-->
           <el-form-item label="车牌号:">
             <el-input size="small"
                       style="width: 160px"
                       v-model="upQueryList.plateNumber"
                       placeholder="请输入车牌号"></el-input>
           </el-form-item>
-          <!--      查询按钮-->
+          <!--查询按钮-->
           <el-form-item>
             <el-button type="primary"
                        size="small"
-                       @click="queryUpFormList">查询
-            </el-button>
+                       @click="queryUpFormList">查 询</el-button>
             <el-button size="small"
-                       @click="resetQuery">重置</el-button>
+                       @click="resetQuery">重 置</el-button>
           </el-form-item>
-          <el-form-item label="当天流量数:">255</el-form-item>
+          <el-form-item label="当天流量数:"> {{flowMonitorNumber}}</el-form-item>
         </el-form>
       </el-row>
       <el-row class="data-content">
         <!--左侧图片-->
         <el-row class="upImg">
-          <img :src="selectedInRecord.inImage"
+          <img :src="imageLeft"
                class="upImg-content" />
         </el-row>
         <el-row class="upTable">
@@ -72,7 +67,7 @@
                     color: '#333333',
                     'text-align': 'center'
                     }"
-                    :data="carInRecordList"
+                    :data="flowList"
                     :header-cell-style="{
                     fontfamily: 'PingFangSC-Medium',
                     background: '#FFFFFF',
@@ -87,34 +82,25 @@
                     style="width: 100%;margin-left: 1%"
                     :highlight-current-row="true"
                     @row-click="handleSelection">
-            <el-table-column label="经过时间"
-                             prop="inTime"
-                             label-width="210px"></el-table-column>
             <el-table-column :show-overflow-tooltip="true"
                              label="车牌号"
                              prop="plateNumber" />
             <el-table-column :show-overflow-tooltip="true"
+                             label="车牌颜色"
+                             prop="plateColor" />
+            <el-table-column label="经过时间"
+                             prop="time"
+                             label-width="210px" />
+            <el-table-column :show-overflow-tooltip="true"
                              label="监测点名称"
-                             prop="parkName" />
-            <el-table-column :show-overflow-tooltip="true"
-                             label="通过设备"
-                             prop="inDeviceName" />
-            <el-table-column :show-overflow-tooltip="true"
-                             label="操作">
-              <template slot-scope="scope">
-                <el-button size="small"
-                           type="text"
-                           @click="showDetail(scope.row)">查看详情
-                </el-button>
-              </template>
-            </el-table-column>
+                             prop="deviceName" />
           </el-table>
           <div style="float: right;">
             <el-pagination layout="total, prev, pager, next, jumper"
-                           :page-size="upPageSize"
+                           :page-size="pageSize"
                            @current-change="handleUpQuery"
-                           :current-page="upPageNum"
-                           :total="upTotal"
+                           :current-page="pageNum"
+                           :total="total"
                            style="height: 10%">
             </el-pagination>
           </div>
@@ -125,19 +111,24 @@
 </template>
 
 <script>
+const imageUrl = "http://221.226.72.122:8888/images"
+// const imageUrl = "http://192.168.1.29:8000/images"
 export default {
   data () {
     return {
       //查询绑定
       upQueryList: {},
-      //入场记录分页数据
-      upPageNum: 1,
-      upPageSize: 11,
-      upTotal: 5,
-      carInRecordList: [], //入场记录列表
-      parkingLotList: [], // 停车场下拉列表
-      selectedInRecord: {},
-      timer: null
+      // 分页
+      pageNum: 1,
+      pageSize: 11,
+      total: 5,
+      flowList: [], //流量列表
+      flowMonitorNumber: 0, // 当天流量数
+      imageLeft: "",// 左侧图片
+      cameraList: [], // 监测点下拉列表
+      cameraList: [], // 摄像头列表
+      selectRow: {}, // 选中行数据
+      timer: null // 轮询
     };
   },
   created () {
@@ -147,8 +138,9 @@ export default {
     }, 60000);
   },
   mounted () {
-    this.queryParking();
-    this.queryUpList();
+    this.queryCamera();
+    this.queryCurrentFlowNumber()
+    this.queryFlowList();
   },
   destroyed () {
     if (this.timer) {
@@ -159,66 +151,72 @@ export default {
   methods: {
     //  定时任务
     getNewMessage () {
-      this.queryUpList();
-      this.queryDownList();
+      this.queryFlowList();
+      this.queryCurrentFlowNumber()
+    },
+    //选中某行
+    handleSelection (row) {
+      this.selectRow = row;
+      this.imageLeft = imageUrl + this.selectRow.image
+    },
+    // 查询当天流量数
+    queryCurrentFlowNumber () {
+      // 获取当日日期
+      let today = new Date();
+      today.setTime(today.getTime());
+      let t = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+      let info = {
+        startTime: t + " " + "00:00:00",
+        endTime: t + " " + "23:59:59"
+      }
+      this.$trafficstatistics.queryTrafficRecordCount(info).then(res => {
+        this.flowMonitorNumber = res.resultEntity
+      })
+    },
+    // 流量列表查询
+    queryFlowList () {
+      const param = {
+        deviceId: Number(this.upQueryList.deviceId),
+        plateNumber: this.upQueryList.plateNumber,
+        startTime: this.upQueryList.startTime,
+        endTime: this.upQueryList.endTime,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+      };
+      this.$trafficstatistics.queryTrafficRecord(param).then(res => {
+        this.flowList = res.resultEntity.list;
+        this.total = res.resultEntity.total;
+        this.imageLeft = imageUrl + res.resultEntity.list[0].image
+      });
     },
     //上半部查询按钮
     queryUpFormList () {
-      this.upPageNum = 1;
-      this.queryUpList();
+      this.pageNum = 1;
+      this.queryFlowList();
     },
-    //入场记录选中某行
-    handleSelection (row) {
-      this.selectedInRecord = row;
-    },
-    //入场记录跳页
+    // 分页
     handleUpQuery (val) {
-      this.upPageNum = val;
-      this.queryUpList();
+      this.pageNum = val;
+      this.queryFlowList();
     },
-    //查询重置按钮
+    // 重置按钮
     resetQuery () {
+      this.pageNum = 1;
       this.upQueryList = {};
+      this.queryFlowList();
     },
-    //入场记录查询
-    queryUpList () {
+    // 查询摄像头下拉表单
+    queryCamera () {
+      this.cameraList = [];
       const param = {
-        pageNum: this.upPageNum,
-        pageSize: this.upPageSize,
-        parkId: this.upQueryList.parkId,
-        plateNumber: this.upQueryList.plateNumber,
-        startTime: this.upQueryList.minDateTime,
-        endTime: this.upQueryList.maxDateTime
+        "columnName": ["device_name", "device_id"],
+        "tableName": "t_bim_camera",
+        "whereStr": []
       };
-      this.$realTimeMonitor.queryInRecord(param).then(res => {
-        if (res.resultEntity.list.length === 0) {
-          this.$message({
-            type: "fail",
-            message: "没有符合条件的记录!请重新输入!"
-          });
-          return;
-        }
-        this.carInRecordList = res.resultEntity.list;
-        this.upTotal = res.resultEntity.total;
-        this.selectedInRecord = this.carInRecordList[0];
+      this.$homePage.queryDict(param).then(res => {
+        this.cameraList = res.resultEntity;
       });
     },
-    // 查询停车场下拉表单
-    queryParking () {
-      this.parkingLotList = [];
-      const param = {
-        columnName: ["park_id", "park_name"],
-        tableName: "t_bim_park",
-        whereStr: []
-      };
-      this.$homePage.queryDict(param).then(response => {
-        this.parkingLotList = response.resultEntity;
-      });
-    },
-    //查看入场记录详情
-    showDetail (item) {
-      this.selectedInRecord = item;
-    }
   }
 };
 </script>
@@ -252,18 +250,16 @@ export default {
 }
 
 .upImg {
-  width: 30%;
-  height: 325px;
+  width: 40%;
+  height: 780px;
 }
-
 .upImg-content {
   width: 100%;
   height: 100%;
 }
-
 .upTable {
-  width: 70%;
-  height: 70%;
+  width: 60%;
+  height: 95%;
 }
 
 .el-table .selectRow {
@@ -296,7 +292,6 @@ li {
   text-overflow: ellipsis;
   width: 100%;
   height: 34px;
-  /*line-height: 60px;*/
   text-align: left;
   margin: 0;
   font-size: 14px;

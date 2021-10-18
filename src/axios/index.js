@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-09-24 14:16:45
- * @LastEditTime: 2020-11-09 10:14:40
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-18 15:14:26
+ * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\company Environment\tcxt-web\src\axios\index.js
  */
@@ -22,68 +22,76 @@ import * as orderManagement from "./orderManagement/orderManagement.js";
 import * as realTimeMonitor from "./realTimeMonitor/realTimeMonitor";
 //白黑名单
 import * as listManagement from "./listManagement/listManagement";
-//基础信息管理 计费规则 basicInformationManagement
+//基础信息管理 计费规则 
 import * as basicInformationManagement from "./basicInformationManagement/basicInformationManagement";
+// 监测点流量统计
+import * as trafficstatistics from "./realTimeMonitor/trafficstatistics";
 
-const install = function(Vue) {
+const install = function (Vue) {
   if (install.installed) {
     return (install.installed = true);
   }
   Object.defineProperties(Vue.prototype, {
     $ysParking: {
-      get() {
+      get () {
         return ysParking;
       }
     },
     // 首页接口  homePage
     $homePage: {
-      get() {
+      get () {
         return homePage;
       }
     },
     //	设备管理页面接口
     $deviceManagement: {
-      get() {
+      get () {
         return deviceManagement;
       }
     },
     // 报表分析接口
     $reportAnalysis: {
-      get() {
+      get () {
         return reportAnalysis;
       }
     },
     // 系统管理接口
     $systemUser: {
-      get() {
+      get () {
         return systemUser;
       }
     },
     //订单管理页面
     $orderManagement: {
-      get() {
+      get () {
         return orderManagement;
       }
     },
     //实时监测
     $realTimeMonitor: {
-      get() {
+      get () {
         return realTimeMonitor;
       }
     },
     //实时监测
     $listManagement: {
-      get() {
+      get () {
         return listManagement;
       }
     },
     //基础信息管理
     //实时监测
     $basicInformationManagement: {
-      get() {
+      get () {
         return basicInformationManagement;
       }
+    },
+    $trafficstatistics: {
+      get () {
+        return trafficstatistics;
+      }
     }
+
   });
 };
 

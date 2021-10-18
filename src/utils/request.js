@@ -2,7 +2,7 @@
  * @Description:
  * @Author: 陈书瑶
  * @Date: 2020-04-01 15:09:48
- * @LastEditors: Please set LastEditors
+ * @LastEditors: zhoucheng
  */
 import axios from "axios";
 import qs from "qs";
@@ -15,10 +15,9 @@ const service = axios.create({
   // 这边目的是为了生产环境上的后台地址是不会被拼接出错
   // baseURL: process.env.VUE_APP_HOST_URL, // url = base url + request url
   // 后台位置
-  // baseURL: "http://120.26.146.64:8052/e-parking-web",
-  //新后台位置
-  // baseURL: "http://192.168.1.163:8000/",
+  // baseURL: "http://192.168.1.29:8000/",
   // baseURL: "http://123.207.189.27:7146/eparking-web/",
+  // 上线版本
   baseURL: "http://221.226.72.122:8888/eparking-web/",
   // 服务器版本
   // baseURL:'/e-parking-api',
@@ -27,7 +26,7 @@ const service = axios.create({
   timeout: 15000, // request timeout
   // 这边也走两套
   transformRequest: [
-    function(data) {
+    function (data) {
       let reqInfo;
       if (data.template !== undefined) {
         reqInfo = {
