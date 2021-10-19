@@ -87,17 +87,23 @@
         <el-table-column prop="port"
                          :show-overflow-tooltip="true"
                          label="端口号" />
+        <el-table-column prop="status"
+                         :show-overflow-tooltip="true"
+                         label="状态" />
+        <el-table-column prop="offlineTime"
+                         :show-overflow-tooltip="true"
+                         label="最新离线推送时间" />
         <el-table-column prop="remark"
                          :show-overflow-tooltip="true"
                          label="备注" />
         <el-table-column :show-overflow-tooltip="true"
                          label="操作">
           <template slot-scope="scope">
-<!--            <el-button @click="editGeoDialog(scope.row)"-->
-<!--                       type="text"-->
-<!--                       size="small">-->
-<!--              配置-->
-<!--            </el-button>-->
+            <!--            <el-button @click="editGeoDialog(scope.row)"-->
+            <!--                       type="text"-->
+            <!--                       size="small">-->
+            <!--              配置-->
+            <!--            </el-button>-->
             <el-button @click="editNewScreenDialog(scope.row)"
                        type="text"
                        size="small">
@@ -154,13 +160,13 @@
                 <el-input v-model="addNewScreenList.port"></el-input>
               </el-form-item>
             </el-col>
-         <el-col :span="12">
-           <el-form-item label="备注:"
-                         label-width="160px"
-                         prop="producer">
-             <el-input v-model="addNewScreenList.remark"></el-input>
-           </el-form-item>
-         </el-col>
+            <el-col :span="12">
+              <el-form-item label="备注:"
+                            label-width="160px"
+                            prop="producer">
+                <el-input v-model="addNewScreenList.remark"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-form>
         <div slot="footer"
@@ -263,61 +269,61 @@ import { BASE_API } from "@/utils/config";
 export default {
   data () {
     return {
-        // 顶部查询条件
-        upQueryList: {
-          guidanceScreenName: ""
-        },
-        // 诱导屏列表
-        screenList: [],
-        //初始化分页
-        pageNum: 1,
-        pageSize: 11,
-        pageTotal: 2,
-        //新增表单弹框
-        addListDialog: false,
-        //新增地磁车数据暂存
-        addNewScreenList: {},
-        addListRules: {
-            guidanceScreenName: [
-                {
-                    required: true,
-                    message: "诱导屏名称不能为空",
-                    trigger: "blur"
-                }
-            ],
-            ipAddress: [
-                {
-                    required: true,
-                    message: "IP地址不能为空",
-                    trigger: "blur"
-                }
-            ],
-            port: [
-                {
-                    required: true,
-                    message: "端口号不能为空",
-                    trigger: "blur"
-                }
-            ]
-        },
-        //修改表单弹框
-        editListDialog: false,
-        //修改地磁车数据暂存
-        editScreen: {},
-        //批量删除暂存id
-        idList: [],
-        //多选后数据暂存
-        selectNewScreenList: [],
-        // 导入
-        fileList: [],
-        //批量导入会话
-        importDialog: false,
-        templateDl: ""
+      // 顶部查询条件
+      upQueryList: {
+        guidanceScreenName: ""
+      },
+      // 诱导屏列表
+      screenList: [],
+      //初始化分页
+      pageNum: 1,
+      pageSize: 11,
+      pageTotal: 2,
+      //新增表单弹框
+      addListDialog: false,
+      //新增地磁车数据暂存
+      addNewScreenList: {},
+      addListRules: {
+        guidanceScreenName: [
+          {
+            required: true,
+            message: "诱导屏名称不能为空",
+            trigger: "blur"
+          }
+        ],
+        ipAddress: [
+          {
+            required: true,
+            message: "IP地址不能为空",
+            trigger: "blur"
+          }
+        ],
+        port: [
+          {
+            required: true,
+            message: "端口号不能为空",
+            trigger: "blur"
+          }
+        ]
+      },
+      //修改表单弹框
+      editListDialog: false,
+      //修改地磁车数据暂存
+      editScreen: {},
+      //批量删除暂存id
+      idList: [],
+      //多选后数据暂存
+      selectNewScreenList: [],
+      // 导入
+      fileList: [],
+      //批量导入会话
+      importDialog: false,
+      templateDl: ""
     };
   },
   mounted () {
-      // 初始化诱导屏列表
-      this.queryGuideScreenList();
+    // 初始化诱导屏列表
+    this.queryGuideScreenList();
 
     const param = {
       template: "youdaoping"
@@ -334,194 +340,194 @@ export default {
     }
   },
   methods: {
-      //列表查询
-      queryGuideScreenList () {
+    //列表查询
+    queryGuideScreenList () {
+      const param = {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+        guidanceScreenName: this.upQueryList.guidanceScreenName
+      };
+      this.$deviceManagement.queryGuideScreenList(param).then(res => {
+        this.screenList = res.resultEntity.list;
+        this.pageTotal = res.resultEntity.total;
+      });
+    },
+    // 分页查询方法
+    handleCurrentModify (val) {
+      this.pageNum = val;
+      this.queryGuideScreenList();
+    },
+    // 查询按钮
+    queryButton () {
+      this.pageNum = 1;
+      this.queryGuideScreenList();
+    },
+    //查询重置按钮
+    resetQuery () {
+      this.upQueryList = {};
+    },
+    //新增诱导屏弹框弹出
+    addNewScreen () {
+      this.addNewScreenList = {};
+      this.addListDialog = true;
+    },
+    // 新增表单提交
+    onSubmitAdd () {
+      this.$refs["newScreen"].validate(valid => {
+        if (valid) {
           const param = {
-              pageNum: this.pageNum,
-              pageSize: this.pageSize,
-              guidanceScreenName:this.upQueryList.guidanceScreenName
+            guidanceScreenName: this.addNewScreenList.guidanceScreenName,
+            ipAddress: this.addNewScreenList.ipAddress,
+            port: this.addNewScreenList.port,
+            remark: this.addNewScreenList.remark
           };
-          this.$deviceManagement.queryGuideScreenList(param).then(res => {
-              this.screenList = res.resultEntity.list;
-              this.pageTotal = res.resultEntity.total;
+          this.$deviceManagement.addGuideScreen(param).then(() => {
+            this.$message({ type: "success", message: "新增成功!" });
+            this.addListDialog = false;
+            this.queryGuideScreenList();
           });
-      },
-      // 分页查询方法
-      handleCurrentModify (val) {
-          this.pageNum = val;
+        }
+      });
+    },
+    //修改弹框弹出
+    editNewScreenDialog (row) {
+      this.editScreen = row;
+      this.editListDialog = true;
+    },
+    //修改表单提交
+    onSubmitEdit () {
+      this.editListDialog = false;
+      const param = {
+        guidanceScreenId: this.editScreen.guidanceScreenId,
+        guidanceScreenName: this.editScreen.guidanceScreenName,
+        ipAddress: this.editScreen.ipAddress,
+        port: this.editScreen.port,
+        remark: this.editScreen.remark
+      };
+      this.$deviceManagement.updateGuideScreen(param).then(res => {
+        if (res.resultCode == "2000") {
+          this.$message({ type: "success", message: "修改成功" });
           this.queryGuideScreenList();
-      },
-      // 查询按钮
-      queryButton () {
-          this.pageNum = 1;
+        } else {
+          this.$message({ type: "error", message: "修改失败" });
           this.queryGuideScreenList();
-      },
-      //查询重置按钮
-      resetQuery () {
-          this.upQueryList = {};
-      },
-      //新增诱导屏弹框弹出
-      addNewScreen () {
-          this.addNewScreenList = {};
-          this.addListDialog = true;
-      },
-      // 新增表单提交
-      onSubmitAdd () {
-          this.$refs["newScreen"].validate(valid => {
-              if (valid) {
-                  const param = {
-                      guidanceScreenName: this.addNewScreenList.guidanceScreenName,
-                      ipAddress: this.addNewScreenList.ipAddress,
-                      port: this.addNewScreenList.port,
-                      remark: this.addNewScreenList.remark
-                  };
-                  this.$deviceManagement.addGuideScreen(param).then(() => {
-                      this.$message({ type: "success", message: "新增成功!" });
-                      this.addListDialog = false;
-                      this.queryGuideScreenList();
-                  });
-              }
-          });
-      },
-      //修改弹框弹出
-      editNewScreenDialog (row) {
-          this.editScreen = row;
-          this.editListDialog = true;
-      },
-      //修改表单提交
-      onSubmitEdit () {
-          this.editListDialog = false;
-          const param = {
-              guidanceScreenId: this.editScreen.guidanceScreenId,
-              guidanceScreenName: this.editScreen.guidanceScreenName,
-              ipAddress: this.editScreen.ipAddress,
-              port: this.editScreen.port,
-              remark: this.editScreen.remark
-          };
-          this.$deviceManagement.updateGuideScreen(param).then(res => {
-              if (res.resultCode == "2000") {
-                  this.$message({ type: "success", message: "修改成功" });
-                  this.queryGuideScreenList();
-              } else {
-                  this.$message({ type: "error", message: "修改失败" });
-                  this.queryGuideScreenList();
-              }
-          });
-      },
-      //删除
-      deleteNewScreen (row) {
-          this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
-              type: "warning"
-          })
-              .then(() => {
-                  this.idList = [];
-                  let info = [{guidanceScreenId:row.guidanceScreenId}]
-                  this.$deviceManagement.delGuideScreen(info).then(res => {
-                      this.$message({ type: "success", message: "删除成功!" });
-                      this.queryGuideScreenList();
-                  });
-              })
-              .catch(() => {
-                  this.$message({ type: "info", message: "已取消删除" });
-              });
-      },
-      //批量删除监听
-      handleSelectionChange (val) {
-          this.selectNewScreenList = val;
+        }
+      });
+    },
+    //删除
+    deleteNewScreen (row) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
           this.idList = [];
-          //获取批量删除的停车场Id和地磁车Id对象加入批量删除的列表
-          val.forEach(item => {
-              this.idList.push({guidanceScreenId:item.guidanceScreenId});
+          let info = [{ guidanceScreenId: row.guidanceScreenId }]
+          this.$deviceManagement.delGuideScreen(info).then(res => {
+            this.$message({ type: "success", message: "删除成功!" });
+            this.queryGuideScreenList();
           });
-      },
-      //批量删除
-      batchDelete () {
-          if (this.idList === [] || this.idList.length === 0) {
-              this.$confirm("请选中至少一个!", "提示", {
-                  confirmButtonText: "确定",
-                  cancelButtonText: "取消",
-                  type: "warning"
+        })
+        .catch(() => {
+          this.$message({ type: "info", message: "已取消删除" });
+        });
+    },
+    //批量删除监听
+    handleSelectionChange (val) {
+      this.selectNewScreenList = val;
+      this.idList = [];
+      //获取批量删除的停车场Id和地磁车Id对象加入批量删除的列表
+      val.forEach(item => {
+        this.idList.push({ guidanceScreenId: item.guidanceScreenId });
+      });
+    },
+    //批量删除
+    batchDelete () {
+      if (this.idList === [] || this.idList.length === 0) {
+        this.$confirm("请选中至少一个!", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        });
+      } else {
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$deviceManagement
+              .delGuideScreen(this.idList)
+              .then(res => {
+                this.$message({ type: "success", message: "删除成功!" });
+                this.queryGuideScreenList();
               });
+          })
+          .catch(() => {
+            this.$message({ type: "info", message: "已取消删除" });
+          });
+      }
+    },
+    //处理导入
+    addFile (file, fileList) {
+      if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
+        this.fileList = [];
+        this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
+      }
+    },
+    handleExceed () {
+      this.$message.warning(`对不起,一次仅限上传一个文件！`);
+    },
+    myUpload (content) {
+      let _self = this;
+      // 1.导入
+      var FileController = "";
+      FileController = BASE_API + "guideScreen/upload";
+      //创建空对象，通过append方法添加数据
+      var form = new FormData();
+      form.append("file", content.file);
+      var xhr = new XMLHttpRequest();
+      //状态改变回调方法
+      xhr.onreadystatechange = onloadFun;
+      //使用open()方法启动一个请求以备发送,请求类型，请求的URL,第三个参数是否为异步请求
+      xhr.open("POST", FileController, true);
+      xhr.send(form);
+      function onloadFun () {
+        // 0 － （未初始化）还没有调用send()方法
+        // 1 － （载入）已调用send()方法，正在发送请求
+        // 2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+        // 3 － （交互）正在解析响应内容
+        // 4 － （完成）响应内容解析完成，可以在客户端调用了
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
+          var resText = JSON.parse(xhr.responseText);
+          if (resText.resultCode === "2000") {
+            _self.fileList = [];
+            _self.$message({
+              message: "导入成功",
+              type: "success"
+            });
+            _self.importDialog = false;
+            _self.queryGuideScreenList();
           } else {
-              this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-                  confirmButtonText: "确定",
-                  cancelButtonText: "取消",
-                  type: "warning"
-              })
-                  .then(() => {
-                      this.$deviceManagement
-                          .delGuideScreen(this.idList)
-                          .then(res => {
-                              this.$message({ type: "success", message: "删除成功!" });
-                              this.queryGuideScreenList();
-                          });
-                  })
-                  .catch(() => {
-                      this.$message({ type: "info", message: "已取消删除" });
-                  });
+            _self.$message.error({
+              message: "对不起！文件上传失败",
+              type: "error"
+            });
           }
-      },
-      //处理导入
-      addFile (file, fileList) {
-          if (!(file.name.endsWith("xls") || file.name.endsWith("xlsx"))) {
-              this.fileList = [];
-              this.$message.warning(`文件格式有误,请选择正确的Excel文件`);
-          }
-      },
-      handleExceed () {
-          this.$message.warning(`对不起,一次仅限上传一个文件！`);
-      },
-      myUpload (content) {
-          let _self = this;
-          // 1.导入
-          var FileController = "";
-          FileController = BASE_API + "guideScreen/upload";
-          //创建空对象，通过append方法添加数据
-          var form = new FormData();
-          form.append("file", content.file);
-          var xhr = new XMLHttpRequest();
-          //状态改变回调方法
-          xhr.onreadystatechange = onloadFun;
-          //使用open()方法启动一个请求以备发送,请求类型，请求的URL,第三个参数是否为异步请求
-          xhr.open("POST", FileController, true);
-          xhr.send(form);
-          function onloadFun () {
-              // 0 － （未初始化）还没有调用send()方法
-              // 1 － （载入）已调用send()方法，正在发送请求
-              // 2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
-              // 3 － （交互）正在解析响应内容
-              // 4 － （完成）响应内容解析完成，可以在客户端调用了
-              if (xhr.readyState == 4 && xhr.status == 200) {
-                  //  请求结束后，执行将响应主体返回的文本赋给资源基本信息
-                  var resText = JSON.parse(xhr.responseText);
-                  if (resText.resultCode === "2000") {
-                      _self.fileList = [];
-                      _self.$message({
-                          message: "导入成功",
-                          type: "success"
-                      });
-                      _self.importDialog = false;
-                      _self.queryGuideScreenList();
-                  } else {
-                      _self.$message.error({
-                          message: "对不起！文件上传失败",
-                          type: "error"
-                      });
-                  }
-                  // loading.close();
-              }
-          }
-      },
-      confimImportBatch () {
-          this.$refs.upload.submit();
-          this.importDialog = false;
-      },
-      //批量导入
-      bulkImport () {
-          this.importDialog = true;
-      },
+          // loading.close();
+        }
+      }
+    },
+    confimImportBatch () {
+      this.$refs.upload.submit();
+      this.importDialog = false;
+    },
+    //批量导入
+    bulkImport () {
+      this.importDialog = true;
+    },
   }
 };
 </script>
