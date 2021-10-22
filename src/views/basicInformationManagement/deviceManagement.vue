@@ -2,36 +2,45 @@
     设备管理
  * @Author: 邵青阳
  * @Date: 2020-10-22 09:26:58
- * @LastEditTime: 2020-11-02 17:23:18
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-22 14:12:12
+ * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\views\basicInformationManagement\carWashingMachineManagement.vue
 -->
 <template>
   <div>
-    <el-tabs v-model="activeName" class="tabsStyle" type="card">
-      <el-tab-pane label="地磁车位检测器" name="first">
+    <el-tabs v-model="activeName"
+             class="tabsStyle"
+             type="card">
+      <el-tab-pane label="地磁车位检测器"
+                   name="first">
         <geomagnetic-Parking-Detector v-if="activeName === 'first'" />
       </el-tab-pane>
-      <el-tab-pane label="地锁" name="second">
+      <el-tab-pane label="地锁"
+                   name="second">
         <floor-Lock v-if="activeName === 'second'" />
       </el-tab-pane>
+      <el-tab-pane label="道闸机管理"
+                   name="third">
+        <gate-Machine-Management v-if="activeName === 'third'" />
+      </el-tab-pane>
+      <el-tab-pane label="洗车机管理"
+                   name="forth">
+        <car-Washing-Machine-Management v-if="activeName === 'forth'" />
+      </el-tab-pane>
+      <el-tab-pane label="ETC管理"
+                   name="five">
+        <basic-Information-Management-ETC v-if="activeName === 'five'" />
+      </el-tab-pane>
+      <el-tab-pane label="诱导屏管理"
+                   name="six">
+        <inducte-screen v-if="activeName === 'six'" />
+      </el-tab-pane>
+      <el-tab-pane label="车流监测"
+                   name="seven">
+        <import-Export-Camera-Management v-if="activeName === 'seven'" />
+      </el-tab-pane>
 
-      <el-tab-pane label="道闸机管理" name="forth">
-        <gate-Machine-Management v-if="activeName === 'forth'" />
-      </el-tab-pane>
-      <el-tab-pane label="洗车机管理" name="five">
-        <car-Washing-Machine-Management v-if="activeName === 'five'" />
-      </el-tab-pane>
-      <el-tab-pane label="ETC管理" name="six">
-        <basic-Information-Management-ETC v-if="activeName === 'six'" />
-      </el-tab-pane>
-      <el-tab-pane label="诱导屏管理" name="seven">
-        <inducte-screen v-if="activeName === 'seven'" />
-      </el-tab-pane>
-<!--      <el-tab-pane label="进出口摄像头管理" name="third">-->
-<!--        <import-Export-Camera-Management v-if="activeName === 'third'" />-->
-<!--      </el-tab-pane>-->
       <!--      <el-tab-pane label="视频车位检测器" name="first">-->
       <!--        <video-Parking-Detector v-if="activeName === 'first'" />-->
       <!--      </el-tab-pane>-->
@@ -46,8 +55,6 @@
 import geomagneticParkingDetector from "./components/deviceManagement/geomagneticParkingDetector";
 // 地锁
 import floorLock from "./components/deviceManagement/floorLock";
-// 进出口摄像头管理
-// import importExportCameraManagement from "./components/deviceManagement/importExportCameraManagement";
 // 道闸机管理  gateMachineManagement
 import gateMachineManagement from "./components/deviceManagement/gateMachineManagement";
 // 洗车机管理  carWashingMachineManagement
@@ -56,6 +63,9 @@ import carWashingMachineManagement from "./components/deviceManagement/carWashin
 import basicInformationManagementETC from "./components/deviceManagement/basicInformationManagementETC";
 //诱导屏管理
 import InducteScreen from './components/deviceManagement/inducteScreen'
+// 车流监测
+import importExportCameraManagement from "./components/deviceManagement/importExportCameraManagement";
+
 //视频车位监测器
 // import videoParkingDetector from "./components/deviceManagement/videoParkingDetector";
 // 充电桩管理  chargePointManagement
@@ -63,17 +73,17 @@ import InducteScreen from './components/deviceManagement/inducteScreen'
 
 export default {
   components: {
-      InducteScreen,
+    InducteScreen,
     geomagneticParkingDetector,
     floorLock,
     gateMachineManagement,
     carWashingMachineManagement,
     basicInformationManagementETC,
-      // importExportCameraManagement,
-      // videoParkingDetector,
+    importExportCameraManagement,
+    // videoParkingDetector,
     // chargePointManagement,
   },
-  data() {
+  data () {
     return {
       activeName: "first"
     };

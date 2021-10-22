@@ -364,7 +364,9 @@ export default {
     },
     //查询重置按钮
     resetQuery () {
+      this.pageNum = 1;
       this.upQueryList = {};
+      this.queryGuideScreenList()
     },
     //新增诱导屏弹框弹出
     addNewScreen () {

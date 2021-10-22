@@ -1,7 +1,40 @@
 import request from "@/utils/request";
 
+// 车流检测器查询 
+export function queryMonitorTrafficList (params) {
+  return request({
+    url: "/GateController/queryCameraList",
+    method: "post",
+    data: params
+  });
+}
+// 车流检测器新增 
+export function monitorTrafficAdd (params) {
+  return request({
+    url: "/GateController/addCamera",
+    method: "post",
+    data: params
+  });
+}
+// 车流检测器修改 
+export function monitorTrafficModify (params) {
+  return request({
+    url: "/GateController/updateCamera",
+    method: "post",
+    data: params
+  });
+}
+// 车流检测器删除 
+export function monitorTrafficDelete (params) {
+  return request({
+    url: "/GateController/delCamera",
+    method: "post",
+    data: params
+  });
+}
+
 // 诱导屏查询
-export function queryGuideScreenList(params) {
+export function queryGuideScreenList (params) {
   return request({
     url: "/guideScreen/queryGuideScreenList",
     // url: "http://192.168.1.205:8000/guideScreen/queryGuideScreenList",
@@ -11,7 +44,7 @@ export function queryGuideScreenList(params) {
 }
 
 // 诱导屏配置查询
-export function queryGuideScreenConfiguration(params) {
+export function queryGuideScreenConfiguration (params) {
   return request({
     url: "/guideScreen/queryGuideScreenConfiguration",
     // url: "http://192.168.1.205:8000/guideScreen/queryGuideScreenConfiguration",
@@ -21,7 +54,7 @@ export function queryGuideScreenConfiguration(params) {
 }
 
 // 修改诱导屏配置
-export function editGuideScreenConfiguration(params) {
+export function editGuideScreenConfiguration (params) {
   return request({
     url: "/guideScreen/editGuideScreenConfiguration",
     // url: "http://192.168.1.205:8000/guideScreen/editGuideScreenConfiguration",
@@ -31,7 +64,7 @@ export function editGuideScreenConfiguration(params) {
 }
 
 // 新增诱导屏
-export function addGuideScreen(params) {
+export function addGuideScreen (params) {
   return request({
     url: "/guideScreen/addGuideScreen",
     // url: "http://192.168.1.205:8000/guideScreen/addGuideScreen",
@@ -41,7 +74,7 @@ export function addGuideScreen(params) {
 }
 
 // 修改诱导屏
-export function updateGuideScreen(params) {
+export function updateGuideScreen (params) {
   return request({
     url: "/guideScreen/updateGuideScreen",
     // url: "http://192.168.1.205:8000/guideScreen/updateGuideScreen",
@@ -50,7 +83,7 @@ export function updateGuideScreen(params) {
   });
 }
 // 删除诱导屏
-export function delGuideScreen(params) {
+export function delGuideScreen (params) {
   return request({
     url: "/guideScreen/delGuideScreen",
     // url: "http://192.168.1.205:8000/guideScreen/delGuideScreen",
@@ -59,7 +92,7 @@ export function delGuideScreen(params) {
   });
 }
 // 导出
-export function downloadScreen(params) {
+export function downloadScreen (params) {
   return request({
     url: "/guideScreen/download",
     // url: "http://192.168.1.205:8000/guideScreen/download",
@@ -68,7 +101,7 @@ export function downloadScreen(params) {
   });
 }
 // 模板下载
-export function downloadResourceScreen(params) {
+export function downloadResourceScreen (params) {
   return request({
     url: "/guideScreen/updateGuideScreen",
     // url: "http://192.168.1.205:8000/CommonController/downloadResource",
@@ -77,7 +110,7 @@ export function downloadResourceScreen(params) {
   });
 }
 // 上传
-export function uploadScreen(params) {
+export function uploadScreen (params) {
   return request({
     url: "/guideScreen/upload",
     // url: "http://192.168.1.205:8000/guideScreen/upload",
@@ -87,7 +120,7 @@ export function uploadScreen(params) {
 }
 
 //地磁车列表查询
-export function queryMagneticDetecter(params) {
+export function queryMagneticDetecter (params) {
   return request({
     url: "/MagneticDetecterController/queryMagneticDetecter",
     // url: "http://192.168.1.205:8000/MagneticDetecterController/queryMagneticDetecter",
@@ -97,7 +130,7 @@ export function queryMagneticDetecter(params) {
 }
 
 //新增地磁车
-export function addMagneticDetecter(params) {
+export function addMagneticDetecter (params) {
   return request({
     url: "/MagneticDetecterController/addMagneticDetecter",
     method: "post",
@@ -106,7 +139,7 @@ export function addMagneticDetecter(params) {
 }
 
 //删除地磁车
-export function delMagneticDetecter(params) {
+export function delMagneticDetecter (params) {
   return request({
     url: "/MagneticDetecterController/deleteMagneticDetecter",
     method: "post",
@@ -114,7 +147,7 @@ export function delMagneticDetecter(params) {
   });
 }
 //修改地磁车
-export function updateMagneticDetecter(params) {
+export function updateMagneticDetecter (params) {
   return request({
     url: "/MagneticDetecterController/updateMagneticDetecter",
     method: "post",
@@ -122,7 +155,7 @@ export function updateMagneticDetecter(params) {
   });
 }
 //地锁列表查询
-export function queryGroundLock(params) {
+export function queryGroundLock (params) {
   return request({
     url: "/GroundLockController/queryGroundLock",
     method: "post",
@@ -130,7 +163,7 @@ export function queryGroundLock(params) {
   });
 }
 //新增地锁
-export function addGroundLock(params) {
+export function addGroundLock (params) {
   return request({
     url: "/GroundLockController/addGroundLock",
     method: "post",
@@ -138,7 +171,7 @@ export function addGroundLock(params) {
   });
 }
 //删除地锁
-export function delGroundLock(params) {
+export function delGroundLock (params) {
   return request({
     url: "/GroundLockController/delGroundLock",
     method: "post",
@@ -147,7 +180,7 @@ export function delGroundLock(params) {
 }
 
 //修改地锁
-export function updateGroundLock(params) {
+export function updateGroundLock (params) {
   return request({
     url: "/GroundLockController/updateGroundLock",
     method: "post",
@@ -155,7 +188,7 @@ export function updateGroundLock(params) {
   });
 }
 //道闸机按钮查询 query
-export function queryPassagewayGate(param) {
+export function queryPassagewayGate (param) {
   return request({
     url: "/PassagewayGateController/queryPassagewayGate",
     method: "post",
@@ -164,7 +197,7 @@ export function queryPassagewayGate(param) {
 }
 
 // 道闸机新增 addPassagewayGate
-export function addPassagewayGate(param) {
+export function addPassagewayGate (param) {
   return request({
     url: "/PassagewayGateController/addPassagewayGate",
     method: "post",
@@ -173,7 +206,7 @@ export function addPassagewayGate(param) {
 }
 
 //道闸机删除 delPassagewayGate
-export function delPassagewayGate(param) {
+export function delPassagewayGate (param) {
   return request({
     url: "/PassagewayGateController/delPassagewayGate",
     method: "post",
@@ -182,7 +215,7 @@ export function delPassagewayGate(param) {
 }
 
 //道闸机修改 updatePassagewayGate
-export function updatePassagewayGate(param) {
+export function updatePassagewayGate (param) {
   return request({
     url: "/PassagewayGateController/updatePassagewayGate",
     method: "post",
@@ -191,7 +224,7 @@ export function updatePassagewayGate(param) {
 }
 
 //新增出入口摄像头
-export function addPassagewayCamera(param) {
+export function addPassagewayCamera (param) {
   return request({
     url: "/PassagewayCameraController/addPassagewayCamera",
     method: "post",
@@ -200,7 +233,7 @@ export function addPassagewayCamera(param) {
 }
 
 //出入口摄像头列表查询
-export function queryPassagewayCamera(params) {
+export function queryPassagewayCamera (params) {
   return request({
     url: "/PassagewayCameraController/queryPassagewayCamera",
     method: "post",
@@ -209,7 +242,7 @@ export function queryPassagewayCamera(params) {
 }
 
 //出入口摄像头修改
-export function updatePassagewayCamera(params) {
+export function updatePassagewayCamera (params) {
   return request({
     url: "/PassagewayCameraController/updatePassagewayCamera",
     method: "post",
@@ -218,7 +251,7 @@ export function updatePassagewayCamera(params) {
 }
 
 //出入口摄像头删除
-export function delPassagewayCamera(params) {
+export function delPassagewayCamera (params) {
   return request({
     url: "/PassagewayCameraController/delPassagewayCamera",
     method: "post",
@@ -226,7 +259,7 @@ export function delPassagewayCamera(params) {
   });
 }
 //基础信息管理信息ETC
-export function queryETCList(param) {
+export function queryETCList (param) {
   return request({
     url: "/ETCFunc/queryETCList",
     method: "post",
@@ -235,7 +268,7 @@ export function queryETCList(param) {
 }
 
 //修改ETC updateETC
-export function updateETC(param) {
+export function updateETC (param) {
   return request({
     url: "/ETCFunc/updateETC",
     method: "post",
@@ -244,7 +277,7 @@ export function updateETC(param) {
 }
 
 //新增ETC addETC
-export function addETC(param) {
+export function addETC (param) {
   return request({
     url: "/ETCFunc/addETC",
     method: "post",
@@ -253,7 +286,7 @@ export function addETC(param) {
 }
 
 //删除ETC
-export function delETC(param) {
+export function delETC (param) {
   return request({
     url: "/ETCFunc/delETC",
     method: "post",
@@ -262,7 +295,7 @@ export function delETC(param) {
 }
 
 //洗车机列表
-export function queryCarWashingMachineList(param) {
+export function queryCarWashingMachineList (param) {
   return request({
     url: "/carWashingMachineFunc/queryCarWashingMachineList",
     method: "post",
@@ -270,7 +303,7 @@ export function queryCarWashingMachineList(param) {
   });
 }
 //新增洗车机 addCarWashingMachine
-export function addCarWashingMachine(param) {
+export function addCarWashingMachine (param) {
   return request({
     url: "/carWashingMachineFunc/addCarWashingMachine",
     method: "post",
@@ -279,7 +312,7 @@ export function addCarWashingMachine(param) {
 }
 
 //修改洗车机 updateCarWashingMachine
-export function updateCarWashingMachine(param) {
+export function updateCarWashingMachine (param) {
   return request({
     url: "/carWashingMachineFunc/updateCarWashingMachine",
     method: "post",
@@ -288,7 +321,7 @@ export function updateCarWashingMachine(param) {
 }
 
 //删除洗车机 delCarWashingMachine
-export function delCarWashingMachine(param) {
+export function delCarWashingMachine (param) {
   return request({
     url: "/carWashingMachineFunc/delCarWashingMachine",
     method: "post",
@@ -297,7 +330,7 @@ export function delCarWashingMachine(param) {
 }
 
 //文件上传
-export function uploadFile(param) {
+export function uploadFile (param) {
   return request({
     url: "/FileController/upFile",
     method: "post",
@@ -306,7 +339,7 @@ export function uploadFile(param) {
 }
 
 //导出ETC数据
-export function exportETC(param) {
+export function exportETC (param) {
   return request({
     url: "/ETCFunc/exportETC",
     method: "post",

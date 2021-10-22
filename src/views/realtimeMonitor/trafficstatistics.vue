@@ -11,11 +11,11 @@
             <el-select size="small"
                        style="width: 160px"
                        v-model="upQueryList.deviceId">
-              <el-option label="全部"
-                         value="" />
+              <el-option value=""
+                         label="全部"></el-option>
               <el-option v-for="(item, index) in cameraList"
-                         :label="item.code"
-                         :value="item.name"
+                         :label="item.name"
+                         :value="item.code"
                          :key="index"></el-option>
             </el-select>
           </el-form-item>
@@ -23,7 +23,7 @@
             <el-date-picker v-model="upQueryList.startTime"
                             type="datetime"
                             size="small"
-                            style="width: 160px"
+                            style="width: 185px"
                             value-format="yyyy-MM-dd HH:mm:ss"
                             placeholder="请选择起始时间">
             </el-date-picker>
@@ -31,7 +31,7 @@
             <el-date-picker v-model="upQueryList.endTime"
                             type="datetime"
                             size="small"
-                            style="width: 160px"
+                            style="width: 185px"
                             placeholder="请选择截止日期"
                             value-format="yyyy-MM-dd HH:mm:ss">
             </el-date-picker>
@@ -50,7 +50,7 @@
             <el-button size="small"
                        @click="resetQuery">重 置</el-button>
           </el-form-item>
-          <el-form-item label="当天流量数:"> {{flowMonitorNumber}}</el-form-item>
+          <el-form-item label="流量总数:"> {{flowMonitorNumber}}</el-form-item>
         </el-form>
       </el-row>
       <el-row class="data-content">
@@ -111,13 +111,18 @@
 </template>
 
 <script>
-const imageUrl = "http://221.226.72.122:8888/images"
+// const imageUrl = "http://221.226.72.122:8888/images/"
+const imageUrl = "http://123.207.189.27:7182/images/"
 // const imageUrl = "http://192.168.1.29:8000/images"
 export default {
   data () {
     return {
       //查询绑定
-      upQueryList: {},
+      upQueryList: {
+        deviceId: "",
+        startTime: "",
+        endTime: ""
+      },
       // 分页
       pageNum: 1,
       pageSize: 11,
@@ -126,7 +131,6 @@ export default {
       flowMonitorNumber: 0, // 当天流量数
       imageLeft: "",// 左侧图片
       cameraList: [], // 监测点下拉列表
-      cameraList: [], // 摄像头列表
       selectRow: {}, // 选中行数据
       timer: null // 轮询
     };
@@ -138,6 +142,7 @@ export default {
     }, 60000);
   },
   mounted () {
+    this.queryToday();
     this.queryCamera();
     this.queryCurrentFlowNumber()
     this.queryFlowList();
@@ -151,23 +156,29 @@ export default {
   methods: {
     //  定时任务
     getNewMessage () {
-      this.queryFlowList();
       this.queryCurrentFlowNumber()
+      this.queryFlowList();
     },
     //选中某行
     handleSelection (row) {
       this.selectRow = row;
       this.imageLeft = imageUrl + this.selectRow.image
     },
-    // 查询当天流量数
-    queryCurrentFlowNumber () {
+    queryToday () {
       // 获取当日日期
       let today = new Date();
       today.setTime(today.getTime());
       let t = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+      this.upQueryList.startTime = t + " " + "00:00:00"
+      this.upQueryList.endTime = t + " " + "23:59:59"
+    },
+    // 查询当天流量数
+    queryCurrentFlowNumber () {
       let info = {
-        startTime: t + " " + "00:00:00",
-        endTime: t + " " + "23:59:59"
+        deviceId: this.upQueryList.deviceId,
+        startTime: this.upQueryList.startTime + " " + "00:00:00",
+        endTime: this.upQueryList.endTime + " " + "23:59:59",
+        plateNumber: this.upQueryList.plateNumber
       }
       this.$trafficstatistics.queryTrafficRecordCount(info).then(res => {
         this.flowMonitorNumber = res.resultEntity
@@ -176,10 +187,10 @@ export default {
     // 流量列表查询
     queryFlowList () {
       const param = {
-        deviceId: Number(this.upQueryList.deviceId),
+        deviceId: this.upQueryList.deviceId,
         plateNumber: this.upQueryList.plateNumber,
-        startTime: this.upQueryList.startTime,
-        endTime: this.upQueryList.endTime,
+        startTime: this.upQueryList.startTime + " " + "00:00:00",
+        endTime: this.upQueryList.endTime + " " + "23:59:59",
         pageNum: this.pageNum,
         pageSize: this.pageSize,
       };
@@ -189,27 +200,38 @@ export default {
         this.imageLeft = imageUrl + res.resultEntity.list[0].image
       });
     },
-    //上半部查询按钮
-    queryUpFormList () {
-      this.pageNum = 1;
-      this.queryFlowList();
-    },
     // 分页
     handleUpQuery (val) {
       this.pageNum = val;
       this.queryFlowList();
     },
+    //上半部查询按钮
+    queryUpFormList () {
+      this.pageNum = 1;
+      this.queryFlowList();
+      this.queryCurrentFlowNumber()
+    },
     // 重置按钮
     resetQuery () {
-      this.pageNum = 1;
-      this.upQueryList = {};
+      let today = new Date();
+      today.setTime(today.getTime());
+      let t = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+      this.upQueryList = {
+        deviceId: "",
+        plateNumber: "",
+        startTime: t + " " + "00:00:00",
+        endTime: t + " " + "23:59:59",
+        pageNum: 1,
+        pageSize: this.pageSize,
+      };
       this.queryFlowList();
+      this.queryCurrentFlowNumber()
     },
     // 查询摄像头下拉表单
     queryCamera () {
       this.cameraList = [];
       const param = {
-        "columnName": ["device_name", "device_id"],
+        "columnName": ["device_id", "device_name"],
         "tableName": "t_bim_camera",
         "whereStr": []
       };
@@ -251,7 +273,7 @@ export default {
 
 .upImg {
   width: 40%;
-  height: 780px;
+  height: 450px;
 }
 .upImg-content {
   width: 100%;
