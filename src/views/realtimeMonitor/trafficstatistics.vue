@@ -2,47 +2,52 @@
 <template>
   <div class="all">
     <div class="up-half">
-      <!--上半部查询-->
-      <el-row class="upQuerySelect">
-        <el-form :inline="true"
-                 class="demo-form-inline">
-          <el-form-item label="实时监测"></el-form-item>
-          <el-form-item label="监测点:">
-            <el-select size="small"
-                       style="width: 160px"
-                       v-model="upQueryList.deviceId">
-              <el-option value=""
-                         label="全部"></el-option>
-              <el-option v-for="(item, index) in cameraList"
-                         :label="item.name"
-                         :value="item.code"
-                         :key="index"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="选择时间:">
-            <el-date-picker v-model="upQueryList.startTime"
-                            type="datetime"
-                            size="small"
-                            style="width: 185px"
-                            value-format="yyyy-MM-dd HH:mm:ss"
-                            placeholder="请选择起始时间">
-            </el-date-picker>
-            <span>~</span>
-            <el-date-picker v-model="upQueryList.endTime"
-                            type="datetime"
-                            size="small"
-                            style="width: 185px"
-                            placeholder="请选择截止日期"
-                            value-format="yyyy-MM-dd HH:mm:ss">
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item label="车牌号:">
-            <el-input size="small"
-                      style="width: 160px"
-                      v-model="upQueryList.plateNumber"
-                      placeholder="请输入车牌号"></el-input>
-          </el-form-item>
-          <!--查询按钮-->
+      <el-form :inline="true"
+               class="demo-form-inline">
+        <el-row style="display:flex">
+          <el-row>
+            <el-form-item label="监测点:">
+              <el-select size="small"
+                         style="width: 250px"
+                         v-model="upQueryList.deviceId">
+                <el-option value=""
+                           label="全部"></el-option>
+                <el-option v-for="(item, index) in cameraList"
+                           :label="item.name"
+                           :value="item.code"
+                           :key="index"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-row>
+          <el-row style="margin-left:5%">
+            <el-form-item label="选择时间:">
+              <el-date-picker v-model="upQueryList.startTime"
+                              type="datetime"
+                              size="small"
+                              style="width: 250px"
+                              value-format="yyyy-MM-dd HH:mm:ss"
+                              placeholder="请选择起始时间">
+              </el-date-picker>
+              <span> ~ </span>
+              <el-date-picker v-model="upQueryList.endTime"
+                              type="datetime"
+                              size="small"
+                              style="width: 250px"
+                              placeholder="请选择截止日期"
+                              value-format="yyyy-MM-dd HH:mm:ss">
+              </el-date-picker>
+            </el-form-item>
+          </el-row>
+          <el-row style="padding-left:5%">
+            <el-form-item label="车牌号:">
+              <el-input size="small"
+                        style="width: 250px"
+                        v-model="upQueryList.plateNumber"
+                        placeholder="请输入车牌号"></el-input>
+            </el-form-item>
+          </el-row>
+        </el-row>
+        <el-row style="margin-top:-10px">
           <el-form-item>
             <el-button type="primary"
                        size="small"
@@ -50,15 +55,26 @@
             <el-button size="small"
                        @click="resetQuery">重 置</el-button>
           </el-form-item>
-          <el-form-item label="流量总数:"> {{flowMonitorNumber}}</el-form-item>
-        </el-form>
-      </el-row>
+        </el-row>
+      </el-form>
       <el-row class="data-content">
+        <el-row class="textMid">
+          实时监测
+        </el-row>
+        <el-row class="iconText">
+          <img class="imgIcon"
+               src="../../../src/assets/trafficstatistics/icon.png"
+               alt="">
+          <el-row>
+            <el-row style="line-height:30px">流量监测</el-row>
+            <el-row style="line-height:30px">{{flowMonitorNumber}}</el-row>
+          </el-row>
+        </el-row>
         <!--左侧图片-->
-        <el-row class="upImg">
+        <!-- <el-row class="upImg">
           <img :src="imageLeft"
                class="upImg-content" />
-        </el-row>
+        </el-row> -->
         <el-row class="upTable">
           <el-table :cell-style="{
                     fontfamily: 'PingFangSC-Regular',
@@ -80,8 +96,7 @@
                     }"
                     stripe
                     style="width: 100%;margin-left: 1%"
-                    :highlight-current-row="true"
-                    @row-click="handleSelection">
+                    :highlight-current-row="true">
             <el-table-column :show-overflow-tooltip="true"
                              label="车牌号"
                              prop="plateNumber" />
@@ -94,6 +109,14 @@
             <el-table-column :show-overflow-tooltip="true"
                              label="监测点名称"
                              prop="deviceName" />
+            <el-table-column :show-overflow-tooltip="true"
+                             label="操作">
+              <template slot-scope="scope">
+                <el-button size="small"
+                           type="text"
+                           @click="showDetailPic(scope.row)">查看图片</el-button>
+              </template>
+            </el-table-column>
           </el-table>
           <div style="float: right;">
             <el-pagination layout="total, prev, pager, next, jumper"
@@ -106,12 +129,18 @@
           </div>
         </el-row>
       </el-row>
+      <el-dialog title="详情"
+                 :visible.sync="watchImgDialog"
+                 destroy-on-close=true
+                 width="50%">
+        <img :src="imageLeft"
+             class="upImg-content" />
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-// const imageUrl = "http://221.226.72.122:8888/images/"
 const imageUrl = "http://123.207.189.27:7182/images/"
 // const imageUrl = "http://192.168.1.29:8000/images"
 export default {
@@ -125,13 +154,14 @@ export default {
       },
       // 分页
       pageNum: 1,
-      pageSize: 11,
+      pageSize: 10,
       total: 5,
       flowList: [], //流量列表
       flowMonitorNumber: 0, // 当天流量数
       imageLeft: "",// 左侧图片
       cameraList: [], // 监测点下拉列表
       selectRow: {}, // 选中行数据
+      watchImgDialog: false,
       timer: null // 轮询
     };
   },
@@ -159,10 +189,11 @@ export default {
       this.queryCurrentFlowNumber()
       this.queryFlowList();
     },
-    //选中某行
-    handleSelection (row) {
-      this.selectRow = row;
-      this.imageLeft = imageUrl + this.selectRow.image
+    // 点击查看图片
+    showDetailPic (row) {
+      this.watchImgDialog = true
+      this.imageLeft = ""
+      this.imageLeft = imageUrl + row.image
     },
     queryToday () {
       // 获取当日日期
@@ -197,7 +228,6 @@ export default {
       this.$trafficstatistics.queryTrafficRecord(param).then(res => {
         this.flowList = res.resultEntity.list;
         this.total = res.resultEntity.total;
-        this.imageLeft = imageUrl + res.resultEntity.list[0].image
       });
     },
     // 分页
@@ -251,26 +281,33 @@ export default {
 }
 
 .up-half {
-  width: 98%;
-  height: 98%;
-  margin-left: 1%;
+  width: 100%;
+  height: 13%;
   margin-top: 0.5%;
   background-color: white;
 }
 
-.upQuerySelect {
-  width: 100%;
-  height: 7%;
-}
-
 .data-content {
-  width: 98%;
-  height: 98%;
+  height: 800%;
+  margin-top: 5%;
   background-color: white;
-  display: flex;
-  margin-left: 1%;
 }
-
+.textMid {
+  margin-left: 15px;
+  margin-top: 1%;
+}
+.iconText {
+  width: 10%;
+  height: 60px;
+  display: flex;
+  margin-left: 13px;
+  margin-top: 13px;
+}
+.imgIcon {
+  width: 40px;
+  height: 40px;
+  margin: 10px 10px;
+}
 .upImg {
   width: 40%;
   height: 450px;
@@ -280,8 +317,8 @@ export default {
   height: 100%;
 }
 .upTable {
-  width: 60%;
-  height: 95%;
+  width: 98%;
+  height: 50%;
 }
 
 .el-table .selectRow {
