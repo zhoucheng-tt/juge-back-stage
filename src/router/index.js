@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-11-23 10:06:51
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-03-19 14:18:41
+ * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
  */
@@ -15,51 +15,19 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/induce",
-    name: "induce",
-    component: () => import("../../src/induce/induce"),
-    meta: {
-      name: "彩屏诱导",
-      icon: "",
-      type: "list"
-    }
-  },
-  {
-    path: "/colorInductionScreen",
-    name: "colorInductionScreen",
-    component: () => import("../colorInductionScreen/colorInductionScreen"),
-    meta: {
-      name: "彩屏诱导",
-      icon: "",
-      type: "list"
-    }
-  },
-  {
-    path: "/inductionScreen",
-    name: "inductionScreen",
-    component: () => import("../inductionScreen/inductionScreen"),
-    meta: {
-      name: "彩屏诱导",
-      icon: "",
-      type: "list"
-    }
-  },
-  // 登录
-  {
     path: "/login",
     name: "login",
-    component: () => import("@/views/Login/login"),
+    component: () => import("@/views/login/index.vue"),
     meta: {
       name: "登陆",
       icon: "",
       type: "list"
     }
   },
-  //首页布满页面
   {
     path: "/homePage",
     name: "homePage",
-    component: () => import("@/views/homePage/homePage"),
+    component: () => import("@/views/homePage/index.vue"),
     meta: {
       name: "首页",
       icon: "",
@@ -70,7 +38,6 @@ const routes = [
     path: "/",
     name: "main",
     component: main,
-    // component: main,
     // 重定向，也就是相当于定位到默认展示的一个页面
     redirect: "/login",
     meta: {
@@ -81,263 +48,26 @@ const routes = [
       {
         path: "/homePage",
         name: "homePage",
-        component: () => import("@/views/homePage/homePage"),
+        component: () => import("@/views/homePage/index.vue"),
         meta: {
           name: "首页",
           icon: "",
           type: "list"
         }
       },
-      /*      {
-        path: "/GwVedio",
-        name: "GwVedio",
-        component: () => import("@/views/GwVedio/GwVedio"),
-        meta: {
-          name: "高位视频",
-          icon: "",
-          type: "list"
-        }
-      },*/
       {
-        path: "/realTimeMonitoringCarWaring",
-        name: "realTimeMonitoringCarWaring",
+        path: "/demo",
+        name: "demo",
         component: () =>
           import(
-            "@/views/realTimeMonitoringCarWaring/realTimeMonitoringCarWaring"
+            "@/views/demo/index.vue"
           ),
         meta: {
-          name: "实时监测-洗车机运营数据",
+          name: "demo",
           icon: "",
           type: "list"
         }
       },
-      // 报表分析
-      // -- 停车场运营指标分析
-      {
-        path: "/analysisOfOperatingIncomeOfParking",
-        name: "analysisOfOperatingIncomeOfParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis/analysisOfOperatingIncomeOfParking.vue"
-          )
-      },
-      // 停车场运营收入分析
-      {
-        path: "/analysisOnOperationIndexOfParking",
-        name: "analysisOnOperationIndexOfParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis/analysisOnOperationIndexOfParking.vue"
-          )
-      },
-      // 报表分析（日报，月报，年报）
-      {
-        path: "/operationReport",
-        name: "operationReport",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis/operationReport.vue"
-          )
-      },
-      // 支付台账统计
-      {
-        path: "/paymentAccountStatistics",
-        name: "paymentAccountStatistics",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis/paymentAccountStatistics.vue"
-          )
-      },
-      // 出入口监测  entranceExitMonitoring
-      {
-        path: "/entranceExitMonitoring",
-        name: "entranceExitMonitoring",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis/entranceExitMonitoring.vue"
-          )
-      },
-      // 监测点流量统计
-      {
-        path: "/trafficstatistics",
-        name: "trafficstatistics",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/realtimeMonitor/trafficstatistics.vue"
-          )
-      },
-      // 洗车机报警信息统计
-      {
-        path: "/alarmInformationCarWashingMachine",
-        name: "alarmInformationCarWashingMachine",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/reportAnalysis/alarmInformationCarWashingMachine.vue"
-          )
-      },
-      // 订单管理
-      // 停车订单查询
-      {
-        path: "/parkingOrderInquiry",
-        name: "parkingOrderInquiry",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/orderManagement/parkingOrderInquiry.vue"
-          )
-      },
-      // 预约订单查询
-      {
-        path: "/reservationOrderInquiry",
-        name: "reservationOrderInquiry",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/orderManagement/reservationOrderInquiry.vue"
-          )
-      },
-      // 自助充电订单查询
-      {
-        path: "/querySelfServiceChargingOrder",
-        name: "querySelfServiceChargingOrder",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/orderManagement/querySelfServiceChargingOrder.vue"
-          )
-      },
-      // 基础信息管理
-      // 基础信息管理ETC
-      /*      {
-        path: "/basicInformationManagementETC",
-        name: "basicInformationManagementETC",
-        component: () =>
-          import(/!* webpackChunkName: "about" *!/ "@/views/basicInformationManagement/basicInformationManagementETC.vue")
-      },*/
-      // 计费规则管理
-      {
-        path: "/billingRuleManagement",
-        name: "billingRuleManagement",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/basicInformationManagement/billingRuleManagement.vue"
-          )
-      },
-      // // 洗车机计费规则管理  carWashingMachineManagement
-      // {
-      //   path: "/carWashingMachineManagement",
-      //   name: "carWashingMachineManagement",
-      //   component: () =>
-      //     import(
-      //       /* webpackChunkName: "about" */ "@/views/basicInformationManagement/carWashingMachineManagement.vue"
-      //     )
-      // },
-      // 停车场管理  parkingLotManagement
-      {
-        path: "/parkingLotManagement",
-        name: "parkingLotManagement",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/basicInformationManagement/parkingLotManagement.vue"
-          )
-      },
-      // 设备管理   deviceManagement
-      {
-        path: "/deviceManagement",
-        name: "deviceManagement",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/basicInformationManagement/deviceManagement.vue"
-          )
-      },
-      // 授权管理白名单管理
-      {
-        path: "/whitelistManagement",
-        name: "whitelistManagement",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/authorizationManagement/whitelistManagement.vue"
-          )
-      },
-      // 系统管理
-      // 用户管理  systemManagement
-      {
-        path: "/keyVehicleSupervision",
-        name: "keyVehicleSupervision",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/systemManagement/keyVehicleSupervision.vue"
-          )
-      },
-      // 角色管理
-      {
-        path: "/overrunDetection",
-        name: "overrunDetection",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/systemManagement/overrunDetection.vue"
-          )
-      },
-      // 日志管理
-      {
-        path: "/vehicleInvestigation",
-        name: "vehicleInvestigation",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/systemManagement/vehicleInvestigation.vue"
-          )
-      },
-      //公共停车场
-      {
-        path: "/publicParking",
-        name: "publicParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/park/publicParking.vue"
-          )
-      },
-      //员工停车场
-      {
-        path: "/staffParking",
-        name: "staffParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/park/staffParking.vue"
-          )
-      },
-      //临时停车场
-      {
-        path: "/temporaryParking",
-        name: "temporaryParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/park/temporaryParking.vue"
-          )
-      },
-      //新能源停车场
-      {
-        path: "/newEnergyParking",
-        name: "newEnergyParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/park/newEnergyParking.vue"
-          )
-      },
-      //专用停车场
-      {
-        path: "/dedicatedParking",
-        name: "dedicatedParking",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/park/dedicatedParking.vue"
-          )
-      },
-      //HighChartsSpline
-      {
-        path: "/highCharts",
-        name: "highCharts",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "@/views/highCharts/highCharts.vue"
-          )
-      }
     ]
   }
 ];

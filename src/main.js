@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2020-11-19 19:24:35
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-03-19 14:09:44
+ * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\main.js
  */
@@ -14,21 +14,10 @@ import store from "./vuex/store";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
-// 引入svg
-import "./assets";
 import "@/utils/date.js";
 // 自定义全局样式方法
 // import '@/styles/element-ul.css';
 Vue.use(ElementUI);
-import echarts from "echarts";
-Vue.prototype.$echarts = echarts;
-
-// 引入highcharts
-import highcharts from "highcharts";
-import highcharts3d from "highcharts/highcharts-3d";
-import HighchartsNoData from "highcharts/modules/no-data-to-display";
-HighchartsNoData(highcharts);
-highcharts3d(highcharts);
 
 // 封装axios
 import api from "./axios/index";
@@ -36,7 +25,6 @@ Vue.use(api);
 
 import storage from "./utils/storage.js";
 Vue.prototype.$cookie = storage;
-Vue.config.productionTip = false;
 
 new Vue({
   router,
@@ -45,8 +33,8 @@ new Vue({
 }).$mount("#app");
 
 //监听键盘事件
-Vue.prototype.$keyBoard = function(vm, methodName, code) {
-  document.onkeydown = function() {
+Vue.prototype.$keyBoard = function (vm, methodName, code) {
+  document.onkeydown = function () {
     let key = window.event.keyCode;
     if (key == code) {
       vm[methodName](code); // 触发methodName事件

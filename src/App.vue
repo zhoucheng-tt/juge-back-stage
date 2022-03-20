@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {};
   },
-  mounted() {},
+  mounted () { },
   methods: {}
 };
 </script>
@@ -23,14 +23,10 @@ html {
   overflow: hidden;
 }
 body {
-  /*display: block;*/
   width: 100%;
   height: 100%;
   margin: 0px;
   background: #eaf0f6 100%;
-  /* background: url("./assets/images/frontpage/bg.png") no-repeat 100% 100%;
-	background-size: cover; */
-  /*overflow: hidden;*/
 }
 #app {
   width: 100%;
