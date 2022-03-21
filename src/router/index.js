@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2022-03-19 14:18:41
+ * @LastEditTime: 2022-03-20 13:43:15
  * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -20,6 +20,26 @@ const routes = [
     component: () => import("@/views/login/index.vue"),
     meta: {
       name: "登陆",
+      icon: "",
+      type: "list"
+    }
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import("@/views/login/register.vue"),
+    meta: {
+      name: "注册",
+      icon: "",
+      type: "list"
+    }
+  },
+  {
+    path: "/forgetPassword",
+    name: "forgetPassword",
+    component: () => import("@/views/login/forgetPassword.vue"),
+    meta: {
+      name: "忘记密码",
       icon: "",
       type: "list"
     }

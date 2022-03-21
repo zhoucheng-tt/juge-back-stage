@@ -92,7 +92,12 @@ export default {
     setInterval(() => {
       this.getDateTime();
     }, 1000);
-    this.userName = localStorage.getItem("userName");
+    if (localStorage.getItem("id") == 1) {
+      this.userName = "管理员"
+    } else {
+      this.userName = "用户"
+    }
+    // this.userName = localStorage.getItem("userName");
     this.getWeatherShow();
   },
   methods: {
@@ -100,10 +105,11 @@ export default {
       this.$router.push(value);
     },
     loginOut () {
-      this.$homePage.loginOut(1).then(res => {
-        localStorage.removeItem("userToken");
-        this.$router.push("/");
-      });
+      this.$router.push("/");
+      // this.$homePage.loginOut({}).then(res => {
+      //   localStorage.removeItem("userToken");
+      //   this.$router.push("/");
+      // });
     },
     getDateTime () {
       var date = new Date();

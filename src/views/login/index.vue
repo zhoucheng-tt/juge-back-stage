@@ -1,30 +1,37 @@
 <template>
   <div class="login-content">
-    <div style="width:100%;height:100%;padding-top: 76px">
-      <div class="login-block">
-        <div class="login-block-text"><span>欢迎使用</span></div>
-        <el-form class="login-form-horizontal"
-                 :model="loginList"
-                 ref="loginList"
-                 :rules="rules">
-          <el-form-item prop="loginName">
-            <el-input v-model="loginList.loginName"
-                      placeholder="账号或手机号" />
-          </el-form-item>
-          <el-form-item prop="password"
-                        style="margin-top: 25px">
-            <el-input type="password"
-                      v-model="loginList.password"
-                      placeholder="密码" />
-          </el-form-item>
-          <el-button id="login-btn"
-                     @click="handleClickLoginButton()">登录</el-button>
-          <a href="forgot.html"
-             class="login-forgot-pass">忘记密码?</a>
-          <a href="javascript:void(0);"
-             class="login-regist">现在注册</a>
-        </el-form>
-      </div>
+    <div class="login-block">
+      <div class="login-block-text"><span>欢迎使用</span></div>
+      <div class="login-block-text"><span>后台管理系统模版</span></div>
+      <el-form class="login-form-horizontal"
+               :model="loginList"
+               ref="loginList"
+               :rules="rules">
+        <el-form-item prop="loginName">
+          <el-input v-model="loginList.loginName"
+                    placeholder="账号或手机号" />
+        </el-form-item>
+        <el-form-item prop="password"
+                      style="margin-top: 25px">
+          <el-input type="password"
+                    v-model="loginList.password"
+                    placeholder="密码" />
+        </el-form-item>
+        <el-button id="login-btn"
+                   @click="handleClickLoginButton()">登 录</el-button>
+      </el-form>
+      <el-row style="margin-top:20px">
+        <el-radio-group v-model="id">
+          <el-radio :label=1>我是管理员</el-radio>
+          <el-radio :label=2>我是用户</el-radio>
+        </el-radio-group>
+      </el-row>
+      <el-row style="margin-top:20px">
+        <span class="login-forgot-pass"
+              @click="hanldClickForgetPassword">忘记密码?</span>
+        <span class="login-regist"
+              @click="hanldClickRegister">现在注册</span>
+      </el-row>
     </div>
   </div>
 </template>
@@ -36,6 +43,7 @@ export default {
         loginName: "",
         password: ""
       },
+      id: 1,
       rules: {
         loginName: [{ required: true, message: "请输入账号/手机号", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
@@ -50,19 +58,30 @@ export default {
     handleClickLoginButton () {
       this.$refs["loginList"].validate(valid => {
         if (valid) {
-          var info = {
-            loginName: this.loginList.loginName,
-            password: this.loginList.password
-          };
-          this.$homePage.login(info).then(response => {
-            localStorage.setItem("userToken", response.resultEntity.userToken);
-            localStorage.setItem("userName", this.loginList.loginName);
-            this.$message({ type: "success", message: "登陆成功" });
-            this.$router.push({ path: "/homePage" });
-          });
+          // var info = {
+          //   loginName: this.loginList.loginName,
+          //   password: this.loginList.password
+          // };
+          // this.$homePage.login(info).then(response => {
+          //   localStorage.setItem("userToken", response.resultEntity.userToken);
+          //   localStorage.setItem("userName", this.loginList.loginName);
+          //   this.$message({ type: "success", message: "登录成功" });
+          //   this.$router.push({ path: "/homePage" });
+          // });
+          localStorage.setItem("id", this.id)
+          this.$message({ type: "success", message: "登录成功" });
+          this.$router.push({ path: "/homePage" });
         }
       });
-    }
+    },
+    // 注册
+    hanldClickRegister () {
+      this.$router.push({ path: "/register" });
+    },
+    // 忘记密码
+    hanldClickForgetPassword () {
+      this.$router.push({ path: "/forgetPassword" });
+    },
   }
 };
 </script>
@@ -70,19 +89,20 @@ export default {
 .login-content {
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
 }
 .login-block {
   width: 26.5%;
   height: 38%;
   box-sizing: border-box;
-  margin: auto;
-  margin-top: 100px;
-  align-items: center;
   border-radius: 5px;
   background: rgba(215, 236, 247, 0.6);
   color: #666;
   padding: 32px;
-  padding-top: 20px;
 }
 .login-block-text {
   color: #333;
@@ -90,13 +110,13 @@ export default {
   text-align: center;
 }
 .login-form-horizontal {
+  margin-top: 20px;
   width: 440px;
 }
 .login-form-horizontal input {
   font-family: '微软雅黑';
   font-size: 16px;
   border-radius: 5px;
-  /*border: 1px solid #aaa;*/
   box-shadow: none;
   width: 440px;
   padding: 6px 12px;
@@ -120,6 +140,7 @@ export default {
   height: 50px;
   font-size: 16px;
   background-color: #41b5f5;
+  border: none;
   color: white;
 }
 

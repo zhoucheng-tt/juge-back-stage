@@ -1,8 +1,13 @@
 <template>
   <el-container class="sidebar-style">
     <side-nav class="tac"
+              v-if="id==1"
               :routes="routes"
               :active-menu="menuValue"></side-nav>
+    <side-nav class="tac"
+              v-if="id==2"
+              :routes="routes1"
+              :active-menu="menuValue1"></side-nav>
   </el-container>
 </template>
 <script>
@@ -14,6 +19,7 @@ export default {
   },
   data () {
     return {
+      id: 0,
       menuValue: "homePage",
       routes: [
         {
@@ -24,7 +30,7 @@ export default {
           children: []
         },
         {
-          code: "1",
+          code: "3",
           logo: "el-icon-s-grid",
           name: "demo",
           children: [
@@ -32,9 +38,19 @@ export default {
               code: "3-1",
               logo: "el-icon-menu",
               name: "demo",
-              routeName: "deo"
+              routeName: "demo"
             },
           ]
+        },
+      ],
+      menuValue1: "homePage",
+      routes1: [
+        {
+          code: "1",
+          logo: "el-icon-odometer",
+          name: "首页",
+          routeName: "homePage",
+          children: []
         },
       ]
     };
@@ -42,7 +58,9 @@ export default {
   methods: {
   },
   watch: {},
-  created () { },
+  created () {
+    this.id = localStorage.getItem("id")
+  },
   mounted () {
     this.menuValue = this.$route.path.split("/")[1];
   }

@@ -1,6 +1,11 @@
 <!--  -->
 <template>
-  <div class=''>首页</div>
+  <div class=''>
+    首页
+    <div @click="handleclickCome">
+      进入页面
+    </div>
+  </div>
 </template>
 
 <script>
@@ -26,11 +31,14 @@ export default {
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
-
+    this.$router.push("demo")
   },
   // 方法集合
   methods: {
-
+    handleclickCome () {
+      console.log(localStorage.getItem("id"));
+      this.$router.push("demo")
+    }
   },
   beforeCreate () { }, // 生命周期 - 创建之前
   beforeMount () { }, // 生命周期 - 挂载之前
