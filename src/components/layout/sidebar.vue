@@ -74,7 +74,13 @@ export default {
 
   .tac {
     width: 100%;
-    background: #0f2c54;
+    background-color: #4158d0;
+    background-image: linear-gradient(
+      43deg,
+      #4158d0 0%,
+      #c850c0 46%,
+      #ffcc70 100%
+    );
   }
 }
 
