@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       menuStyle: {
-        backgroundColor: "#c850c0",
+        backgroundColor: "#0093e9",
         textColor: "#ffffff",
         activeTextColor: "#FFCA00"
       }

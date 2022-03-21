@@ -23,35 +23,28 @@ export default {
       menuValue: "homePage",
       routes: [
         {
-          code: "1",
-          logo: "el-icon-odometer",
-          name: "首页",
-          routeName: "homePage",
-          children: []
+          code: "2",
+          logo: "el-icon-s-grid",
+          name: "目录管理",
+          routeName: "directoryManagement",
+          // children: [
+          //   {
+          //     code: "3-1",
+          //     logo: "el-icon-menu",
+          //     name: "目录管理",
+          //     routeName: "demo"
+          //   },
+          // ]
         },
         {
           code: "3",
           logo: "el-icon-s-grid",
-          name: "demo",
-          children: [
-            {
-              code: "3-1",
-              logo: "el-icon-menu",
-              name: "demo",
-              routeName: "demo"
-            },
-          ]
+          name: "文章管理",
+          routeName: "articleManagement",
         },
       ],
       menuValue1: "homePage",
       routes1: [
-        {
-          code: "1",
-          logo: "el-icon-odometer",
-          name: "首页",
-          routeName: "homePage",
-          children: []
-        },
       ]
     };
   },
@@ -74,13 +67,7 @@ export default {
 
   .tac {
     width: 100%;
-    background-color: #4158d0;
-    background-image: linear-gradient(
-      43deg,
-      #4158d0 0%,
-      #c850c0 46%,
-      #ffcc70 100%
-    );
+    background-color: #0093e9;
   }
 }
 

@@ -7,9 +7,9 @@
                :model="loginList"
                ref="loginList"
                :rules="rules">
-        <el-form-item prop="loginName">
-          <el-input v-model="loginList.loginName"
-                    placeholder="账号或手机号" />
+        <el-form-item prop="username">
+          <el-input v-model="loginList.username"
+                    placeholder="用户名" />
         </el-form-item>
         <el-form-item prop="password"
                       style="margin-top: 25px">
@@ -28,7 +28,7 @@
       </el-row>
       <el-row style="margin-top:20px">
         <span class="login-forgot-pass"
-              @click="hanldClickForgetPassword">忘记密码?</span>
+              @click="hanldClickForgetpassword">忘记密码?</span>
         <span class="login-regist"
               @click="hanldClickRegister">现在注册</span>
       </el-row>
@@ -40,12 +40,12 @@ export default {
   data () {
     return {
       loginList: {
-        loginName: "",
+        username: "",
         password: ""
       },
       id: 1,
       rules: {
-        loginName: [{ required: true, message: "请输入账号/手机号", trigger: "blur" }],
+        username: [{ required: true, message: "请输入账号/手机号", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
@@ -58,19 +58,19 @@ export default {
     handleClickLoginButton () {
       this.$refs["loginList"].validate(valid => {
         if (valid) {
-          // var info = {
-          //   loginName: this.loginList.loginName,
-          //   password: this.loginList.password
-          // };
-          // this.$homePage.login(info).then(response => {
-          //   localStorage.setItem("userToken", response.resultEntity.userToken);
-          //   localStorage.setItem("userName", this.loginList.loginName);
-          //   this.$message({ type: "success", message: "登录成功" });
-          //   this.$router.push({ path: "/homePage" });
-          // });
-          localStorage.setItem("id", this.id)
-          this.$message({ type: "success", message: "登录成功" });
-          this.$router.push({ path: "/homePage" });
+          let info = {
+            username: this.loginList.username,
+            password: this.loginList.password
+          };
+          this.$login.login(info).then(response => {
+            localStorage.setItem("userToken", response.result);
+            localStorage.setItem("userName", this.loginList.username);
+            this.$message({ type: "success", message: "登录成功" });
+            this.$router.push({ path: "/directoryManagement" });
+          });
+          // localStorage.setItem("id", this.id)
+          // this.$message({ type: "success", message: "登录成功" });
+          // this.$router.push({ path: "/homePage" });
         }
       });
     },
@@ -79,8 +79,8 @@ export default {
       this.$router.push({ path: "/register" });
     },
     // 忘记密码
-    hanldClickForgetPassword () {
-      this.$router.push({ path: "/forgetPassword" });
+    hanldClickForgetpassword () {
+      this.$router.push({ path: "/forgetpassword" });
     },
   }
 };

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2022-03-20 13:43:15
+ * @LastEditTime: 2022-03-21 16:32:14
  * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -45,16 +45,6 @@ const routes = [
     }
   },
   {
-    path: "/homePage",
-    name: "homePage",
-    component: () => import("@/views/homePage/index.vue"),
-    meta: {
-      name: "首页",
-      icon: "",
-      type: "list"
-    }
-  },
-  {
     path: "/",
     name: "main",
     component: main,
@@ -66,16 +56,6 @@ const routes = [
     },
     children: [
       {
-        path: "/homePage",
-        name: "homePage",
-        component: () => import("@/views/homePage/index.vue"),
-        meta: {
-          name: "首页",
-          icon: "",
-          type: "list"
-        }
-      },
-      {
         path: "/demo",
         name: "demo",
         component: () =>
@@ -84,6 +64,32 @@ const routes = [
           ),
         meta: {
           name: "demo",
+          icon: "",
+          type: "list"
+        }
+      },
+      {
+        path: "/directoryManagement",
+        name: "directoryManagement",
+        component: () =>
+          import(
+            "@/views/directoryManagement/index.vue"
+          ),
+        meta: {
+          name: "目录管理",
+          icon: "",
+          type: "list"
+        }
+      },
+      {
+        path: "/articleManagement",
+        name: "articleManagement",
+        component: () =>
+          import(
+            "@/views/articleManagement/index.vue"
+          ),
+        meta: {
+          name: "文章管理",
           icon: "",
           type: "list"
         }
