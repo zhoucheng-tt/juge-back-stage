@@ -2,7 +2,7 @@
   <div class="login-content">
     <div class="login-block">
       <div class="login-block-text"><span>欢迎使用</span></div>
-      <div class="login-block-text"><span>后台管理系统模版</span></div>
+      <div class="login-block-text"><span>multiple-cms</span></div>
       <el-form class="login-form-horizontal"
                :model="loginList"
                ref="loginList"
@@ -69,9 +69,6 @@ export default {
             this.$message({ type: "success", message: "登录成功" });
             this.$router.push({ path: "/directoryManagement" });
           });
-          // localStorage.setItem("id", this.id)
-          // this.$message({ type: "success", message: "登录成功" });
-          // this.$router.push({ path: "/homePage" });
         }
       });
     },

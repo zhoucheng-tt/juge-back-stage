@@ -1,6 +1,6 @@
 <template>
   <div class="header-style">
-    <span class="head-title">后台管理系统模版</span>
+    <span class="head-title">multiple-cms</span>
     <span class="head-weatherType">{{ weatherList.type }}</span>
     <span class="head-weatheroc">{{ weatherList.low }}/{{ weatherList.high }}</span>
     <span class="head-time">{{ dateTimeValue }}</span>
