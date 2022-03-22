@@ -290,8 +290,8 @@ export default {
         menuTitle: [{ required: true, message: '请输入', trigger: 'blur' }],
         parentId: [{ required: true, message: '请选择', trigger: 'change' }],
       },
+
       parentIdList: [],// 停车场列表
-      passagewayIdList: [],// 出入口列表
       option: []
     }
   },

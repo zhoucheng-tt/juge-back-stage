@@ -21,3 +21,17 @@ export function articleAddList (params) {
     data: params
   });
 }
+export function articleEditList (params) {
+  return request({
+    url: "/article/edit",
+    method: "post",
+    data: params
+  });
+}
+export function articleDeleteList (params) {
+  return request({
+    url: "/article/delete",
+    method: "post",
+    data: params
+  });
+}

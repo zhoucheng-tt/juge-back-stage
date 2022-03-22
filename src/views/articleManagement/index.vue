@@ -152,7 +152,7 @@
         </el-row>
         <el-row>
           <mavon-editor ref="md"
-                        v-model="content"
+                        v-model="addFormList.content"
                         @imgAdd="$imgAdd"
                         @change="change"
                         style="min-height: 600px" />
@@ -191,19 +191,28 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="下拉框"
+            <el-form-item label="文章分类"
                           prop="categoryId">
               <el-select clearable
                          v-model="editFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width">
+                <el-option label="无"
+                           :value="0"></el-option>
                 <el-option v-for="(item, index) in categoryIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.code"></el-option>
+                           :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <mavon-editor ref="md"
+                        v-model="editFormList.content"
+                        @imgAdd="$imgAdd"
+                        @change="change"
+                        style="min-height: 600px" />
         </el-row>
       </el-form>
       <el-row type="flex"
@@ -240,20 +249,29 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="下拉框"
+            <el-form-item label="文章分类"
                           prop="categoryId">
               <el-select clearable
                          v-model="detailFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width"
                          disabled>
+                <el-option label="无"
+                           :value="0"></el-option>
                 <el-option v-for="(item, index) in categoryIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.code"></el-option>
+                           :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <mavon-editor ref="md"
+                        v-model="detailFormList.content"
+                        @imgAdd="$imgAdd"
+                        @change="change"
+                        style="min-height: 600px" />
         </el-row>
       </el-form>
       <el-row type="flex"
@@ -304,13 +322,13 @@ export default {
         title: [{ required: true, message: '请输入', trigger: 'blur' }],
         categoryId: [{ required: true, message: '请选择', trigger: 'change' }],
       },
-      passagewayIdList: [],// 出入口列表
+
+      categoryIdList: [],// 文章分类
+      html: '',// mk文章内容
+      configs: {},
+
       option: [],
 
-      categoryIdList: [],
-      content: '',
-      html: '',
-      configs: {}
     }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
@@ -331,6 +349,7 @@ export default {
   activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
   //方法集合
   methods: {
+    // 获取文章分类
     queryCategoryIdList () {
       let info = {
         pageNum: 1,
@@ -350,11 +369,9 @@ export default {
         console.log(err)
       })
     },
-    // 所有操作都会被解析重新渲染
+    // 所有操作都会被解析重新渲染   // render 为 markdown 解析后的结果[html]
     change (value, render) {
-      // render 为 markdown 解析后的结果[html]
       this.html = render;
-      console.log(this.html);
     },
     // 默认渲染
     queryTableList () {
@@ -395,7 +412,6 @@ export default {
     handleClickAddConfirm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.addFormList['content'] = this.content
           this.addFormList['contentHtml'] = this.html
           this.$articleManagement.articleAddList(this.addFormList).then((response) => {
             this.$message({ message: '新增成功', type: 'success' });
@@ -418,23 +434,24 @@ export default {
     },
     // 修改
     handleClickEditConfirm () {
-      // this.$demo.demo(this.editFormList).then((response) => {
-      //     this.$message({ message: '修改成功', type: 'success' });
-      //     this.editDialogVisible = false
-      //     this.queryTableList()
-      //   }
+      this.editFormList['contentHtml'] = this.html
+      this.$articleManagement.articleEditList(this.editFormList).then(() => {
+        this.$message({ message: '修改成功', type: 'success' });
+        this.editDialogVisible = false
+        this.queryTableList()
+      })
     },
-    handleClicDelete () {
+    handleClicDelete (row) {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        // const param = [{ title: row.title }];
-        // this.$demo.demo(param).then(res => {
-        //   this.$message({type: "success",message: "删除成功!"});
-        //   this.queryTableList();
-        // });
+        let info = { id: row.id };
+        this.$articleManagement.articleDeleteList(info).then(res => {
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryTableList();
+        });
       }).catch(() => {
         this.$message({ type: "info", message: "已取消删除" });
       });
