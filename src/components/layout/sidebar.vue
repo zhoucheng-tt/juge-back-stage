@@ -23,21 +23,13 @@ export default {
       menuValue: "homePage",
       routes: [
         {
-          code: "2",
+          code: "1",
           logo: "el-icon-s-grid",
           name: "目录管理",
           routeName: "directoryManagement",
-          // children: [
-          //   {
-          //     code: "3-1",
-          //     logo: "el-icon-menu",
-          //     name: "目录管理",
-          //     routeName: "demo"
-          //   },
-          // ]
         },
         {
-          code: "3",
+          code: "2",
           logo: "el-icon-s-grid",
           name: "文章管理",
           routeName: "articleManagement",

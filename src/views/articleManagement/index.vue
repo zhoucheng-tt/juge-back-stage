@@ -7,14 +7,14 @@
 -->
 <template>
   <div class="mainbody">
-    <el-row class="selectLine">
+    <!-- <el-row class="selectLine">
       <el-form :inline="true"
                :model="searchForm">
         <el-row class="firstLine">
           <el-col :span="6">
             <el-form-item label-width="90px"
                           label="输入框">
-              <el-input v-model="searchForm.demoId"
+              <el-input v-model="searchForm.title"
                         clearable
                         placeholder="请输入"></el-input>
             </el-form-item>
@@ -41,7 +41,7 @@
                      @click="resetForm">重 置</el-button>
         </el-row>
       </el-form>
-    </el-row>
+    </el-row> -->
     <el-row class="tableRow">
       <el-row class="tableTitle">
         <span>表格模版</span>
@@ -71,9 +71,9 @@
                   color: '#333333',
                   'text-align': 'center'
                   }">
-          <el-table-column prop="id"
+          <!-- <el-table-column prop="id"
                            :show-overflow-tooltip="true"
-                           label="编号" />
+                           label="编号" /> -->
           <el-table-column prop="demodata1"
                            :show-overflow-tooltip="true"
                            label="文章图片" />
@@ -126,27 +126,36 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="输入框"
-                          prop="demoId">
-              <el-input v-model="addFormList.demoId"
+            <el-form-item label="标题"
+                          prop="title">
+              <el-input v-model="addFormList.title"
                         class="dt-form-width"
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="下拉框"
-                          prop="selectId">
+            <el-form-item label="文章分类"
+                          prop="categoryId">
               <el-select clearable
-                         v-model="addFormList.selectId"
+                         v-model="addFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width">
-                <el-option v-for="(item, index) in selectIdList"
+                <el-option label="无"
+                           :value="0"></el-option>
+                <el-option v-for="(item, index) in categoryIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.code"></el-option>
+                           :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <mavon-editor ref="md"
+                        v-model="content"
+                        @imgAdd="$imgAdd"
+                        @change="change"
+                        style="min-height: 600px" />
         </el-row>
       </el-form>
       <el-row type="flex"
@@ -175,20 +184,20 @@
         <el-row justify="space-around">
           <el-col :span="12">
             <el-form-item label="输入框"
-                          prop="demoId">
-              <el-input v-model="editFormList.demoId"
+                          prop="title">
+              <el-input v-model="editFormList.title"
                         class="dt-form-width"
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="下拉框"
-                          prop="selectId">
+                          prop="categoryId">
               <el-select clearable
-                         v-model="editFormList.selectId"
+                         v-model="editFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width">
-                <el-option v-for="(item, index) in selectIdList"
+                <el-option v-for="(item, index) in categoryIdList"
                            :key="index"
                            :label="item.name"
                            :value="item.code"></el-option>
@@ -223,8 +232,8 @@
         <el-row justify="space-around">
           <el-col :span="12">
             <el-form-item label="输入框"
-                          prop="demoId">
-              <el-input v-model="detailFormList.demoId"
+                          prop="title">
+              <el-input v-model="detailFormList.title"
                         class="dt-form-width"
                         readonly
                         placeholder="请输入"></el-input>
@@ -232,13 +241,13 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="下拉框"
-                          prop="selectId">
+                          prop="categoryId">
               <el-select clearable
-                         v-model="detailFormList.selectId"
+                         v-model="detailFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width"
                          disabled>
-                <el-option v-for="(item, index) in selectIdList"
+                <el-option v-for="(item, index) in categoryIdList"
                            :key="index"
                            :label="item.name"
                            :value="item.code"></el-option>
@@ -263,10 +272,12 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import { mavonEditor } from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
+    mavonEditor
   },
   //监听属性 类似于data概念
   computed: {
@@ -290,16 +301,21 @@ export default {
       editDialogVisible: false, //修改弹窗
 
       rules: {
-        demoId: [{ required: true, message: '请输入设备编号', trigger: 'blur' }],
-        selectId: [{ required: true, message: '请选择停车场', trigger: 'change' }],
+        title: [{ required: true, message: '请输入', trigger: 'blur' }],
+        categoryId: [{ required: true, message: '请选择', trigger: 'change' }],
       },
-      selectIdList: [],// 停车场列表
       passagewayIdList: [],// 出入口列表
-      option: []
+      option: [],
+
+      categoryIdList: [],
+      content: '',
+      html: '',
+      configs: {}
     }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
+    this.queryCategoryIdList()
     this.queryTableList()
   },
   //监控data中的数据变化
@@ -315,6 +331,31 @@ export default {
   activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
   //方法集合
   methods: {
+    queryCategoryIdList () {
+      let info = {
+        pageNum: 1,
+        pageSize: 1000
+      }
+      this.$directoryManagement.categoryList(info).then(res => {
+        this.categoryIdList = res.result
+      })
+    },
+    // 将图片上传到服务器，返回地址替换到md中
+    $imgAdd (pos, $file) {
+      let formdata = new FormData();
+      this.$upload.post('/上传接口地址', formdata).then(res => {
+        console.log(res.data);
+        this.$refs.md.$img2Url(pos, res.data);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 所有操作都会被解析重新渲染
+    change (value, render) {
+      // render 为 markdown 解析后的结果[html]
+      this.html = render;
+      console.log(this.html);
+    },
     // 默认渲染
     queryTableList () {
       this.searchForm['pageNum'] = this.pageNum;
@@ -354,11 +395,13 @@ export default {
     handleClickAddConfirm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // this.$demo.demo(this.addFormList).then((response) => {
-          //     this.$message({ message: '新增成功', type: 'success' });
-          //     this.addDialogVisible = false
-          //     this.queryTableList()
-          //   }
+          this.addFormList['content'] = this.content
+          this.addFormList['contentHtml'] = this.html
+          this.$articleManagement.articleAddList(this.addFormList).then((response) => {
+            this.$message({ message: '新增成功', type: 'success' });
+            this.addDialogVisible = false
+            this.queryTableList()
+          })
         }
       })
     },
@@ -387,7 +430,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        // const param = [{ demoId: row.demoId }];
+        // const param = [{ title: row.title }];
         // this.$demo.demo(param).then(res => {
         //   this.$message({type: "success",message: "删除成功!"});
         //   this.queryTableList();

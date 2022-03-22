@@ -7,14 +7,14 @@
 -->
 <template>
   <div class="mainbody">
-    <el-row class="selectLine">
+    <!-- <el-row class="selectLine">
       <el-form :inline="true"
                :model="searchForm">
         <el-row class="firstLine">
           <el-col :span="6">
             <el-form-item label-width="90px"
                           label="输入框">
-              <el-input v-model="searchForm.demoId"
+              <el-input v-model="searchForm.menuTitle"
                         clearable
                         placeholder="请输入"></el-input>
             </el-form-item>
@@ -41,7 +41,7 @@
                      @click="resetForm">重 置</el-button>
         </el-row>
       </el-form>
-    </el-row>
+    </el-row> -->
     <el-row class="tableRow">
       <el-row class="tableTitle">
         <span>目录管理</span>
@@ -62,28 +62,20 @@
                   padding: 'none',
                   fontSize: '14px',
                   letterSpacing: '0.56px',
-                  'text-align': 'center'
                   }"
                   :cell-style="{
                   fontfamily: 'PingFangSC-Regular',
                   letterSpacing: '0.56px',
                   fontSize: '14px',
                   color: '#333333',
-                  'text-align': 'center'
-                  }">
-          <el-table-column prop="id"
-                           :show-overflow-tooltip="true"
-                           label="菜单Id" />
-          <el-table-column prop="parentId"
-                           :show-overflow-tooltip="true"
-                           label="父菜单Id" />
-          <el-table-column prop="companyId"
-                           :show-overflow-tooltip="true"
-                           label="企业Id" />
-          <el-table-column prop="name"
+                  }"
+                  row-key="menuId"
+                  default-expand-all
+                  :tree-props="{children: 'children', hasChildren: 'hasChildren'}">>
+          <el-table-column prop="menuTitle"
                            :show-overflow-tooltip="true"
                            label="菜单名称" />
-          <el-table-column prop="sort"
+          <el-table-column prop="menuSort"
                            :show-overflow-tooltip="true"
                            label="菜单权重" />
 
@@ -126,24 +118,26 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="输入框"
-                          prop="demoId">
-              <el-input v-model="addFormList.demoId"
+            <el-form-item label="菜单名称"
+                          prop="name">
+              <el-input v-model="addFormList.name"
                         class="dt-form-width"
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="下拉框"
-                          prop="selectId">
-              <el-select clearable
-                         v-model="addFormList.selectId"
+            <el-form-item label="父级Id"
+                          prop="parentId">
+              <el-select v-model="addFormList.parentId"
+                         clearable
                          placeholder="请选择"
                          class="dt-form-width">
-                <el-option v-for="(item, index) in selectIdList"
+                <el-option label="无"
+                           value="0"></el-option>
+                <el-option v-for="(item, index) in parentIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.code"></el-option>
+                           :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -174,24 +168,26 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="输入框"
-                          prop="demoId">
-              <el-input v-model="editFormList.demoId"
+            <el-form-item label="菜单名称"
+                          prop="menuTitle">
+              <el-input v-model="editFormList.menuTitle"
                         class="dt-form-width"
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="下拉框"
-                          prop="selectId">
+            <el-form-item label="父级菜单"
+                          prop="parentId">
               <el-select clearable
-                         v-model="editFormList.selectId"
+                         v-model="editFormList.parentId"
                          placeholder="请选择"
                          class="dt-form-width">
-                <el-option v-for="(item, index) in selectIdList"
+                <el-option label="无"
+                           :value="0"></el-option>
+                <el-option v-for="(item, index) in parentIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.code"></el-option>
+                           :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -222,26 +218,26 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="输入框"
-                          prop="demoId">
-              <el-input v-model="detailFormList.demoId"
+            <el-form-item label="菜单名称">
+              <el-input v-model="detailFormList.menuTitle"
                         class="dt-form-width"
                         readonly
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="下拉框"
-                          prop="selectId">
+            <el-form-item label="父级菜单">
               <el-select clearable
-                         v-model="detailFormList.selectId"
+                         v-model="detailFormList.parentId"
                          placeholder="请选择"
                          class="dt-form-width"
                          disabled>
-                <el-option v-for="(item, index) in selectIdList"
+                <el-option label="无"
+                           :value="0"></el-option>
+                <el-option v-for="(item, index) in parentIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.code"></el-option>
+                           :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -290,16 +286,18 @@ export default {
       editDialogVisible: false, //修改弹窗
 
       rules: {
-        demoId: [{ required: true, message: '请输入设备编号', trigger: 'blur' }],
-        selectId: [{ required: true, message: '请选择停车场', trigger: 'change' }],
+        name: [{ required: true, message: '请输入', trigger: 'blur' }],
+        menuTitle: [{ required: true, message: '请输入', trigger: 'blur' }],
+        parentId: [{ required: true, message: '请选择', trigger: 'change' }],
       },
-      selectIdList: [],// 停车场列表
+      parentIdList: [],// 停车场列表
       passagewayIdList: [],// 出入口列表
       option: []
     }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
+    this.queryParentIdList()
     this.queryTableList()
   },
   //监控data中的数据变化
@@ -315,11 +313,22 @@ export default {
   activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
   //方法集合
   methods: {
+    // 获取父级id
+    queryParentIdList () {
+      let info = {
+        pageNum: 1,
+        pageSize: 1000
+      }
+      this.$directoryManagement.categoryList(info).then(res => {
+        this.parentIdList = res.result
+      })
+    },
     // 默认渲染
     queryTableList () {
       this.searchForm['pageNum'] = this.pageNum;
       this.searchForm['pageSize'] = this.pageSize;
-      this.$directoryManagement.categoryList(this.searchForm).then(res => {
+      this.searchForm['companyId'] = '001'
+      this.$directoryManagement.categoryTreeList(this.searchForm).then(res => {
         this.datalist = res.result
         this.pageTotal = res.result.total
       })
@@ -352,13 +361,14 @@ export default {
     },
     // 新增确认提交
     handleClickAddConfirm (formName) {
+      this.addFormList['companyId'] = "001";
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // this.$demo.demo(this.addFormList).then((response) => {
-          //     this.$message({ message: '新增成功', type: 'success' });
-          //     this.addDialogVisible = false
-          //     this.queryTableList()
-          //   }
+          this.$directoryManagement.categoryAddList(this.addFormList).then((response) => {
+            this.$message({ message: '新增成功', type: 'success' });
+            this.addDialogVisible = false
+            this.queryTableList()
+          })
         }
       })
     },
@@ -375,24 +385,29 @@ export default {
     },
     // 修改
     handleClickEditConfirm () {
-      // this.$demo.demo(this.editFormList).then((response) => {
-      //     this.$message({ message: '修改成功', type: 'success' });
-      //     this.editDialogVisible = false
-      //     this.queryTableList()
-      //   }
+      let info = {
+        id: this.editFormList.menuId,
+        parentId: this.editFormList.parentId,
+        name: this.editFormList.menuTitle
+      }
+      this.$directoryManagement.categoryEditList(info).then((response) => {
+        this.$message({ message: '修改成功', type: 'success' });
+        this.editDialogVisible = false
+        this.queryTableList()
+      })
     },
-    handleClicDelete () {
+    handleClicDelete (row) {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        // const param = [{ demoId: row.demoId }];
-        // this.$demo.demo(param).then(res => {
-        //   this.$message({type: "success",message: "删除成功!"});
-        //   this.queryTableList();
-        // });
-      }).catch(() => {
+        let info = { id: row.menuId }
+        this.$directoryManagement.categoryDeleteList(info).then(() => {
+          this.$message({ type: "success", message: "删除成功!" });
+          this.queryTableList();
+        });
+      }).catch(err => {
         this.$message({ type: "info", message: "已取消删除" });
       });
     }

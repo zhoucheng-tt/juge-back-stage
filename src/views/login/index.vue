@@ -65,6 +65,7 @@ export default {
           this.$login.login(info).then(response => {
             localStorage.setItem("userToken", response.result);
             localStorage.setItem("userName", this.loginList.username);
+            localStorage.setItem("id", this.id)
             this.$message({ type: "success", message: "登录成功" });
             this.$router.push({ path: "/directoryManagement" });
           });

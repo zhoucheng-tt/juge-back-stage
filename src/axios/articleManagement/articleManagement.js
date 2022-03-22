@@ -14,3 +14,10 @@ export function articleList (params) {
     data: params
   });
 }
+export function articleAddList (params) {
+  return request({
+    url: "/article/add",
+    method: "post",
+    data: params
+  });
+}
