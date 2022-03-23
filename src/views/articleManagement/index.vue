@@ -74,9 +74,6 @@
           <!-- <el-table-column prop="id"
                            :show-overflow-tooltip="true"
                            label="编号" /> -->
-          <el-table-column prop="demodata1"
-                           :show-overflow-tooltip="true"
-                           label="文章图片" />
           <el-table-column prop="title"
                            :show-overflow-tooltip="true"
                            label="文章名称" />
@@ -328,7 +325,6 @@ export default {
       configs: {},
 
       option: [],
-
     }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
@@ -361,15 +357,21 @@ export default {
     },
     // 将图片上传到服务器，返回地址替换到md中
     $imgAdd (pos, $file) {
-      let formdata = new FormData();
-      this.$upload.post('/上传接口地址', formdata).then(res => {
-        console.log(res.data);
-        this.$refs.md.$img2Url(pos, res.data);
-      }).catch(err => {
-        console.log(err)
+      var formdata = new FormData();
+      formdata.append('file', $file);
+      this.$axios.post(this.$imgBaseUrl + '/file/upload',
+        formdata,
+        {
+          headers: {
+            // 'userToken': localStorage.getItem("userToken"),
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then((res) => {
+        this.$refs.md.$img2Url(pos, this.$imgBaseUrl + res.data.result);
       })
     },
-    // 所有操作都会被解析重新渲染   // render 为 markdown 解析后的结果[html]
+    // 所有操作都会被解析重新渲染   render 为 markdown 解析后的结果[html]
     change (value, render) {
       this.html = render;
     },
@@ -379,7 +381,7 @@ export default {
       this.searchForm['pageSize'] = this.pageSize;
       this.$articleManagement.articleList(this.searchForm).then(res => {
         this.datalist = res.result
-        this.pageTotal = res.resultEntity.total
+        this.pageTotal = res.total
       })
     },
     // 分页

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2022-03-19 14:09:44
+ * @LastEditTime: 2022-03-23 14:48:45
  * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\main.js
@@ -22,6 +22,11 @@ Vue.use(ElementUI);
 // 封装axios
 import api from "./axios/index";
 Vue.use(api);
+import axios from 'axios'
+Vue.prototype.$axios = axios
+
+import publicVar from "./utils/publicVar";
+Vue.use(publicVar)
 
 import storage from "./utils/storage.js";
 Vue.prototype.$cookie = storage;

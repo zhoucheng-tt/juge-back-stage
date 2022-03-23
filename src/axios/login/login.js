@@ -15,3 +15,12 @@ export function login (params) {
     data: params
   });
 }
+
+// 文件上传
+export function upload (params) {
+  return request({
+    url: "/file/upload",
+    method: "post",
+    data: params
+  });
+}
