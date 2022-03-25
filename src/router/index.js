@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 14:28:33
- * @LastEditTime: 2022-03-21 16:32:14
+ * @LastEditTime: 2022-03-25 11:11:51
  * @LastEditors: zhoucheng
  * @Description: In User Settings Edit
  * @FilePath: \g524-comprehensive-displayd:\TingCar\src\router\index.js
@@ -94,6 +94,20 @@ const routes = [
           type: "list"
         }
       },
+      {
+        path: "/carouselPic",
+        name: "carouselPic",
+        component: () =>
+          import(
+            "@/views/carouselPic/index.vue"
+          ),
+        meta: {
+          name: "轮播管理",
+          icon: "",
+          type: "list"
+        }
+      },
+
     ]
   }
 ];

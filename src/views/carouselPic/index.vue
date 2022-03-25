@@ -1,8 +1,8 @@
 <!--
- * @Description: 文章管理
+ * @Description: 轮播图
  * @Author: zhoucheng
  * @Github: https://github.com/zhoucheng-tt
- * @Date: 2022-03-21 15:53:22
+ * @Date: 2022-03-25 11:11:01
  * @LastEditors: zhoucheng
 -->
 <template>
@@ -14,14 +14,14 @@
           <el-col :span="6">
             <el-form-item label-width="90px"
                           label="输入框">
-              <el-input v-model="searchForm.title"
+              <el-input v-model="searchForm.demoId"
                         clearable
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label-width="90px"
-                          label="下拉框">
+                          label="设备状态">
               <el-select v-model="searchForm.c"
                          :clearable=true>
                 <el-option v-for="item in option"
@@ -71,24 +71,9 @@
                   color: '#333333',
                   'text-align': 'center'
                   }">
-          <!-- <el-table-column prop="id"
+          <el-table-column prop="demodata1"
                            :show-overflow-tooltip="true"
-                           label="编号" /> -->
-          <el-table-column prop="title"
-                           :show-overflow-tooltip="true"
-                           label="文章名称" />
-          <el-table-column prop="weight"
-                           :show-overflow-tooltip="true"
-                           label="权重" />
-          <el-table-column prop="categoryId"
-                           :show-overflow-tooltip="true"
-                           label="文章分类" />
-          <!-- <el-table-column prop="demodata1"
-                           :show-overflow-tooltip="true"
-                           label="状态" /> -->
-          <el-table-column prop="image"
-                           :show-overflow-tooltip="true"
-                           label="图片" />
+                           label="demo数据" />
           <el-table-column :show-overflow-tooltip="true"
                            label="操作">
             <template slot-scope="scope">
@@ -128,52 +113,27 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="标题"
-                          prop="title">
-              <el-input v-model="addFormList.title"
+            <el-form-item label="输入框"
+                          prop="demoId">
+              <el-input v-model="addFormList.demoId"
                         class="dt-form-width"
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="文章分类"
-                          prop="categoryId">
+            <el-form-item label="下拉框"
+                          prop="selectId">
               <el-select clearable
-                         v-model="addFormList.categoryId"
+                         v-model="addFormList.selectId"
                          placeholder="请选择"
                          class="dt-form-width">
-                <el-option label="无"
-                           :value="0"></el-option>
-                <el-option v-for="(item, index) in categoryIdList"
+                <el-option v-for="(item, index) in selectIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.id"></el-option>
+                           :value="item.code"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-upload class="avatar-uploader"
-                     action=""
-                     :show-file-list="false"
-                     accept="image/*"
-                     :limit="1"
-                     :http-request="upLoadPic"
-                     :on-success="handleAvatarSuccess"
-                     :before-upload="beforeAvatarUpload">
-            <img v-if="addFormList.imageUrl"
-                 :src="addFormList.imageUrl"
-                 class="avatar">
-            <i v-else
-               class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-row>
-        <el-row>
-          <mavon-editor ref="md"
-                        v-model="addFormList.content"
-                        @imgAdd="$imgAdd"
-                        @change="change"
-                        style="min-height: 600px" />
         </el-row>
       </el-form>
       <el-row type="flex"
@@ -202,35 +162,26 @@
         <el-row justify="space-around">
           <el-col :span="12">
             <el-form-item label="输入框"
-                          prop="title">
-              <el-input v-model="editFormList.title"
+                          prop="demoId">
+              <el-input v-model="editFormList.demoId"
                         class="dt-form-width"
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="文章分类"
-                          prop="categoryId">
+            <el-form-item label="下拉框"
+                          prop="selectId">
               <el-select clearable
-                         v-model="editFormList.categoryId"
+                         v-model="editFormList.selectId"
                          placeholder="请选择"
                          class="dt-form-width">
-                <el-option label="无"
-                           :value="0"></el-option>
-                <el-option v-for="(item, index) in categoryIdList"
+                <el-option v-for="(item, index) in selectIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.id"></el-option>
+                           :value="item.code"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <mavon-editor ref="md"
-                        v-model="editFormList.content"
-                        @imgAdd="$imgAdd"
-                        @change="change"
-                        style="min-height: 600px" />
         </el-row>
       </el-form>
       <el-row type="flex"
@@ -259,37 +210,28 @@
         <el-row justify="space-around">
           <el-col :span="12">
             <el-form-item label="输入框"
-                          prop="title">
-              <el-input v-model="detailFormList.title"
+                          prop="demoId">
+              <el-input v-model="detailFormList.demoId"
                         class="dt-form-width"
                         readonly
                         placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="文章分类"
-                          prop="categoryId">
+            <el-form-item label="下拉框"
+                          prop="selectId">
               <el-select clearable
-                         v-model="detailFormList.categoryId"
+                         v-model="detailFormList.selectId"
                          placeholder="请选择"
                          class="dt-form-width"
                          disabled>
-                <el-option label="无"
-                           :value="0"></el-option>
-                <el-option v-for="(item, index) in categoryIdList"
+                <el-option v-for="(item, index) in selectIdList"
                            :key="index"
                            :label="item.name"
-                           :value="item.id"></el-option>
+                           :value="item.code"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <mavon-editor ref="md"
-                        v-model="detailFormList.content"
-                        @imgAdd="$imgAdd"
-                        @change="change"
-                        style="min-height: 600px" />
         </el-row>
       </el-form>
       <el-row type="flex"
@@ -308,14 +250,10 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import { mavonEditor } from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-import Compressor from 'compressorjs'
 
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
-    mavonEditor
   },
   //监听属性 类似于data概念
   computed: {
@@ -339,22 +277,16 @@ export default {
       editDialogVisible: false, //修改弹窗
 
       rules: {
-        title: [{ required: true, message: '请输入', trigger: 'blur' }],
-        categoryId: [{ required: true, message: '请选择', trigger: 'change' }],
+        demoId: [{ required: true, message: '请输入设备编号', trigger: 'blur' }],
+        selectId: [{ required: true, message: '请选择停车场', trigger: 'change' }],
       },
-
-      categoryIdList: [],// 文章分类
-      html: '',// mk文章内容
-      configs: {},
-
-      imageUrl: "",
-
-      option: [],
+      selectIdList: [],// 停车场列表
+      passagewayIdList: [],// 出入口列表
+      option: []
     }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted () {
-    this.queryCategoryIdList()
     this.queryTableList()
   },
   //监控data中的数据变化
@@ -370,90 +302,14 @@ export default {
   activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
   //方法集合
   methods: {
-    handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 100;
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
-    //上传图片
-    upLoadPic (file) {
-      // 压缩图片
-      const self = this
-      new Compressor(file.file, {
-        quality: 0.2,
-        success (result) {
-          result = new window.File([result], result.name, { type: result.type })
-          const formData = new FormData()
-          formData.append('file', result)
-          self.$axios.post(self.$imgBaseUrl + '/file/upload',
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
-          ).then((res) => {
-            self.addFormList.image = self.$imgBaseUrl + res.data.result
-          })
-        },
-        error (err) {
-          console.log('压缩失败', err)
-        }
-      })
-
-    },
-    // 删除
-    deleteClick () {
-      this.form.picUrl = ''
-    },
-    // 获取文章分类
-    queryCategoryIdList () {
-      let info = {
-        pageNum: 1,
-        pageSize: 1000
-      }
-      this.$directoryManagement.categoryList(info).then(res => {
-        this.categoryIdList = res.result
-      })
-    },
-    // 将图片上传到服务器，返回地址替换到md中
-    $imgAdd (pos, $file) {
-      var formdata = new FormData();
-      formdata.append('file', $file);
-      this.$axios.post(this.$imgBaseUrl + '/file/upload',
-        formdata,
-        {
-          headers: {
-            // 'userToken': localStorage.getItem("userToken"),
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      ).then((res) => {
-        this.$refs.md.$img2Url(pos, this.$imgBaseUrl + res.data.result);
-      })
-    },
-    // 所有操作都会被解析重新渲染   render 为 markdown 解析后的结果[html]
-    change (value, render) {
-      this.html = render;
-    },
     // 默认渲染
     queryTableList () {
       this.searchForm['pageNum'] = this.pageNum;
       this.searchForm['pageSize'] = this.pageSize;
-      this.$articleManagement.articleList(this.searchForm).then(res => {
-        this.datalist = res.result
-        this.pageTotal = res.total
-      })
+      // this.$demo.demo(this.searchForm).then(res => {
+      //   this.datalist = res.resultEntity.list
+      //   this.pageTotal = res.resultEntity.total
+      // })
     },
     // 分页
     handleCurrentModify (val) {
@@ -485,12 +341,11 @@ export default {
     handleClickAddConfirm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.addFormList['contentHtml'] = this.html
-          this.$articleManagement.articleAddList(this.addFormList).then((response) => {
-            this.$message({ message: '新增成功', type: 'success' });
-            this.addDialogVisible = false
-            this.queryTableList()
-          })
+          // this.$demo.demo(this.addFormList).then((response) => {
+          //     this.$message({ message: '新增成功', type: 'success' });
+          //     this.addDialogVisible = false
+          //     this.queryTableList()
+          //   }
         }
       })
     },
@@ -507,24 +362,23 @@ export default {
     },
     // 修改
     handleClickEditConfirm () {
-      this.editFormList['contentHtml'] = this.html
-      this.$articleManagement.articleEditList(this.editFormList).then(() => {
-        this.$message({ message: '修改成功', type: 'success' });
-        this.editDialogVisible = false
-        this.queryTableList()
-      })
+      // this.$demo.demo(this.editFormList).then((response) => {
+      //     this.$message({ message: '修改成功', type: 'success' });
+      //     this.editDialogVisible = false
+      //     this.queryTableList()
+      //   }
     },
-    handleClicDelete (row) {
+    handleClicDelete () {
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        let info = { id: row.id };
-        this.$articleManagement.articleDeleteList(info).then(res => {
-          this.$message({ type: "success", message: "删除成功!" });
-          this.queryTableList();
-        });
+        // const param = [{ demoId: row.demoId }];
+        // this.$demo.demo(param).then(res => {
+        //   this.$message({type: "success",message: "删除成功!"});
+        //   this.queryTableList();
+        // });
       }).catch(() => {
         this.$message({ type: "info", message: "已取消删除" });
       });
@@ -585,28 +439,5 @@ export default {
 }
 .dt-form-width {
   width: 230px;
-}
-.avatar-uploader .el-upload {
-  border: 1px solid #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
 }
 </style>
