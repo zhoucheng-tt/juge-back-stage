@@ -44,7 +44,7 @@
     </el-row> -->
     <el-row class="tableRow">
       <el-row class="tableTitle">
-        <span>表格模版</span>
+        <span>文章列表</span>
         <span class="tableTitleButton">
           <el-button type="success"
                      @click="handleClickAdd">新 增</el-button>
@@ -80,7 +80,7 @@
           <el-table-column prop="weight"
                            :show-overflow-tooltip="true"
                            label="权重" />
-          <el-table-column prop="categoryId"
+          <el-table-column prop="categoryName"
                            :show-overflow-tooltip="true"
                            label="文章分类" />
           <!-- <el-table-column prop="demodata1"
@@ -153,16 +153,16 @@
           </el-col>
         </el-row>
         <el-row>
+          <el-row>图片上传</el-row>
           <el-upload class="avatar-uploader"
                      action=""
                      :show-file-list="false"
                      accept="image/*"
                      :limit="1"
                      :http-request="upLoadPic"
-                     :on-success="handleAvatarSuccess"
-                     :before-upload="beforeAvatarUpload">
-            <img v-if="addFormList.imageUrl"
-                 :src="addFormList.imageUrl"
+                     style="border:1px solid gray;width:178px;height:178px">
+            <img v-if="addFormList.image"
+                 :src="addFormList.image"
                  class="avatar">
             <i v-else
                class="el-icon-plus avatar-uploader-icon"></i>
@@ -225,6 +225,11 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row style="border:1px solid gray;width:178px;height:178px">
+          <img :src=editFormList.image
+               style="width:100%;height:100%"
+               alt="">
+        </el-row>
         <el-row>
           <mavon-editor ref="md"
                         v-model="editFormList.content"
@@ -283,6 +288,11 @@
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row style="border:1px solid gray;width:178px;height:178px">
+          <img :src=detailFormList.image
+               style="width:100%;height:100%"
+               alt="">
         </el-row>
         <el-row>
           <mavon-editor ref="md"
@@ -347,7 +357,7 @@ export default {
       html: '',// mk文章内容
       configs: {},
 
-      imageUrl: "",
+      image: "",
 
       option: [],
     }
@@ -370,24 +380,8 @@ export default {
   activated () { }, //如果页面有keep-alive缓存功能，这个函数会触发
   //方法集合
   methods: {
-    handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 100;
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
     //上传图片
     upLoadPic (file) {
-      // 压缩图片
       const self = this
       new Compressor(file.file, {
         quality: 0.2,
@@ -397,24 +391,15 @@ export default {
           formData.append('file', result)
           self.$axios.post(self.$imgBaseUrl + '/file/upload',
             formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
+            { headers: { 'Content-Type': 'multipart/form-data' } }
           ).then((res) => {
             self.addFormList.image = self.$imgBaseUrl + res.data.result
+            self.$forceUpdate()
           })
-        },
-        error (err) {
+        }, error (err) {
           console.log('压缩失败', err)
         }
       })
-
-    },
-    // 删除
-    deleteClick () {
-      this.form.picUrl = ''
     },
     // 获取文章分类
     queryCategoryIdList () {
