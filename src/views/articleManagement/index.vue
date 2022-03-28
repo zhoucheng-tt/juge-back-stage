@@ -13,7 +13,7 @@
         <el-row class="firstLine">
           <el-col :span="6">
             <el-form-item label-width="90px"
-                          label="输入框">
+                          label="标题">
               <el-input v-model="searchForm.title"
                         clearable
                         placeholder="请输入"></el-input>
@@ -152,6 +152,17 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row justify="space-around">
+          <el-col :span="12">
+            <el-form-item label="简介"
+                          prop="description">
+              <el-input v-model="addFormList.description"
+                        class="dt-form-width"
+                        type="textarea"
+                        placeholder="请输入"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row>
           <el-row>图片上传</el-row>
           <el-upload class="avatar-uploader"
@@ -201,7 +212,7 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="输入框"
+            <el-form-item label="标题"
                           prop="title">
               <el-input v-model="editFormList.title"
                         class="dt-form-width"
@@ -225,7 +236,19 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row style="border:1px solid gray;width:178px;height:178px">
+        <el-row justify="space-around">
+          <el-col :span="12">
+            <el-form-item label="简介"
+                          prop="description">
+              <el-input v-model="editFormList.description"
+                        class="dt-form-width"
+                        type="textarea"
+                        placeholder="请输入"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row style="border:1px solid gray;width:178px;height:178px"
+                v-if="editFormList.image">
           <img :src=editFormList.image
                style="width:100%;height:100%"
                alt="">
@@ -263,7 +286,7 @@
                size="small">
         <el-row justify="space-around">
           <el-col :span="12">
-            <el-form-item label="输入框"
+            <el-form-item label="标题"
                           prop="title">
               <el-input v-model="detailFormList.title"
                         class="dt-form-width"
@@ -289,7 +312,20 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row style="border:1px solid gray;width:178px;height:178px">
+        <el-row justify="space-around">
+          <el-col :span="12">
+            <el-form-item label="简介"
+                          prop="description">
+              <el-input v-model="detailFormList.description"
+                        readonly
+                        type="textarea"
+                        class="dt-form-width"
+                        placeholder="请输入"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row style="border:1px solid gray;width:178px;height:178px"
+                v-if="detailFormList.image">
           <img :src=detailFormList.image
                style="width:100%;height:100%"
                alt="">
@@ -311,7 +347,6 @@
         </el-col>
       </el-row>
     </el-dialog>
-
   </div>
 </template>
 
@@ -351,6 +386,7 @@ export default {
       rules: {
         title: [{ required: true, message: '请输入', trigger: 'blur' }],
         categoryId: [{ required: true, message: '请选择', trigger: 'change' }],
+        description: [{ required: true, message: '请输入', trigger: 'blur' }],
       },
 
       categoryIdList: [],// 文章分类
@@ -475,6 +511,7 @@ export default {
             this.$message({ message: '新增成功', type: 'success' });
             this.addDialogVisible = false
             this.queryTableList()
+            window.location.reload()
           })
         }
       })
@@ -497,6 +534,7 @@ export default {
         this.$message({ message: '修改成功', type: 'success' });
         this.editDialogVisible = false
         this.queryTableList()
+        window.location.reload()
       })
     },
     handleClicDelete (row) {
