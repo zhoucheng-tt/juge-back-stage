@@ -5,8 +5,8 @@ const publicVar = {
   },
 
   // 图片baseurl
-  imgBaseUrl: 'http://192.168.5.225:6001',
-
+  // imgBaseUrl: 'http://192.168.5.225:6001',
+  imgBaseUrl: 'http://123.207.189.27:6001',
 
 }
 
