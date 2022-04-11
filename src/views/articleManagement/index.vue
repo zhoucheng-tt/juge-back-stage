@@ -139,6 +139,7 @@
             <el-form-item label="文章分类"
                           prop="categoryId">
               <el-select clearable
+                         filterable
                          v-model="addFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width">
@@ -223,6 +224,7 @@
             <el-form-item label="文章分类"
                           prop="categoryId">
               <el-select clearable
+                         filterable
                          v-model="editFormList.categoryId"
                          placeholder="请选择"
                          class="dt-form-width">
@@ -441,7 +443,8 @@ export default {
     queryCategoryIdList () {
       let info = {
         pageNum: 1,
-        pageSize: 1000
+        pageSize: 1000,
+        companyId: '001'
       }
       this.$directoryManagement.categoryList(info).then(res => {
         this.categoryIdList = res.result
