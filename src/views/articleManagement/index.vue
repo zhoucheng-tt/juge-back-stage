@@ -404,7 +404,6 @@ export default {
       configs: {},
 
       image: "",
-
       option: [],
     }
   },
