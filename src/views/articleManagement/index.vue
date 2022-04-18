@@ -106,8 +106,8 @@
         </el-table>
         <div style="float: right;">
           <el-pagination layout="total, prev, pager, next, jumper"
-                         :page-size="pageSize"
                          @current-change="handleCurrentModify"
+                         :page-size="pageSize"
                          :current-page="pageNum"
                          :total="pageTotal">
           </el-pagination>
@@ -249,12 +249,20 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row style="border:1px solid gray;width:178px;height:178px"
-                v-if="editFormList.image">
-          <img :src=editFormList.image
-               style="width:100%;height:100%"
-               alt="">
-        </el-row>
+        <div @click="handleClickRemove">xiugai</div>
+        <el-upload class="avatar-uploader"
+                   action=""
+                   :show-file-list="false"
+                   accept="image/*"
+                   :limit="1"
+                   :http-request="upLoadPicEdit"
+                   style="border:1px solid gray;width:178px;height:178px">
+          <img v-if="editFormList.image"
+               :src="editFormList.image"
+               class="avatar">
+          <i v-else
+             class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
         <el-row>
           <mavon-editor ref="md"
                         v-model="editFormList.content"
@@ -373,7 +381,7 @@ export default {
       datalist: [{ demodata1: '1' }],
       searchForm: {},  // 顶部查询表单
       pageNum: 1,
-      pageSize: 15, // 每页的数据条数
+      pageSize: 1000, // 每页的数据条数
       pageTotal: 15,
 
       addFormList: {},// 新增表单
@@ -422,16 +430,41 @@ export default {
     upLoadPic (file) {
       const self = this
       new Compressor(file.file, {
-        quality: 0.2,
+        quality: 1,
         success (result) {
           result = new window.File([result], result.name, { type: result.type })
           const formData = new FormData()
           formData.append('file', result)
-          self.$axios.post(self.$imgBaseUrl + '/file/upload',
+          self.$axios.post('api/file/upload',
             formData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
           ).then((res) => {
-            self.addFormList.image = self.$imgBaseUrl + res.data.result
+            self.addFormList.image = "/api" + res.data.result
+            self.$forceUpdate()
+          })
+        }, error (err) {
+          console.log('压缩失败', err)
+        }
+      })
+    },
+    // 修改图片
+    handleClickRemove () {
+      this.editFormList.image = ""
+    },
+    // 修改上传图片
+    upLoadPicEdit (file) {
+      const self = this
+      new Compressor(file.file, {
+        quality: 1,
+        success (result) {
+          result = new window.File([result], result.name, { type: result.type })
+          const formData = new FormData()
+          formData.append('file', result)
+          self.$axios.post('api/file/upload',
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+          ).then((res) => {
+            self.editFormList.image = "/api" + res.data.result
             self.$forceUpdate()
           })
         }, error (err) {
@@ -442,9 +475,9 @@ export default {
     // 获取文章分类
     queryCategoryIdList () {
       let info = {
+        companyId: '001',
         pageNum: 1,
         pageSize: 1000,
-        companyId: '001'
       }
       this.$directoryManagement.categoryList(info).then(res => {
         this.categoryIdList = res.result
@@ -454,7 +487,7 @@ export default {
     $imgAdd (pos, $file) {
       var formdata = new FormData();
       formdata.append('file', $file);
-      this.$axios.post(this.$imgBaseUrl + '/file/upload',
+      this.$axios.post('api/file/upload',
         formdata,
         {
           headers: {
@@ -463,7 +496,7 @@ export default {
           }
         }
       ).then((res) => {
-        this.$refs.md.$img2Url(pos, this.$imgBaseUrl + res.data.result);
+        this.$refs.md.$img2Url(pos, "/api" + res.data.result);
       })
     },
     // 所有操作都会被解析重新渲染   render 为 markdown 解析后的结果[html]
@@ -475,8 +508,8 @@ export default {
       this.searchForm['pageNum'] = this.pageNum;
       this.searchForm['pageSize'] = this.pageSize;
       this.$articleManagement.articleList(this.searchForm).then(res => {
-        this.datalist = res.result
-        this.pageTotal = res.total
+        this.datalist = res.result.list
+        this.pageTotal = res.result.total
       })
     },
     // 分页

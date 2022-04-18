@@ -10,8 +10,9 @@ module.exports = {
     proxy: {
       // 配置跨域  当遇见所有的跨域问题中需要进行这边调整
       "/api": {
+        target: 'http://preview.jsaghj.com/api/',
+        // target: "http://123.207.189.27:6001/",
         // target: "http://192.168.5.225:6001",
-        target: "http://123.207.189.27:6001/",
         ws: false,
         pathRewrite: {
           // "^/eparking-web/": "/eparking-web/"

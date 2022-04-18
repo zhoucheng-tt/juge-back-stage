@@ -10,7 +10,7 @@ import request from "@/utils/request";
 // 接口详情
 export function login (params) {
   return request({
-    url: "/user/login",
+    url: "/user/pc/login",
     method: "post",
     data: params
   });
