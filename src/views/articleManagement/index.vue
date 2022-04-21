@@ -249,7 +249,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <div @click="handleClickRemove">xiugai</div>
+        <el-button @click="handleClickRemove">清空图片</el-button>
         <el-upload class="avatar-uploader"
                    action=""
                    :show-file-list="false"

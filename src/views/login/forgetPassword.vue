@@ -76,7 +76,6 @@ export default {
 }
 .login-block {
   width: 26.5%;
-  height: 38%;
   box-sizing: border-box;
   border-radius: 5px;
   background: rgba(215, 236, 247, 0.6);
@@ -90,14 +89,12 @@ export default {
 }
 .login-form-horizontal {
   margin-top: 20px;
-  width: 440px;
 }
 .login-form-horizontal input {
   font-family: '微软雅黑';
   font-size: 16px;
   border-radius: 5px;
   box-shadow: none;
-  width: 440px;
   padding: 6px 12px;
   background-color: rgba(255, 255, 255, 0.4);
   background-image: none;
@@ -115,7 +112,7 @@ export default {
   outline: none;
 }
 #login-btn {
-  width: 438px;
+  width: 100%;
   height: 50px;
   font-size: 16px;
   background-color: #41b5f5;
