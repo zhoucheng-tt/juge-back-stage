@@ -34,12 +34,6 @@ export default {
           name: "文章管理",
           routeName: "articleManagement",
         },
-        {
-          code: "3",
-          logo: "el-icon-s-grid",
-          name: "轮播管理",
-          routeName: "carouselPic",
-        },
       ],
       menuValue1: "homePage",
       routes1: [
