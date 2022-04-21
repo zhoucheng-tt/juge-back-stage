@@ -7,41 +7,6 @@
 -->
 <template>
   <div class="mainbody">
-    <!-- <el-row class="selectLine">
-      <el-form :inline="true"
-               :model="searchForm">
-        <el-row class="firstLine">
-          <el-col :span="6">
-            <el-form-item label-width="90px"
-                          label="输入框">
-              <el-input v-model="searchForm.menuTitle"
-                        clearable
-                        placeholder="请输入"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label-width="90px"
-                          label="下拉框">
-              <el-select v-model="searchForm.c"
-                         :clearable=true>
-                <el-option v-for="item in option"
-                           :key="item.code"
-                           :label="item.name"
-                           :value="item.code">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row class="topButton">
-          <el-button type="primary"
-                     @click="queryButton">查 询</el-button>
-          <el-button type="info"
-                     style="margin-left:17px"
-                     @click="resetForm">重 置</el-button>
-        </el-row>
-      </el-form>
-    </el-row> -->
     <el-row class="tableRow">
       <el-row class="tableTitle">
         <span>目录管理</span>
@@ -94,14 +59,14 @@
             </template>
           </el-table-column>
         </el-table>
-        <div style="float: right;">
+        <!-- <div style="float: right;">
           <el-pagination layout="total, prev, pager, next, jumper"
                          :page-size="pageSize"
                          @current-change="handleCurrentModify"
                          :current-page="pageNum"
                          :total="pageTotal">
           </el-pagination>
-        </div>
+        </div> -->
       </el-row>
     </el-row>
     <!-- 新增 -->
@@ -438,7 +403,6 @@ export default {
   }
   .tableRow {
     width: 100%;
-    margin-top: 16px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
@@ -458,6 +422,7 @@ export default {
     }
     .tableContent {
       margin-top: 20px;
+      margin-bottom: 20px;
     }
   }
 }
