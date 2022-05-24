@@ -14,9 +14,8 @@
                    @click="handleClickAdd">新 增</el-button>
       </span>
     </el-row>
-
     <el-row class="tableContent">
-      <el-scrollerbar style="height:100%">
+      <el-scrollbar style="height:100%">
         <el-table :data="datalist"
                   ref="formName"
                   stripe
@@ -28,28 +27,45 @@
                   padding: 'none',
                   fontSize: '14px',
                   letterSpacing: '0.56px',
-                  'text-align': 'center'
                   }"
                   :cell-style="{
                   fontfamily: 'PingFangSC-Regular',
                   letterSpacing: '0.56px',
                   fontSize: '14px',
                   color: '#333333',
-                  'text-align': 'center'
                   }">
           <el-table-column prop="title"
                            :show-overflow-tooltip="true"
                            label="文章名称" />
-          <el-table-column prop="weight"
-                           :show-overflow-tooltip="true"
-                           label="权重" />
           <el-table-column prop="categoryName"
+                           width="200"
                            :show-overflow-tooltip="true"
                            label="文章分类" />
           <el-table-column prop="image"
+                           width="150"
                            :show-overflow-tooltip="true"
-                           label="图片" />
+                           label="图片">
+            <template slot-scope="scope">
+              <img v-if=scope.row.image
+                   :src=scope.row.image
+                   style="width:100px;height:100px"
+                   alt="">
+            </template>
+          </el-table-column>
+          <el-table-column prop="weight"
+                           width="150"
+                           :show-overflow-tooltip="true"
+                           label="权重" />
+          <el-table-column prop="createTime"
+                           width="150"
+                           :show-overflow-tooltip="true"
+                           label="创建时间" />
+          <el-table-column prop="updateTime"
+                           width="150"
+                           :show-overflow-tooltip="true"
+                           label="修改时间" />
           <el-table-column :show-overflow-tooltip="true"
+                           width="150"
                            label="操作">
             <template slot-scope="scope">
               <el-button @click="handleClickDetail(scope.row)"
@@ -64,18 +80,20 @@
             </template>
           </el-table-column>
         </el-table>
-      </el-scrollerbar>
-      <div style="float:right;margin-right:40px">
-        <el-pagination layout="total, prev, pager, next, jumper"
-                       @current-change="handleCurrentModify"
-                       :page-size="pageSize"
-                       :current-page="pageNum"
-                       :total="pageTotal">
-        </el-pagination>
-      </div>
+      </el-scrollbar>
     </el-row>
+    <div style="float:right;margin-right:40px;">
+      <el-pagination layout="total, prev, pager, next, jumper"
+                     @current-change="handleCurrentModify"
+                     :page-size="pageSize"
+                     :current-page="pageNum"
+                     :total="pageTotal">
+      </el-pagination>
+    </div>
     <!-- 新增 -->
     <el-dialog title="新增"
+               width="60%"
+               top="3vh"
                :visible.sync="addDialogVisible"
                :close-on-click-modal="false"
                append-to-body
@@ -84,9 +102,8 @@
                :rules="rules"
                :inline="true"
                ref="addFormList"
-               label-width="150px"
                size="small">
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
             <el-form-item label="标题"
                           prop="title">
@@ -113,10 +130,9 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
-            <el-form-item label="简介"
-                          prop="description">
+            <el-form-item label="简介">
               <el-input v-model="addFormList.description"
                         class="dt-form-width"
                         type="textarea"
@@ -125,20 +141,22 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-row>图片上传</el-row>
-          <el-upload class="avatar-uploader"
-                     action=""
-                     :show-file-list="false"
-                     accept="image/*"
-                     :limit="1"
-                     :http-request="upLoadPic"
-                     style="border:1px solid gray;width:178px;height:178px">
-            <img v-if="addFormList.image"
-                 :src="addFormList.image"
-                 class="avatar">
-            <i v-else
-               class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          <el-form-item label="上传">
+            <el-upload class="avatar-uploader"
+                       action=""
+                       :show-file-list="false"
+                       accept="image/*"
+                       :limit="1"
+                       :http-request="upLoadPic"
+                       style="border:1px solid gray;width:178px;height:178px">
+              <img v-if="addFormList.image"
+                   :src="addFormList.image"
+                   class="avatar">
+              <i v-else
+                 class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+
         </el-row>
         <el-row>
           <mavon-editor ref="md"
@@ -161,6 +179,8 @@
     </el-dialog>
     <!-- 修改 -->
     <el-dialog title="修改"
+               width="60%"
+               top="3vh"
                :visible.sync="editDialogVisible"
                :close-on-click-modal="false"
                append-to-body
@@ -169,10 +189,9 @@
                :rules="rules"
                :inline="true"
                ref="editFormList"
-               label-width="150px"
                size="small">
-        <el-row justify="space-around">
-          <el-col :span="12">
+        <el-row>
+          <el-col :span=" 12">
             <el-form-item label="标题"
                           prop="title">
               <el-input v-model="editFormList.title"
@@ -198,10 +217,9 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
-            <el-form-item label="简介"
-                          prop="description">
+            <el-form-item label="简介">
               <el-input v-model="editFormList.description"
                         class="dt-form-width"
                         type="textarea"
@@ -209,20 +227,25 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-button @click="handleClickRemove">清空图片</el-button>
-        <el-upload class="avatar-uploader"
-                   action=""
-                   :show-file-list="false"
-                   accept="image/*"
-                   :limit="1"
-                   :http-request="upLoadPicEdit"
-                   style="border:1px solid gray;width:178px;height:178px">
-          <img v-if="editFormList.image"
-               :src="editFormList.image"
-               class="avatar">
-          <i v-else
-             class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        <el-row style="display:flex">
+          <el-form-item label="图片">
+            <el-upload class="avatar-uploader"
+                       action=""
+                       :show-file-list="false"
+                       accept="image/*"
+                       :limit="1"
+                       :http-request="upLoadPicEdit"
+                       style="border:1px solid gray;width:178px;height:178px">
+              <img v-if="editFormList.image"
+                   :src="editFormList.image"
+                   class="avatar">
+              <i v-else
+                 class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-button @click="handleClickRemove"
+                     style="width:100px;height:50px;margin-left:10px">清空图片</el-button>
+        </el-row>
         <el-row>
           <mavon-editor ref="md"
                         v-model="editFormList.content"
@@ -244,6 +267,8 @@
     </el-dialog>
     <!-- 详情 -->
     <el-dialog title="详情"
+               width="60%"
+               top="3vh"
                :visible.sync="detailDialogVisible"
                :close-on-click-modal="false"
                append-to-body
@@ -252,9 +277,8 @@
                :rules="rules"
                :inline="true"
                ref="detailFormList"
-               label-width="150px"
                size="small">
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
             <el-form-item label="标题"
                           prop="title">
@@ -282,10 +306,9 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
-            <el-form-item label="简介"
-                          prop="description">
+            <el-form-item label="简介">
               <el-input v-model="detailFormList.description"
                         readonly
                         type="textarea"
@@ -341,8 +364,8 @@ export default {
       datalist: [{ demodata1: '1' }],
       searchForm: {},  // 顶部查询表单
       pageNum: 1,
-      pageSize: 1000, // 每页的数据条数
-      pageTotal: 15,
+      pageSize: 20, // 每页的数据条数
+      pageTotal: 0,
 
       addFormList: {},// 新增表单
       addDialogVisible: false, // 新增弹窗
@@ -356,7 +379,6 @@ export default {
       rules: {
         title: [{ required: true, message: '请输入', trigger: 'blur' }],
         categoryId: [{ required: true, message: '请选择', trigger: 'change' }],
-        description: [{ required: true, message: '请输入', trigger: 'blur' }],
       },
 
       categoryIdList: [],// 文章分类
@@ -568,7 +590,7 @@ export default {
   }
   .tableContent {
     width: 100%;
-    height: calc(100% - 74px);
+    height: calc(100% - 104px);
     margin-top: 10px;
     overflow-y: auto;
   }
@@ -578,7 +600,7 @@ export default {
   justify-content: flex-end;
 }
 .dt-form-width {
-  width: 230px;
+  width: 260px;
 }
 .avatar-uploader .el-upload {
   border: 1px solid #d9d9d9;

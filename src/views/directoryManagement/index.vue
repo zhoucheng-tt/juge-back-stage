@@ -15,7 +15,7 @@
       </span>
     </el-row>
     <el-row class="tableContent">
-      <el-scrollerbar>
+      <el-scrollbar>
         <el-table :data="datalist"
                   ref="formName"
                   stripe
@@ -59,7 +59,7 @@
             </template>
           </el-table-column>
         </el-table>
-      </el-scrollerbar>
+      </el-scrollbar>
       <!-- <div style="float: right;">
           <el-pagination layout="total, prev, pager, next, jumper"
                          :page-size="pageSize"
@@ -71,6 +71,7 @@
     </el-row>
     <!-- 新增 -->
     <el-dialog title="新增"
+               width="60%"
                :visible.sync="addDialogVisible"
                :close-on-click-modal="false"
                append-to-body
@@ -79,9 +80,8 @@
                :rules="rules"
                :inline="true"
                ref="addFormList"
-               label-width="150px"
                size="small">
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
             <el-form-item label="菜单名称"
                           prop="name">
@@ -121,6 +121,7 @@
     </el-dialog>
     <!-- 修改 -->
     <el-dialog title="修改"
+               width="60%"
                :visible.sync="editDialogVisible"
                :close-on-click-modal="false"
                append-to-body
@@ -129,9 +130,8 @@
                :rules="rules"
                :inline="true"
                ref="editFormList"
-               label-width="150px"
                size="small">
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
             <el-form-item label="菜单名称"
                           prop="menuTitle">
@@ -171,6 +171,7 @@
     </el-dialog>
     <!-- 详情 -->
     <el-dialog title="详情"
+               width="60%"
                :visible.sync="detailDialogVisible"
                :close-on-click-modal="false"
                append-to-body
@@ -179,9 +180,8 @@
                :rules="rules"
                :inline="true"
                ref="detailFormList"
-               label-width="150px"
                size="small">
-        <el-row justify="space-around">
+        <el-row>
           <el-col :span="12">
             <el-form-item label="菜单名称">
               <el-input v-model="detailFormList.menuTitle"
