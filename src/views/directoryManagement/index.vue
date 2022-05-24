@@ -7,15 +7,15 @@
 -->
 <template>
   <div class="mainbody">
-    <el-row class="tableRow">
-      <el-row class="tableTitle">
-        <span>目录管理</span>
-        <span class="tableTitleButton">
-          <el-button type="success"
-                     @click="handleClickAdd">新 增</el-button>
-        </span>
-      </el-row>
-      <el-row class="tableContent">
+    <el-row class="tableTitle">
+      <span>目录管理</span>
+      <span class="tableTitleButton">
+        <el-button type="success"
+                   @click="handleClickAdd">新 增</el-button>
+      </span>
+    </el-row>
+    <el-row class="tableContent">
+      <el-scrollerbar>
         <el-table :data="datalist"
                   ref="formName"
                   stripe
@@ -59,7 +59,8 @@
             </template>
           </el-table-column>
         </el-table>
-        <!-- <div style="float: right;">
+      </el-scrollerbar>
+      <!-- <div style="float: right;">
           <el-pagination layout="total, prev, pager, next, jumper"
                          :page-size="pageSize"
                          @current-change="handleCurrentModify"
@@ -67,7 +68,6 @@
                          :total="pageTotal">
           </el-pagination>
         </div> -->
-      </el-row>
     </el-row>
     <!-- 新增 -->
     <el-dialog title="新增"
@@ -381,49 +381,25 @@ export default {
 </script>
 <style lang='scss' scoped>
 .mainbody {
+  width: 100%;
   height: 100%;
-  // 顶部查询条件
-  .selectLine {
+  background-color: #f5f6f7;
+  overflow: hidden;
+  .tableTitle {
     width: 100%;
-    height: 135px;
-    padding-top: 24px;
-    padding-left: 21px;
-    display: flex;
-    flex-direction: column;
-    background-color: #8bc6ec;
-    background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
-    .firstLine {
-      display: flex;
-      flex-direction: row;
-    }
-    .topButton {
-      display: flex;
-      padding-left: 91px;
+    height: 54px;
+    line-height: 54px;
+    padding: 0 20px;
+    background: #ffffff;
+    .tableTitleButton {
+      float: right;
     }
   }
-  .tableRow {
+  .tableContent {
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    background-color: #8bc6ec;
-    background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
-    .tableTitle {
-      margin-top: 16px;
-      height: 32px;
-      line-height: 32px;
-      .topButton {
-        display: flex;
-        padding-left: 30px;
-      }
-      .tableTitleButton {
-        float: right;
-      }
-    }
-    .tableContent {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
+    height: calc(100% - 74px);
+    margin-top: 10px;
+    overflow-y: auto;
   }
 }
 .dt-button-box {
